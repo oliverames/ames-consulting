@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-view="home">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="view-transition" content="same-origin">
+    <meta name="description" content="ames.consulting - unified content stream for writing and portfolio work.">
+    <title>ames.consulting</title>
+    <link rel="preconnect" href="https://micro.blog" crossorigin>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner surface">
+        <p class="site-eyebrow">ames.consulting</p>
+        <h1>Unified Content Stream</h1>
+        <p class="site-subhead">One post model, multiple views.</p>
+        <nav aria-label="Primary">
+          <ul class="site-nav" role="list">
+            <li><a href="/" aria-current="page">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/portfolio/">Portfolio</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="layout" tabindex="-1">
+      <section class="panel stream-shell surface" aria-labelledby="stream-title">
+        <header class="panel__head">
+          <h2 id="stream-title">Recent posts</h2>
+          <button type="button" popovertarget="filters-help" popovertargetaction="toggle">Filters</button>
+          <div id="filters-help" popover>
+            <p>Use tag and search filters to refine the unified stream.</p>
+          </div>
+        </header>
+
+        <form id="post-filter" class="filters" role="search" autocomplete="off">
+          <label>
+            Search
+            <input id="search-input" name="q" type="search" placeholder="Find posts" inputmode="search">
+          </label>
+          <label>
+            Tag
+            <input id="tag-input" name="tag" type="text" placeholder="portfolio">
+          </label>
+          <button type="submit">Apply</button>
+          <button id="clear-filters" type="button">Clear</button>
+        </form>
+
+        <p id="stream-status" class="status" aria-live="polite"></p>
+
+        <section id="post-stream" class="stream" aria-label="Post list"></section>
+      </section>
+    </main>
+
+    <dialog id="post-dialog" aria-labelledby="dialog-title">
+      <article class="dialog-content">
+        <header>
+          <h2 id="dialog-title"></h2>
+          <button id="dialog-close" type="button">Close</button>
+        </header>
+        <div id="dialog-body"></div>
+      </article>
+    </dialog>
+
+    <template id="post-template">
+      <post-card></post-card>
+    </template>
+  </body>
+</html>

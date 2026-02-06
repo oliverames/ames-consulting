@@ -1,0 +1,7 @@
+{
+  "provider": "microblog",
+  "jsonFeedUrl": "https://your-microblog-domain.example/feed.json",
+  "siteTitle": "ames.consulting",
+  "portfolioTag": "portfolio",
+  "homePreviewLimit": 6
+}

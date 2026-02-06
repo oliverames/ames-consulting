@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-view="portfolio">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="view-transition" content="same-origin">
+    <meta name="description" content="ames.consulting portfolio stream.">
+    <title>Portfolio | ames.consulting</title>
+    <link rel="preconnect" href="https://micro.blog" crossorigin>
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <script type="module" src="/assets/js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="site-header__inner surface">
+        <p class="site-eyebrow">ames.consulting</p>
+        <h1>Portfolio</h1>
+        <p class="site-subhead">Filtered posts tagged as portfolio work.</p>
+        <nav aria-label="Primary">
+          <ul class="site-nav" role="list">
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/?tag=portfolio">Blog</a></li>
+            <li><a href="/portfolio/" aria-current="page">Portfolio</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="layout" tabindex="-1">
+      <section class="panel stream-shell surface" aria-labelledby="stream-title">
+        <header class="panel__head">
+          <h2 id="stream-title">Portfolio posts</h2>
+          <button type="button" popovertarget="filters-help" popovertargetaction="toggle">Filters</button>
+          <div id="filters-help" popover>
+            <p>This page defaults to <code>tag=portfolio</code> but can be re-filtered.</p>
+          </div>
+        </header>
+
+        <form id="post-filter" class="filters" role="search" autocomplete="off">
+          <label>
+            Search
+            <input id="search-input" name="q" type="search" placeholder="Find posts" inputmode="search">
+          </label>
+          <label>
+            Tag
+            <input id="tag-input" name="tag" type="text" value="portfolio" placeholder="portfolio">
+          </label>
+          <button type="submit">Apply</button>
+          <button id="clear-filters" type="button">Clear</button>
+        </form>
+
+        <p id="stream-status" class="status" aria-live="polite"></p>
+
+        <section id="post-stream" class="stream" aria-label="Post list"></section>
+      </section>
+    </main>
+
+    <dialog id="post-dialog" aria-labelledby="dialog-title">
+      <article class="dialog-content">
+        <header>
+          <h2 id="dialog-title"></h2>
+          <button id="dialog-close" type="button">Close</button>
+        </header>
+        <div id="dialog-body"></div>
+      </article>
+    </dialog>
+
+    <template id="post-template">
+      <post-card></post-card>
+    </template>
+  </body>
+</html>

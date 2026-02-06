@@ -1,0 +1,31 @@
+{
+  "posts": [
+    {
+      "id": "sample-1",
+      "title": "Foundations, not silos",
+      "summary": "A website model where portfolio items and blog posts are one stream with different views.",
+      "contentHtml": "<p>A resilient content architecture starts by avoiding duplicate systems. Everything is a post; views do the segmentation.</p>",
+      "url": "https://ames.consulting/blog/foundations-not-silos",
+      "publishedAt": "2026-02-01T10:00:00Z",
+      "tags": ["architecture", "portfolio"]
+    },
+    {
+      "id": "sample-2",
+      "title": "Spec-first front-end planning",
+      "summary": "Using a tracked matrix to adopt modern HTML and CSS features intentionally.",
+      "contentHtml": "<p>Instead of random feature usage, maintain a deliberate standards matrix with compatibility notes and test requirements.</p>",
+      "url": "https://ames.consulting/blog/spec-first-planning",
+      "publishedAt": "2026-02-03T15:30:00Z",
+      "tags": ["html", "css"]
+    },
+    {
+      "id": "sample-3",
+      "title": "Unified stream portfolio filtering",
+      "summary": "Portfolio view can be implemented by filtering the same post list by a stable tag.",
+      "contentHtml": "<p>When portfolio is a filter, publishing workflows stay simple and navigation remains coherent.</p>",
+      "url": "https://ames.consulting/blog/unified-stream-filtering",
+      "publishedAt": "2026-02-05T08:10:00Z",
+      "tags": ["portfolio", "workflow"]
+    }
+  ]
+}

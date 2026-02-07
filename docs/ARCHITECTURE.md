@@ -19,6 +19,7 @@ Provide a durable static-site baseline for GitHub Pages where all content is mod
 - Home: preview window of filtered stream (`homePreviewLimit`).
 - Blog: full stream.
 - Portfolio: full stream with default `portfolioTag` filter.
+- Contact: static contact form and contact information route (`/contact/`).
 
 ## Source Adapter Contract
 

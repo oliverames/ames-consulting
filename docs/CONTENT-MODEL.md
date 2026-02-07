@@ -11,6 +11,8 @@
   "url": "string",
   "publishedAt": "ISO-8601 string",
   "tags": ["string"],
+  "readTimeMinutes": "number",
+  "imageUrl": "string",
   "source": "microblog | local"
 }
 ```
@@ -20,6 +22,7 @@
 - `id` should be stable across renders and routes.
 - `tags` are lowercase for deterministic filtering.
 - `summary` may be source-provided or generated from stripped HTML.
+- `readTimeMinutes` is derived from content when missing.
 - `source` is metadata for diagnostics and future multi-source support.
 
 ## Filter Semantics

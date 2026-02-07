@@ -2,6 +2,14 @@
   "provider": "microblog",
   "jsonFeedUrl": "https://your-microblog-domain.example/feed.json",
   "siteTitle": "ames.consulting",
+  "siteUrl": "https://ames.consulting",
+  "siteDescription": "Independent software consulting, writing, and portfolio work by Oliver Ames.",
+  "authorName": "Oliver Ames",
+  "locale": "en_US",
+  "twitterHandle": "@your_handle",
+  "defaultSocialImage": "https://ames.consulting/assets/images/social-card.jpg",
+  "contactFormEndpoint": "https://formspree.io/f/replace-with-form-id",
+  "contactFormSuccessMessage": "Thanks, your message was sent.",
   "portfolioTag": "portfolio",
   "homePreviewLimit": 6
 }

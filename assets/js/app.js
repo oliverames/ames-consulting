@@ -1,6 +1,21 @@
 import { loadSiteConfig } from "/assets/js/site-config.js";
 import { createSource } from "/assets/js/content-sources.js";
+import { syncSeo } from "/assets/js/seo.js";
 import "/assets/js/post-card.js";
+
+function formatDate(isoDate) {
+  const date = new Date(isoDate);
+  return new Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  }).format(date);
+}
+
+function formatReadTime(minutes) {
+  const normalized = Number.isFinite(minutes) && minutes > 0 ? Math.ceil(minutes) : 1;
+  return `${normalized} min read`;
+}
 
 function getView() {
   return document.documentElement.dataset.view || "home";
@@ -157,10 +172,160 @@ function sanitizeHtml(html) {
   return template.content;
 }
 
+function decorateContentMedia(container) {
+  container.querySelectorAll("img").forEach((image) => {
+    image.classList.add("zoomable-image", "protected-asset");
+    image.dataset.protectedAsset = "image";
+    image.setAttribute("draggable", "false");
+    image.style.webkitUserDrag = "none";
+
+    if (!image.hasAttribute("loading")) {
+      image.loading = "lazy";
+    }
+
+    if (!image.hasAttribute("decoding")) {
+      image.decoding = "async";
+    }
+
+    if (!image.hasAttribute("referrerpolicy")) {
+      image.referrerPolicy = "no-referrer";
+    }
+
+    if (!image.hasAttribute("tabindex")) {
+      image.tabIndex = 0;
+    }
+
+    if (!image.hasAttribute("role")) {
+      image.setAttribute("role", "button");
+    }
+
+    if (!image.hasAttribute("aria-label")) {
+      const accessibleLabel = image.alt?.trim() ? `Open larger image: ${image.alt.trim()}` : "Open larger image";
+      image.setAttribute("aria-label", accessibleLabel);
+    }
+  });
+}
+
+function isProtectedAssetTarget(target) {
+  return Boolean(target.closest(".protected-asset, #image-viewer-image"));
+}
+
+function wireImageViewer() {
+  const viewer = document.getElementById("image-viewer");
+  const closeButton = document.getElementById("image-viewer-close");
+  const viewerImage = document.getElementById("image-viewer-image");
+  const viewerCaption = document.getElementById("image-viewer-caption");
+
+  if (!(viewer instanceof HTMLDialogElement) || !(viewerImage instanceof HTMLImageElement) || !viewerCaption) {
+    return;
+  }
+
+  const openViewer = (sourceImage) => {
+    const source = sourceImage.currentSrc || sourceImage.src;
+    if (!source) {
+      return;
+    }
+
+    viewerImage.src = source;
+    viewerImage.alt = sourceImage.alt || "Image preview";
+    viewerCaption.textContent = sourceImage.alt || sourceImage.getAttribute("title") || "";
+    viewer.showModal();
+  };
+
+  const closeViewer = () => {
+    viewer.close();
+    viewerImage.src = "";
+    viewerImage.alt = "";
+    viewerCaption.textContent = "";
+  };
+
+  closeButton?.addEventListener("click", closeViewer);
+  viewer.addEventListener("click", (event) => {
+    if (event.target === viewer) {
+      closeViewer();
+    }
+  });
+  viewer.addEventListener("cancel", () => {
+    viewerImage.src = "";
+    viewerImage.alt = "";
+    viewerCaption.textContent = "";
+  });
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    const image = target.closest(".zoomable-image");
+    if (!(image instanceof HTMLImageElement)) {
+      return;
+    }
+
+    event.preventDefault();
+    openViewer(image);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLImageElement)) {
+      return;
+    }
+
+    if (!target.classList.contains("zoomable-image")) {
+      return;
+    }
+
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    openViewer(target);
+  });
+}
+
+function wireAssetProtection() {
+  document.addEventListener("contextmenu", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    if (isProtectedAssetTarget(target)) {
+      event.preventDefault();
+    }
+  });
+
+  document.addEventListener("dragstart", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
+      return;
+    }
+
+    if (isProtectedAssetTarget(target)) {
+      event.preventDefault();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const saveShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s";
+    if (!saveShortcut) {
+      return;
+    }
+
+    const viewer = document.getElementById("image-viewer");
+    if (viewer instanceof HTMLDialogElement && viewer.open) {
+      event.preventDefault();
+    }
+  });
+}
+
 function wireDialog(posts) {
   const dialog = document.getElementById("post-dialog");
   const closeButton = document.getElementById("dialog-close");
   const dialogTitle = document.getElementById("dialog-title");
+  const dialogMeta = document.getElementById("dialog-meta");
   const dialogBody = document.getElementById("dialog-body");
 
   if (!(dialog instanceof HTMLDialogElement) || !dialogTitle || !dialogBody) {
@@ -188,6 +353,9 @@ function wireDialog(posts) {
     }
 
     dialogTitle.textContent = post.title;
+    if (dialogMeta) {
+      dialogMeta.textContent = `${formatDate(post.publishedAt)} • ${formatReadTime(post.readTimeMinutes)}`;
+    }
     dialogBody.replaceChildren();
     if (post.contentHtml) {
       dialogBody.append(sanitizeHtml(post.contentHtml));
@@ -196,6 +364,7 @@ function wireDialog(posts) {
       paragraph.textContent = post.summary || "";
       dialogBody.append(paragraph);
     }
+    decorateContentMedia(dialogBody);
     dialog.showModal();
   });
 }
@@ -249,9 +418,17 @@ async function bootstrap() {
     const filtered = applyFilters(posts, filters, view, config);
     renderPosts(filtered);
     renderStatus(filtered.length, filters, activeProvider);
+    syncSeo({
+      view,
+      filters,
+      config,
+      posts: filtered
+    });
   };
 
   render();
+  wireImageViewer();
+  wireAssetProtection();
   wireDialog(posts);
   wireFilters(filters, render, view, config);
 }

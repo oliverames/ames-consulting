@@ -7,8 +7,23 @@ function formatDate(isoDate) {
   }).format(date);
 }
 
+function formatReadTime(minutes) {
+  const normalized = Number.isFinite(minutes) && minutes > 0 ? Math.ceil(minutes) : 1;
+  return `${normalized} min read`;
+}
+
 class PostCardElement extends HTMLElement {
   #post;
+
+  #upgradeProperty(propName) {
+    if (!Object.prototype.hasOwnProperty.call(this, propName)) {
+      return;
+    }
+
+    const value = this[propName];
+    delete this[propName];
+    this[propName] = value;
+  }
 
   set post(post) {
     this.#post = post;
@@ -20,6 +35,8 @@ class PostCardElement extends HTMLElement {
   }
 
   connectedCallback() {
+    // If properties were set before custom element upgrade, re-apply them so setters run.
+    this.#upgradeProperty("post");
     this.render();
   }
 
@@ -47,11 +64,11 @@ class PostCardElement extends HTMLElement {
     summary.textContent = this.#post.summary || "";
 
     const footer = document.createElement("footer");
-    const published = document.createElement("span");
-    published.textContent = formatDate(this.#post.publishedAt);
+    const meta = document.createElement("span");
+    meta.textContent = `${formatDate(this.#post.publishedAt)} • ${formatReadTime(this.#post.readTimeMinutes)}`;
     const tagList = document.createElement("span");
     tagList.textContent = tags;
-    footer.append(published, tagList);
+    footer.append(meta, tagList);
 
     const preview = document.createElement("button");
     preview.type = "button";

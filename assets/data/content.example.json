@@ -4,7 +4,7 @@
       "id": "sample-1",
       "title": "Foundations, not silos",
       "summary": "A website model where portfolio items and blog posts are one stream with different views.",
-      "contentHtml": "<p>A resilient content architecture starts by avoiding duplicate systems. Everything is a post; views do the segmentation.</p>",
+      "contentHtml": "<p>A resilient content architecture starts by avoiding duplicate systems. Everything is a post; views do the segmentation.</p><p><img src=\"/assets/images/sample-work.svg\" alt=\"Sample work preview placeholder\"></p>",
       "url": "https://ames.consulting/blog/foundations-not-silos",
       "publishedAt": "2026-02-01T10:00:00Z",
       "tags": ["architecture", "portfolio"]
@@ -22,7 +22,7 @@
       "id": "sample-3",
       "title": "Unified stream portfolio filtering",
       "summary": "Portfolio view can be implemented by filtering the same post list by a stable tag.",
-      "contentHtml": "<p>When portfolio is a filter, publishing workflows stay simple and navigation remains coherent.</p>",
+      "contentHtml": "<p>When portfolio is a filter, publishing workflows stay simple and navigation remains coherent.</p><p><img src=\"/assets/images/sample-work.svg\" alt=\"Portfolio stream preview placeholder\"></p>",
       "url": "https://ames.consulting/blog/unified-stream-filtering",
       "publishedAt": "2026-02-05T08:10:00Z",
       "tags": ["portfolio", "workflow"]

@@ -1,0 +1,24 @@
+{
+  "name": "ames-consulting-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:js-syntax": "node scripts/check-js-syntax.mjs",
+    "lint:js": "eslint 'assets/js/*.js' 'scripts/*.mjs' 'tests/*.js'",
+    "check:html": "html-validate index.html blog/index.html portfolio/index.html contact/index.html",
+    "check:structured-data": "node scripts/validate-structured-data.mjs",
+    "check:sample-data": "node scripts/validate-sample-data.mjs",
+    "check:all": "npm run check:js-syntax && npm run lint:js && npm run check:html && npm run check:structured-data && npm run check:sample-data",
+    "test:regression": "playwright test tests/site.spec.js",
+    "test:a11y": "playwright test tests/accessibility.spec.js",
+    "test:e2e": "playwright test",
+    "generate:seo-artifacts": "node scripts/generate-seo-artifacts.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
+    "@playwright/test": "^1.55.0",
+    "eslint": "^8.57.1",
+    "html-validate": "^9.7.1"
+  }
+}

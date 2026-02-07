@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /*?q=
+Disallow: /*?tag=
+
+Sitemap: https://ames.consulting/sitemap.xml
+Host: ames.consulting

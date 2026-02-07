@@ -1,0 +1,24 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "ames.consulting feed sample",
+  "home_page_url": "https://ames.consulting/",
+  "feed_url": "https://ames.consulting/feed.json",
+  "items": [
+    {
+      "id": "feed-sample-1",
+      "url": "https://ames.consulting/blog/foundations-not-silos",
+      "title": "Foundations, not silos",
+      "content_html": "<p>Everything is a post. Views do the segmentation.</p>",
+      "date_published": "2026-02-01T10:00:00Z",
+      "tags": ["architecture", "portfolio"]
+    },
+    {
+      "id": "feed-sample-2",
+      "url": "https://ames.consulting/blog/spec-first-planning",
+      "title": "Spec-first front-end planning",
+      "content_text": "Using a tracked matrix to adopt modern HTML and CSS features intentionally.",
+      "date_published": "2026-02-03T15:30:00Z",
+      "tags": ["html", "css"]
+    }
+  ]
+}

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="view-transition" content="same-origin">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' https: data:; font-src 'self' https: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; form-action 'self' https:">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; form-action 'self' https:">
     <meta http-equiv="Permissions-Policy" content="accelerometer=(), autoplay=(), camera=(), geolocation=(), microphone=(), payment=(), usb=()">
     <title>Blog | ames.consulting</title>
     <meta name="description" content="All posts from ames.consulting, including writing and portfolio work.">
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
     <meta name="author" content="Oliver Ames">
-    <meta name="theme-color" content="#e9eff8">
+    <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1c2929" media="(prefers-color-scheme: dark)">
     <link rel="canonical" href="https://ames.consulting/blog/">
     <link rel="sitemap" type="application/xml" href="https://ames.consulting/sitemap.xml">
     <meta property="og:site_name" content="ames.consulting">
@@ -61,6 +62,9 @@
         ]
       }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap">
     <link rel="stylesheet" href="/assets/css/main.css">
     <script type="module" src="/assets/js/app.js"></script>
   </head>
@@ -68,23 +72,22 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <header class="site-header">
-      <div class="site-header__inner surface">
-        <p class="site-eyebrow">ames.consulting</p>
-        <h1>Blog</h1>
-        <p class="site-subhead">Complete post stream from one source.</p>
-        <nav aria-label="Primary">
-          <ul class="site-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/blog/" aria-current="page">Blog</a></li>
-            <li><a href="/portfolio/">Portfolio</a></li>
-            <li><a href="/contact/">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
+      <nav class="site-header__inner" aria-label="Primary">
+        <a href="/" class="site-name">ames.consulting</a>
+        <ul class="site-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/work/">Work</a></li>
+          <li><a href="/blog/" aria-current="page">Blog</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main id="main-content" class="layout" tabindex="-1">
-      <section class="panel stream-shell surface" aria-labelledby="stream-title">
+      <div class="page-header">
+        <h1>Blog</h1>
+      </div>
+
+      <section class="panel stream-shell" aria-labelledby="stream-title">
         <header class="panel__head">
           <h2 id="stream-title">All posts</h2>
           <button type="button" popovertarget="filters-help" popovertargetaction="toggle">Filters</button>
@@ -141,5 +144,19 @@
     <template id="post-template">
       <post-card></post-card>
     </template>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <ul class="footer-links">
+          <li><a href="mailto:oliverames@gmail.com">Email</a></li>
+          <li><a href="https://github.com/oliverames" rel="me noopener">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/oliverames" rel="me noopener">LinkedIn</a></li>
+          <li><a href="https://bsky.app/profile/oliverames.bsky.social" rel="me noopener">Bluesky</a></li>
+          <li><a href="https://mastodon.social/@oliverames" rel="me noopener">Mastodon</a></li>
+          <li><a href="https://instagram.com/oliverames" rel="me noopener">Instagram</a></li>
+        </ul>
+        <p class="footer-contact"><a href="/contact/">Send a message</a></p>
+      </div>
+    </footer>
   </body>
 </html>

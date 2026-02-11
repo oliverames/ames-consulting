@@ -3,7 +3,9 @@ import { readFile } from "node:fs/promises";
 const files = [
   "index.html",
   "blog/index.html",
-  "portfolio/index.html",
+  "work/index.html",
+  "work/bcbs-vt-app/index.html",
+  "work/sunshine-trail/index.html",
   "contact/index.html"
 ];
 

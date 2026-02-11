@@ -35,7 +35,7 @@ function normalizeSiteUrl(domain) {
 }
 
 async function getKnownRoutes(siteUrl) {
-  const routes = ["/", "/blog/", "/portfolio/", "/contact/"];
+  const routes = ["/", "/blog/", "/work/", "/work/bcbs-vt-app/", "/work/sunshine-trail/", "/contact/", "/likes/", "/colophon/"];
   const urls = new Set(routes.map((route) => `${siteUrl}${route}`));
 
   try {

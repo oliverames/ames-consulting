@@ -1,12 +1,14 @@
 import { test, expect } from "@playwright/test";
 
-test("primary navigation includes contact across core routes", async ({ page }) => {
-  const routes = ["/", "/blog/", "/portfolio/", "/contact/"];
+test("primary navigation includes core routes", async ({ page }) => {
+  const routes = ["/", "/blog/", "/work/", "/contact/"];
 
   for (const route of routes) {
     await page.goto(route);
     await expect(page.locator('nav[aria-label="Primary"]')).toBeVisible();
-    await expect(page.getByRole("link", { name: "Contact" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Home" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Work" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Blog" })).toBeVisible();
   }
 });
 

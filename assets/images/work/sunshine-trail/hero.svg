@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <rect width="1200" height="800" fill="#1c2929"/>
+  <text x="600" y="380" text-anchor="middle" fill="#f5a542" font-family="system-ui" font-size="32" font-weight="600">The Sunshine Trail</text>
+  <text x="600" y="430" text-anchor="middle" fill="#faf8f5" font-family="system-ui" font-size="18" opacity="0.6">Screenshot placeholder</text>
+</svg>

@@ -26,7 +26,7 @@ function normalizeSearchParams(config, view) {
   const query = (params.get("q") || "").trim();
   let tag = (params.get("tag") || "").trim().toLowerCase();
 
-  if (!tag && view === "portfolio") {
+  if (!tag && view === "work") {
     tag = config.portfolioTag.toLowerCase();
   }
 
@@ -388,7 +388,7 @@ function wireFilters(filters, onUpdate, view, config) {
   });
 
   clearButton?.addEventListener("click", () => {
-    const defaultTag = view === "portfolio" ? config.portfolioTag : "";
+    const defaultTag = view === "work" ? config.portfolioTag : "";
     filters.query = "";
     filters.tag = defaultTag;
     searchInput.value = "";

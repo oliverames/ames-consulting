@@ -5,7 +5,7 @@
       "url": [
         "http://127.0.0.1:4173/",
         "http://127.0.0.1:4173/blog/",
-        "http://127.0.0.1:4173/portfolio/",
+        "http://127.0.0.1:4173/work/",
         "http://127.0.0.1:4173/contact/"
       ],
       "numberOfRuns": 1,

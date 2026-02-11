@@ -1,16 +1,39 @@
 import { test, expect } from "@playwright/test";
 
-test("primary navigation includes contact across core routes", async ({ page }) => {
-  const routes = ["/", "/blog/", "/portfolio/", "/contact/"];
+const LOCAL_CONFIG = JSON.stringify({
+  provider: "local",
+  jsonFeedUrl: "",
+  siteTitle: "ames.consulting",
+  siteUrl: "https://ames.consulting",
+  siteDescription: "Independent software consulting, writing, and portfolio work by Oliver Ames.",
+  authorName: "Oliver Ames",
+  locale: "en_US",
+  portfolioTag: "portfolio",
+  homePreviewLimit: 6
+});
+
+function useLocalContent(page) {
+  return page.route("**/site.config.json", (route) =>
+    route.fulfill({ contentType: "application/json", body: LOCAL_CONFIG })
+  );
+}
+
+test("primary navigation includes core routes", async ({ page }) => {
+  await useLocalContent(page);
+  const routes = ["/", "/blog/", "/work/", "/contact/"];
 
   for (const route of routes) {
     await page.goto(route);
-    await expect(page.locator('nav[aria-label="Primary"]')).toBeVisible();
-    await expect(page.getByRole("link", { name: "Contact" })).toBeVisible();
+    const nav = page.getByLabel("Primary");
+    await expect(nav).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Home" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Work" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Blog" })).toBeVisible();
   }
 });
 
 test("blog filtering by tag updates status", async ({ page }) => {
+  await useLocalContent(page);
   await page.goto("/blog/?tag=portfolio");
 
   await expect(page.locator("#stream-status")).toContainText("tagged #portfolio");
@@ -18,6 +41,7 @@ test("blog filtering by tag updates status", async ({ page }) => {
 });
 
 test("post preview shows read time metadata", async ({ page }) => {
+  await useLocalContent(page);
   await page.goto("/blog/");
 
   await page.locator('button[data-action="open-dialog"]').first().click();
@@ -26,6 +50,7 @@ test("post preview shows read time metadata", async ({ page }) => {
 });
 
 test("clicking content image opens larger image viewer", async ({ page }) => {
+  await useLocalContent(page);
   await page.goto("/blog/");
 
   await page.locator('button[data-action="open-dialog"]').first().click();

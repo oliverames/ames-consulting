@@ -3,8 +3,12 @@ import { readFile } from "node:fs/promises";
 const files = [
   "index.html",
   "blog/index.html",
-  "portfolio/index.html",
-  "contact/index.html"
+  "work/index.html",
+  "work/bcbs-vt-app/index.html",
+  "work/sunshine-trail/index.html",
+  "contact/index.html",
+  "likes/index.html",
+  "colophon/index.html"
 ];
 
 const jsonLdPattern = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gim;

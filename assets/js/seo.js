@@ -79,11 +79,11 @@ function getBasePageMetadata(view, config) {
     };
   }
 
-  if (view === "portfolio") {
+  if (view === "work") {
     return {
-      title: `Portfolio | ${siteTitle}`,
-      description: `Selected project and portfolio posts from ${siteTitle}.`,
-      path: "/portfolio/"
+      title: `Work | ${siteTitle}`,
+      description: `Selected projects and work from ${siteTitle}.`,
+      path: "/work/"
     };
   }
 
@@ -120,9 +120,9 @@ function buildDynamicMetadata({ view, filters, config }) {
     description = `Search results for “${query}” on ${config.siteTitle}.`;
   } else if (tag) {
     if (view === "blog" && tag === config.portfolioTag) {
-      title = `Portfolio | ${config.siteTitle}`;
-      description = `Portfolio-tagged posts from ${config.siteTitle}.`;
-      canonicalPath = "/portfolio/";
+      title = `Work | ${config.siteTitle}`;
+      description = `Work-tagged posts from ${config.siteTitle}.`;
+      canonicalPath = "/work/";
     } else {
       title = `#${tag} | ${base.title}`;
       description = `Posts tagged #${tag} on ${config.siteTitle}.`;
@@ -181,7 +181,21 @@ function buildStructuredData({ view, config, metadata, posts }) {
       "@type": "Person",
       "@id": `${siteUrl}/#person`,
       name: config.authorName,
-      url: `${siteUrl}/`
+      url: `${siteUrl}/`,
+      jobTitle: "Content Strategist & Software Developer",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Montpelier",
+        addressRegion: "VT",
+        addressCountry: "US"
+      },
+      sameAs: [
+        "https://github.com/oliverames",
+        "https://linkedin.com/in/oliverames",
+        "https://bsky.app/profile/oliverames.bsky.social",
+        "https://mastodon.social/@oliverames",
+        "https://instagram.com/oliverames"
+      ]
     });
   }
 

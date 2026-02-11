@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-view="blog">
+<html lang="en" data-view="likes">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,24 +7,23 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; form-action 'self' https:">
     <meta http-equiv="Permissions-Policy" content="accelerometer=(), autoplay=(), camera=(), geolocation=(), microphone=(), payment=(), usb=()">
-    <title>Blog | ames.consulting</title>
-    <meta name="description" content="All posts from ames.consulting, including writing and portfolio work.">
+    <title>Stuff I Like | ames.consulting</title>
+    <meta name="description" content="Tools, gear, and things Oliver Ames recommends.">
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
     <meta name="author" content="Oliver Ames">
     <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1c2929" media="(prefers-color-scheme: dark)">
-    <link rel="canonical" href="https://ames.consulting/blog/">
+    <link rel="canonical" href="https://ames.consulting/likes/">
     <link rel="sitemap" type="application/xml" href="https://ames.consulting/sitemap.xml">
     <meta property="og:site_name" content="ames.consulting">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
-    <meta property="og:title" content="Blog | ames.consulting">
-    <meta property="og:description" content="All posts from ames.consulting, including writing and portfolio work.">
-    <meta property="og:url" content="https://ames.consulting/blog/">
+    <meta property="og:title" content="Stuff I Like | ames.consulting">
+    <meta property="og:description" content="Tools, gear, and things Oliver Ames recommends.">
+    <meta property="og:url" content="https://ames.consulting/likes/">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Blog | ames.consulting">
-    <meta name="twitter:description" content="All posts from ames.consulting, including writing and portfolio work.">
-    <link rel="preconnect" href="https://micro.blog" crossorigin>
+    <meta name="twitter:title" content="Stuff I Like | ames.consulting">
+    <meta name="twitter:description" content="Tools, gear, and things Oliver Ames recommends.">
     <script id="ld-json" type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -34,20 +33,15 @@
             "@id": "https://ames.consulting/#website",
             "url": "https://ames.consulting/",
             "name": "ames.consulting",
-            "description": "Independent software consulting, writing, and portfolio work by Oliver Ames.",
-            "inLanguage": "en",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://ames.consulting/blog/?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
+            "description": "Oliver Ames is a content strategist, software tinkerer, and video producer in Montpelier, Vermont.",
+            "inLanguage": "en"
           },
           {
-            "@type": "CollectionPage",
-            "@id": "https://ames.consulting/blog/#page",
-            "url": "https://ames.consulting/blog/",
-            "name": "Blog | ames.consulting",
-            "description": "All posts from ames.consulting, including writing and portfolio work.",
+            "@type": "WebPage",
+            "@id": "https://ames.consulting/likes/#page",
+            "url": "https://ames.consulting/likes/",
+            "name": "Stuff I Like | ames.consulting",
+            "description": "Tools, gear, and things Oliver Ames recommends.",
             "isPartOf": {
               "@id": "https://ames.consulting/#website"
             },
@@ -80,7 +74,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap">
     <link rel="stylesheet" href="/assets/css/main.css">
-    <script type="module" src="/assets/js/app.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -91,73 +84,48 @@
         <ul class="site-nav">
           <li><a href="/">Home</a></li>
           <li><a href="/work/">Work</a></li>
-          <li><a href="/blog/" aria-current="page">Blog</a></li>
+          <li><a href="/blog/">Blog</a></li>
         </ul>
       </nav>
     </header>
 
-    <main id="main-content" class="layout" tabindex="-1">
+    <main id="main-content" tabindex="-1">
+      <nav class="sibling-nav" aria-label="Related pages">
+        <a href="/colophon/">Colophon</a>
+      </nav>
+
       <div class="page-header">
-        <h1>Blog</h1>
+        <h1>Stuff I Like</h1>
       </div>
 
-      <section class="panel stream-shell" aria-labelledby="stream-title">
-        <header class="panel__head">
-          <h2 id="stream-title">All posts</h2>
-          <button type="button" popovertarget="filters-help" popovertargetaction="toggle">Filters</button>
-          <div id="filters-help" popover>
-            <p>Portfolio is just this stream filtered by the <code>portfolio</code> tag.</p>
-          </div>
-        </header>
+      <div class="content-page">
+        <p>Things I use, rely on, and recommend. Updated as my setup evolves.</p>
 
-        <form id="post-filter" class="filters" role="search" autocomplete="off">
-          <label>
-            Search
-            <input id="search-input" name="q" type="search" placeholder="Find posts" inputmode="search">
-          </label>
-          <label>
-            Tag
-            <input id="tag-input" name="tag" type="text" placeholder="portfolio">
-          </label>
-          <button type="submit">Apply</button>
-          <button id="clear-filters" type="button">Clear</button>
-        </form>
+        <h2>Software</h2>
+        <ul>
+          <li>Claude Code — pair programming partner</li>
+          <li>Adobe Creative Suite — Premiere Pro, Lightroom, Photoshop</li>
+          <li>Xcode + SwiftUI — native app development</li>
+          <li>1Password — password management</li>
+        </ul>
 
-        <p id="stream-status" class="status" aria-live="polite"></p>
+        <h2>Hardware</h2>
+        <ul>
+          <li>MacBook Pro — daily driver</li>
+          <li>iPhone 16 Pro</li>
+          <li>AirPods Pro</li>
+          <li>Sony A7C — photography and video</li>
+        </ul>
 
-        <section id="post-stream" class="stream" aria-label="Post list"></section>
-      </section>
+        <h2>Services</h2>
+        <ul>
+          <li>Micro.blog — blog hosting</li>
+          <li>GitHub — code hosting</li>
+          <li>Fastmail — email</li>
+          <li>Backblaze — backup</li>
+        </ul>
+      </div>
     </main>
-
-    <dialog id="post-dialog" aria-labelledby="dialog-title">
-      <article class="dialog-content">
-        <header>
-          <div>
-            <h2 id="dialog-title">Post preview</h2>
-            <p id="dialog-meta" class="dialog-meta"></p>
-          </div>
-          <button id="dialog-close" type="button" aria-label="Close preview dialog">Close</button>
-        </header>
-        <div id="dialog-body"></div>
-      </article>
-    </dialog>
-
-    <dialog id="image-viewer" aria-labelledby="image-viewer-title">
-      <article class="image-viewer-content">
-        <header>
-          <h2 id="image-viewer-title">Image Viewer</h2>
-          <button id="image-viewer-close" type="button" aria-label="Close image viewer">Close</button>
-        </header>
-        <figure>
-          <img id="image-viewer-image" class="protected-asset" src="/assets/images/sample-work.svg" alt="" draggable="false">
-          <figcaption id="image-viewer-caption"></figcaption>
-        </figure>
-      </article>
-    </dialog>
-
-    <template id="post-template">
-      <post-card></post-card>
-    </template>
 
     <footer class="site-footer">
       <div class="site-footer__inner">

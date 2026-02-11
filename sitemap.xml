@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ames.consulting/</loc>
-    <lastmod>2026-02-07T00:45:56.796Z</lastmod>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
   </url>
   <url>
     <loc>https://ames.consulting/blog/</loc>
-    <lastmod>2026-02-07T00:45:56.796Z</lastmod>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/blog/foundations-not-silos</loc>
-    <lastmod>2026-02-07T00:45:56.796Z</lastmod>
+    <loc>https://ames.consulting/work/</loc>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/blog/spec-first-planning</loc>
-    <lastmod>2026-02-07T00:45:56.796Z</lastmod>
+    <loc>https://ames.consulting/work/bcbs-vt-app/</loc>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/blog/unified-stream-filtering</loc>
-    <lastmod>2026-02-07T00:45:56.796Z</lastmod>
+    <loc>https://ames.consulting/work/sunshine-trail/</loc>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
   </url>
   <url>
     <loc>https://ames.consulting/contact/</loc>
-    <lastmod>2026-02-07T00:45:56.796Z</lastmod>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/portfolio/</loc>
-    <lastmod>2026-02-07T00:45:56.796Z</lastmod>
+    <loc>https://ames.consulting/likes/</loc>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ames.consulting/colophon/</loc>
+    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
   </url>
 </urlset>

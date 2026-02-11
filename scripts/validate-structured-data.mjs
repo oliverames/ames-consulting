@@ -6,7 +6,9 @@ const files = [
   "work/index.html",
   "work/bcbs-vt-app/index.html",
   "work/sunshine-trail/index.html",
-  "contact/index.html"
+  "contact/index.html",
+  "likes/index.html",
+  "colophon/index.html"
 ];
 
 const jsonLdPattern = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gim;

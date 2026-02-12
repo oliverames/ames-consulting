@@ -68,14 +68,28 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 
 ## Conventions
 
+- **Relative paths only**: All internal links and asset references must use relative paths (`./`, `../`). Absolute paths break GitHub Pages subdirectory deployments.
+- **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
 - **Semantic HTML**: landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), no div soup
-- **Progressive enhancement**: features check for browser support, degrade gracefully
+- **Heading hierarchy**: Strict h1→h2→h3 order. Use the `visually-hidden` class for screen-reader-only headings when visual hierarchy differs.
+- **Progressive enhancement**: features check for browser support, degrade gracefully. `<noscript>` fallbacks for JS-dependent content.
 - **Social links** use `rel="me noopener"` for IndieWeb identity verification
-- **JSON-LD structured data** on every page (WebSite, WebPage, Person, CreativeWork, etc.)
+- **JSON-LD structured data** on every page (WebSite, WebPage, Person, CreativeWork, etc.). No `SearchAction` — static sites lack server-side search.
 - **Touch targets**: minimum 44px per Apple HIG
 - **Accessibility**: WCAG AA contrast (4.5:1 for body text), reduced-motion respected
+- **ARIA patterns**: `aria-current="page"` for exact current page; `aria-current="true"` for parent nav items on child pages. Honeypot fields use `aria-hidden="true"` + `tabindex="-1"`.
+- **SVG icons**: `fill: currentColor` to inherit link color; `aria-hidden="true"` on the SVG, `aria-label` on the parent `<a>`.
+- **Image CLS prevention**: All `<img>` tags need explicit `width`/`height` attributes, especially above-the-fold.
+- **CSS features in use**: nesting (`&:hover`), logical properties (`margin-inline`, `padding-block-end`), Display P3 with sRGB fallbacks.
 - **2-space indentation**, LF line endings (see `.editorconfig`)
 
 ## Design System Reference
 
 Visual identity documented in `docs/plans/2026-02-11-visual-design-system.md`. Typography: Barlow Condensed (headings) + Lora (body) via Google Fonts. Color palette rooted in Ames Shovel Company heritage — warm paper, forge orange accent.
+
+## Design Preferences
+
+- Navigation links: underline style, no pill borders. Heritage Gold accent, Manufacturing Red only on hover.
+- "Contact" is a top-level navigation item. Avoid redundant contact links in footer.
+- Balanced visual weight across homepage content sections (Work, Blog, Photography).
+- No build step beyond existing scripts (SEO artifact generation). Pure static HTML/CSS.

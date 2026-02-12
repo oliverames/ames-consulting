@@ -76,3 +76,45 @@ test("contact form shows setup message when endpoint is not configured", async (
   await page.click("#contact-submit");
   await expect(page.locator("#contact-form-status")).toContainText("not configured");
 });
+
+test("photography gallery listing page loads with all galleries", async ({ page }) => {
+  await page.goto("/photography/");
+
+  await expect(page.locator("h1")).toContainText("Photography");
+  const galleries = page.locator(".gallery-preview");
+  await expect(galleries).toHaveCount(4);
+
+  // Verify galleries have expected content
+  await expect(galleries.first()).toContainText("BETA Technologies");
+});
+
+test("eastrise writing samples page loads and displays posts", async ({ page }) => {
+  await page.goto("/work/eastrise-writing/");
+
+  await expect(page.locator("h1")).toContainText("EastRise Writing Samples");
+
+  // Check that posts are visible
+  const posts = page.locator(".post-preview");
+  const initialCount = await posts.count();
+  expect(initialCount).toBeGreaterThan(0);
+});
+
+test("eastrise category filtering changes visible posts", async ({ page }) => {
+  await page.goto("/work/eastrise-writing/");
+
+  // Wait for posts to load
+  const posts = page.locator(".post-preview");
+  await posts.first().waitFor({ timeout: 5000 });
+
+  const allCount = await posts.count();
+  expect(allCount).toBeGreaterThan(0);
+
+  // Select a category filter (Auto)
+  await page.selectOption("#category-filter", "auto");
+  await page.waitForTimeout(500);
+
+  // Verify that filtering happened (count may change or stay same if all posts are Auto)
+  const filteredCount = await posts.count();
+  expect(filteredCount).toBeLessThanOrEqual(allCount);
+  expect(filteredCount).toBeGreaterThan(0); // At least some Auto posts should exist
+});

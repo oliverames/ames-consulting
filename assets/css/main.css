@@ -1053,6 +1053,6 @@
 
   [popover] {
     position-anchor: --header;
-    inset-area: bottom span-right;
+    position-area: bottom span-right;
   }
 }

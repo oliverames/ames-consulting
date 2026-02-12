@@ -58,6 +58,9 @@ jobs:
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
+      - name: Generate blog posts for testing
+        run: node scripts/generate-blog-posts.mjs
+
       - name: Run regression tests
         run: npm run test:regression
 

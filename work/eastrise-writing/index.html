@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EastRise Writing Samples | Oliver Ames</title>
+    <meta name="description" content="Inbound marketing and educational content written for EastRise Credit Union (2019–2025). Financial literacy topics covering budgeting, credit, auto loans, home buying, fraud prevention, and sustainable living.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="EastRise Writing Samples | Oliver Ames">
+    <meta property="og:description" content="Inbound marketing and educational content written for EastRise Credit Union (2019–2025).">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ames.consulting/work/eastrise-writing/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="EastRise Writing Samples | Oliver Ames">
+    <meta name="twitter:description" content="Inbound marketing and educational content written for EastRise Credit Union (2019–2025).">
+
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Primary">
+        <a href="../../">Oliver Ames</a>
+        <div class="nav-links">
+          <a href="../" aria-current="true">Work</a>
+          <a href="../../blog/">Blog</a>
+          <a href="../../contact/">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="content-page">
+        <p class="breadcrumb"><a href="../">Work</a></p>
+        <h1>EastRise Writing Samples</h1>
+
+        <div class="project-intro">
+          <p>Inbound marketing and educational content written for <a href="https://www.eastrise.com" rel="noopener">EastRise Credit Union</a> between 2019–2025. This portfolio includes 52 published blog posts covering financial literacy topics — budgeting, credit management, auto loans, home buying, fraud prevention, and sustainable living.</p>
+
+          <p>The content strategy focused on SEO-optimized long-form articles (1,500–2,500 words) that answered specific member questions while building organic search traffic. Articles were designed to rank for informational queries and establish the credit union as a trusted financial resource.</p>
+        </div>
+
+        <div class="filter-controls">
+          <label for="category-filter">Filter by category:</label>
+          <select id="category-filter">
+            <option value="">All Categories</option>
+            <option value="saving-and-budgeting">Saving and Budgeting</option>
+            <option value="auto">Auto</option>
+            <option value="credit-and-debt">Credit and Debt</option>
+            <option value="home">Home</option>
+            <option value="security-and-fraud">Security and Fraud</option>
+            <option value="news-and-lifestyle">News and Lifestyle</option>
+            <option value="sustainable-living">Sustainable Living</option>
+            <option value="business-and-employment">Business and Employment</option>
+            <option value="resources">Resources</option>
+          </select>
+        </div>
+
+        <div id="posts-container" class="blog-grid">
+          <!-- Posts will be injected here by JavaScript -->
+        </div>
+
+        <p id="no-results" style="display: none;">No posts found in this category.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2019–2026 Oliver Ames. <a href="../../colophon/">Colophon</a></p>
+    </footer>
+
+    <script type="module">
+      async function loadPosts() {
+        const response = await fetch("../../assets/data/eastrise-blogs.json");
+        const data = await response.json();
+
+        const container = document.getElementById("posts-container");
+        const filter = document.getElementById("category-filter");
+        const noResults = document.getElementById("no-results");
+
+        function createPostCard(post) {
+          const article = document.createElement("article");
+          article.className = "post-preview";
+
+          // Featured image
+          if (post.featuredImage) {
+            const imageLink = document.createElement("a");
+            imageLink.href = `${post.slug}/`;
+            imageLink.className = "post-image";
+
+            const img = document.createElement("img");
+            img.src = post.featuredImage;
+            img.alt = post.title;
+            img.width = 800;
+            img.height = 450;
+            img.loading = "lazy";
+
+            imageLink.appendChild(img);
+            article.appendChild(imageLink);
+          }
+
+          // Content container
+          const content = document.createElement("div");
+          content.className = "post-preview-content";
+
+          // Title
+          const h2 = document.createElement("h2");
+          const titleLink = document.createElement("a");
+          titleLink.href = `${post.slug}/`;
+          titleLink.textContent = post.title;
+          h2.appendChild(titleLink);
+          content.appendChild(h2);
+
+          // Meta (date + categories)
+          const meta = document.createElement("p");
+          meta.className = "post-meta";
+
+          const time = document.createElement("time");
+          time.dateTime = post.publishedAt.split("T")[0];
+          time.textContent = new Date(post.publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          });
+          meta.appendChild(time);
+
+          if (post.categories.length > 0) {
+            const categoriesSpan = document.createElement("span");
+            categoriesSpan.className = "categories";
+
+            post.categories.forEach(cat => {
+              const tag = document.createElement("span");
+              tag.className = "tag";
+              tag.textContent = cat;
+              categoriesSpan.appendChild(tag);
+              categoriesSpan.appendChild(document.createTextNode(" "));
+            });
+
+            meta.appendChild(document.createTextNode(" "));
+            meta.appendChild(categoriesSpan);
+          }
+
+          content.appendChild(meta);
+
+          // Excerpt
+          const excerpt = document.createElement("p");
+          excerpt.textContent = post.excerpt;
+          content.appendChild(excerpt);
+
+          // Read more link
+          const readMore = document.createElement("a");
+          readMore.href = `${post.slug}/`;
+          readMore.className = "read-more";
+          readMore.textContent = "Read article →";
+          content.appendChild(readMore);
+
+          article.appendChild(content);
+          return article;
+        }
+
+        function renderPosts(posts) {
+          container.textContent = "";
+
+          if (posts.length === 0) {
+            noResults.style.display = "block";
+            return;
+          }
+
+          noResults.style.display = "none";
+          posts.forEach(post => {
+            container.appendChild(createPostCard(post));
+          });
+        }
+
+        function filterPosts() {
+          const selectedCategory = filter.value;
+          if (!selectedCategory) {
+            renderPosts(data.posts);
+            return;
+          }
+
+          const filtered = data.posts.filter(post => {
+            return post.categories.some(cat =>
+              cat.toLowerCase().replace(/\s+/g, "-") === selectedCategory
+            );
+          });
+          renderPosts(filtered);
+        }
+
+        filter.addEventListener("change", filterPosts);
+        renderPosts(data.posts);
+      }
+
+      loadPosts();
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "EastRise Writing Samples",
+      "description": "Inbound marketing and educational content written for EastRise Credit Union (2019–2025).",
+      "author": {
+        "@type": "Person",
+        "name": "Oliver Ames",
+        "url": "https://ames.consulting"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Oliver Ames",
+        "url": "https://ames.consulting"
+      }
+    }
+    </script>
+  </body>
+</html>

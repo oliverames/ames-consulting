@@ -42,6 +42,7 @@ jobs:
           cd _site
           node scripts/generate-blog-posts.mjs
           node scripts/generate-photography-galleries.mjs
+          node scripts/generate-eastrise-pages.mjs
           node scripts/generate-seo-artifacts.mjs --out-dir .
 
       - name: Upload artifact

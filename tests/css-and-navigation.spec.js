@@ -270,11 +270,11 @@ test("Colophon page sibling nav links to Stuff I Like", async ({ page }) => {
   await expect(page).toHaveURL(/\/likes\/$/);
 });
 
-// -- Footer Contact Link --
+// -- Nav Contact Link --
 
-test("footer Send a message link navigates to contact page", async ({ page }) => {
+test("nav Contact link navigates to contact page", async ({ page }) => {
   await page.goto("/");
-  await page.locator(".footer-contact a").click();
+  await page.locator(".site-nav a", { hasText: "Contact" }).click();
   await expect(page).toHaveURL(/\/contact\/$/);
   await expect(page.locator("h1")).toHaveText("Contact");
 });

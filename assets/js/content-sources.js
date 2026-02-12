@@ -139,7 +139,8 @@ export class LocalJsonSource {
     let data;
 
     try {
-      data = await fetchJsonWithRetry("/assets/data/content.example.json", {
+      const localDataUrl = new URL("../data/content.example.json", import.meta.url);
+      data = await fetchJsonWithRetry(localDataUrl, {
         retries: 1,
         timeoutMs: 5000
       });

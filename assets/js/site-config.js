@@ -16,7 +16,8 @@ const DEFAULT_CONFIG = {
 
 export async function loadSiteConfig() {
   try {
-    const response = await fetch("/assets/data/site.config.json", { cache: "no-store" });
+    const configUrl = new URL("../data/site.config.json", import.meta.url);
+    const response = await fetch(configUrl, { cache: "no-store" });
     if (!response.ok) {
       return DEFAULT_CONFIG;
     }

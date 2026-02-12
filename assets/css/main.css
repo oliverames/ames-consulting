@@ -237,10 +237,10 @@
   }
 
   /* ─── Main Content ─── */
-  .layout {
+  main {
     width: var(--measure-wide);
     margin-inline: auto;
-    padding: 0 0 var(--space-5);
+    padding-block-end: var(--space-5);
   }
 
   /* ─── Site Footer ─── */
@@ -511,7 +511,8 @@
       color: var(--accent-hover);
     }
 
-    &[aria-current="page"] {
+    &[aria-current="page"],
+    &[aria-current="true"] {
       color: var(--text-0);
       font-weight: 600;
     }

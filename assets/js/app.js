@@ -1,7 +1,7 @@
-import { loadSiteConfig } from "/assets/js/site-config.js";
-import { createSource } from "/assets/js/content-sources.js";
-import { syncSeo } from "/assets/js/seo.js";
-import "/assets/js/post-card.js";
+import { loadSiteConfig } from "./site-config.js";
+import { createSource } from "./content-sources.js";
+import { syncSeo } from "./seo.js";
+import "./post-card.js";
 
 function formatDate(isoDate) {
   const date = new Date(isoDate);

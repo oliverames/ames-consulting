@@ -1,2 +1,0 @@
-[      28ms] [ERROR] The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element. @ http://localhost:4173/blog/:7
-[     205ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:4173/favicon.ico:0

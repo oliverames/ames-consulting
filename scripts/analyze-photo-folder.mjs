@@ -68,7 +68,7 @@ async function analyzeFolder(path) {
       { name: "Shoot 3", files: fileStats.slice(thirdSize * 2) }
     ];
 
-    shoots.forEach((shoot, i) => {
+    shoots.forEach((shoot) => {
       console.log(`\n${shoot.name}:`);
       console.log(`  Count: ${shoot.files.length} images`);
       console.log(`  Range: ${shoot.files[0].filename} to ${shoot.files[shoot.files.length - 1].filename}`);

@@ -6,7 +6,7 @@
       "title": "BETA Technologies Career Day 2026",
       "description": "Behind-the-scenes photography from BETA Technologies' Career Day event, showcasing aviation technology and workplace culture.",
       "date": "2026-02-02",
-      "coverImage": "/assets/images/photography/photo-1.jpg",
+      "coverImage": "./assets/images/photography/beta-career-day-2026/beta-01.webp",
       "images": [
         {
           "filename": "beta-01.webp",
@@ -88,7 +88,7 @@
       "title": "Montpelier Winter Scenes",
       "description": "Capturing the quiet beauty of Vermont's capital city during winter — snow-covered streets, historic architecture, and everyday moments.",
       "date": "2026-01-15",
-      "coverImage": "/assets/images/photography/photo-2.jpg",
+      "coverImage": "./assets/images/photography/montpelier-winter-2026/photo-2.jpg",
       "images": [
         {
           "filename": "photo-2.jpg",
@@ -116,7 +116,7 @@
       "title": "Green Mountain Trails",
       "description": "Hiking through Vermont's Green Mountains — trail views, forest paths, and mountain vistas throughout the seasons.",
       "date": "2025-10-20",
-      "coverImage": "/assets/images/photography/photo-3.jpg",
+      "coverImage": "./assets/images/photography/green-mountain-trails-2025/photo-3.jpg",
       "images": [
         {
           "filename": "photo-3.jpg",
@@ -144,7 +144,7 @@
       "title": "Local Makers Series",
       "description": "Portraits and workspace photography of Vermont artisans, craftspeople, and small business owners at work.",
       "date": "2025-08-10",
-      "coverImage": "/assets/images/photography/photo-4.jpg",
+      "coverImage": "./assets/images/photography/local-makers-series-2025/photo-4.jpg",
       "images": [
         {
           "filename": "photo-4.jpg",

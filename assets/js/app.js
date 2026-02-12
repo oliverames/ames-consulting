@@ -145,6 +145,78 @@ function renderPosts(posts) {
   stream.append(fragment);
 }
 
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function extractImageFromPost(post) {
+  if (post.imageUrl) {
+    return post.imageUrl;
+  }
+
+  if (post.contentHtml) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(post.contentHtml, "text/html");
+    const firstImg = doc.querySelector("img");
+    if (firstImg?.src) {
+      return firstImg.src;
+    }
+  }
+
+  return null;
+}
+
+function renderBlogStrip(posts, container, config) {
+  if (!container) {
+    return;
+  }
+
+  const portfolioTag = config.portfolioTag.toLowerCase();
+  const postsWithImages = posts
+    .filter((post) => {
+      const hasImage = extractImageFromPost(post) !== null;
+      const isPortfolio = (post.tags || []).some((tag) => tag.toLowerCase() === portfolioTag);
+      return hasImage && !isPortfolio;
+    })
+    .slice(0, 6);
+
+  if (postsWithImages.length === 0) {
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  postsWithImages.forEach((post) => {
+    const imageUrl = extractImageFromPost(post);
+    if (!imageUrl) {
+      return;
+    }
+
+    const slug = generateSlug(post.title);
+    const link = document.createElement("a");
+    link.href = `blog/${slug}/`;
+    link.className = "path-thumb";
+    link.title = post.title;
+
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.alt = post.title;
+    img.loading = "lazy";
+    img.width = 800;
+    img.height = 600;
+
+    link.append(img);
+    fragment.append(link);
+  });
+
+  container.replaceChildren(fragment);
+}
+
 function sanitizeHtml(html) {
   const template = document.createElement("template");
   template.innerHTML = html;
@@ -345,8 +417,7 @@ function wireDialog(posts) {
       return;
     }
 
-    const card = target.closest("[data-post-id]");
-    const id = card?.getAttribute("data-post-id");
+    const id = target.dataset.postId || target.closest("[data-post-id]")?.getAttribute("data-post-id");
     const post = id ? byId.get(id) : undefined;
     if (!post) {
       return;
@@ -409,6 +480,11 @@ async function bootstrap() {
     const fallbackConfig = { ...config, provider: "local" };
     posts = await createSource(fallbackConfig).listPosts();
     activeProvider = "local-fallback";
+  }
+
+  if (view === "home") {
+    const blogStrip = document.getElementById("blog-strip");
+    renderBlogStrip(posts, blogStrip, config);
   }
 
   const filters = normalizeSearchParams(config, view);

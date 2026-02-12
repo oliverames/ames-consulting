@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} | Oliver Ames</title>
+    <meta name="description" content="{{EXCERPT}}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="{{EXCERPT}}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ames.consulting/work/eastrise-writing/{{SLUG}}/">
+    {{FEATURED_IMAGE_OG}}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{TITLE}}">
+    <meta name="twitter:description" content="{{EXCERPT}}">
+    {{FEATURED_IMAGE_TWITTER}}
+
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Primary">
+        <a href="../../../">Oliver Ames</a>
+        <div class="nav-links">
+          <a href="../../../work/" aria-current="true">Work</a>
+          <a href="../../../blog/">Blog</a>
+          <a href="../../../contact/">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <article class="blog-post">
+        <header class="post-header">
+          <p class="breadcrumb">
+            <a href="../../../work/">Work</a> /
+            <a href="../">EastRise Writing Samples</a>
+          </p>
+          <h1>{{TITLE}}</h1>
+          <div class="dialog-meta">
+            <time datetime="{{PUBLISHED_DATE}}">{{PUBLISHED_DATE_FORMATTED}}</time>
+            {{CATEGORIES}}
+          </div>
+        </header>
+
+        {{FEATURED_IMAGE_HTML}}
+
+        <div class="blog-post-content">
+          {{CONTENT}}
+        </div>
+
+        <footer class="post-footer">
+          <p><strong>Originally published:</strong> <a href="{{ORIGINAL_URL}}" rel="noopener">EastRise Credit Union Blog</a></p>
+          <p class="back-link"><a href="../">← Back to EastRise Writing Samples</a></p>
+        </footer>
+      </article>
+    </main>
+
+    <footer>
+      <p>&copy; 2019–2026 Oliver Ames. <a href="../../../colophon/">Colophon</a></p>
+    </footer>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "headline": "{{TITLE}}",
+      "description": "{{EXCERPT}}",
+      "datePublished": "{{PUBLISHED_DATE}}",
+      "author": {
+        "@type": "Person",
+        "name": "Oliver Ames",
+        "url": "https://ames.consulting"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Oliver Ames",
+        "url": "https://ames.consulting"
+      }
+    }
+    </script>
+  </body>
+</html>

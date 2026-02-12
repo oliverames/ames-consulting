@@ -135,17 +135,38 @@ function sortByNewest(posts) {
 }
 
 export class LocalJsonSource {
+  constructor({ preferAiSummaries = true } = {}) {
+    this.preferAiSummaries = preferAiSummaries;
+  }
+
   async listPosts() {
     let data;
 
-    try {
-      const localDataUrl = new URL("../data/content.example.json", import.meta.url);
-      data = await fetchJsonWithRetry(localDataUrl, {
-        retries: 1,
-        timeoutMs: 5000
-      });
-    } catch {
-      return [];
+    // Try AI-enhanced summaries first if preferred
+    if (this.preferAiSummaries) {
+      try {
+        const aiDataUrl = new URL("../data/posts-with-ai-summaries.json", import.meta.url);
+        data = await fetchJsonWithRetry(aiDataUrl, {
+          retries: 0,
+          timeoutMs: 3000
+        });
+        console.log("✓ Using AI-enhanced summaries");
+      } catch {
+        // Fall through to regular content
+      }
+    }
+
+    // Fallback to example content
+    if (!data) {
+      try {
+        const localDataUrl = new URL("../data/content.example.json", import.meta.url);
+        data = await fetchJsonWithRetry(localDataUrl, {
+          retries: 1,
+          timeoutMs: 5000
+        });
+      } catch {
+        return [];
+      }
     }
 
     return sortByNewest((data.posts || []).map(normalizeLocalPost));

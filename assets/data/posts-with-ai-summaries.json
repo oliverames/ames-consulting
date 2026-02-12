@@ -1,0 +1,46 @@
+{
+  "posts": [
+    {
+      "id": "sample-1",
+      "title": "Foundations, not silos",
+      "summary": "Unify content in a single system, then use flexible views—not silos—to organize and present it dynamically.",
+      "contentHtml": "<p>A resilient content architecture starts by avoiding duplicate systems. Everything is a post; views do the segmentation.</p><p><img src=\"/assets/images/sample-work.svg\" alt=\"Sample work preview placeholder\"></p>",
+      "url": "https://ames.consulting/blog/foundations-not-silos",
+      "publishedAt": "2026-02-01T10:00:00Z",
+      "tags": [
+        "architecture",
+        "portfolio"
+      ],
+      "readTimeMinutes": 1,
+      "aiGenerated": true
+    },
+    {
+      "id": "sample-2",
+      "title": "Spec-first front-end planning",
+      "summary": "Define front-end features upfront with a standards matrix, compatibility notes, and test requirements to avoid ad-hoc development.",
+      "contentHtml": "<p>Instead of random feature usage, maintain a deliberate standards matrix with compatibility notes and test requirements.</p>",
+      "url": "https://ames.consulting/blog/spec-first-planning",
+      "publishedAt": "2026-02-03T15:30:00Z",
+      "tags": [
+        "html",
+        "css"
+      ],
+      "readTimeMinutes": 1,
+      "aiGenerated": true
+    },
+    {
+      "id": "sample-3",
+      "title": "Unified stream portfolio filtering",
+      "summary": "A unified stream portfolio acts as a filter, simplifying publishing workflows and maintaining consistent navigation.",
+      "contentHtml": "<p>When portfolio is a filter, publishing workflows stay simple and navigation remains coherent.</p><p><img src=\"/assets/images/sample-work.svg\" alt=\"Portfolio stream preview placeholder\"></p>",
+      "url": "https://ames.consulting/blog/unified-stream-filtering",
+      "publishedAt": "2026-02-05T08:10:00Z",
+      "tags": [
+        "portfolio",
+        "workflow"
+      ],
+      "readTimeMinutes": 1,
+      "aiGenerated": true
+    }
+  ]
+}

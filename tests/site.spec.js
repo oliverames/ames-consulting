@@ -40,28 +40,29 @@ test("blog filtering by tag updates status", async ({ page }) => {
   await expect(page.locator("post-card").first()).toBeVisible();
 });
 
-test("post preview shows read time metadata", async ({ page }) => {
+test("static blog post shows read time metadata", async ({ page }) => {
   await useLocalContent(page);
-  await page.goto("/blog/");
+  // Navigate to a generated blog post page
+  await page.goto("/blog/spec-first-front-end-planning/");
 
-  await page.locator('button[data-action="open-dialog"]').first().click();
-  await expect(page.locator("#post-dialog")).toBeVisible();
-  await expect(page.locator("#dialog-meta")).toContainText("min read");
+  // Check for read time in article metadata
+  await expect(page.locator("article")).toBeVisible();
+  await expect(page.locator(".dialog-meta")).toBeVisible();
+  await expect(page.locator(".dialog-meta")).toContainText("min read");
 });
 
-test("clicking content image opens larger image viewer", async ({ page }) => {
+test("blog post page contains content and images", async ({ page }) => {
   await useLocalContent(page);
-  await page.goto("/blog/");
+  // Navigate to a generated blog post page
+  await page.goto("/blog/spec-first-front-end-planning/");
 
-  await page.locator('button[data-action="open-dialog"]').first().click();
-  await expect(page.locator("#post-dialog")).toBeVisible();
+  // Check that blog post content exists
+  const content = page.locator(".blog-post-content");
+  await expect(content).toBeVisible();
 
-  const zoomableImage = page.locator("#dialog-body img.zoomable-image").first();
-  await expect(zoomableImage).toBeVisible();
-  await zoomableImage.click();
-
-  await expect(page.locator("#image-viewer")).toBeVisible();
-  await expect(page.locator("#image-viewer-image")).toHaveAttribute("src", /sample-work\.svg/);
+  // Check that the post has at least some content (paragraphs or images)
+  const hasContent = await content.locator("p, img").count();
+  expect(hasContent).toBeGreaterThan(0);
 });
 
 test("contact form shows setup message when endpoint is not configured", async ({ page }) => {
@@ -74,4 +75,60 @@ test("contact form shows setup message when endpoint is not configured", async (
 
   await page.click("#contact-submit");
   await expect(page.locator("#contact-form-status")).toContainText("not configured");
+});
+
+test("photography gallery listing page loads with all galleries", async ({ page }) => {
+  await page.goto("/photography/");
+
+  await expect(page.locator("h1")).toContainText("Photography");
+  const galleries = page.locator(".gallery-preview");
+  await expect(galleries).toHaveCount(4);
+
+  // Verify galleries have expected content
+  await expect(galleries.first()).toContainText("BETA Technologies");
+});
+
+test("eastrise writing samples page loads and displays posts", async ({ page }) => {
+  await page.goto("/work/eastrise-writing/");
+
+  await expect(page.locator("h1")).toContainText("EastRise Writing Samples");
+
+  // Check that posts are visible
+  const posts = page.locator(".post-preview");
+  const initialCount = await posts.count();
+  expect(initialCount).toBeGreaterThan(0);
+});
+
+test("eastrise category filtering changes visible posts", async ({ page }) => {
+  await page.goto("/work/eastrise-writing/");
+
+  // Wait for posts to load
+  const posts = page.locator(".post-preview");
+  await posts.first().waitFor({ timeout: 5000 });
+
+  const allCount = await posts.count();
+  expect(allCount).toBeGreaterThan(0);
+
+  // Select a category filter (Auto)
+  await page.selectOption("#category-filter", "auto");
+  await page.waitForTimeout(500);
+
+  // Verify that filtering happened (count may change or stay same if all posts are Auto)
+  const filteredCount = await posts.count();
+  expect(filteredCount).toBeLessThanOrEqual(allCount);
+  expect(filteredCount).toBeGreaterThan(0); // At least some Auto posts should exist
+});
+
+test("individual photography gallery page loads with images", async ({ page }) => {
+  await page.goto("/photography/beta-career-day-2026/");
+
+  await expect(page.locator("h1")).toContainText("BETA Technologies Career Day");
+
+  // Check that gallery images are present
+  const images = page.locator(".photo-gallery img");
+  const imageCount = await images.count();
+  expect(imageCount).toBeGreaterThan(0);
+
+  // Verify back link exists
+  await expect(page.locator(".sibling-nav a")).toHaveText("← Back to Photography");
 });

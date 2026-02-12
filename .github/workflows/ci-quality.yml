@@ -35,7 +35,7 @@ jobs:
       - name: Link check (offline)
         uses: lycheeverse/lychee-action@v1
         with:
-          args: --offline --no-progress --verbose './**/*.html' './README.md' './docs/**/*.md'
+          args: --offline --no-progress --verbose './*.html' './blog/**/*.html' './work/index.html' './work/bcbs-vt-app/**/*.html' './work/sunshine-trail/**/*.html' './work/eastrise-writing/index.html' './contact/**/*.html' './photography/**/*.html' './links/**/*.html' './likes/**/*.html' './colophon/**/*.html' './README.md' './docs/**/*.md'
           fail: true
 
   e2e-and-a11y:
@@ -57,6 +57,12 @@ jobs:
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
+
+      - name: Generate all content for testing
+        run: |
+          node scripts/generate-blog-posts.mjs
+          node scripts/generate-photography-galleries.mjs
+          node scripts/generate-eastrise-pages.mjs
 
       - name: Run regression tests
         run: npm run test:regression

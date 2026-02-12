@@ -6,19 +6,24 @@
   "scripts": {
     "check:js-syntax": "node scripts/check-js-syntax.mjs",
     "lint:js": "eslint 'assets/js/*.js' 'scripts/*.mjs' 'tests/*.js'",
-    "check:html": "html-validate index.html blog/index.html work/index.html work/bcbs-vt-app/index.html work/sunshine-trail/index.html contact/index.html likes/index.html colophon/index.html",
+    "check:html": "html-validate index.html blog/index.html work/index.html work/bcbs-vt-app/index.html work/sunshine-trail/index.html work/eastrise-writing/index.html photography/index.html photography/*/index.html links/index.html contact/index.html likes/index.html colophon/index.html",
     "check:structured-data": "node scripts/validate-structured-data.mjs",
     "check:sample-data": "node scripts/validate-sample-data.mjs",
     "check:all": "npm run check:js-syntax && npm run lint:js && npm run check:html && npm run check:structured-data && npm run check:sample-data",
     "test:regression": "playwright test tests/site.spec.js",
     "test:a11y": "playwright test tests/accessibility.spec.js",
     "test:e2e": "playwright test",
-    "generate:seo-artifacts": "node scripts/generate-seo-artifacts.mjs"
+    "generate:seo-artifacts": "node scripts/generate-seo-artifacts.mjs",
+    "generate:ai-summaries": "node scripts/generate-ai-summaries.mjs",
+    "generate:blog-posts": "node scripts/generate-blog-posts.mjs",
+    "generate:photography": "node scripts/generate-photography-galleries.mjs",
+    "generate:eastrise": "node scripts/generate-eastrise-pages.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "^1.55.0",
     "eslint": "^8.57.1",
-    "html-validate": "^9.7.1"
+    "html-validate": "^9.7.1",
+    "xml2js": "^0.6.2"
   }
 }

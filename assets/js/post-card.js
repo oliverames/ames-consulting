@@ -12,6 +12,15 @@ function formatReadTime(minutes) {
   return `${normalized} min read`;
 }
 
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 class PostCardElement extends HTMLElement {
   #post;
 
@@ -46,19 +55,18 @@ class PostCardElement extends HTMLElement {
     }
 
     const tags = (this.#post.tags || []).slice(0, 4).map((tag) => `#${tag}`).join(" ");
+    const slug = generateSlug(this.#post.title);
+    const postUrl = `../blog/${slug}/`;
+
     const article = document.createElement("article");
     article.className = "post-card";
     article.dataset.postId = this.#post.id;
 
     const heading = document.createElement("h3");
-    if (this.#post.url) {
-      const link = document.createElement("a");
-      link.href = this.#post.url;
-      link.textContent = this.#post.title;
-      heading.append(link);
-    } else {
-      heading.textContent = this.#post.title;
-    }
+    const link = document.createElement("a");
+    link.href = postUrl;
+    link.textContent = this.#post.title;
+    heading.append(link);
 
     const summary = document.createElement("p");
     summary.textContent = this.#post.summary || "";
@@ -70,12 +78,12 @@ class PostCardElement extends HTMLElement {
     tagList.textContent = tags;
     footer.append(meta, tagList);
 
-    const preview = document.createElement("button");
-    preview.type = "button";
-    preview.dataset.action = "open-dialog";
-    preview.textContent = "Preview";
+    const readMore = document.createElement("a");
+    readMore.href = postUrl;
+    readMore.textContent = "Read more →";
+    readMore.className = "post-read-more";
 
-    article.append(heading, summary, footer, preview);
+    article.append(heading, summary, footer, readMore);
     this.replaceChildren(article);
   }
 }

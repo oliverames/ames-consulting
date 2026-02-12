@@ -1,4 +1,4 @@
-import { loadSiteConfig } from "/assets/js/site-config.js";
+import { loadSiteConfig } from "./site-config.js";
 
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX_ATTEMPTS = 3;

@@ -25,7 +25,8 @@ function formatDate(isoDate) {
 function generateImagesHtml(images, gallerySlug) {
   return images
     .map((img) => {
-      const imagePath = `/assets/images/photography/${gallerySlug}/${img.filename}`;
+      // Use relative path from photography/{slug}/ to assets/
+      const imagePath = `../../assets/images/photography/${gallerySlug}/${img.filename}`;
       return `          <figure class="gallery-image">
             <img src="${imagePath}" alt="${img.alt}" width="${img.width}" height="${img.height}" loading="lazy">
           </figure>`;

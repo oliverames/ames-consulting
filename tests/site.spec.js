@@ -118,3 +118,17 @@ test("eastrise category filtering changes visible posts", async ({ page }) => {
   expect(filteredCount).toBeLessThanOrEqual(allCount);
   expect(filteredCount).toBeGreaterThan(0); // At least some Auto posts should exist
 });
+
+test("individual photography gallery page loads with images", async ({ page }) => {
+  await page.goto("/photography/beta-career-day-2026/");
+
+  await expect(page.locator("h1")).toContainText("BETA Technologies Career Day");
+
+  // Check that gallery images are present
+  const images = page.locator(".photo-gallery img");
+  const imageCount = await images.count();
+  expect(imageCount).toBeGreaterThan(0);
+
+  // Verify back link exists
+  await expect(page.locator(".sibling-nav a")).toHaveText("← Back to Photography");
+});

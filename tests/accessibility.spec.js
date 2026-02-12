@@ -7,6 +7,7 @@ const routes = [
   "/work/",
   "/work/eastrise-writing/",
   "/photography/",
+  "/photography/beta-career-day-2026/",
   "/contact/",
   "/likes/",
   "/colophon/",

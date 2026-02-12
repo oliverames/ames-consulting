@@ -9,22 +9,76 @@
       "coverImage": "/assets/images/photography/photo-1.jpg",
       "images": [
         {
-          "filename": "photo-1.jpg",
-          "alt": "BETA Technologies Career Day scene",
-          "width": 800,
-          "height": 600
+          "filename": "beta-01.webp",
+          "alt": "BETA Technologies aircraft display at Career Day",
+          "width": 1200,
+          "height": 1800
         },
         {
-          "filename": "photo-2.jpg",
-          "alt": "BETA Technologies Career Day scene",
-          "width": 800,
-          "height": 600
+          "filename": "beta-02.webp",
+          "alt": "Aviation technology showcase at BETA Career Day",
+          "width": 1200,
+          "height": 1800
         },
         {
-          "filename": "photo-3.jpg",
-          "alt": "BETA Technologies Career Day scene",
-          "width": 800,
-          "height": 600
+          "filename": "beta-03.webp",
+          "alt": "Students exploring electric aviation technology",
+          "width": 1200,
+          "height": 1800
+        },
+        {
+          "filename": "beta-04.webp",
+          "alt": "BETA Technologies workspace demonstration",
+          "width": 1200,
+          "height": 1800
+        },
+        {
+          "filename": "beta-05.webp",
+          "alt": "Career Day attendees learning about sustainable aviation",
+          "width": 1200,
+          "height": 1800
+        },
+        {
+          "filename": "beta-06.webp",
+          "alt": "Innovation in electric aircraft development",
+          "width": 1200,
+          "height": 1800
+        },
+        {
+          "filename": "beta-07.webp",
+          "alt": "Collaborative workspace at BETA Technologies",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "filename": "beta-08.webp",
+          "alt": "Engineering team demonstrating aviation systems",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "filename": "beta-09.webp",
+          "alt": "Technical discussion at Career Day event",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "filename": "beta-10.webp",
+          "alt": "Future of aviation technology presentation",
+          "width": 1200,
+          "height": 1800
+        },
+        {
+          "filename": "beta-11.webp",
+          "alt": "Electric aircraft development process showcase",
+          "width": 1200,
+          "height": 1800
+        },
+        {
+          "filename": "beta-12.webp",
+          "alt": "BETA Technologies Career Day networking",
+          "width": 1200,
+          "height": 1800
         }
       ]
     },

@@ -6,25 +6,109 @@
       "title": "BETA Technologies Career Day 2026",
       "description": "Behind-the-scenes photography from BETA Technologies' Career Day event, showcasing aviation technology and workplace culture.",
       "date": "2026-02-02",
-      "coverImage": "/assets/images/photography/beta-career-day-2026/cover.jpg",
+      "coverImage": "/assets/images/photography/photo-1.jpg",
       "images": [
         {
-          "filename": "DSC07894.jpg",
+          "filename": "photo-1.jpg",
           "alt": "BETA Technologies Career Day scene",
-          "width": 1920,
-          "height": 1280
+          "width": 800,
+          "height": 600
         },
         {
-          "filename": "DSC07896.jpg",
+          "filename": "photo-2.jpg",
           "alt": "BETA Technologies Career Day scene",
-          "width": 1920,
-          "height": 1280
+          "width": 800,
+          "height": 600
         },
         {
-          "filename": "DSC07897.jpg",
+          "filename": "photo-3.jpg",
           "alt": "BETA Technologies Career Day scene",
-          "width": 1920,
-          "height": 1280
+          "width": 800,
+          "height": 600
+        }
+      ]
+    },
+    {
+      "id": "montpelier-winter-2026",
+      "slug": "montpelier-winter-2026",
+      "title": "Montpelier Winter Scenes",
+      "description": "Capturing the quiet beauty of Vermont's capital city during winter — snow-covered streets, historic architecture, and everyday moments.",
+      "date": "2026-01-15",
+      "coverImage": "/assets/images/photography/photo-2.jpg",
+      "images": [
+        {
+          "filename": "photo-2.jpg",
+          "alt": "Montpelier street in winter",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "filename": "photo-3.jpg",
+          "alt": "Historic building covered in snow",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "filename": "photo-4.jpg",
+          "alt": "Downtown Montpelier winter scene",
+          "width": 800,
+          "height": 600
+        }
+      ]
+    },
+    {
+      "id": "green-mountain-trails-2025",
+      "slug": "green-mountain-trails-2025",
+      "title": "Green Mountain Trails",
+      "description": "Hiking through Vermont's Green Mountains — trail views, forest paths, and mountain vistas throughout the seasons.",
+      "date": "2025-10-20",
+      "coverImage": "/assets/images/photography/photo-3.jpg",
+      "images": [
+        {
+          "filename": "photo-3.jpg",
+          "alt": "Mountain trail view",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "filename": "photo-4.jpg",
+          "alt": "Forest path through the Green Mountains",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "filename": "photo-1.jpg",
+          "alt": "Vista from mountain peak",
+          "width": 800,
+          "height": 600
+        }
+      ]
+    },
+    {
+      "id": "local-makers-series-2025",
+      "slug": "local-makers-series-2025",
+      "title": "Local Makers Series",
+      "description": "Portraits and workspace photography of Vermont artisans, craftspeople, and small business owners at work.",
+      "date": "2025-08-10",
+      "coverImage": "/assets/images/photography/photo-4.jpg",
+      "images": [
+        {
+          "filename": "photo-4.jpg",
+          "alt": "Local maker at work",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "filename": "photo-1.jpg",
+          "alt": "Craft workshop scene",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "filename": "photo-2.jpg",
+          "alt": "Artisan workspace",
+          "width": 800,
+          "height": 600
         }
       ]
     }

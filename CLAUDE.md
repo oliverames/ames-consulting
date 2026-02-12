@@ -68,12 +68,15 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 
 ## Conventions
 
-- **Semantic HTML**: landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), no div soup
-- **Progressive enhancement**: features check for browser support, degrade gracefully
+- **Relative paths only**: all internal links and asset references use `./`, `../`, etc. Absolute paths (`/assets/...`) break GitHub Pages subdirectory deploys
+- **Semantic HTML**: landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), no div soup; maintain heading hierarchy without skips
+- **Progressive enhancement**: features check for browser support, degrade gracefully; include `<noscript>` fallbacks for JS-rendered content
 - **Social links** use `rel="me noopener"` for IndieWeb identity verification
-- **JSON-LD structured data** on every page (WebSite, WebPage, Person, CreativeWork, etc.)
+- **JSON-LD structured data** on every page (WebSite, WebPage, Person, CreativeWork, etc.) — no `SearchAction` (client-side search only)
 - **Touch targets**: minimum 44px per Apple HIG
-- **Accessibility**: WCAG AA contrast (4.5:1 for body text), reduced-motion respected
+- **Accessibility**: WCAG AA contrast (4.5:1 for body text), reduced-motion respected, `aria-current="page"` for exact-match nav links, `aria-current="true"` for section-parent nav links
+- **SVG icons**: `fill: currentColor` on paths, `aria-hidden="true"` on `<svg>`, `aria-label` on parent `<a>`
+- **Images**: always set explicit `width` and `height` attributes for CLS prevention
 - **2-space indentation**, LF line endings (see `.editorconfig`)
 
 ## Design System Reference

@@ -40,26 +40,28 @@ test("blog filtering by tag updates status", async ({ page }) => {
   await expect(page.locator("post-card").first()).toBeVisible();
 });
 
-test("post preview shows read time metadata", async ({ page }) => {
+test("static blog post shows read time metadata", async ({ page }) => {
   await useLocalContent(page);
-  await page.goto("/blog/");
+  // Navigate to a generated blog post page
+  await page.goto("/blog/spec-first-front-end-planning/");
 
-  await page.locator('button[data-action="open-dialog"]').first().click();
-  await expect(page.locator("#post-dialog")).toBeVisible();
-  await expect(page.locator("#dialog-meta")).toContainText("min read");
+  // Check for read time in article metadata
+  await expect(page.locator("article")).toBeVisible();
+  await expect(page.locator("time").first()).toBeVisible();
+  await expect(page.locator(".blog-post-meta")).toContainText("min read");
 });
 
 test("clicking content image opens larger image viewer", async ({ page }) => {
   await useLocalContent(page);
-  await page.goto("/blog/");
+  // Navigate to a generated blog post page
+  await page.goto("/blog/spec-first-front-end-planning/");
 
-  await page.locator('button[data-action="open-dialog"]').first().click();
-  await expect(page.locator("#post-dialog")).toBeVisible();
-
-  const zoomableImage = page.locator("#dialog-body img.zoomable-image").first();
+  // Find a zoomable image in the blog post content
+  const zoomableImage = page.locator(".blog-post-content img.zoomable-image").first();
   await expect(zoomableImage).toBeVisible();
   await zoomableImage.click();
 
+  // Check that image viewer opens
   await expect(page.locator("#image-viewer")).toBeVisible();
   await expect(page.locator("#image-viewer-image")).toHaveAttribute("src", /sample-work\.svg/);
 });

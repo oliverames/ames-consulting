@@ -1,0 +1,32 @@
+{
+  "galleries": [
+    {
+      "id": "beta-career-day-2026",
+      "slug": "beta-career-day-2026",
+      "title": "BETA Technologies Career Day 2026",
+      "description": "Behind-the-scenes photography from BETA Technologies' Career Day event, showcasing aviation technology and workplace culture.",
+      "date": "2026-02-02",
+      "coverImage": "/assets/images/photography/beta-career-day-2026/cover.jpg",
+      "images": [
+        {
+          "filename": "DSC07894.jpg",
+          "alt": "BETA Technologies Career Day scene",
+          "width": 1920,
+          "height": 1280
+        },
+        {
+          "filename": "DSC07896.jpg",
+          "alt": "BETA Technologies Career Day scene",
+          "width": 1920,
+          "height": 1280
+        },
+        {
+          "filename": "DSC07897.jpg",
+          "alt": "BETA Technologies Career Day scene",
+          "width": 1920,
+          "height": 1280
+        }
+      ]
+    }
+  ]
+}

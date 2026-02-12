@@ -39,7 +39,10 @@ jobs:
             --exclude='.git/' \
             --exclude='.github/' \
             ./ _site/
-          node scripts/generate-seo-artifacts.mjs --out-dir _site
+          cd _site
+          node scripts/generate-blog-posts.mjs
+          node scripts/generate-photography-galleries.mjs
+          node scripts/generate-seo-artifacts.mjs --out-dir .
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

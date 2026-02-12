@@ -70,17 +70,15 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 
 - **Relative paths only**: All internal links and asset references must use relative paths (`./`, `../`). Absolute paths break GitHub Pages subdirectory deployments.
 - **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
-- **Semantic HTML**: landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), no div soup
-- **Heading hierarchy**: Strict h1→h2→h3 order. Use the `visually-hidden` class for screen-reader-only headings when visual hierarchy differs.
-- **Progressive enhancement**: features check for browser support, degrade gracefully. `<noscript>` fallbacks for JS-dependent content.
+- **Semantic HTML**: landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), no div soup; maintain heading hierarchy without skips
+- **Progressive enhancement**: features check for browser support, degrade gracefully; include `<noscript>` fallbacks for JS-rendered content
 - **Social links** use `rel="me noopener"` for IndieWeb identity verification
-- **JSON-LD structured data** on every page (WebSite, WebPage, Person, CreativeWork, etc.). No `SearchAction` — static sites lack server-side search.
+- **JSON-LD structured data** on every page (WebSite, WebPage, Person, CreativeWork, etc.) — no `SearchAction` (client-side search only)
 - **Touch targets**: minimum 44px per Apple HIG
-- **Accessibility**: WCAG AA contrast (4.5:1 for body text), reduced-motion respected
-- **ARIA patterns**: `aria-current="page"` for exact current page; `aria-current="true"` for parent nav items on child pages. Honeypot fields use `aria-hidden="true"` + `tabindex="-1"`.
-- **SVG icons**: `fill: currentColor` to inherit link color; `aria-hidden="true"` on the SVG, `aria-label` on the parent `<a>`.
-- **Image CLS prevention**: All `<img>` tags need explicit `width`/`height` attributes, especially above-the-fold.
-- **CSS features in use**: nesting (`&:hover`), logical properties (`margin-inline`, `padding-block-end`), Display P3 with sRGB fallbacks.
+- **Accessibility**: WCAG AA contrast (4.5:1 for body text), reduced-motion respected, `aria-current="page"` for exact-match nav links, `aria-current="true"` for section-parent nav links
+- **SVG icons**: `fill: currentColor` on paths, `aria-hidden="true"` on `<svg>`, `aria-label` on parent `<a>`
+- **Images**: always set explicit `width` and `height` attributes for CLS prevention
+- **CSS features in use**: nesting (`&:hover`), logical properties (`margin-inline`, `padding-block-end`), Display P3 with sRGB fallbacks
 - **2-space indentation**, LF line endings (see `.editorconfig`)
 
 ## Design System Reference

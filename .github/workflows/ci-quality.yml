@@ -35,7 +35,7 @@ jobs:
       - name: Link check (offline)
         uses: lycheeverse/lychee-action@v1
         with:
-          args: --offline --no-progress --verbose --exclude-path '**/post-template.html' --exclude-path '**/gallery-template.html' './**/*.html' './README.md' './docs/**/*.md'
+          args: --offline --no-progress --verbose --exclude-path './templates/**' './**/*.html' './README.md' './docs/**/*.md'
           fail: true
 
   e2e-and-a11y:

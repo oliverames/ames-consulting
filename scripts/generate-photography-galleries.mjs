@@ -76,7 +76,7 @@ async function main() {
   console.log("📸 Generating photography gallery pages...\n");
 
   // Load template
-  const templatePath = join(projectRoot, "photography/gallery-template.html");
+  const templatePath = join(projectRoot, "templates/gallery-template.html");
   const template = await readFile(templatePath, "utf-8");
 
   // Load galleries

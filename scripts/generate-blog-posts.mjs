@@ -109,7 +109,7 @@ async function main() {
   console.log("📝 Generating blog post pages...\n");
 
   // Load template
-  const templatePath = join(projectRoot, "blog/post-template.html");
+  const templatePath = join(projectRoot, "templates/post-template.html");
   const template = await readFile(templatePath, "utf-8");
 
   // Load posts

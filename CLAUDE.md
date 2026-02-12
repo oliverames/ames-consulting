@@ -68,7 +68,8 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 
 ## Conventions
 
-- **Relative paths only**: all internal links and asset references use `./`, `../`, etc. Absolute paths (`/assets/...`) break GitHub Pages subdirectory deploys
+- **Relative paths only**: All internal links and asset references must use relative paths (`./`, `../`). Absolute paths break GitHub Pages subdirectory deployments.
+- **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
 - **Semantic HTML**: landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), no div soup; maintain heading hierarchy without skips
 - **Progressive enhancement**: features check for browser support, degrade gracefully; include `<noscript>` fallbacks for JS-rendered content
 - **Social links** use `rel="me noopener"` for IndieWeb identity verification
@@ -77,8 +78,16 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 - **Accessibility**: WCAG AA contrast (4.5:1 for body text), reduced-motion respected, `aria-current="page"` for exact-match nav links, `aria-current="true"` for section-parent nav links
 - **SVG icons**: `fill: currentColor` on paths, `aria-hidden="true"` on `<svg>`, `aria-label` on parent `<a>`
 - **Images**: always set explicit `width` and `height` attributes for CLS prevention
+- **CSS features in use**: nesting (`&:hover`), logical properties (`margin-inline`, `padding-block-end`), Display P3 with sRGB fallbacks
 - **2-space indentation**, LF line endings (see `.editorconfig`)
 
 ## Design System Reference
 
 Visual identity documented in `docs/plans/2026-02-11-visual-design-system.md`. Typography: Barlow Condensed (headings) + Lora (body) via Google Fonts. Color palette rooted in Ames Shovel Company heritage — warm paper, forge orange accent.
+
+## Design Preferences
+
+- Navigation links: underline style, no pill borders. Heritage Gold accent, Manufacturing Red only on hover.
+- "Contact" is a top-level navigation item. Avoid redundant contact links in footer.
+- Balanced visual weight across homepage content sections (Work, Blog, Photography).
+- No build step beyond existing scripts (SEO artifact generation). Pure static HTML/CSS.

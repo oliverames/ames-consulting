@@ -22,6 +22,9 @@ globs: ["*.html", "**/*.html", "assets/**/*.js"]
 - Always include `width` and `height` attributes on `<img>` tags (CLS prevention)
 - Use meaningful `alt` text; decorative images get `alt=""`
 
+## Forms
+- Honeypot fields: `aria-hidden="true"` + `tabindex="-1"`
+
 ## Progressive Enhancement
 - Include `<noscript>` fallback content for JS-rendered sections
 - Contact form should function without JS (keep native validation)

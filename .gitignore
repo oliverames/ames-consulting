@@ -6,3 +6,5 @@ node_modules/
 dist/
 _site/
 .playwright-mcp/
+test-results/
+playwright-report/

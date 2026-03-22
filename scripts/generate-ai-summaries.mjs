@@ -2,7 +2,7 @@
 
 /**
  * Generate AI summaries for blog posts using Mistral API
- * Usage: node scripts/generate-ai-summaries.mjs
+ * Usage: MISTRAL_API_KEY=your-key node scripts/generate-ai-summaries.mjs
  */
 
 import { readFile, writeFile } from "node:fs/promises";
@@ -14,9 +14,15 @@ const __dirname = dirname(__filename);
 const projectRoot = join(__dirname, "..");
 
 // Configuration
-const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || "efpjmkuwUNWJIXZG12IVghzUF0PHdyVb";
+const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || "";
 const MISTRAL_MODEL = "labs-mistral-small-creative";
 const MISTRAL_API_URL = "https://api.mistral.ai/v1/chat/completions";
+
+if (!MISTRAL_API_KEY) {
+  console.error("❌ MISTRAL_API_KEY environment variable is required.");
+  console.error("   Usage: MISTRAL_API_KEY=your-key node scripts/generate-ai-summaries.mjs");
+  process.exit(1);
+}
 
 // Writing style prompt based on user preferences
 const STYLE_INSTRUCTIONS = `You write in a concise, focused style. Key principles:

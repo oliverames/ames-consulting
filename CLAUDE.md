@@ -1,6 +1,4 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# ames.consulting
 
 ## Project Overview
 
@@ -20,6 +18,10 @@ Content is sourced from a Micro.blog JSON feed (with local fallback) and rendere
 | **JS lint** | `npm run lint:js` |
 | **Local dev server** | `python3 -m http.server 4173` |
 | **Generate sitemap/robots** | `node scripts/generate-seo-artifacts.mjs --out-dir _site` |
+| **Generate blog pages** | `npm run generate:blog-posts` |
+| **Generate photography galleries** | `npm run generate:photography` |
+| **Generate EastRise pages** | `npm run generate:eastrise` |
+| **Generate AI summaries** | `npm run generate:ai-summaries` (uses Mistral) |
 
 Always run `npm run check:all` before committing.
 
@@ -54,15 +56,18 @@ Node.js scripts (`.mjs`) generate static HTML pages from dynamic sources (Micro.
 
 Key scripts:
 - **generate-seo-artifacts.mjs** — Creates sitemap.xml, robots.txt
-- **generate-blog-pages.mjs** — Creates individual blog post HTML from Micro.blog content
-- **generate-photography-pages.mjs** — Creates gallery pages from photography.json
+- **generate-blog-posts.mjs** — Creates individual blog post HTML from Micro.blog content
+- **generate-photography-galleries.mjs** — Creates gallery pages from photography.json
 - **generate-eastrise-pages.mjs** — Creates EastRise blog post pages from XML feed
+- **generate-ai-summaries.mjs** — Generates blog previews via Mistral API
+- **parse-eastrise-blogs.mjs** — Parses EastRise XML feed into normalized data
+- **analyze-photo-folder.mjs** / **process-beta-photos.mjs** — Photo processing utilities
 
 **CI requirement:** Deploy workflow must run `npm ci` and all generation scripts before deploying to prevent silent failures.
 
 ### Routes
 
-`/` (home), `/blog/`, `/work/`, `/work/bcbs-vt-app/`, `/work/sunshine-trail/`, `/contact/`, `/likes/`, `/colophon/`
+`/` (home), `/blog/`, `/work/`, `/work/bcbs-vt-app/`, `/work/sunshine-trail/`, `/work/eastrise-writing/`, `/photography/`, `/links/`, `/contact/`, `/likes/`, `/colophon/`
 
 ## Testing
 
@@ -82,19 +87,13 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 
 - **Relative paths only**: All internal links and asset references must use relative paths (`./`, `../`). Absolute paths break GitHub Pages subdirectory deployments.
 - **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
-- **Semantic HTML**: landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), no div soup; maintain heading hierarchy without skips
-- **Progressive enhancement**: features check for browser support, degrade gracefully; include `<noscript>` fallbacks for JS-rendered content (especially for client-side populated sections like `blog-strip`)
-- **Homepage section structure**: Consistent pattern: `path-row` (container) → `h2` (heading with link) → `path-strip` (horizontal scrollable) → `path-browse` (CTA link)
-- **Slug generation**: Use centralized `generateSlug()` function for URL-safe slugs to ensure consistency across all static pages
-- **Social links** use `rel="me noopener"` for IndieWeb identity verification
-- **JSON-LD structured data** on every page (WebSite, WebPage, Person, CreativeWork, etc.) — no `SearchAction` (client-side search only)
-- **Touch targets**: minimum 44px per Apple HIG
-- **Accessibility**: WCAG AA contrast (4.5:1 for body text), reduced-motion respected, `aria-current="page"` for exact-match nav links, `aria-current="true"` for section-parent nav links; each `<nav>` landmark must have a unique `aria-label`
-- **SVG icons**: `fill: currentColor` on paths, `aria-hidden="true"` on `<svg>`, `aria-label` on parent `<a>`
-- **HTML validation**: Always use `&amp;` (not raw `&`); `<link rel="canonical">` requires `href` attribute
-- **External content security**: Use `DOMParser` (not `innerHTML`) for untrusted HTML. Update CSP headers for external image sources (e.g., `img-src 'self' https://www.eastrise.com https: data:;`)
-- **Images**: always set explicit `width` and `height` attributes for CLS prevention
-- **CSS features in use**: nesting (`&:hover`), logical properties (`margin-inline`, `padding-block-end`), Display P3 with sRGB fallbacks
+- **Progressive enhancement**: `<noscript>` fallbacks for JS-rendered content (especially `blog-strip`)
+- **Homepage section structure**: `path-row` (container) → `h2` (heading with link) → `path-strip` (horizontal scrollable) → `path-browse` (CTA link)
+- **Slug generation**: Use centralized `generateSlug()` for URL-safe slugs
+- **Social links**: `rel="me noopener"` for IndieWeb identity verification
+- **JSON-LD**: Every page has structured data — no `SearchAction` (client-side search only)
+- **`aria-current`**: `"page"` for exact-match nav links, `"true"` for section-parent links; each `<nav>` needs unique `aria-label`
+- **External content**: Use `DOMParser` (not `innerHTML`) for untrusted HTML. Keep CSP headers updated for external image sources.
 - **2-space indentation**, LF line endings (see `.editorconfig`)
 
 ## Design System Reference

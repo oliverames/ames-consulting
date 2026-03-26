@@ -5,12 +5,29 @@
 </p>
 
 <p align="center">
+  <code>static site</code> &bull;
+  <code>GitHub Pages</code> &bull;
+  <code>no framework</code>
+</p>
+
+<p align="center">
   <a href="https://ames.consulting"><img src="https://img.shields.io/badge/Live_Site-ames.consulting-f5a542?style=flat-square" alt="Live Site"></a>
+  <a href="https://www.buymeacoffee.com/oliverames"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee"></a>
+</p>
+
+<p align="center">
+  <a href="#site-structure">Structure</a> &bull;
+  <a href="#local-development">Development</a> &bull;
+  <a href="#cicd">CI/CD</a>
 </p>
 
 ---
 
-Standards-forward static site on GitHub Pages with a blog stream powered by Micro.blog. No framework lock-in — just HTML, CSS, and ES modules.
+## Why This Structure
+
+A personal site should outlast whatever framework is trending. This site uses zero build-time JavaScript frameworks — just HTML, CSS (cascade layers, container queries, registered custom properties), and ES modules. Content flows from a single Micro.blog JSON feed into a normalized post model, with views filtered client-side. The result is a fast, standards-forward site that's easy to maintain and doesn't require a Node.js build pipeline to deploy.
+
+Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
 
 ## Site Structure
 
@@ -20,18 +37,21 @@ Standards-forward static site on GitHub Pages with a blog stream powered by Micr
 | `/work/` | Work landing — software and web project categories |
 | `/work/bcbs-vt-app/` | BCBS VT companion app case study |
 | `/work/sunshine-trail/` | The Sunshine Trail interactive map case study |
+| `/work/eastrise-writing/` | EastRise Credit Union writing portfolio |
 | `/blog/` | Full Micro.blog post stream with tag/search filtering |
+| `/photography/` | Photography galleries organized by shoot |
+| `/links/` | Link directory |
 | `/contact/` | Contact form and social links |
 | `/likes/` | Stuff I Like — curated recommendations |
 | `/colophon/` | How this site is built |
 
-## Why This Structure
+## Architecture Decisions
 
-- One content source: Micro.blog posts.
-- One canonical content model: every entry is a `post`.
-- Blog and filtered views are presentations of the same stream.
-- Work pages are hand-crafted case studies with static HTML.
-- Progressive enhancement: modern platform features with functional fallbacks.
+- **One content source**: Micro.blog posts.
+- **One canonical model**: every entry is a `post`.
+- **Blog and filtered views** are presentations of the same stream.
+- **Work pages** are hand-crafted case studies with static HTML.
+- **Progressive enhancement**: modern platform features with functional fallbacks.
 
 ### Content Backend
 

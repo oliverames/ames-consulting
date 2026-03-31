@@ -79,18 +79,24 @@
         <p>Articles, essays, and resources worth reading.</p>
 
         <h2>Technology &amp; Design</h2>
-        <ul>
-          <li><a href="#">Example link — Description of the article</a></li>
+        <ul class="links-list">
+          <li>
+            <a href="#">Example Article Title<span class="link-domain">example.com</span></a>
+          </li>
         </ul>
 
         <h2>Content Strategy</h2>
-        <ul>
-          <li><a href="#">Example link — Description of the article</a></li>
+        <ul class="links-list">
+          <li>
+            <a href="#">Example Article Title<span class="link-domain">example.com</span></a>
+          </li>
         </ul>
 
         <h2>Vermont &amp; Local</h2>
-        <ul>
-          <li><a href="#">Example link — Description of the article</a></li>
+        <ul class="links-list">
+          <li>
+            <a href="#">Example Article Title<span class="link-domain">example.com</span></a>
+          </li>
         </ul>
       </section>
     </main>
@@ -107,5 +113,14 @@
         </ul>
       </div>
     </footer>
+  <script>
+    (function() {
+      var h = document.querySelector('.site-header');
+      if (!h) return;
+      function check() { h.toggleAttribute('data-scrolled', window.scrollY > 10); }
+      window.addEventListener('scroll', check, { passive: true });
+      check();
+    })();
+  </script>
   </body>
 </html>

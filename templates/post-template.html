@@ -84,7 +84,7 @@
       <article class="project-content">
         <h1>{{TITLE}}</h1>
         <p class="project-summary">{{SUMMARY}}</p>
-        <div class="dialog-meta">{{PUBLISHED_AT_FORMATTED}} • {{READ_TIME}}</div>
+        <div class="blog-post-meta">{{PUBLISHED_AT_FORMATTED}} • {{READ_TIME}}</div>
 
         <div class="blog-post-content">
           {{CONTENT_HTML}}
@@ -106,5 +106,14 @@
         </ul>
       </div>
     </footer>
+  <script>
+    (function() {
+      var h = document.querySelector('.site-header');
+      if (!h) return;
+      function check() { h.toggleAttribute('data-scrolled', window.scrollY > 10); }
+      window.addEventListener('scroll', check, { passive: true });
+      check();
+    })();
+  </script>
   </body>
 </html>

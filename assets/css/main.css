@@ -70,13 +70,13 @@
     --measure-reading: min(65ch, 92vw);
 
     /* Shadows — Drafts Capture layered system */
-    --shadow-card: 0 0 0 0.5px rgba(0,0,0,0.08),
-                   0 2px 6px rgba(0,0,0,0.05),
-                   0 8px 24px rgba(0,0,0,0.04);
-    --shadow-card-hover: 0 0 0 0.5px rgba(0,0,0,0.08),
-                         0 4px 12px rgba(0,0,0,0.08),
-                         0 12px 32px rgba(0,0,0,0.06);
-    --shadow-photo: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-card: 0 0 0 0.5px rgba(0,0,0,0.10),
+                   0 2px 6px rgba(0,0,0,0.07),
+                   0 8px 24px rgba(0,0,0,0.05);
+    --shadow-card-hover: 0 0 0 0.5px rgba(0,0,0,0.10),
+                         0 4px 12px rgba(0,0,0,0.10),
+                         0 14px 36px rgba(0,0,0,0.08);
+    --shadow-photo: 0 2px 8px rgba(0,0,0,0.08);
 
     /* Transition */
     --transition-snappy: 0.12s ease;
@@ -86,9 +86,9 @@
   :root,
   [data-theme="light"] {
     --surface-0: #faf8f5;
-    --surface-1: #f3f0eb;
-    --surface-2: #e8e4dd;
-    --surface-page: #f3f0eb;
+    --surface-1: #ede8e0;
+    --surface-2: #e0dbd2;
+    --surface-page: #ede8e0;
     --text-0: #000000;
     --text-1: #666666;
     --accent: #f5a542;
@@ -389,11 +389,23 @@
     display: grid;
     gap: var(--space-5);
     padding: var(--space-3) 0;
+    border-top: var(--border-soft);
+    margin-top: var(--space-2);
   }
 
   .path-row {
     display: grid;
     gap: var(--space-2);
+  }
+
+  /* Editorial text strip (used in Links row, blog noscript) */
+  .path-strip > p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-1);
+    line-height: 1.6;
+    max-width: 42ch;
+    padding: var(--space-2) 0;
   }
 
   .path-strip {
@@ -773,7 +785,7 @@
   }
 
   /* ─── Work List Items ─── */
-  .work-item a {
+  .work-item {
     display: grid;
     gap: var(--space-1);
     text-decoration: none;
@@ -785,7 +797,7 @@
     transition: box-shadow var(--transition-snappy), transform var(--transition-snappy);
   }
 
-  .work-item a:hover {
+  .work-item:hover {
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-2px);
   }
@@ -805,7 +817,7 @@
     color: var(--accent);
   }
 
-  .work-item a:hover h3 {
+  .work-item:hover h3 {
     color: var(--accent-hover);
   }
 

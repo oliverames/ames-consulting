@@ -2081,6 +2081,119 @@
     border-color: #faf8f5;
     color: #faf8f5;
   }
+
+  /* ─── Restyled .home-paths under [data-stripe] ─── */
+  /* The legacy horizontal-scroll preview strips stay structurally
+     identical (preserving deep links into Photography, Writing, and
+     Links categories that the featured bento doesn't fully cover), but
+     the visual treatment lifts to match the new tile aesthetic:
+     rounded radii, gradient hover, two-tone section heading. */
+  [data-stripe] .home-paths {
+    border-top: 1px solid color-mix(in oklch, var(--ink-0) 8%, transparent);
+    padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(3rem, 5vw, 4rem);
+    margin-top: 0;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  [data-stripe] .home-paths .path-row {
+    gap: 1rem;
+  }
+
+  /* Section heading: matches bento__head visual but smaller, no
+     two-tone elaboration. The h2 link itself loses the "underlined
+     accent rule" of the existing pattern in favor of a clean lead
+     plus a small "Browse →" affordance underneath. */
+  [data-stripe] .home-paths .path-row h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+    letter-spacing: var(--tracking-display);
+    line-height: 1.1;
+    text-transform: none;
+    border-bottom: 0;
+    padding-bottom: 0;
+    display: block;
+  }
+
+  [data-stripe] .home-paths .path-row h2 a {
+    color: var(--ink-0);
+    text-decoration: none;
+  }
+
+  [data-stripe] .home-paths .path-row h2 a:hover {
+    color: var(--accent-hover);
+  }
+
+  /* Path thumbs: same shape as bento tiles (rounded, lifted, image
+     scales on hover). The horizontal scroll behavior is preserved. */
+  [data-stripe] .home-paths .path-thumb {
+    border-radius: var(--radius-tile);
+    overflow: hidden;
+    transition: transform var(--motion-snap), box-shadow var(--motion-snap);
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--ink-0) 8%, transparent),
+      0 1px 2px color-mix(in oklch, var(--ink-0) 6%, transparent);
+  }
+
+  [data-stripe] .home-paths .path-thumb:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--ink-0) 12%, transparent),
+      0 14px 32px color-mix(in oklch, var(--ink-0) 12%, transparent);
+  }
+
+  [data-stripe] .home-paths .path-thumb img {
+    border-radius: 0; /* radius lives on the parent now, so the image fills cleanly */
+    box-shadow: none;
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  [data-stripe] .home-paths .path-thumb:hover img {
+    transform: scale(1.04);
+    box-shadow: none;
+  }
+
+  /* Editorial text strip (used in Links row): sits flush left with
+     measured width and slightly larger type than before. */
+  [data-stripe] .home-paths .path-strip > p {
+    color: var(--ink-1);
+    font-size: 1rem;
+    max-width: 48ch;
+    padding-block: 0.5rem;
+  }
+
+  /* "Browse" affordance: pill-button shape that matches the hero CTAs
+     in miniature. Replaces the current text-arrow link. */
+  [data-stripe] .home-paths .path-browse {
+    align-self: start;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ink-0);
+    border: 1px solid color-mix(in oklch, var(--ink-0) 18%, transparent);
+    font-size: 0.85rem;
+  }
+
+  [data-stripe] .home-paths .path-browse:hover {
+    border-color: var(--ink-0);
+    color: var(--ink-0);
+    transform: none;
+  }
+
+  /* Reduced motion: disable the hover scale and translate on path
+     thumbs to keep parity with the bento tiles. */
+  @media (prefers-reduced-motion: reduce) {
+    [data-stripe] .home-paths .path-thumb,
+    [data-stripe] .home-paths .path-thumb img {
+      transition: none;
+    }
+    [data-stripe] .home-paths .path-thumb:hover {
+      transform: none;
+    }
+    [data-stripe] .home-paths .path-thumb:hover img {
+      transform: none;
+    }
+  }
 }
 
 @layer utilities {

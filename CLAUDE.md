@@ -25,6 +25,19 @@ Content is sourced from a Micro.blog JSON feed (with local fallback) and rendere
 
 Always run `npm run check:all` before committing.
 
+`check:all` runs five checks in order: `check:js-syntax`, `lint:js`, `check:html`, `check:structured-data`, `check:sample-data`. Run individual checks when debugging a specific failure.
+
+## First-Run Setup
+
+New clone or fresh dev session: the app needs `assets/data/site.config.json` or it silently falls back to `assets/data/content.example.json` (local sample data).
+
+```bash
+cp assets/data/site.config.example.json assets/data/site.config.json
+# Edit site.config.json: set jsonFeedUrl to your Micro.blog JSON feed
+```
+
+Without this file, `app.js` falls back to `content.example.json` automatically — useful for UI development but not for testing live content.
+
 ## Architecture
 
 ### CSS — Cascade Layers (`assets/css/main.css`)
@@ -95,6 +108,14 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 - **`aria-current`**: `"page"` for exact-match nav links, `"true"` for section-parent links; each `<nav>` needs unique `aria-label`
 - **External content**: Use `DOMParser` (not `innerHTML`) for untrusted HTML. Keep CSP headers updated for external image sources.
 - **2-space indentation**, LF line endings (see `.editorconfig`)
+
+## README Known Gaps (public repo)
+
+The README is missing two items per the `ames-standalone-skills:readme-style` style guide:
+- **No header icon/logo** — style guide requires a centered icon above the `<h1>`
+- **No license badge** — badge row should include a `license-MIT` badge before Buy Me a Coffee
+
+Fix these the next time the README is updated.
 
 ## Design System Reference
 

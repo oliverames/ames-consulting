@@ -1541,6 +1541,17 @@
     text-transform: uppercase;
     color: var(--ink-1);
   }
+
+  /* Social-only intro variant: tight under the hero, no top padding,
+     keeps the social-icons-prominent design preference. */
+  [data-stripe] .intro--social-only {
+    padding: var(--space-2) 0 var(--space-3);
+    max-width: none;
+  }
+
+  [data-stripe] .intro--social-only .social-links {
+    margin-top: 0;
+  }
 }
 
 @layer utilities {

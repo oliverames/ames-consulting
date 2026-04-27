@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-view="home">
+<html lang="en" data-view="home" data-stripe>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -91,9 +91,40 @@
     </header>
 
     <main id="main-content" tabindex="-1">
-      <section class="intro">
-        <h1>I translate complex ideas into stories people care about.</h1>
-        <p>I'm Oliver Ames — a content strategist, software tinkerer, and video producer in Montpelier, Vermont. This is where my work lives.</p>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__mesh" aria-hidden="true"></div>
+        <div class="hero__noise" aria-hidden="true"></div>
+
+        <div class="hero__inner">
+          <span class="hero__eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            New: BETA Career Day, February 2026
+          </span>
+
+          <!-- H1: working draft (option A from copy proposal). Awaiting Oliver's pick from A/B/C. -->
+          <h1 id="hero-title">Stories that <em>earn their keep.</em></h1>
+
+          <p class="hero__sub">
+            <strong>Content marketing and strategy from Montpelier, Vermont.</strong>
+            The tools are photography, writing, and software. Six years of independent work for clients who care about craft.
+          </p>
+
+          <div class="hero__ctas">
+            <!-- TODO Phase 3: rename /blog/ → /writing/ with redirect aliases -->
+            <a class="hero-btn hero-btn--primary" href="work/">See the work <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="hero-btn hero-btn--ghost" href="blog/">Read the writing <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+
+          <section class="proof" aria-label="Practice in numbers">
+            <div class="proof__cell"><div class="num">12</div><div class="label">Shoots published</div></div>
+            <div class="proof__cell"><div class="num">47</div><div class="label">Essays</div></div>
+            <div class="proof__cell"><div class="num">3</div><div class="label">Apps shipped</div></div>
+            <div class="proof__cell"><div class="num">2020</div><div class="label">Practicing since</div></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="intro intro--social-only" aria-label="Social links">
         <nav aria-label="Social media">
           <ul class="social-links">
             <li><a href="mailto:oliverames@gmail.com" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 18 18" aria-hidden="true"><path d="M8.88,8.827c.074,.042,.166,.042,.24,0l7.777-4.283c-.314-1.173-1.376-2.044-2.647-2.044H3.75c-1.267,0-2.326,.865-2.643,2.033l7.773,4.293Z"/><path d="M9.845,10.14c-.264,.146-.554,.219-.844,.219s-.582-.073-.846-.22L1,6.188v6.562c0,1.517,1.233,2.75,2.75,2.75H14.25c1.517,0,2.75-1.233,2.75-2.75V6.2l-7.155,3.94Z"/></svg></a></li>

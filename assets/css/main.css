@@ -2118,6 +2118,28 @@
         animation-range: entry 0% entry 30%;
       }
 
+      /* Stripe-scoped section reveals. Each top-level section on the
+         redesigned homepage fades and rises as it scrolls into view.
+         The animation runs entirely on the compositor (opacity + transform),
+         so it doesn't trigger layout. Skipped automatically under
+         prefers-reduced-motion via the parent media query. */
+      [data-stripe] .bento,
+      [data-stripe] .explainer,
+      [data-stripe] .quote,
+      [data-stripe] .cta-band {
+        animation: fade-slide-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 30%;
+      }
+
+      /* Practice cards stagger via per-child animation-delay; each one
+         enters slightly later than the last for a tactile read. */
+      [data-stripe] .practice-card {
+        animation: fade-slide-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 50%;
+      }
+
       @keyframes fade-slide-up {
         from {
           opacity: 0;

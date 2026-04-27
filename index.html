@@ -74,6 +74,26 @@
       }
     </script>
     <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- Speculation Rules: prerender work case studies on hover/pointerdown.
+         Chromium-only (Chrome 121+). Other browsers ignore this script,
+         the same links still navigate normally without warm-up. -->
+    <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "where": {
+            "or": [
+              { "href_matches": "/work/sunshine-trail/" },
+              { "href_matches": "/work/bcbs-vt-app/" },
+              { "href_matches": "/work/eastrise-writing/" }
+            ]
+          },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -435,5 +455,6 @@
     })();
   </script>
   <script src="assets/js/bento-lightbox.js" defer></script>
+  <script src="assets/js/stat-counter.js" defer></script>
   </body>
 </html>

@@ -1859,6 +1859,228 @@
       transform: none;
     }
   }
+
+  /* ─── Two-tone explainer band + practice cards ─── */
+  [data-stripe] .explainer {
+    padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3rem);
+  }
+
+  [data-stripe] .explainer__lead {
+    max-width: 36ch;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--type-section);
+    letter-spacing: var(--tracking-display);
+    line-height: 1.1;
+    color: var(--ink-0);
+    margin: 0 0 0.75rem;
+  }
+
+  [data-stripe] .explainer__elab {
+    max-width: 56ch;
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.6;
+    color: var(--ink-1);
+    margin: 0 0 2.5rem;
+  }
+
+  [data-stripe] .explainer__elab strong {
+    color: var(--ink-0);
+    font-weight: 500;
+  }
+
+  [data-stripe] .practice-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @media (width < 720px) {
+    [data-stripe] .practice-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  [data-stripe] .practice-card {
+    display: block;
+    padding: 1.5rem;
+    border-radius: var(--radius-tile);
+    background: var(--surface-1);
+    border: 1px solid color-mix(in oklch, var(--ink-0) 6%, transparent);
+    transition: border-color var(--motion-snap), transform var(--motion-snap), box-shadow var(--motion-snap);
+  }
+
+  [data-stripe] .practice-card:hover {
+    border-color: color-mix(in oklch, var(--accent) 50%, transparent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px color-mix(in oklch, var(--ink-0) 8%, transparent);
+  }
+
+  [data-stripe] .practice-card__name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    color: var(--ink-0);
+    margin: 0 0 0.5rem;
+  }
+
+  [data-stripe] .practice-card__desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-1);
+    margin: 0 0 1rem;
+  }
+
+  [data-stripe] .practice-card__example {
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-hover);
+    text-decoration: none;
+  }
+
+  [data-stripe] .practice-card__example:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  /* ─── Customer-quote slot ─── */
+  [data-stripe] .quote {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-top: 1px solid color-mix(in oklch, var(--ink-0) 8%, transparent);
+    border-bottom: 1px solid color-mix(in oklch, var(--ink-0) 8%, transparent);
+  }
+
+  [data-stripe] .quote__text {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    color: var(--ink-0);
+    max-width: 32ch;
+    margin: 0 0 1.5rem;
+  }
+
+  [data-stripe] .quote__attr {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--ink-1);
+  }
+
+  [data-stripe] .quote__name {
+    font-weight: 600;
+    color: var(--ink-0);
+    letter-spacing: 0.02em;
+  }
+
+  [data-stripe] .quote__role {
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+
+  /* ─── Dark CTA band (uses surface-deep / inverted ink) ─── */
+  [data-stripe] .cta-band {
+    margin-block: clamp(3rem, 5vw, 4rem) 0;
+    margin-inline: calc(-1 * clamp(1rem, 4vw, 3rem));
+    padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+    background: var(--surface-deep, #1c2929);
+    color: #faf8f5;
+    border-radius: 0;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  /* A subtle gradient wash pulled from the same hero stops, but at low
+     opacity so the band reads as dark first, brand-tinted second. */
+  [data-stripe] .cta-band::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto -10%;
+    height: 70%;
+    z-index: -1;
+    background:
+      radial-gradient(60% 70% at 22% 0%, var(--accent) 0%, transparent 60%),
+      radial-gradient(60% 70% at 80% 0%, var(--accent-plum) 0%, transparent 65%);
+    filter: blur(80px) saturate(110%);
+    opacity: 0.32;
+    pointer-events: none;
+  }
+
+  [data-stripe] .cta-band__inner {
+    max-width: var(--measure-wide);
+    margin-inline: auto;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  @media (width < 760px) {
+    [data-stripe] .cta-band__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  [data-stripe] .cta-band h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-display);
+    margin: 0 0 0.75rem;
+    color: #faf8f5;
+  }
+
+  [data-stripe] .cta-band__sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: color-mix(in oklch, #faf8f5 75%, transparent);
+    max-width: 50ch;
+    margin: 0;
+  }
+
+  [data-stripe] .cta-band__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  [data-stripe] .cta-band .hero-btn--primary {
+    background: var(--accent);
+    color: var(--ink-0);
+  }
+
+  [data-stripe] .cta-band .hero-btn--primary:hover {
+    background: var(--accent-hover);
+    color: #faf8f5;
+  }
+
+  [data-stripe] .cta-band .hero-btn--ghost {
+    color: #faf8f5;
+    border-color: color-mix(in oklch, #faf8f5 22%, transparent);
+  }
+
+  [data-stripe] .cta-band .hero-btn--ghost:hover {
+    border-color: #faf8f5;
+    color: #faf8f5;
+  }
 }
 
 @layer utilities {

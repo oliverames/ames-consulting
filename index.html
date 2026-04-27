@@ -136,6 +136,137 @@
         </nav>
       </section>
 
+      <section class="bento" aria-labelledby="bento-featured-title">
+        <div class="bento__head">
+          <h2 id="bento-featured-title">Featured work and shoots</h2>
+          <p><strong>Click a project to read the case study.</strong> Click a shoot to expand the gallery in place. Press Escape or swipe down to close.</p>
+        </div>
+
+        <ul class="bento__grid">
+          <li>
+            <a class="tile tile--lg" href="work/sunshine-trail/" style="view-transition-name: tile-sunshine">
+              <picture class="tile__cover">
+                <img src="assets/images/work/sunshine-trail/hero.jpg" alt="The Sunshine Trail interactive map for Lawson's Finest Liquids" width="1200" height="627" loading="lazy" decoding="async">
+              </picture>
+              <div class="tile__shade" aria-hidden="true"></div>
+              <div class="tile__meta">
+                <div class="tile__where">Web · Lawson's Finest Liquids</div>
+                <div class="tile__name">The Sunshine Trail</div>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="tile tile--md" href="photography/beta-career-day-2026/" data-shoot="beta-career-day-2026" style="view-transition-name: tile-beta">
+              <picture class="tile__cover">
+                <img src="assets/images/photography/beta-career-day-2026/beta-01.webp" alt="BETA Technologies Career Day 2026" width="1200" height="800" loading="lazy" decoding="async">
+              </picture>
+              <div class="tile__shade" aria-hidden="true"></div>
+              <span class="tile__expand" aria-hidden="true">⤢</span>
+              <div class="tile__meta">
+                <div class="tile__where">Burlington, VT · Feb 2026</div>
+                <div class="tile__name">BETA Technologies Career Day</div>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="tile tile--md" href="work/bcbs-vt-app/" style="view-transition-name: tile-bcbs">
+              <picture class="tile__cover">
+                <img src="assets/images/work/bcbs-vt-app/hero.png" alt="BCBS VT companion app screenshots" width="1200" height="627" loading="lazy" decoding="async">
+              </picture>
+              <div class="tile__shade" aria-hidden="true"></div>
+              <div class="tile__meta">
+                <div class="tile__where">Software · iOS · SwiftUI</div>
+                <div class="tile__name">BCBS VT Companion App</div>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="tile tile--md" href="photography/montpelier-winter-2026/" data-shoot="montpelier-winter-2026" style="view-transition-name: tile-winter">
+              <picture class="tile__cover">
+                <img src="assets/images/photography/montpelier-winter-2026/photo-2.jpg" alt="Montpelier Winter Scenes" width="1200" height="800" loading="lazy" decoding="async">
+              </picture>
+              <div class="tile__shade" aria-hidden="true"></div>
+              <span class="tile__expand" aria-hidden="true">⤢</span>
+              <div class="tile__meta">
+                <div class="tile__where">Montpelier · Jan 2026</div>
+                <div class="tile__name">Winter Scenes</div>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="tile tile--md" href="work/eastrise-writing/" style="view-transition-name: tile-eastrise">
+              <picture class="tile__cover">
+                <img src="https://www.eastrise.com/wp-content/uploads/2025/10/shutterstock_2499682643-scaled.jpg" alt="EastRise Credit Union writing samples" width="1200" height="675" loading="lazy" decoding="async">
+              </picture>
+              <div class="tile__shade" aria-hidden="true"></div>
+              <div class="tile__meta">
+                <div class="tile__where">Content strategy · EastRise CU</div>
+                <div class="tile__name">EastRise Writing</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Inlined gallery data for the lightbox. Source of truth is
+           assets/data/photography.json; this is a tiny subset for the
+           tiles featured above, so the lightbox needs no fetch on open. -->
+      <script id="bento-galleries" type="application/json">
+      {
+        "beta-career-day-2026": {
+          "title": "BETA Technologies Career Day · 2026",
+          "where": "Burlington, VT",
+          "basePath": "assets/images/photography/beta-career-day-2026/",
+          "images": [
+            { "src": "beta-01.webp", "alt": "BETA Technologies aircraft display at Career Day", "width": 1200, "height": 1800 },
+            { "src": "beta-02.webp", "alt": "Aviation technology showcase at BETA Career Day", "width": 1200, "height": 1800 },
+            { "src": "beta-03.webp", "alt": "Students exploring electric aviation technology", "width": 1200, "height": 1800 },
+            { "src": "beta-04.webp", "alt": "BETA Technologies workspace demonstration", "width": 1200, "height": 1800 },
+            { "src": "beta-05.webp", "alt": "Career Day attendees learning about sustainable aviation", "width": 1200, "height": 1800 },
+            { "src": "beta-06.webp", "alt": "Innovation in electric aircraft development", "width": 1200, "height": 1800 },
+            { "src": "beta-07.webp", "alt": "Collaborative workspace at BETA Technologies", "width": 1200, "height": 800 },
+            { "src": "beta-08.webp", "alt": "Engineering team demonstrating aviation systems", "width": 1200, "height": 800 },
+            { "src": "beta-09.webp", "alt": "Technical discussion at Career Day event", "width": 1200, "height": 800 },
+            { "src": "beta-10.webp", "alt": "Future of aviation technology presentation", "width": 1200, "height": 1800 },
+            { "src": "beta-11.webp", "alt": "Electric aircraft development process showcase", "width": 1200, "height": 1800 },
+            { "src": "beta-12.webp", "alt": "BETA Technologies Career Day networking", "width": 1200, "height": 1800 }
+          ]
+        },
+        "montpelier-winter-2026": {
+          "title": "Montpelier Winter · 2026",
+          "where": "Montpelier, VT",
+          "basePath": "assets/images/photography/montpelier-winter-2026/",
+          "images": [
+            { "src": "photo-2.jpg", "alt": "Montpelier street in winter", "width": 800, "height": 600 },
+            { "src": "photo-3.jpg", "alt": "Winter scene from Montpelier", "width": 800, "height": 600 },
+            { "src": "photo-4.jpg", "alt": "Vermont winter landscape", "width": 800, "height": 600 }
+          ]
+        }
+      }
+      </script>
+
+      <!-- Lightbox dialog. One global dialog; content swapped per shoot.
+           Native <dialog> handles ESC, focus trap, scroll lock, and inert
+           semantics for the rest of the page. -->
+      <dialog class="lightbox" id="bento-lightbox" aria-label="Photo gallery">
+        <div class="lightbox__inner">
+          <div class="lightbox__stage">
+            <img class="lightbox__photo" id="lightbox-photo" alt="" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221%22%20height%3D%221%22%2F%3E" decoding="async" fetchpriority="high">
+            <button type="button" class="lightbox__btn lightbox__close" id="lightbox-close" aria-label="Close gallery">×</button>
+            <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="Previous photo">‹</button>
+            <button type="button" class="lightbox__btn lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="Next photo">›</button>
+          </div>
+          <div class="lightbox__caption">
+            <span class="lightbox__title" id="lightbox-title"></span>
+            <span class="lightbox__counter" id="lightbox-counter"></span>
+          </div>
+        </div>
+      </dialog>
+
       <section class="home-paths">
         <div class="path-row">
           <h2><a href="work/">Work</a></h2>
@@ -246,5 +377,6 @@
       check();
     })();
   </script>
+  <script src="assets/js/bento-lightbox.js" defer></script>
   </body>
 </html>

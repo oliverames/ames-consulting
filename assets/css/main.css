@@ -1552,6 +1552,313 @@
   [data-stripe] .intro--social-only .social-links {
     margin-top: 0;
   }
+
+  /* ─── Bento (featured, mixed photo + work tiles) ─── */
+  [data-stripe] .bento {
+    padding: clamp(2rem, 5vw, 4rem) 0 clamp(3rem, 6vw, 5rem);
+  }
+
+  [data-stripe] .bento__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  [data-stripe] .bento__head h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--type-section);
+    letter-spacing: var(--tracking-display);
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  [data-stripe] .bento__head p {
+    margin: 0;
+    color: var(--ink-1);
+    max-width: 42ch;
+  }
+
+  [data-stripe] .bento__head p strong {
+    color: var(--ink-0);
+    font-weight: 500;
+  }
+
+  /* 4-column packed grid: 1 large (2×2) + 4 medium (2×1) = 12 cells / 3 rows.
+     Subgrid keeps tile internals (cover, shade, meta) aligned across rows. */
+  [data-stripe] .bento__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  [data-stripe] .tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-tile);
+    background: var(--surface-1);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--ink-0) 8%, transparent),
+      0 1px 2px color-mix(in oklch, var(--ink-0) 6%, transparent);
+    transition: transform var(--motion-snap), box-shadow var(--motion-snap);
+  }
+
+  [data-stripe] .tile:hover,
+  [data-stripe] .tile:focus-visible {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--ink-0) 12%, transparent),
+      0 14px 32px color-mix(in oklch, var(--ink-0) 12%, transparent);
+    text-decoration: none;
+  }
+
+  [data-stripe] .tile--lg {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  [data-stripe] .tile--md {
+    grid-column: span 2;
+  }
+
+  /* Mobile: 2 columns; everything spans 2 to read like a stack. */
+  @media (width < 900px) {
+    [data-stripe] .bento__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    [data-stripe] .tile--lg {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    [data-stripe] .tile--md {
+      grid-column: span 2;
+    }
+  }
+
+  /* Tile cover image fills the tile; object-fit: cover handles aspect ratio
+     mismatches across mixed shoots/work hero images. */
+  [data-stripe] .tile__cover {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  [data-stripe] .tile__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  [data-stripe] .tile:hover .tile__cover img {
+    transform: scale(1.04);
+  }
+
+  /* Bottom-anchored gradient shade so caption text remains legible over
+     varied photography. Pure CSS overlay — no extra DOM weight per tile. */
+  [data-stripe] .tile__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 35%,
+      color-mix(in oklch, var(--ink-0) 70%, transparent) 100%
+    );
+    pointer-events: none;
+  }
+
+  [data-stripe] .tile__meta {
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.9rem;
+    color: #fff;
+  }
+
+  [data-stripe] .tile__name {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+  }
+
+  [data-stripe] .tile__where {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 0.15rem;
+  }
+
+  /* Photo tiles get a small "expand" affordance so the lightbox interaction
+     is discoverable. The cue is hidden until JS upgrades the link, so
+     no-JS users see a clean tile that links to the gallery page. */
+  [data-stripe] .tile__expand {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--ink-0) 60%, transparent);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  [data-stripe] .tile[data-shoot][data-lightbox-ready] .tile__expand {
+    display: inline-flex;
+  }
+
+  /* ─── Lightbox (dialog) ─── */
+  [data-stripe] .lightbox {
+    width: min(96vw, 1200px);
+    max-width: none;
+    height: min(92vh, 800px);
+    padding: 0;
+    border: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--surface-deep, #1c2929);
+    color: #fff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  [data-stripe] .lightbox::backdrop {
+    background: color-mix(in oklch, var(--ink-0) 75%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  [data-stripe] .lightbox__inner {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    height: 100%;
+  }
+
+  [data-stripe] .lightbox__stage {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    touch-action: pan-y pinch-zoom; /* Allow vertical pan; horizontal handled by JS swipe */
+  }
+
+  [data-stripe] .lightbox__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  [data-stripe] .lightbox__btn {
+    position: absolute;
+    background: color-mix(in oklch, #000 50%, transparent);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    transition: background var(--motion-snap), transform var(--motion-snap);
+  }
+
+  [data-stripe] .lightbox__btn:hover {
+    background: color-mix(in oklch, #000 70%, transparent);
+  }
+
+  [data-stripe] .lightbox__close {
+    top: 1rem;
+    right: 1rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  [data-stripe] .lightbox__nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  [data-stripe] .lightbox__nav:hover {
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  [data-stripe] .lightbox__nav--prev { left: 1rem; }
+  [data-stripe] .lightbox__nav--next { right: 1rem; }
+
+  [data-stripe] .lightbox__caption {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-family: var(--font-heading);
+    letter-spacing: 0.04em;
+    border-top: 1px solid color-mix(in oklch, #fff 12%, transparent);
+  }
+
+  [data-stripe] .lightbox__title {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  [data-stripe] .lightbox__counter {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* View Transitions: shared morph between tile and lightbox photo.
+     `view-transition-name` is set inline per tile (and on the active
+     lightbox photo via JS) so the browser can pair old↔new and animate
+     bounds + crossfade. Works on Chrome 111+ and Safari 18+; other engines
+     simply skip the morph and fall back to the dialog's CSS transitions. */
+  ::view-transition-old(lightbox-photo),
+  ::view-transition-new(lightbox-photo) {
+    animation-duration: var(--motion-morph, 0.35s);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  /* Reduced motion: disable the cover zoom-in and lightbox transforms.
+     The tile lift is a reasonable focus cue; transform-on-hover stays. */
+  @media (prefers-reduced-motion: reduce) {
+    [data-stripe] .tile__cover img,
+    [data-stripe] .lightbox__nav {
+      transition: none;
+    }
+    [data-stripe] .tile:hover .tile__cover img {
+      transform: none;
+    }
+  }
 }
 
 @layer utilities {

@@ -128,7 +128,9 @@ Visual identity documented in `docs/plans/2026-02-11-visual-design-system.md`. T
 - **Homepage layout**: "lmnt.me-style" horizontal preview strips with equal visual weight across all content sections (Work, Blog, Photography, Links).
 - **Blog posts**: open on-site as dedicated full pages (`/blog/post-slug/`) for SEO and direct linking, not as modals or external Micro.blog links.
 - **Photography**: organize into distinct "shoots" (galleries), each with a collage preview on homepage, not a single running gallery.
-- **Footer sitemap**: `site-directory` section should be comprehensive, semantically grouped for all site pages (not just main nav).
-- **Social media**: icons prominent in hero/intro section, with redundant copy in footer.
+- **Footer sitemap**: lives inside the dark `.site-footer` (using `--surface-deep`/#1c2929). Structure: `.site-footer__sitemap` (4-column nav) + `.site-footer__colophon` (OA monogram + signature + social). Same dark footer with sitemap appears on every page. Bottom edge has the gold→red gradient bar.
+- **Social media**: icons appear in the dark footer's `.site-footer__colophon` row alongside the OA monogram. The hero card uses pill CTAs ("See the work" / "Get in touch") instead of social icons.
+- **Hero pattern**: `.hero` card with `--surface-0` background, `--radius-tile` (18px), layered `--shadow-card`, `.hero__mesh` radial gradient (gold/red/plum, blurred 70px, 0.5 opacity), eyebrow chip with red dot, gradient-fill `<em>` in H1, two-tone `<strong>` subhead, ink-fill primary pill button + ghost pill button, gradient-fill proof stats.
+- **Card surface hierarchy**: page background uses `--surface-1` (#ede8e0). All cards lift off the page using `--surface-0` (#faf8f5) + `--shadow-card` triple-stop shadow. `.path-strip` requires `padding-block: 0.75rem 2rem; padding-inline: 1.5rem; margin-inline: -1.5rem` to keep card shadows from clipping at the scroll-container edges.
 - **AI summaries**: use Mistral (`labs-mistral-small-creative`) for blog previews. Writing style: concise, focused, direct.
 - **Build process**: no build step beyond existing scripts (SEO artifact generation). Pure static HTML/CSS.

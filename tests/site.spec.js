@@ -45,10 +45,12 @@ test("static blog post shows read time metadata", async ({ page }) => {
   // Navigate to a generated blog post page
   await page.goto("/blog/spec-first-front-end-planning/");
 
-  // Check for read time in article metadata
+  // Check for read time in article metadata. The template at
+  // templates/post-template.html emits class="blog-post-meta"; an older
+  // committed snapshot used .dialog-meta and the test was never updated.
   await expect(page.locator("article")).toBeVisible();
-  await expect(page.locator(".dialog-meta")).toBeVisible();
-  await expect(page.locator(".dialog-meta")).toContainText("min read");
+  await expect(page.locator(".blog-post-meta")).toBeVisible();
+  await expect(page.locator(".blog-post-meta")).toContainText("min read");
 });
 
 test("blog post page contains content and images", async ({ page }) => {

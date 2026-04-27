@@ -84,7 +84,7 @@
       <article class="project-content">
         <h1>Spec-first front-end planning</h1>
         <p class="project-summary">Define front-end features upfront with a standards matrix, compatibility notes, and test requirements to avoid ad-hoc development.</p>
-        <div class="dialog-meta">February 3, 2026 • 1 min read</div>
+        <div class="blog-post-meta">February 3, 2026 • 1 min read</div>
 
         <div class="blog-post-content">
           <p>Instead of random feature usage, maintain a deliberate standards matrix with compatibility notes and test requirements.</p>
@@ -113,5 +113,14 @@
         </ul>
       </div>
     </footer>
+  <script>
+    (function() {
+      var h = document.querySelector('.site-header');
+      if (!h) return;
+      function check() { h.toggleAttribute('data-scrolled', window.scrollY > 10); }
+      window.addEventListener('scroll', check, { passive: true });
+      check();
+    })();
+  </script>
   </body>
 </html>

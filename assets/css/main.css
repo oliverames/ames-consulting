@@ -5,6 +5,7 @@
 @property --accent { syntax: '<color>'; inherits: true; initial-value: #f5a542; }
 @property --accent-hover { syntax: '<color>'; inherits: true; initial-value: #d94a2d; }
 @property --rule { syntax: '<color>'; inherits: true; initial-value: #cccccc; }
+@property --accent-plum { syntax: '<color>'; inherits: true; initial-value: #7a3a5e; }
 
 @layer reset, tokens, base, layout, components, utilities;
 
@@ -165,6 +166,51 @@
     [data-theme="dark"] {
       --accent: color(display-p3 0.94 0.66 0.28);
       --accent-hover: color(display-p3 0.83 0.30 0.19);
+    }
+  }
+
+  /* ─── Stripe-style additive tokens (scoped to [data-stripe]) ─── */
+  /* Apply <html data-stripe> on a page to opt into the redesigned token set.
+     These tokens supplement (do not replace) the existing system. Existing
+     pages without the attribute keep their current visual treatment. */
+  [data-stripe] {
+    /* Two-tone ink aliases (for Stripe-style two-tone sentence pattern) */
+    --ink-0: var(--text-0);
+    --ink-1: var(--text-1);
+
+    /* Plum used only as the third stop of the hero gradient mesh */
+    --accent-plum: #7a3a5e;
+
+    /* Hero gradient (sRGB fallback) */
+    --gradient-hero: linear-gradient(
+      120deg,
+      var(--accent) 0%,
+      var(--accent-hover) 45%,
+      var(--accent-plum) 100%
+    );
+
+    /* Hero display type scale */
+    --type-hero: clamp(3rem, 7vw, 5.75rem);
+    --type-section: clamp(1.75rem, 3.2vw, 2.75rem);
+    --type-stat: clamp(2.25rem, 4.2vw, 3.25rem);
+    --tracking-display: -0.012em;
+    --leading-display: 0.96;
+
+    /* Hero-only spacing + radii */
+    --radius-pill: 999px;
+    --radius-tile: 18px;
+
+    /* Motion (earned: parallax, fade-rise, tile morph; static fallback elsewhere) */
+    --motion-snap: 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+    --motion-morph: 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  /* OKLCH upgrade for the gradient stops on supporting browsers.
+     Perceptually even ramps from gold → red → plum. Sits behind @supports
+     so older engines fall back to the sRGB hex chain above. */
+  @supports (color: oklch(50% 0.1 0)) {
+    [data-stripe] {
+      --accent-plum: oklch(40% 0.080 350);
     }
   }
 }
@@ -1266,6 +1312,234 @@
   .content-page li {
     margin-bottom: 0.5em;
     line-height: 1.6;
+  }
+
+  /* ─── Stripe-style Hero ─── */
+  /* All `.hero-*` styles are scoped under [data-stripe] so they only apply
+     where the redesign is opted in. Same scoping pattern as the tokens. */
+  [data-stripe] .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(3rem, 8vw, 7rem) clamp(2rem, 5vw, 4rem);
+    padding-inline: clamp(1rem, 4vw, 3rem);
+    margin-inline: calc(-1 * clamp(1rem, 4vw, 3rem));
+  }
+
+  /* Gradient mesh — three radial blobs over a base linear, blurred and
+     overlaid with grain. Confined to the hero by the parent `overflow: hidden`
+     and the negative inset, so it bleeds the full viewport width inside the
+     bounded `<main>` measure. */
+  [data-stripe] .hero__mesh {
+    position: absolute;
+    inset: -15% -10% auto -10%;
+    height: 78%;
+    z-index: -2;
+    background:
+      radial-gradient(60% 65% at 18% 30%, var(--accent) 0%, transparent 60%),
+      radial-gradient(55% 60% at 78% 22%, var(--accent-hover) 0%, transparent 65%),
+      radial-gradient(70% 70% at 55% 90%, var(--accent-plum) 0%, transparent 70%),
+      var(--gradient-hero);
+    filter: blur(70px) saturate(115%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  [data-stripe] .hero__noise {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+  }
+
+  /* Static parallax for engines without scroll-driven animations.
+     Runs as a slow drift; stops entirely under prefers-reduced-motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-stripe] .hero__mesh {
+      animation: hero-mesh-drift 22s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes hero-mesh-drift {
+    0%   { transform: translate3d(0, 0, 0) scale(1); }
+    100% { transform: translate3d(-2%, 1%, 0) scale(1.04); }
+  }
+
+  /* Scroll-driven parallax (Chrome 115+, Safari TP). Replaces JS scroll
+     listeners; the `animation-timeline: scroll(root)` ties the keyframe
+     progression to the page's scroll progress over the first viewport. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      [data-stripe] .hero__mesh {
+        animation: hero-mesh-scroll linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 100vh;
+      }
+
+      @keyframes hero-mesh-scroll {
+        to {
+          transform: translate3d(-3%, 4%, 0) scale(1.06);
+          opacity: 0.32;
+        }
+      }
+    }
+  }
+
+  [data-stripe] .hero__inner {
+    max-width: var(--measure-wide);
+    margin-inline: auto;
+  }
+
+  [data-stripe] .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklch, var(--surface-0) 70%, transparent);
+    border: 1px solid color-mix(in oklch, var(--ink-0) 12%, transparent);
+    color: var(--ink-0);
+    text-decoration: none;
+  }
+
+  [data-stripe] .hero__eyebrow .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--accent-hover);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent-hover) 22%, transparent);
+  }
+
+  [data-stripe] .hero h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--type-hero);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+    margin: 1.5rem 0 1.25rem;
+    max-width: 18ch;
+    color: var(--ink-0);
+  }
+
+  /* Gradient-fill emphasis word inside the H1. The `<em>` tag carries the
+     visual emphasis; we strip italics and apply background-clip text. */
+  [data-stripe] .hero h1 em {
+    font-style: normal;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+
+  [data-stripe] .hero__sub {
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    line-height: 1.6;
+    max-width: 54ch;
+    color: var(--ink-1);
+  }
+
+  /* Two-tone sentence: <strong> is the dark lead clause, the rest is the
+     mid-gray elaboration. Keeps Lora at body weight; <strong> stays 500
+     so the contrast comes from color, not weight. */
+  [data-stripe] .hero__sub strong {
+    color: var(--ink-0);
+    font-weight: 500;
+  }
+
+  [data-stripe] .hero__ctas {
+    display: flex;
+    gap: 0.75rem;
+    margin: 2rem 0 2.75rem;
+    flex-wrap: wrap;
+  }
+
+  [data-stripe] .hero-btn {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background var(--motion-snap), color var(--motion-snap), border-color var(--motion-snap);
+  }
+
+  [data-stripe] .hero-btn--primary {
+    background: var(--ink-0);
+    color: var(--surface-0);
+  }
+
+  [data-stripe] .hero-btn--primary:hover {
+    background: var(--accent-hover);
+    color: var(--surface-0);
+    text-decoration: none;
+  }
+
+  [data-stripe] .hero-btn--ghost {
+    background: transparent;
+    color: var(--ink-0);
+    border: 1px solid color-mix(in oklch, var(--ink-0) 22%, transparent);
+  }
+
+  [data-stripe] .hero-btn--ghost:hover {
+    border-color: var(--ink-0);
+    color: var(--ink-0);
+    text-decoration: none;
+  }
+
+  [data-stripe] .hero-btn .arrow {
+    transition: transform var(--motion-snap);
+  }
+
+  [data-stripe] .hero-btn:hover .arrow {
+    transform: translateX(3px);
+  }
+
+  /* ─── Proof strip ─── */
+  [data-stripe] .proof {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid color-mix(in oklch, var(--ink-0) 12%, transparent);
+  }
+
+  @media (width < 720px) {
+    [data-stripe] .proof {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  [data-stripe] .proof__cell .num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--type-stat);
+    line-height: 1;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+  }
+
+  [data-stripe] .proof__cell .label {
+    margin-top: 0.35rem;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-1);
   }
 }
 

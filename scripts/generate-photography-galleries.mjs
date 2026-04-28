@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 const projectRoot = join(__dirname, "..");
 
 function formatDate(isoDate) {
-  const date = new Date(isoDate);
+  const date = new Date(`${isoDate}T00:00:00`);
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",

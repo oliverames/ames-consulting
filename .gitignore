@@ -7,6 +7,8 @@ dist/
 _site/
 .playwright-mcp/
 test-results/
+output/
+.codex-backups/
 .claude/settings.json
 .claude/settings.local.json
 

@@ -199,13 +199,13 @@ test("home page featured paths include all section links", async ({ page }) => {
   const paths = page.locator(".home-paths");
   await expect(paths).toBeVisible();
 
-  // Work links
-  await expect(paths.getByRole("link", { name: "CareBridge Companion" })).toBeVisible();
-  await expect(paths.getByRole("link", { name: "Neighborhood Giving Map" })).toBeVisible();
+  // Work placeholders
+  await expect(paths.getByRole("link", { name: "Demo Companion App" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "Demo Impact Map" })).toBeVisible();
 
-  // Photography links
-  await expect(paths.getByRole("link", { name: "Lab Open House" })).toBeVisible();
-  await expect(paths.getByRole("link", { name: "Riverside Winter" })).toBeVisible();
+  // Photography and links placeholders
+  await expect(paths.getByRole("link", { name: "Demo Studio Notes" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "Demo research notes" })).toBeVisible();
 
   // Section browse links
   await expect(paths.getByRole("link", { name: "Read the Blog →" })).toBeVisible();
@@ -318,18 +318,14 @@ test("all internal links on home page resolve without 404", async ({ page }) => 
 
 // -- Home Page Path Cards (Work Previews) --
 
-test("home page work path cards link to project detail pages", async ({ page }) => {
+test("home page work path cards link to work index", async ({ page }) => {
   await page.goto("/");
 
-  const bcbsCard = page.locator('.path-thumb[href*="carebridge-companion"]');
-  await expect(bcbsCard).toBeVisible();
+  const companionCard = page.getByRole("link", { name: "Demo Companion App" });
+  await expect(companionCard).toBeVisible();
 
-  const trailCard = page.locator('.path-thumb[href*="neighborhood-giving-map"]');
-  await expect(trailCard).toBeVisible();
-
-  // Click CareBridge card and verify navigation
-  await bcbsCard.click();
-  await expect(page).toHaveURL(/\/work\/carebridge-companion\/$/);
+  await companionCard.click();
+  await expect(page).toHaveURL(/\/work\/$/);
 });
 
 // -- Layout Verification --

@@ -35,7 +35,7 @@ function normalizeSiteUrl(domain) {
 }
 
 async function getKnownRoutes(siteUrl) {
-  const routes = ["/", "/blog/", "/work/", "/work/carebridge-companion/", "/work/neighborhood-giving-map/", "/contact/", "/likes/", "/colophon/"];
+  const routes = ["/", "/blog/", "/work/", "/work/carebridge-companion/", "/work/neighborhood-giving-map/", "/work/eastrise-writing/", "/contact/", "/likes/", "/colophon/"];
   const urls = new Set(routes.map((route) => `${siteUrl}${route}`));
 
   try {
@@ -56,6 +56,19 @@ async function getKnownRoutes(siteUrl) {
     });
   } catch {
     // ignore data errors in generation path
+  }
+
+  try {
+    const content = JSON.parse(await readFile("assets/data/eastrise-blogs.json", "utf8"));
+    (content.posts || []).forEach((post) => {
+      if (typeof post.slug !== "string" || post.slug.trim().length === 0) {
+        return;
+      }
+
+      urls.add(`${siteUrl}/work/eastrise-writing/${post.slug}/`);
+    });
+  } catch {
+    // ignore optional EastRise data in generation path
   }
 
   return [...urls].sort((a, b) => a.localeCompare(b));

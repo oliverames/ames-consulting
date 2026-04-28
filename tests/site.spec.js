@@ -32,6 +32,19 @@ test("primary navigation includes core routes", async ({ page }) => {
   }
 });
 
+test("homepage path strips keep demo placeholders when dynamic content is unavailable", async ({ page }) => {
+  await useLocalContent(page);
+  await page.route("**/photography.json", (route) => route.abort());
+  await page.goto("/");
+
+  await expect(page.locator(".home-paths")).toBeVisible();
+  await expect(page.locator(".path-thumb").first()).toContainText("Demo Companion App");
+  await expect(page.locator("#blog-strip .path-thumb")).toHaveCount(3);
+  await expect(page.locator("#photography-strip .path-thumb")).toHaveCount(3);
+  await expect(page.locator("#photography-strip")).toContainText("Demo Studio Notes");
+  await expect(page.locator(".path-row").filter({ hasText: "Links" })).toContainText("Demo research notes");
+});
+
 test("blog filtering by tag updates status", async ({ page }) => {
   await useLocalContent(page);
   await page.goto("/blog/?tag=portfolio");
@@ -82,10 +95,24 @@ test("photography gallery listing page loads with all galleries", async ({ page 
 
   await expect(page.locator("h1")).toContainText("Photography");
   const galleries = page.locator(".gallery-preview");
-  await expect(galleries).toHaveCount(4);
+  await expect(galleries).toHaveCount(1);
 
-  // Verify galleries have expected content
   await expect(galleries.first()).toContainText("Innovation Lab");
+  await expect(galleries.first().locator("img")).toHaveAttribute(
+    "src",
+    "../assets/images/photography/lab-open-house-2026/lab-01.webp"
+  );
+});
+
+test("homepage photography strip renders from photography data", async ({ page }) => {
+  await useLocalContent(page);
+  await page.goto("/");
+
+  const strip = page.locator("#photography-strip");
+  const gallery = strip.locator(".path-thumb");
+
+  await expect(gallery).toHaveCount(3);
+  await expect(gallery.first()).toContainText("Demo Studio Notes");
 });
 
 test("financial wellness library page loads and displays posts", async ({ page }) => {

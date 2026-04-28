@@ -83,7 +83,7 @@
 
     /* Gradient accent + display type scale (Stripe-extension tier) */
     --accent-plum: #7a3a5e;
-    --web-gradient-hero: linear-gradient(120deg, #f5a542 0%, #d94a2d 45%, #7a3a5e 100%);
+    --web-gradient-hero: linear-gradient(120deg, #f5a542 0%, #d94a2d 48%, #1c2929 100%);
     --web-type-hero: clamp(3rem, 7vw, 5.75rem);
     --web-type-stat: clamp(2.25rem, 4.2vw, 3.25rem);
     --web-type-section: clamp(1.75rem, 3.2vw, 2.75rem);
@@ -462,12 +462,12 @@
     height: 78%;
     z-index: -1;
     background:
-      radial-gradient(60% 65% at 18% 30%, #f5a542 0%, transparent 60%),
-      radial-gradient(55% 60% at 78% 22%, #d94a2d 0%, transparent 65%),
-      radial-gradient(70% 70% at 55% 90%, #7a3a5e 0%, transparent 70%),
-      var(--web-gradient-hero);
-    filter: blur(70px) saturate(115%);
-    opacity: 0.5;
+      radial-gradient(58% 62% at 16% 28%, color-mix(in srgb, var(--accent) 86%, var(--surface-0)) 0%, transparent 64%),
+      radial-gradient(52% 56% at 78% 22%, color-mix(in srgb, var(--accent-hover) 72%, var(--surface-0)) 0%, transparent 68%),
+      radial-gradient(72% 76% at 58% 92%, color-mix(in srgb, var(--surface-deep) 52%, var(--surface-0)) 0%, transparent 72%),
+      linear-gradient(125deg, var(--surface-0) 0%, var(--surface-1) 58%, color-mix(in srgb, var(--surface-deep) 18%, var(--surface-0)) 100%);
+    filter: blur(68px) saturate(108%);
+    opacity: 0.44;
     pointer-events: none;
   }
 
@@ -581,7 +581,6 @@
     display: grid;
     gap: var(--space-5);
     padding: var(--space-3) 0;
-    border-top: var(--border-soft);
     margin-top: var(--space-2);
   }
 
@@ -605,16 +604,8 @@
     gap: var(--space-2);
     overflow-x: auto;
     scroll-snap-type: x proximity;
-    /* Reserve space inside the scroll container so card shadows + hover lift
-       are not clipped at the top/bottom or left/right edges.
-       Vertical: 0.75rem top, 2rem bottom (covers 0 14px 36px hover shadow).
-       Horizontal: 1.5rem each side (covers shadow blur radius extending sideways
-       from first/last tile when scrolled to either extreme). */
     padding-block: 0.75rem 2rem;
-    padding-inline: 1.5rem;
-    margin-inline: -1.5rem;
-    /* Negative margin compensates so the visible content still aligns to the
-       same left/right edges as surrounding sections. */
+    padding-inline: 0.125rem 1.5rem;
   }
 
   .path-thumb {
@@ -636,6 +627,49 @@
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-3px);
     text-decoration: none;
+  }
+
+  .path-thumb--text {
+    min-height: 220px;
+  }
+
+  .path-thumb--text .path-thumb__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    min-height: 100%;
+  }
+
+  .path-thumb--text p {
+    margin: 0;
+    color: var(--text-1);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .path-thumb__img--demo {
+    display: grid;
+    place-items: center;
+    background:
+      linear-gradient(135deg, rgba(245, 165, 66, 0.18), transparent 42%),
+      linear-gradient(160deg, rgba(217, 74, 45, 0.12), transparent 58%),
+      repeating-linear-gradient(135deg, rgba(28, 41, 41, 0.045) 0 10px, transparent 10px 20px),
+      var(--surface-1);
+  }
+
+  .path-thumb__img--demo span {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: var(--surface-0);
+    box-shadow: var(--shadow-card);
+    color: var(--accent-hover);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
   }
 
   .path-thumb__img {
@@ -682,6 +716,9 @@
   }
 
   .path-browse {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
     font-family: var(--font-heading);
     font-size: 1rem;
     font-weight: 600;
@@ -994,6 +1031,7 @@
     padding-bottom: var(--space-1);
     border-bottom: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
     display: inline-block;
+    width: fit-content;
   }
 
   .path-row h2 a {
@@ -1560,10 +1598,15 @@
   .practice-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    align-items: stretch;
     gap: 1rem;
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  .practice-grid > li {
+    display: flex;
   }
 
   @media (max-width: 720px) {
@@ -1573,7 +1616,9 @@
   }
 
   .practice-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     padding: 1.75rem 1.85rem 1.65rem;
     border-radius: var(--radius-tile);
     background: var(--surface-0);
@@ -1606,6 +1651,7 @@
       line-height: 1.55;
       color: var(--text-1);
       margin: 0 0 1.15rem;
+      flex: 1;
     }
 
     & .practice-cta {

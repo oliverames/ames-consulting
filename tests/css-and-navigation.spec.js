@@ -199,9 +199,10 @@ test("home page featured paths include all section links", async ({ page }) => {
   const paths = page.locator(".home-paths");
   await expect(paths).toBeVisible();
 
-  // Work placeholders
-  await expect(paths.getByRole("link", { name: "Demo Companion App" })).toBeVisible();
-  await expect(paths.getByRole("link", { name: "Demo Impact Map" })).toBeVisible();
+  // Work previews
+  await expect(paths.getByRole("link", { name: /CareBridge Companion/ })).toBeVisible();
+  await expect(paths.getByRole("link", { name: /Neighborhood Giving Map/ })).toBeVisible();
+  await expect(paths.getByRole("link", { name: /Benefits Intake Console/ })).toBeVisible();
 
   // Photography and links placeholders
   await expect(paths.getByRole("link", { name: "Demo Studio Notes" })).toBeVisible();
@@ -321,7 +322,11 @@ test("all internal links on home page resolve without 404", async ({ page }) => 
 test("home page work path cards link to work index", async ({ page }) => {
   await page.goto("/");
 
-  const companionCard = page.getByRole("link", { name: "Demo Companion App" });
+  const companionCard = page
+    .locator(".home-paths .path-row")
+    .filter({ hasText: "Work" })
+    .getByRole("link", { name: /CareBridge Companion/ })
+    .first();
   await expect(companionCard).toBeVisible();
 
   await companionCard.click();

@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' https: data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https:; form-action 'self' https:">
     <meta http-equiv="Permissions-Policy" content="accelerometer=(), autoplay=(), camera=(), geolocation=(), microphone=(), payment=(), usb=()">
     <title>Spec-first front-end planning — ames.consulting</title>
-    <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.">
+    <meta name="description" content="A practical way to turn a fuzzy homepage idea into sections, states, and tests before anyone opens CSS.">
     <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
     <meta name="author" content="Avery Morgan">
     <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
@@ -19,11 +19,11 @@
     <meta property="og:type" content="article">
     <meta property="og:locale" content="en_US">
     <meta property="og:title" content="Spec-first front-end planning">
-    <meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.">
+    <meta property="og:description" content="A practical way to turn a fuzzy homepage idea into sections, states, and tests before anyone opens CSS.">
     <meta property="og:url" content="https://ames.consulting/blog/spec-first-front-end-planning/">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Spec-first front-end planning">
-    <meta name="twitter:description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.">
+    <meta name="twitter:description" content="A practical way to turn a fuzzy homepage idea into sections, states, and tests before anyone opens CSS.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -44,7 +44,7 @@
             "@id": "https://ames.consulting/blog/spec-first-front-end-planning/#article",
             "url": "https://ames.consulting/blog/spec-first-front-end-planning/",
             "headline": "Spec-first front-end planning",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.",
+            "description": "A practical way to turn a fuzzy homepage idea into sections, states, and tests before anyone opens CSS.",
             "datePublished": "2026-02-03T15:30:00Z",
             "author": {
               "@type": "Person",
@@ -81,13 +81,22 @@
         <a href="../../blog/">← Back to Blog</a>
       </nav>
 
-      <article class="project-content">
-        <h1>Spec-first front-end planning</h1>
-        <p class="project-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.</p>
-        <div class="blog-post-meta">February 3, 2026 • 3 min read</div>
+      <article class="project-content blog-detail">
+        <header class="blog-detail__hero">
+          <div>
+            <p class="project-kicker">Essay</p>
+            <h1>Spec-first front-end planning</h1>
+            <p class="project-summary">A practical way to turn a fuzzy homepage idea into sections, states, and tests before anyone opens CSS.</p>
+            <div class="blog-post-meta">February 3, 2026 • 3 min read</div>
+          </div>
+
+        <figure class="blog-post-hero">
+          <img src="../../assets/images/photography/lab-open-house-2026/lab-01.webp" alt="" width="1200" height="675" loading="eager">
+        </figure>
+        </header>
 
         <div class="blog-post-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis. Donec mattis, mi non faucibus porttitor, lacus nisl hendrerit massa, vitae tempor mi risus id neque.</p><p>Praesent commodo, sapien et laoreet gravida, orci justo pellentesque magna, vitae fermentum lorem arcu sit amet turpis. Suspendisse potenti.</p><p>Aliquam erat volutpat. Nulla facilisi. Curabitur sed sem sit amet lorem blandit cursus.</p>
+          <p>A spec does not need to be heavy to be useful. The point is to name the audience, the job of the page, the content model, and the failure states before the layout starts accumulating clever exceptions.</p><p>For a small static site, I like to write the routes first, then sketch the repeated components, then list the exact checks that should pass before publishing. That gives the design a useful amount of friction.</p><p>The payoff is calmer implementation. Every card, link, preview, and generated page has a reason to exist, and visual polish can happen without losing the structure underneath it.</p>
         </div>
 
 

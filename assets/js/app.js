@@ -171,6 +171,22 @@ function extractImageFromPost(post) {
   return null;
 }
 
+function resolveAssetPath(url) {
+  if (!url) {
+    return "";
+  }
+
+  const normalized = String(url).replace(/^\.\//, "");
+
+  if (!normalized.startsWith("assets/")) {
+    return url;
+  }
+
+  const depth = window.location.pathname.split("/").filter(Boolean).length;
+  const prefix = depth > 0 ? `${"../".repeat(depth)}` : "";
+  return `${prefix}${normalized}`;
+}
+
 function renderBlogStrip(posts, container, config) {
   if (!container) {
     return;
@@ -203,14 +219,30 @@ function renderBlogStrip(posts, container, config) {
     link.className = "path-thumb";
     link.title = post.title;
 
+    const imageWrap = document.createElement("div");
+    imageWrap.className = "path-thumb__img";
+
     const img = document.createElement("img");
-    img.src = imageUrl;
+    img.src = resolveAssetPath(imageUrl);
     img.alt = post.title;
     img.loading = "lazy";
     img.width = 800;
     img.height = 600;
 
-    link.append(img);
+    const body = document.createElement("div");
+    body.className = "path-thumb__body";
+
+    const meta = document.createElement("span");
+    meta.className = "path-thumb__meta";
+    meta.textContent = `${formatDate(post.publishedAt)} · ${formatReadTime(post.readTimeMinutes)}`;
+
+    const title = document.createElement("h4");
+    title.className = "path-thumb__title";
+    title.textContent = post.title;
+
+    imageWrap.append(img);
+    body.append(meta, title);
+    link.append(imageWrap, body);
     fragment.append(link);
   });
 

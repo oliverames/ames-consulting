@@ -3,8 +3,9 @@
     {
       "id": "sample-1",
       "title": "Spec-first front-end planning",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis. Donec mattis, mi non faucibus porttitor, lacus nisl hendrerit massa, vitae tempor mi risus id neque.</p><p>Praesent commodo, sapien et laoreet gravida, orci justo pellentesque magna, vitae fermentum lorem arcu sit amet turpis. Suspendisse potenti.</p><p>Aliquam erat volutpat. Nulla facilisi. Curabitur sed sem sit amet lorem blandit cursus.</p>",
+      "summary": "A practical way to turn a fuzzy homepage idea into sections, states, and tests before anyone opens CSS.",
+      "contentHtml": "<p>A spec does not need to be heavy to be useful. The point is to name the audience, the job of the page, the content model, and the failure states before the layout starts accumulating clever exceptions.</p><p>For a small static site, I like to write the routes first, then sketch the repeated components, then list the exact checks that should pass before publishing. That gives the design a useful amount of friction.</p><p>The payoff is calmer implementation. Every card, link, preview, and generated page has a reason to exist, and visual polish can happen without losing the structure underneath it.</p>",
+      "imageUrl": "assets/images/photography/lab-open-house-2026/lab-01.webp",
       "url": "https://ames.consulting/blog/spec-first-front-end-planning/",
       "publishedAt": "2026-02-03T15:30:00Z",
       "tags": [
@@ -18,8 +19,9 @@
     {
       "id": "sample-2",
       "title": "Designing a content model for small teams",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec sem id urna tincidunt congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p><p>Morbi dictum, nibh ac porta convallis, ipsum lorem dignissim sem, at sagittis massa velit non purus. Donec vitae justo ut neque eleifend luctus.</p><p>Nam sed luctus lorem. Phasellus dignissim arcu nec odio tempor, sed feugiat lectus placerat.</p>",
+      "summary": "How a small shared model keeps posts, work samples, photography, and link notes from becoming separate little kingdoms.",
+      "contentHtml": "<p>The easiest content model to maintain is the one editors can describe without a diagram. A post has a title, summary, date, tags, image, and destination. Everything else is a view of that stream.</p><p>That constraint keeps the homepage, blog, and work index honest. The same piece can be promoted, filtered, or archived without copying it into another special format.</p><p>Small teams usually need fewer fields than they think. They need the fields to be named clearly and used consistently.</p>",
+      "imageUrl": "assets/images/photography/lab-open-house-2026/lab-03.webp",
       "url": "https://ames.consulting/blog/content-model-small-teams/",
       "publishedAt": "2026-02-07T11:00:00Z",
       "tags": [
@@ -32,8 +34,8 @@
     {
       "id": "sample-3",
       "title": "CareBridge Companion",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat massa at porttitor dignissim.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec augue vel ipsum dictum ultrices. Curabitur eu lacus ut lorem aliquet tempor.</p><p>Etiam tempor, nisl nec suscipit sagittis, metus ipsum efficitur risus, sed tincidunt lorem quam non lorem.</p><p>Donec facilisis magna at turpis cursus, eget feugiat lorem elementum.</p>",
+      "summary": "A SwiftUI companion app concept for member IDs, receipts, plan details, and benefit questions.",
+      "contentHtml": "<p>A mobile companion app concept for health plan members who need receipts, member IDs, plan details, and benefit questions in one calm place.</p><p>The prototype uses large task cards, plain labels, and short conversational prompts so the app feels useful before it feels comprehensive.</p>",
       "imageUrl": "./assets/images/work/carebridge-companion/hero.png",
       "url": "https://ames.consulting/work/carebridge-companion/",
       "publishedAt": "2026-02-12T09:00:00Z",
@@ -48,8 +50,8 @@
     {
       "id": "sample-4",
       "title": "Neighborhood Giving Map",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed metus a purus finibus porttitor. Integer varius, augue at dapibus gravida, nibh nulla faucibus risus, nec commodo erat erat ac nibh.</p><p>Sed consequat, sapien sed consequat dignissim, purus velit pulvinar mauris, nec gravida turpis nulla at velit.</p><p>Vivamus sit amet orci nec augue tristique tincidunt.</p>",
+      "summary": "Interactive community impact map for Clearfork Beverage Co.",
+      "contentHtml": "<p>An interactive map that turns regional impact data into a browsable story, with place-based markers, live metrics, and a focused call to explore local detail.</p>",
       "imageUrl": "./assets/images/work/neighborhood-giving-map/hero.jpg",
       "url": "https://ames.consulting/work/neighborhood-giving-map/",
       "publishedAt": "2026-02-10T09:00:00Z",
@@ -64,8 +66,8 @@
     {
       "id": "sample-5",
       "title": "Financial Wellness Library",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu ipsum nec lorem fermentum volutpat.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod vitae risus ac feugiat. Integer suscipit vestibulum eros, sed condimentum lorem vehicula sed.</p><p>Quisque congue, libero id viverra dictum, elit risus bibendum arcu, vitae posuere sapien lorem sed ligula.</p><p>Curabitur id sapien at massa volutpat fringilla.</p>",
+      "summary": "A 52-post financial literacy library covering everyday planning, household trade-offs, and money decisions.",
+      "contentHtml": "<p>A structured financial wellness library built from practical, plain-language articles on budgeting, saving, credit, and household planning.</p>",
       "imageUrl": "./assets/images/sample-work.svg",
       "url": "https://ames.consulting/work/financial-wellness-library/",
       "publishedAt": "2026-02-08T09:00:00Z",
@@ -80,8 +82,9 @@
     {
       "id": "sample-6",
       "title": "Writing useful summaries for busy readers",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac sem a est tempor hendrerit.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod odio et enim facilisis, sit amet convallis purus imperdiet.</p><p>Fusce placerat, libero eget luctus ullamcorper, velit lorem porta metus, at cursus lorem magna in urna.</p><p>Suspendisse lacinia purus quis lectus tempor, a volutpat arcu efficitur.</p>",
+      "summary": "Notes on making previews direct enough to help someone decide what to read next.",
+      "contentHtml": "<p>A summary is not a teaser. It is a small act of service. The reader should know what the piece covers, why it matters, and whether it is worth their next few minutes.</p><p>The strongest summaries use concrete nouns, plain verbs, and one clear promise. They do not need to reveal every argument, but they should not hide the subject behind mood.</p><p>When the preview does its job, the full article starts with a reader who already understands the contract.</p>",
+      "imageUrl": "assets/images/photography/lab-open-house-2026/lab-05.webp",
       "url": "https://ames.consulting/blog/useful-summaries/",
       "publishedAt": "2026-02-14T13:15:00Z",
       "tags": [
@@ -94,8 +97,9 @@
     {
       "id": "sample-7",
       "title": "A calm launch checklist",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida mi non eros facilisis.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet ligula eget lectus finibus venenatis. Etiam sodales magna sed lectus tristique, in feugiat massa eleifend.</p><p>Praesent feugiat, ligula vitae suscipit ultricies, eros lorem pulvinar nisl, vitae sagittis sem ipsum sed lacus.</p>",
+      "summary": "A practical pass through content, polish, and quality before a site goes live.",
+      "contentHtml": "<p>The best launch checklist is boring in the right ways. Read every page out loud, click every primary path, check generated pages, and make sure the empty states still sound like the same person.</p><p>Then look at the site in the browser sizes people actually use. The last mile is usually spacing, image framing, touch targets, and stray placeholder copy.</p>",
+      "imageUrl": "assets/images/photography/lab-open-house-2026/lab-10.webp",
       "url": "https://ames.consulting/blog/calm-launch-checklist/",
       "publishedAt": "2026-02-16T10:45:00Z",
       "tags": [
@@ -108,8 +112,9 @@
     {
       "id": "sample-8",
       "title": "Making placeholder content do real work",
-      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut felis vitae lectus sagittis aliquam.",
-      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in facilisis sapien. Morbi aliquet lectus ac lorem aliquet, quis ultricies massa dignissim.</p><p>Nam ullamcorper, lorem id luctus rhoncus, purus orci viverra justo, at cursus lectus ipsum sit amet neque.</p>",
+      "summary": "How draft content can test structure, tone, and editorial workflow before launch.",
+      "contentHtml": "<p>Placeholder content is useful when it behaves like the real thing. A good draft title wraps awkwardly, a summary has a point of view, and a sample image has the same visual weight as the final asset.</p><p>That kind of placeholder helps reveal whether a design can hold actual editorial work. It also makes review easier because people can react to rhythm, density, and hierarchy instead of guessing through gray boxes.</p>",
+      "imageUrl": "assets/images/photography/lab-open-house-2026/lab-07.webp",
       "url": "https://ames.consulting/blog/placeholder-content-real-work/",
       "publishedAt": "2026-02-18T16:20:00Z",
       "tags": [

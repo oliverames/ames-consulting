@@ -81,10 +81,16 @@
         <a href="../../blog/">← Back to Blog</a>
       </nav>
 
-      <article class="project-content">
-        <h1>{{TITLE}}</h1>
-        <p class="project-summary">{{SUMMARY}}</p>
-        <div class="blog-post-meta">{{PUBLISHED_AT_FORMATTED}} • {{READ_TIME}}</div>
+      <article class="project-content blog-detail">
+        <header class="blog-detail__hero">
+          <div>
+            <p class="project-kicker">Essay</p>
+            <h1>{{TITLE}}</h1>
+            <p class="project-summary">{{SUMMARY}}</p>
+            <div class="blog-post-meta">{{PUBLISHED_AT_FORMATTED}} • {{READ_TIME}}</div>
+          </div>
+{{IMAGE_HTML}}
+        </header>
 
         <div class="blog-post-content">
           {{CONTENT_HTML}}

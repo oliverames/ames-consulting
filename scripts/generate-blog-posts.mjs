@@ -49,6 +49,22 @@ function generateTagsHtml(tags) {
       </footer>`;
 }
 
+function generateImageHtml(post) {
+  const rawImage = post.imageUrl || post.featuredImage || "";
+  if (!rawImage) {
+    return "";
+  }
+
+  const normalized = rawImage.replace(/^\.\//, "");
+  const src = normalized.startsWith("assets/") ? `../../${normalized}` : rawImage;
+  const alt = post.imageAlt || "";
+
+  return `
+        <figure class="blog-post-hero">
+          <img src="${src}" alt="${alt}" width="1200" height="675" loading="eager">
+        </figure>`;
+}
+
 async function loadPosts() {
   // Try AI summaries first
   try {
@@ -78,6 +94,7 @@ async function generateBlogPost(post, template) {
   const slug = generateSlug(post.title);
   const formattedDate = formatDate(post.publishedAt);
   const tagsHtml = generateTagsHtml(post.tags);
+  const imageHtml = generateImageHtml(post);
   const readTime = post.readTimeMinutes
     ? `${post.readTimeMinutes} min read`
     : "1 min read";
@@ -90,6 +107,7 @@ async function generateBlogPost(post, template) {
     .replace(/\{\{PUBLISHED_AT\}\}/g, post.publishedAt)
     .replace(/\{\{PUBLISHED_AT_FORMATTED\}\}/g, formattedDate)
     .replace(/\{\{CONTENT_HTML\}\}/g, post.contentHtml || "")
+    .replace(/\{\{IMAGE_HTML\}\}/g, imageHtml)
     .replace(/\{\{TAGS_HTML\}\}/g, tagsHtml)
     .replace(/\{\{READ_TIME\}\}/g, readTime);
 

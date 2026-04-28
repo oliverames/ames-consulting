@@ -21,6 +21,22 @@ function generateSlug(title) {
     .replace(/^-|-$/g, "");
 }
 
+function resolveAssetPath(url) {
+  if (!url) {
+    return "";
+  }
+
+  const normalized = String(url).replace(/^\.\//, "");
+
+  if (!normalized.startsWith("assets/")) {
+    return url;
+  }
+
+  const depth = window.location.pathname.split("/").filter(Boolean).length;
+  const prefix = depth > 0 ? `${"../".repeat(depth)}` : "";
+  return `${prefix}${normalized}`;
+}
+
 class PostCardElement extends HTMLElement {
   #post;
 
@@ -61,6 +77,24 @@ class PostCardElement extends HTMLElement {
     const article = document.createElement("article");
     article.className = "post-card";
     article.dataset.postId = this.#post.id;
+
+    const imageUrl = resolveAssetPath(this.#post.imageUrl || this.#post.featuredImage || "");
+    if (imageUrl) {
+      const imageLink = document.createElement("a");
+      imageLink.href = postUrl;
+      imageLink.className = "post-card__image";
+
+      const image = document.createElement("img");
+      image.src = imageUrl;
+      image.alt = "";
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.width = 900;
+      image.height = 506;
+
+      imageLink.append(image);
+      article.append(imageLink);
+    }
 
     const heading = document.createElement("h3");
     const link = document.createElement("a");

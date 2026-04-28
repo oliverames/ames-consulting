@@ -32,14 +32,15 @@ test("primary navigation includes core routes", async ({ page }) => {
   }
 });
 
-test("homepage path strips keep demo placeholders when dynamic content is unavailable", async ({ page }) => {
+test("homepage path strips keep fallback and local preview content", async ({ page }) => {
   await useLocalContent(page);
   await page.route("**/photography.json", (route) => route.abort());
   await page.goto("/");
 
   await expect(page.locator(".home-paths")).toBeVisible();
-  await expect(page.locator(".path-thumb").first()).toContainText("Demo Companion App");
+  await expect(page.locator(".path-thumb").first()).toContainText("CareBridge Companion");
   await expect(page.locator("#blog-strip .path-thumb")).toHaveCount(3);
+  await expect(page.locator("#blog-strip")).toContainText("A calm launch checklist");
   await expect(page.locator("#photography-strip .path-thumb")).toHaveCount(3);
   await expect(page.locator("#photography-strip")).toContainText("Demo Studio Notes");
   await expect(page.locator(".path-row").filter({ hasText: "Links" })).toContainText("Demo research notes");

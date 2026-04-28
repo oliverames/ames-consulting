@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
  * Tests verifying CSS loads correctly and all subpage navigation works.
  * These were created after fixing absolute paths (e.g., /assets/css/main.css)
  * to relative paths so the site works both on custom domains and GitHub Pages
- * subdirectory deployments (oliverames.github.io/ames-consulting/).
+ * subdirectory deployments (demo-profile.github.io/ames-consulting/).
  */
 
 const ALL_ROUTES = [
@@ -12,10 +12,10 @@ const ALL_ROUTES = [
   "/blog/",
   "/blog/spec-first-front-end-planning/",
   "/work/",
-  "/work/bcbs-vt-app/",
-  "/work/sunshine-trail/",
+  "/work/carebridge-companion/",
+  "/work/neighborhood-giving-map/",
   "/photography/",
-  "/photography/beta-career-day-2026/",
+  "/photography/lab-open-house-2026/",
   "/links/",
   "/contact/",
   "/likes/",
@@ -44,7 +44,7 @@ for (const route of ALL_ROUTES) {
     const bgColor = await page.evaluate(() =>
       getComputedStyle(document.body).backgroundColor
     );
-    // The Ames design system uses --surface-1 for the page background:
+    // The site design system uses --surface-1 for the page background:
     // #ede8e0 in light mode or #232f2f in dark mode.
     const isLightMode = bgColor === "rgb(237, 232, 224)";
     const isDarkMode = bgColor === "rgb(35, 47, 47)";
@@ -126,7 +126,7 @@ for (const route of ALL_ROUTES) {
     await expect(sitemap.getByRole("link", { name: "Blog" })).toBeVisible();
     await expect(sitemap.getByRole("link", { name: "Contact" })).toBeVisible();
 
-    await expect(footer.locator(".site-footer__monogram")).toHaveText("OA");
+    await expect(footer.locator(".site-footer__monogram")).toHaveText("DS");
 
     const footerLinks = footer.locator(".site-footer__social a");
     const count = await footerLinks.count();
@@ -159,34 +159,34 @@ test("Blog nav link navigates to blog", async ({ page }) => {
   await expect(page.locator(".page-header h1")).toHaveText("Blog");
 });
 
-test("Work index links to BCBS VT App detail page", async ({ page }) => {
+test("Work index links to CareBridge Companion detail page", async ({ page }) => {
   await page.goto("/work/");
-  await page.locator(".work-item").filter({ hasText: "BCBS VT App" }).click();
-  await expect(page).toHaveURL(/\/work\/bcbs-vt-app\/$/);
-  await expect(page.locator("h1")).toHaveText("BCBS VT App");
+  await page.locator(".work-item").filter({ hasText: "CareBridge Companion" }).click();
+  await expect(page).toHaveURL(/\/work\/carebridge-companion\/$/);
+  await expect(page.locator("h1")).toHaveText("CareBridge Companion");
 });
 
-test("Work index links to Sunshine Trail detail page", async ({ page }) => {
+test("Work index links to Neighborhood Giving Map detail page", async ({ page }) => {
   await page.goto("/work/");
-  await page.locator(".work-item").filter({ hasText: "Sunshine Trail" }).click();
-  await expect(page).toHaveURL(/\/work\/sunshine-trail\/$/);
-  await expect(page.locator("h1")).toHaveText("The Sunshine Trail");
+  await page.locator(".work-item").filter({ hasText: "Neighborhood Giving Map" }).click();
+  await expect(page).toHaveURL(/\/work\/neighborhood-giving-map\/$/);
+  await expect(page.locator("h1")).toHaveText("Neighborhood Giving Map");
 });
 
-test("BCBS VT App sibling nav links to Sunshine Trail", async ({ page }) => {
-  await page.goto("/work/bcbs-vt-app/");
-  await page.locator(".sibling-nav").getByRole("link", { name: "The Sunshine Trail" }).click();
-  await expect(page).toHaveURL(/\/work\/sunshine-trail\/$/);
+test("CareBridge Companion sibling nav links to Neighborhood Giving Map", async ({ page }) => {
+  await page.goto("/work/carebridge-companion/");
+  await page.locator(".sibling-nav").getByRole("link", { name: "Neighborhood Giving Map" }).click();
+  await expect(page).toHaveURL(/\/work\/neighborhood-giving-map\/$/);
 });
 
-test("Sunshine Trail sibling nav links to BCBS VT App", async ({ page }) => {
-  await page.goto("/work/sunshine-trail/");
-  await page.locator(".sibling-nav").getByRole("link", { name: "BCBS VT App" }).click();
-  await expect(page).toHaveURL(/\/work\/bcbs-vt-app\/$/);
+test("Neighborhood Giving Map sibling nav links to CareBridge Companion", async ({ page }) => {
+  await page.goto("/work/neighborhood-giving-map/");
+  await page.locator(".sibling-nav").getByRole("link", { name: "CareBridge Companion" }).click();
+  await expect(page).toHaveURL(/\/work\/carebridge-companion\/$/);
 });
 
 test("site-name link navigates home from deep page", async ({ page }) => {
-  await page.goto("/work/bcbs-vt-app/");
+  await page.goto("/work/carebridge-companion/");
   await page.locator(".site-name").click();
   await expect(page).toHaveURL(/\/$/);
 });
@@ -200,12 +200,12 @@ test("home page featured paths include all section links", async ({ page }) => {
   await expect(paths).toBeVisible();
 
   // Work links
-  await expect(paths.getByRole("link", { name: "BCBS VT App" })).toBeVisible();
-  await expect(paths.getByRole("link", { name: "The Sunshine Trail" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "CareBridge Companion" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "Neighborhood Giving Map" })).toBeVisible();
 
   // Photography links
-  await expect(paths.getByRole("link", { name: "BETA Career Day" })).toBeVisible();
-  await expect(paths.getByRole("link", { name: "Montpelier Winter" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "Lab Open House" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "Riverside Winter" })).toBeVisible();
 
   // Section browse links
   await expect(paths.getByRole("link", { name: "Read the Blog →" })).toBeVisible();
@@ -245,29 +245,29 @@ test("work index loads project thumbnail images", async ({ page }) => {
   const imgCount = await images.count();
   expect(imgCount).toBeGreaterThanOrEqual(2);
 
-  // Check BCBS hero image exists and has correct src
-  const bcbsImg = images.filter({ hasText: /BCBS/ }).or(page.locator('img[alt*="BCBS"]'));
-  await expect(bcbsImg.first()).toHaveAttribute("src", /bcbs-vt-app/);
+  // Check CareBridge hero image exists and has correct src
+  const bcbsImg = images.filter({ hasText: /CareBridge/ }).or(page.locator('img[alt*="CareBridge"]'));
+  await expect(bcbsImg.first()).toHaveAttribute("src", /carebridge-companion/);
 
-  // Check Sunshine Trail hero image
-  const trailImg = page.locator('img[alt*="Sunshine Trail"]');
-  await expect(trailImg.first()).toHaveAttribute("src", /sunshine-trail/);
+  // Check Neighborhood Giving Map hero image
+  const trailImg = page.locator('img[alt*="Neighborhood Giving Map"]');
+  await expect(trailImg.first()).toHaveAttribute("src", /neighborhood-giving-map/);
 });
 
-test("BCBS VT App detail page loads hero image", async ({ page }) => {
-  await page.goto("/work/bcbs-vt-app/");
+test("CareBridge Companion detail page loads hero image", async ({ page }) => {
+  await page.goto("/work/carebridge-companion/");
 
-  const heroImg = page.locator(".project-hero img");
+  const heroImg = page.locator(".project-content figure img");
   await expect(heroImg).toBeVisible();
-  await expect(heroImg).toHaveAttribute("src", /bcbs-vt-app\/hero\.png/);
+  await expect(heroImg).toHaveAttribute("src", /carebridge-companion\/hero\.png/);
 });
 
-test("Sunshine Trail detail page loads hero image", async ({ page }) => {
-  await page.goto("/work/sunshine-trail/");
+test("Neighborhood Giving Map detail page loads hero image", async ({ page }) => {
+  await page.goto("/work/neighborhood-giving-map/");
 
-  const heroImg = page.locator(".project-hero img");
+  const heroImg = page.locator(".project-content figure img");
   await expect(heroImg).toBeVisible();
-  await expect(heroImg).toHaveAttribute("src", /sunshine-trail\/hero\.jpg/);
+  await expect(heroImg).toHaveAttribute("src", /neighborhood-giving-map\/hero\.jpg/);
 });
 
 // -- Likes / Colophon Sibling Navigation --
@@ -321,15 +321,15 @@ test("all internal links on home page resolve without 404", async ({ page }) => 
 test("home page work path cards link to project detail pages", async ({ page }) => {
   await page.goto("/");
 
-  const bcbsCard = page.locator('.path-thumb[href*="bcbs-vt-app"]');
+  const bcbsCard = page.locator('.path-thumb[href*="carebridge-companion"]');
   await expect(bcbsCard).toBeVisible();
 
-  const trailCard = page.locator('.path-thumb[href*="sunshine-trail"]');
+  const trailCard = page.locator('.path-thumb[href*="neighborhood-giving-map"]');
   await expect(trailCard).toBeVisible();
 
-  // Click BCBS card and verify navigation
+  // Click CareBridge card and verify navigation
   await bcbsCard.click();
-  await expect(page).toHaveURL(/\/work\/bcbs-vt-app\/$/);
+  await expect(page).toHaveURL(/\/work\/carebridge-companion\/$/);
 });
 
 // -- Layout Verification --

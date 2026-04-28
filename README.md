@@ -1,7 +1,7 @@
 <h1 align="center">ames.consulting</h1>
 
 <p align="center">
-  <strong>Portfolio and consulting site for Oliver Ames</strong>
+  <strong>Portfolio and consulting site for Avery Morgan</strong>
 </p>
 
 <p align="center">
@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://ames.consulting"><img src="https://img.shields.io/badge/Live_Site-ames.consulting-f5a542?style=flat-square" alt="Live Site"></a>
-  <a href="https://www.buymeacoffee.com/oliverames"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee"></a>
+  <a href="https://www.buymeacoffee.com/demo-profile"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee"></a>
 </p>
 
 <p align="center">
@@ -25,7 +25,7 @@
 
 ## Why This Structure
 
-A personal site should outlast whatever framework is trending. This site uses zero build-time JavaScript frameworks — just HTML, CSS (cascade layers, container queries, registered custom properties), and ES modules. Content flows from a single Micro.blog JSON feed into a normalized post model, with views filtered client-side. The result is a fast, standards-forward site that's easy to maintain and doesn't require a Node.js build pipeline to deploy.
+A personal site should outlast whatever framework is trending. This site uses zero build-time JavaScript frameworks — just HTML, CSS (cascade layers, container queries, registered custom properties), and ES modules. Content flows from a single Local JSON JSON feed into a normalized post model, with views filtered client-side. The result is a fast, standards-forward site that's easy to maintain and doesn't require a Node.js build pipeline to deploy.
 
 Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
 
@@ -35,10 +35,10 @@ Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse perf
 |---|---|
 | `/` | Home — intro, featured work, site directory |
 | `/work/` | Work landing — software and web project categories |
-| `/work/bcbs-vt-app/` | BCBS VT companion app case study |
-| `/work/sunshine-trail/` | The Sunshine Trail interactive map case study |
-| `/work/eastrise-writing/` | EastRise Credit Union writing portfolio |
-| `/blog/` | Full Micro.blog post stream with tag/search filtering |
+| `/work/carebridge-companion/` | CareBridge companion app case study |
+| `/work/neighborhood-giving-map/` | Neighborhood Giving Map interactive map case study |
+| `/work/financial-wellness-library/` | Sample Financial Cooperative writing portfolio |
+| `/blog/` | Full Local JSON post stream with tag/search filtering |
 | `/photography/` | Photography galleries organized by shoot |
 | `/links/` | Link directory |
 | `/contact/` | Contact form and social links |
@@ -47,7 +47,7 @@ Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse perf
 
 ## Architecture Decisions
 
-- **One content source**: Micro.blog posts.
+- **One content source**: Local JSON posts.
 - **One canonical model**: every entry is a `post`.
 - **Blog and filtered views** are presentations of the same stream.
 - **Work pages** are hand-crafted case studies with static HTML.
@@ -55,7 +55,7 @@ Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse perf
 
 ### Content Backend
 
-- Primary source: Micro.blog JSON feed.
+- Primary source: Local JSON JSON feed.
 - Development fallback: local JSON sample (`assets/data/content.example.json`).
 - Normalization layer converts feed items into a stable in-app schema.
 
@@ -93,11 +93,11 @@ npm run test:regression # regression tests only
 npm run test:a11y       # accessibility audits only
 ```
 
-## Micro.blog Configuration
+## Local JSON Configuration
 
 1. Copy `assets/data/site.config.example.json` to `assets/data/site.config.json`.
 2. Set `provider` to `microblog`.
-3. Set `jsonFeedUrl` to your Micro.blog JSON feed URL.
+3. Set `jsonFeedUrl` to your Local JSON JSON feed URL.
 4. Set `contactFormEndpoint` to your form backend endpoint (optional until ready).
 
 Until then, the app automatically uses local sample content.
@@ -116,16 +116,16 @@ Deployed via GitHub Actions (`.github/workflows/deploy-pages.yml`). Custom domai
 ---
 
 <p align="center">
-  <a href="https://www.buymeacoffee.com/oliverames">
+  <a href="https://www.buymeacoffee.com/demo-profile">
     <img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee">
   </a>
 </p>
 
 <p align="center">
   <sub>
-    Built by <a href="https://ames.consulting">Oliver Ames</a> in Vermont
-    &bull; <a href="https://github.com/oliverames">GitHub</a>
-    &bull; <a href="https://linkedin.com/in/oliverames">LinkedIn</a>
-    &bull; <a href="https://bsky.app/profile/oliverames.bsky.social">Bluesky</a>
+    Built by <a href="https://ames.consulting">Avery Morgan</a> in the North Country
+    &bull; <a href="https://example.com/profiles/github">GitHub</a>
+    &bull; <a href="https://example.com/profiles/linkedin">LinkedIn</a>
+    &bull; <a href="https://bsky.app/profile/demo.example.com">Bluesky</a>
   </sub>
 </p>

@@ -25,13 +25,20 @@ function formatDate(isoDate) {
 function generateImagesHtml(images, gallerySlug) {
   return images
     .map((img) => {
-      // Use relative path from photography/{slug}/ to assets/
-      const imagePath = `../../assets/images/photography/${gallerySlug}/${img.filename}`;
+      const imagePath = img.url || `../../assets/images/photography/${gallerySlug}/${img.filename}`;
       return `          <figure class="gallery-image">
             <img src="${imagePath}" alt="${img.alt}" width="${img.width}" height="${img.height}" loading="lazy">
           </figure>`;
     })
     .join("\n");
+}
+
+function absoluteImageUrl(imageUrl) {
+  if (/^https?:\/\//.test(imageUrl)) {
+    return imageUrl;
+  }
+
+  return `https://ames.consulting${imageUrl.replace(/^\./, "")}`;
 }
 
 async function loadGalleries() {
@@ -59,6 +66,7 @@ async function generateGalleryPage(gallery, template) {
     .replace(/\{\{DATE\}\}/g, gallery.date)
     .replace(/\{\{DATE_FORMATTED\}\}/g, formattedDate)
     .replace(/\{\{COVER_IMAGE\}\}/g, gallery.coverImage)
+    .replace(/\{\{COVER_IMAGE_ABSOLUTE\}\}/g, absoluteImageUrl(gallery.coverImage))
     .replace(/\{\{IMAGES_HTML\}\}/g, imagesHtml);
 
   // Create directory

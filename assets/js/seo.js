@@ -185,16 +185,16 @@ function buildStructuredData({ view, config, metadata, posts }) {
       jobTitle: "Content Strategist & Software Developer",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Montpelier",
+        addressLocality: "Riverside",
         addressRegion: "VT",
         addressCountry: "US"
       },
       sameAs: [
-        "https://github.com/oliverames",
-        "https://linkedin.com/in/oliverames",
-        "https://bsky.app/profile/oliverames.bsky.social",
-        "https://mastodon.social/@oliverames",
-        "https://instagram.com/oliverames"
+        "https://example.com/profiles/github",
+        "https://example.com/profiles/linkedin",
+        "https://bsky.app/profile/demo.example.com",
+        "https://example.com/profiles/mastodon",
+        "https://example.com/profiles/instagram"
       ]
     });
   }

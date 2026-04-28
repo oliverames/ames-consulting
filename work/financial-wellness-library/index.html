@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-view="work-detail">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Financial Wellness Library | ames.consulting</title>
+    <meta name="description" content="Placeholder editorial samples for a fictional financial services content library.">
+    <meta name="author" content="Avery Morgan">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <nav class="site-header__inner" aria-label="Primary">
+        <a href="../../" class="site-name">ames.consulting</a>
+        <ul class="site-nav">
+          <li><a href="../../">Home</a></li>
+          <li><a href="../../work/" aria-current="true">Work</a></li>
+          <li><a href="../../blog/">Blog</a></li>
+          <li><a href="../../contact/">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <article class="project-content">
+        <p class="project-kicker">Lorem ipsum</p>
+        <h1>Financial Wellness Library</h1>
+        <p class="project-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis.</p>
+        <label for="category-filter">Category</label>
+        <select id="category-filter">
+          <option value="all">All</option>
+          <option value="auto">Auto</option>
+          <option value="budgeting">Budgeting</option>
+          <option value="home">Home</option>
+          <option value="travel">Travel</option>
+        </select>
+        <div class="post-list">
+          <article class="post-preview" data-category="home">
+            <p class="post-preview__meta">home · <time datetime="2026-02-01">2026-02-01</time></p>
+            <h2><a href="household-repair-fund/">How to plan a household repair fund</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis.</p>
+          </article>
+<article class="post-preview" data-category="auto">
+            <p class="post-preview__meta">auto · <time datetime="2026-01-18">2026-01-18</time></p>
+            <h2><a href="changing-your-commute/">Three questions before changing your commute</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum.</p>
+          </article>
+<article class="post-preview" data-category="budgeting">
+            <p class="post-preview__meta">budgeting · <time datetime="2025-12-12">2025-12-12</time></p>
+            <h2><a href="review-subscriptions/">A calmer way to review subscriptions</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat massa at porttitor dignissim.</p>
+          </article>
+<article class="post-preview" data-category="travel">
+            <p class="post-preview__meta">travel · <time datetime="2025-11-22">2025-11-22</time></p>
+            <h2><a href="seasonal-trip-savings/">What to save before a seasonal trip</a></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.</p>
+          </article>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <nav class="site-footer__sitemap" aria-label="Site directory">
+          <div>
+            <h3>Work</h3>
+            <ul>
+              <li><a href="../../work/">All Projects</a></li>
+              <li><a href="../../work/carebridge-companion/">CareBridge Companion</a></li>
+              <li><a href="../../work/neighborhood-giving-map/">Neighborhood Giving Map</a></li>
+              <li><a href="../../work/financial-wellness-library/">Financial Wellness Library</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Writing</h3>
+            <ul>
+              <li><a href="../../blog/">Blog</a></li>
+              <li><a href="../../links/">Links</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Visual</h3>
+            <ul>
+              <li><a href="../../photography/">Photography</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>About</h3>
+            <ul>
+              <li><a href="../../likes/">Stuff I Like</a></li>
+              <li><a href="../../colophon/">Colophon</a></li>
+              <li><a href="../../contact/">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="site-footer__colophon">
+          <p class="site-footer__signature">
+            <span class="site-footer__monogram" aria-hidden="true">DS</span>
+            <span>Maintained as a placeholder portfolio demo.</span>
+          </p>
+          <ul class="site-footer__social">
+            <li><a href="mailto:hello@example.com" aria-label="Email">Email</a></li>
+            <li><a href="https://example.com/profiles/github" rel="noopener" aria-label="GitHub">GitHub</a></li>
+            <li><a href="https://example.com/profiles/linkedin" rel="noopener" aria-label="LinkedIn">LinkedIn</a></li>
+            <li><a href="https://example.com/profiles/mastodon" rel="noopener" aria-label="Mastodon">Mastodon</a></li>
+            <li><a href="https://example.com/profiles/instagram" rel="noopener" aria-label="Instagram">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const filter = document.querySelector("#category-filter");
+      const posts = [...document.querySelectorAll(".post-preview")];
+      filter?.addEventListener("change", () => {
+        posts.forEach((post) => {
+          post.hidden = filter.value !== "all" && post.dataset.category !== filter.value;
+        });
+      });
+    </script>
+  </body>
+</html>

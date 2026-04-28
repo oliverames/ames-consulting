@@ -4,7 +4,7 @@
 
 Static personal portfolio/consulting site for ames.consulting. No framework — pure HTML, CSS (cascade layers), and vanilla ES modules. Hosted on GitHub Pages with a custom domain.
 
-Content is sourced from a Micro.blog JSON feed (with local fallback) and rendered client-side through a single canonical Post model. Multiple views (home, blog, work) are derived from the same content stream via tag filtering.
+Content is sourced from a Local JSON JSON feed (with local fallback) and rendered client-side through a single canonical Post model. Multiple views (home, blog, work) are derived from the same content stream via tag filtering.
 
 ## Commands
 
@@ -20,7 +20,7 @@ Content is sourced from a Micro.blog JSON feed (with local fallback) and rendere
 | **Generate sitemap/robots** | `node scripts/generate-seo-artifacts.mjs --out-dir _site` |
 | **Generate blog pages** | `npm run generate:blog-posts` |
 | **Generate photography galleries** | `npm run generate:photography` |
-| **Generate EastRise pages** | `npm run generate:eastrise` |
+| **Generate Financial Wellness pages** | `npm run generate:financial-wellness` |
 | **Generate AI summaries** | `npm run generate:ai-summaries` (uses Mistral) |
 
 Always run `npm run check:all` before committing.
@@ -33,7 +33,7 @@ New clone or fresh dev session: the app needs `assets/data/site.config.json` or 
 
 ```bash
 cp assets/data/site.config.example.json assets/data/site.config.json
-# Edit site.config.json: set jsonFeedUrl to your Micro.blog JSON feed
+# Edit site.config.json: set jsonFeedUrl to your Local JSON JSON feed
 ```
 
 Without this file, `app.js` falls back to `content.example.json` automatically — useful for UI development but not for testing live content.
@@ -65,22 +65,22 @@ Everything is a "post" normalized to: `id`, `title`, `summary`, `contentHtml`, `
 
 ### Static Generation
 
-Node.js scripts (`.mjs`) generate static HTML pages from dynamic sources (Micro.blog feed, photography data, EastRise XML). The build process outputs to `_site/` directory. Scripts must `cd _site` before generating pages to place files correctly relative to the published root.
+Node.js scripts (`.mjs`) generate static HTML pages from dynamic sources (Local JSON feed, photography data, placeholder editorial XML). The build process outputs to `_site/` directory. Scripts must `cd _site` before generating pages to place files correctly relative to the published root.
 
 Key scripts:
 - **generate-seo-artifacts.mjs** — Creates sitemap.xml, robots.txt
-- **generate-blog-posts.mjs** — Creates individual blog post HTML from Micro.blog content
+- **generate-blog-posts.mjs** — Creates individual blog post HTML from Local JSON content
 - **generate-photography-galleries.mjs** — Creates gallery pages from photography.json
-- **generate-eastrise-pages.mjs** — Creates EastRise blog post pages from XML feed
+- **generate-financial-wellness-pages.mjs** — Creates Financial Wellness blog post pages from XML feed
 - **generate-ai-summaries.mjs** — Generates blog previews via Mistral API
-- **parse-eastrise-blogs.mjs** — Parses EastRise XML feed into normalized data
-- **analyze-photo-folder.mjs** / **process-beta-photos.mjs** — Photo processing utilities
+- **parse-financial-wellness-posts.mjs** — Parses placeholder editorial XML feed into normalized data
+- **analyze-photo-folder.mjs** / **process-lab-photos.mjs** — Photo processing utilities
 
 **CI requirement:** Deploy workflow must run `npm ci` and all generation scripts before deploying to prevent silent failures.
 
 ### Routes
 
-`/` (home), `/blog/`, `/work/`, `/work/bcbs-vt-app/`, `/work/sunshine-trail/`, `/work/eastrise-writing/`, `/photography/`, `/links/`, `/contact/`, `/likes/`, `/colophon/`
+`/` (home), `/blog/`, `/work/`, `/work/carebridge-companion/`, `/work/neighborhood-giving-map/`, `/work/financial-wellness-library/`, `/photography/`, `/links/`, `/contact/`, `/likes/`, `/colophon/`
 
 ## Testing
 
@@ -111,7 +111,7 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 
 ## README Known Gaps (public repo)
 
-The README is missing two items per the `ames-standalone-skills:readme-style` style guide:
+The README is missing two items per the `readme-style` style guide:
 - **No header icon/logo** — style guide requires a centered icon above the `<h1>`
 - **No license badge** — badge row should include a `license-MIT` badge before Buy Me a Coffee
 
@@ -119,17 +119,17 @@ Fix these the next time the README is updated.
 
 ## Design System Reference
 
-Visual identity documented in `docs/plans/2026-02-11-visual-design-system.md`. Typography: Barlow Condensed (headings) + Lora (body) via Google Fonts. Color palette rooted in Ames Shovel Company heritage — warm paper, forge orange accent.
+Visual identity documented in `docs/plans/2026-02-11-visual-design-system.md`. Typography: Barlow Condensed (headings) + Lora (body) via Google Fonts. Color palette rooted in industrial archive heritage — warm paper, forge orange accent.
 
 ## Design Preferences
 
 - **Navigation style**: underline style, no pill borders. Heritage Gold accent, Manufacturing Red only on hover.
 - **Contact placement**: top-level navigation item. Avoid redundant contact links in footer.
 - **Homepage layout**: "lmnt.me-style" horizontal preview strips with equal visual weight across all content sections (Work, Blog, Photography, Links).
-- **Blog posts**: open on-site as dedicated full pages (`/blog/post-slug/`) for SEO and direct linking, not as modals or external Micro.blog links.
+- **Blog posts**: open on-site as dedicated full pages (`/blog/post-slug/`) for SEO and direct linking, not as modals or external Local JSON links.
 - **Photography**: organize into distinct "shoots" (galleries), each with a collage preview on homepage, not a single running gallery.
-- **Footer sitemap**: lives inside the dark `.site-footer` (using `--surface-deep`/#1c2929). Structure: `.site-footer__sitemap` (4-column nav) + `.site-footer__colophon` (OA monogram + signature + social). Same dark footer with sitemap appears on every page. Bottom edge has the gold→red gradient bar.
-- **Social media**: icons appear in the dark footer's `.site-footer__colophon` row alongside the OA monogram. The hero card uses pill CTAs ("See the work" / "Get in touch") instead of social icons.
+- **Footer sitemap**: lives inside the dark `.site-footer` (using `--surface-deep`/#1c2929). Structure: `.site-footer__sitemap` (4-column nav) + `.site-footer__colophon` (DS monogram + signature + social). Same dark footer with sitemap appears on every page. Bottom edge has the gold→red gradient bar.
+- **Social media**: icons appear in the dark footer's `.site-footer__colophon` row alongside the DS monogram. The hero card uses pill CTAs ("See the work" / "Get in touch") instead of social icons.
 - **Hero pattern**: `.hero` card with `--surface-0` background, `--radius-tile` (18px), layered `--shadow-card`, `.hero__mesh` radial gradient (gold/red/plum, blurred 70px, 0.5 opacity), eyebrow chip with red dot, gradient-fill `<em>` in H1, two-tone `<strong>` subhead, ink-fill primary pill button + ghost pill button, gradient-fill proof stats.
 - **Card surface hierarchy**: page background uses `--surface-1` (#ede8e0). All cards lift off the page using `--surface-0` (#faf8f5) + `--shadow-card` triple-stop shadow. `.path-strip` requires `padding-block: 0.75rem 2rem; padding-inline: 1.5rem; margin-inline: -1.5rem` to keep card shadows from clipping at the scroll-container edges.
 - **AI summaries**: use Mistral (`labs-mistral-small-creative`) for blog previews. Writing style: concise, focused, direct.

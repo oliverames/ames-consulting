@@ -6,7 +6,7 @@
   "scripts": {
     "check:js-syntax": "node scripts/check-js-syntax.mjs",
     "lint:js": "eslint 'assets/js/*.js' 'scripts/*.mjs' 'tests/*.js'",
-    "check:html": "html-validate index.html 404.html blog/index.html blog/*/index.html work/index.html work/bcbs-vt-app/index.html work/sunshine-trail/index.html work/eastrise-writing/index.html photography/index.html photography/*/index.html links/index.html contact/index.html likes/index.html colophon/index.html templates/*.html",
+    "check:html": "html-validate index.html 404.html blog/index.html blog/*/index.html work/index.html work/carebridge-companion/index.html work/neighborhood-giving-map/index.html work/financial-wellness-library/index.html photography/index.html photography/*/index.html links/index.html contact/index.html likes/index.html colophon/index.html templates/*.html",
     "check:structured-data": "node scripts/validate-structured-data.mjs",
     "check:sample-data": "node scripts/validate-sample-data.mjs",
     "check:all": "npm run check:js-syntax && npm run lint:js && npm run check:html && npm run check:structured-data && npm run check:sample-data",
@@ -17,7 +17,7 @@
     "generate:ai-summaries": "node scripts/generate-ai-summaries.mjs",
     "generate:blog-posts": "node scripts/generate-blog-posts.mjs",
     "generate:photography": "node scripts/generate-photography-galleries.mjs",
-    "generate:eastrise": "node scripts/generate-eastrise-pages.mjs"
+    "generate:financial-wellness": "node scripts/generate-financial-wellness-pages.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",

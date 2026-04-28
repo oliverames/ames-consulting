@@ -8,9 +8,9 @@
 
 ## Design Philosophy
 
-**"Same spirit, different voice"** — inspired by lmnt.me's craft and intentionality, expressed through the Ames Shovel Company's industrial heritage. Functional excellence over decoration. Every element earned.
+**"Same spirit, different voice"** — inspired by lmnt.me's craft and intentionality, expressed through the industrial archive's industrial heritage. Functional excellence over decoration. Every element earned.
 
-**Identity model**: Oliver IS Ames Consulting. The person is the practice. The heritage is personal (family name), the work speaks for itself. No "Services" page, no corporate identity. The LLC never appears on the site.
+**Identity model**: Avery IS Ames Consulting. The person is the practice. The heritage is personal (family name), the work speaks for itself. No "Services" page, no corporate identity. The LLC never appears on the site.
 
 **Reference**: [lmnt.me](https://lmnt.me) by Louie Mantia — zero-JS philosophy, hand-crafted HTML/CSS, Display P3 colors, show-don't-tell presentation.
 
@@ -30,20 +30,20 @@ Three nav items only. Logo/site name on the left, navigation on the right.
 
 The home page serves dual purpose: **introduction + site directory**.
 
-**Top section**: Strong intro statement leading with what Oliver does, followed by 1-2 sentences of context (Vermont roots, range of work).
+**Top section**: Strong intro statement leading with what Avery does, followed by 1-2 sentences of context (the North Country roots, range of work).
 
 **Opening approach**: "I translate complex ideas into stories people care about." Then brief context about the work spanning software, video, strategy, and storytelling.
 
 **Below the intro**: Two paths with preview content:
 - **Work** — Featured portfolio pieces with thumbnails
-- **Blog** — Recent posts from Micro.blog stream
+- **Blog** — Recent posts from Local JSON stream
 
 **Below the paths**: Full site directory (lmnt.me pattern) — organized links to every page on the site:
 
 ```
 Work                    About
-  BCBS VT App             Stuff I Like
-  Sunshine Trail           Colophon
+  CareBridge Companion             Stuff I Like
+  Neighborhood Giving Map           Colophon
   ...
 
 Blog                    Elsewhere
@@ -62,9 +62,9 @@ Blog                    Elsewhere
 | Home | `/` | Intro + two paths + site directory |
 | Work | `/work/` | Lightly categorized index (Software, Web, Strategy headings) |
 | Work detail | `/work/{slug}/` | Individual project page with images + strategy narrative |
-| Blog | `/blog/` | Micro.blog powered stream |
-| Stuff I Like | `/likes/` | Gear, tools, apps, things Oliver recommends |
-| Colophon | `/colophon/` | How the site is built (HTML/CSS, Micro.blog, Claude Code) |
+| Blog | `/blog/` | Local JSON powered stream |
+| Stuff I Like | `/likes/` | Gear, tools, apps, things Avery recommends |
+| Colophon | `/colophon/` | How the site is built (HTML/CSS, Local JSON, Claude Code) |
 | Contact | `/contact/` | Form + contact info (linked from footer, not header nav) |
 
 ### Inner Page Navigation
@@ -77,12 +77,12 @@ Each page has contextual sibling links at the top (like lmnt.me's Intro page pat
 ### Footer
 
 All social links (no phone):
-- Email: oliverames@gmail.com
-- GitHub: github.com/oliverames
-- LinkedIn: linkedin.com/in/oliverames
-- Bluesky: oliverames.bsky.social
-- Mastodon: mastodon.social/@oliverames
-- Instagram: instagram.com/oliverames
+- Email: hello@example.com
+- GitHub: example.com/profiles/github
+- LinkedIn: example.com/profiles/linkedin
+- Bluesky: demo.example.com
+- Mastodon: example.com/profiles/mastodon
+- Instagram: example.com/profiles/instagram
 
 Plus link to /contact/ page.
 
@@ -111,7 +111,7 @@ Plus link to /contact/ page.
 
 ### Dark Mode Rationale
 
-`#1c2929` is drawn from the vintage Ames Shovels sign — a very dark surface with a subtle blue-green undertone (R:28, G:41, B:41). The cool cast makes Heritage Gold glow warm against it (complementary temperature contrast). Not teal — just *not quite black* in a way that has quiet character.
+`#1c2929` is drawn from the vintage industrial archives sign — a very dark surface with a subtle blue-green undertone (R:28, G:41, B:41). The cool cast makes Heritage Gold glow warm against it (complementary temperature contrast). Not teal — just *not quite black* in a way that has quiet character.
 
 ### Light Mode Rationale
 
@@ -162,16 +162,16 @@ Selection criteria: rendering quality at target sizes, variable font availabilit
 
 ### Content Source
 
-Portfolio pages are **static HTML** — hand-crafted pages, not routed through Micro.blog. This follows the lmnt.me model: each project is its own page with full creative control.
+Portfolio pages are **static HTML** — hand-crafted pages, not routed through Local JSON. This follows the lmnt.me model: each project is its own page with full creative control.
 
-Blog remains Micro.blog powered.
+Blog remains Local JSON powered.
 
 ### Portfolio Page Structure
 
 Each project page includes:
 
 1. **Hero image(s)** — Screenshots, photos, or video embeds
-2. **Strategy narrative** — Written in Oliver's natural voice. Not a case study template. Explains: why this exists, what it does, what was learned. (See BCBS VT App example below.)
+2. **Strategy narrative** — Written in Avery's natural voice. Not a case study template. Explains: why this exists, what it does, what was learned. (See CareBridge Companion example below.)
 3. **Technical details** — Stack, tools, approach (brief)
 4. **Contextual nav** — Links to other Work pages at top
 
@@ -179,23 +179,23 @@ Each project page includes:
 
 Two portfolio pieces at launch:
 
-**BCBS VT App** (Software)
-- SwiftUI companion app for Blue Cross Blue Shield of Vermont
+**CareBridge Companion** (Software)
+- SwiftUI companion app for CareBridge Health
 - Features: news feed, receipt scanning (on-device OCR), digital member IDs, AI chat (Apple Intelligence)
 - Privacy-first: on-device processing, CloudKit backend
-- Strategy narrative adapted from Oliver's LinkedIn post
+- Strategy narrative adapted from Avery's LinkedIn post
 - Screenshots: 4-panel iPhone mockup (News, Receipts, IDs, Chat)
 
-**The Sunshine Trail** (Web)
-- Interactive map for Lawson's Finest Liquids
+**Neighborhood Giving Map** (Web)
+- Interactive map for Clearfork Beverage Co.
 - Sunshine Spots from Waitsfield, VT to Asheville, NC
 - Impact metrics: $3M raised, 2M kWh solar, B Corp certified
 - Strategy narrative about community-driven brand storytelling
 - Screenshot: map interface with impact sidebar
 
-### Voice Example (from Oliver's BCBS post)
+### Voice Example (from Avery's CareBridge post)
 
-> I've been dissatisfied with the lack of digital insurance cards that I can add to Apple Wallet. Some companies like Cigna and Delta Dental offer them, but they're badly designed, poorly formatted, and folks NEVER know what to do with them at the provider's office. So, I've made a custom Apple Wallet pass for my BCBS VT insurance that looks nearly identical to what the physical insurance card looks like.
+> I've been dissatisfied with the lack of digital insurance cards that I can add to Apple Wallet. Some companies like Cigna and Delta Dental offer them, but they're badly designed, poorly formatted, and folks NEVER know what to do with them at the provider's office. So, I've made a custom Apple Wallet pass for my CareBridge insurance that looks nearly identical to what the physical insurance card looks like.
 
 This is the portfolio voice: first-person, starts with the problem, explains the motivation, shows the craft, stays honest about scope.
 
@@ -216,7 +216,7 @@ During implementation, specialized agents will review and inform the build:
 | **Apple HIG Expert** | Apple Human Interface Guidelines 2026 | Design quality, interaction patterns, accessibility |
 | **CSS Standards Expert** | Modern CSS (2026) | P3 colors, cascade layers, container queries, `:has()`, `@property`, nesting |
 | **HTML Expert** | Semantic HTML (2026) | Markup quality, structured data, accessibility, modern features |
-| **Personal Brand Expert** | Oliver's voice + Ames identity | Guards tone, visual identity, copy quality |
+| **Personal Brand Expert** | Avery's voice + Ames identity | Guards tone, visual identity, copy quality |
 
 Each agent reviews implementation against their domain expertise before code is committed.
 
@@ -241,12 +241,12 @@ Carried forward from current codebase + lmnt.me inspiration:
 index.html                    # Rewrite: intro + site directory
 work/
   index.html                  # Work index (categorized list)
-  bcbs-vt-app/
+  carebridge-companion/
     index.html                # Project detail page
-  sunshine-trail/
+  neighborhood-giving-map/
     index.html                # Project detail page
 blog/
-  index.html                  # Existing (Micro.blog stream)
+  index.html                  # Existing (Local JSON stream)
 likes/
   index.html                  # Stuff I Like
 colophon/
@@ -257,8 +257,8 @@ assets/
   css/main.css                # Extended with design system tokens
   images/
     work/                     # Portfolio images
-      bcbs-vt-app/            # BCBS screenshots
-      sunshine-trail/         # Sunshine Trail screenshots
+      carebridge-companion/            # CareBridge screenshots
+      neighborhood-giving-map/         # Neighborhood Giving Map screenshots
 ```
 
 ---
@@ -270,7 +270,7 @@ assets/
 | 1 | Identity model | Person IS the practice | lmnt.me approach. The LLC is invisible. |
 | 2 | Color modes | Light + dark, system preference | `prefers-color-scheme` detection |
 | 3 | Reference site | lmnt.me | "Same spirit, different voice" |
-| 4 | Dark mode surface | `#1c2929` | From Ames Shovels sign — near-black with subtle blue-green |
+| 4 | Dark mode surface | `#1c2929` | From industrial archives sign — near-black with subtle blue-green |
 | 5 | Light mode surface | `#faf8f5` | Warm white, like quality resume stock |
 | 6 | Primary accent | Heritage Gold `#f5a542` | Warm, crafted, storyteller energy |
 | 7 | Hover accent | Manufacturing Red `#d94a2d` | Flash of heat on interaction only |
@@ -278,14 +278,14 @@ assets/
 | 9 | Nav structure | Home \| Work \| Blog | Three items in header. Everything else on-page. |
 | 10 | Home page | Intro + paths + site directory | lmnt.me pattern: home IS the navigation |
 | 11 | Opening copy | Lead with what you do | "I translate complex ideas into stories people care about." |
-| 12 | Portfolio system | Static HTML pages | Not Micro.blog. Hand-crafted like lmnt.me. |
-| 13 | Blog system | Micro.blog | Existing architecture maintained |
-| 14 | Portfolio voice | Natural first-person narratives | Not case study templates. Oliver's voice. |
+| 12 | Portfolio system | Static HTML pages | Not Local JSON. Hand-crafted like lmnt.me. |
+| 13 | Blog system | Local JSON | Existing architecture maintained |
+| 14 | Portfolio voice | Natural first-person narratives | Not case study templates. Avery's voice. |
 | 15 | Footer | All social links, no phone | Email, GitHub, LinkedIn, Bluesky, Mastodon, Instagram |
 | 16 | Contact | /contact/ page linked from footer | Existing form with anti-abuse controls |
 | 17 | Additional pages | Stuff I Like + Colophon | Discoverable from home directory and contextual nav |
 | 18 | Work structure | Lightly categorized | Headings (Software, Web, Strategy) on index page |
-| 19 | Launch content | BCBS VT App + Sunshine Trail | Two pieces with screenshots and strategy narratives |
+| 19 | Launch content | CareBridge Companion + Neighborhood Giving Map | Two pieces with screenshots and strategy narratives |
 | 20 | Implementation | Sub-agent team | HIG, CSS, HTML, Brand experts review each phase |
 
 ---
@@ -294,10 +294,10 @@ assets/
 
 - [ ] Finalize specific typeface selections (test rendering at target sizes)
 - [ ] Define dark mode secondary text and rule colors
-- [ ] Write home page intro copy (Oliver's voice, 2-3 sentences)
-- [ ] Adapt BCBS LinkedIn post into portfolio page narrative
-- [ ] Write Sunshine Trail strategy narrative
-- [ ] Source/prepare portfolio images (BCBS screenshots, Sunshine Trail screenshot)
+- [ ] Write home page intro copy (Avery's voice, 2-3 sentences)
+- [ ] Adapt CareBridge LinkedIn post into portfolio page narrative
+- [ ] Write Neighborhood Giving Map strategy narrative
+- [ ] Source/prepare portfolio images (CareBridge screenshots, Neighborhood Giving Map screenshot)
 - [ ] Define Stuff I Like page content (gear, tools, apps — categories TBD)
 - [ ] Write Colophon page content
 - [ ] Configure sub-agent skills for implementation review

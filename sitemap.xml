@@ -2,34 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ames.consulting/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
   <url>
     <loc>https://ames.consulting/blog/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/work/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <loc>https://ames.consulting/blog/calm-launch-checklist/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/work/bcbs-vt-app/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <loc>https://ames.consulting/blog/content-model-small-teams/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/work/sunshine-trail/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <loc>https://ames.consulting/blog/placeholder-content-real-work/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/contact/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <loc>https://ames.consulting/blog/spec-first-front-end-planning/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
   <url>
-    <loc>https://ames.consulting/likes/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <loc>https://ames.consulting/blog/useful-summaries/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
   <url>
     <loc>https://ames.consulting/colophon/</loc>
-    <lastmod>2026-02-11T00:00:00.000Z</lastmod>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ames.consulting/contact/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ames.consulting/likes/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ames.consulting/work/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ames.consulting/work/carebridge-companion/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ames.consulting/work/financial-wellness-library/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ames.consulting/work/neighborhood-giving-map/</loc>
+    <lastmod>2026-04-28T15:19:07.438Z</lastmod>
   </url>
 </urlset>

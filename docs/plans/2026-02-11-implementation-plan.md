@@ -4,7 +4,7 @@
 
 **Goal:** Transform the scaffolded site into a personal site with Ames heritage visual identity, light/dark mode, static portfolio, and lmnt.me-inspired site directory.
 
-**Architecture:** Pure static HTML/CSS. No build step. Each page is hand-authored HTML. CSS extends the existing layered architecture with new design tokens. Blog remains Micro.blog-powered. Portfolio is static pages.
+**Architecture:** Pure static HTML/CSS. No build step. Each page is hand-authored HTML. CSS extends the existing layered architecture with new design tokens. Blog remains Local JSON-powered. Portfolio is static pages.
 
 **Tech Stack:** HTML, CSS (cascade layers, @property, container queries, P3 color), Google Fonts, existing Playwright test suite.
 
@@ -12,7 +12,7 @@
 - Apple HIG Expert (2026) — design quality, interaction patterns, accessibility
 - CSS Standards Expert (2026) — modern CSS usage, P3 color, cascade layers
 - HTML Expert (2026) — semantic markup, structured data, accessibility
-- Personal Brand Expert — Oliver's voice, Ames identity, visual consistency
+- Personal Brand Expert — Avery's voice, Ames identity, visual consistency
 
 ---
 
@@ -23,7 +23,7 @@
 
 **Step 1: Replace color tokens with Ames palette + dark mode**
 
-Replace the existing `:root` tokens block with the Ames design system. Key changes:
+Replace the existing `:root` tokens block with the site design system. Key changes:
 - Light mode: warm white `#faf8f5` surface, black text, Heritage Gold `#f5a542` accent
 - Dark mode: `#1c2929` surface, warm white text, same Heritage Gold accent
 - Manufacturing Red `#d94a2d` only on hover/interactive states
@@ -201,12 +201,12 @@ Every page gets this footer:
 <footer class="site-footer">
   <div class="site-footer__inner">
     <ul class="footer-links" aria-label="Social links">
-      <li><a href="mailto:oliverames@gmail.com">Email</a></li>
-      <li><a href="https://github.com/oliverames" rel="me noopener">GitHub</a></li>
-      <li><a href="https://linkedin.com/in/oliverames" rel="me noopener">LinkedIn</a></li>
-      <li><a href="https://bsky.app/profile/oliverames.bsky.social" rel="me noopener">Bluesky</a></li>
-      <li><a href="https://mastodon.social/@oliverames" rel="me noopener">Mastodon</a></li>
-      <li><a href="https://instagram.com/oliverames" rel="me noopener">Instagram</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+      <li><a href="https://example.com/profiles/github" rel="me noopener">GitHub</a></li>
+      <li><a href="https://example.com/profiles/linkedin" rel="me noopener">LinkedIn</a></li>
+      <li><a href="https://bsky.app/profile/demo.example.com" rel="me noopener">Bluesky</a></li>
+      <li><a href="https://example.com/profiles/mastodon" rel="me noopener">Mastodon</a></li>
+      <li><a href="https://example.com/profiles/instagram" rel="me noopener">Instagram</a></li>
     </ul>
     <p class="footer-contact"><a href="/contact/">Send a message</a></p>
   </div>
@@ -297,7 +297,7 @@ The intro section:
 <main id="main-content" tabindex="-1">
   <section class="intro">
     <h1>I translate complex ideas into stories people care about.</h1>
-    <p>I'm Oliver Ames — a content strategist, software tinkerer, and video producer in Montpelier, Vermont. This is where my work lives.</p>
+    <p>I'm Avery Morgan — a content strategist, software tinkerer, and video producer in Riverside, the North Country. This is where my work lives.</p>
   </section>
 
   <section class="home-paths">
@@ -307,7 +307,7 @@ The intro section:
     </div>
     <div class="path-section">
       <h2><a href="/blog/">Blog</a></h2>
-      <!-- Recent posts from Micro.blog -->
+      <!-- Recent posts from Local JSON -->
     </div>
   </section>
 
@@ -315,8 +315,8 @@ The intro section:
     <div>
       <h3>Work</h3>
       <ul>
-        <li><a href="/work/bcbs-vt-app/">BCBS VT App</a></li>
-        <li><a href="/work/sunshine-trail/">The Sunshine Trail</a></li>
+        <li><a href="/work/carebridge-companion/">CareBridge Companion</a></li>
+        <li><a href="/work/neighborhood-giving-map/">Neighborhood Giving Map</a></li>
       </ul>
     </div>
     <div>
@@ -335,12 +335,12 @@ The intro section:
     <div>
       <h3>Elsewhere</h3>
       <ul>
-        <li><a href="https://github.com/oliverames" rel="me noopener">GitHub</a></li>
-        <li><a href="https://linkedin.com/in/oliverames" rel="me noopener">LinkedIn</a></li>
-        <li><a href="https://bsky.app/profile/oliverames.bsky.social" rel="me noopener">Bluesky</a></li>
-        <li><a href="https://mastodon.social/@oliverames" rel="me noopener">Mastodon</a></li>
-        <li><a href="https://instagram.com/oliverames" rel="me noopener">Instagram</a></li>
-        <li><a href="mailto:oliverames@gmail.com">Email</a></li>
+        <li><a href="https://example.com/profiles/github" rel="me noopener">GitHub</a></li>
+        <li><a href="https://example.com/profiles/linkedin" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://bsky.app/profile/demo.example.com" rel="me noopener">Bluesky</a></li>
+        <li><a href="https://example.com/profiles/mastodon" rel="me noopener">Mastodon</a></li>
+        <li><a href="https://example.com/profiles/instagram" rel="me noopener">Instagram</a></li>
+        <li><a href="mailto:hello@example.com">Email</a></li>
       </ul>
     </div>
   </section>
@@ -444,7 +444,7 @@ Update JSON-LD to remove SearchAction from home page (that's blog-specific). Kee
 
 **Step 4: Remove old JS imports from home page**
 
-The home page no longer needs `app.js` (that's for the Micro.blog stream). Remove:
+The home page no longer needs `app.js` (that's for the Local JSON stream). Remove:
 ```html
 <script type="module" src="/assets/js/app.js"></script>
 ```
@@ -478,10 +478,10 @@ Lightly categorized list of projects. Each links to its detail page. Uses shared
     <h2>Software</h2>
     <ul class="work-list">
       <li class="work-item">
-        <a href="/work/bcbs-vt-app/">
-          <img src="/assets/images/work/bcbs-vt-app/thumb.png" alt="BCBS VT companion app screenshots" width="400" height="225" loading="lazy">
-          <h3>BCBS VT App</h3>
-          <p>A SwiftUI companion app for Blue Cross Blue Shield of Vermont.</p>
+        <a href="/work/carebridge-companion/">
+          <img src="/assets/images/work/carebridge-companion/thumb.png" alt="CareBridge companion app screenshots" width="400" height="225" loading="lazy">
+          <h3>CareBridge Companion</h3>
+          <p>A SwiftUI companion app for CareBridge Health.</p>
         </a>
       </li>
     </ul>
@@ -491,10 +491,10 @@ Lightly categorized list of projects. Each links to its detail page. Uses shared
     <h2>Web</h2>
     <ul class="work-list">
       <li class="work-item">
-        <a href="/work/sunshine-trail/">
-          <img src="/assets/images/work/sunshine-trail/thumb.png" alt="The Sunshine Trail interactive map" width="400" height="225" loading="lazy">
-          <h3>The Sunshine Trail</h3>
-          <p>Interactive map for Lawson's Finest Liquids.</p>
+        <a href="/work/neighborhood-giving-map/">
+          <img src="/assets/images/work/neighborhood-giving-map/thumb.png" alt="Neighborhood Giving Map interactive map" width="400" height="225" loading="lazy">
+          <h3>Neighborhood Giving Map</h3>
+          <p>Interactive map for Clearfork Beverage Co..</p>
         </a>
       </li>
     </ul>
@@ -590,28 +590,28 @@ git commit -m "feat: add work index page with categorized project list"
 ## Task 5: Portfolio Detail Pages
 
 **Files:**
-- Create: `work/bcbs-vt-app/index.html`
-- Create: `work/sunshine-trail/index.html`
-- Create: `assets/images/work/bcbs-vt-app/` (copy screenshots)
-- Create: `assets/images/work/sunshine-trail/` (copy screenshots)
+- Create: `work/carebridge-companion/index.html`
+- Create: `work/neighborhood-giving-map/index.html`
+- Create: `assets/images/work/carebridge-companion/` (copy screenshots)
+- Create: `assets/images/work/neighborhood-giving-map/` (copy screenshots)
 
 **Step 1: Copy portfolio images**
 
-Copy the screenshots Oliver provided into the assets directory:
-- BCBS VT App: from Oliver's Desktop (`BCBS VT App Promotion.png`)
-- Sunshine Trail: from Oliver's screenshot
+Copy the screenshots Avery provided into the assets directory:
+- CareBridge Companion: from Avery's Desktop (`CareBridge Companion Promotion.png`)
+- Neighborhood Giving Map: from Avery's screenshot
 
-**Step 2: Create BCBS VT App detail page**
+**Step 2: Create CareBridge Companion detail page**
 
 ```
-work/bcbs-vt-app/index.html
+work/carebridge-companion/index.html
 ```
 
 Structure:
 - Shared header
 - Contextual nav (links to other work pages)
 - Hero image (the 4-panel iPhone screenshot)
-- Strategy narrative (adapted from Oliver's LinkedIn post — first person, starts with problem, shows solution)
+- Strategy narrative (adapted from Avery's LinkedIn post — first person, starts with problem, shows solution)
 - Technical details section
 - Shared footer
 
@@ -619,11 +619,11 @@ Contextual nav pattern:
 ```html
 <nav class="sibling-nav" aria-label="Work pages">
   <a href="/work/">Work</a>
-  <a href="/work/sunshine-trail/">The Sunshine Trail</a>
+  <a href="/work/neighborhood-giving-map/">Neighborhood Giving Map</a>
 </nav>
 ```
 
-**Step 3: Create Sunshine Trail detail page**
+**Step 3: Create Neighborhood Giving Map detail page**
 
 Same structure. Strategy narrative about community-driven brand storytelling, interactive maps, impact metrics.
 
@@ -631,7 +631,7 @@ Same structure. Strategy narrative about community-driven brand storytelling, in
 
 ```bash
 git add work/ assets/images/work/
-git commit -m "feat: add BCBS VT App and Sunshine Trail portfolio pages"
+git commit -m "feat: add CareBridge Companion and Neighborhood Giving Map portfolio pages"
 ```
 
 ---
@@ -644,7 +644,7 @@ git commit -m "feat: add BCBS VT App and Sunshine Trail portfolio pages"
 
 **Step 1: Create Stuff I Like page**
 
-Placeholder content with structure ready for Oliver to fill in. Categories:
+Placeholder content with structure ready for Avery to fill in. Categories:
 - Tools & Software
 - Hardware
 - Other
@@ -655,11 +655,11 @@ Simple list format. Contextual nav links to Colophon.
 
 How the site is built:
 - Hand-written HTML and CSS
-- Micro.blog for the blog
+- Local JSON for the blog
 - GitHub Pages for hosting
 - Claude Code for pair programming
 - Barlow Condensed + Lora from Google Fonts
-- Ames Shovel Company heritage as design foundation
+- industrial archive heritage as design foundation
 - Contextual nav links to Stuff I Like
 
 **Step 3: Commit**
@@ -692,11 +692,11 @@ git commit -m "feat: add Stuff I Like and Colophon pages"
 - Add Google Fonts link
 - Update theme-color meta
 - Replace placeholder contact info with real data:
-  - Email: oliverames@gmail.com
-  - Location: Montpelier, Vermont
+  - Email: hello@example.com
+  - Location: Riverside, the North Country
   - Remove phone field
-  - LinkedIn: linkedin.com/in/oliverames
-  - GitHub: github.com/oliverames
+  - LinkedIn: example.com/profiles/linkedin
+  - GitHub: example.com/profiles/github
 - Remove "placeholder" text from descriptions
 
 **Step 3: Remove old portfolio page**
@@ -746,7 +746,7 @@ Check all pages in both light and dark mode. Verify:
 - [ ] Home page intro renders correctly
 - [ ] Site directory links all work
 - [ ] Work index shows both projects
-- [ ] BCBS and Sunshine Trail detail pages render with images
+- [ ] CareBridge and Neighborhood Giving Map detail pages render with images
 - [ ] Blog page still loads posts
 - [ ] Contact page shows real info
 - [ ] Dark mode switches properly

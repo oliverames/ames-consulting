@@ -1,168 +1,120 @@
 {
   "galleries": [
     {
-      "id": "beta-career-day-2026",
-      "slug": "beta-career-day-2026",
-      "title": "BETA Technologies Career Day 2026",
-      "description": "Behind-the-scenes photography from BETA Technologies' Career Day event, showcasing aviation technology and workplace culture.",
+      "id": "lab-open-house-2026",
+      "slug": "lab-open-house-2026",
+      "title": "Innovation Lab Open House",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis.",
       "date": "2026-02-02",
-      "coverImage": "./assets/images/photography/beta-career-day-2026/beta-01.webp",
+      "coverImage": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
       "images": [
         {
-          "filename": "beta-01.webp",
-          "alt": "BETA Technologies aircraft display at Career Day",
-          "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-02.webp",
-          "alt": "Aviation technology showcase at BETA Career Day",
-          "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-03.webp",
-          "alt": "Students exploring electric aviation technology",
-          "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-04.webp",
-          "alt": "BETA Technologies workspace demonstration",
-          "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-05.webp",
-          "alt": "Career Day attendees learning about sustainable aviation",
-          "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-06.webp",
-          "alt": "Innovation in electric aircraft development",
-          "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-07.webp",
-          "alt": "Collaborative workspace at BETA Technologies",
+          "url": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of people working at laptops",
           "width": 1200,
           "height": 800
         },
         {
-          "filename": "beta-08.webp",
-          "alt": "Engineering team demonstrating aviation systems",
+          "url": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a bright office workspace",
           "width": 1200,
           "height": 800
         },
         {
-          "filename": "beta-09.webp",
-          "alt": "Technical discussion at Career Day event",
+          "url": "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a workshop discussion",
           "width": 1200,
           "height": 800
         },
         {
-          "filename": "beta-10.webp",
-          "alt": "Future of aviation technology presentation",
+          "url": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a team gathering",
           "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-11.webp",
-          "alt": "Electric aircraft development process showcase",
-          "width": 1200,
-          "height": 1800
-        },
-        {
-          "filename": "beta-12.webp",
-          "alt": "BETA Technologies Career Day networking",
-          "width": 1200,
-          "height": 1800
+          "height": 800
         }
       ]
     },
     {
-      "id": "montpelier-winter-2026",
-      "slug": "montpelier-winter-2026",
-      "title": "Montpelier Winter Scenes",
-      "description": "Capturing the quiet beauty of Vermont's capital city during winter — snow-covered streets, historic architecture, and everyday moments.",
+      "id": "riverside-winter-2026",
+      "slug": "riverside-winter-2026",
+      "title": "Riverside Winter Study",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum, vitae laoreet lacus gravida.",
       "date": "2026-01-15",
-      "coverImage": "./assets/images/photography/montpelier-winter-2026/photo-2.jpg",
+      "coverImage": "https://images.unsplash.com/photo-1483664852095-d6cc6870702d?auto=format&fit=crop&w=1200&q=80",
       "images": [
         {
-          "filename": "photo-2.jpg",
-          "alt": "Montpelier street in winter",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1483664852095-d6cc6870702d?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a snowy street",
+          "width": 1200,
+          "height": 800
         },
         {
-          "filename": "photo-3.jpg",
-          "alt": "Historic building covered in snow",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a winter city scene",
+          "width": 1200,
+          "height": 800
         },
         {
-          "filename": "photo-4.jpg",
-          "alt": "Downtown Montpelier winter scene",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of snow-covered mountains",
+          "width": 1200,
+          "height": 800
         }
       ]
     },
     {
-      "id": "green-mountain-trails-2025",
-      "slug": "green-mountain-trails-2025",
-      "title": "Green Mountain Trails",
-      "description": "Hiking through Vermont's Green Mountains — trail views, forest paths, and mountain vistas throughout the seasons.",
+      "id": "foothill-trails-2025",
+      "slug": "foothill-trails-2025",
+      "title": "Foothill Trails",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat, massa at porttitor dignissim, libero lectus gravida urna.",
       "date": "2025-10-20",
-      "coverImage": "./assets/images/photography/green-mountain-trails-2025/photo-3.jpg",
+      "coverImage": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
       "images": [
         {
-          "filename": "photo-3.jpg",
-          "alt": "Mountain trail view",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a mountain trail",
+          "width": 1200,
+          "height": 800
         },
         {
-          "filename": "photo-4.jpg",
-          "alt": "Forest path through the Green Mountains",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a forest path",
+          "width": 1200,
+          "height": 800
         },
         {
-          "filename": "photo-1.jpg",
-          "alt": "Vista from mountain peak",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a mountain vista",
+          "width": 1200,
+          "height": 800
         }
       ]
     },
     {
-      "id": "local-makers-series-2025",
-      "slug": "local-makers-series-2025",
-      "title": "Local Makers Series",
-      "description": "Portraits and workspace photography of Vermont artisans, craftspeople, and small business owners at work.",
+      "id": "studio-process-2025",
+      "slug": "studio-process-2025",
+      "title": "Studio Process Series",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.",
       "date": "2025-08-10",
-      "coverImage": "./assets/images/photography/local-makers-series-2025/photo-4.jpg",
+      "coverImage": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80",
       "images": [
         {
-          "filename": "photo-4.jpg",
-          "alt": "Local maker at work",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of an architectural studio detail",
+          "width": 1200,
+          "height": 800
         },
         {
-          "filename": "photo-1.jpg",
-          "alt": "Craft workshop scene",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a studio workspace",
+          "width": 1200,
+          "height": 800
         },
         {
-          "filename": "photo-2.jpg",
-          "alt": "Artisan workspace",
-          "width": 800,
-          "height": 600
+          "url": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a creative desk setup",
+          "width": 1200,
+          "height": 800
         }
       ]
     }

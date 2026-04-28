@@ -1,0 +1,52 @@
+{
+  "posts": [
+    {
+      "title": "How to plan a household repair fund",
+      "slug": "household-repair-fund",
+      "category": "home",
+      "categories": ["Home"],
+      "date": "2026-02-01",
+      "publishedAt": "2026-02-01T10:00:00Z",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis.",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis.",
+      "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis. Donec mattis, mi non faucibus porttitor, lacus nisl hendrerit massa, vitae tempor mi risus id neque.</p><p>Praesent commodo, sapien et laoreet gravida, orci justo pellentesque magna, vitae fermentum lorem arcu sit amet turpis.</p>",
+      "originalUrl": "https://example.com/household-repair-fund/"
+    },
+    {
+      "title": "Three questions before changing your commute",
+      "slug": "changing-your-commute",
+      "category": "auto",
+      "categories": ["Auto"],
+      "date": "2026-01-18",
+      "publishedAt": "2026-01-18T10:00:00Z",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum.",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum.",
+      "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec sem id urna tincidunt congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p><p>Morbi dictum, nibh ac porta convallis, ipsum lorem dignissim sem, at sagittis massa velit non purus.</p>",
+      "originalUrl": "https://example.com/changing-your-commute/"
+    },
+    {
+      "title": "A calmer way to review subscriptions",
+      "slug": "review-subscriptions",
+      "category": "budgeting",
+      "categories": ["Budgeting"],
+      "date": "2025-12-12",
+      "publishedAt": "2025-12-12T10:00:00Z",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat massa at porttitor dignissim.",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat massa at porttitor dignissim.",
+      "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec augue vel ipsum dictum ultrices. Curabitur eu lacus ut lorem aliquet tempor.</p><p>Etiam tempor, nisl nec suscipit sagittis, metus ipsum efficitur risus, sed tincidunt lorem quam non lorem.</p>",
+      "originalUrl": "https://example.com/review-subscriptions/"
+    },
+    {
+      "title": "What to save before a seasonal trip",
+      "slug": "seasonal-trip-savings",
+      "category": "travel",
+      "categories": ["Travel"],
+      "date": "2025-11-22",
+      "publishedAt": "2025-11-22T10:00:00Z",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.",
+      "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed metus a purus finibus porttitor. Integer varius, augue at dapibus gravida, nibh nulla faucibus risus, nec commodo erat erat ac nibh.</p><p>Sed consequat, sapien sed consequat dignissim, purus velit pulvinar mauris, nec gravida turpis nulla at velit.</p>",
+      "originalUrl": "https://example.com/seasonal-trip-savings/"
+    }
+  ]
+}

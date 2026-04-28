@@ -5,8 +5,8 @@ const LOCAL_CONFIG = JSON.stringify({
   jsonFeedUrl: "",
   siteTitle: "ames.consulting",
   siteUrl: "https://ames.consulting",
-  siteDescription: "Independent software consulting, writing, and portfolio work by Oliver Ames.",
-  authorName: "Oliver Ames",
+  siteDescription: "Placeholder consulting, writing, and portfolio content for a static site demo.",
+  authorName: "Avery Morgan",
   locale: "en_US",
   portfolioTag: "portfolio",
   homePreviewLimit: 6
@@ -47,8 +47,8 @@ test("static blog post shows read time metadata", async ({ page }) => {
 
   // Check for read time in article metadata
   await expect(page.locator("article")).toBeVisible();
-  await expect(page.locator(".dialog-meta")).toBeVisible();
-  await expect(page.locator(".dialog-meta")).toContainText("min read");
+  await expect(page.locator(".blog-post-meta")).toBeVisible();
+  await expect(page.locator(".blog-post-meta")).toContainText("min read");
 });
 
 test("blog post page contains content and images", async ({ page }) => {
@@ -85,13 +85,13 @@ test("photography gallery listing page loads with all galleries", async ({ page 
   await expect(galleries).toHaveCount(4);
 
   // Verify galleries have expected content
-  await expect(galleries.first()).toContainText("BETA Technologies");
+  await expect(galleries.first()).toContainText("Innovation Lab");
 });
 
-test("eastrise writing samples page loads and displays posts", async ({ page }) => {
-  await page.goto("/work/eastrise-writing/");
+test("financial wellness library page loads and displays posts", async ({ page }) => {
+  await page.goto("/work/financial-wellness-library/");
 
-  await expect(page.locator("h1")).toContainText("EastRise Writing Samples");
+  await expect(page.locator("h1")).toContainText("Financial Wellness Library");
 
   // Check that posts are visible
   const posts = page.locator(".post-preview");
@@ -99,8 +99,8 @@ test("eastrise writing samples page loads and displays posts", async ({ page }) 
   expect(initialCount).toBeGreaterThan(0);
 });
 
-test("eastrise category filtering changes visible posts", async ({ page }) => {
-  await page.goto("/work/eastrise-writing/");
+test("wellness category filtering changes visible posts", async ({ page }) => {
+  await page.goto("/work/financial-wellness-library/");
 
   // Wait for posts to load
   const posts = page.locator(".post-preview");
@@ -120,9 +120,9 @@ test("eastrise category filtering changes visible posts", async ({ page }) => {
 });
 
 test("individual photography gallery page loads with images", async ({ page }) => {
-  await page.goto("/photography/beta-career-day-2026/");
+  await page.goto("/photography/lab-open-house-2026/");
 
-  await expect(page.locator("h1")).toContainText("BETA Technologies Career Day");
+  await expect(page.locator("h1")).toContainText("Innovation Lab Open House");
 
   // Check that gallery images are present
   const images = page.locator(".photo-gallery img");

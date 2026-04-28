@@ -1,24 +1,53 @@
 {
   "version": "https://jsonfeed.org/version/1.1",
-  "title": "ames.consulting feed sample",
-  "home_page_url": "https://ames.consulting/",
-  "feed_url": "https://ames.consulting/feed.json",
+  "title": "Placeholder Feed",
   "items": [
     {
-      "id": "feed-sample-1",
-      "url": "https://ames.consulting/blog/foundations-not-silos",
-      "title": "Foundations, not silos",
-      "content_html": "<p>Everything is a post. Views do the segmentation.</p>",
-      "date_published": "2026-02-01T10:00:00Z",
-      "tags": ["architecture", "portfolio"]
+      "id": "sample-1",
+      "url": "https://ames.consulting/blog/spec-first-front-end-planning/",
+      "content_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.",
+      "content_html": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis. Donec mattis, mi non faucibus porttitor, lacus nisl hendrerit massa, vitae tempor mi risus id neque.</p><p>Praesent commodo, sapien et laoreet gravida, orci justo pellentesque magna, vitae fermentum lorem arcu sit amet turpis. Suspendisse potenti.</p><p>Aliquam erat volutpat. Nulla facilisi. Curabitur sed sem sit amet lorem blandit cursus.</p>",
+      "date_published": "2026-02-03T15:30:00Z",
+      "tags": [
+        "planning",
+        "css",
+        "workflow"
+      ]
     },
     {
-      "id": "feed-sample-2",
-      "url": "https://ames.consulting/blog/spec-first-planning",
-      "title": "Spec-first front-end planning",
-      "content_text": "Using a tracked matrix to adopt modern HTML and CSS features intentionally.",
-      "date_published": "2026-02-03T15:30:00Z",
-      "tags": ["html", "css"]
+      "id": "sample-2",
+      "url": "https://ames.consulting/blog/content-model-small-teams/",
+      "content_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum.",
+      "content_html": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec sem id urna tincidunt congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p><p>Morbi dictum, nibh ac porta convallis, ipsum lorem dignissim sem, at sagittis massa velit non purus. Donec vitae justo ut neque eleifend luctus.</p><p>Nam sed luctus lorem. Phasellus dignissim arcu nec odio tempor, sed feugiat lectus placerat.</p>",
+      "date_published": "2026-02-07T11:00:00Z",
+      "tags": [
+        "content",
+        "architecture"
+      ]
+    },
+    {
+      "id": "sample-3",
+      "url": "https://ames.consulting/work/carebridge-companion/",
+      "content_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat massa at porttitor dignissim.",
+      "content_html": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec augue vel ipsum dictum ultrices. Curabitur eu lacus ut lorem aliquet tempor.</p><p>Etiam tempor, nisl nec suscipit sagittis, metus ipsum efficitur risus, sed tincidunt lorem quam non lorem.</p><p>Donec facilisis magna at turpis cursus, eget feugiat lorem elementum.</p>",
+      "date_published": "2026-02-12T09:00:00Z",
+      "tags": [
+        "portfolio",
+        "software",
+        "healthcare"
+      ]
+    },
+    {
+      "id": "sample-4",
+      "url": "https://ames.consulting/work/neighborhood-giving-map/",
+      "content_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.",
+      "content_html": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed metus a purus finibus porttitor. Integer varius, augue at dapibus gravida, nibh nulla faucibus risus, nec commodo erat erat ac nibh.</p><p>Sed consequat, sapien sed consequat dignissim, purus velit pulvinar mauris, nec gravida turpis nulla at velit.</p><p>Vivamus sit amet orci nec augue tristique tincidunt.</p>",
+      "date_published": "2026-02-10T09:00:00Z",
+      "tags": [
+        "portfolio",
+        "web",
+        "data"
+      ]
     }
   ]
 }

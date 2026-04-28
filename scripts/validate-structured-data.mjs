@@ -4,8 +4,8 @@ const files = [
   "index.html",
   "blog/index.html",
   "work/index.html",
-  "work/bcbs-vt-app/index.html",
-  "work/sunshine-trail/index.html",
+  "work/carebridge-companion/index.html",
+  "work/neighborhood-giving-map/index.html",
   "contact/index.html",
   "likes/index.html",
   "colophon/index.html"

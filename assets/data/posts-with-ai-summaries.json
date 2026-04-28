@@ -2,44 +2,121 @@
   "posts": [
     {
       "id": "sample-1",
-      "title": "Foundations, not silos",
-      "summary": "Unify content in a single system, then use flexible views—not silos—to organize and present it dynamically.",
-      "contentHtml": "<p>A resilient content architecture starts by avoiding duplicate systems. Everything is a post; views do the segmentation.</p><p><img src=\"/assets/images/sample-work.svg\" alt=\"Sample work preview placeholder\"></p>",
-      "url": "https://ames.consulting/blog/foundations-not-silos",
-      "publishedAt": "2026-02-01T10:00:00Z",
+      "title": "Spec-first front-end planning",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque at lorem posuere facilisis.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae neque sed lorem posuere facilisis. Donec mattis, mi non faucibus porttitor, lacus nisl hendrerit massa, vitae tempor mi risus id neque.</p><p>Praesent commodo, sapien et laoreet gravida, orci justo pellentesque magna, vitae fermentum lorem arcu sit amet turpis. Suspendisse potenti.</p><p>Aliquam erat volutpat. Nulla facilisi. Curabitur sed sem sit amet lorem blandit cursus.</p>",
+      "url": "https://ames.consulting/blog/spec-first-front-end-planning/",
+      "publishedAt": "2026-02-03T15:30:00Z",
       "tags": [
-        "architecture",
-        "portfolio"
+        "planning",
+        "css",
+        "workflow"
       ],
-      "readTimeMinutes": 1,
+      "readTimeMinutes": 3,
       "aiGenerated": true
     },
     {
       "id": "sample-2",
-      "title": "Spec-first front-end planning",
-      "summary": "Define front-end features upfront with a standards matrix, compatibility notes, and test requirements to avoid ad-hoc development.",
-      "contentHtml": "<p>Instead of random feature usage, maintain a deliberate standards matrix with compatibility notes and test requirements.</p>",
-      "url": "https://ames.consulting/blog/spec-first-planning",
-      "publishedAt": "2026-02-03T15:30:00Z",
+      "title": "Designing a content model for small teams",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec sem id urna tincidunt congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p><p>Morbi dictum, nibh ac porta convallis, ipsum lorem dignissim sem, at sagittis massa velit non purus. Donec vitae justo ut neque eleifend luctus.</p><p>Nam sed luctus lorem. Phasellus dignissim arcu nec odio tempor, sed feugiat lectus placerat.</p>",
+      "url": "https://ames.consulting/blog/content-model-small-teams/",
+      "publishedAt": "2026-02-07T11:00:00Z",
       "tags": [
-        "html",
-        "css"
+        "content",
+        "architecture"
       ],
-      "readTimeMinutes": 1,
+      "readTimeMinutes": 3,
       "aiGenerated": true
     },
     {
       "id": "sample-3",
-      "title": "Unified stream portfolio filtering",
-      "summary": "A unified stream portfolio acts as a filter, simplifying publishing workflows and maintaining consistent navigation.",
-      "contentHtml": "<p>When portfolio is a filter, publishing workflows stay simple and navigation remains coherent.</p><p><img src=\"/assets/images/sample-work.svg\" alt=\"Portfolio stream preview placeholder\"></p>",
-      "url": "https://ames.consulting/blog/unified-stream-filtering",
-      "publishedAt": "2026-02-05T08:10:00Z",
+      "title": "CareBridge Companion",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat massa at porttitor dignissim.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec augue vel ipsum dictum ultrices. Curabitur eu lacus ut lorem aliquet tempor.</p><p>Etiam tempor, nisl nec suscipit sagittis, metus ipsum efficitur risus, sed tincidunt lorem quam non lorem.</p><p>Donec facilisis magna at turpis cursus, eget feugiat lorem elementum.</p>",
+      "imageUrl": "./assets/images/work/carebridge-companion/hero.png",
+      "url": "https://ames.consulting/work/carebridge-companion/",
+      "publishedAt": "2026-02-12T09:00:00Z",
       "tags": [
         "portfolio",
-        "workflow"
+        "software",
+        "healthcare"
       ],
-      "readTimeMinutes": 1,
+      "readTimeMinutes": 4,
+      "aiGenerated": true
+    },
+    {
+      "id": "sample-4",
+      "title": "Neighborhood Giving Map",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed metus a purus finibus porttitor. Integer varius, augue at dapibus gravida, nibh nulla faucibus risus, nec commodo erat erat ac nibh.</p><p>Sed consequat, sapien sed consequat dignissim, purus velit pulvinar mauris, nec gravida turpis nulla at velit.</p><p>Vivamus sit amet orci nec augue tristique tincidunt.</p>",
+      "imageUrl": "./assets/images/work/neighborhood-giving-map/hero.jpg",
+      "url": "https://ames.consulting/work/neighborhood-giving-map/",
+      "publishedAt": "2026-02-10T09:00:00Z",
+      "tags": [
+        "portfolio",
+        "web",
+        "data"
+      ],
+      "readTimeMinutes": 4,
+      "aiGenerated": true
+    },
+    {
+      "id": "sample-5",
+      "title": "Financial Wellness Library",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu ipsum nec lorem fermentum volutpat.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod vitae risus ac feugiat. Integer suscipit vestibulum eros, sed condimentum lorem vehicula sed.</p><p>Quisque congue, libero id viverra dictum, elit risus bibendum arcu, vitae posuere sapien lorem sed ligula.</p><p>Curabitur id sapien at massa volutpat fringilla.</p>",
+      "imageUrl": "./assets/images/sample-work.svg",
+      "url": "https://ames.consulting/work/financial-wellness-library/",
+      "publishedAt": "2026-02-08T09:00:00Z",
+      "tags": [
+        "portfolio",
+        "content",
+        "writing"
+      ],
+      "readTimeMinutes": 4,
+      "aiGenerated": true
+    },
+    {
+      "id": "sample-6",
+      "title": "Writing useful summaries for busy readers",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac sem a est tempor hendrerit.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod odio et enim facilisis, sit amet convallis purus imperdiet.</p><p>Fusce placerat, libero eget luctus ullamcorper, velit lorem porta metus, at cursus lorem magna in urna.</p><p>Suspendisse lacinia purus quis lectus tempor, a volutpat arcu efficitur.</p>",
+      "url": "https://ames.consulting/blog/useful-summaries/",
+      "publishedAt": "2026-02-14T13:15:00Z",
+      "tags": [
+        "writing",
+        "content"
+      ],
+      "readTimeMinutes": 2,
+      "aiGenerated": true
+    },
+    {
+      "id": "sample-7",
+      "title": "A calm launch checklist",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc gravida mi non eros facilisis.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet ligula eget lectus finibus venenatis. Etiam sodales magna sed lectus tristique, in feugiat massa eleifend.</p><p>Praesent feugiat, ligula vitae suscipit ultricies, eros lorem pulvinar nisl, vitae sagittis sem ipsum sed lacus.</p>",
+      "url": "https://ames.consulting/blog/calm-launch-checklist/",
+      "publishedAt": "2026-02-16T10:45:00Z",
+      "tags": [
+        "process",
+        "quality"
+      ],
+      "readTimeMinutes": 2,
+      "aiGenerated": true
+    },
+    {
+      "id": "sample-8",
+      "title": "Making placeholder content do real work",
+      "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut felis vitae lectus sagittis aliquam.",
+      "contentHtml": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in facilisis sapien. Morbi aliquet lectus ac lorem aliquet, quis ultricies massa dignissim.</p><p>Nam ullamcorper, lorem id luctus rhoncus, purus orci viverra justo, at cursus lectus ipsum sit amet neque.</p>",
+      "url": "https://ames.consulting/blog/placeholder-content-real-work/",
+      "publishedAt": "2026-02-18T16:20:00Z",
+      "tags": [
+        "content",
+        "testing"
+      ],
+      "readTimeMinutes": 2,
       "aiGenerated": true
     }
   ]

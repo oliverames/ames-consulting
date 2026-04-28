@@ -28,7 +28,7 @@
 | `404.html` | Modify | Sticky nav wrapper |
 | `templates/post-template.html` | Modify | Sticky nav wrapper, blog post reading layout classes |
 | `templates/gallery-template.html` | Modify | Sticky nav wrapper |
-| `templates/eastrise-blog-post.html` | Modify | Sticky nav wrapper |
+| `templates/financial-wellness-post.html` | Modify | Sticky nav wrapper |
 
 ---
 
@@ -258,7 +258,7 @@ Add the identical `<script>` block before `</body>` in each of these files:
 - `404.html`
 - `templates/post-template.html`
 - `templates/gallery-template.html`
-- `templates/eastrise-blog-post.html`
+- `templates/financial-wellness-post.html`
 
 - [ ] **Step 5: Run E2E tests**
 
@@ -1045,7 +1045,7 @@ Replace the `<section class="content-page">` content in `links/index.html`:
     </li>
   </ul>
 
-  <h2>Vermont &amp; Local</h2>
+  <h2>the North Country &amp; Local</h2>
   <ul class="links-list">
     <li>
       <a href="#">Example Article Title<span class="link-domain">example.com</span></a>
@@ -1118,7 +1118,7 @@ git commit -m "feat(animation): scroll-triggered fade-in for homepage sections"
 
 ---
 
-### Task 12: Content Page Styles — Likes, Colophon, EastRise
+### Task 12: Content Page Styles — Likes, Colophon, Financial Wellness
 
 Update the shared content-page styles for reading pages.
 

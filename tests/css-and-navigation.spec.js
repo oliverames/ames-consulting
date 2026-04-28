@@ -10,12 +10,17 @@ import { test, expect } from "@playwright/test";
 const ALL_ROUTES = [
   "/",
   "/blog/",
+  "/blog/spec-first-front-end-planning/",
   "/work/",
   "/work/bcbs-vt-app/",
   "/work/sunshine-trail/",
+  "/photography/",
+  "/photography/beta-career-day-2026/",
+  "/links/",
   "/contact/",
   "/likes/",
-  "/colophon/"
+  "/colophon/",
+  "/404.html"
 ];
 
 // -- CSS Loading --
@@ -39,10 +44,10 @@ for (const route of ALL_ROUTES) {
     const bgColor = await page.evaluate(() =>
       getComputedStyle(document.body).backgroundColor
     );
-    // The Ames design system uses #faf8f5 (rgb(250, 248, 245)) in light mode
-    // or #1c2929 (rgb(28, 41, 41)) in dark mode
-    const isLightMode = bgColor === "rgb(250, 248, 245)";
-    const isDarkMode = bgColor === "rgb(28, 41, 41)";
+    // The Ames design system uses --surface-1 for the page background:
+    // #ede8e0 in light mode or #232f2f in dark mode.
+    const isLightMode = bgColor === "rgb(237, 232, 224)";
+    const isDarkMode = bgColor === "rgb(35, 47, 47)";
     expect(
       isLightMode || isDarkMode,
       `Body background on ${route} should be design system color, got: ${bgColor}`
@@ -77,7 +82,7 @@ test("accent color token is applied to links", async ({ page }) => {
   await page.goto("/");
 
   const linkColor = await page.evaluate(() => {
-    const accentLink = document.querySelector(".site-directory a");
+    const accentLink = document.querySelector(".path-browse");
     return accentLink ? getComputedStyle(accentLink).color : "";
   });
 
@@ -109,13 +114,21 @@ for (const route of ALL_ROUTES) {
 }
 
 for (const route of ALL_ROUTES) {
-  test(`page at ${route} has site footer with social links`, async ({ page }) => {
+  test(`page at ${route} has unified footer sitemap and social links`, async ({ page }) => {
     await page.goto(route);
 
     const footer = page.locator(".site-footer");
     await expect(footer).toBeVisible();
 
-    const footerLinks = footer.locator(".footer-links a");
+    const sitemap = footer.locator(".site-footer__sitemap");
+    await expect(sitemap).toBeVisible();
+    await expect(sitemap.getByRole("link", { name: "All Projects" })).toBeVisible();
+    await expect(sitemap.getByRole("link", { name: "Blog" })).toBeVisible();
+    await expect(sitemap.getByRole("link", { name: "Contact" })).toBeVisible();
+
+    await expect(footer.locator(".site-footer__monogram")).toHaveText("OA");
+
+    const footerLinks = footer.locator(".site-footer__social a");
     const count = await footerLinks.count();
     expect(count).toBeGreaterThanOrEqual(5);
   });
@@ -128,7 +141,7 @@ test("Home nav link navigates to home from every page", async ({ page }) => {
     await page.goto(route);
     await page.getByLabel("Primary").getByRole("link", { name: "Home" }).click();
     await expect(page).toHaveURL(/\/$/);
-    await expect(page.locator(".intro h1")).toBeVisible();
+    await expect(page.locator(".hero h1")).toBeVisible();
   }
 });
 
@@ -178,38 +191,39 @@ test("site-name link navigates home from deep page", async ({ page }) => {
   await expect(page).toHaveURL(/\/$/);
 });
 
-// -- Home Page Site Directory --
+// -- Home Page Featured Paths --
 
-test("home page site directory has all section links", async ({ page }) => {
+test("home page featured paths include all section links", async ({ page }) => {
   await page.goto("/");
 
-  const directory = page.locator(".site-directory");
-  await expect(directory).toBeVisible();
+  const paths = page.locator(".home-paths");
+  await expect(paths).toBeVisible();
 
   // Work links
-  await expect(directory.getByRole("link", { name: "BCBS VT App" })).toBeVisible();
-  await expect(directory.getByRole("link", { name: "The Sunshine Trail" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "BCBS VT App" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "The Sunshine Trail" })).toBeVisible();
 
-  // About links
-  await expect(directory.getByRole("link", { name: "Stuff I Like" })).toBeVisible();
-  await expect(directory.getByRole("link", { name: "Colophon" })).toBeVisible();
+  // Photography links
+  await expect(paths.getByRole("link", { name: "BETA Career Day" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "Montpelier Winter" })).toBeVisible();
 
-  // Blog links
-  await expect(directory.getByRole("link", { name: "All Posts" })).toBeVisible();
+  // Section browse links
+  await expect(paths.getByRole("link", { name: "Read the Blog →" })).toBeVisible();
+  await expect(paths.getByRole("link", { name: "Browse Links →" })).toBeVisible();
 });
 
-test("home page directory links navigate correctly", async ({ page }) => {
+test("home page footer directory links navigate correctly", async ({ page }) => {
   await page.goto("/");
 
   // Test Stuff I Like link
-  await page.locator(".site-directory").getByRole("link", { name: "Stuff I Like" }).click();
+  await page.locator(".site-footer__sitemap").getByRole("link", { name: "Stuff I Like" }).click();
   await expect(page).toHaveURL(/\/likes\/$/);
   await expect(page.locator("h1")).toHaveText("Stuff I Like");
 
   await page.goBack();
 
   // Test Colophon link
-  await page.locator(".site-directory").getByRole("link", { name: "Colophon" }).click();
+  await page.locator(".site-footer__sitemap").getByRole("link", { name: "Colophon" }).click();
   await expect(page).toHaveURL(/\/colophon\/$/);
   await expect(page.locator("h1")).toHaveText("Colophon");
 });
@@ -307,10 +321,10 @@ test("all internal links on home page resolve without 404", async ({ page }) => 
 test("home page work path cards link to project detail pages", async ({ page }) => {
   await page.goto("/");
 
-  const bcbsCard = page.locator('.path-card[href*="bcbs-vt-app"]');
+  const bcbsCard = page.locator('.path-thumb[href*="bcbs-vt-app"]');
   await expect(bcbsCard).toBeVisible();
 
-  const trailCard = page.locator('.path-card[href*="sunshine-trail"]');
+  const trailCard = page.locator('.path-thumb[href*="sunshine-trail"]');
   await expect(trailCard).toBeVisible();
 
   // Click BCBS card and verify navigation

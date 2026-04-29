@@ -83,6 +83,7 @@ class PostCardElement extends HTMLElement {
       const imageLink = document.createElement("a");
       imageLink.href = postUrl;
       imageLink.className = "post-card__image";
+      imageLink.setAttribute("aria-label", this.#post.title);
 
       const image = document.createElement("img");
       image.src = imageUrl;

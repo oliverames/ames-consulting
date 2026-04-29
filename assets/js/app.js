@@ -121,12 +121,10 @@ function renderPosts(posts) {
     return;
   }
 
-  stream.replaceChildren();
-
   if (posts.length === 0) {
     const empty = document.createElement("p");
     empty.textContent = "No posts matched the current filters.";
-    stream.append(empty);
+    stream.replaceChildren(empty);
     return;
   }
 
@@ -142,7 +140,10 @@ function renderPosts(posts) {
     fragment.append(node);
   });
 
-  stream.append(fragment);
+  // Atomic swap so the stream height never momentarily collapses between
+  // wipe and refill. With statically pre-rendered cards in the HTML, this
+  // keeps CLS at 0 during JS hydration since dimensions match.
+  stream.replaceChildren(fragment);
 }
 
 function generateSlug(title) {

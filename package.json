@@ -16,6 +16,7 @@
     "generate:seo-artifacts": "node scripts/generate-seo-artifacts.mjs",
     "generate:ai-summaries": "node scripts/generate-ai-summaries.mjs",
     "generate:blog-posts": "node scripts/generate-blog-posts.mjs",
+    "generate:blog-index": "node scripts/generate-blog-index.mjs",
     "generate:photography": "node scripts/generate-photography-galleries.mjs",
     "generate:financial-wellness": "node scripts/generate-financial-wellness-pages.mjs",
     "generate:eastrise": "node scripts/generate-eastrise-pages.mjs"

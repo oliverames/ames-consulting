@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Pre-render blog index
+        run: node scripts/generate-blog-index.mjs
+
       - name: Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
         with:

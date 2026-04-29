@@ -96,13 +96,16 @@ test("photography gallery listing page loads with all galleries", async ({ page 
 
   await expect(page.locator("h1")).toContainText("Photography");
   const galleries = page.locator(".gallery-preview");
-  await expect(galleries).toHaveCount(1);
+  await expect(galleries).toHaveCount(4);
 
-  await expect(galleries.first()).toContainText("Innovation Lab");
-  await expect(galleries.first().locator("img")).toHaveAttribute(
+  await expect(galleries.nth(0)).toContainText("Innovation Lab Open House");
+  await expect(galleries.nth(0).locator("img")).toHaveAttribute(
     "src",
     "../assets/images/photography/lab-open-house-2026/lab-01.webp"
   );
+  await expect(galleries.nth(1)).toContainText("Riverside Winter Study");
+  await expect(galleries.nth(2)).toContainText("Foothill Trails");
+  await expect(galleries.nth(3)).toContainText("Studio Process Series");
 });
 
 test("homepage photography strip renders from photography data", async ({ page }) => {

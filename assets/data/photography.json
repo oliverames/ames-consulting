@@ -81,6 +81,90 @@
           "height": 1800
         }
       ]
+    },
+    {
+      "id": "riverside-winter-2026",
+      "slug": "riverside-winter-2026",
+      "title": "Riverside Winter Study",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius risus ac nibh interdum, vitae laoreet lacus gravida.",
+      "date": "2026-01-15",
+      "coverImage": "https://images.unsplash.com/photo-1483664852095-d6cc6870702d?auto=format&fit=crop&w=1200&q=80",
+      "images": [
+        {
+          "url": "https://images.unsplash.com/photo-1483664852095-d6cc6870702d?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a snowy street",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a winter city scene",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of snow-covered mountains",
+          "width": 1200,
+          "height": 800
+        }
+      ]
+    },
+    {
+      "id": "foothill-trails-2025",
+      "slug": "foothill-trails-2025",
+      "title": "Foothill Trails",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras feugiat, massa at porttitor dignissim, libero lectus gravida urna.",
+      "date": "2025-10-20",
+      "coverImage": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
+      "images": [
+        {
+          "url": "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a mountain trail",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a forest path",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a mountain vista",
+          "width": 1200,
+          "height": 800
+        }
+      ]
+    },
+    {
+      "id": "studio-process-2025",
+      "slug": "studio-process-2025",
+      "title": "Studio Process Series",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non tortor sed lectus tincidunt luctus.",
+      "date": "2025-08-10",
+      "coverImage": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80",
+      "images": [
+        {
+          "url": "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of an architectural studio detail",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a studio workspace",
+          "width": 1200,
+          "height": 800
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80",
+          "alt": "Unsplash placeholder image of a creative desk setup",
+          "width": 1200,
+          "height": 800
+        }
+      ]
     }
   ]
 }

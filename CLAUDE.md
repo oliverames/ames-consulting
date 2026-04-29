@@ -53,12 +53,15 @@ Color custom properties are registered with `@property` for animated transitions
 
 ### JavaScript — ES Modules (`assets/js/`)
 
-- **app.js** — Bootstrap: loads config → fetches content → renders `<post-card>` elements → attaches filters/events
+- **app.js** — Bootstrap for `/blog/`: loads config → fetches content → renders `<post-card>` elements → attaches filters/events. Imports image-viewer helpers; not loaded on other pages.
 - **post-card.js** — Custom element with private `#post` field, renders article cards
 - **content-sources.js** — Source adapter factory (`createSource()`), feed normalization, retry with exponential backoff
 - **site-config.js** — Loads `assets/data/site.config.json`, merges with defaults
 - **contact-form.js** — Form handling with rate limiting (3/10min), honeypot, minimum fill time
 - **seo.js** — Dynamic meta/OG tags, JSON-LD structured data, canonical URLs
+- **header-scroll.js** — Tiny shared module loaded on every page. Toggles `[data-scrolled]` on `.site-header` once `window.scrollY > 10`, which is what gates the blur backdrop in CSS.
+- **image-viewer.js** — Shared image lightbox: auto-injects its `<dialog>`, decorates content `<img>`s in `<main>`/`<article>` (skipping anything wrapped in `<a>`), and wires click/keyboard/asset-protection handlers. Idempotent — `app.js` imports the named helpers without double-wiring.
+- **photography-strip.js** — Renders the home-page photography strip from `photography.json`.
 
 ### Content Model
 

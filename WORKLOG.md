@@ -1,5 +1,51 @@
 # Worklog
 
+## 2026-04-29 - Nav blur state-gating + image-viewer/scroll-handler module extraction
+
+**What changed**: Single commit `50b6323` (86 files; +438/-865). User-visible bug fix on top, refactor underneath.
+
+The `.site-header` had `background: rgba(243,240,235,0.72)` and `backdrop-filter: blur(12px)` applied unconditionally. The `[data-scrolled]` rule existed but only nudged opacity, so the blur was visible at the very top of every page. Moved background/blur/box-shadow into `.site-header[data-scrolled]` and added `backdrop-filter` to the `transition` list so the effect fades rather than snaps. Default state is now fully transparent.
+
+Then audited for the same shape of bug elsewhere. Two findings worth fixing:
+
+- The 7-line inline IIFE that toggles `[data-scrolled]` was duplicated in 9 places (4 `templates/*.html` plus 5 hand-coded pages) AND missing entirely from 4 hand-coded work-detail pages (`work/carebridge-companion/`, `neighborhood-giving-map/`, `financial-wellness-library/`, `eastrise-writing/`). On those four, the blur was effectively never-on regardless of scroll.
+- `app.js` was loaded only on `/blog/` (the only page with `<dialog id="image-viewer">`), so `decorateContentMedia` and `wireImageViewer` ran nowhere else. Photography galleries, blog post pages, eastrise/financial-wellness articles, and case studies had `cursor: zoom-in` styling on `.zoomable-image` but no element ever got the class — the entire feature was scoped to one page.
+
+Refactor:
+- New `assets/js/header-scroll.js` — single source of truth (21 lines).
+- New `assets/js/image-viewer.js` — exports `wireImageViewer`, `wireAssetProtection`, `decorateContentMedia`, `ensureViewerDialog`. Auto-injects its `<dialog>` when not present so pages don't need to copy the markup. Idempotent wiring (module-level flags) so `app.js`'s `import { ... } from "./image-viewer.js"` plus its existing manual calls don't double-attach handlers. Decorator skips images inside `<a>` tags so photography-index gallery covers (which navigate) don't get hijacked into the viewer.
+- `app.js` now imports the four helpers and dropped ~150 lines of duplicate definitions.
+- All 4 templates and 13 hand-coded pages now load the modules via `<script type="module" src="...">`. Templates regenerated (`npm run generate:blog-posts | generate:photography | generate:financial-wellness | generate:eastrise`) which propagated to ~70 downstream pages automatically.
+
+Verification:
+- `npm run check:all`: 0 errors, 70 pre-existing `no-console` warnings unchanged.
+- `grep -rn "toggleAttribute('data-scrolled'" --include="*.html"` returns zero matches (no leftover IIFEs).
+- All 77 `index.html` pages load `header-scroll.js`; the 70 image-bearing pages load `image-viewer.js`.
+- Local Python server smoke test: 200 on both new module URLs and on representative pages (home, photography gallery, blog post, work case study, eastrise article).
+
+Reconciled (open from prior session, not Codex's):
+- None addressed this session — see "Open questions" below.
+
+**Decisions made**:
+- Made `image-viewer.js` self-injecting (auto-builds the `<dialog>` via `document.createElement` rather than `innerHTML`, after the security hook flagged the latter) instead of asking each page to copy ~10 lines of dialog markup. Lower blast radius and prevents future drift between the dialog markup on different pages.
+- Idempotent wiring with module-level flags rather than splitting `image-viewer.js` into pure-exports + auto-init wrapper files. One file is easier to grep; the flag pattern is local and well-commented.
+- `<script type="module">` for the new modules, not classic scripts. Module scope eliminates the IIFE wrapper and matches the existing `photography-strip.js` / `contact-form.js` / `app.js` convention. Module scripts default to deferred, which is fine for a scroll handler (the inline IIFE was at end-of-body anyway, so timing characteristics are similar).
+- Decorate auto-skip for images inside `<a>` (`if (image.closest("a")) return`). This matters specifically because `photography/index.html` gallery covers are anchor-wrapped — without the skip, clicking a cover would zoom instead of navigating to the gallery. Documented in the module's header comment.
+- Single semantic-`fix` commit covering the bug fix + audit follow-up + refactor, rather than splitting into `fix:` + `refactor:`. The two changes are tightly coupled (the CSS fix relies on `data-scrolled` being toggled on every page, and the refactor is what makes that true everywhere). Splitting would have required `git stash` + selective `git add` for marginal history clarity.
+- Did NOT add `image-viewer.js` to text-only pages (home, contact, links, likes, colophon, 404) or to listing pages with no zoomable content (work index, photography index, work/financial-wellness-library index, work/eastrise-writing index). Adding it would inject a hidden dialog and global event listeners for no benefit. The auto-decorator's `<a>`-skip would prevent visual bugs but the unused JS is wasteful.
+
+**Left off at**: `origin/main` at `50b6323`. `npm run check:all` passes. CLAUDE.md and AGENTS.md updated to document the two new modules; mirror invariant restored via `cp CLAUDE.md AGENTS.md`. Wrap-up commit pending after this WORKLOG entry.
+
+**Open questions**:
+- Still open from prior session: `/blog/` total-byte-weight 551KB vs warning threshold 500KB; path forward is self-hosting Barlow Condensed + Lora subsetted to actually-used glyphs.
+- Still open from prior session: `post-card.js` doesn't know about `-card.webp` variants — filter use re-fetches originals.
+- Still open from prior session: build step needed to auto-generate `-card.webp` variants for non-portfolio post images.
+- Still open from prior session: `scripts/generate-seo-artifacts.mjs:38` hardcoded routes still missing `/photography/` and `/links/`.
+- Still open from prior session: photography placeholder JPGs at `assets/images/photography/<gallery>/photo-N.jpg` still 1×1 stubs.
+- NEW: Hard-reload-while-scrolled produces a brief blur fade-in on first paint because the module script runs after CSS paints the `.site-header { background: transparent }` default. The previous always-on-blur masked this; the new state-gated version exposes it. Fix would be either an inline `<head>` script that sets `[data-scrolled]` on `<html>` before paint (requires a CSS selector change), or a `.preload` class that disables transitions on first frame. Edge case (only triggers on scrolled-page reload), low priority.
+
+---
+
 ## 2026-04-29 - GitHub Actions rescue: lockfile + CLS + 74% byte-weight reduction
 
 **What changed**: All three workflows (Quality Gates, Performance Budget, Deploy GitHub Pages) had been failing on every push since 2026-04-29 morning. Five commits land here, each addressing a distinct failure as it surfaced once the prior was unblocked.

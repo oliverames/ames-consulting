@@ -9,7 +9,7 @@
  * sentinel comments. Run on every deploy and before Lighthouse CI.
  */
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, access } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -84,11 +84,39 @@ async function loadPosts() {
   return data.posts || [];
 }
 
-function renderCard(post) {
+// Convert a full-size image path to its 1200×675 16:9 card thumbnail variant
+// when one exists on disk. The thumbnail is generated separately (see
+// assets/images/.../*-card.webp) to avoid serving a 1200×1800 portrait
+// original where we display a 900×506 landscape crop.
+//
+// Falls back to the original if no -card variant exists so adding a new
+// blog post with a fresh image never produces a 404 — author can ship
+// the post first and add a thumbnail later.
+async function toCardVariant(rawUrl) {
+  if (!rawUrl) {
+    return rawUrl;
+  }
+  if (!/\.webp$/i.test(rawUrl)) {
+    return rawUrl;
+  }
+  const cardUrl = rawUrl.replace(/\.webp$/i, "-card.webp");
+  // Resolve relative-to-repo-root for the file existence check.
+  const normalized = cardUrl.replace(/^\.\//, "");
+  const fsPath = join(projectRoot, normalized);
+  try {
+    await access(fsPath);
+    return cardUrl;
+  } catch {
+    console.log(`  ⚠️  No -card variant for ${rawUrl}, using original`);
+    return rawUrl;
+  }
+}
+
+async function renderCard(post) {
   const slug = generateSlug(post.title);
   const postUrl = `../blog/${slug}/`;
   const rawImage = post.imageUrl || post.featuredImage || "";
-  const imageUrl = rawImage ? resolveAssetPath(rawImage) : "";
+  const imageUrl = rawImage ? resolveAssetPath(await toCardVariant(rawImage)) : "";
   const tags = (post.tags || []).slice(0, 4).map((tag) => `#${tag}`).join(" ");
   const meta = `${formatDate(post.publishedAt)} • ${formatReadTime(post.readTimeMinutes)}`;
 
@@ -127,7 +155,7 @@ async function main() {
 
   console.log(`Rendering ${blogPosts.length} cards into blog/index.html\n`);
 
-  const cards = blogPosts.map(renderCard).join("\n");
+  const cards = (await Promise.all(blogPosts.map(renderCard))).join("\n");
   const replacement = `${START_MARKER}\n${cards}\n        ${END_MARKER}`;
 
   const indexPath = join(projectRoot, "blog/index.html");

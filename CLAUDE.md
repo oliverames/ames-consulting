@@ -19,6 +19,7 @@ Content is sourced from a Local JSON JSON feed (with local fallback) and rendere
 | **Local dev server** | `python3 -m http.server 4173` |
 | **Generate sitemap/robots** | `node scripts/generate-seo-artifacts.mjs --out-dir _site` |
 | **Generate blog pages** | `npm run generate:blog-posts` |
+| **Generate blog index cards** | `npm run generate:blog-index` |
 | **Generate photography galleries** | `npm run generate:photography` |
 | **Generate Financial Wellness pages** | `npm run generate:financial-wellness` |
 | **Generate AI summaries** | `npm run generate:ai-summaries` (uses Mistral) |
@@ -70,6 +71,7 @@ Node.js scripts (`.mjs`) generate static HTML pages from dynamic sources (Local 
 Key scripts:
 - **generate-seo-artifacts.mjs** — Creates sitemap.xml, robots.txt
 - **generate-blog-posts.mjs** — Creates individual blog post HTML from Local JSON content
+- **generate-blog-index.mjs** — Pre-renders `<post-card>` markup into `blog/index.html` between `BLOG_CARDS_START` / `BLOG_CARDS_END` sentinels. Eliminates the layout shift that occurred when the empty stream grew after `app.js` finished its async fetch. Idempotent. Swaps `.webp` → `-card.webp` thumbnail variants when they exist on disk; otherwise falls back to the original.
 - **generate-photography-galleries.mjs** — Creates gallery pages from photography.json
 - **generate-financial-wellness-pages.mjs** — Creates Financial Wellness blog post pages from XML feed
 - **generate-ai-summaries.mjs** — Generates blog previews via Mistral API

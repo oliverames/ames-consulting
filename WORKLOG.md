@@ -1,5 +1,40 @@
 # Worklog
 
+## 2026-04-28 - Review of Codex's same-day work + six-issue fix pass
+
+**What changed**: Reviewed four commits Codex shipped earlier today (`732af1f`, `2871ff3`, `c48928c`, `1573d0c`; +10,456/−4,058 across 171 files) and pushed a single follow-up commit (`80b52e3`) resolving every actionable finding.
+
+Resolved this session in `80b52e3`:
+- Blog slug mismatch: `assets/data/content.example.json` short slugs (`calm-launch-checklist`, `useful-summaries`, `placeholder-content-real-work`, `content-model-small-teams`) replaced with the long slugs that match on-disk dirs. Regenerated `sitemap.xml` (now 67 URLs, up from 14, since `getKnownRoutes` also pulls eastrise-writing pages from `eastrise-blogs.json`).
+- Three orphan photography galleries (`riverside-winter-2026`, `foothill-trails-2025`, `studio-process-2025`) re-linked: added entries to `assets/data/photography.json` with the existing Unsplash cover URLs and 3 photos each; updated `photography/index.html` listing; reordered chronological newest-first. Detail pages on disk left untouched (regeneration would be a no-op).
+- `.path-strip` CSS restored to spec: `padding-inline: 1.5rem; margin-inline: -1.5rem;` plus the original explanatory comment block (Codex had stripped both, leaving `padding-inline: 0.125rem 1.5rem;` which clipped first-card shadows at the scroll-container left edge).
+- `work/financial-wellness-library/index.html` got the JSON-LD WebPage block its sibling work-detail pages already have.
+- Added `htmlEscape` helper to `scripts/generate-financial-wellness-pages.mjs`. Output is byte-identical against current placeholder data (verified via `git diff --stat` after regeneration), but the script can now safely consume external content without breaking out of attributes.
+- Updated `tests/site.spec.js` photography listing assertion from `toHaveCount(1)` to `toHaveCount(4)` so it matches the corrected data.
+- Removed both Codex backup directories (`.codex-backups/review-pass-20260428-161007/` in repo, `~/.codex/file-backups/ames-consulting-20260428-154829/` in Codex's central store). Codex created these despite the explicit prohibition in CLAUDE.md/AGENTS.md and gitignored its own violation.
+
+Reconciled (NOT Codex's fault — pre-existing in baseline `31792f8`):
+- `SearchAction` block in `assets/js/seo.js` lines 158-162. CLAUDE.md says "no SearchAction", code disagrees. Pre-dates today.
+- Duplicate `generateSlug` in `assets/js/app.js:148` and `assets/js/post-card.js:15`. CLAUDE.md says "use centralized `generateSlug()`" but no centralized one exists. Pre-dates today.
+
+**Decisions made**:
+- Used a `codex-review-fixes` branch with fast-forward merge to keep the project's linear-history convention (no merge commits in recent log) while still grouping the fixes logically.
+- Did NOT add the full OG/canonical/theme-color stack to `work/financial-wellness-library/index.html` even though the original review claimed it was missing. Sibling work-detail pages (`carebridge-companion`, `neighborhood-giving-map`) only carry charset/viewport/title/description/author/JSON-LD/stylesheet, so the financial-wellness page's actual gap was the JSON-LD block alone. Adding more would create inconsistency, not parity.
+- Did NOT replace plain-text social-icon labels with SVGs on the same page. The reviewer compared against `work/index.html` (a listing page); sibling detail pages also use plain text. Same parity reasoning.
+- Did NOT run `npm run generate:photography` after editing `photography.json`, because the orphan detail pages already exist on disk with their original Unsplash content. Regenerating would risk template drift overwriting them.
+- Sub-agent reviewers over-attributed two pre-existing issues to Codex (SearchAction, duplicate `generateSlug`); always re-check claimed regressions against `git show <baseline>:<path>` before propagating.
+
+**Left off at**: `origin/main` at `80b52e3`. `npm run check:all` passes (0 errors, only the expected 63 `no-console` warnings on CLI scripts). `npm run test:e2e` passes 94/94 including all axe-core a11y audits. Branch `codex-review-fixes` deleted locally.
+
+**Open questions**:
+- Resolved this session: regeneration of Financial Wellness sub-articles (the safer-escape script ran end-to-end, output byte-identical for current data).
+- Still open: photography placeholder JPGs at `assets/images/photography/<gallery>/photo-N.jpg` are 1×1px stub files. The orphan galleries actually render via Unsplash URLs; the local JPG paths are vestigial. Cleanup would either remove the stubs or commission real photos.
+- NEW: AGENTS.md is currently a byte-identical copy of CLAUDE.md (Codex added it as a same-content mirror so its conventions live under its conventional filename). Two files to keep in sync, or replace with a symlink. Worth deciding before the next CLAUDE.md edit.
+- NEW: `scripts/generate-seo-artifacts.mjs:38` hardcodes a routes list that omits `/photography/`, `/links/`, and `/work/financial-wellness-library/`. The current sitemap picks up financial-wellness from `content.example.json`, but `/photography/` and `/links/` are absent. Worth either adding to the routes list or having the script discover them from `photography.json` and the directory tree.
+- NEW: Codex's auto-backup behavior violates the no-backups rule. Worth running the `codex:setup` skill to check whether Codex's backup feature can be disabled at the source rather than cleaned up after each session.
+
+---
+
 ## 2026-04-27 - Comprehensive design system implementation (Stripe-extension + brand-home)
 
 **What changed**: Implemented the Ames Consulting Design System across every page on the site to match the brand-home.html and Stripe-extension preview files (web-hero-stripe, web-bento, web-cta-band, web-path-strip, web-practice-cards, web-shadows, web-dark-surfaces, web-accent-plum). Single commit captured by auto-sync hook (`a0f6a9f`): 20 files, 819 net lines in `assets/css/main.css`, structural HTML changes across all 15 page templates.

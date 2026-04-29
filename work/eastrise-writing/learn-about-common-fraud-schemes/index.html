@@ -159,14 +159,7 @@
       }
     }
     </script>
-    <script>
-      (function() {
-        var h = document.querySelector('.site-header');
-        if (!h) return;
-        function check() { h.toggleAttribute('data-scrolled', window.scrollY > 10); }
-        window.addEventListener('scroll', check, { passive: true });
-        check();
-      })();
-    </script>
+    <script type="module" src="../../../assets/js/header-scroll.js"></script>
+    <script type="module" src="../../../assets/js/image-viewer.js"></script>
   </body>
 </html>

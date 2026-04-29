@@ -247,19 +247,25 @@
 
 @layer layout {
   /* ─── Site Header ─── */
+  /* Default state (top of page): fully transparent — no blur, no shadow.   */
+  /* Once content scrolls under the header, an inline JS handler toggles    */
+  /* [data-scrolled] and the blur/background/shadow fade in via transition. */
   .site-header {
     position: sticky;
     top: 0;
     z-index: 100;
     padding: var(--space-2) 0;
-    background: rgba(243, 240, 235, 0.72);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: background var(--transition-snappy), box-shadow var(--transition-snappy);
+    background: transparent;
+    transition: background var(--transition-snappy),
+                backdrop-filter var(--transition-snappy),
+                -webkit-backdrop-filter var(--transition-snappy),
+                box-shadow var(--transition-snappy);
   }
 
   .site-header[data-scrolled] {
     background: rgba(243, 240, 235, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 1px 0 rgba(0,0,0,0.04);
   }
 

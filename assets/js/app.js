@@ -535,7 +535,25 @@ async function bootstrap() {
     });
   };
 
-  render();
+  // Skip the initial render when statically pre-rendered cards already
+  // satisfy the current filter state. This avoids a second round-trip
+  // for full-size images (post-card.js doesn't know about -card thumbnail
+  // variants) and keeps the LCP image as the only image fetched on /blog/.
+  // Filter changes still call render() through wireFilters, so search and
+  // tag filters work normally — the swap to original images only happens
+  // when the user actively narrows the list.
+  const stream = document.getElementById("post-stream");
+  const hasStaticCards = stream?.querySelector("post-card") != null;
+  const hasNoFilters = !filters.query && !filters.tag;
+
+  if (hasStaticCards && hasNoFilters) {
+    const filtered = applyFilters(posts, filters, view, config);
+    renderStatus(filtered.length, filters, activeProvider);
+    syncSeo({ view, filters, config, posts: filtered });
+  } else {
+    render();
+  }
+
   wireImageViewer();
   wireAssetProtection();
   wireDialog(posts);

@@ -114,14 +114,6 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 - **External content**: Use `DOMParser` (not `innerHTML`) for untrusted HTML. Keep CSP headers updated for external image sources.
 - **2-space indentation**, LF line endings (see `.editorconfig`)
 
-## README Known Gaps (public repo)
-
-The README is missing two items per the `readme-style` style guide:
-- **No header icon/logo** — style guide requires a centered icon above the `<h1>`
-- **No license badge** — badge row should include a `license-MIT` badge before Buy Me a Coffee
-
-Fix these the next time the README is updated.
-
 ## Design System Reference
 
 Visual identity documented in `docs/plans/2026-02-11-visual-design-system.md`. Typography: Barlow Condensed (headings) + Lora (body) via Google Fonts. Color palette rooted in industrial archive heritage — warm paper, forge orange accent.

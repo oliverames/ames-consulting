@@ -1,7 +1,7 @@
 <h1 align="center">ames.consulting</h1>
 
 <p align="center">
-  <strong>Portfolio and consulting site for Avery Morgan</strong>
+  <strong>Portfolio and consulting site for Oliver Ames — content strategist, software tinkerer, and video producer in Montpelier, Vermont</strong>
 </p>
 
 <p align="center">
@@ -12,7 +12,8 @@
 
 <p align="center">
   <a href="https://ames.consulting"><img src="https://img.shields.io/badge/Live_Site-ames.consulting-f5a542?style=flat-square" alt="Live Site"></a>
-  <a href="https://www.buymeacoffee.com/demo-profile"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f5a542?style=flat-square" alt="License"></a>
+  <a href="https://www.buymeacoffee.com/oliverames"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee"></a>
 </p>
 
 <p align="center">
@@ -34,10 +35,7 @@ Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse perf
 | Route | Purpose |
 |---|---|
 | `/` | Home — intro, featured work, site directory |
-| `/work/` | Work landing — software and web project categories |
-| `/work/carebridge-companion/` | CareBridge companion app case study |
-| `/work/neighborhood-giving-map/` | Neighborhood Giving Map interactive map case study |
-| `/work/financial-wellness-library/` | Sample Financial Cooperative writing portfolio |
+| `/work/` | Work landing — software, web, and consulting projects |
 | `/blog/` | Full Local JSON post stream with tag/search filtering |
 | `/photography/` | Photography galleries organized by shoot |
 | `/links/` | Link directory |
@@ -116,16 +114,16 @@ Deployed via GitHub Actions (`.github/workflows/deploy-pages.yml`). Custom domai
 ---
 
 <p align="center">
-  <a href="https://www.buymeacoffee.com/demo-profile">
+  <a href="https://www.buymeacoffee.com/oliverames">
     <img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee">
   </a>
 </p>
 
 <p align="center">
   <sub>
-    Built by <a href="https://ames.consulting">Avery Morgan</a> in the North Country
-    &bull; <a href="https://example.com/profiles/github">GitHub</a>
-    &bull; <a href="https://example.com/profiles/linkedin">LinkedIn</a>
-    &bull; <a href="https://bsky.app/profile/demo.example.com">Bluesky</a>
+    Built by <a href="https://ames.consulting">Oliver Ames</a> in Vermont
+    &bull; <a href="https://github.com/oliverames">GitHub</a>
+    &bull; <a href="https://linkedin.com/in/oliverames">LinkedIn</a>
+    &bull; <a href="https://bsky.app/profile/oliverames.bsky.social">Bluesky</a>
   </sub>
 </p>

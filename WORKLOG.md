@@ -1,5 +1,13 @@
 # Worklog
 
+## 2026-07-13 - Production launch gates
+
+**Current state**: The repository, quality checks, accessibility tests, performance budget, and GitHub Pages deployment are ready for review. The production domain is not live: `ames.consulting` has no apex address record, `www.ames.consulting` has no CNAME, and HTTPS cannot resolve the host. The checked-in site configuration also leaves `contactFormEndpoint` blank, and the public templates still use `hello@example.com` and demonstration content.
+
+**What remains**: Configure the apex and `www` DNS records, replace the placeholder identity and demonstration copy with final content, add the real contact address, and configure and test the form endpoint. Do not call the production launch complete until the custom domain serves the current Pages build over HTTPS and a real form submission succeeds without exposing credentials in the repository.
+
+---
+
 ## 2026-04-29 - Nav blur state-gating + image-viewer/scroll-handler module extraction
 
 **What changed**: Single commit `50b6323` (86 files; +438/-865). User-visible bug fix on top, refactor underneath.

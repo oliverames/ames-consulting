@@ -26,7 +26,7 @@ jobs:
         run: node scripts/generate-blog-index.mjs
 
       - name: Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v12.6.2
+        uses: treosh/lighthouse-ci-action@12.6.2
         with:
           configPath: ./.lighthouserc.json
           uploadArtifacts: true

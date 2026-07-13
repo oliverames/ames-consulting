@@ -60,7 +60,7 @@ test("static blog post shows read time metadata", async ({ page }) => {
   await page.goto("/blog/spec-first-front-end-planning/");
 
   // Check for read time in article metadata
-  await expect(page.locator("article")).toBeVisible();
+  await expect(page.locator("main article.blog-detail")).toBeVisible();
   await expect(page.locator(".blog-post-meta")).toBeVisible();
   await expect(page.locator(".blog-post-meta")).toContainText("min read");
 });

@@ -5,7 +5,7 @@ This project is a static site with client-rendered enhancements. Security focuse
 ## Implemented Controls
 
 - Runtime HTML sanitization for preview content.
-- CSP baseline via `meta http-equiv` on route shells.
+- CSP baseline via `meta http-equiv` on route shells for directives browsers support there.
 - Referrer policy (`strict-origin-when-cross-origin`).
 - Permissions policy with sensitive APIs disabled.
 - Contact form anti-abuse: honeypot, minimum-fill-time gate, local rate limiter.
@@ -14,7 +14,7 @@ This project is a static site with client-rendered enhancements. Security focuse
 ## Known Limits
 
 - Browser-delivered assets cannot be fully copy-protected.
-- Meta-tag CSP is weaker than server headers.
+- Meta-tag CSP is weaker than server headers. Framing protection such as `frame-ancestors` must be set as an HTTP response header.
 - Client-side anti-spam controls are supplementary; endpoint-side protections remain required.
 
 ## Recommended Edge/Header Policy

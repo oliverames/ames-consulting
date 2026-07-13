@@ -150,7 +150,6 @@ export class LocalJsonSource {
           retries: 0,
           timeoutMs: 3000
         });
-        console.log("✓ Using AI-enhanced summaries");
       } catch {
         // Fall through to regular content
       }

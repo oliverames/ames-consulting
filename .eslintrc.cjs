@@ -18,5 +18,13 @@ module.exports = {
         "varsIgnorePattern": "^_"
       }
     ]
-  }
+  },
+  overrides: [
+    {
+      files: ["scripts/*.mjs"],
+      rules: {
+        "no-console": "off"
+      }
+    }
+  ]
 };

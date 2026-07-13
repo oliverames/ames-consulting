@@ -7,6 +7,8 @@
 - Run local checks before opening a PR:
 
 ```bash
+npm ci
+npx playwright install chromium
 npm run check:all
 npm run test:e2e
 ```

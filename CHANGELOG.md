@@ -6,6 +6,16 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 
 ## [Unreleased]
 
+### Fixed
+
+- Scoped the blog metadata browser test to the visible blog article so the image viewer dialog does not trigger Playwright strict mode.
+- Updated stale image checks to match the WebP files served by the work pages.
+- Fixed mobile path strips that widened the document beyond the viewport.
+- Removed the unsupported `frame-ancestors` meta directive that produced console errors. Framing protection remains documented as an edge-header requirement.
+- Restored the MIT license file referenced by the README and package metadata.
+- Expanded CI to run the complete Playwright suite, including navigation and layout checks, and made lint warnings fail the build.
+- Updated the GitHub Actions and Node versions used by the quality, Pages, and Lighthouse workflows.
+
 ### Added
 
 - Contact page scaffold with structured form and placeholder contact channels.

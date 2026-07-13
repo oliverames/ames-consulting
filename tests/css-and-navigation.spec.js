@@ -260,7 +260,7 @@ test("CareBridge Companion detail page loads hero image", async ({ page }) => {
 
   const heroImg = page.locator(".project-content figure img");
   await expect(heroImg).toBeVisible();
-  await expect(heroImg).toHaveAttribute("src", /carebridge-companion\/hero\.png/);
+  await expect(heroImg).toHaveAttribute("src", /carebridge-companion\/hero\.webp/);
 });
 
 test("Neighborhood Giving Map detail page loads hero image", async ({ page }) => {
@@ -268,7 +268,7 @@ test("Neighborhood Giving Map detail page loads hero image", async ({ page }) =>
 
   const heroImg = page.locator(".project-content figure img");
   await expect(heroImg).toBeVisible();
-  await expect(heroImg).toHaveAttribute("src", /neighborhood-giving-map\/hero\.jpg/);
+  await expect(heroImg).toHaveAttribute("src", /neighborhood-giving-map\/hero\.webp/);
 });
 
 // -- Likes / Colophon Sibling Navigation --
@@ -353,4 +353,32 @@ test("body margin is reset to 0", async ({ page }) => {
     getComputedStyle(document.body).margin
   );
   expect(margin).toBe("0px");
+});
+
+test("mobile path strips scroll without widening the page", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const layout = await page.evaluate(() => {
+    const strip = document.querySelector(".path-strip");
+    return {
+      pageWidth: document.documentElement.clientWidth,
+      pageScrollWidth: document.documentElement.scrollWidth,
+      stripClientWidth: strip?.clientWidth ?? 0,
+      stripScrollWidth: strip?.scrollWidth ?? 0
+    };
+  });
+
+  expect(layout.pageScrollWidth).toBe(layout.pageWidth);
+  expect(layout.stripScrollWidth).toBeGreaterThan(layout.stripClientWidth);
+});
+
+test("home page has no browser console errors", async ({ page }) => {
+  const errors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+
+  await page.goto("/");
+  expect(errors).toEqual([]);
 });

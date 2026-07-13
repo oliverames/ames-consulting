@@ -665,6 +665,13 @@
        same left/right edges as surrounding sections. */
   }
 
+  @media (max-width: 640px) {
+    .path-strip {
+      margin-inline: calc((100vw - 100%) / -2);
+      padding-inline: calc((100vw - 100%) / 2);
+    }
+  }
+
   .path-thumb {
     flex-shrink: 0;
     scroll-snap-align: start;

@@ -2,10 +2,11 @@
   "name": "ames-consulting-site",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "check:js-syntax": "node scripts/check-js-syntax.mjs",
-    "lint:js": "eslint 'assets/js/*.js' 'scripts/*.mjs' 'tests/*.js'",
+    "lint:js": "eslint --max-warnings 0 'assets/js/*.js' 'scripts/*.mjs' 'tests/*.js'",
     "check:html": "html-validate index.html 404.html blog/index.html blog/*/index.html work/index.html work/carebridge-companion/index.html work/neighborhood-giving-map/index.html work/financial-wellness-library/index.html work/eastrise-writing/index.html work/eastrise-writing/*/index.html photography/index.html photography/*/index.html links/index.html contact/index.html likes/index.html colophon/index.html templates/*.html",
     "check:structured-data": "node scripts/validate-structured-data.mjs",
     "check:sample-data": "node scripts/validate-sample-data.mjs",

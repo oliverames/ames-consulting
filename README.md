@@ -1,7 +1,7 @@
 <h1 align="center">ames.consulting</h1>
 
 <p align="center">
-  <strong>Portfolio and consulting site for Oliver Ames — content strategist, software tinkerer, and video producer in Montpelier, Vermont</strong>
+  <strong>Portfolio and consulting site for Oliver Ames, a content strategist, software tinkerer, and video producer in Montpelier, Vermont</strong>
 </p>
 
 <p align="center">
@@ -24,9 +24,11 @@
 
 ---
 
+The public repository uses demo names, contact details, and work samples. Replace the demo pages and `assets/data/site.config.json` before publishing a fork.
+
 ## Why This Structure
 
-A personal site should outlast whatever framework is trending. This site uses zero build-time JavaScript frameworks — just HTML, CSS (cascade layers, container queries, registered custom properties), and ES modules. Content flows from a single Local JSON JSON feed into a normalized post model, with views filtered client-side. The result is a fast, standards-forward site that's easy to maintain and doesn't require a Node.js build pipeline to deploy.
+A personal site should outlast whatever framework is trending. This site uses no build-time JavaScript framework. It is plain HTML, CSS (cascade layers, container queries, registered custom properties), and ES modules. Content from either a JSON feed or the local sample data is normalized into one post model, then filtered in the browser. The site stays quick to load and does not need a Node.js build pipeline in production.
 
 Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
 
@@ -34,13 +36,13 @@ Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse perf
 
 | Route | Purpose |
 |---|---|
-| `/` | Home — intro, featured work, site directory |
-| `/work/` | Work landing — software, web, and consulting projects |
+| `/` | Home: intro, featured work, site directory |
+| `/work/` | Work landing: software, web, and consulting projects |
 | `/blog/` | Full Local JSON post stream with tag/search filtering |
 | `/photography/` | Photography galleries organized by shoot |
 | `/links/` | Link directory |
 | `/contact/` | Contact form and social links |
-| `/likes/` | Stuff I Like — curated recommendations |
+| `/likes/` | Stuff I Like: curated recommendations |
 | `/colophon/` | How this site is built |
 
 ## Architecture Decisions
@@ -76,7 +78,8 @@ Tracked in `docs/SPEC-MATRIX.md`.
 ## Local Development
 
 ```bash
-npm install
+npm ci
+npx playwright install chromium
 python3 -m http.server 4173
 ```
 
@@ -91,12 +94,12 @@ npm run test:regression # regression tests only
 npm run test:a11y       # accessibility audits only
 ```
 
-## Local JSON Configuration
+## Content Configuration
 
-1. Copy `assets/data/site.config.example.json` to `assets/data/site.config.json`.
-2. Set `provider` to `microblog`.
-3. Set `jsonFeedUrl` to your Local JSON JSON feed URL.
-4. Set `contactFormEndpoint` to your form backend endpoint (optional until ready).
+1. Start with `assets/data/site.config.example.json` and update `assets/data/site.config.json`.
+2. Set `provider` to `microblog` if you want to use a JSON feed.
+3. Set `jsonFeedUrl` to that feed's URL.
+4. Set `contactFormEndpoint` when the form backend is ready.
 
 Until then, the app automatically uses local sample content.
 
@@ -106,10 +109,10 @@ Deployed via GitHub Actions (`.github/workflows/deploy-pages.yml`). Custom domai
 
 ## CI/CD
 
-- **ci-quality.yml** — Static checks, broken link scan, E2E/a11y tests
-- **performance.yml** — Lighthouse budget enforcement
-- **deploy-pages.yml** — GitHub Pages deployment with SEO artifact generation
-- **pr-hygiene.yml** — Semantic PR title validation
+- **ci-quality.yml**: Static checks, broken link scan, browser tests, and accessibility checks
+- **performance.yml**: Lighthouse budget enforcement
+- **deploy-pages.yml**: GitHub Pages deployment with SEO artifact generation
+- **pr-hygiene.yml**: Semantic PR title validation
 
 ---
 

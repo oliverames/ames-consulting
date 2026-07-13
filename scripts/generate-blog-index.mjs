@@ -84,10 +84,10 @@ async function loadPosts() {
   return data.posts || [];
 }
 
-// Convert a full-size image path to its 1200×675 16:9 card thumbnail variant
+// Convert a full-size image path to its 720×405 16:9 card thumbnail variant
 // when one exists on disk. The thumbnail is generated separately (see
 // assets/images/.../*-card.webp) to avoid serving a 1200×1800 portrait
-// original where we display a 900×506 landscape crop.
+// original where we display a compact landscape crop.
 //
 // Falls back to the original if no -card variant exists so adding a new
 // blog post with a fresh image never produces a 404 — author can ship
@@ -121,7 +121,7 @@ async function renderCard(post) {
   const meta = `${formatDate(post.publishedAt)} • ${formatReadTime(post.readTimeMinutes)}`;
 
   const imageHtml = imageUrl
-    ? `\n            <a href="${escapeHtml(postUrl)}" class="post-card__image" aria-label="${escapeHtml(post.title)}"><img src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" width="900" height="506"></a>`
+    ? `\n            <a href="${escapeHtml(postUrl)}" class="post-card__image" aria-label="${escapeHtml(post.title)}"><img src="${escapeHtml(imageUrl)}" alt="" loading="lazy" decoding="async" width="720" height="405"></a>`
     : "";
 
   return `        <post-card>

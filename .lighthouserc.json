@@ -34,7 +34,7 @@
           }
         ],
         "total-byte-weight": [
-          "warn",
+          "error",
           {
             "maxNumericValue": 500000
           }

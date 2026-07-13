@@ -15,6 +15,7 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 - Restored the MIT license file referenced by the README and package metadata.
 - Expanded CI to run the complete Playwright suite, including navigation and layout checks, and made lint warnings fail the build.
 - Updated the GitHub Actions and Node versions used by the quality, Pages, and Lighthouse workflows.
+- Reduced blog card image payloads and made the 500 KB Lighthouse network budget a required gate.
 
 ### Added
 

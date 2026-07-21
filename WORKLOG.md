@@ -2,7 +2,7 @@
 
 ## 2026-07-21 - Cloudflare Pages, R2 assets, and dependency security
 
-**What changed**: Moved production delivery to Cloudflare Pages while keeping GitHub `main` as the editable source of truth. The Pages build now rewrites website image URLs to the dedicated `ames-website-images` R2 bucket, under the `ames-consulting/` prefix, served through `assets.ames.consulting`. Added the scoped Pages and R2 credentials to GitHub Actions through encrypted repository secrets and retained the canonical credentials in 1Password. Updated the two vulnerable transitive `brace-expansion` releases from 1.1.14 and 2.1.0 to their patched 1.1.16 and 2.1.2 releases.
+**What changed**: Moved production delivery to Cloudflare Pages while keeping GitHub `main` as the editable source of truth. The Pages build now rewrites website image URLs to the dedicated `ames-website-assets` R2 bucket, under the `ames-consulting/` prefix, served through `assets.ames.consulting`. Added the scoped Pages and R2 credentials to GitHub Actions through encrypted repository secrets and retained the canonical credentials in 1Password. Updated the two vulnerable transitive `brace-expansion` releases from 1.1.14 and 2.1.0 to their patched 1.1.16 and 2.1.2 releases.
 
 **Live infrastructure**: `ames.consulting` and `www.ames.consulting` deploy from pushes to `main`. A hostname-scoped Cloudflare Cache Rule for `assets.ames.consulting` sets browser cache lifetime to 3,600 seconds while respecting the R2 origin lifetime at the edge. The rule is limited to the asset hostname and does not change caching for the main site.
 

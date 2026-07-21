@@ -28,6 +28,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Upload website images to R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_EC2_METADATA_DISABLED: "true"
+          R2_ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+        run: |
+          aws s3 sync assets/images s3://ames-website-assets/ames-consulting/assets/images \
+            --endpoint-url "$R2_ENDPOINT" \
+            --exclude "*" \
+            --include "*.avif" \
+            --include "*.gif" \
+            --include "*.jpeg" \
+            --include "*.jpg" \
+            --include "*.png" \
+            --include "*.svg" \
+            --include "*.webp" \
+            --delete \
+            --cache-control "public, max-age=3600, stale-while-revalidate=604800"
+
       - name: Build static artifact
         run: npm run build:site
 
@@ -38,4 +59,6 @@ jobs:
         run: npx wrangler@4.112.0 pages deploy _site --project-name ames-consulting --branch main
 
       - name: Verify deployment
-        run: test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/)" = "200"
+        run: |
+          test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/)" = "200"
+          test "$(curl -sS -o /dev/null -w '%{http_code}' https://assets.ames.consulting/ames-consulting/assets/images/sample-work.svg)" = "200"

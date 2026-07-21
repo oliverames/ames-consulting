@@ -6,7 +6,7 @@
 
 <p align="center">
   <code>static site</code> &bull;
-  <code>GitHub Pages</code> &bull;
+  <code>Cloudflare Pages + R2</code> &bull;
   <code>no framework</code>
 </p>
 
@@ -30,7 +30,7 @@ The public repository uses demo names, contact details, and work samples. Replac
 
 A personal site should outlast whatever framework is trending. This site uses no build-time JavaScript framework. It is plain HTML, CSS (cascade layers, container queries, registered custom properties), and ES modules. Content from either a JSON feed or the local sample data is normalized into one post model, then filtered in the browser. The site stays quick to load and does not need a Node.js build pipeline in production.
 
-Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
+Hosted on Cloudflare Pages with image assets delivered from Cloudflare R2. GitHub Actions enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
 
 ## Site Structure
 
@@ -61,7 +61,7 @@ Hosted on GitHub Pages with CI/CD that enforces HTML validation, Lighthouse perf
 
 ### Frontend Baseline
 
-- Pure static hosting target (GitHub Pages).
+- Pure static hosting target (Cloudflare Pages).
 - No framework lock-in.
 - ES modules for clear separation: configuration, source adapters, UI, web components.
 
@@ -103,15 +103,15 @@ npm run test:a11y       # accessibility audits only
 
 Until then, the app automatically uses local sample content.
 
-## GitHub Pages Hosting
+## Cloudflare Hosting
 
-Deployed via GitHub Actions (`.github/workflows/deploy-pages.yml`). Custom domain set in `CNAME`.
+GitHub remains the source of truth. A push to `main` uploads `assets/images/` to the dedicated `ames-website-assets` R2 bucket, rewrites the production artifact to use `assets.ames.consulting`, and deploys `_site/` to Cloudflare Pages.
 
 ## CI/CD
 
 - **ci-quality.yml**: Static checks, broken link scan, browser tests, and accessibility checks
 - **performance.yml**: Lighthouse budget enforcement
-- **deploy-pages.yml**: GitHub Pages deployment with SEO artifact generation
+- **deploy-pages.yml**: R2 image upload and Cloudflare Pages deployment with SEO artifact generation
 - **pr-hygiene.yml**: Semantic PR title validation
 
 ---

@@ -57,4 +57,9 @@ for (const generator of generators) {
   });
 }
 
+execFileSync(process.execPath, [join(outputDir, "scripts", "rewrite-r2-assets.mjs")], {
+  cwd: outputDir,
+  stdio: "inherit"
+});
+
 console.log(`Built static site in ${outputDir}`);

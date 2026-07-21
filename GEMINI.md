@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Static personal portfolio/consulting site for ames.consulting. No framework — pure HTML, CSS (cascade layers), and vanilla ES modules. Hosted on GitHub Pages with a custom domain.
+Static personal portfolio/consulting site for ames.consulting. No framework — pure HTML, CSS (cascade layers), and vanilla ES modules. Hosted on Cloudflare Pages with website images delivered from R2.
 
 Content is sourced from a Local JSON JSON feed (with local fallback) and rendered client-side through a single canonical Post model. Multiple views (home, blog, work) are derived from the same content stream via tag filtering.
 
@@ -98,12 +98,12 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 
 - **ci-quality.yml** — Static checks → broken link scan → E2E/a11y tests (on push to main + PRs)
 - **performance.yml** — Lighthouse CI budgets (perf ≥ 0.8, CLS ≤ 0.1, LCP ≤ 3s, total ≤ 500KB)
-- **deploy-pages.yml** — Builds `_site/`, generates SEO artifacts, deploys to GitHub Pages
+- **deploy-pages.yml** — Uploads website images to R2, builds `_site/`, and deploys to Cloudflare Pages
 - **pr-hygiene.yml** — Enforces semantic PR titles (feat/fix/chore/docs/refactor/test/perf)
 
 ## Conventions
 
-- **Relative paths only**: All internal links and asset references must use relative paths (`./`, `../`). Absolute paths break GitHub Pages subdirectory deployments.
+- **Relative source paths**: Keep internal links and image references relative (`./`, `../`) for local development. The production build rewrites `assets/images/` references to the `assets.ames.consulting` R2 hostname.
 - **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
 - **Progressive enhancement**: `<noscript>` fallbacks for JS-rendered content (especially `blog-strip`)
 - **Homepage section structure**: `path-row` (container) → `h2` (heading with link) → `path-strip` (horizontal scrollable) → `path-browse` (CTA link)

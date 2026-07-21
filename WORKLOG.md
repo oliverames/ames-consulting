@@ -1,5 +1,27 @@
 # Worklog
 
+## 2026-07-21 - Cloudflare Pages, R2 assets, and dependency security
+
+**What changed**: Moved production delivery to Cloudflare Pages while keeping GitHub `main` as the editable source of truth. The Pages build now rewrites website image URLs to the dedicated `ames-website-images` R2 bucket, under the `ames-consulting/` prefix, served through `assets.ames.consulting`. Added the scoped Pages and R2 credentials to GitHub Actions through encrypted repository secrets and retained the canonical credentials in 1Password. Updated the two vulnerable transitive `brace-expansion` releases from 1.1.14 and 2.1.0 to their patched 1.1.16 and 2.1.2 releases.
+
+**Live infrastructure**: `ames.consulting` and `www.ames.consulting` deploy from pushes to `main`. A hostname-scoped Cloudflare Cache Rule for `assets.ames.consulting` sets browser cache lifetime to 3,600 seconds while respecting the R2 origin lifetime at the edge. The rule is limited to the asset hostname and does not change caching for the main site.
+
+**Verification**:
+- `npm ci`, `npm audit --audit-level=high`, `npm run check:all`, `npm run build:site`, and `npm run test:e2e` pass.
+- All 96 Playwright tests pass, and `npm audit` reports zero vulnerabilities.
+- The dependency tree resolves `brace-expansion` to 1.1.16 and 2.1.2 only.
+- Representative R2 objects return HTTP 200 with `Cache-Control: public, max-age=3600, stale-while-revalidate=604800`.
+
+**Left off at**: The Cloudflare Pages and R2 migration is live. The security-only lockfile update is ready to ship after this entry.
+
+**Open questions carried forward**:
+- `/blog/` remains slightly above its non-blocking 500 KB warning threshold. Self-hosting and subsetting the two web fonts remains the cleanest likely reduction.
+- Filtered blog results still use original images because `post-card.js` does not select committed `-card.webp` variants.
+- New non-portfolio posts still need a build step to generate missing `-card.webp` variants.
+- `scripts/generate-seo-artifacts.mjs` still omits `/photography/` and `/links/` from its hardcoded routes.
+- Several photography placeholder JPGs remain 1-by-1 stubs.
+- Reloading a scrolled page can briefly animate the header blur into place.
+
 ## 2026-07-13 - Production launch gates
 
 **Current state**: The repository, quality checks, accessibility tests, performance budget, and GitHub Pages deployment are ready for review. The production domain is not live: `ames.consulting` has no apex address record, `www.ames.consulting` has no CNAME, and HTTPS cannot resolve the host. The checked-in site configuration also leaves `contactFormEndpoint` blank, and the public templates still use `hello@example.com` and demonstration content.

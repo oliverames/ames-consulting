@@ -12,7 +12,7 @@
 - The dependency tree resolves `brace-expansion` to 1.1.16 and 2.1.2 only.
 - Representative R2 objects return HTTP 200 with `Cache-Control: public, max-age=3600, stale-while-revalidate=604800`.
 
-**Left off at**: The Cloudflare Pages and R2 migration is live. The security-only lockfile update is ready to ship after this entry.
+**Left off at**: The Cloudflare Pages and R2 migration is live, and the security-only lockfile update has shipped to `main`.
 
 **Open questions carried forward**:
 - `/blog/` remains slightly above its non-blocking 500 KB warning threshold. Self-hosting and subsetting the two web fonts remains the cleanest likely reduction.

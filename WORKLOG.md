@@ -2,14 +2,14 @@
 
 ## 2026-07-21 - Cloudflare Pages, R2 assets, and dependency security
 
-**What changed**: Moved production delivery to Cloudflare Pages while keeping GitHub `main` as the editable source of truth. The Pages build now rewrites website image URLs to the dedicated `ames-website-assets` R2 bucket, under the `ames-consulting/` prefix, served through `assets.ames.consulting`. Added the scoped Pages and R2 credentials to GitHub Actions through encrypted repository secrets and retained the canonical credentials in 1Password. Updated the two vulnerable transitive `brace-expansion` releases from 1.1.14 and 2.1.0 to their patched 1.1.16 and 2.1.2 releases.
+**What changed**: Moved production delivery to Cloudflare Pages while keeping GitHub `main` as the editable source of truth. The Pages build now rewrites website image URLs to the dedicated `ames-website-assets` R2 bucket, under the `ames-consulting/` prefix, served through `assets.ames.consulting`. Added the scoped Pages and R2 credentials to GitHub Actions through encrypted repository secrets and retained the canonical credentials in 1Password. Updated the vulnerable transitive `brace-expansion` releases from 1.1.14 and 2.1.0 to their patched 1.1.16 and 2.1.2 releases, then updated `fast-uri` from 3.1.3 to 3.1.4 when a new high-severity advisory appeared during final wrap-up.
 
 **Live infrastructure**: `ames.consulting` and `www.ames.consulting` deploy from pushes to `main`. A hostname-scoped Cloudflare Cache Rule for `assets.ames.consulting` sets browser cache lifetime to 3,600 seconds while respecting the R2 origin lifetime at the edge. The rule is limited to the asset hostname and does not change caching for the main site.
 
 **Verification**:
 - `npm ci`, `npm audit --audit-level=high`, `npm run check:all`, `npm run build:site`, and `npm run test:e2e` pass.
 - All 96 Playwright tests pass, and `npm audit` reports zero vulnerabilities.
-- The dependency tree resolves `brace-expansion` to 1.1.16 and 2.1.2 only.
+- The dependency tree resolves `brace-expansion` to 1.1.16 and 2.1.2 and `fast-uri` to 3.1.4.
 - Representative R2 objects return HTTP 200 with `Cache-Control: public, max-age=3600, stale-while-revalidate=604800`.
 
 **Left off at**: The Cloudflare Pages and R2 migration is live, and the security-only lockfile update has shipped to `main`.

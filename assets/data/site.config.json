@@ -8,7 +8,7 @@
   "locale": "en_US",
   "twitterHandle": "",
   "defaultSocialImage": "",
-  "contactFormEndpoint": "",
+  "contactFormEndpoint": "/api/contact",
   "contactFormSuccessMessage": "Thanks, your message was sent.",
   "portfolioTag": "portfolio",
   "homePreviewLimit": 6

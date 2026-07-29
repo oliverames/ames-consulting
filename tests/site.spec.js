@@ -30,6 +30,24 @@ test("homepage proof respects reduced motion", async ({ page }) => {
   await expect(page.getByText("569%", { exact: true })).toBeHidden();
 });
 
+test("homepage service cards open article hubs", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: /Strategy and content/ })).toHaveAttribute("href", "services/strategy-and-content/");
+  await page.goto("/services/strategy-and-content/");
+  await expect(page.locator(".service-article")).toHaveCount(4);
+});
+
+test("contact form submits to the site endpoint", async ({ page }) => {
+  await page.route("**/api/contact", async (route) => route.fulfill({ status: 200, contentType: "application/json", body: '{"ok":true}' }));
+  await page.goto("/contact/");
+  await page.getByLabel("Name").fill("Site Test");
+  await page.getByLabel("Email").fill("site-test@example.com");
+  await page.getByLabel("What are you trying to make clearer?").fill("Testing the contact form.");
+  await page.evaluate(() => { document.querySelector("#contact-started-at").value = String(Date.now() - 4000); });
+  await page.getByRole("button", { name: "Send message" }).click();
+  await expect(page.getByRole("status")).toHaveText("Thanks, your message was sent.");
+});
+
 test("website campaign contains the two PixelSpoke redesigns", async ({ page }) => {
   await page.goto("/work/credit-union-websites/");
   await expect(page.getByRole("heading", { name: "Two credit union websites, rebuilt around clearer paths." })).toBeVisible();

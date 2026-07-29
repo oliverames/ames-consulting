@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, "..");
 const outputDir = join(projectRoot, "_site");
 const generators = ["generate-seo-artifacts.mjs"];
-const publicEntries = [".nojekyll", "404.html", "CNAME", "index.html", "about", "blog", "contact", "work"];
+const publicEntries = [".nojekyll", "404.html", "CNAME", "index.html", "about", "blog", "contact", "services", "work"];
 
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });

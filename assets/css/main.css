@@ -1034,16 +1034,18 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .hero__mesh {
-      animation: hero-mesh-drift 18s ease-in-out infinite alternate;
+      animation: hero-mesh-drift 28s ease-in-out infinite alternate;
     }
 
     @keyframes hero-mesh-drift {
       from {
-        transform: translate3d(-1.5%, -1%, 0) scale(1);
+        transform: translate3d(-3%, -2%, 0) scale(1);
+        background-position: 0% 0%;
       }
 
       to {
-        transform: translate3d(2%, 1.5%, 0) scale(1.04);
+        transform: translate3d(4%, 3%, 0) scale(1.08);
+        background-position: 100% 70%;
       }
     }
 
@@ -2386,6 +2388,72 @@
       text-transform: uppercase;
       color: var(--accent-hover);
     }
+  }
+
+  .practice-card__link {
+    display: block;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .practice-card__link::after {
+    content: "Read how →";
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--accent-hover);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .practice-card:has(.practice-card__link:hover),
+  .practice-card:has(.practice-card__link:focus-visible) {
+    border-color: color-mix(in srgb, var(--accent-hover) 55%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .service-header {
+    max-width: 60rem;
+  }
+
+  .service-articles {
+    display: grid;
+    gap: var(--space-2);
+    margin-block: var(--space-3) var(--space-5);
+  }
+
+  .service-article {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: var(--surface-0);
+    border-radius: var(--radius-tile);
+    box-shadow: var(--shadow-card);
+  }
+
+  .service-article h2 {
+    margin-top: 0;
+  }
+
+  .service-article p {
+    max-width: 68ch;
+  }
+
+  .service-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: var(--space-5);
+    border-radius: var(--radius-tile);
+    background: var(--surface-deep);
+    color: #faf8f5;
+  }
+
+  .service-cta h2 {
+    margin: 0;
   }
 
   /* ─── Dark CTA Band ─── */

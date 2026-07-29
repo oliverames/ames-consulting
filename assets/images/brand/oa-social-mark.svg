@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3000" height="3000" viewBox="0 0 3000 3000" role="img" aria-labelledby="title desc">
+  <title id="title">OA monogram</title>
+  <desc id="desc">Oliver Ames monogram in the Ames Consulting visual style</desc>
+  <rect width="3000" height="3000" fill="#faf8f5"/>
+  <text x="1500" y="1775" fill="#1c2929" font-family="Arial Narrow, Helvetica Neue, Arial, sans-serif" font-size="1050" font-weight="700" letter-spacing="35" text-anchor="middle">OA</text>
+  <rect y="2820" width="3000" height="180" fill="#f5a542"/>
+</svg>

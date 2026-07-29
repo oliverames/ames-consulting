@@ -103,13 +103,29 @@ test("contact form submits to the site endpoint", async ({ page }) => {
 
 test("website campaign contains the two PixelSpoke redesigns", async ({ page }) => {
   await page.goto("/work/credit-union-websites/");
-  await expect(page.getByRole("heading", { name: "Two credit union websites, rebuilt around clearer paths." })).toBeVisible();
-  await expect(page.getByText(/I was integral.*vsecu.com and eastrise.com/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Two credit union websites built for clearer paths." })).toBeVisible();
+  await expect(page.getByText(/extensive quality assurance, image curation, coding for content migration/)).toBeVisible();
+  await expect(page.locator(".website-screen-gallery img")).toHaveCount(5);
+  await expect(page.getByRole("link", { name: /EastRise case study/ })).toHaveAttribute("href", "https://www.pixelspoke.coop/eastrise-credit-union-case-study");
 });
 
 test("community photography series uses the verified portfolio", async ({ page }) => {
   await page.goto("/work/community-photography/");
   await expect(page.locator(".media-grid img")).toHaveCount(7);
+});
+
+test("event photography is split into complete campaign galleries", async ({ page }) => {
+  const campaigns = [
+    ["/work/corporate-cup-2026/", 9],
+    ["/work/girls-on-the-run-2026/", 185],
+    ["/work/eastrise-launch-campaign/", 10],
+  ];
+  for (const [route, count] of campaigns) {
+    await page.goto(route);
+    await expect(page.locator(".campaign-collage img")).toHaveCount(count);
+  }
+  await page.locator(".campaign-collage img").first().click();
+  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 10");
 });
 
 test("portrait work is a complete framed gallery", async ({ page }) => {
@@ -135,9 +151,12 @@ test("Flight Paths is a standalone video series", async ({ page }) => {
 
 test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
-  await expect(page.locator(".work-category:first-of-type .work-item")).toHaveCount(11);
-  await expect(page.getByRole("heading", { name: "Taylor Hoar Racing" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Wheels for Warmth" })).toBeVisible();
+  await expect(page.locator(".work-category:first-of-type .work-item")).toHaveCount(13);
+  await expect(page.getByRole("heading", { name: "Taylor Hoar Racing 2025" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Wheels for Warmth 2025" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Corporate Cup 2026" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Girls on the Run 2026" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "EastRise Launch Campaign" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Portraits and People" })).toBeVisible();
 });
 

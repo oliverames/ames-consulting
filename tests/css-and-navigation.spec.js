@@ -10,7 +10,7 @@ test("brand stylesheet and primary navigation are active", async ({ page }) => {
 });
 
 test("all public content routes load", async ({ request }) => {
-  for (const route of ["/", "/work/", "/work/eastrise-writing/", "/work/wheels-for-warmth/", "/work/taylor-hoar-racing/", "/work/member-banking-stories/", "/work/credit-union-websites/", "/work/community-photography/", "/work/portraits-and-people/", "/work/flight-paths/", "/services/strategy-and-content/", "/services/photography-and-video/", "/services/practical-technology/", "/blog/", "/about/", "/contact/"]) {
+  for (const route of ["/", "/work/", "/work/eastrise-writing/", "/work/wheels-for-warmth/", "/work/taylor-hoar-racing/", "/work/member-banking-stories/", "/work/credit-union-websites/", "/work/community-photography/", "/work/corporate-cup-2026/", "/work/girls-on-the-run-2026/", "/work/eastrise-launch-campaign/", "/work/portraits-and-people/", "/work/flight-paths/", "/services/strategy-and-content/", "/services/photography-and-video/", "/services/practical-technology/", "/blog/", "/about/", "/contact/"]) {
     const response = await request.get(route);
     expect(response.status(), `${route} should be published`).toBe(200);
   }

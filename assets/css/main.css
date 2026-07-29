@@ -624,6 +624,94 @@
     letter-spacing: 0.04em;
   }
 
+  .website-proof {
+    width: var(--web-measure-wide, min(64rem, 92vw));
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: var(--rule);
+    box-shadow: var(--shadow-card);
+  }
+
+  .website-proof article {
+    display: grid;
+    gap: 0.35rem;
+    padding: clamp(1rem, 3vw, 1.6rem);
+    background: var(--surface-0);
+  }
+
+  .website-proof strong {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+    color: var(--accent-hover);
+  }
+
+  .website-proof span {
+    color: var(--text-1);
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .website-role,
+  .website-project {
+    display: grid;
+    grid-template-columns: minmax(13rem, 0.7fr) minmax(0, 1.3fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .website-role h2,
+  .website-project h2 {
+    margin-top: 0.5rem;
+  }
+
+  .website-role p,
+  .website-project p,
+  .website-role li {
+    max-width: 68ch;
+    line-height: 1.7;
+  }
+
+  .website-role ul,
+  .source-notes ul {
+    padding-left: 1.2rem;
+  }
+
+  .website-screen-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    margin-top: var(--space-3);
+  }
+
+  .website-screen-gallery figure {
+    margin: 0;
+  }
+
+  .website-screen-gallery figure:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .website-screen-gallery img {
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .website-screen-gallery figcaption {
+    margin-top: 0.65rem;
+    color: var(--text-1);
+    font-size: 0.85rem;
+  }
+
   .legacy-campaigns {
     padding-top: var(--space-3, 2rem);
   }
@@ -639,6 +727,17 @@
 
     .portrait-gallery {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .website-proof,
+    .website-screen-gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .website-role,
+    .website-project {
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
 
     .timeline li {

@@ -16,8 +16,8 @@ test("all public content routes load", async ({ request }) => {
   }
 });
 
-test("case study media uses local images and YouTube embeds", async ({ page }) => {
-  await page.goto("/work/eastrise/");
-  await expect(page.locator("main img")).toHaveCount(7);
+test("campaign pages use local images and YouTube embeds", async ({ page }) => {
+  await page.goto("/work/member-banking-stories/");
+  await expect(page.locator("main img")).toHaveCount(1);
   await expect(page.locator('iframe[src*="youtube-nocookie.com"]')).toHaveCount(3);
 });

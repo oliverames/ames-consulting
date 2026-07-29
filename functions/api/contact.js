@@ -23,6 +23,9 @@ export async function onRequestPost({ request, env }) {
   const name = String(data.get("name") || "").trim().slice(0, 120);
   const email = String(data.get("email") || "").trim().slice(0, 254);
   const message = String(data.get("message") || "").trim().slice(0, 6000);
+  const organization = String(data.get("organization") || "").trim().slice(0, 160);
+  const projectType = String(data.get("projectType") || "").trim().slice(0, 120);
+  const timeframe = String(data.get("timeframe") || "").trim().slice(0, 120);
   if (!name || !email || !message || !/^\S+@\S+\.\S+$/.test(email)) {
     return json({ error: "Please complete every field" }, 400);
   }
@@ -39,8 +42,8 @@ export async function onRequestPost({ request, env }) {
       to: [env.CONTACT_EMAIL],
       reply_to: email,
       subject: `Website inquiry from ${name}`,
-      html: `<h1>New website inquiry</h1><p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p><p>${escapeHtml(message).replaceAll("\n", "<br>")}</p>`,
-      text: `New website inquiry\n\nFrom: ${name} <${email}>\n\n${message}`
+      html: `<h1>New website inquiry</h1><p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>${organization ? `<p><strong>Organization:</strong> ${escapeHtml(organization)}</p>` : ""}${projectType ? `<p><strong>Work:</strong> ${escapeHtml(projectType)}</p>` : ""}${timeframe ? `<p><strong>Timing:</strong> ${escapeHtml(timeframe)}</p>` : ""}<p>${escapeHtml(message).replaceAll("\n", "<br>")}</p>`,
+      text: `New website inquiry\n\nFrom: ${name} <${email}>${organization ? `\nOrganization: ${organization}` : ""}${projectType ? `\nWork: ${projectType}` : ""}${timeframe ? `\nTiming: ${timeframe}` : ""}\n\n${message}`
     })
   });
 

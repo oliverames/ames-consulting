@@ -42,7 +42,9 @@ test("contact form submits to the site endpoint", async ({ page }) => {
   await page.goto("/contact/");
   await page.getByLabel("Name").fill("Site Test");
   await page.getByLabel("Email").fill("site-test@example.com");
-  await page.getByLabel("What are you trying to make clearer?").fill("Testing the contact form.");
+  await page.getByLabel("Organization (optional)").fill("Ames Consulting");
+  await page.getByLabel("What kind of work?").selectOption({ label: "Website or digital system" });
+  await page.getByLabel("Tell me about it").fill("Testing the contact form.");
   await page.evaluate(() => { document.querySelector("#contact-started-at").value = String(Date.now() - 4000); });
   await page.getByRole("button", { name: "Send message" }).click();
   await expect(page.getByRole("status")).toHaveText("Thanks, your message was sent.");

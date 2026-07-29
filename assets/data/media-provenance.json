@@ -14,5 +14,11 @@
     {"asset":"assets/images/work/blue-cross/corporate-cup.webp","source":"Photography/2026-05-14 – Corporate Cup/Edited Selects/DSC03225.jpg"},
     {"asset":"assets/images/work/blue-cross/gotr.webp","source":"Photography/2026-05-30 – GOTR/Edited Selects/DSC05523.jpg"},
     {"asset":"assets/images/work/blue-cross/headshot.webp","source":"Photography/2026-04-08 – CBSS Headshots/Edited Selects/DSC02660.jpg"}
+  ],
+  "portraitsAndPeople": [
+    {"asset":"assets/images/work/portraits/amy-vaughan.webp","source":"Photography Portfolio/EastRise Leadership and Board Headshots/Amy Vaughan.jpg"},
+    {"asset":"assets/images/work/portraits/spencer-newman.webp","source":"Photography Portfolio/EastRise Leadership and Board Headshots/Spencer Newman.jpg"},
+    {"asset":"assets/images/work/portraits/subha-luck.webp","source":"Photography Portfolio/EastRise Leadership and Board Headshots/Subha Luck.jpg"},
+    {"asset":"assets/images/work/portraits/beth-roberts.webp","source":"BCBS/Photography/Headshots/Senior Team/For Public Release/Beth Roberts - Option 1.jpeg"}
   ]
 }

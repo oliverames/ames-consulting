@@ -41,6 +41,13 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/blog/`,
     `${siteUrl}/work/eastrise/`,
     `${siteUrl}/work/eastrise-writing/`,
+    `${siteUrl}/work/wheels-for-warmth/`,
+    `${siteUrl}/work/taylor-hoar-racing/`,
+    `${siteUrl}/work/member-banking-stories/`,
+    `${siteUrl}/work/credit-union-websites/`,
+    `${siteUrl}/work/community-photography/`,
+    `${siteUrl}/work/portraits-and-people/`,
+    `${siteUrl}/work/flight-paths/`,
     `${siteUrl}/work/blue-cross-vermont/`,
     `${siteUrl}/about/`,
     `${siteUrl}/contact/`

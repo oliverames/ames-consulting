@@ -8,16 +8,30 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await expect(page.getByRole("link", { name: /See the work/ })).toBeVisible();
 });
 
-test("work history contains the two PixelSpoke redesigns", async ({ page }) => {
-  await page.goto("/work/eastrise/");
-  await expect(page.getByRole("heading", { name: "Two PixelSpoke website redesigns" })).toBeVisible();
+test("website campaign contains the two PixelSpoke redesigns", async ({ page }) => {
+  await page.goto("/work/credit-union-websites/");
+  await expect(page.getByRole("heading", { name: "Two credit union websites, rebuilt around clearer paths." })).toBeVisible();
   await expect(page.getByText(/I was integral.*vsecu.com and eastrise.com/)).toBeVisible();
 });
 
-test("Blue Cross page uses the photography portfolio", async ({ page }) => {
-  await page.goto("/work/blue-cross-vermont/");
-  await expect(page.locator(".media-grid img")).toHaveCount(6);
+test("community photography series uses the verified portfolio", async ({ page }) => {
+  await page.goto("/work/community-photography/");
+  await expect(page.locator(".media-grid img")).toHaveCount(7);
+});
+
+test("Flight Paths is a standalone video series", async ({ page }) => {
+  await page.goto("/work/flight-paths/");
   await expect(page.locator('iframe[src*="4r5N5DjmSCU"]')).toHaveCount(1);
+});
+
+test("work is organized by campaign rather than employer", async ({ page }) => {
+  await page.goto("/work/");
+  await expect(page.locator(".work-list > .work-item")).toHaveCount(8);
+  await expect(page.getByRole("heading", { name: "Taylor Hoar Racing" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Wheels for Warmth" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Portraits and People" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "EastRise Credit Union" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Blue Cross Vermont" })).toHaveCount(0);
 });
 
 test("EastRise writing archive contains every attributed article", async ({ page }) => {

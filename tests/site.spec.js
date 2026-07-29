@@ -98,7 +98,7 @@ test("Flight Paths is a standalone video series", async ({ page }) => {
 
 test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
-  await expect(page.locator(".work-category:first-of-type .work-item")).toHaveCount(10);
+  await expect(page.locator(".work-category:first-of-type .work-item")).toHaveCount(11);
   await expect(page.getByRole("heading", { name: "Taylor Hoar Racing" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Wheels for Warmth" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Portraits and People" })).toBeVisible();
@@ -163,6 +163,18 @@ test("EastRise writing archive contains every attributed article", async ({ page
   await page.goto("/work/eastrise-writing/");
   await expect(page.locator(".writing-list > li")).toHaveCount(53);
   await expect(page.getByText("A Comprehensive Guide to EV Charging Apps", { exact: true })).toBeVisible();
+});
+
+test("EastRise photography is grouped into complete public-source galleries", async ({ page }) => {
+  await page.goto("/work/eastrise-photography/");
+  await expect(page.locator(".photo-series")).toHaveCount(11);
+  await expect(page.locator(".campaign-collage img")).toHaveCount(165);
+  const firstGallery = page.locator(".campaign-collage").first();
+  const firstGalleryCount = await firstGallery.locator("img").count();
+  await firstGallery.locator("img").first().click();
+  await expect(page.locator("#image-viewer-caption")).toContainText(`1 of ${firstGalleryCount}`);
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#image-viewer-caption")).toContainText(`2 of ${firstGalleryCount}`);
 });
 
 test("Writing is a personal Micro.blog-led social stream", async ({ page }) => {

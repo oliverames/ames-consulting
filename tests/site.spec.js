@@ -37,6 +37,17 @@ test("homepage service cards open article hubs", async ({ page }) => {
   await expect(page.locator(".service-article")).toHaveCount(4);
 });
 
+test("homepage campaign strip keeps its first card on the content gutter", async ({ page }) => {
+  await page.setViewportSize({ width: 900, height: 700 });
+  await page.goto("/");
+  const positions = await page.locator(".home-paths").evaluate((section) => {
+    const heading = section.querySelector("h2").getBoundingClientRect();
+    const firstCard = section.querySelector(".path-thumb").getBoundingClientRect();
+    return { headingLeft: heading.left, cardLeft: firstCard.left };
+  });
+  expect(Math.abs(positions.headingLeft - positions.cardLeft)).toBeLessThanOrEqual(1);
+});
+
 test("contact form submits to the site endpoint", async ({ page }) => {
   await page.route("**/api/contact", async (route) => route.fulfill({ status: 200, contentType: "application/json", body: '{"ok":true}' }));
   await page.goto("/contact/");

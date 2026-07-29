@@ -52,11 +52,27 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
       headerHeight: header.height,
       navWrap: getComputedStyle(nav).flexWrap,
       pageHeaderPaddingTop: Number.parseFloat(getComputedStyle(pageHeader).paddingTop),
+      pageHeaderGap: Number.parseFloat(getComputedStyle(pageHeader).rowGap),
     };
   });
   expect(layout.headerHeight).toBeLessThan(130);
   expect(layout.navWrap).toBe("nowrap");
   expect(layout.pageHeaderPaddingTop).toBeGreaterThanOrEqual(48);
+  expect(layout.pageHeaderGap).toBeGreaterThanOrEqual(10);
+
+  await page.goto("/work/portraits-and-people/");
+  const caseHeroGap = await page
+    .locator(".case-hero")
+    .evaluate((hero) => Number.parseFloat(getComputedStyle(hero).rowGap));
+  expect(caseHeroGap).toBeGreaterThanOrEqual(10);
+
+  await page.goto("/contact/");
+  const contactSpacing = await page.evaluate(() => {
+    const header = document.querySelector(".site-header").getBoundingClientRect();
+    const hero = document.querySelector(".contact-hero").getBoundingClientRect();
+    return hero.top - header.bottom;
+  });
+  expect(contactSpacing).toBeGreaterThanOrEqual(18);
 });
 
 test("campaign pages use local images and YouTube embeds", async ({ page }) => {

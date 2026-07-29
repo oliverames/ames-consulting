@@ -6,6 +6,7 @@ for (const route of [
   "/testimonials/",
   "/work/",
   "/work/eastrise-photography/",
+  "/work/eastrise-social/",
   "/work/eastrise-writing/",
   "/work/wheels-for-warmth/",
   "/work/taylor-hoar-racing/",

@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const workIndexPath = join(root, "work", "index.html");
 const eastRisePhotography = JSON.parse(await readFile(join(root, "assets", "data", "eastrise-photography.json"), "utf8"));
+const eastRiseSocial = JSON.parse(await readFile(join(root, "assets", "data", "eastrise-social.json"), "utf8"));
 
 const institutional = `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list"><a class="work-item" href="eastrise/"><img src="../assets/images/work/eastrise/wheels-for-warmth-card.webp" alt="Wheels for Warmth tire collection" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Credit Union</h3><p>Six years of audience strategy, brand photography, campaigns, writing, video, and two website redesigns.</p></a><a class="work-item" href="blue-cross-vermont/"><img src="../assets/images/work/blue-cross/arrayrx-card.webp" alt="ArrayRx press conference photographed for Blue Cross Vermont" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Vermont</h3><p>Photography, community storytelling, video, social content, and digital infrastructure.</p></a><a class="work-item" href="beta-technologies/"><img src="../assets/images/work/campaigns/flight-paths.webp" alt="Flight Paths: Emma at BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · 2026</span><h3>BETA Technologies</h3><p>Documentary video about a Vermont aviation career built through an unexpected route.</p></a></div></section>`;
 
@@ -15,10 +16,16 @@ const earlier = `<section class="work-category work-category--earlier"><h2>Earli
 const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the last exhausted finish.</p></a><a class="work-item" href="bike-fitting/"><img src="../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025</span><h3>Bike Fitting</h3><p>A close, practical photo story about expertise, adjustment, and the small details that help a rider fit the bike.</p></a>`;
 
 const eastRisePhotographyCard = `<a class="work-item" href="eastrise-photography/"><img src="../assets/images/work/eastrise/taylor-milk-bowl-card.webp" alt="Taylor Hoar racing at Thunder Road" loading="lazy"><span class="work-item__context">EastRise · 2019–2025</span><h3>EastRise Photography</h3><p>${eastRisePhotography.totalImages} publicly published photographs organized by shoot, campaign, and series.</p></a>`;
+const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Social</h3><p>${eastRiseSocial.totalPosts} archived social posts and memes treated as one campaign and project.</p></a>`;
 
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
 const sourceLink = (href, label) => `<a href="${href}" rel="noopener">${label}</a>`;
+const escapeHtml = (value) => String(value)
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;");
 
 function sortWorkSection(html, heading, order) {
   const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -42,6 +49,22 @@ function sortWorkSection(html, heading, order) {
   });
 }
 
+function upsertWorkCard(html, heading, href, card) {
+  const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const escapedHref = href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const sectionPattern = new RegExp(
+    `(<section class="work-category(?: work-category--earlier)?">\\s*<h2>${escapedHeading}</h2>\\s*<div class="work-list">)([\\s\\S]*?)(\\s*</div>\\s*</section>)`,
+  );
+
+  return html.replace(sectionPattern, (section, opening, cardMarkup, closing) => {
+    const cardPattern = new RegExp(`<a class="work-item" href="${escapedHref}"[\\s\\S]*?</a\\s*>`);
+    const updatedCards = cardPattern.test(cardMarkup)
+      ? cardMarkup.replace(cardPattern, card)
+      : `${card}${cardMarkup}`;
+    return `${opening}${updatedCards}${closing}`;
+  });
+}
+
 const campaignOrder = [
   "girls-on-the-run-2026/",
   "corporate-cup-2026/",
@@ -49,6 +72,7 @@ const campaignOrder = [
   "portraits-and-people/",
   "member-banking-stories/",
   "sweat-heart-throwdown/",
+  "eastrise-social/",
   "eastrise-writing/",
   "wheels-for-warmth/",
   "taylor-hoar-racing/",
@@ -119,6 +143,18 @@ pages.push({
   sections: [],
 });
 
+pages.push({
+  slug: "eastrise-social",
+  eyebrow: "Social campaign · VSECU and EastRise · 2019–2025",
+  title: "EastRise social posts and memes, together.",
+  intro: `${eastRiseSocial.totalPosts} public social captures are organized here as one campaign and project, regardless of platform or format.`,
+  socialPosts: eastRiseSocial.posts,
+  sections: [
+    ["One body of work", `The archive includes ${eastRiseSocial.platformCounts.Facebook} Facebook posts, six Instagram posts, and nine LinkedIn posts. Memes stay beside member stories, community coverage, carousels, and campaign posts because they were all part of the same editorial practice.`],
+    ["What the archive preserves", "Each original platform capture keeps the public post copy, visible metrics, source URL, and downloaded media together. The gallery below uses the public screenshots, while the full-resolution media remains organized with each source post in the archive."],
+  ],
+});
+
 let workIndex = await readFile(workIndexPath, "utf8");
 const legacyProof = /<section class="proof-band"><h2>Earlier work<\/h2>.*?<\/section>/;
 const currentCategories = /<section class="work-category"><h2>Client and institutional work<\/h2>.*?<\/section><section class="work-category work-category--earlier"><h2>Earlier work<\/h2>.*?<\/section>/;
@@ -131,6 +167,7 @@ if (workIndex.includes('href="eastrise-photography/"')) {
 } else {
   workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${eastRisePhotographyCard}`);
 }
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-social/", eastRiseSocialCard);
 if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }
@@ -153,6 +190,11 @@ for (const page of pages) {
     const images = (await readdir(galleryDirectory)).filter((file) => file.endsWith(".webp")).sort();
     const gallery = images.map((file, index) => `<img src="../../assets/images/work/gmcf/${page.gallery.directory}/${file}" alt="${page.gallery.alt}, photograph ${index + 1} of ${images.length}" loading="lazy" decoding="async">`).join("");
     content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Complete photo series</h2><div class="campaign-collage" data-gallery="${page.slug}">${gallery}</div></section>`;
+  }
+  if (page.socialPosts) {
+    const screenshots = page.socialPosts.map((post, index) => `<img src="../../${post.screenshot}" alt="${escapeHtml(post.title)}, ${post.platform} capture ${index + 1} of ${page.socialPosts.length}" width="${post.width}" height="${post.height}" loading="lazy" decoding="async">`).join("");
+    const sources = page.socialPosts.map((post) => `<li><a href="${escapeHtml(post.sourceUrl)}" rel="noopener"><strong>${escapeHtml(post.platform)}:</strong> ${escapeHtml(post.title)}</a></li>`).join("");
+    content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">The complete social project</h2><p>Select any screenshot to open the full viewer. Use the buttons or arrow keys to move through all ${page.socialPosts.length} posts.</p><div class="campaign-collage campaign-collage--screenshots" data-gallery="${page.slug}">${screenshots}</div><details class="source-index"><summary>Public source links for all ${page.socialPosts.length} posts</summary><ol>${sources}</ol></details></section>`;
   }
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self';"><title>${page.title} | Ames Consulting</title><meta name="description" content="${page.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${page.slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="case-hero"><p class="eyebrow">${page.eyebrow}</p><h1>${page.title}</h1><p>${page.intro}</p></header>${content}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = join(root, "work", page.slug, "index.html");

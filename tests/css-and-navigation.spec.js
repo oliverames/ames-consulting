@@ -18,6 +18,7 @@ test("all public content routes load", async ({ request }) => {
     "/",
     "/work/",
     "/work/eastrise-writing/",
+    "/work/eastrise-social/",
     "/work/wheels-for-warmth/",
     "/work/taylor-hoar-racing/",
     "/work/member-banking-stories/",

@@ -45,6 +45,7 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/services/practical-technology/`,
     `${siteUrl}/work/eastrise/`,
     `${siteUrl}/work/eastrise-photography/`,
+    `${siteUrl}/work/eastrise-social/`,
     `${siteUrl}/work/eastrise-writing/`,
     `${siteUrl}/work/wheels-for-warmth/`,
     `${siteUrl}/work/taylor-hoar-racing/`,

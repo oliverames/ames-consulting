@@ -366,6 +366,38 @@
     margin-top: var(--space-3, 2rem);
   }
 
+  .video-grid--credits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 3vw, 1.75rem);
+  }
+
+  .video-card {
+    overflow: hidden;
+    border-radius: var(--radius-card, 12px);
+    background: var(--surface-0);
+    box-shadow: var(--shadow-card);
+  }
+
+  .video-card .video-embed {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .video-card__copy {
+    padding: clamp(1rem, 2vw, 1.35rem);
+  }
+
+  .video-card__copy h3 {
+    margin: 0;
+    font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  }
+
+  .video-card__copy p {
+    margin: 0.35rem 0 0;
+    color: var(--text-1);
+    font-size: 0.82rem;
+  }
+
   .video-embed {
     position: relative;
     overflow: hidden;

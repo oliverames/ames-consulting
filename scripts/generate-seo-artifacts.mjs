@@ -35,7 +35,7 @@ function normalizeSiteUrl(domain) {
 }
 
 async function getKnownRoutes(siteUrl) {
-  return [
+  const routes = [
     `${siteUrl}/`,
     `${siteUrl}/work/`,
     `${siteUrl}/blog/`,
@@ -67,6 +67,25 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/about/`,
     `${siteUrl}/contact/`
   ];
+
+  try {
+    const feed = JSON.parse(await readFile("assets/data/writing-feed.json", "utf8"));
+    for (const post of feed.posts || []) {
+      if (!post.platforms?.includes("Micro.blog") || (!post.title && post.text?.length < 800)) continue;
+      const slug = String(post.title || post.id)
+        .toLowerCase()
+        .normalize("NFKD")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+      routes.push(`${siteUrl}/blog/${slug}/`);
+    }
+  } catch {
+    // Writing pages are optional during isolated SEO generation.
+  }
+
+  return routes;
 }
 
 function buildSitemapXml(urls) {

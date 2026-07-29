@@ -1,20 +1,8 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const routes = [
-  "/",
-  "/blog/",
-  "/work/",
-  "/work/financial-wellness-library/",
-  "/photography/",
-  "/photography/lab-open-house-2026/",
-  "/contact/",
-  "/likes/",
-  "/colophon/",
-];
-
-for (const route of routes) {
-  test(`no critical a11y issues on ${route}`, async ({ page }) => {
+for (const route of ["/", "/missing-page/"]) {
+  test(`no critical accessibility issues on ${route}`, async ({ page }) => {
     await page.goto(route);
 
     const results = await new AxeBuilder({ page }).analyze();

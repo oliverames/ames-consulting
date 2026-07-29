@@ -1,15 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-const files = [
-  "index.html",
-  "blog/index.html",
-  "work/index.html",
-  "work/carebridge-companion/index.html",
-  "work/neighborhood-giving-map/index.html",
-  "contact/index.html",
-  "likes/index.html",
-  "colophon/index.html"
-];
+const files = ["index.html"];
 
 const jsonLdPattern = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gim;
 

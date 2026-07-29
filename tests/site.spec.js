@@ -57,14 +57,35 @@ test("homepage service cards open article hubs", async ({ page }) => {
 });
 
 test("homepage campaign strip keeps its first card on the content gutter", async ({ page }) => {
-  await page.setViewportSize({ width: 900, height: 700 });
+  for (const width of [900, 390]) {
+    await page.setViewportSize({ width, height: 700 });
+    await page.goto("/");
+    const positions = await page.locator(".home-paths").evaluate((section) => {
+      const heading = section.querySelector("h2").getBoundingClientRect();
+      const firstCard = section.querySelector(".path-thumb").getBoundingClientRect();
+      return { headingLeft: heading.left, cardLeft: firstCard.left };
+    });
+    expect(Math.abs(positions.headingLeft - positions.cardLeft)).toBeLessThanOrEqual(1);
+  }
+  await expect(page.getByRole("heading", { name: "Taylor Hoar Racing 2025" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Wheels for Warmth 2025" })).toBeVisible();
+});
+
+test("homepage metrics remain structured at narrow desktop widths", async ({ page }) => {
+  await page.setViewportSize({ width: 785, height: 863 });
   await page.goto("/");
-  const positions = await page.locator(".home-paths").evaluate((section) => {
-    const heading = section.querySelector("h2").getBoundingClientRect();
-    const firstCard = section.querySelector(".path-thumb").getBoundingClientRect();
-    return { headingLeft: heading.left, cardLeft: firstCard.left };
+  const layout = await page.locator(".hero__proof").evaluate((proof) => {
+    const pageStyles = getComputedStyle(proof.querySelector(".proof__page"));
+    const tooltipStyles = getComputedStyle(proof.querySelector(".proof__source"));
+    return {
+      columns: pageStyles.gridTemplateColumns.split(" ").length,
+      tooltipDisplay: tooltipStyles.display,
+    };
   });
-  expect(Math.abs(positions.headingLeft - positions.cardLeft)).toBeLessThanOrEqual(1);
+  expect(layout.columns).toBe(2);
+  expect(layout.tooltipDisplay).toBe("none");
+  await page.locator(".proof__link").first().hover();
+  await expect(page.locator(".proof__source").first()).toBeVisible();
 });
 
 test("contact form submits to the site endpoint", async ({ page }) => {

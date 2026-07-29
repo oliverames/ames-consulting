@@ -1168,6 +1168,7 @@
   }
 
   .proof__source {
+    display: none;
     position: absolute;
     z-index: 5;
     inset: auto auto calc(100% + 0.7rem) 0;
@@ -1199,6 +1200,7 @@
 
   .proof__link:hover .proof__source,
   .proof__link:focus-visible .proof__source {
+    display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -1264,9 +1266,19 @@
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 56rem) {
     .proof__page {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.35rem 1rem;
+    }
+
+    .proof__source {
+      width: min(17rem, calc(100vw - 4rem));
+    }
+
+    .proof__controls {
+      justify-content: flex-start;
+      margin-top: 1rem;
     }
   }
 
@@ -1309,14 +1321,6 @@
     margin-inline: -1.5rem;
     /* Negative margin compensates so the visible content still aligns to the
        same left/right edges as surrounding sections. */
-  }
-
-  @media (max-width: 640px) {
-    .path-strip {
-      margin-inline: calc((100vw - 100%) / -2);
-      padding-inline: calc((100vw - 100%) / 2);
-      scroll-padding-inline: calc((100vw - 100%) / 2);
-    }
   }
 
   .path-thumb {

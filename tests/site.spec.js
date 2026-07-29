@@ -4,7 +4,8 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await page.clock.install();
   await page.goto("/");
   await expect(page).toHaveTitle(/Ames Consulting/);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("complex ideas");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /Photography leads the work/ })).toBeVisible();
   const firstMetric = page.locator(".proof__link").first();
   await expect(firstMetric).toBeVisible();
   await expect(firstMetric).toHaveAttribute("href", "work/eastrise/");
@@ -19,6 +20,24 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await page.clock.fastForward("00:00:07");
   await expect(page.getByText("569%", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /See the work/ })).toBeVisible();
+});
+
+test("homepage chooses a new photography-led headline on refresh", async ({ page }) => {
+  await page.goto("/");
+  const headline = page.locator("[data-hero-headline]");
+  const first = await headline.textContent();
+  await page.reload();
+  await expect(headline).not.toHaveText(first);
+
+  const expectedHeadlines = [
+    "I photograph people doing work that matters.",
+    "I make photographs that feel like the people in them.",
+    "I photograph the moments that explain what an organization does.",
+    "I turn real work into photographs people remember.",
+    "I translate complex ideas into stories people care about.",
+  ];
+  expect(expectedHeadlines).toContain(first);
+  expect(expectedHeadlines).toContain(await headline.textContent());
 });
 
 test("homepage proof respects reduced motion", async ({ page }) => {

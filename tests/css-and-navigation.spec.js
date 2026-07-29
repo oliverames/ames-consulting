@@ -10,7 +10,7 @@ test("brand stylesheet and primary navigation are active", async ({ page }) => {
 });
 
 test("all public content routes load", async ({ request }) => {
-  for (const route of ["/", "/work/", "/work/eastrise/", "/work/blue-cross-vermont/", "/blog/", "/about/", "/contact/"]) {
+  for (const route of ["/", "/work/", "/work/eastrise/", "/work/eastrise-writing/", "/work/blue-cross-vermont/", "/blog/", "/about/", "/contact/"]) {
     const response = await request.get(route);
     expect(response.status(), `${route} should be published`).toBe(200);
   }

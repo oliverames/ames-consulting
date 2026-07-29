@@ -40,6 +40,7 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/work/`,
     `${siteUrl}/blog/`,
     `${siteUrl}/work/eastrise/`,
+    `${siteUrl}/work/eastrise-writing/`,
     `${siteUrl}/work/blue-cross-vermont/`,
     `${siteUrl}/about/`,
     `${siteUrl}/contact/`

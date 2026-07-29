@@ -1,0 +1,578 @@
+{
+  "refreshedAt": "2026-07-29T17:46:06.950Z",
+  "canonicalBlog": "https://oliverames.micro.blog/",
+  "profiles": [
+    {
+      "platform": "Micro.blog",
+      "url": "https://oliverames.micro.blog/",
+      "feed": "https://oliverames.micro.blog/feed.json",
+      "automated": true
+    },
+    {
+      "platform": "Mastodon",
+      "url": "https://mastodon.social/@oliverames",
+      "automated": true
+    },
+    {
+      "platform": "Bluesky",
+      "url": "https://bsky.app/profile/oliverames.bsky.social",
+      "automated": true
+    },
+    {
+      "platform": "Threads",
+      "url": "https://www.threads.com/@oliverames",
+      "automated": false
+    },
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/oliverames/",
+      "automated": false
+    }
+  ],
+  "posts": [
+    {
+      "id": "threads:Da0B9d1kdGK",
+      "platforms": [
+        "Threads"
+      ],
+      "links": [
+        {
+          "platform": "Threads",
+          "url": "https://www.threads.com/@oliverames/post/Da0B9d1kdGK"
+        }
+      ],
+      "date": "2026-07-15T00:00:00Z",
+      "title": "",
+      "text": "I’m so happy for them 😭😭😭",
+      "image": ""
+    },
+    {
+      "id": "threads:Day64kCkVIk",
+      "platforms": [
+        "Threads"
+      ],
+      "links": [
+        {
+          "platform": "Threads",
+          "url": "https://www.threads.com/@oliverames/post/Day64kCkVIk"
+        }
+      ],
+      "date": "2026-07-14T00:00:00Z",
+      "title": "",
+      "text": "Crazy stuff. This is the fire, I think, creating the smoke haze in Vermont today.",
+      "image": ""
+    },
+    {
+      "id": "threads:Dau6BiVEYGY",
+      "platforms": [
+        "Threads"
+      ],
+      "links": [
+        {
+          "platform": "Threads",
+          "url": "https://www.threads.com/@oliverames/post/Dau6BiVEYGY"
+        }
+      ],
+      "date": "2026-07-13T00:00:00Z",
+      "title": "",
+      "text": "Slava Ukraini! 🇺🇦",
+      "image": ""
+    },
+    {
+      "id": "threads:Dak4hmSEXjO",
+      "platforms": [
+        "Threads"
+      ],
+      "links": [
+        {
+          "platform": "Threads",
+          "url": "https://www.threads.com/@oliverames/post/Dak4hmSEXjO"
+        }
+      ],
+      "date": "2026-07-09T00:00:00Z",
+      "title": "",
+      "text": "The team that made this video truly cooked. Marketing at its finest!",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116574448249026560",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116574448249026560"
+        }
+      ],
+      "date": "2026-05-14T18:55:15.915Z",
+      "title": "",
+      "text": "This might be the first OpenAI video I’ve watched that hasn’t made me want to pull my hair out. https://www.youtube.com/watch?v=D_FCYsshMI4",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mltiljq5n32h",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mltiljq5n32h"
+        }
+      ],
+      "date": "2026-05-14T18:55:14.213Z",
+      "title": "",
+      "text": "This might be the first OpenAI video I've watched that hasn't made me want to pull my hair out.",
+      "image": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ftpniu2e22hwerksunoawwcp/bafkreif5q32s45mtjzbgikllnqf23f3vrkbyfjan67j2jv3qa4qkvpkuiy"
+    },
+    {
+      "id": "mastodon:116459838681978081",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116459838681978081"
+        }
+      ],
+      "date": "2026-04-24T13:08:32.705Z",
+      "title": "",
+      "text": "DeepSeek v4 vs GPT 5.5",
+      "image": "https://files.mastodon.social/media_attachments/files/116/459/838/440/249/258/original/83e44eb1827ff7ae.png"
+    },
+    {
+      "id": "mastodon:116414201613379746",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116414201613379746"
+        }
+      ],
+      "date": "2026-04-16T11:42:26.299Z",
+      "title": "",
+      "text": "This!\nhttps://mstdn.social/@stux/116414129912923876",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mjmddsjhar25",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mjmddsjhar25"
+        }
+      ],
+      "date": "2026-04-16T11:42:05.430Z",
+      "title": "",
+      "text": "This!\n\nmstdn.social/@stux/1164141299...",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116410040440296292",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116410040440296292"
+        }
+      ],
+      "date": "2026-04-15T18:04:11.845Z",
+      "title": "",
+      "text": "I might actually use Gemini now. 😂\nhttps://mastodon.social/@oliverames/116410037958753066",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mjki7jgc7i2b",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mjki7jgc7i2b"
+        }
+      ],
+      "date": "2026-04-15T18:04:10.906Z",
+      "title": "",
+      "text": "I might actually use Gemini now. 😂\n\nmastodon.social/@oliverames/1...",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116410037958753066",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116410037958753066"
+        }
+      ],
+      "date": "2026-04-15T18:03:33.974Z",
+      "title": "",
+      "text": "Native Swift! You really can tell. Begging Claude and Codex teams to do the same. https://9to5mac.com/2026/04/15/google-launches-gemini-mac-app-heres-what-it-offers/",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mjki6erv5g2v",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mjki6erv5g2v"
+        }
+      ],
+      "date": "2026-04-15T18:03:31.041Z",
+      "title": "",
+      "text": "Native Swift! You really can tell. Begging Claude and Codex teams to do the same.",
+      "image": "https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:ftpniu2e22hwerksunoawwcp/bafkreid2ykmdmrdjn7ctkisspezpnf5aoh5he6diyygxu3lyuygkczvq4i"
+    },
+    {
+      "id": "mastodon:116388754483407604",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116388754483407604"
+        }
+      ],
+      "date": "2026-04-11T23:50:53.911Z",
+      "title": "",
+      "text": "This gives me chills. 🌝\nhttps://indieweb.social/@rickf/116388469207235702",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mjazps56rl25",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mjazps56rl25"
+        }
+      ],
+      "date": "2026-04-11T23:50:53.174Z",
+      "title": "",
+      "text": "This gives me chills. 🌝\n\nindieweb.social/@rickf/116388...",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116383391781918955",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116383391781918955"
+        }
+      ],
+      "date": "2026-04-11T01:07:05.582Z",
+      "title": "",
+      "text": "That’s one good looking spaceship!",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116383377348102596",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116383377348102596"
+        }
+      ],
+      "date": "2026-04-11T01:03:25.339Z",
+      "title": "",
+      "text": "See folks? This is why da Vinci was a scientist AND an artist!",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mitojzi7oc2a",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mitojzi7oc2a"
+        }
+      ],
+      "date": "2026-04-06T16:26:11.788Z",
+      "title": "",
+      "text": "@mmccue.bsky.social Hi there! I'm wondering, is Surf pulling icons from the RSS feed? It doesn't seem like it.",
+      "image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:ftpniu2e22hwerksunoawwcp/bafkreicazbgkgy2nzwd4qar4mqvsk74n3y7fwkgwucsgwmwd6vdmrscjja"
+    },
+    {
+      "id": "mastodon:116347878826970833",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116347878826970833"
+        }
+      ],
+      "date": "2026-04-04T18:35:40.895Z",
+      "title": "",
+      "text": "Faster internet than the majority of #Vermont\nhttps://mastodon.social/@jamesthomson/116347643258004274",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mioutp2drw23",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mioutp2drw23"
+        }
+      ],
+      "date": "2026-04-04T18:35:40.150Z",
+      "title": "",
+      "text": "Faster internet than the majority of #Vermont\n\nmastodon.social/@jamesthomson...",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116347870466098545",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116347870466098545"
+        }
+      ],
+      "date": "2026-04-04T18:33:33.556Z",
+      "title": "",
+      "text": "He’s gonna drop a nuke while simultaneously being unable to spell “rain.”\nhttps://bsky.app/profile/did:plc:jop73mu5bv5gs4emcfffeoz4/post/3miosunexuk2l",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mioupvdjcy2n",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mioupvdjcy2n"
+        }
+      ],
+      "date": "2026-04-04T18:33:32.516Z",
+      "title": "",
+      "text": "He's gonna drop a nuke while simultaneously being unable to spell \"rain.\"",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116346646776320083",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116346646776320083"
+        }
+      ],
+      "date": "2026-04-04T13:22:21.303Z",
+      "title": "",
+      "text": "Super cool project. I’m kinda surprised NASA hasn’t built something like it!\nhttps://universeodon.com/@jakobrosin/116345900231522800",
+      "image": ""
+    },
+    {
+      "id": "bluesky:at://did:plc:ftpniu2e22hwerksunoawwcp/app.bsky.feed.post/3mioddgcocr23",
+      "platforms": [
+        "Bluesky"
+      ],
+      "links": [
+        {
+          "platform": "Bluesky",
+          "url": "https://bsky.app/profile/oliverames.bsky.social/post/3mioddgcocr23"
+        }
+      ],
+      "date": "2026-04-04T13:22:20.489Z",
+      "title": "",
+      "text": "Super cool project. I'm kinda surprised NASA hasn't built something like it!\n\nuniverseodon.com/@jakobrosin/...",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116337938935972893",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116337938935972893"
+        }
+      ],
+      "date": "2026-04-03T00:27:50.192Z",
+      "title": "",
+      "text": "Great day to be a fan of the open web. I hope this takes off! 🚀 https://about.surf.social/surf-launches-surf-social-websites/",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116337883611295087",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116337883611295087"
+        }
+      ],
+      "date": "2026-04-03T00:13:46.004Z",
+      "title": "",
+      "text": "Folks REALLY do not understand how monumental this injection burn is. Though unlikely, failure in LEO feels somehow less scary. There’s no coming back now! The bravery of these astronauts is awesome and inspiring. 🇺🇸🇨🇦👩🏼‍🚀👨🏼‍🚀👨🏿‍🚀🧑🏻‍🚀\nhttps://indieweb.social/@stevestreza/116337762370726374",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116162559744462181",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116162559744462181"
+        }
+      ],
+      "date": "2026-03-03T01:06:36.104Z",
+      "title": "",
+      "text": "@krzyzanowskim you also need another app icon from @matthewskiles 😉",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116162555363188956",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116162555363188956"
+        }
+      ],
+      "date": "2026-03-03T01:05:29.255Z",
+      "title": "",
+      "text": "@krzyzanowskim installed commander! So glad you are making this. The app keeps hanging on large directories though. Any fixes in the pipeline?",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116053979683949177",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116053979683949177"
+        }
+      ],
+      "date": "2026-02-11T20:53:15.869Z",
+      "title": "",
+      "text": "“not all of the features are working reliably and there are problems with accuracy.” Have they used the version of Siri that has been shipping for the past decade?!\nhttps://www.macrumors.com/2026/02/11/siri-features-delayed-ios-26-4/",
+      "image": ""
+    },
+    {
+      "id": "microblog:http://oliverames.micro.blog/2026/02/11/the-sunshine-trail-a-speculative.html",
+      "platforms": [
+        "Micro.blog"
+      ],
+      "links": [
+        {
+          "platform": "Micro.blog",
+          "url": "https://oliverames.micro.blog/2026/02/11/the-sunshine-trail-a-speculative.html"
+        }
+      ],
+      "date": "2026-02-11T10:39:25-05:00",
+      "title": "The Sunshine Trail: A Speculative Brand Campaign for Lawson's Finest Liquids",
+      "text": "I spend a lot of my free time thinking about how the brands I love in Vermont could push their digital experiences further. I can’t help it! I see a brand doing something great and I immediately start thinking about what else they could build.\n\nI’ll give you an example.\n\nLawson’s Finest Liquids is one of Vermont’s most beloved craft breweries, and they’re in the middle of expanding into new markets along the East Coast. Their brand is incredible, their community impact is real, and their commitment to freshness is central to everything they do. But that story is mostly told through a traditional website. I kept thinking: what if you could experience that expansion as a journey?\n\nSo I built The Sunshine Trail, an interactive map that connects Lawson’s home in Waitsfield, Vermont to Asheville, North Carolina. 791 miles of mountain communities, outdoor adventures, and cold beer.\n\nThe map shows every Lawson’s location I could identify (breweries, retailers, bars, restaurants) alongside hiking trails, river put-ins, community partners, and DC fast chargers along a scenic road trip route through the Blue Ridge Parkway, Skyline Drive, and Vermont Route 100. Every design element pulls directly from Lawson’s brand: their colors, their fonts, their custom SVGs, even the signature wave animation from their website. It should feel like something Lawson’s built themselves.\n\nBut the details are where it gets fun. Hover over “Sunshine” in the header and god rays shoot across the page. On HDR displays, the sun pushes brightness beyond standard range. Hover over “Cold Beer” and it starts snowing, a nod to their chain of freshness promise. The Sip of Sunshine logo spins with real momentum physics, and clicking it launches emoji bursts. None of these get in the way if you’re just there for the map. That’s the whole point of them being Easter eggs.\n\nThe live impact widget projects real historical data forward, showing dollars raised and solar energy generated ticking up in real time. Community partner popups tell actual impact stories with donate buttons linking directly to each organization. An email capture modal triggers after 30 seconds on the route view, creating a natural top-of-funnel opportunity with genuine value exchange: a curated road trip itinerary.\n\nI built the whole thing with Claude as a coding partner, tested it across 15 screen sizes, and added full accessibility support throughout. On mobile, tilting your phone creates wind that blows the snowflakes. The map expands when you tap a marker so you have room to actually read the popup. Every interaction is designed to teach you how to use the site without having to explain anything.\n\nIf you want to explore it, the site is live at thesunshinetrail.com. It’s password protected, so use “linkedin” to get in.",
+      "image": ""
+    },
+    {
+      "id": "mastodon:116026752698893613",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116026752698893613"
+        }
+      ],
+      "date": "2026-02-07T01:29:05.047Z",
+      "title": "",
+      "text": "Yeah, the Codex app is AWESOME. Time to step it up Anthropic! Cowork isn't going to cut it.",
+      "image": "https://files.mastodon.social/media_attachments/files/116/026/752/419/322/845/original/c9d12ff956ede89b.png"
+    },
+    {
+      "id": "mastodon:116025763273323525",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/116025763273323525"
+        }
+      ],
+      "date": "2026-02-06T21:17:27.605Z",
+      "title": "",
+      "text": "Sure, it's not as expensive as Opus 4.5, but it's not like I'm unable to hit my weekly usage limit in a single afternoon!",
+      "image": "https://files.mastodon.social/media_attachments/files/116/025/762/996/130/662/original/9a7714d2c1dd43cb.png"
+    },
+    {
+      "id": "mastodon:115889270577139356",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/115889270577139356"
+        }
+      ],
+      "date": "2026-01-13T18:45:34.344Z",
+      "title": "",
+      "text": "RE: https://mastodon.social/@BasicAppleGuy/115888906340881425\nI'm excited for this, but I've got to say, I did think the icons were a joke at first.",
+      "image": ""
+    },
+    {
+      "id": "mastodon:115828676884187760",
+      "platforms": [
+        "Mastodon"
+      ],
+      "links": [
+        {
+          "platform": "Mastodon",
+          "url": "https://mastodon.social/@oliverames/115828676884187760"
+        }
+      ],
+      "date": "2026-01-03T01:55:48.035Z",
+      "title": "",
+      "text": "@jordibruin Hi there! I was on the 4.0 TestFlight beta for the iOS version of MacWhisper but I haven’t seen any movement. Is it still in the works?",
+      "image": ""
+    }
+  ]
+}

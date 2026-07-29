@@ -214,6 +214,8 @@
   .writing-list {
     display: grid;
     gap: 1px;
+    padding: 0;
+    list-style: none;
     background: var(--hairline);
     border: 1px solid var(--hairline);
     border-radius: var(--radius-card, 12px);
@@ -243,6 +245,88 @@
   .writing-list h2 {
     margin: 0.35rem 0 0;
     transition: color var(--transition);
+  }
+
+  .writing-list small {
+    display: block;
+    margin-top: 0.55rem;
+    color: var(--text-1);
+  }
+
+  .profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: var(--space-3, 2rem);
+  }
+
+  .profile-links a {
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    color: var(--text-0);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: border-color var(--transition), color var(--transition);
+  }
+
+  .profile-links a:hover,
+  .profile-links a:focus-visible {
+    border-color: var(--manufacturing-red);
+    color: var(--manufacturing-red);
+  }
+
+  .writing-stream {
+    width: var(--web-measure-reading, min(65ch, 92vw));
+    margin-inline: auto;
+    padding-bottom: var(--space-5, clamp(3rem, 7vw, 6rem));
+  }
+
+  .stream-post {
+    padding-block: clamp(1.5rem, 4vw, 2.75rem);
+    border-top: 1px solid color-mix(in srgb, var(--heritage-gold) 40%, transparent);
+  }
+
+  .stream-post__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-1);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .stream-post h2 {
+    margin-bottom: 0.6rem;
+  }
+
+  .stream-post p {
+    white-space: pre-line;
+  }
+
+  .stream-post__link {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .stream-post__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+
+  .writing-work-link {
+    border-top: 1px solid color-mix(in srgb, var(--heritage-gold) 40%, transparent);
   }
 
   @media (max-width: 50rem) {

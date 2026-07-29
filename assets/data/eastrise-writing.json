@@ -1,0 +1,482 @@
+{
+  "count": 53,
+  "articles": [
+    {
+      "id": 1,
+      "title": "Are Snow Tires Actually Worth It in Vermont?",
+      "date": "2025-10-24",
+      "category": "Automotive",
+      "url": "https://www.eastrise.com/blog/are-snow-tires-actually-worth-it-in-vermont/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 2,
+      "title": "Best Podcasts for Learning About Finance—Without the Jargon",
+      "date": "2025-08-21",
+      "category": "Financial Literacy",
+      "url": "https://www.eastrise.com/blog/best-podcasts-for-learning-about-finance-without-the-jargon/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 3,
+      "title": "#Vanlife: Making a Home on Wheels Work for Your Budget",
+      "date": "2025-06-27",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/vanlife-making-a-home-on-wheels-work-for-your-budget/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 4,
+      "title": "Top Tips to Avoid Holiday Scams: Stay Safe While Shopping Online",
+      "date": "2024-11-21",
+      "category": "Fraud & Security",
+      "url": "https://www.eastrise.com/blog/top-tips-to-avoid-holiday-scams-stay-safe-while-shopping-online/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 5,
+      "title": "Learn About Common Fraud Schemes",
+      "date": "2024-10-31",
+      "category": "Fraud & Security",
+      "url": "https://www.eastrise.com/blog/learn-about-common-fraud-schemes/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 6,
+      "title": "Leveraging AI for Financial Literacy: A Comprehensive Guide",
+      "date": "2024-05-17",
+      "category": "Technology & Banking",
+      "url": "https://www.eastrise.com/blog/leveraging-ai-for-financial-literacy-a-comprehensive-guide/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 7,
+      "title": "Debt Consolidation Strategies: A Path to Financial Freedom",
+      "date": "2024-04-24",
+      "category": "Credit & Debt",
+      "url": "https://www.eastrise.com/blog/debt-consolidation-strategies-a-path-to-financial-freedom/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 8,
+      "title": "Planning for Spring Break on a Budget: A Guide for Savvy Travelers",
+      "date": "2024-03-15",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/planning-for-spring-break-on-a-budget-a-guide-for-savvy-travelers/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 9,
+      "title": "Sipping on Wisdom: Embracing Life’s Little Luxuries without Financial Regret",
+      "date": "2024-02-08",
+      "category": "Food & Home Life",
+      "url": "https://www.eastrise.com/blog/sipping-on-wisdom-embracing-lifes-little-luxuries-without-financial-regret/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 10,
+      "title": "Heating Historic Homes: Maximizing Efficiency and Minimizing Costs",
+      "date": "2023-12-05",
+      "category": "Green Energy & EVs",
+      "url": "https://www.eastrise.com/blog/heating-historic-homes-maximizing-efficiency-and-minimizing-costs/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 11,
+      "title": "Savings Account Guide: Maximize Interest and Pick the Right Account for You",
+      "date": "2023-11-02",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/savings-account-guide-maximize-interest-and-pick-the-right-account-for-you/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 12,
+      "title": "How to Start Budgeting with the Simple Envelope System",
+      "date": "2023-10-19",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/how-to-start-budgeting-with-the-simple-envelope-system/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 13,
+      "title": "The Power of Seven: A Complete Guide to the Seven Percent Savings Rule",
+      "date": "2023-10-10",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/the-power-of-seven-a-complete-guide-to-the-seven-percent-savings-rule/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 14,
+      "title": "Preparing for Winter in Vermont: Your Essential Fall Home Maintenance Checklist",
+      "date": "2023-09-19",
+      "category": "Home & Energy",
+      "url": "https://www.eastrise.com/blog/preparing-for-winter-in-vermont-your-essential-fall-home-maintenance-checklist/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 15,
+      "title": "Choosing the Perfect Credit Card: Factors to Consider for Your Financial Needs and Lifestyle",
+      "date": "2023-08-29",
+      "category": "Credit & Debt",
+      "url": "https://www.eastrise.com/blog/choosing-the-perfect-credit-card-factors-to-consider-for-your-financial-needs-and-lifestyle/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 16,
+      "title": "Maximizing Fuel Efficiency: Easy Tips for Every Driver",
+      "date": "2023-08-22",
+      "category": "Green Energy & EVs",
+      "url": "https://www.eastrise.com/blog/maximizing-fuel-efficiency-easy-tips-for-every-driver/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 17,
+      "title": "Hybrid Vehicle vs. Electric Car: Nine Pros and Cons to Consider at the Dealership",
+      "date": "2023-06-14",
+      "category": "Green Energy & EVs",
+      "url": "https://www.eastrise.com/blog/hybrid-vehicle-vs-electric-car-nine-pros-and-cons-to-consider-at-the-dealership/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 18,
+      "title": "Page Not Found (404)",
+      "date": null,
+      "category": "Technology & Banking",
+      "url": "https://www.eastrise.com/blog/a-comprehensive-guide-ev-charging-apps/",
+      "available": false,
+      "archivedTitle": "A Comprehensive Guide to EV Charging Apps"
+    },
+    {
+      "id": 19,
+      "title": "Last-Minute Gift Ideas for Kids this Holiday Season",
+      "date": "2022-12-21",
+      "category": "Holiday & Seasonal",
+      "url": "https://www.eastrise.com/blog/last-minute-gift-ideas-for-kids-this-holiday-season/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 20,
+      "title": "How to Avoid Over-gifting and Save Money This Holiday Season",
+      "date": "2022-12-15",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/how-to-avoid-over-gifting-and-save-money-this-holiday-season/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 21,
+      "title": "How to Save Money While Traveling for the Holidays",
+      "date": "2022-12-08",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/how-to-save-money-while-traveling-for-the-holidays/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 22,
+      "title": "Skip New Year's Resolutions and Set Intentions for Your 2023 Finances",
+      "date": "2022-12-05",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/skip-new-years-resolutions-and-set-intentions-for-your-2023-finances/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 23,
+      "title": "Places to Volunteer in Vermont",
+      "date": "2022-11-21",
+      "category": "Travel & Lifestyle",
+      "url": "https://www.eastrise.com/blog/places-to-volunteer-in-vermont/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 24,
+      "title": "Identity Theft: How a Fast Response Saved My Credit",
+      "date": "2022-10-21",
+      "category": "Fraud & Security",
+      "url": "https://www.eastrise.com/blog/identity-theft-how-a-fast-response-saved-my-credit/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 25,
+      "title": "How to Manage Money in Your Budgeting App",
+      "date": "2022-07-28",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/how-to-manage-money-in-your-budgeting-app/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 26,
+      "title": "Planning for Retirement: When Should You Pay Off a Mortgage Early?",
+      "date": "2022-05-20",
+      "category": "Credit & Debt",
+      "url": "https://www.eastrise.com/blog/planning-for-retirement-when-should-you-pay-off-a-mortgage-early/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 27,
+      "title": "How to Lower Your Credit Card Interest Rate",
+      "date": "2022-04-12",
+      "category": "Credit & Debt",
+      "url": "https://www.eastrise.com/blog/how-to-lower-your-credit-card-interest-rate/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 28,
+      "title": "Holiday Debt: What Not to Do",
+      "date": "2022-01-13",
+      "category": "Credit & Debt",
+      "url": "https://www.eastrise.com/blog/holiday-debt-what-not-to-do/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 29,
+      "title": "Buying an Electric Car Saved Me Money",
+      "date": "2021-12-21",
+      "category": "Green Energy & EVs",
+      "url": "https://www.eastrise.com/blog/buying-an-electric-car-saved-me-money/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 30,
+      "title": "7 Holiday Shopping Tips to Avoid Supply Chain Issues",
+      "date": "2021-11-22",
+      "category": "Holiday & Seasonal",
+      "url": "https://www.eastrise.com/blog/7-holiday-shopping-tips-to-avoid-supply-chain-issues/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 31,
+      "title": "What You Need to Know about the Child Tax Credit",
+      "date": "2021-07-08",
+      "category": "Investment & Retirement",
+      "url": "https://www.eastrise.com/blog/what-you-need-to-know-about-the-child-tax-credit/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 32,
+      "title": "Investment Apps and Meme Stocks: It's Wise to Be Wary",
+      "date": "2021-06-08",
+      "category": "Investment & Retirement",
+      "url": "https://www.eastrise.com/blog/investment-apps-and-meme-stocks-its-wise-to-be-wary/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 33,
+      "title": "Need a New Dryer? Save Money with an Energy Efficient Heat Pump Dryer",
+      "date": "2021-05-21",
+      "category": "Green Energy & EVs",
+      "url": "https://www.eastrise.com/blog/need-a-new-dryer-save-money-with-an-energy-efficient-heat-pump-dryer/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 34,
+      "title": "Planning a Trip? Here Are Five Tips for Traveling Safely after COVID",
+      "date": "2021-05-13",
+      "category": "Fraud & Security",
+      "url": "https://www.eastrise.com/blog/planning-a-trip-here-are-five-tips-for-traveling-safely-after-covid/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 35,
+      "title": "How to Spot a Facebook Scam and Prevent Fraud on Social Media",
+      "date": "2021-04-20",
+      "category": "Fraud & Security",
+      "url": "https://www.eastrise.com/blog/how-to-spot-a-facebook-scam-and-prevent-fraud-on-social-media/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 36,
+      "title": "What You Need to Know About Your Third Stimulus Check",
+      "date": "2021-03-10",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/what-you-need-to-know-about-your-third-stimulus-check/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 37,
+      "title": "Meal Planning to Save Money",
+      "date": "2021-02-23",
+      "category": "Savings & Budgeting",
+      "url": "https://www.eastrise.com/blog/meal-planning-to-save-money/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 38,
+      "title": "What Vermonters Need to Know About the $600 Stimulus Check",
+      "date": "2020-12-29",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/what-vermonters-need-to-know-about-the-600-stimulus-check/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 39,
+      "title": "How to Protect Your Credit and Prevent Identity Theft this Holiday Season",
+      "date": "2020-12-16",
+      "category": "Fraud & Security",
+      "url": "https://www.eastrise.com/blog/how-to-protect-your-credit-and-prevent-identity-theft-this-holiday-season/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 40,
+      "title": "Local Deals for Your Black Friday and Cyber Monday Holiday Shopping",
+      "date": "2020-11-25",
+      "category": "Holiday & Seasonal",
+      "url": "https://www.eastrise.com/blog/local-deals-for-your-black-friday-and-cyber-monday-holiday-shopping/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 41,
+      "title": "Three Phases to Managing Finances in a Relationship",
+      "date": "2020-09-24",
+      "category": "Financial Literacy",
+      "url": "https://www.eastrise.com/blog/three-phases-to-managing-finances-in-a-relationship/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 42,
+      "title": "How Vermonters Will Be Affected by the New CDC Eviction Ban",
+      "date": "2020-09-04",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/how-vermonters-will-be-affected-by-the-new-cdc-eviction-ban/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 43,
+      "title": "Get Your Vermont-Made Face Masks Here",
+      "date": "2020-07-02",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/get-your-vermont-made-face-masks-here/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 44,
+      "title": "Your Economic Impact Payment Could Arrive by Debit Card",
+      "date": "2020-05-21",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/your-economic-impact-payment-could-arrive-by-debit-card/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 45,
+      "title": "How to Manage Your Personal Finances during COVID-19",
+      "date": "2020-05-06",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/how-to-manage-your-personal-finances-during-covid-19/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 46,
+      "title": "Top Five Myths about IRS Stimulus Payments",
+      "date": "2020-04-15",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/top-five-myths-about-irs-stimulus-payments/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 47,
+      "title": "Everything You Need to Know about Your IRS Stimulus Payment",
+      "date": "2020-04-04",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/everything-you-need-to-know-about-your-irs-stimulus-payment/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 48,
+      "title": "Community Resources to Help You Thrive during COVID-19.",
+      "date": "2020-03-27",
+      "category": "COVID-19 Resources",
+      "url": "https://www.eastrise.com/blog/community-resources-to-help-you-thrive-during-covid-19/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 49,
+      "title": "Keeping You and Your Money Safe during COVID-19!",
+      "date": "2020-03-23",
+      "category": "Fraud & Security",
+      "url": "https://www.eastrise.com/blog/keeping-you-and-your-money-safe-during-covid-19/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 50,
+      "title": "How do Pellet Furnace Prices Compare?",
+      "date": "2020-01-29",
+      "category": "Green Energy & EVs",
+      "url": "https://www.eastrise.com/blog/how-do-pellet-furnace-prices-compare/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 51,
+      "title": "How to Pay with Your Phone",
+      "date": "2019-12-10",
+      "category": "Technology & Banking",
+      "url": "https://www.eastrise.com/blog/how-to-pay-with-your-phone/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 52,
+      "title": "Save Big with these Cyber Monday Deals",
+      "date": "2019-12-02",
+      "category": "Holiday & Seasonal",
+      "url": "https://www.eastrise.com/blog/save-big-with-these-cyber-monday-deals/",
+      "available": true,
+      "archivedTitle": null
+    },
+    {
+      "id": 53,
+      "title": "Buy the Best Smart Thermostat (and Still Save Money)",
+      "date": "2019-11-01",
+      "category": "Green Energy & EVs",
+      "url": "https://www.eastrise.com/blog/buy-the-best-smart-thermostat-and-still-save-money/",
+      "available": true,
+      "archivedTitle": null
+    }
+  ]
+}

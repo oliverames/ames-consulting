@@ -28,6 +28,7 @@ for (const route of [
   "/services/photography-and-video/",
   "/services/practical-technology/",
   "/blog/",
+  "/blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/",
   "/about/",
   "/contact/",
   "/missing-page/",

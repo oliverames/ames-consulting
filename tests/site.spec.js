@@ -388,12 +388,15 @@ test("EastRise photography is grouped into complete public-source galleries", as
   );
 });
 
-test("Writing is a personal Micro.blog-led social stream", async ({ page }) => {
+test("Writing uses social cards and opens long-form posts on-site", async ({
+  page,
+}) => {
   await page.goto("/blog/");
   await expect(
     page.getByRole("link", { name: "Micro.blog is my blog" }),
   ).toHaveAttribute("href", "https://oliverames.micro.blog/");
-  await expect(page.locator(".stream-post")).toHaveCount(30);
+  await expect(page.locator(".social-card")).toHaveCount(34);
+  await expect(page.locator(".social-card__media")).toHaveCount(6);
   const writingProfiles = page.getByLabel("Writing profiles");
   await expect(
     writingProfiles.getByRole("link", { name: "Threads", exact: true }),
@@ -407,4 +410,12 @@ test("Writing is a personal Micro.blog-led social stream", async ({ page }) => {
       { exact: true },
     ),
   ).toBeVisible();
+  await page.getByRole("link", { name: "Read on ames.consulting" }).click();
+  await expect(page).toHaveURL(
+    /\/blog\/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids\/$/,
+  );
+  await expect(page.locator(".writing-article__body p")).toHaveCount(10);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "The Sunshine Trail",
+  );
 });

@@ -32,6 +32,7 @@ test("all public content routes load", async ({ request }) => {
     "/services/photography-and-video/",
     "/services/practical-technology/",
     "/blog/",
+    "/blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/",
     "/about/",
     "/contact/",
   ]) {
@@ -40,10 +41,28 @@ test("all public content routes load", async ({ request }) => {
   }
 });
 
+test("small-screen navigation and page headers keep deliberate spacing", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/blog/");
+  const layout = await page.evaluate(() => {
+    const header = document.querySelector(".site-header").getBoundingClientRect();
+    const nav = document.querySelector(".site-nav");
+    const pageHeader = document.querySelector(".page-header");
+    return {
+      headerHeight: header.height,
+      navWrap: getComputedStyle(nav).flexWrap,
+      pageHeaderPaddingTop: Number.parseFloat(getComputedStyle(pageHeader).paddingTop),
+    };
+  });
+  expect(layout.headerHeight).toBeLessThan(130);
+  expect(layout.navWrap).toBe("nowrap");
+  expect(layout.pageHeaderPaddingTop).toBeGreaterThanOrEqual(48);
+});
+
 test("campaign pages use local images and YouTube embeds", async ({ page }) => {
   await page.goto("/work/member-banking-stories/");
   await expect(page.locator("main img")).toHaveCount(1);
   await expect(page.locator('iframe[src*="youtube-nocookie.com"]')).toHaveCount(
-    3,
+    11,
   );
 });

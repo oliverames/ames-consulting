@@ -5,7 +5,8 @@ const PORT = 4173;
 export default defineConfig({
   testDir: "./tests",
   timeout: 30_000,
-  fullyParallel: true,
+  fullyParallel: false,
+  workers: 1,
   reporter: process.env.CI ? [["github"], ["html", { outputFolder: "playwright-report" }]] : "list",
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
@@ -20,7 +21,7 @@ export default defineConfig({
     }
   ],
   webServer: {
-    command: `python3 -m http.server ${PORT}`,
+    command: `/usr/bin/python3 -m http.server ${PORT}`,
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000

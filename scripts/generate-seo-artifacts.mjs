@@ -35,7 +35,14 @@ function normalizeSiteUrl(domain) {
 }
 
 async function getKnownRoutes(siteUrl) {
-  return [`${siteUrl}/`];
+  return [
+    `${siteUrl}/`,
+    `${siteUrl}/work/`,
+    `${siteUrl}/work/eastrise/`,
+    `${siteUrl}/work/blue-cross-vermont/`,
+    `${siteUrl}/about/`,
+    `${siteUrl}/contact/`
+  ];
 }
 
 function buildSitemapXml(urls) {

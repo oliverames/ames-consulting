@@ -84,6 +84,15 @@ test("earlier and institutional work use linked case cards", async ({ page }) =>
   await expect(page.getByRole("link", { name: /Live broadcasts/ })).toHaveAttribute("href", "live-broadcasts/");
 });
 
+test("about page works as a professional profile and resume", async ({ page }) => {
+  await page.goto("/about/");
+  await expect(page.locator('img[alt="Oliver Ames smiling outdoors in Vermont"]')).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The fuller version." })).toBeVisible();
+  await expect(page.locator(".about-role")).toHaveCount(8);
+  await expect(page.getByText("Boston University", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "oliver@ames.consulting" })).toHaveAttribute("href", "mailto:oliver@ames.consulting");
+});
+
 test("EastRise writing archive contains every attributed article", async ({ page }) => {
   await page.goto("/work/eastrise-writing/");
   await expect(page.locator(".writing-list > li")).toHaveCount(53);

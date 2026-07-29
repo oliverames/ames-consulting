@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build:site": "node scripts/generate-service-pages.mjs && node scripts/generate-career-work-pages.mjs && node scripts/generate-contact-page.mjs && node scripts/build-site.mjs",
+    "build:site": "node scripts/generate-service-pages.mjs && node scripts/generate-career-work-pages.mjs && node scripts/generate-contact-page.mjs && node scripts/generate-about-page.mjs && node scripts/build-site.mjs",
     "refresh:writing": "node scripts/refresh-writing-content.mjs",
     "generate:public-site": "node scripts/generate-public-site.mjs",
     "check:js-syntax": "node scripts/check-js-syntax.mjs",

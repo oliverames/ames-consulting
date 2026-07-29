@@ -2440,6 +2440,384 @@
     border-top: 1px solid rgba(250, 248, 245, 0.16);
   }
 
+  .about-hero,
+  .about-card-grid,
+  .about-proof,
+  .about-capabilities,
+  .about-experience,
+  .about-credentials,
+  .about-cta {
+    width: var(--web-measure-wide);
+    margin-inline: auto;
+  }
+
+  .about-hero {
+    display: grid;
+    gap: var(--space-3);
+    align-items: stretch;
+    padding-block: var(--space-3) var(--space-4);
+  }
+
+  @media (width >= 58rem) {
+    .about-hero {
+      grid-template-columns: minmax(0, 1.25fr) minmax(19rem, 0.75fr);
+    }
+  }
+
+  .about-hero__copy {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: end;
+    gap: var(--space-2);
+    min-height: clamp(30rem, 55vw, 42rem);
+    padding: clamp(2rem, 5vw, 4.5rem);
+    border-radius: var(--radius-tile);
+    background:
+      radial-gradient(circle at 8% 2%, color-mix(in oklch, var(--accent) 34%, transparent), transparent 39%),
+      radial-gradient(circle at 92% 9%, color-mix(in oklch, var(--accent-hover) 23%, transparent), transparent 44%),
+      var(--surface-0);
+    box-shadow: var(--shadow-card);
+  }
+
+  .about-hero h1 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(3.5rem, 7vw, 6.7rem);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+  }
+
+  .about-hero h1 em {
+    color: transparent;
+    font-style: normal;
+    background: var(--web-gradient-hero);
+    background-clip: text;
+  }
+
+  .about-hero__copy > p {
+    max-width: 52ch;
+    margin: 0;
+    color: var(--text-1);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+  }
+
+  .about-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .about-portrait {
+    position: relative;
+    overflow: hidden;
+    min-height: 30rem;
+    margin: 0;
+    border-radius: var(--radius-tile);
+    background: var(--surface-0);
+    box-shadow: var(--shadow-card);
+  }
+
+  .about-portrait img {
+    width: 100%;
+    height: 100%;
+    min-height: 30rem;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .about-portrait figcaption {
+    position: absolute;
+    inset: auto 1rem 1rem;
+    display: grid;
+    gap: 0.1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(250, 248, 245, 0.25);
+    border-radius: 10px;
+    color: #faf8f5;
+    background: rgba(28, 41, 41, 0.78);
+    backdrop-filter: blur(12px);
+  }
+
+  .about-portrait figcaption strong {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+  }
+
+  .about-portrait figcaption span {
+    color: #b8c2c2;
+    font-size: 0.82rem;
+  }
+
+  .about-card-grid {
+    display: grid;
+    gap: var(--space-3);
+    padding-bottom: var(--space-5);
+  }
+
+  @media (width >= 52rem) {
+    .about-card-grid {
+      grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.55fr);
+    }
+  }
+
+  .about-intro-card,
+  .about-contact-card {
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: var(--radius-tile);
+    box-shadow: var(--shadow-card);
+  }
+
+  .about-intro-card {
+    background: var(--surface-0);
+  }
+
+  .about-intro-card h2,
+  .section-heading h2,
+  .about-contact-card h2,
+  .about-cta h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+  }
+
+  .about-intro-card > p:not(.eyebrow) {
+    max-width: 66ch;
+    color: var(--text-1);
+  }
+
+  .about-contact-card {
+    color: #faf8f5;
+    background:
+      radial-gradient(circle at 100% 0, color-mix(in oklch, var(--accent-plum) 40%, transparent), transparent 48%),
+      var(--surface-deep);
+  }
+
+  .about-contact-card .site-footer__monogram {
+    margin-bottom: var(--space-2);
+  }
+
+  .about-contact-card h2 {
+    color: #faf8f5;
+  }
+
+  .about-contact-card > p {
+    color: #b8c2c2;
+  }
+
+  .about-contact-card dl {
+    display: grid;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+  }
+
+  .about-contact-card dl > div {
+    padding-top: var(--space-1);
+    border-top: 1px solid rgba(250, 248, 245, 0.16);
+  }
+
+  .about-contact-card dt {
+    color: var(--accent);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .about-contact-card dd {
+    margin: 0.2rem 0 0;
+  }
+
+  .about-contact-card a {
+    color: #faf8f5;
+  }
+
+  .about-proof,
+  .about-capabilities,
+  .about-experience,
+  .about-credentials {
+    padding-block: var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--accent) 48%, transparent);
+  }
+
+  .section-heading {
+    display: grid;
+    gap: var(--space-1);
+    max-width: 52rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .about-proof__grid,
+  .about-capabilities__grid {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  @media (width >= 46rem) {
+    .about-proof__grid,
+    .about-capabilities__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .about-proof__grid a,
+  .about-capabilities__grid article {
+    min-height: 13rem;
+    padding: clamp(1.4rem, 3vw, 2.3rem);
+    border-radius: var(--radius-tile);
+    background: var(--surface-0);
+    box-shadow: var(--shadow-card);
+  }
+
+  .about-proof__grid a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--text-0);
+    text-decoration: none;
+    transition: transform var(--transition-snappy), box-shadow var(--transition-snappy);
+  }
+
+  .about-proof__grid a:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .about-proof__grid strong {
+    color: var(--accent-hover);
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 7vw, 5.6rem);
+    line-height: 0.9;
+  }
+
+  .about-proof__grid span {
+    max-width: 24ch;
+    color: var(--text-1);
+  }
+
+  .about-capabilities__grid article {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+  }
+
+  .about-capabilities__grid article > span {
+    color: var(--accent-hover);
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
+
+  .about-capabilities__grid h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .about-capabilities__grid p {
+    color: var(--text-1);
+  }
+
+  .about-experience__list {
+    display: grid;
+  }
+
+  .about-role {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: clamp(1.5rem, 3vw, 2.5rem);
+    border-top: 1px solid color-mix(in srgb, var(--text-0) 12%, transparent);
+  }
+
+  @media (width >= 52rem) {
+    .about-role {
+      grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr);
+    }
+  }
+
+  .about-role__meta {
+    display: grid;
+    align-content: start;
+    gap: 0.15rem;
+  }
+
+  .about-role__meta > span {
+    color: var(--accent-hover);
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .about-role h3 {
+    margin: 0;
+    font-size: 1.55rem;
+  }
+
+  .about-role__meta p,
+  .about-role > p {
+    color: var(--text-1);
+  }
+
+  .about-role > p {
+    max-width: 66ch;
+  }
+
+  .about-credentials {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  @media (width >= 52rem) {
+    .about-credentials {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .about-credentials > div {
+    padding: clamp(1.4rem, 3vw, 2.25rem);
+    border-radius: var(--radius-tile);
+    background: var(--surface-0);
+    box-shadow: var(--shadow-card);
+  }
+
+  .about-credentials h2 {
+    margin: 0;
+  }
+
+  .about-credentials ul {
+    display: grid;
+    gap: 0.55rem;
+    padding-left: 1.2rem;
+  }
+
+  .about-credentials p,
+  .about-credentials li {
+    color: var(--text-1);
+    font-size: 0.94rem;
+  }
+
+  .about-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: clamp(2rem, 5vw, 4rem);
+    margin-block: var(--space-5);
+    border-radius: var(--radius-tile);
+    color: #faf8f5;
+    background:
+      radial-gradient(circle at 95% 0, color-mix(in oklch, var(--accent-plum) 42%, transparent), transparent 45%),
+      var(--surface-deep);
+  }
+
+  .about-cta h2,
+  .about-cta .eyebrow {
+    color: #faf8f5;
+  }
+
   [popover] {
     border: var(--border-soft);
     border-radius: var(--radius-md);

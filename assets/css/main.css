@@ -2854,6 +2854,10 @@
     font-size: 0.92rem;
   }
 
+  .contact-form-status:empty {
+    display: none;
+  }
+
   .contact-form-status[data-tone="ok"] {
     color: color-mix(in oklch, green 55%, black);
   }

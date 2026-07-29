@@ -1,11 +1,33 @@
 import { test, expect } from "@playwright/test";
 
 test("homepage presents the company and verified proof", async ({ page }) => {
+  await page.clock.install();
   await page.goto("/");
   await expect(page).toHaveTitle(/Ames Consulting/);
   await expect(page.getByRole("heading", { level: 1 })).toContainText("complex ideas");
-  await expect(page.getByText("319%", { exact: true })).toBeVisible();
+  const firstMetric = page.locator(".proof__link").first();
+  await expect(firstMetric).toBeVisible();
+  await expect(firstMetric).toHaveAttribute("href", "work/eastrise/");
+  await firstMetric.hover();
+  await expect(firstMetric.getByRole("tooltip")).toBeVisible();
+  await page.clock.fastForward("00:00:07");
+  await expect(firstMetric).toBeVisible();
+  await page.mouse.move(0, 0);
+  await page.clock.fastForward("00:00:07");
+  await expect(page.getByText("569%", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Pause metrics" }).click();
+  await page.clock.fastForward("00:00:07");
+  await expect(page.getByText("569%", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /See the work/ })).toBeVisible();
+});
+
+test("homepage proof respects reduced motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.clock.install();
+  await page.goto("/");
+  await page.clock.fastForward("00:00:07");
+  await expect(page.getByText("319%", { exact: true })).toBeVisible();
+  await expect(page.getByText("569%", { exact: true })).toBeHidden();
 });
 
 test("website campaign contains the two PixelSpoke redesigns", async ({ page }) => {

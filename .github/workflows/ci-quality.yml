@@ -35,7 +35,7 @@ jobs:
       - name: Link check (offline)
         uses: lycheeverse/lychee-action@v2.9.0
         with:
-          args: --offline --no-progress --verbose --exclude '^/api/contact$' './*.html' './blog/**/*.html' './services/**/*.html' './work/index.html' './work/carebridge-companion/**/*.html' './work/neighborhood-giving-map/**/*.html' './work/eastrise-writing/**/*.html' './contact/**/*.html' './photography/**/*.html' './links/**/*.html' './likes/**/*.html' './colophon/**/*.html' './README.md' './docs/**/*.md'
+          args: --offline --no-progress --verbose --base-url https://ames.consulting './*.html' './blog/**/*.html' './services/**/*.html' './work/index.html' './work/carebridge-companion/**/*.html' './work/neighborhood-giving-map/**/*.html' './work/eastrise-writing/**/*.html' './contact/**/*.html' './photography/**/*.html' './links/**/*.html' './likes/**/*.html' './colophon/**/*.html' './README.md' './docs/**/*.md'
           fail: true
 
   e2e-and-a11y:

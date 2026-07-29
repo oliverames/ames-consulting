@@ -128,7 +128,13 @@ async function main() {
 
   // Load template
   const templatePath = join(projectRoot, "templates/post-template.html");
-  const template = await readFile(templatePath, "utf-8");
+  let template;
+  try {
+    template = await readFile(templatePath, "utf-8");
+  } catch {
+    console.log("Blog publishing is not part of the current public site; skipping legacy generation.");
+    return;
+  }
 
   // Load posts
   const posts = await loadPosts();

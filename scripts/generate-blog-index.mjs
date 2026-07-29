@@ -140,6 +140,13 @@ async function renderCard(post) {
 async function main() {
   console.log("📝 Generating static blog index cards...\n");
 
+  try {
+    await access(join(projectRoot, "blog/index.html"));
+  } catch {
+    console.log("Blog index is not part of the current public site; skipping legacy pre-render.");
+    return;
+  }
+
   const posts = await loadPosts();
   if (posts.length === 0) {
     console.error("❌ No posts found");

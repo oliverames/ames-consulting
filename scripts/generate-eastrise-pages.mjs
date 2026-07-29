@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync } from "fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
 
 /**
@@ -32,6 +32,10 @@ function formatMetaTitle(title) {
 }
 
 function generatePages() {
+  if (!existsSync(TEMPLATE_PATH) || !existsSync(DATA_PATH)) {
+    console.log("EastRise articles are represented by the current case study; skipping legacy page generation.");
+    return;
+  }
   console.log("Reading template and data...");
   const template = readFileSync(TEMPLATE_PATH, "utf-8");
   const data = JSON.parse(readFileSync(DATA_PATH, "utf-8"));

@@ -86,7 +86,13 @@ async function main() {
 
   // Load template
   const templatePath = join(projectRoot, "templates/gallery-template.html");
-  const template = await readFile(templatePath, "utf-8");
+  let template;
+  try {
+    template = await readFile(templatePath, "utf-8");
+  } catch {
+    console.log("Standalone galleries are not part of the current public site; skipping legacy generation.");
+    return;
+  }
 
   // Load galleries
   const galleries = await loadGalleries();

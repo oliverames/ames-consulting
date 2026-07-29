@@ -61,4 +61,6 @@ jobs:
       - name: Verify deployment
         run: |
           test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/)" = "200"
-          test "$(curl -sS -o /dev/null -w '%{http_code}' https://assets.ames.consulting/ames-consulting/assets/images/sample-work.svg)" = "200"
+          test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/services/strategy-and-content/)" = "200"
+          test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/api/contact)" = "405"
+          test "$(curl -sS -o /dev/null -w '%{http_code}' https://assets.ames.consulting/ames-consulting/assets/images/brand/oa-social-mark.svg)" = "200"

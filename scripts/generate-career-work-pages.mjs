@@ -19,6 +19,55 @@ const eastRisePhotographyCard = `<a class="work-item" href="eastrise-photography
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
 const sourceLink = (href, label) => `<a href="${href}" rel="noopener">${label}</a>`;
+
+function sortWorkSection(html, heading, order) {
+  const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const sectionPattern = new RegExp(
+    `(<section class="work-category(?: work-category--earlier)?">\\s*<h2>${escapedHeading}</h2>\\s*<div class="work-list">)([\\s\\S]*?)(\\s*</div>\\s*</section>)`,
+  );
+
+  return html.replace(sectionPattern, (section, opening, cardMarkup, closing) => {
+    const cards = [...cardMarkup.matchAll(/<a class="work-item" href="([^"]+)"[\s\S]*?<\/a\s*>/g)].map(
+      (match) => ({ href: match[1], html: match[0] }),
+    );
+    if (cards.length === 0) return section;
+
+    const rank = new Map(order.map((href, index) => [href, index]));
+    cards.sort(
+      (left, right) =>
+        (rank.get(left.href) ?? Number.MAX_SAFE_INTEGER) -
+        (rank.get(right.href) ?? Number.MAX_SAFE_INTEGER),
+    );
+    return `${opening}${cards.map((card) => card.html).join("")}${closing}`;
+  });
+}
+
+const campaignOrder = [
+  "girls-on-the-run-2026/",
+  "corporate-cup-2026/",
+  "flight-paths/",
+  "portraits-and-people/",
+  "member-banking-stories/",
+  "sweat-heart-throwdown/",
+  "eastrise-writing/",
+  "wheels-for-warmth/",
+  "taylor-hoar-racing/",
+  "eastrise-photography/",
+  "bike-fitting/",
+  "eastrise-launch-campaign/",
+  "credit-union-websites/",
+];
+const institutionalOrder = [
+  "blue-cross-vermont/",
+  "beta-technologies/",
+  "green-mountain-community-fitness/",
+  "eastrise/",
+];
+const earlierWorkOrder = [
+  "live-broadcasts/",
+  "vtdigger-membership/",
+  "fairbanks-planetarium/",
+];
 const pages = [
   { slug: "vtdigger-membership", eyebrow: "Membership strategy · VTDigger · 2018–2019", title: "Donation conversion increased 137%.", intro: "VTDigger joined the Facebook Journalism Project Membership Accelerator with a practical goal: make it easier for readers to support independent Vermont journalism.", sections: [
     ["What changed", "I worked across the membership funnel, including campaign messaging, analytics, email, and the donation experience. The team simplified the donation page layout and checkout process, then measured what visitors did instead of relying on instinct."],
@@ -89,6 +138,9 @@ workIndex = workIndex
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01141.webp", "../assets/images/work/gmcf/sweat-heart-card.webp")
   .replace("../assets/images/work/gmcf/bike-fitting/dsc09620.webp", "../assets/images/work/gmcf/bike-fitting-card.webp")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01706.webp", "../assets/images/work/gmcf/gmcf-card.webp");
+workIndex = sortWorkSection(workIndex, "Campaigns and series", campaignOrder);
+workIndex = sortWorkSection(workIndex, "Client and institutional work", institutionalOrder);
+workIndex = sortWorkSection(workIndex, "Earlier work", earlierWorkOrder);
 await writeFile(workIndexPath, workIndex);
 
 for (const page of pages) {

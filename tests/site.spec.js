@@ -263,6 +263,39 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Portraits and People" }),
   ).toBeVisible();
+
+  const sections = page.locator(".work-category");
+  await expect(sections).toHaveCount(3);
+  const hrefs = async (section) =>
+    section.locator(".work-item").evaluateAll((items) =>
+      items.map((item) => item.getAttribute("href")),
+    );
+  expect(await hrefs(sections.nth(0))).toEqual([
+    "girls-on-the-run-2026/",
+    "corporate-cup-2026/",
+    "flight-paths/",
+    "portraits-and-people/",
+    "member-banking-stories/",
+    "sweat-heart-throwdown/",
+    "eastrise-writing/",
+    "wheels-for-warmth/",
+    "taylor-hoar-racing/",
+    "eastrise-photography/",
+    "bike-fitting/",
+    "eastrise-launch-campaign/",
+    "credit-union-websites/",
+  ]);
+  expect(await hrefs(sections.nth(1))).toEqual([
+    "blue-cross-vermont/",
+    "beta-technologies/",
+    "green-mountain-community-fitness/",
+    "eastrise/",
+  ]);
+  expect(await hrefs(sections.nth(2))).toEqual([
+    "live-broadcasts/",
+    "vtdigger-membership/",
+    "fairbanks-planetarium/",
+  ]);
 });
 
 test("GMCF shoots use complete collages with paged lightboxes", async ({

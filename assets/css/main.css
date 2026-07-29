@@ -766,12 +766,17 @@
   }
 
   .site-footer__social a {
-    display: grid;
-    place-items: center;
+    display: inline-flex;
+    align-items: center;
     color: rgba(250, 248, 245, 0.6);
-    padding: 0.5rem;
+    padding: 0.5rem 0.4rem;
     min-block-size: 40px;
-    min-inline-size: 40px;
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+    text-underline-offset: 0.2em;
     transition: color var(--transition-snappy);
   }
 

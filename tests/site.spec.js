@@ -44,7 +44,8 @@ test("Writing is a personal Micro.blog-led social stream", async ({ page }) => {
   await page.goto("/blog/");
   await expect(page.getByRole("link", { name: "Micro.blog is my blog" })).toHaveAttribute("href", "https://oliverames.micro.blog/");
   await expect(page.locator(".stream-post")).toHaveCount(30);
-  await expect(page.getByRole("link", { name: "Threads", exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Instagram", exact: true })).toBeVisible();
+  const writingProfiles = page.getByLabel("Writing profiles");
+  await expect(writingProfiles.getByRole("link", { name: "Threads", exact: true })).toBeVisible();
+  await expect(writingProfiles.getByRole("link", { name: "Instagram", exact: true })).toBeVisible();
   await expect(page.getByText("The team that made this video truly cooked. Marketing at its finest!", { exact: true })).toBeVisible();
 });

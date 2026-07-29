@@ -46,6 +46,13 @@ function buildViewerDialog() {
 
   const figure = document.createElement("figure");
 
+  const previousButton = document.createElement("button");
+  previousButton.id = "image-viewer-previous";
+  previousButton.className = "image-viewer-nav image-viewer-nav--previous";
+  previousButton.type = "button";
+  previousButton.setAttribute("aria-label", "Previous image");
+  previousButton.textContent = "Previous";
+
   const image = document.createElement("img");
   image.id = "image-viewer-image";
   image.className = "protected-asset";
@@ -56,7 +63,14 @@ function buildViewerDialog() {
   const caption = document.createElement("figcaption");
   caption.id = "image-viewer-caption";
 
-  figure.append(image, caption);
+  const nextButton = document.createElement("button");
+  nextButton.id = "image-viewer-next";
+  nextButton.className = "image-viewer-nav image-viewer-nav--next";
+  nextButton.type = "button";
+  nextButton.setAttribute("aria-label", "Next image");
+  nextButton.textContent = "Next";
+
+  figure.append(previousButton, image, nextButton, caption);
   article.append(header, figure);
   dialog.append(article);
 
@@ -124,6 +138,8 @@ export function wireImageViewer() {
   const closeButton = document.getElementById("image-viewer-close");
   const viewerImage = document.getElementById("image-viewer-image");
   const viewerCaption = document.getElementById("image-viewer-caption");
+  const previousButton = document.getElementById("image-viewer-previous");
+  const nextButton = document.getElementById("image-viewer-next");
 
   if (
     !(viewer instanceof HTMLDialogElement) ||
@@ -134,15 +150,26 @@ export function wireImageViewer() {
   }
 
   wiredViewer = true;
+  let activeImages = [];
+  let activeIndex = -1;
+
+  const showImage = (index) => {
+    if (!activeImages.length) return;
+    activeIndex = (index + activeImages.length) % activeImages.length;
+    const sourceImage = activeImages[activeIndex];
+    viewerImage.src = sourceImage.currentSrc || sourceImage.src;
+    viewerImage.alt = sourceImage.alt || "Image preview";
+    viewerCaption.textContent = `${sourceImage.alt || sourceImage.getAttribute("title") || ""} ${activeIndex + 1} of ${activeImages.length}`.trim();
+    const hasMultiple = activeImages.length > 1;
+    if (previousButton instanceof HTMLButtonElement) previousButton.hidden = !hasMultiple;
+    if (nextButton instanceof HTMLButtonElement) nextButton.hidden = !hasMultiple;
+  };
 
   const openViewer = (sourceImage) => {
-    const source = sourceImage.currentSrc || sourceImage.src;
-    if (!source) return;
-
-    viewerImage.src = source;
-    viewerImage.alt = sourceImage.alt || "Image preview";
-    viewerCaption.textContent =
-      sourceImage.alt || sourceImage.getAttribute("title") || "";
+    const gallery = sourceImage.closest("[data-gallery], .media-grid, .photo-gallery") || sourceImage.closest("main, article");
+    activeImages = [...gallery.querySelectorAll("img.zoomable-image")];
+    activeIndex = activeImages.indexOf(sourceImage);
+    showImage(activeIndex);
     viewer.showModal();
   };
 
@@ -151,9 +178,13 @@ export function wireImageViewer() {
     viewerImage.src = "";
     viewerImage.alt = "";
     viewerCaption.textContent = "";
+    activeImages = [];
+    activeIndex = -1;
   };
 
   closeButton?.addEventListener("click", closeViewer);
+  previousButton?.addEventListener("click", () => showImage(activeIndex - 1));
+  nextButton?.addEventListener("click", () => showImage(activeIndex + 1));
 
   viewer.addEventListener("click", (event) => {
     if (event.target === viewer) {
@@ -179,6 +210,11 @@ export function wireImageViewer() {
   });
 
   document.addEventListener("keydown", (event) => {
+    if (viewer.open && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+      event.preventDefault();
+      showImage(activeIndex + (event.key === "ArrowRight" ? 1 : -1));
+      return;
+    }
     const target = event.target;
     if (!(target instanceof HTMLImageElement)) return;
     if (!target.classList.contains("zoomable-image")) return;

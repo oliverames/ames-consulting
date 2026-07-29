@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -10,6 +10,10 @@ const workIndexPath = join(root, "work", "index.html");
 const institutional = `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list"><a class="work-item" href="eastrise/"><img src="../assets/images/work/eastrise/wheels-for-warmth-card.webp" alt="Wheels for Warmth tire collection" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Credit Union</h3><p>Six years of audience strategy, brand photography, campaigns, writing, video, and two website redesigns.</p></a><a class="work-item" href="blue-cross-vermont/"><img src="../assets/images/work/blue-cross/arrayrx-card.webp" alt="ArrayRx press conference photographed for Blue Cross Vermont" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Vermont</h3><p>Photography, community storytelling, video, social content, and digital infrastructure.</p></a><a class="work-item" href="beta-technologies/"><img src="../assets/images/work/campaigns/flight-paths.webp" alt="Flight Paths: Emma at BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · 2026</span><h3>BETA Technologies</h3><p>Documentary video about a Vermont aviation career built through an unexpected route.</p></a></div></section>`;
 
 const earlier = `<section class="work-category work-category--earlier"><h2>Earlier work</h2><div class="work-list"><a class="work-item" href="vtdigger-membership/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>137%</strong></div><span class="work-item__context">VTDigger · 2018–2019</span><h3>Membership conversion</h3><p>A simpler donation page and a disciplined testing program increased membership conversion by 137%.</p></a><a class="work-item" href="fairbanks-planetarium/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>134.8%</strong></div><span class="work-item__context">Fairbanks Museum &amp; Planetarium · 2015–2018</span><h3>Planetarium growth</h3><p>Programming, operations, staff development, and better systems helped planetarium revenue grow from $13,359.80 to $31,363.40.</p></a><a class="work-item" href="live-broadcasts/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>10,000+</strong></div><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>Live broadcasts</h3><p>Hosting, creative direction, and technical production for major public and employee broadcasts.</p></a></div></section>`;
+
+const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the last exhausted finish.</p></a><a class="work-item" href="bike-fitting/"><img src="../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025</span><h3>Bike Fitting</h3><p>A close, practical photo story about expertise, adjustment, and the small details that help a rider fit the bike.</p></a>`;
+
+const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
 const sourceLink = (href, label) => `<a href="${href}" rel="noopener">${label}</a>`;
 const pages = [
@@ -36,6 +40,19 @@ const pages = [
     ["The approach", "The larger company was important, but Emma was the reason to watch. I built the piece around her own route into the work so the workforce program, the technology, and the organization arrived through a person instead of a list of claims."],
     ["Watch", "<div class=\"video-embed\"><iframe src=\"https://www.youtube-nocookie.com/embed/4r5N5DjmSCU\" title=\"Flight Paths: Emma at BETA\" loading=\"lazy\" allow=\"accelerometer; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"],
     ["Source", sourceLink("https://beta.team/video-library", "BETA Technologies video library")]
+  ]},
+  { slug: "sweat-heart-throwdown", eyebrow: "Event photography · Green Mountain Community Fitness · 2026", title: "Hard work, photographed with humanity.", intro: "The Sweat-Heart Throwdown brought teams, volunteers, judges, and spectators together for a Valentine’s Day competition at Green Mountain Community Fitness.", gallery: { directory: "sweat-heart", alt: "Sweat-Heart Throwdown at Green Mountain Community Fitness" }, sections: [
+    ["The assignment", "Photograph the whole event without flattening it into a string of action shots. The competition mattered, but so did the encouragement, the waiting, the judging, the laughter, and the moment after someone finally put the weight down."],
+    ["The approach", "I moved between wide views that establish the room and close frames that show effort and connection. The resulting set gives GMCF both an event record and a useful library for future social posts, promotions, and community storytelling."],
+    ["The gallery", "Select any photograph to open the full viewer. Use the buttons or the left and right arrow keys to move through the complete set."]
+  ]},
+  { slug: "bike-fitting", eyebrow: "Documentary photography · Green Mountain Community Fitness · 2025", title: "A bike fitting is a story told in small adjustments.", intro: "This shoot followed the practical, one-to-one work of fitting a rider to a bike at Green Mountain Community Fitness.", gallery: { directory: "bike-fitting", alt: "Bike fitting at Green Mountain Community Fitness" }, sections: [
+    ["The assignment", "Show the service clearly enough that a prospective rider can understand what happens, while keeping the photographs grounded in the relationship between the fitter, the rider, and the machine."],
+    ["The approach", "I photographed the full process and the details that make the expertise visible: posture, measurement, observation, tools, contact points, and repeated adjustments. The series works as a sequence, but each frame can also stand alone in a service page or social post."],
+    ["The gallery", "Select any photograph to open the full viewer. Use the buttons or the left and right arrow keys to move through the complete set."]
+  ]},
+  { slug: "green-mountain-community-fitness", eyebrow: "Client work · 2025–2026", title: "Green Mountain Community Fitness work.", intro: "The photography work is organized by shoot so each assignment can keep its own people, purpose, and rhythm.", sections: [
+    ["Projects and series", `<div class="work-list"><a class="work-item" href="../sweat-heart-throwdown/"><img src="../../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Event photography · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A competition story built from effort, encouragement, volunteers, and the moments between heats.</p></a><a class="work-item" href="../bike-fitting/"><img src="../../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting" loading="lazy"><span class="work-item__context">Documentary photography · 2025</span><h3>Bike Fitting</h3><p>A service story told through posture, measurement, expertise, and small adjustments.</p></a></div>`]
   ]}
 ];
 
@@ -45,10 +62,22 @@ let workIndex = await readFile(workIndexPath, "utf8");
 const legacyProof = /<section class="proof-band"><h2>Earlier work<\/h2>.*?<\/section>/;
 const currentCategories = /<section class="work-category"><h2>Client and institutional work<\/h2>.*?<\/section><section class="work-category work-category--earlier"><h2>Earlier work<\/h2>.*?<\/section>/;
 workIndex = workIndex.replace(legacyProof.test(workIndex) ? legacyProof : currentCategories, `${institutional}${earlier}`);
+if (!workIndex.includes('href="sweat-heart-throwdown/"')) {
+  workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${gmcfCampaignCards}`);
+}
+if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
+  workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
+}
 await writeFile(workIndexPath, workIndex);
 
 for (const page of pages) {
-  const content = page.sections.map(([title, body]) => `<section class="case-section"><h2>${title}</h2><div class="case-section__body">${body}</div></section>`).join("");
+  let content = page.sections.map(([title, body]) => `<section class="case-section"><h2>${title}</h2><div class="case-section__body">${body}</div></section>`).join("");
+  if (page.gallery) {
+    const galleryDirectory = join(root, "assets", "images", "work", "gmcf", page.gallery.directory);
+    const images = (await readdir(galleryDirectory)).filter((file) => file.endsWith(".webp")).sort();
+    const gallery = images.map((file, index) => `<img src="../../assets/images/work/gmcf/${page.gallery.directory}/${file}" alt="${page.gallery.alt}, photograph ${index + 1} of ${images.length}" loading="lazy" decoding="async">`).join("");
+    content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Complete photo series</h2><div class="campaign-collage" data-gallery="${page.slug}">${gallery}</div></section>`;
+  }
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self';"><title>${page.title} | Ames Consulting</title><meta name="description" content="${page.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${page.slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="case-hero"><p class="eyebrow">${page.eyebrow}</p><h1>${page.title}</h1><p>${page.intro}</p></header>${content}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = join(root, "work", page.slug, "index.html");
   await mkdir(dirname(output), { recursive: true });

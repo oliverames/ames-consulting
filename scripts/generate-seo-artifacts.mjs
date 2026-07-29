@@ -56,6 +56,9 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/work/vtdigger-membership/`,
     `${siteUrl}/work/fairbanks-planetarium/`,
     `${siteUrl}/work/live-broadcasts/`,
+    `${siteUrl}/work/green-mountain-community-fitness/`,
+    `${siteUrl}/work/sweat-heart-throwdown/`,
+    `${siteUrl}/work/bike-fitting/`,
     `${siteUrl}/about/`,
     `${siteUrl}/contact/`
   ];

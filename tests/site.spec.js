@@ -68,10 +68,25 @@ test("Flight Paths is a standalone video series", async ({ page }) => {
 
 test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
-  await expect(page.locator(".work-category:first-of-type .work-item")).toHaveCount(8);
+  await expect(page.locator(".work-category:first-of-type .work-item")).toHaveCount(10);
   await expect(page.getByRole("heading", { name: "Taylor Hoar Racing" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Wheels for Warmth" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Portraits and People" })).toBeVisible();
+});
+
+test("GMCF shoots use complete collages with paged lightboxes", async ({ page }) => {
+  await page.goto("/work/sweat-heart-throwdown/");
+  await expect(page.locator(".campaign-collage img")).toHaveCount(22);
+  await page.locator(".campaign-collage img").first().click();
+  await expect(page.locator("#image-viewer")).toBeVisible();
+  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 22");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#image-viewer-caption")).toContainText("2 of 22");
+  await page.getByRole("button", { name: "Previous image" }).click();
+  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 22");
+
+  await page.goto("/work/bike-fitting/");
+  await expect(page.locator(".campaign-collage img")).toHaveCount(23);
 });
 
 test("earlier and institutional work use linked case cards", async ({ page }) => {

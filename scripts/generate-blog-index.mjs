@@ -140,10 +140,18 @@ async function renderCard(post) {
 async function main() {
   console.log("📝 Generating static blog index cards...\n");
 
+  const indexPath = join(projectRoot, "blog/index.html");
+  let currentIndex;
   try {
-    await access(join(projectRoot, "blog/index.html"));
+    await access(indexPath);
+    currentIndex = await readFile(indexPath, "utf-8");
   } catch {
     console.log("Blog index is not part of the current public site; skipping legacy pre-render.");
+    return;
+  }
+
+  if (!currentIndex.includes(START_MARKER) || !currentIndex.includes(END_MARKER)) {
+    console.log("Writing index is static and has no legacy card sentinels; skipping pre-render.");
     return;
   }
 
@@ -165,8 +173,7 @@ async function main() {
   const cards = (await Promise.all(blogPosts.map(renderCard))).join("\n");
   const replacement = `${START_MARKER}\n${cards}\n        ${END_MARKER}`;
 
-  const indexPath = join(projectRoot, "blog/index.html");
-  const html = await readFile(indexPath, "utf-8");
+  const html = currentIndex;
 
   if (!html.includes(START_MARKER) || !html.includes(END_MARKER)) {
     console.error(`❌ Sentinels missing in blog/index.html: expected ${START_MARKER} … ${END_MARKER}`);

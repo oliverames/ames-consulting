@@ -68,6 +68,10 @@ if (!workIndex.includes('href="sweat-heart-throwdown/"')) {
 if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }
+workIndex = workIndex
+  .replace("../assets/images/work/gmcf/sweat-heart/dsc01141.webp", "../assets/images/work/gmcf/sweat-heart-card.webp")
+  .replace("../assets/images/work/gmcf/bike-fitting/dsc09620.webp", "../assets/images/work/gmcf/bike-fitting-card.webp")
+  .replace("../assets/images/work/gmcf/sweat-heart/dsc01706.webp", "../assets/images/work/gmcf/gmcf-card.webp");
 await writeFile(workIndexPath, workIndex);
 
 for (const page of pages) {

@@ -551,6 +551,79 @@
     box-shadow: var(--shadow-card);
   }
 
+  .case-hero--portrait {
+    display: grid;
+    gap: clamp(0.65rem, 1.5vw, 1rem);
+    padding-top: clamp(2rem, 5vw, 4rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .case-hero--portrait > * {
+    margin: 0;
+  }
+
+  .case-hero--portrait h1 {
+    max-width: 21ch;
+  }
+
+  .portrait-count {
+    font-family: var(--font-heading);
+    font-size: 0.9rem !important;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-1);
+  }
+
+  .portrait-series > p {
+    margin-top: calc(var(--space-2) * -0.5);
+    margin-bottom: var(--space-3);
+    color: var(--text-1);
+  }
+
+  .portrait-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  .portrait-gallery figure {
+    min-width: 0;
+    margin: 0;
+  }
+
+  .portrait-gallery__wide {
+    grid-column: span 2;
+  }
+
+  .portrait-gallery img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 24%;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--motion-snap), box-shadow var(--motion-snap);
+  }
+
+  .portrait-gallery__wide img {
+    aspect-ratio: 8 / 5;
+  }
+
+  .portrait-gallery img:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .portrait-gallery figcaption {
+    margin-top: 0.55rem;
+    color: var(--text-1);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+
   .legacy-campaigns {
     padding-top: var(--space-3, 2rem);
   }
@@ -560,9 +633,12 @@
     .media-grid,
     .media-grid--three,
     .video-grid,
-    .portrait-grid,
     .metric-grid {
       grid-template-columns: 1fr;
+    }
+
+    .portrait-gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .timeline li {

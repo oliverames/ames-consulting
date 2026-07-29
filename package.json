@@ -13,7 +13,8 @@
     "check:html": "html-validate index.html 404.html about/index.html blog/index.html contact/index.html testimonials/index.html services/*/index.html work/index.html work/*/index.html",
     "check:structured-data": "node scripts/validate-structured-data.mjs",
     "check:eastrise-photography": "node scripts/validate-eastrise-photography.mjs",
-    "check:all": "npm run check:js-syntax && npm run lint:js && npm run check:html && npm run check:structured-data && npm run check:eastrise-photography",
+    "check:portraits": "node scripts/validate-portraits.mjs",
+    "check:all": "npm run check:js-syntax && npm run lint:js && npm run check:html && npm run check:structured-data && npm run check:eastrise-photography && npm run check:portraits",
     "test:regression": "playwright test tests/site.spec.js",
     "test:a11y": "playwright test tests/accessibility.spec.js",
     "test:e2e": "playwright test",
@@ -22,6 +23,7 @@
     "generate:blog-posts": "node scripts/generate-blog-posts.mjs",
     "generate:blog-index": "node scripts/generate-blog-index.mjs",
     "generate:photography": "node scripts/generate-photography-galleries.mjs",
+    "generate:portraits": "node scripts/generate-portrait-gallery.mjs",
     "generate:financial-wellness": "node scripts/generate-financial-wellness-pages.mjs",
     "generate:eastrise": "node scripts/generate-eastrise-pages.mjs"
   },

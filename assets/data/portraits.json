@@ -1,0 +1,626 @@
+{
+  "generatedAt": "2026-07-29",
+  "totalImages": 76,
+  "series": [
+    {
+      "title": "EastRise leadership and board",
+      "slug": "eastrise-leadership-board",
+      "images": [
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/alvah-newhall-51affaf9531d.webp",
+          "alt": "Portrait of Alvah Newhall",
+          "caption": "Alvah Newhall",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/amanda-seeholzer-65a4fab5390d.webp",
+          "alt": "Portrait of Amanda Seeholzer",
+          "caption": "Amanda Seeholzer",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/amy-vaughan-f56acbe945f7.webp",
+          "alt": "Portrait of Amy Vaughan",
+          "caption": "Amy Vaughan",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/arthur-g-woolf-001f95fa1205.webp",
+          "alt": "Portrait of Arthur G. Woolf",
+          "caption": "Arthur G. Woolf",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/caroline-cross-3b74de79d7e7.webp",
+          "alt": "Portrait of Caroline Cross",
+          "caption": "Caroline Cross",
+          "width": 300,
+          "height": 300,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp",
+          "alt": "Portrait of Christin Canter",
+          "caption": "Christin Canter",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/christine-corbett-f205162e07db.webp",
+          "alt": "Portrait of Christine Corbett",
+          "caption": "Christine Corbett",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/deanna-carol-09198be91fcf.webp",
+          "alt": "Portrait of Deanna Carol",
+          "caption": "Deanna Carol",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/danielle-whitcomb-c469efe1923c.webp",
+          "alt": "Portrait of Danielle Whitcomb",
+          "caption": "Danielle Whitcomb",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/denisa-yee-f468ef43177a.webp",
+          "alt": "Portrait of Denisa Yee",
+          "caption": "Denisa Yee",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/emily-phelps-d5f17dad9b60.webp",
+          "alt": "Portrait of Emily Phelps",
+          "caption": "Emily Phelps",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/frank-g-harris-2858668bfeee.webp",
+          "alt": "Portrait of Frank G. Harris",
+          "caption": "Frank G. Harris",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/george-sales-6147547e9321.webp",
+          "alt": "Portrait of George Sales",
+          "caption": "George Sales",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/greg-1e9fb95882f7.webp",
+          "alt": "Portrait of Greg",
+          "caption": "Greg",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/ibby-wilson-c0dd6ff4d25a.webp",
+          "alt": "Portrait of Ibby Wilson",
+          "caption": "Ibby Wilson",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/ian-squirrell-07f536eac8c6.webp",
+          "alt": "Portrait of Ian Squirrell",
+          "caption": "Ian Squirrell",
+          "width": 347,
+          "height": 396,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/jc-gepigon-120bfc4174df.webp",
+          "alt": "Portrait of JC Gepigon",
+          "caption": "JC Gepigon",
+          "width": 700,
+          "height": 800,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/jim-oberg-741a8551b1d5.webp",
+          "alt": "Portrait of Jim Oberg",
+          "caption": "Jim Oberg",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/jim-towne-8c7c16c59130.webp",
+          "alt": "Portrait of Jim Towne",
+          "caption": "Jim Towne",
+          "width": 1280,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/john-dwyer-a32c6fed2b06.webp",
+          "alt": "Portrait of John Dwyer",
+          "caption": "John Dwyer",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/julie-jorgensen-785822e57df4.webp",
+          "alt": "Portrait of Julie Jorgensen",
+          "caption": "Julie Jorgensen",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/julie-lineberger-1bce039db269.webp",
+          "alt": "Portrait of Julie Lineberger",
+          "caption": "Julie Lineberger",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/kathleen-s-emery-ginn-0923864444e4.webp",
+          "alt": "Portrait of Kathleen S. Emery Ginn",
+          "caption": "Kathleen S. Emery Ginn",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/kelley-colby-4eb9b08c837e.webp",
+          "alt": "Portrait of Kelley Colby",
+          "caption": "Kelley Colby",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/lori-grego-5292423880ea.webp",
+          "alt": "Portrait of Lori Grego",
+          "caption": "Lori Grego",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/luke-buglion-gluck-d4bac0e9c5f2.webp",
+          "alt": "Portrait of Luke Buglion Gluck",
+          "caption": "Luke Buglion Gluck",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/margaret-h-odonnell-8392b7cf89e5.webp",
+          "alt": "Portrait of Margaret H. ODonnell",
+          "caption": "Margaret H. ODonnell",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/mark-30f1ccb7c42a.webp",
+          "alt": "Portrait of Mark",
+          "caption": "Mark",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/marty-divenuti-e157e12050fc.webp",
+          "alt": "Portrait of Marty DiVenuti",
+          "caption": "Marty DiVenuti",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/matt-sjoblom-5fd0e05eb0aa.webp",
+          "alt": "Portrait of Matt Sjoblom",
+          "caption": "Matt Sjoblom",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/michael-hogan-b682c74b872f.webp",
+          "alt": "Portrait of Michael Hogan",
+          "caption": "Michael Hogan",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/mike-bouffard-42125408a182.webp",
+          "alt": "Portrait of Mike Bouffard",
+          "caption": "Mike Bouffard",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/pamela-wooster-fc88002afc50.webp",
+          "alt": "Portrait of Pamela Wooster",
+          "caption": "Pamela Wooster",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/penny-overton-afc73b598499.webp",
+          "alt": "Portrait of Penny Overton",
+          "caption": "Penny Overton",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/rion-bleicher-a7c9d6c6a682.webp",
+          "alt": "Portrait of Rion Bleicher",
+          "caption": "Rion Bleicher",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/rob-8bfc691871e1.webp",
+          "alt": "Portrait of Rob",
+          "caption": "Rob",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/samantha-waters-4ba3ee0a0be9.webp",
+          "alt": "Portrait of Samantha Waters",
+          "caption": "Samantha Waters",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/sara-wright-c46a02cd0123.webp",
+          "alt": "Portrait of Sara Wright",
+          "caption": "Sara Wright",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/sarah-spaulding-c55a605c8245.webp",
+          "alt": "Portrait of Sarah Spaulding",
+          "caption": "Sarah Spaulding",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp",
+          "alt": "Portrait of Shauna Allen",
+          "caption": "Shauna Allen",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
+          "alt": "Portrait of Spencer Newman",
+          "caption": "Spencer Newman",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/stephanie-meunier-642aefa190aa.webp",
+          "alt": "Portrait of Stephanie Meunier",
+          "caption": "Stephanie Meunier",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/subha-luck-d0788fbd44e9.webp",
+          "alt": "Portrait of Subha Luck",
+          "caption": "Subha Luck",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/sue-ee8e3f857bee.webp",
+          "alt": "Portrait of Sue",
+          "caption": "Sue",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/valerie-3c27bcc65850.webp",
+          "alt": "Portrait of Valerie",
+          "caption": "Valerie",
+          "width": 500,
+          "height": 571,
+          "wide": false
+        }
+      ]
+    },
+    {
+      "title": "Blue Cross Vermont and CBSS",
+      "slug": "blue-cross-cbss",
+      "images": [
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02660-7dd3569411ea.webp",
+          "alt": "Blue Cross Vermont team portrait 1",
+          "caption": "Blue Cross Vermont portrait 1",
+          "width": 1600,
+          "height": 1208,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02676-024e63688046.webp",
+          "alt": "Blue Cross Vermont team portrait 2",
+          "caption": "Blue Cross Vermont portrait 2",
+          "width": 1600,
+          "height": 921,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02611-8c36d9a3d6d8.webp",
+          "alt": "Blue Cross Vermont team portrait 3",
+          "caption": "Blue Cross Vermont portrait 3",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02621-9756adac5c8d.webp",
+          "alt": "Blue Cross Vermont team portrait 4",
+          "caption": "Blue Cross Vermont portrait 4",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02634-04df46f25148.webp",
+          "alt": "Blue Cross Vermont team portrait 5",
+          "caption": "Blue Cross Vermont portrait 5",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02651-bfd498ccff42.webp",
+          "alt": "Blue Cross Vermont team portrait 6",
+          "caption": "Blue Cross Vermont portrait 6",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02645-127eb1541379.webp",
+          "alt": "Blue Cross Vermont team portrait 7",
+          "caption": "Blue Cross Vermont portrait 7",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06316-605bc8febf16.webp",
+          "alt": "Blue Cross Vermont team portrait 8",
+          "caption": "Blue Cross Vermont portrait 8",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06325-ef3e68b98d16.webp",
+          "alt": "Blue Cross Vermont team portrait 9",
+          "caption": "Blue Cross Vermont portrait 9",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06407-ee009b8bc2cf.webp",
+          "alt": "Blue Cross Vermont team portrait 10",
+          "caption": "Blue Cross Vermont portrait 10",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06376-1681dc283ba1.webp",
+          "alt": "Blue Cross Vermont team portrait 11",
+          "caption": "Blue Cross Vermont portrait 11",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-f11183b687ce.webp",
+          "alt": "Portrait of Barbara Demas",
+          "caption": "Barbara Demas",
+          "width": 1600,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/rebecca-heintz-c7ae8686caa4.webp",
+          "alt": "Portrait of Rebecca Heintz",
+          "caption": "Rebecca Heintz",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-fa7bc1ac6337.webp",
+          "alt": "Portrait of Barbara Demas",
+          "caption": "Barbara Demas",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-510f489b8473.webp",
+          "alt": "Portrait of Barbara Demas",
+          "caption": "Barbara Demas",
+          "width": 1600,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-f97829ba9f4c.webp",
+          "alt": "Portrait of Barbara Demas",
+          "caption": "Barbara Demas",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/heidi-masi-ec919f6d648c.webp",
+          "alt": "Portrait of Heidi Masi",
+          "caption": "Heidi Masi",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-0aa2d73ebd9b.webp",
+          "alt": "Portrait of Margaret Pinello White",
+          "caption": "Margaret Pinello White",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-7526fc3c6a12.webp",
+          "alt": "Portrait of Margaret Pinello White",
+          "caption": "Margaret Pinello White",
+          "width": 1600,
+          "height": 1596,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/ruth-greene-c8182c6bb632.webp",
+          "alt": "Portrait of Ruth Greene",
+          "caption": "Ruth Greene",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/ruth-greene-737c424bb078.webp",
+          "alt": "Portrait of Ruth Greene",
+          "caption": "Ruth Greene",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06006-a7c6f2715aa8.webp",
+          "alt": "Blue Cross Vermont team portrait 22",
+          "caption": "Blue Cross Vermont portrait 22",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05907-eab39863e0d2.webp",
+          "alt": "Blue Cross Vermont team portrait 23",
+          "caption": "Blue Cross Vermont portrait 23",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05904-5140e5f0ebbc.webp",
+          "alt": "Blue Cross Vermont team portrait 24",
+          "caption": "Blue Cross Vermont portrait 24",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-aa6d06ffc77c.webp",
+          "alt": "Blue Cross Vermont team portrait 25",
+          "caption": "Blue Cross Vermont portrait 25",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06006-f7a513156c1c.webp",
+          "alt": "Blue Cross Vermont team portrait 26",
+          "caption": "Blue Cross Vermont portrait 26",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06113-03d765a7344f.webp",
+          "alt": "Blue Cross Vermont team portrait 27",
+          "caption": "Blue Cross Vermont portrait 27",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-fcc4b375ae6b.webp",
+          "alt": "Blue Cross Vermont team portrait 28",
+          "caption": "Blue Cross Vermont portrait 28",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06025-ac47a499a7df.webp",
+          "alt": "Blue Cross Vermont team portrait 29",
+          "caption": "Blue Cross Vermont portrait 29",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06025-054810c58bb7.webp",
+          "alt": "Blue Cross Vermont team portrait 30",
+          "caption": "Blue Cross Vermont portrait 30",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc03351-ef379107dd06.webp",
+          "alt": "Blue Cross Vermont team portrait 31",
+          "caption": "Blue Cross Vermont portrait 31",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        }
+      ]
+    }
+  ]
+}

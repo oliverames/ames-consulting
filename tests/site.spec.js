@@ -112,6 +112,22 @@ test("community photography series uses the verified portfolio", async ({ page }
   await expect(page.locator(".media-grid img")).toHaveCount(7);
 });
 
+test("portrait work is a complete framed gallery", async ({ page }) => {
+  await page.setViewportSize({ width: 785, height: 863 });
+  await page.goto("/work/portraits-and-people/");
+  await expect(page.locator(".portrait-series")).toHaveCount(2);
+  const portraitCount = await page.locator(".portrait-gallery img").count();
+  expect(portraitCount).toBeGreaterThan(40);
+  const firstGallery = page.locator(".portrait-gallery").first();
+  const firstGalleryCount = await firstGallery.locator("img").count();
+  const firstPortrait = firstGallery.locator("img").first();
+  await firstPortrait.click();
+  await expect(page.locator("#image-viewer")).toBeVisible();
+  await expect(page.locator("#image-viewer-caption")).toContainText(`1 of ${firstGalleryCount}`);
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#image-viewer-caption")).toContainText(`2 of ${firstGalleryCount}`);
+});
+
 test("Flight Paths is a standalone video series", async ({ page }) => {
   await page.goto("/work/flight-paths/");
   await expect(page.locator('iframe[src*="4r5N5DjmSCU"]')).toHaveCount(1);

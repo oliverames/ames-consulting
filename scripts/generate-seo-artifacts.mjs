@@ -39,6 +39,7 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/`,
     `${siteUrl}/work/`,
     `${siteUrl}/blog/`,
+    `${siteUrl}/testimonials/`,
     `${siteUrl}/services/strategy-and-content/`,
     `${siteUrl}/services/photography-and-video/`,
     `${siteUrl}/services/practical-technology/`,

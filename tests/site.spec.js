@@ -106,6 +106,27 @@ test("about page works as a professional profile and resume", async ({ page }) =
   await expect(page.locator(".about-role")).toHaveCount(8);
   await expect(page.getByText("Boston University", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "oliver@ames.consulting" })).toHaveAttribute("href", "mailto:oliver@ames.consulting");
+  await expect(page.locator(".about-testimonials .testimonial-card")).toHaveCount(4);
+  await expect(page.getByText("Yvonne Garand", { exact: true })).toBeVisible();
+  await expect(page.getByText("Brad Meerholz", { exact: true })).toBeVisible();
+});
+
+test("recommendations are distributed across relevant pages", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".home-testimonial")).toContainText("Oliver is a rare talent");
+  await page.goto("/services/photography-and-video/");
+  await expect(page.locator(".photography-testimonial")).toContainText("natural eye for capturing moments");
+  await page.goto("/work/credit-union-websites/");
+  await expect(page.locator(".website-testimonial")).toContainText("Brad Meerholz");
+});
+
+test("testimonials archive combines recommendations and review feedback", async ({ page }) => {
+  await page.goto("/testimonials/");
+  await expect(page.locator(".recommendation-entry")).toHaveCount(13);
+  await expect(page.locator(".review-entry")).toHaveCount(4);
+  await expect(page.getByText("Yvonne Garand", { exact: true })).toBeVisible();
+  await expect(page.getByText("Brad Meerholz", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Testimonials" })).toHaveCount(1);
 });
 
 test("EastRise writing archive contains every attributed article", async ({ page }) => {

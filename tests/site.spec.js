@@ -128,6 +128,17 @@ test("event photography is split into complete campaign galleries", async ({ pag
   await expect(page.locator("#image-viewer-caption")).toContainText("1 of 10");
 });
 
+test("Taylor Hoar Milk Bowl story uses a paged photo gallery", async ({ page }) => {
+  await page.goto("/work/taylor-hoar-racing/");
+  const gallery = page.getByRole("group", { name: "2025 Milk Bowl photo gallery" });
+  await expect(gallery.locator("img")).toHaveCount(8);
+  await gallery.locator("img").first().click();
+  await expect(page.locator("#image-viewer")).toBeVisible();
+  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 8");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#image-viewer-caption")).toContainText("2 of 8");
+});
+
 test("portrait work is a complete framed gallery", async ({ page }) => {
   await page.setViewportSize({ width: 785, height: 863 });
   await page.goto("/work/portraits-and-people/");

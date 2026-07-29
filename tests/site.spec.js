@@ -66,12 +66,20 @@ test("Flight Paths is a standalone video series", async ({ page }) => {
 
 test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
-  await expect(page.locator(".work-list > .work-item")).toHaveCount(8);
+  await expect(page.locator(".work-category:first-of-type .work-item")).toHaveCount(8);
   await expect(page.getByRole("heading", { name: "Taylor Hoar Racing" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Wheels for Warmth" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Portraits and People" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "EastRise Credit Union" })).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "Blue Cross Vermont" })).toHaveCount(0);
+});
+
+test("earlier and institutional work use linked case cards", async ({ page }) => {
+  await page.goto("/work/");
+  await expect(page.getByRole("heading", { name: "Client and institutional work" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /BETA Technologies/ })).toHaveAttribute("href", "beta-technologies/");
+  await expect(page.getByRole("heading", { name: "Earlier work" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Membership conversion/ })).toHaveAttribute("href", "vtdigger-membership/");
+  await expect(page.getByRole("link", { name: /Planetarium growth/ })).toHaveAttribute("href", "fairbanks-planetarium/");
+  await expect(page.getByRole("link", { name: /Live broadcasts/ })).toHaveAttribute("href", "live-broadcasts/");
 });
 
 test("EastRise writing archive contains every attributed article", async ({ page }) => {

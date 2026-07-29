@@ -52,6 +52,10 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/work/portraits-and-people/`,
     `${siteUrl}/work/flight-paths/`,
     `${siteUrl}/work/blue-cross-vermont/`,
+    `${siteUrl}/work/beta-technologies/`,
+    `${siteUrl}/work/vtdigger-membership/`,
+    `${siteUrl}/work/fairbanks-planetarium/`,
+    `${siteUrl}/work/live-broadcasts/`,
     `${siteUrl}/about/`,
     `${siteUrl}/contact/`
   ];

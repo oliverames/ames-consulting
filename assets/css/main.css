@@ -94,8 +94,14 @@
   }
 
   .case-section > p,
+  .case-section__body,
   .reading-section > p {
     max-width: 68ch;
+  }
+
+  .case-section__body a {
+    display: inline-block;
+    margin-bottom: 0.55rem;
   }
 
   .case-split {
@@ -1744,6 +1750,17 @@
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: 0.08em;
+  }
+
+  .work-item__placeholder--metric strong {
+    color: var(--text-0);
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 4.75rem);
+    line-height: 1;
+  }
+
+  .work-category--earlier {
+    margin-top: var(--space-5);
   }
 
   .work-item h3 {

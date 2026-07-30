@@ -161,6 +161,10 @@ for (const file of await htmlFiles(root)) {
   head = head.replace(/<meta property="og:[^"]+" content="[^"]*">/gi, "").replace(/<meta name="twitter:[^"]+" content="[^"]*">/gi, "").replace(/<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, "");
   head += `<meta property="og:site_name" content="Oliver Ames"><meta property="og:locale" content="en_US"><meta property="og:type" content="${route.startsWith("/blog/") && route !== "/blog/" ? "article" : "website"}"><meta property="og:title" content="${attr(metadata.title)}"><meta property="og:description" content="${attr(metadata.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${attr(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(metadata.title)}"><meta name="twitter:description" content="${attr(metadata.description)}"><meta name="twitter:image" content="${attr(image)}"><script type="application/ld+json">${json(graphFor(route, metadata, image))}</script>`;
   html = html.replace(headMatch[0], `<head>${head}</head>`).replace(/[ \t]+$/gm, "");
+  if (route === "/") {
+    html = html.replace('<script type="module" src="./assets/js/hero-headline.js"></script>', "");
+    html = html.replace(/(<h1 data-hero-headline>[\s\S]*?<\/h1>)/, '$1<script src="./assets/js/hero-headline.js"></script>');
+  }
   await writeFile(file, html);
 }
 

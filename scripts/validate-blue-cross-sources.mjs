@@ -11,6 +11,7 @@ const portfolioRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blu
 const events = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
 const portraits = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
 const provenance = JSON.parse(await readFile(path.join(root, "assets/data/media-provenance.json"), "utf8"));
+const portfolioAvailable = await access(portfolioRoot).then(() => true, () => false);
 
 const keyFiles = [
   "scripts/generate-blue-cross-assets.mjs",
@@ -41,7 +42,7 @@ for (const [slug, sourceDirectory] of eventSources) {
       throw new Error(`${image.src} is below the 2400px Blue Cross gallery target.`);
     }
     const filename = path.basename(image.src, ".webp").toUpperCase();
-    await access(path.join(portfolioRoot, sourceDirectory, `${filename}.jpg`));
+    if (portfolioAvailable) await access(path.join(portfolioRoot, sourceDirectory, `${filename}.jpg`));
     await access(path.join(root, image.src.replace("../../", "")));
   }
   eventTotal += campaign.images.length;
@@ -59,13 +60,16 @@ for (const item of provenance.blueCrossVermont) {
   if (!item.source.startsWith("Ames Consulting/Portfolio/Blue Cross VT/")) {
     throw new Error(`Noncanonical provenance for ${item.asset}.`);
   }
-  const source = path.join("/Users/oliverames/Documents", item.source);
-  const [width, height] = (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", source])).stdout
-    .trim()
-    .split(" ")
-    .map(Number);
-  if (Math.max(width, height) < 3900) throw new Error(`${source} is not a full-resolution edited JPG.`);
+  if (portfolioAvailable) {
+    const source = path.join("/Users/oliverames/Documents", item.source);
+    const [width, height] = (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", source])).stdout
+      .trim()
+      .split(" ")
+      .map(Number);
+    if (Math.max(width, height) < 3900) throw new Error(`${source} is not a full-resolution edited JPG.`);
+  }
   await access(path.join(root, item.asset));
 }
 
-console.log(`Validated ${eventTotal} Blue Cross event photographs, ${blueCrossPortraits.images.length} portraits, and ${provenance.blueCrossVermont.length} featured images against the edited Portfolio sources.`);
+const sourceCheck = portfolioAvailable ? "against the edited Portfolio sources" : "using checked-in provenance and high-resolution derivatives";
+console.log(`Validated ${eventTotal} Blue Cross event photographs, ${blueCrossPortraits.images.length} portraits, and ${provenance.blueCrossVermont.length} featured images ${sourceCheck}.`);

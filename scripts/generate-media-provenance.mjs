@@ -5,6 +5,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const screenshotManifest = JSON.parse(await readFile(join(root, "assets/data/source-screenshot-manifest.json"), "utf8").catch(() => '{"screenshots":[]}'));
+const screenshotBySource = new Map((screenshotManifest.screenshots || []).map((record) => [record.source_url, record.source_screenshot]));
 const photography = JSON.parse(await readFile(join(root, "assets/data/eastrise-photography.json"), "utf8"));
 const social = JSON.parse(await readFile(join(root, "assets/data/eastrise-social.json"), "utf8"));
 const eastRiseCredit = "Made as Digital Content Strategist, EastRise Credit Union";
@@ -12,6 +14,7 @@ const blueCrossCredit = "Made as Social Media Strategist, Blue Cross and Blue Sh
 const assets = {};
 const normalize = (value) => value.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
 const publicPage = (value) => /^https:\/\/(www\.)?(facebook\.com|instagram\.com|linkedin\.com|youtube\.com|youtu\.be)\//i.test(value || "") ? value : "";
+const screenshotFor = (sourceUrl) => screenshotBySource.get(sourceUrl) || "";
 
 for (const series of photography.series) for (const image of series.images) {
   assets[normalize(image.src)] = {
@@ -20,6 +23,7 @@ for (const series of photography.series) for (const image of series.images) {
     published_date: image.src.match(/\/(\d{4}-\d{2}-\d{2})_/)?.[1] || "",
     downloaded_date: photography.generatedAt || "",
     credit: eastRiseCredit,
+    source_screenshot: screenshotFor(publicPage(image.sourceUrl)),
   };
 }
 for (const post of social.posts) {
@@ -29,6 +33,7 @@ for (const post of social.posts) {
     published_date: "",
     downloaded_date: "2026-07-29",
     credit: eastRiseCredit,
+    source_screenshot: screenshotFor(publicPage(post.sourceUrl)),
   };
 }
 
@@ -46,6 +51,7 @@ for (const [asset, sourceUrl] of Object.entries(profiles)) assets[asset] = {
   published_date: "",
   downloaded_date: "2026-07-29",
   credit: blueCrossCredit,
+  source_screenshot: screenshotFor(sourceUrl),
 };
 
 assets["assets/images/work/campaigns/member-stories.webp"] = {
@@ -54,6 +60,7 @@ assets["assets/images/work/campaigns/member-stories.webp"] = {
   published_date: "",
   downloaded_date: "2026-07-29",
   credit: eastRiseCredit,
+  source_screenshot: screenshotFor("https://www.youtube.com/watch?v=A1oAN6Ox6A0"),
 };
 assets["assets/images/work/campaigns/flight-paths.webp"] = {
   source_url: "https://www.youtube.com/watch?v=4r5N5DjmSCU",
@@ -61,6 +68,7 @@ assets["assets/images/work/campaigns/flight-paths.webp"] = {
   published_date: "",
   downloaded_date: "2026-07-29",
   credit: blueCrossCredit,
+  source_screenshot: screenshotFor("https://www.youtube.com/watch?v=4r5N5DjmSCU"),
 };
 assets["assets/images/work/campaigns/eastrise-writing.webp"] = {
   source_url: "",
@@ -68,6 +76,7 @@ assets["assets/images/work/campaigns/eastrise-writing.webp"] = {
   published_date: "",
   downloaded_date: "2026-07-29",
   credit: eastRiseCredit,
+  source_screenshot: "",
 };
 
 await writeFile(join(root, "assets/data/media-provenance.json"), `${JSON.stringify({ generated_at: "2026-07-30", assets }, null, 2)}\n`);

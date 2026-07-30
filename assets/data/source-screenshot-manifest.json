@@ -1,0 +1,713 @@
+{
+  "generated_at": "2026-07-30T19:41:05.197Z",
+  "screenshots": [
+    {
+      "source_url": "https://www.bluecrossvt.org/barbara-demas",
+      "source_channel": "website",
+      "source_screenshot": "assets/images/provenance/source-screenshots/website-eb8c762fae96ab04.png",
+      "source_record": "Public Source Screenshots/website-eb8c762fae96ab04.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/website-eb8c762fae96ab04.png"
+    },
+    {
+      "source_url": "https://www.bluecrossvt.org/beth-roberts",
+      "source_channel": "website",
+      "source_screenshot": "assets/images/provenance/source-screenshots/website-1a620c00024e6c56.png",
+      "source_record": "Public Source Screenshots/website-1a620c00024e6c56.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/website-1a620c00024e6c56.png"
+    },
+    {
+      "source_url": "https://www.bluecrossvt.org/margaret-pinello-white",
+      "source_channel": "website",
+      "source_screenshot": "assets/images/provenance/source-screenshots/website-7dbf7c47459e66fe.png",
+      "source_record": "Public Source Screenshots/website-7dbf7c47459e66fe.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/website-7dbf7c47459e66fe.png"
+    },
+    {
+      "source_url": "https://www.bluecrossvt.org/rebecca-heintz",
+      "source_channel": "website",
+      "source_screenshot": "assets/images/provenance/source-screenshots/website-d68eec059f515619.png",
+      "source_record": "Public Source Screenshots/website-d68eec059f515619.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/website-d68eec059f515619.png"
+    },
+    {
+      "source_url": "https://www.bluecrossvt.org/ruth-greene",
+      "source_channel": "website",
+      "source_screenshot": "assets/images/provenance/source-screenshots/website-5e4d6cef50eee217.png",
+      "source_record": "Public Source Screenshots/website-5e4d6cef50eee217.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/website-5e4d6cef50eee217.png"
+    },
+    {
+      "source_url": "https://www.bluecrossvt.org/tom-weigel",
+      "source_channel": "website",
+      "source_screenshot": "assets/images/provenance/source-screenshots/website-2355d4fc49e237f4.png",
+      "source_record": "Public Source Screenshots/website-2355d4fc49e237f4.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/website-2355d4fc49e237f4.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid021ggrmWFg9TKktfUTHCAYiq4wNEyTt4sSMBVU7Xv1BfBd3yXQsmdqZdzuTKCKYwyYl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-58332124eb0aad71.png",
+      "source_record": "Public Source Screenshots/facebook-58332124eb0aad71.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Wheels for Warmth/Facebook/005 We’re honored to stand alongside dedicated... - /Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid021L3irSFNXUPKkvszKFeV96mcqTdraFEiXfyBZ2Mxmg8668tm3T5X4gM6MDNhzkwDl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-ee2c2e373eb02133.png",
+      "source_record": "Public Source Screenshots/facebook-ee2c2e373eb02133.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/UVM Soccer/Facebook/002 Congrats to UVM Men's Soccer for another... - Ea/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid023dijyGQR1WncaUVom9GnsbCUXDRCMEjLLnnbTqGYDTemortVbS8b7e9cJCUCMFt6l",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-b749f09ddea89cbc.png",
+      "source_record": "Public Source Screenshots/facebook-b749f09ddea89cbc.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Products and Financial Guidance/Facebook/028 That feeling when it's almost payday! 💵 - EastR/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02dS3MsvFsQNxUx3tyRpeb9VPAv4sFHZLUTrgg8TBHcGzSe5HGAxAdxWDHptxg1qJjl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-b1e78f6f8aad48e7.png",
+      "source_record": "Public Source Screenshots/facebook-b1e78f6f8aad48e7.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/029 Anyone else ☔ - EastRise Credit Union Facebook/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02GaYGkcCyYpTiyDnuhEytYHUHDbbkzpaQqBaJcSCuRrHgYwpZYYBwkbniVNN7ynjhl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-95ac50b2a75184af.png",
+      "source_record": "Public Source Screenshots/facebook-95ac50b2a75184af.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/Facebook/017 Meet Johnny McArdle, a true force on the... - Ea/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02JFr2qBgAjBJtDJaLqoHfVP8i9FLYvrRmxRRX9jt8HjcfS3VZkq2uafuXtHugVYmTl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-7bf1576aa907ea23.png",
+      "source_record": "Public Source Screenshots/facebook-7bf1576aa907ea23.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/040 This would be a HUGE improvement. Credit ... - E/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-f6d7cea5106839f3.png",
+      "source_record": "Public Source Screenshots/facebook-f6d7cea5106839f3.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Wheels for Warmth/Facebook/004 $108,000 raised. This was the best year on... - /Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02JLDQ9Hs9s2PdKoaeYg3XWvaJh9Wa4Ta8suMSALxZraZa7N4puMyqACDqqbySNeDtl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-8a7ba9d3e5eb4700.png",
+      "source_record": "Public Source Screenshots/facebook-8a7ba9d3e5eb4700.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/Facebook/024 Meet Luke, our new Montpelier mortgage... - East/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02jQ263CtzKQiGZPxgvvN1Zn4SFFb3T3zrFyoC61z38cuZq21PMy7wopvbaFyM2cLXl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-ddbd2300383816e1.png",
+      "source_record": "Public Source Screenshots/facebook-ddbd2300383816e1.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/007 We’re excited to present this year’s Labor... - /Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02kZqcm4b2qR79ctfndMVSF2asR1CAfJssjFrjqRkVfE4XmWLbK8uC8vYVhXv3fLPKl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-e3dbf28c5bcc4723.png",
+      "source_record": "Public Source Screenshots/facebook-e3dbf28c5bcc4723.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Wheels for Warmth/Facebook/018 We had an incredible day at Wheels For... - East/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02L499yVoqUmQdVeyqyxnSQhVWoPYGmrCyx7NJebs8zqcwaxoxvagqTA6UWAuxYtypl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-bf1c4734b97139ae.png",
+      "source_record": "Public Source Screenshots/facebook-bf1c4734b97139ae.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/067 Looking for a little good news in 2020 ... - Eas/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02RKVYJA3hCdup8r4GqmVVJWtMC2L6kkVjwd8BGHyygDatdYpxqTNQjF9KKocS4omCl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-0c454e9facb61a98.png",
+      "source_record": "Public Source Screenshots/facebook-0c454e9facb61a98.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/047 Want a peek behind the scenes at the work... - E/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02syFdwxCsBf73J97s2UbUs5VTJK8z86tg3a9jURGSXwmFQu3YaAxL2ySPdpSM1P1Sl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-957c2053856d8ccc.png",
+      "source_record": "Public Source Screenshots/facebook-957c2053856d8ccc.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/022 Meet Taylor Hoar, a rising star in the... - East/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02t6gMyjXYK5XUicdgGVdvTxMzm2oLPuxUApCLYarw5bxm17MBKBakVyZrYM7hxTm2l",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-a7f209fbc0660c5e.png",
+      "source_record": "Public Source Screenshots/facebook-a7f209fbc0660c5e.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/023 We had an amazing time last night cheering... - /Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02vx8evmx6o4RVjbqqEfoAbuDMcRTfC6nU1GixmgaVT5zfRGd1SsBwS932AzYffzshl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-417f2db686621d40.png",
+      "source_record": "Public Source Screenshots/facebook-417f2db686621d40.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Wood for Good/Facebook/013 There’s a special kind of warmth that... - EastR/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid02Zop5R22p8hXfnsmwZH19puej3CJE2rzCreADje5QRUoqhA3i3QUHtRq4rpsoGijSl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-d56c87cbd97389e3.png",
+      "source_record": "Public Source Screenshots/facebook-d56c87cbd97389e3.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/Facebook/019 Members of the EastRise team, including... - Eas/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid031oErGSdzR6eGeSr6nQsVELaxH1SCM29S2f6bFdeCKoPddkPQFZrTKXNnUUynCjpol",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-d2adf51cae52ecd4.png",
+      "source_record": "Public Source Screenshots/facebook-d2adf51cae52ecd4.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/Facebook/008 Meet EastRise members John and Donia.... - EastR/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid036DmrUWWbA3fCvwXEib6WBWCYDYyEVmup1xYmvF9kk7xxt1sPz5KCzRJ4T4LCoBPYl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-1c9deb0ef2243286.png",
+      "source_record": "Public Source Screenshots/facebook-1c9deb0ef2243286.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/039 Chris Pine is Vermonters when they see the... - /Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid069Qc6r7vtKbe2pQ2vnDBmuacuTdSBCiA4qevXt2mkkw6AGe2xWMRVMsH1gDYd1z4l",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-117cbe22243d318f.png",
+      "source_record": "Public Source Screenshots/facebook-117cbe22243d318f.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/020 At EastRise Credit Union, ‘All the... - EastRise/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0aGa1ftqm1j52HUomUqLLLkefBZ2UTH1Gwe1P5D7ZHG5K714zuEHTEwVv7GKEG27Kl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-2e82b5426e5cbcb9.png",
+      "source_record": "Public Source Screenshots/facebook-2e82b5426e5cbcb9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/Facebook/015 Meet Susi Ryan, a fiber artist whose work... - E/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0DQ5tfXMny2VkbBN1wcN8Kquxd5HhHKJVC3PRnaEW7uLssQWou9D9zKvR98p6fga8l",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-0ea50bf7aba3e7b9.png",
+      "source_record": "Public Source Screenshots/facebook-0ea50bf7aba3e7b9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/041 Members of the VSECU Executive Team, the... - Ea/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0f4wq1G2BazMtRLAHCRTM558G8teJs74bA6BGwMc49WprScv5XT7HAS8S4ewavCphl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-f81c7d29cedadb10.png",
+      "source_record": "Public Source Screenshots/facebook-f81c7d29cedadb10.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/014 Join us in Barre this weekend as we kick... - Ea/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0g3xKhXGjsjTTFtxfW8WsjWNaGC4k64RNpMatiBrKkJEdbAvVicxjYp2xrNrWCWyhl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-3a09e790222d5fa2.png",
+      "source_record": "Public Source Screenshots/facebook-3a09e790222d5fa2.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/Facebook/010 Meet Karina, a busy Waterbury mom who... - EastR/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0MReXZVo2bxdpjgWGj4KoXDCrguGwwyhoCeyvWsydpcw8vxXXzrfmV2KtYKHFbZSTl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-0a3d67a46157aa7b.png",
+      "source_record": "Public Source Screenshots/facebook-0a3d67a46157aa7b.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/VeggieVanGo/Facebook/011 Each year, Vermont Foodbank's VeggieVanGo... - E/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0PBKexBTCv43SVUctYWALdrF6fyxZojSCkK1kqKbVYwMTPst2DRe4GFJo1iE2eemVl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-59b0a36be3b66059.png",
+      "source_record": "Public Source Screenshots/facebook-59b0a36be3b66059.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/Facebook/016 Meet Ty Garon, a talented stonemason whose... - /Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0RwkYrfX2rRAuD59mFdWubWRNojQckaTBP6cXDDZ4ksqpAW9UScyWo2EFVT3TgD2ql",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-eb58b63c6069fcda.png",
+      "source_record": "Public Source Screenshots/facebook-eb58b63c6069fcda.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Eclipse 2024/Facebook/026 Wow, that was incredible! 📸 #Eclipse2024 - East/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0s62xt88jDDixwtYWvQBNJdJVGpjHb5U1x4SDaUGKEaZWvJM3mbLU5pBJrnMZk1X7l",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-4727abda422c7a59.png",
+      "source_record": "Public Source Screenshots/facebook-4727abda422c7a59.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/006 The last race of the year at Thunder Road... - E/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0tRMZucVAVtDcRB735dNhkkfzjvATrcdMHRohx6yznXtjMSBEBvuGUa57BG3vNhGZl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-796987c21bec6e23.png",
+      "source_record": "Public Source Screenshots/facebook-796987c21bec6e23.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Winooski Development/Facebook/012 We're thrilled to see the City of... - EastRise /Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0VqbeVnJxiiX7wDGNxGYctDf68F9ueqCan96iHZ59bi4W7ige2LFKfuCH2wrUKcLCl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-313b25017848feeb.png",
+      "source_record": "Public Source Screenshots/facebook-313b25017848feeb.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/025 Nothing better than being out on a... - EastRise/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0vviLz8Q6KJuDaKzaN1tfvr7U5usfMXcquSPES9kkx9uxZh9khvzsixCaPX2PqJJvl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-46144df4ef63be7b.png",
+      "source_record": "Public Source Screenshots/facebook-46144df4ef63be7b.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/030 EastRise Credit Union Facebook/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0Y5fgrPqeFQd6rmTGHkMNeUHcue85F6wAtL3A11iF79HCv6DWx3LihKANnG36CkKJl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-7e10c443560b80ec.png",
+      "source_record": "Public Source Screenshots/facebook-7e10c443560b80ec.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/UVM Soccer/Facebook/003 Congratulations to UVM Men's Soccer for... - Eas/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/posts/pfbid0ysr1qi4w57MqduX8GfuEoYxssTLjZ33dFmyVRpNUtUTTj8n1uUEfzdVFpuwuznnAl",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-3b68f1b19ca30ed1.png",
+      "source_record": "Public Source Screenshots/facebook-3b68f1b19ca30ed1.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Brand Campaigns and Commercials/Facebook/021 If you’ve seen our latest commercial,... - EastR/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/videos/1069398580312261/",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-ef7c850b5c5de370.png",
+      "source_record": "Public Source Screenshots/facebook-ef7c850b5c5de370.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/043 Facebook/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/videos/482969463787792/",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-badc661cb77b3c6a.png",
+      "source_record": "Public Source Screenshots/facebook-badc661cb77b3c6a.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/038 Facebook/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/videos/613057066334624/",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-b15ae817f973f5c1.png",
+      "source_record": "Public Source Screenshots/facebook-b15ae817f973f5c1.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/054 Facebook/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/EastRiseCU/videos/790501238204970/",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-11ce2b56928a3abb.png",
+      "source_record": "Public Source Screenshots/facebook-11ce2b56928a3abb.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/Facebook/066 Facebook/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=434844342822246&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=434844392822241&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=434844426155571&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=438670809106266&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=438670812439599&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=454951270811553&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=508855468754466&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=527016736938339&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=527016750271671&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=527016793605000&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=527016810271665&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=539068675733145&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=591445787162100&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=616890157950996&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=728783203428357&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=756217530684924&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=812459105060766&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=815314421441901&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=815314534775223&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.facebook.com/photo.php?fbid=815314554775221&set=pb.100088900519709.-2207520000&type=3",
+      "source_channel": "Facebook",
+      "source_screenshot": "assets/images/provenance/source-screenshots/facebook-dea3e05eeba0e5c9.png",
+      "source_record": "Public Source Screenshots/facebook-dea3e05eeba0e5c9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Facebook/153 Taylor Hoar Racing Photo 434844342822246/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/eastrisecu/p/DJ4j8ekBHLB/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-d6eb4ea6cbdde649.png",
+      "source_record": "Public Source Screenshots/instagram-d6eb4ea6cbdde649.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Wood for Good/Instagram/121 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/eastrisecu/p/DJJ9BxStqip/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-b6d1ce53ad6e8ea8.png",
+      "source_record": "Public Source Screenshots/instagram-b6d1ce53ad6e8ea8.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Instagram/103 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/eastrisecu/p/DLnR3ETN4pV/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-9b66ecf93c2564c4.png",
+      "source_record": "Public Source Screenshots/instagram-9b66ecf93c2564c4.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/VeggieVanGo/Instagram/118 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/eastrisecu/p/DMxmCwUtjLJ/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-ea3a508452305ad4.png",
+      "source_record": "Public Source Screenshots/instagram-ea3a508452305ad4.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Financial Education and Counseling/Instagram/117 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/eastrisecu/p/DPWYBOkDAGq/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-027d07d5cff1ff62.png",
+      "source_record": "Public Source Screenshots/instagram-027d07d5cff1ff62.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Instagram/099 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/eastrisecu/reel/DX97AZ4yene/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-b4bfe6dfd8e9ccf7.png",
+      "source_record": "Public Source Screenshots/instagram-b4bfe6dfd8e9ccf7.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Small Business/Instagram/116 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DAWNuHROhIO/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-8f559a334af03943.png",
+      "source_record": "Public Source Screenshots/instagram-8f559a334af03943.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-8f559a334af03943.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DAyyTyQvmIh/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-ae90ddcdc2c07da5.png",
+      "source_record": "Public Source Screenshots/instagram-ae90ddcdc2c07da5.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Instagram/134 Milk Bowl 2024 – Taylor Hoar Racing/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DB_og-ipG9A/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-aa4659b2c163e3be.png",
+      "source_record": "Public Source Screenshots/instagram-aa4659b2c163e3be.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-aa4659b2c163e3be.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DBeK1grsBXs/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-d47db2d036740f94.png",
+      "source_record": "Public Source Screenshots/instagram-d47db2d036740f94.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-d47db2d036740f94.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DBjaR68PTpx/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-e25b0d3bd102fdd0.png",
+      "source_record": "Public Source Screenshots/instagram-e25b0d3bd102fdd0.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-e25b0d3bd102fdd0.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DBlvKpKtVEU/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-2cbb6172645431c6.png",
+      "source_record": "Public Source Screenshots/instagram-2cbb6172645431c6.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-2cbb6172645431c6.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DBMo23Cundt/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-f16737fc424a5c3f.png",
+      "source_record": "Public Source Screenshots/instagram-f16737fc424a5c3f.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-f16737fc424a5c3f.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DCE8lP9RE_L/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-c09d2ab9195e295e.png",
+      "source_record": "Public Source Screenshots/instagram-c09d2ab9195e295e.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-c09d2ab9195e295e.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DCU2dHrsDfy/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-a7fceb6b8c3180ca.png",
+      "source_record": "Public Source Screenshots/instagram-a7fceb6b8c3180ca.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-a7fceb6b8c3180ca.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DIjx-o5p5N0/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-823f8cb366004cc9.png",
+      "source_record": "Public Source Screenshots/instagram-823f8cb366004cc9.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-823f8cb366004cc9.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DItoqX5OVFB/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-e8c9e3662c6be76b.png",
+      "source_record": "Public Source Screenshots/instagram-e8c9e3662c6be76b.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Instagram/135 First Race Week 2025 – Taylor Hoar Racing/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-d6eb4ea6cbdde649.png",
+      "source_record": "Public Source Screenshots/instagram-d6eb4ea6cbdde649.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Wood for Good/Instagram/121 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DJJ9BxStqip/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-b6d1ce53ad6e8ea8.png",
+      "source_record": "Public Source Screenshots/instagram-b6d1ce53ad6e8ea8.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Instagram/103 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DKK5I73x2QN/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-0cb5dbd08f78571f.png",
+      "source_record": "Public Source Screenshots/instagram-0cb5dbd08f78571f.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-0cb5dbd08f78571f.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DLnR3ETN4pV/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-9b66ecf93c2564c4.png",
+      "source_record": "Public Source Screenshots/instagram-9b66ecf93c2564c4.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/VeggieVanGo/Instagram/118 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DLX4NoqvK6-/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-9541c01f62f635e3.png",
+      "source_record": "Public Source Screenshots/instagram-9541c01f62f635e3.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-9541c01f62f635e3.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DMsyvgyuon8/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-9ad33c9f3e885ae2.png",
+      "source_record": "Public Source Screenshots/instagram-9ad33c9f3e885ae2.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-9ad33c9f3e885ae2.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DMvlCwct3QB/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-4f019f2e60e2b021.png",
+      "source_record": "Public Source Screenshots/instagram-4f019f2e60e2b021.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-4f019f2e60e2b021.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DMxmCwUtjLJ/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-ea3a508452305ad4.png",
+      "source_record": "Public Source Screenshots/instagram-ea3a508452305ad4.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Financial Education and Counseling/Instagram/117 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DNBnAXzpEnQ/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-05ab822e564c8c69.png",
+      "source_record": "Public Source Screenshots/instagram-05ab822e564c8c69.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-05ab822e564c8c69.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/p/DNY2qNUyTBU/",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-720827ee602afd46.png",
+      "source_record": "Public Source Screenshots/instagram-720827ee602afd46.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/instagram-720827ee602afd46.png"
+    },
+    {
+      "source_url": "https://www.instagram.com/taylor.hoar/p/C5WvOhppGeC/?hl=en",
+      "source_channel": "Instagram",
+      "source_screenshot": "assets/images/provenance/source-screenshots/instagram-a959c2548086fd33.png",
+      "source_record": "Public Source Screenshots/instagram-a959c2548086fd33.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Taylor Hoar Racing/Instagram/110 (9+) Instagram/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_eastrise-creditunions-cooperativebanking-activity-7414402921465061377-Anvx/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-3e8825b69a5d616e.png",
+      "source_record": "Public Source Screenshots/linkedin-3e8825b69a5d616e.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/LinkedIn/074 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_if-youve-got-a-full-time-job-but-could-use-activity-7425871011222405120-kEap/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-7a424314ffb88a53.png",
+      "source_record": "Public Source Screenshots/linkedin-7a424314ffb88a53.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Products and Financial Guidance/LinkedIn/073 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_john-donia-a-family-story-of-spending-activity-7358498444593774592-oqGB/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-fc5d739f5a8bf483.png",
+      "source_record": "Public Source Screenshots/linkedin-fc5d739f5a8bf483.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/LinkedIn/072 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_meet-amanda-shes-a-stepmom-animal-lover-activity-7420797526775087104-9SsP/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-03b06166f84c062d.png",
+      "source_record": "Public Source Screenshots/linkedin-03b06166f84c062d.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Financial Education and Counseling/LinkedIn/082 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_meet-eastrise-members-john-and-donia-recently-activity-7358940547194970112-yI2b/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-a125c965cd34f019.png",
+      "source_record": "Public Source Screenshots/linkedin-a125c965cd34f019.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/LinkedIn/084 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_meet-karina-a-busy-waterbury-mom-who-dreamed-activity-7356010860974153728-paTk/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-a915af332750e4cd.png",
+      "source_record": "Public Source Screenshots/linkedin-a915af332750e4cd.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Member and Business Stories/LinkedIn/089 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_smallbusinessweek-vtsmallbusiness-activity-7457506573163098113-KYn4/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-ad63f195a86146fa.png",
+      "source_record": "Public Source Screenshots/linkedin-ad63f195a86146fa.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Small Business/LinkedIn/080 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-f562a4fb447395bf.png",
+      "source_record": "Public Source Screenshots/linkedin-f562a4fb447395bf.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/General Social and Memes/LinkedIn/083 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.linkedin.com/posts/eastrisecu_wheelsforwarmth-20yearsstrong-vermontcommunity-activity-7392636960973942784-yOMY/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAAGFBJAB-i6cYdZZIC5eyIjij_d9xE4gNhg",
+      "source_channel": "LinkedIn",
+      "source_screenshot": "assets/images/provenance/source-screenshots/linkedin-7e044cf1657a9ccb.png",
+      "source_record": "Public Source Screenshots/linkedin-7e044cf1657a9ccb.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Social Media/Projects/Wheels for Warmth/LinkedIn/081 (6) Post LinkedIn/Page Screenshot.png"
+    },
+    {
+      "source_url": "https://www.youtube.com/watch?v=4r5N5DjmSCU",
+      "source_channel": "YouTube",
+      "source_screenshot": "assets/images/provenance/source-screenshots/youtube-72f28014a0a68514.png",
+      "source_record": "Public Source Screenshots/youtube-72f28014a0a68514.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/youtube-72f28014a0a68514.png"
+    },
+    {
+      "source_url": "https://www.youtube.com/watch?v=A1oAN6Ox6A0",
+      "source_channel": "YouTube",
+      "source_screenshot": "assets/images/provenance/source-screenshots/youtube-72f28014a0a68514.png",
+      "source_record": "Public Source Screenshots/youtube-72f28014a0a68514.png",
+      "captured_from": "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Source Records/Public Source Screenshots/youtube-72f28014a0a68514.png"
+    }
+  ],
+  "missing": []
+}

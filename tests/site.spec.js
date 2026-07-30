@@ -422,15 +422,28 @@ test("Vermont Foodbank shoot uses the complete gallery and paged lightbox", asyn
   await expect(page.locator("#image-viewer-caption")).toContainText("2 of 38");
 });
 
-test("BETA workplace series keep their complete galleries", async ({ page }) => {
-  for (const [slug, count] of [["beta-andrew", 17], ["beta-emma", 40], ["beta-ethan", 30]]) {
+test("BETA photography galleries stay preserved but unlisted pending permission", async ({ page }) => {
+  for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
     await page.goto(`/work/${slug}/`);
-    await expect(page.locator(".campaign-collage img")).toHaveCount(count);
+    await expect(page.locator(".campaign-collage img")).toHaveCount(0);
+    expect(await page.content()).toContain("Held pending written permission");
   }
+
+  await page.goto("/work/");
+  for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
+    await expect(page.locator(`a.work-item[href="${slug}/"]`)).toHaveCount(0);
+  }
+
+  await page.goto("/");
+  for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
+    await expect(page.locator(`a.path-thumb[href="work/${slug}/"]`)).toHaveCount(0);
+  }
+
   await page.goto("/work/beta-technologies/");
-  await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Emma at BETA" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Emma at BETA" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toHaveCount(0);
+  await expect(page.locator('iframe[src*="4r5N5DjmSCU"]')).toHaveCount(1);
 });
 
 test("Fairbanks case study embeds Breaking Records in Science Education", async ({ page }) => {

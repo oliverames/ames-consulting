@@ -115,6 +115,35 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
   expect(contactSpacing).toBeGreaterThanOrEqual(18);
 });
 
+test("narrow mobile layouts wrap without horizontal page overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 720 });
+
+  for (const route of ["/", "/about/", "/work/", "/blog/", "/contact/"]) {
+    await page.goto(route);
+    const dimensions = await page.evaluate(() => ({
+      viewportWidth: document.documentElement.clientWidth,
+      pageWidth: document.documentElement.scrollWidth,
+    }));
+    expect(dimensions.pageWidth, route).toBe(dimensions.viewportWidth);
+  }
+
+  await page.goto("/about/");
+  const aboutLayout = await page.evaluate(() => {
+    const heading = document.querySelector(".about-hero h1").getBoundingClientRect();
+    const credentials = document.querySelector(".about-credentials").getBoundingClientRect();
+    const education = document.querySelector(".about-education").getBoundingClientRect();
+    return {
+      headingRight: heading.right,
+      credentialsRight: credentials.right,
+      educationRight: education.right,
+      viewportWidth: innerWidth,
+    };
+  });
+  expect(aboutLayout.headingRight).toBeLessThanOrEqual(aboutLayout.viewportWidth);
+  expect(aboutLayout.credentialsRight).toBeLessThanOrEqual(aboutLayout.viewportWidth);
+  expect(aboutLayout.educationRight).toBeLessThanOrEqual(aboutLayout.viewportWidth);
+});
+
 test("campaign pages use local images and YouTube embeds", async ({ page }) => {
   await page.goto("/work/member-banking-stories/");
   await expect(page.locator("main img")).toHaveCount(1);

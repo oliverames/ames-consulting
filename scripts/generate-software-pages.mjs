@@ -137,6 +137,10 @@ let workIndex = await readFile(workIndexPath, "utf8");
 workIndex = workIndex.replace(/<section class="software-work"[\s\S]*?<\/section>/, "");
 workIndex = workIndex.replace(/(<section class="work-category">\s*<h2>Client and institutional work<\/h2>)/, `${section}\n      $1`);
 workIndex = workIndex.replace(/\n[ \t]+\n(?=[ \t]*<section class="work-category">\s*<h2>Client and institutional work<\/h2>)/, "\n");
+workIndex = workIndex.replace(
+  /\n(?:[ \t]*\n)+(?=[ \t]*<section class="(?:software-work|work-category)")/g,
+  "\n\n"
+);
 workIndex = workIndex.replace(/^[ \t]+$/gm, "");
 await writeFile(workIndexPath, workIndex);
 

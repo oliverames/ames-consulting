@@ -1652,6 +1652,7 @@
 @layer base {
   html {
     font-size: 100%;
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -1660,6 +1661,7 @@
 
   body {
     min-height: 100dvh;
+    overflow-x: clip;
     font-family: var(--font-body);
     background: var(--surface-page, var(--surface-1));
     color: var(--text-0);
@@ -1808,6 +1810,15 @@
 
     .site-nav::-webkit-scrollbar {
       display: none;
+    }
+  }
+
+  @media (max-width: 23rem) {
+    .site-nav {
+      display: grid;
+      grid-template-columns: repeat(3, max-content);
+      gap: 0.25rem 1rem;
+      overflow: visible;
     }
   }
 
@@ -2129,6 +2140,10 @@
   }
 
   @media (max-width: 52rem) {
+    .hero__mesh {
+      inset-inline: 0;
+    }
+
     .hero__portrait {
       position: relative;
       inset: auto;
@@ -4112,7 +4127,12 @@
 
   .about-credentials {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
+  }
+
+  .about-credentials > * {
+    min-width: 0;
   }
 
   @media (width >= 52rem) {
@@ -4126,6 +4146,22 @@
     border-radius: var(--radius-tile);
     background: var(--surface-0);
     box-shadow: var(--shadow-card);
+  }
+
+  .about-education {
+    padding: clamp(1.4rem, 3vw, 2.25rem);
+    border-radius: var(--radius-tile);
+    background: var(--surface-0);
+    box-shadow: var(--shadow-card);
+  }
+
+  .about-education h3 {
+    margin: 0;
+    font-size: 1.45rem;
+  }
+
+  .about-education p:last-child {
+    color: var(--text-1);
   }
 
   .about-credentials h2 {
@@ -4148,6 +4184,12 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-2);
+  }
+
+  .about-credentials > .brand-mark-grid {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .brand-mark-grid article {
@@ -4182,6 +4224,11 @@
     color: #faf8f5;
   }
 
+  .about-credentials > .about-tool-list {
+    background: var(--surface-deep);
+    color: #faf8f5;
+  }
+
   .about-tool-list p:last-child {
     color: #b8c2c2;
   }
@@ -4189,6 +4236,29 @@
   @media (max-width: 48rem) {
     .brand-mark-grid {
       grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 26rem) {
+    .about-hero__copy {
+      min-height: auto;
+      padding: 1.4rem;
+    }
+
+    .about-hero h1 {
+      max-width: 100%;
+      font-size: clamp(2.65rem, 14vw, 3rem);
+    }
+
+    .about-contact-card a,
+    .about-tool-list,
+    .about-credentials p,
+    .about-credentials li {
+      overflow-wrap: anywhere;
+    }
+
+    .brand-mark-grid {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 

@@ -339,7 +339,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(32);
+  ).toHaveCount(29);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
   ).toBeVisible();
@@ -367,9 +367,9 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Vermont Foodbank Volunteer Day" }),
   ).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Emma at BETA" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Emma at BETA" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toHaveCount(0);
 
   const sections = page.locator(".work-category");
   await expect(sections).toHaveCount(2);

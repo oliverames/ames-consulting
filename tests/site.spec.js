@@ -59,7 +59,32 @@ test("homepage service cards open article hubs", async ({ page }) => {
     page.getByRole("link", { name: /Strategy and content/ }),
   ).toHaveAttribute("href", "services/strategy-and-content/");
   await page.goto("/services/strategy-and-content/");
-  await expect(page.locator(".service-article")).toHaveCount(4);
+  await expect(page.locator(".service-story")).toHaveCount(2);
+  await expect(page.locator(".service-project")).toHaveCount(3);
+  await expect(page.locator(".service-proof")).toHaveAttribute(
+    "href",
+    "../../work/eastrise/",
+  );
+});
+
+test("service pages keep their editorial layout at mobile widths", async ({
+  page,
+}) => {
+  for (const route of [
+    "/services/strategy-and-content/",
+    "/services/photography-and-video/",
+    "/services/practical-technology/",
+  ]) {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(route);
+    await expect(page.locator(".service-hero")).toBeVisible();
+    await expect(page.locator(".service-story")).toHaveCount(2);
+    await expect(page.locator(".service-project")).toHaveCount(3);
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    );
+    expect(overflow).toBe(false);
+  }
 });
 
 test("homepage campaign strip keeps its first card on the content gutter", async ({

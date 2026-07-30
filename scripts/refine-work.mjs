@@ -52,6 +52,26 @@ const organizationByHref = new Map([
   ["stowe-ski-instruction/", "stowe-mountain-resort"],
 ]);
 
+const inHouseCredits = {
+  "blue-cross-vermont": "Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont.",
+  eastrise: "Made as Digital Content Strategist, EastRise Credit Union.",
+};
+const inHouseDescriptions = new Map([
+  ["girls-on-the-run-2026/", "I documented the full Vermont 5K in-house, building a 185-image library around the runners, volunteers, and Blue Cross presence."],
+  ["corporate-cup-2026/", "I photographed the Blue Cross team in-house across the course, the crowd, and the rain-soaked finish in downtown Montpelier."],
+  ["flight-paths/", "I produced this in-house video series around the people finding their way into Vermont’s growing aviation sector."],
+  ["blue-cross-portraits/", "I built this in-house portrait collection for senior-team profiles and organizational storytelling."],
+  ["wheels-for-warmth/", "I built this in-house public-service campaign around clear donation guidance, event coverage, and measurable social performance."],
+  ["taylor-hoar-racing/", "I ran this in-house sponsorship story across race days, portrait sessions, social publishing, local history, and performance reporting."],
+  ["eastrise-social/", "I led six years of in-house social publishing across member stories, community coverage, campaigns, and timely lighter moments."],
+  ["eastrise-writing/", "I wrote this in-house financial-education archive to make complicated member decisions useful and understandable."],
+  ["eastrise-portraits/", "I built this in-house leadership and board portrait system for public profiles and organizational communications."],
+  ["eastrise-website/", "I helped launch this in-house public website through content strategy, photography, migration, implementation, and quality assurance."],
+  ["eastrise-launch-campaign/", "I co-produced this in-house brand launch, selected talent and locations, and made the still photography that carried the new institution into public view."],
+  ["vsecu-website/", "I helped deliver this in-house redesign through content, imagery, migration, implementation support, and quality assurance."],
+  ["live-broadcasts/", "I hosted and produced these in-house broadcasts, translating leadership updates and financial results for public and employee audiences."],
+]);
+
 const projectOrder = [
   "girls-on-the-run-2026/",
   "corporate-cup-2026/",
@@ -104,6 +124,13 @@ if (campaignMatch) {
     if (feature) {
       cardHtml = cardHtml.replace(/<img\s+src="[^"]+"\s+alt="[^"]*"/, `<img src="${feature[0]}" alt="${feature[1]}"`);
     }
+    const credit = inHouseCredits[organization];
+    if (credit) {
+      const description = inHouseDescriptions.get(card.href) || (card.href.startsWith("eastrise-photography/")
+        ? "I made this in-house photography series as part of EastRise’s ongoing public storytelling."
+        : "I made this work in-house as part of the organization’s public communications program.");
+      cardHtml = cardHtml.replace(/<p>[\s\S]*?<\/p>/, `<p>${description}</p><p class="work-item__credit">${credit}</p>`);
+    }
     return organization
       ? cardHtml.replace('<a class="work-item"', `<a class="work-item" data-organization="${organization}"`)
       : cardHtml;
@@ -114,6 +141,10 @@ if (campaignMatch) {
   html = html.replace(
     campaignSectionPattern,
     (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">Projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=blue-cross-vermont" data-work-filter="blue-cross-vermont">Blue Cross Vermont</a><a href="?organization=eastrise" data-work-filter="eastrise">EastRise</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA Technologies</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}<section class="work-category work-category--earlier"><h2>Legacy work</h2><div class="work-list">${markedLegacyCards}</div></section>`,
+  );
+  html = html.replace(
+    '<h2 id="project-list-title">Projects</h2><nav class="work-filters"',
+    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">Work made in-house at EastRise Credit Union and Blue Cross and Blue Shield of Vermont, alongside commissioned projects. Employer or client credited on each.</p><nav class="work-filters"',
   );
   if (earlierMatch) html = html.replace(earlierSectionPattern, "");
 }

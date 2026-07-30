@@ -569,3 +569,18 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
     "The Sunshine Trail",
   );
 });
+
+test("in-house campaign cards identify the employer and role", async ({ page }) => {
+  await page.goto("/work/");
+  await expect(page.locator(".work-category__framing")).toContainText("Work made in-house at EastRise Credit Union and Blue Cross and Blue Shield of Vermont");
+  await expect(page.locator('[data-organization="eastrise"] .work-item__credit').first()).toHaveText("Made as Digital Content Strategist, EastRise Credit Union.");
+  await expect(page.locator('[data-organization="blue-cross-vermont"] .work-item__credit').first()).toHaveText("Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont.");
+});
+
+test("campaign pages disclose tracked public image sources automatically", async ({ page }) => {
+  await page.goto("/work/eastrise-social/");
+  const disclosures = page.locator(".asset-provenance li");
+  await expect(disclosures).toHaveCount(12);
+  await expect(disclosures.first()).toContainText("Image source: published by EastRise Credit Union on Facebook.");
+  await expect(disclosures.first()).toContainText("Retrieved July 29, 2026.");
+});

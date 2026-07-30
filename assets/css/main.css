@@ -68,6 +68,38 @@
 }
 
 @layer components {
+  .work-category__framing {
+    max-width: 70ch;
+    margin: 0 0 var(--space-3);
+  }
+
+  .work-item__credit {
+    margin-top: 0.65rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .asset-provenance {
+    max-width: var(--content-wide);
+    margin: var(--space-5) auto 0;
+    padding: var(--space-3) var(--page-gutter);
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .asset-provenance h2 {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .asset-provenance ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .asset-provenance li + li {
+    margin-top: 0.25rem;
+  }
   .service-answer-heading {
     grid-column: 1 / -1;
     margin-top: var(--space-4);

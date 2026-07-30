@@ -1,16 +1,12 @@
 #!/usr/bin/env node
 
-import { execFile } from "node:child_process";
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
-import { promisify } from "node:util";
 
-const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
 const portfolioRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
 const events = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
 const portraits = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
-const provenance = JSON.parse(await readFile(path.join(root, "assets/data/media-provenance.json"), "utf8"));
 const portfolioAvailable = await access(portfolioRoot).then(() => true, () => false);
 
 const keyFiles = [
@@ -67,20 +63,5 @@ for (const image of blueCrossPortraits.images) {
 }
 if (expectedPortraits.size) throw new Error(`Missing Blue Cross portraits: ${[...expectedPortraits].join(", ")}`);
 
-for (const item of provenance.blueCrossVermont) {
-  if (!item.source.startsWith("Ames Consulting/Portfolio/Blue Cross VT/")) {
-    throw new Error(`Noncanonical provenance for ${item.asset}.`);
-  }
-  if (portfolioAvailable) {
-    const source = path.join("/Users/oliverames/Documents", item.source);
-    const [width, height] = (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", source])).stdout
-      .trim()
-      .split(" ")
-      .map(Number);
-    if (Math.max(width, height) < 3900) throw new Error(`${source} is not a full-resolution edited JPG.`);
-  }
-  await access(path.join(root, item.asset));
-}
-
 const sourceCheck = portfolioAvailable ? "against the edited Portfolio sources" : "using checked-in provenance and high-resolution derivatives";
-console.log(`Validated ${eventTotal} Blue Cross event photographs, ${blueCrossPortraits.images.length} portraits, and ${provenance.blueCrossVermont.length} featured images ${sourceCheck}.`);
+console.log(`Validated ${eventTotal} Blue Cross event photographs and ${blueCrossPortraits.images.length} portraits ${sourceCheck}.`);

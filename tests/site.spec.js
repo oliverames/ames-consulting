@@ -314,7 +314,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(16);
+  ).toHaveCount(17);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
   ).toBeVisible();
@@ -339,6 +339,9 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Giron Family" }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Vermont Foodbank Volunteer Day" }),
+  ).toBeVisible();
 
   const sections = page.locator(".work-category");
   await expect(sections).toHaveCount(3);
@@ -350,6 +353,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     "girls-on-the-run-2026/",
     "corporate-cup-2026/",
     "flight-paths/",
+    "vermont-foodbank-volunteer-day-2026/",
     "eastrise-portraits/",
     "blue-cross-portraits/",
     "giron-family-fall-2025/",
@@ -406,6 +410,16 @@ test("GMCF shoots use complete collages with paged lightboxes", async ({
 
   await page.goto("/work/bike-fitting/");
   await expect(page.locator(".campaign-collage img")).toHaveCount(23);
+});
+
+test("Vermont Foodbank shoot uses the complete gallery and paged lightbox", async ({ page }) => {
+  await page.goto("/work/vermont-foodbank-volunteer-day-2026/");
+  await expect(page.locator(".campaign-collage img")).toHaveCount(38);
+  await page.locator(".campaign-collage img").first().click();
+  await expect(page.locator("#image-viewer")).toBeVisible();
+  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 38");
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator("#image-viewer-caption")).toContainText("2 of 38");
 });
 
 test("earlier and institutional work use linked case cards", async ({

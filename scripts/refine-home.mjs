@@ -27,5 +27,9 @@ if (!html.includes("Corporate Cup 2026</h3>")) {
   html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${more}$2`);
 }
 
-await writeFile(path, html);
+if (!html.includes("Vermont Foodbank Volunteer Day</h3>")) {
+  const foodbank = `<a class="path-thumb" href="work/vermont-foodbank-volunteer-day-2026/"><div class="path-thumb__img"><img src="assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Vermont Foodbank · documentary photography</span><h3 class="path-thumb__title">Vermont Foodbank Volunteer Day</h3></div></a>`;
+  html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${foodbank}$2`);
+}
 
+await writeFile(path, html);

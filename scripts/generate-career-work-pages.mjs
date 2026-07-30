@@ -18,6 +18,7 @@ const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><i
 const eastRisePhotographyCard = `<a class="work-item" href="eastrise-photography/"><img src="../assets/images/work/eastrise/taylor-milk-bowl-card.webp" alt="Taylor Hoar racing at Thunder Road" loading="lazy"><span class="work-item__context">EastRise · 2019–2025</span><h3>EastRise Photography</h3><p>${eastRisePhotography.totalImages} publicly published photographs organized by shoot, campaign, and series.</p></a>`;
 const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Social</h3><p>${eastRiseSocial.totalPosts} archived social posts and memes treated as one campaign and project.</p></a>`;
 const gironFamilyCard = `<a class="work-item" href="giron-family-fall-2025/"><img src="../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family during a fall portrait session" loading="lazy"><span class="work-item__context">Family photography · Fall 2025</span><h3>Giron Family</h3><p>A 36-image family session moving from open fields into the fall woods.</p></a>`;
+const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-2026/"><img src="../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"><span class="work-item__context">Vermont Foodbank · January 2026</span><h3>Vermont Foodbank Volunteer Day</h3><p>A 38-image documentary series about the people and process behind a volunteer packing day.</p></a>`;
 
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
@@ -70,6 +71,7 @@ const campaignOrder = [
   "girls-on-the-run-2026/",
   "corporate-cup-2026/",
   "flight-paths/",
+  "vermont-foodbank-volunteer-day-2026/",
   "eastrise-portraits/",
   "blue-cross-portraits/",
   "giron-family-fall-2025/",
@@ -172,6 +174,7 @@ if (workIndex.includes('href="eastrise-photography/"')) {
 }
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-social/", eastRiseSocialCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "giron-family-fall-2025/", gironFamilyCard);
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vermont-foodbank-volunteer-day-2026/", foodbankCard);
 if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }

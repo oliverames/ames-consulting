@@ -28,6 +28,7 @@ test("all public content routes load", async ({ request }) => {
     "/work/girls-on-the-run-2026/",
     "/work/eastrise-launch-campaign/",
     "/work/giron-family-fall-2025/",
+    "/work/vermont-foodbank-volunteer-day-2026/",
     "/work/portraits-and-people/",
     "/work/eastrise-portraits/",
     "/work/blue-cross-portraits/",

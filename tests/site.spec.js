@@ -210,21 +210,23 @@ test("inbound project links preselect the contact form", async ({ page }) => {
   await expect(page.locator("[data-inbound-prompt]")).toHaveCount(0);
 });
 
-test("website campaign contains the two PixelSpoke redesigns", async ({
+test("website projects are separated by institution", async ({
   page,
 }) => {
   await page.goto("/work/credit-union-websites/");
   await expect(
     page.getByRole("heading", {
-      name: "Two credit union websites built for clearer paths.",
+      name: "Two website projects, each with its own job.",
     }),
   ).toBeVisible();
-  await expect(
-    page.getByText(
-      /extensive quality assurance, image curation, coding for content migration/,
-    ),
-  ).toBeVisible();
-  await expect(page.locator(".website-screen-gallery img")).toHaveCount(5);
+  await expect(page.getByRole("link", { name: /VSECU Website Redesign/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /EastRise Website Launch/ })).toBeVisible();
+  await page.goto("/work/vsecu-website/");
+  await expect(page.locator(".website-proof article")).toHaveCount(3);
+  await expect(page.locator(".website-screen-gallery img")).toHaveCount(1);
+  await page.goto("/work/eastrise-website/");
+  await expect(page.locator(".website-proof article")).toHaveCount(4);
+  await expect(page.locator(".website-screen-gallery img")).toHaveCount(4);
   await expect(
     page.getByRole("link", { name: /EastRise case study/ }),
   ).toHaveAttribute(
@@ -397,7 +399,8 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     "eastrise-photography/",
     "bike-fitting/",
     "eastrise-launch-campaign/",
-    "credit-union-websites/",
+    "vsecu-website/",
+    "eastrise-website/",
   ]);
   expect(await hrefs(sections.nth(1))).toEqual([
     "blue-cross-vermont/",

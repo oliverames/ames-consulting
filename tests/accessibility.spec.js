@@ -12,6 +12,8 @@ for (const route of [
   "/work/taylor-hoar-racing/",
   "/work/member-banking-stories/",
   "/work/credit-union-websites/",
+  "/work/vsecu-website/",
+  "/work/eastrise-website/",
   "/work/community-photography/",
   "/work/corporate-cup-2026/",
   "/work/girls-on-the-run-2026/",

@@ -28,6 +28,18 @@ const overrides = {
     title: "Vermont Photography, Video, and Campaign Work | Oliver Ames",
     description: "Commercial photography, portraits, events, video, campaigns, websites, and software by Montpelier-based photographer and strategist Oliver Ames."
   },
+  "/work/credit-union-websites/": {
+    title: "Credit Union Website Projects | Oliver Ames",
+    description: "Separate VSECU and EastRise website projects covering content, photography, migration, implementation, and quality assurance."
+  },
+  "/work/vsecu-website/": {
+    title: "VSECU Website Redesign | Oliver Ames",
+    description: "Oliver Ames's content, photography, migration, implementation, and quality-assurance role in the 2021 VSECU website redesign."
+  },
+  "/work/eastrise-website/": {
+    title: "EastRise Website Launch | Oliver Ames",
+    description: "Oliver Ames's content, photography, migration, implementation, and quality-assurance role in the 2024 EastRise website launch."
+  },
   "/about/": {
     title: "Oliver Ames | Vermont Photographer, Strategist, and Developer",
     description: "Meet Oliver Ames, a Montpelier-based commercial photographer, content strategist, video producer, and software developer working across Vermont."

@@ -27,6 +27,8 @@ const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-
 const betaAndrewCard = `<a class="work-item" href="beta-andrew/"><img src="../assets/images/work/events/beta-andrew/dsc08015.webp" alt="Andrew working beside an aircraft structure at BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · January 2026</span><h3>Andrew at BETA</h3><p>A 17-image workplace series built around a person, an aircraft, and the process connecting them.</p></a>`;
 const betaEmmaCard = `<a class="work-item" href="beta-emma/"><img src="../assets/images/work/events/beta-emma/dsc07894.webp" alt="Emma holding a precision measuring tool at BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · January 2026</span><h3>Emma at BETA</h3><p>A 40-image workplace series moving between portraiture, detail, and the manufacturing floor.</p></a>`;
 const betaEthanCard = `<a class="work-item" href="beta-ethan/"><img src="../assets/images/work/events/beta-ethan/dsc08105.webp" alt="Ethan at a workbench inside BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · January 2026</span><h3>Ethan at BETA</h3><p>A 30-image workplace series about the person inside a larger manufacturing system.</p></a>`;
+const vsecuWebsiteCard = `<a class="work-item" href="vsecu-website/"><img src="../assets/images/work/credit-union-websites/vsecu-redesign.webp" alt="VSECU website redesign" loading="lazy"><span class="work-item__context">VSECU · 2021</span><h3>VSECU Website Redesign</h3><p>Content, imagery, migration, and quality assurance for a clearer digital member experience.</p></a>`;
+const eastRiseWebsiteCard = `<a class="work-item" href="eastrise-website/"><img src="../assets/images/work/credit-union-websites/eastrise-feature.webp" alt="EastRise website launch" loading="lazy"><span class="work-item__context">EastRise · 2024</span><h3>EastRise Website Launch</h3><p>A new public website built to introduce a new institution without losing its Vermont history.</p></a>`;
 
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
@@ -89,7 +91,8 @@ const campaignOrder = [
   ...eastRisePhotography.series.filter((series) => !eastRiseStandaloneSlugs.has(series.slug)).map((series) => `eastrise-photography/#${series.slug}-title`),
   "bike-fitting/",
   "eastrise-launch-campaign/",
-  "credit-union-websites/",
+  "vsecu-website/",
+  "eastrise-website/",
 ];
 const institutionalOrder = [
   "blue-cross-vermont/",
@@ -184,6 +187,9 @@ workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vermont-foodbank-
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "beta-andrew/", betaAndrewCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "beta-emma/", betaEmmaCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "beta-ethan/", betaEthanCard);
+workIndex = workIndex.replace(/<a class="work-item" href="credit-union-websites\/"\s*>[\s\S]*?<\/a\s*>/, "");
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vsecu-website/", vsecuWebsiteCard);
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-website/", eastRiseWebsiteCard);
 if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }

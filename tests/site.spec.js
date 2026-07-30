@@ -223,10 +223,12 @@ test("website projects are separated by institution", async ({
   await expect(page.getByRole("link", { name: /EastRise Website Launch/ })).toBeVisible();
   await page.goto("/work/vsecu-website/");
   await expect(page.locator(".website-proof article")).toHaveCount(3);
-  await expect(page.locator(".website-screen-gallery img")).toHaveCount(1);
+  await expect(page.locator(".website-header-image img")).toHaveCount(1);
+  await expect(page.locator(".website-screen-gallery img")).toHaveCount(0);
   await page.goto("/work/eastrise-website/");
   await expect(page.locator(".website-proof article")).toHaveCount(4);
-  await expect(page.locator(".website-screen-gallery img")).toHaveCount(4);
+  await expect(page.locator(".website-header-image img")).toHaveCount(1);
+  await expect(page.locator(".website-screen-gallery img")).toHaveCount(3);
   await expect(
     page.getByRole("link", { name: /EastRise case study/ }),
   ).toHaveAttribute(
@@ -529,7 +531,7 @@ test("recommendations are distributed across relevant pages", async ({
   await expect(page.locator(".photography-testimonial")).toContainText(
     "natural eye for capturing moments",
   );
-  await page.goto("/work/credit-union-websites/");
+  await page.goto("/work/eastrise-website/");
   await expect(page.locator(".website-testimonial")).toContainText(
     "Brad Meerholz",
   );

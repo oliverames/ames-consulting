@@ -86,7 +86,7 @@ await insertOnce("work/eastrise/index.html", "</main>", {
   html: `<section class="testimonial-band eastrise-testimonials" aria-labelledby="eastrise-testimonials-title"><div class="section-heading"><p class="eyebrow">From the people behind the work</p><h2 id="eastrise-testimonials-title">Creative judgment, backed by follow-through.</h2></div><div class="testimonial-grid testimonial-grid--two">${card({ person: people.yvonne, quote: quotes.yvonneLead, depth: 2, featured: true })}${card({ person: people.brad, quote: quotes.bradLead, depth: 2 })}</div></section>`
 });
 
-await insertOnce("work/credit-union-websites/index.html", "</main>", {
+await insertOnce("work/eastrise-website/index.html", '<section class="case-section website-role">', {
   id: "website-testimonial",
   html: `<section class="testimonial-band website-testimonial" aria-label="Recommendation from Brad Meerholz">${card({ person: people.brad, quote: quotes.bradFull, depth: 2, featured: true })}</section>`
 });

@@ -1,5 +1,19 @@
 # Worklog
 
+## 2026-07-30 - Public portfolio, responsive design, and search visibility
+
+**What changed**: Rebuilt the public portfolio around individual campaigns and series, added the Blue Cross Vermont, EastRise, BETA Technologies, Green Mountain Community Fitness, Giron Family, Vermont Foodbank, and software-development work, and replaced low-resolution scraped Blue Cross images with the edited portfolio sources. Added complete lazy-loaded galleries and lightboxes, separate portrait collections, the contact form and Turnstile protection, testimonials, responsive layout fixes, and a sitewide SEO, GEO, and AEO pass.
+
+**Decisions made**: Photography is the primary service. Competitor research informed the service language, but competitor names were not added as hidden keywords. Search pages now use visible, useful language about commercial photography, workplace photography, portraits, event coverage, video, content strategy, and Vermont availability. Every generated route receives unique metadata, canonical URLs, social previews, breadcrumbs, and an entity graph. The sitemap discovers routes from the built site instead of a hand-maintained list.
+
+**Verification**: `npm run build:site` passes. `npm run check:all` validates 48 pages, 863 images, 165 public EastRise photographs, 51 EastRise social posts, 81 portraits, eight event galleries containing 365 photographs, and all Blue Cross images against the edited portfolio sources. `npm run test:e2e` passes all 84 browser and accessibility tests. The generated sitemap contains all 48 public routes and `llms.txt` contains the primary services, evidence pages, and contact route.
+
+**Left off at**: Commit `8fff5e8` completes the SEO and answer-visibility pass on top of eight earlier verified portfolio, contact, media-source, responsive, and software commits. The repository is ready to push to `main`, which triggers the Cloudflare Pages and R2 deployment workflow.
+
+**Open questions**: The older non-blocking blog byte-weight warning and automatic `-card.webp` generation remain separate performance work. No SEO or publishing blockers remain.
+
+---
+
 ## 2026-07-21 - Cloudflare Pages, R2 assets, and dependency security
 
 **What changed**: Moved production delivery to Cloudflare Pages while keeping GitHub `main` as the editable source of truth. The Pages build now rewrites website image URLs to the dedicated `ames-website-assets` R2 bucket, under the `ames-consulting/` prefix, served through `assets.ames.consulting`. Added the scoped Pages and R2 credentials to GitHub Actions through encrypted repository secrets and retained the canonical credentials in 1Password. Updated the vulnerable transitive `brace-expansion` releases from 1.1.14 and 2.1.0 to their patched 1.1.16 and 2.1.2 releases, then updated `fast-uri` from 3.1.3 to 3.1.4 when a new high-severity advisory appeared during final wrap-up.

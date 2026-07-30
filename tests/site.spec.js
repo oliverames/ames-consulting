@@ -439,7 +439,7 @@ test("BETA workplace series keep their complete galleries", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toBeVisible();
 });
 
-test("Fairbanks case study embeds the Guinness press video", async ({ page }) => {
+test("Fairbanks case study embeds Breaking Records in Science Education", async ({ page }) => {
   await page.goto("/work/fairbanks-planetarium/");
   await expect(page.locator('iframe[src*="lSi35li8dCg"]')).toHaveCount(1);
 });

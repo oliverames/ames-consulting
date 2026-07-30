@@ -219,13 +219,13 @@ test("Taylor Hoar Milk Bowl story uses a paged photo gallery", async ({
   await expect(page.locator("#image-viewer-caption")).toContainText("2 of 8");
 });
 
-test("portrait work is a complete framed gallery", async ({ page }) => {
+test("portrait work is split into complete framed galleries", async ({ page }) => {
   await page.setViewportSize({ width: 785, height: 863 });
   await page.goto("/work/portraits-and-people/");
-  await expect(page.locator(".portrait-series")).toHaveCount(2);
-  const portraitCount = await page.locator(".portrait-gallery img").count();
-  expect(portraitCount).toBeGreaterThan(40);
-  const firstGallery = page.locator(".portrait-gallery").first();
+  await expect(page.locator(".work-item")).toHaveCount(2);
+  await page.goto("/work/eastrise-portraits/");
+  await expect(page.locator(".portrait-gallery img")).toHaveCount(45);
+  const firstGallery = page.locator(".portrait-gallery");
   const firstGalleryCount = await firstGallery.locator("img").count();
   const firstPortrait = firstGallery.locator("img").first();
   await firstPortrait.click();
@@ -237,6 +237,8 @@ test("portrait work is a complete framed gallery", async ({ page }) => {
   await expect(page.locator("#image-viewer-caption")).toContainText(
     `2 of ${firstGalleryCount}`,
   );
+  await page.goto("/work/blue-cross-portraits/");
+  await expect(page.locator(".portrait-gallery img")).toHaveCount(31);
 });
 
 test("Flight Paths is a standalone video series", async ({ page }) => {
@@ -248,7 +250,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(14);
+  ).toHaveCount(15);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
   ).toBeVisible();
@@ -265,7 +267,10 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     page.getByRole("heading", { name: "EastRise Launch Campaign" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Portraits and People" }),
+    page.getByRole("heading", { name: "EastRise Portraits" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Blue Cross Portraits" }),
   ).toBeVisible();
 
   const sections = page.locator(".work-category");
@@ -278,7 +283,8 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     "girls-on-the-run-2026/",
     "corporate-cup-2026/",
     "flight-paths/",
-    "portraits-and-people/",
+    "eastrise-portraits/",
+    "blue-cross-portraits/",
     "member-banking-stories/",
     "sweat-heart-throwdown/",
     "eastrise-social/",

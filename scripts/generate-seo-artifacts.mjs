@@ -53,6 +53,8 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/work/credit-union-websites/`,
     `${siteUrl}/work/community-photography/`,
     `${siteUrl}/work/portraits-and-people/`,
+    `${siteUrl}/work/eastrise-portraits/`,
+    `${siteUrl}/work/blue-cross-portraits/`,
     `${siteUrl}/work/corporate-cup-2026/`,
     `${siteUrl}/work/girls-on-the-run-2026/`,
     `${siteUrl}/work/eastrise-launch-campaign/`,

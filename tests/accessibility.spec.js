@@ -17,6 +17,8 @@ for (const route of [
   "/work/girls-on-the-run-2026/",
   "/work/eastrise-launch-campaign/",
   "/work/portraits-and-people/",
+  "/work/eastrise-portraits/",
+  "/work/blue-cross-portraits/",
   "/work/flight-paths/",
   "/work/beta-technologies/",
   "/work/vtdigger-membership/",

@@ -28,6 +28,8 @@ test("all public content routes load", async ({ request }) => {
     "/work/girls-on-the-run-2026/",
     "/work/eastrise-launch-campaign/",
     "/work/portraits-and-people/",
+    "/work/eastrise-portraits/",
+    "/work/blue-cross-portraits/",
     "/work/flight-paths/",
     "/services/strategy-and-content/",
     "/services/photography-and-video/",
@@ -61,7 +63,7 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
   expect(layout.pageHeaderPaddingTop).toBeGreaterThanOrEqual(48);
   expect(layout.pageHeaderGap).toBeGreaterThanOrEqual(10);
 
-  await page.goto("/work/portraits-and-people/");
+  await page.goto("/work/eastrise-portraits/");
   const caseHeroGap = await page
     .locator(".case-hero")
     .evaluate((hero) => Number.parseFloat(getComputedStyle(hero).rowGap));

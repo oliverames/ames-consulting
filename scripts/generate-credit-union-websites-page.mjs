@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -33,4 +33,10 @@ for (const [slug, html] of outputs) {
   await mkdir(directory, { recursive: true });
   await writeFile(path.join(directory, "index.html"), html);
 }
+
+const eastRiseIndexPath = path.join(root, "work", "eastrise", "index.html");
+let eastRiseIndex = await readFile(eastRiseIndexPath, "utf8");
+const eastRiseProjectCards = `<section class="work-category legacy-campaigns"><div class="work-list"><a class="work-item" href="../taylor-hoar-racing/"><img src="../../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-04-17_19-15-59_UTC_DIjx-o5p5N0-df7a815bc6ce.webp" alt="Taylor Hoar wearing her EastRise racing suit beside her race car" loading="lazy"><span class="work-item__context">Sponsorship series</span><h3>Taylor Hoar Racing</h3><p>Race-day content, photography, local history, and campaign measurement.</p></a><a class="work-item" href="../wheels-for-warmth/"><img src="../../assets/images/work/eastrise/wheels-for-warmth-card.webp" alt="Wheels for Warmth tire collection" loading="lazy"><span class="work-item__context">Public-service campaign</span><h3>Wheels for Warmth</h3><p>Donation instructions, event coverage, and social results.</p></a><a class="work-item" href="../eastrise-writing/"><img src="../../assets/images/work/campaigns/eastrise-writing.webp" alt="EastRise financial education article" loading="lazy"><span class="work-item__context">Editorial series</span><h3>EastRise Writing</h3><p>All 53 attributable articles.</p></a><a class="work-item" href="../member-banking-stories/"><img src="../../assets/images/work/campaigns/member-stories.webp" alt="EastRise member story" loading="lazy"><span class="work-item__context">Brand storytelling</span><h3>Member Stories and Campaign Films</h3><p>Eleven films, including nine spots produced with Urban Rhino.</p></a><a class="work-item" href="../eastrise-website/"><img src="../../assets/images/work/credit-union-websites/eastrise-feature.webp" alt="EastRise website launch" loading="lazy"><span class="work-item__context">Digital platform</span><h3>EastRise Website Launch</h3><p>Content, photography, migration, implementation, and quality assurance for the 2024 launch.</p></a></div></section>`;
+eastRiseIndex = eastRiseIndex.replace(/<section class="work-category legacy-campaigns">[\s\S]*?<\/section>/, eastRiseProjectCards);
+await writeFile(eastRiseIndexPath, eastRiseIndex);
 console.log("Generated separate VSECU and EastRise website projects.");

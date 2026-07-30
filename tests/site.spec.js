@@ -401,16 +401,14 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   ]);
 });
 
-test("EastRise social posts and memes stay in one project", async ({ page }) => {
+test("EastRise social highlights use complete post-only captures", async ({ page }) => {
   await page.goto("/work/eastrise-social/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "EastRise social posts and memes, together.",
+    "Social highlights.",
   );
-  await expect(page.locator('[data-gallery="eastrise-social"] img')).toHaveCount(51);
-  await expect(page.locator(".source-index li")).toHaveCount(51);
-  await expect(page.getByText("36 Facebook posts")).toBeVisible();
-  await expect(page.getByText("six Instagram posts")).toBeVisible();
-  await expect(page.getByText("nine LinkedIn posts")).toBeVisible();
+  await expect(page.locator('[data-gallery="eastrise-social"] img')).toHaveCount(12);
+  await expect(page.locator(".source-index")).toHaveCount(0);
+  await expect(page.getByText("What the archive preserves")).toHaveCount(0);
 });
 
 test("GMCF shoots use complete collages with paged lightboxes", async ({

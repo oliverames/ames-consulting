@@ -6,6 +6,7 @@ import path from "node:path";
 const data = JSON.parse(await readFile("assets/data/eastrise-social.json", "utf8"));
 const errors = [];
 const ids = new Set();
+const highlights = new Set(data.highlightIds || []);
 
 if (!data.publicSourceOnly) errors.push("The EastRise social project must use public-source captures only.");
 if (data.totalPosts !== data.posts.length) errors.push("The total post count does not match the manifest.");
@@ -24,6 +25,11 @@ for (const post of data.posts) {
   } catch {
     errors.push(`Missing screenshot: ${post.screenshot}`);
   }
+}
+
+if (highlights.size < 12 || highlights.size > 24) errors.push("Social highlights must contain between 12 and 24 posts.");
+for (const id of highlights) {
+  if (!ids.has(id)) errors.push(`Unknown social highlight id: ${id}`);
 }
 
 if (errors.length) {

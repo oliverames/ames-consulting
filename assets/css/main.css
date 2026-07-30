@@ -806,7 +806,23 @@
   }
 
   .campaign-collage--screenshots img {
-    object-position: top center;
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    margin: 0 0 clamp(0.75rem, 1.5vw, 1rem);
+    object-fit: contain;
+    object-position: center;
+    break-inside: avoid;
+  }
+
+  .campaign-collage--screenshots {
+    display: block;
+    columns: 3 18rem;
+    column-gap: clamp(0.75rem, 1.5vw, 1rem);
+  }
+
+  @media (max-width: 44rem) {
+    .campaign-collage--screenshots { columns: 1; }
   }
 
   .source-index {

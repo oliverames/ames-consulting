@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 
 function parseArgs(argv) {
@@ -34,72 +34,21 @@ function normalizeSiteUrl(domain) {
   return `https://${clean}`;
 }
 
-async function getKnownRoutes(siteUrl) {
-  const routes = [
-    `${siteUrl}/`,
-    `${siteUrl}/work/`,
-    `${siteUrl}/blog/`,
-    `${siteUrl}/testimonials/`,
-    `${siteUrl}/services/strategy-and-content/`,
-    `${siteUrl}/services/photography-and-video/`,
-    `${siteUrl}/services/practical-technology/`,
-    `${siteUrl}/work/eastrise/`,
-    `${siteUrl}/work/eastrise-photography/`,
-    `${siteUrl}/work/eastrise-social/`,
-    `${siteUrl}/work/eastrise-writing/`,
-    `${siteUrl}/work/wheels-for-warmth/`,
-    `${siteUrl}/work/taylor-hoar-racing/`,
-    `${siteUrl}/work/member-banking-stories/`,
-    `${siteUrl}/work/credit-union-websites/`,
-    `${siteUrl}/work/community-photography/`,
-    `${siteUrl}/work/portraits-and-people/`,
-    `${siteUrl}/work/eastrise-portraits/`,
-    `${siteUrl}/work/blue-cross-portraits/`,
-    `${siteUrl}/work/corporate-cup-2026/`,
-    `${siteUrl}/work/girls-on-the-run-2026/`,
-    `${siteUrl}/work/eastrise-launch-campaign/`,
-    `${siteUrl}/work/giron-family-fall-2025/`,
-    `${siteUrl}/work/vermont-foodbank-volunteer-day-2026/`,
-    `${siteUrl}/work/beta-andrew/`,
-    `${siteUrl}/work/beta-emma/`,
-    `${siteUrl}/work/beta-ethan/`,
-    `${siteUrl}/work/flight-paths/`,
-    `${siteUrl}/work/blue-cross-vermont/`,
-    `${siteUrl}/work/beta-technologies/`,
-    `${siteUrl}/work/vtdigger-membership/`,
-    `${siteUrl}/work/fairbanks-planetarium/`,
-    `${siteUrl}/work/live-broadcasts/`,
-    `${siteUrl}/work/green-mountain-community-fitness/`,
-    `${siteUrl}/work/sweat-heart-throwdown/`,
-    `${siteUrl}/work/bike-fitting/`,
-    `${siteUrl}/work/ping-warden/`,
-    `${siteUrl}/work/apple-core/`,
-    `${siteUrl}/work/bridgeport/`,
-    `${siteUrl}/work/meta-mcp-server/`,
-    `${siteUrl}/work/ynab-mcp-server/`,
-    `${siteUrl}/work/skylight-bridge/`,
-    `${siteUrl}/about/`,
-    `${siteUrl}/contact/`
-  ];
-
-  try {
-    const feed = JSON.parse(await readFile("assets/data/writing-feed.json", "utf8"));
-    for (const post of feed.posts || []) {
-      if (!post.platforms?.includes("Micro.blog") || (!post.title && post.text?.length < 800)) continue;
-      const slug = String(post.title || post.id)
-        .toLowerCase()
-        .normalize("NFKD")
-        .replace(/[^a-z0-9\s-]/g, "")
-        .trim()
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-");
-      routes.push(`${siteUrl}/blog/${slug}/`);
+async function getKnownRoutes(siteUrl, outDir) {
+  const routes = [];
+  async function visit(dir) {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      if (["assets", ".git", "node_modules"].includes(entry.name)) continue;
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) await visit(fullPath);
+      else if (entry.name === "index.html") {
+        const relativePath = path.relative(outDir, fullPath).split(path.sep).join("/").replace(/index\.html$/, "");
+        routes.push(`${siteUrl}/${relativePath}`);
+      }
     }
-  } catch {
-    // Writing pages are optional during isolated SEO generation.
   }
-
-  return routes;
+  await visit(outDir);
+  return [...new Set(routes)].sort();
 }
 
 function buildSitemapXml(urls) {
@@ -137,12 +86,37 @@ function buildRobotsTxt(siteUrl, domain) {
   ].join("\n");
 }
 
+function buildLlmsTxt(siteUrl) {
+  return [
+    "# Oliver Ames",
+    "",
+    "> Oliver Ames is a commercial photographer, content strategist, video producer, and software developer based in Montpelier, Vermont.",
+    "",
+    "## Primary services",
+    `- [Commercial photography and video](${siteUrl}/services/photography-and-video/): documentary workplace photography, corporate portraits, events, and video production across Vermont.`,
+    `- [Content strategy and campaigns](${siteUrl}/services/strategy-and-content/): campaign planning, writing, social media, and measurement.`,
+    `- [Websites and practical technology](${siteUrl}/services/practical-technology/): websites, accessibility, analytics, automation, and software.`,
+    "",
+    "## Evidence",
+    `- [Selected work](${siteUrl}/work/)`,
+    `- [About Oliver Ames](${siteUrl}/about/)`,
+    `- [Recommendations](${siteUrl}/testimonials/)`,
+    `- [Writing](${siteUrl}/blog/)`,
+    "",
+    "## Contact",
+    `- [Start a conversation](${siteUrl}/contact/)`,
+    "- Email: oliver@ames.consulting",
+    ""
+  ].join("\n");
+}
+
 const args = parseArgs(process.argv.slice(2));
 const outDir = args.outDir || ".";
 const domain = await getPrimaryDomain();
 const siteUrl = normalizeSiteUrl(domain);
-const routes = await getKnownRoutes(siteUrl);
+const routes = await getKnownRoutes(siteUrl, outDir);
 
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, "sitemap.xml"), buildSitemapXml(routes), "utf8");
 await writeFile(path.join(outDir, "robots.txt"), buildRobotsTxt(siteUrl, domain), "utf8");
+await writeFile(path.join(outDir, "llms.txt"), buildLlmsTxt(siteUrl), "utf8");

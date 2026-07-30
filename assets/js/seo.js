@@ -182,19 +182,20 @@ function buildStructuredData({ view, config, metadata, posts }) {
       "@id": `${siteUrl}/#person`,
       name: config.authorName,
       url: `${siteUrl}/`,
-      jobTitle: "Content Strategist & Software Developer",
+      jobTitle: "Commercial Photographer, Content Strategist, and Software Developer",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Riverside",
+        addressLocality: "Montpelier",
         addressRegion: "VT",
         addressCountry: "US"
       },
       sameAs: [
-        "https://example.com/profiles/github",
-        "https://example.com/profiles/linkedin",
-        "https://bsky.app/profile/demo.example.com",
-        "https://example.com/profiles/mastodon",
-        "https://example.com/profiles/instagram"
+        "https://github.com/oliverames",
+        "https://www.linkedin.com/in/oliverames",
+        "https://oliverames.micro.blog/",
+        "https://bsky.app/profile/oliverames.bsky.social",
+        "https://mastodon.social/@oliverames",
+        "https://www.instagram.com/oliverames/"
       ]
     });
   }
@@ -248,13 +249,17 @@ export function syncSeo({ view, filters, config, posts }) {
     ? toAbsoluteUrl(config.defaultSocialImage, normalizeSiteUrl(config.siteUrl))
     : "";
 
-  document.title = metadata.title;
-
-  setLink("canonical", metadata.canonicalUrl);
   setLink("sitemap", toAbsoluteUrl("/sitemap.xml", normalizeSiteUrl(config.siteUrl)), {
     type: "application/xml"
   });
 
+  if (!filters.query && !filters.tag) {
+    return;
+  }
+
+  document.title = metadata.title;
+
+  setLink("canonical", metadata.canonicalUrl);
   if (config.jsonFeedUrl) {
     setLink("alternate", config.jsonFeedUrl, {
       type: "application/feed+json",

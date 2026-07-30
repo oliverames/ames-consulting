@@ -73,6 +73,8 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/work/sweat-heart-throwdown/`,
     `${siteUrl}/work/bike-fitting/`,
     `${siteUrl}/work/ping-warden/`,
+    `${siteUrl}/work/apple-core/`,
+    `${siteUrl}/work/bridgeport/`,
     `${siteUrl}/work/meta-mcp-server/`,
     `${siteUrl}/work/ynab-mcp-server/`,
     `${siteUrl}/work/skylight-bridge/`,

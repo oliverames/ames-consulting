@@ -33,6 +33,8 @@ for (const route of [
   "/work/sweat-heart-throwdown/",
   "/work/bike-fitting/",
   "/work/ping-warden/",
+  "/work/apple-core/",
+  "/work/bridgeport/",
   "/work/meta-mcp-server/",
   "/work/ynab-mcp-server/",
   "/work/skylight-bridge/",

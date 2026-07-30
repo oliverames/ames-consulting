@@ -37,6 +37,8 @@ test("all public content routes load", async ({ request }) => {
     "/work/blue-cross-portraits/",
     "/work/flight-paths/",
     "/work/ping-warden/",
+    "/work/apple-core/",
+    "/work/bridgeport/",
     "/work/meta-mcp-server/",
     "/work/ynab-mcp-server/",
     "/work/skylight-bridge/",
@@ -57,11 +59,13 @@ test("software development has a distinct project interface", async ({ page }) =
   await page.goto("/work/");
   const section = page.locator("#software-development");
   await expect(section.getByRole("heading", { name: "Small tools for real friction." })).toBeVisible();
-  await expect(section.locator(".software-card")).toHaveCount(4);
+  await expect(section.locator(".software-card")).toHaveCount(6);
   await expect(section.getByRole("link", { name: /Ping Warden/ }).locator("img")).toHaveAttribute("src", /ping-warden-dashboard\.webp$/);
   await expect(section.getByRole("link", { name: /Skylight Bridge/ }).locator("img")).toHaveAttribute("src", /skylight-bridge-overview\.webp$/);
   await expect(section.getByText("200 tools", { exact: true })).toBeVisible();
   await expect(section.getByText("Read-only by default", { exact: true })).toBeVisible();
+  await expect(section.getByText("77 tools", { exact: true })).toBeVisible();
+  await expect(section.getByText("OAuth 2.1", { exact: true })).toBeVisible();
 
   await page.goto("/work/ping-warden/");
   await expect(page.getByRole("heading", { level: 1, name: "Ping Warden" })).toBeVisible();
@@ -72,7 +76,7 @@ test("software cards collapse to a single column on small screens", async ({ pag
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/work/");
   const cards = page.locator("#software-development .software-card");
-  await expect(cards).toHaveCount(4);
+  await expect(cards).toHaveCount(6);
   const boxes = await cards.evaluateAll((items) => items.map((item) => item.getBoundingClientRect().width));
   expect(Math.max(...boxes) - Math.min(...boxes)).toBeLessThan(2);
 });

@@ -49,12 +49,23 @@ for (const [slug, sourceDirectory] of eventSources) {
 }
 
 const blueCrossPortraits = portraits.series.find((item) => item.slug === "blue-cross-cbss");
-if (!blueCrossPortraits || blueCrossPortraits.images.length < 36) {
-  throw new Error("The Blue Cross portrait collection does not include all 36 approved JPG and JPEG selections.");
+const expectedPortraits = new Set([
+  "Beth Roberts",
+  "Barbara Demas",
+  "Ruth Greene",
+  "Rebecca Heintz",
+  "Margaret Pinello-White",
+  "Tom Weigel, M.D.",
+  "Lindsay Segale",
+]);
+if (!blueCrossPortraits || blueCrossPortraits.images.length !== expectedPortraits.size) {
+  throw new Error("The Blue Cross portrait collection must contain the six senior team headshots and Lindsay Segale.");
 }
 for (const image of blueCrossPortraits.images) {
+  if (!expectedPortraits.delete(image.caption)) throw new Error(`Unexpected Blue Cross portrait: ${image.caption}`);
   await access(path.join(root, image.src.replace("../../", "")));
 }
+if (expectedPortraits.size) throw new Error(`Missing Blue Cross portraits: ${[...expectedPortraits].join(", ")}`);
 
 for (const item of provenance.blueCrossVermont) {
   if (!item.source.startsWith("Ames Consulting/Portfolio/Blue Cross VT/")) {

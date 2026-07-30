@@ -2,17 +2,15 @@
 
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
 const archiveManifestPath = "/Users/oliverames/Desktop/Archive Folder/EastRise/Public Photography/Public Photography Manifest.json";
-const blueCrossRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
 const outputRoot = path.join(root, "assets/images/work/portraits/gallery");
 const existingData = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
-const blueCrossSourcesAvailable = await access(blueCrossRoot).then(() => true, () => false);
 
 const eastRiseNamePattern = /(Headshot|Bio|Alvah-Newhall|Arthur-G\.-Woolf|Frank-G\.-Harris|George-Sales|Greg\.|Ian-Squirrell|Jim-Towne|Margaret-H\.-ODonnell|Mark\.|Rob\.|Sue\.|Valerie\.)/i;
 let archive = [];
@@ -29,13 +27,6 @@ for (const item of eastRiseCandidates) {
   if (!eastRiseHashes.has(hash)) eastRise.push(item);
   eastRiseHashes.add(hash);
 }
-
-const blueCross = blueCrossSourcesAvailable
-  ? (await exec("find", [blueCrossRoot, "-path", "*Headshot*", "-type", "f", "(", "-iname", "*.jpg", "-o", "-iname", "*.jpeg", ")"])).stdout
-      .split("\n")
-      .filter(Boolean)
-      .filter((file) => !file.includes("/RAWs and XMPs/"))
-  : [];
 
 function personName(file) {
   return path.basename(file, path.extname(file))
@@ -68,14 +59,6 @@ async function processPortrait(source, organization, index) {
   };
 }
 
-const uniqueBlueCross = [];
-const blueCrossHashes = new Set();
-for (const file of blueCross) {
-  const hash = createHash("sha256").update(await readFile(file)).digest("hex");
-  if (!blueCrossHashes.has(hash)) uniqueBlueCross.push(file);
-  blueCrossHashes.add(hash);
-}
-
 async function processSeries(sources, organization) {
   const images = [];
   for (const [index, source] of sources.entries()) {
@@ -85,7 +68,6 @@ async function processSeries(sources, organization) {
 }
 
 const existingEastRise = existingData.series.find((item) => item.slug === "eastrise-leadership-board");
-const existingBlueCross = existingData.series.find((item) => item.slug === "blue-cross-cbss");
 const eastRiseSeries = eastRise.length > 0
   ? {
       title: "EastRise leadership and board",
@@ -94,25 +76,47 @@ const eastRiseSeries = eastRise.length > 0
     }
   : existingEastRise;
 
+const blueCrossSeries = {
+  title: "Blue Cross Vermont senior team and Lindsay Segale",
+  slug: "blue-cross-cbss",
+  images: [
+    ["Beth Roberts", "beth-roberts-executive.webp", 1500, 2130, "https://www.bluecrossvt.org/beth-roberts"],
+    ["Barbara Demas", "barbara-demas-executive.webp", 1500, 2082, "https://www.bluecrossvt.org/barbara-demas"],
+    ["Ruth Greene", "ruth-greene-executive.webp", 1500, 1914, "https://www.bluecrossvt.org/ruth-greene"],
+    ["Rebecca Heintz", "rebecca-heintz-executive.webp", 1500, 2010, "https://www.bluecrossvt.org/rebecca-heintz"],
+    ["Margaret Pinello-White", "margaret-pinello-white-executive.webp", 1500, 1496, "https://www.bluecrossvt.org/margaret-pinello-white"],
+    ["Tom Weigel, M.D.", "tom-weigel-executive.webp", 2000, 1333, "https://www.bluecrossvt.org/tom-weigel"],
+    ["Lindsay Segale", "lindsay-segale.webp", 2400, 1600, "Ames Consulting/Portfolio/Blue Cross VT/Headshots/Lindsay Segale/Edited Selects/DSC03351.jpg"],
+  ].map(([name, filename, width, height, source]) => ({
+    src: `../../assets/images/work/portraits/gallery/blue-cross/${filename}`,
+    alt: `Portrait of ${name}`,
+    caption: name,
+    width,
+    height,
+    source,
+    wide: width / height > 1.18,
+  })),
+};
+
 const series = [
   eastRiseSeries,
-  blueCrossSourcesAvailable
-    ? {
-        title: "Blue Cross Vermont and CBSS",
-        slug: "blue-cross-cbss",
-        images: await processSeries(uniqueBlueCross, "Blue Cross Vermont"),
-      }
-    : existingBlueCross,
+  blueCrossSeries,
 ];
 
-const data = { generatedAt: "2026-07-29", totalImages: series.reduce((total, item) => total + item.images.length, 0), series };
+const data = { generatedAt: "2026-07-30", totalImages: series.reduce((total, item) => total + item.images.length, 0), series };
 await writeFile(path.join(root, "assets/data/portraits.json"), `${JSON.stringify(data, null, 2)}\n`);
 
-const gallery = (item) => `<section class="case-section portrait-series" aria-labelledby="${item.slug}-title"><h2 id="${item.slug}-title">The complete collection</h2><p>${item.images.length} publicly used and approved portrait selections.</p><div class="portrait-gallery" data-gallery="${item.slug}">${item.images.map((image) => `<figure${image.wide ? ' class="portrait-gallery__wide"' : ""}><img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"><figcaption>${image.caption}</figcaption></figure>`).join("")}</div></section>`;
+const gallery = (item) => {
+  const isBlueCross = item.slug === "blue-cross-cbss";
+  const heading = isBlueCross ? "Senior team and Lindsay Segale" : "The complete collection";
+  const description = isBlueCross
+    ? "Six senior team headshots and one portrait of Lindsay Segale."
+    : `${item.images.length} publicly used and approved portrait selections.`;
+  return `<section class="case-section portrait-series" aria-labelledby="${item.slug}-title"><h2 id="${item.slug}-title">${heading}</h2><p>${description}</p><div class="portrait-gallery" data-gallery="${item.slug}">${item.images.map((image) => `<figure><img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"><figcaption>${image.caption}</figcaption></figure>`).join("")}</div></section>`;
+};
 
 const pageShell = ({ title, description, canonical, body }) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${title} | Ames Consulting</title><meta name="description" content="${description}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${canonical}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${body}</main><footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../taylor-hoar-racing/">Taylor Hoar Racing</a></li><li><a href="../wheels-for-warmth/">Wheels for Warmth</a></li><li><a href="../eastrise-portraits/">EastRise Portraits</a></li><li><a href="../blue-cross-portraits/">Blue Cross Portraits</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p></div></div></footer><script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
 
-const [, blueCrossSeries] = series;
 const pages = [
   {
     slug: "eastrise-portraits",
@@ -127,9 +131,9 @@ const pages = [
     slug: "blue-cross-portraits",
     html: pageShell({
       title: "Blue Cross Vermont Portraits",
-      description: "Blue Cross Vermont and CBSS portrait photography by Oliver Ames.",
+      description: "Blue Cross Vermont senior team and staff portrait photography by Oliver Ames.",
       canonical: "blue-cross-portraits",
-      body: `<header class="case-hero case-hero--portrait"><p class="eyebrow">Portrait collection · Blue Cross Vermont and CBSS · 2026</p><h1>Blue Cross Vermont and CBSS portraits.</h1><p>Staff and leadership portraits made for public profiles, organizational storytelling, and communications work.</p><p class="portrait-count">${blueCrossSeries.images.length} portraits in this collection.</p></header>${gallery(blueCrossSeries)}<section class="case-section"><h2>The system behind the portraits</h2><p>The collection mixes formal headshots with environmental portraits while keeping the editing and visual language connected.</p></section>`,
+      body: `<header class="case-hero case-hero--portrait"><p class="eyebrow">Portrait collection · Blue Cross Vermont · 2026</p><h1>Blue Cross Vermont portraits.</h1><p>Senior team headshots and a portrait of Lindsay Segale, made for public profiles and organizational storytelling.</p><p class="portrait-count">${blueCrossSeries.images.length} portraits in this collection.</p></header>${gallery(blueCrossSeries)}<section class="case-section"><h2>The system behind the portraits</h2><p>Consistent lighting and careful editing keep the headshots connected while preserving each person’s expression and posture.</p></section>`,
     }),
   },
 ];
@@ -144,7 +148,7 @@ const indexHtml = pageShell({
   title: "Portrait Collections",
   description: "Separate EastRise and Blue Cross Vermont portrait collections by Oliver Ames.",
   canonical: "portraits-and-people",
-  body: `<header class="case-hero"><p class="eyebrow">Portrait collections · 2024–2026</p><h1>Two organizations. Two portrait systems.</h1><p>Browse each collection separately.</p></header><section class="work-category"><div class="work-list"><a class="work-item" href="../eastrise-portraits/"><img src="../../assets/images/work/portraits/amy-vaughan.webp" alt="Portrait of Amy Vaughan" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>EastRise Portraits</h3><p>${eastRiseSeries.images.length} leadership and board portraits.</p></a><a class="work-item" href="../blue-cross-portraits/"><img src="../../assets/images/work/portraits/beth-roberts.webp" alt="Portrait of Beth Roberts" loading="lazy"><span class="work-item__context">Blue Cross Vermont and CBSS · 2026</span><h3>Blue Cross Portraits</h3><p>${blueCrossSeries.images.length} staff and leadership portraits.</p></a></div></section>`,
+  body: `<header class="case-hero"><p class="eyebrow">Portrait collections · 2024–2026</p><h1>Two organizations. Two portrait systems.</h1><p>Browse each collection separately.</p></header><section class="work-category"><div class="work-list"><a class="work-item" href="../eastrise-portraits/"><img src="../../assets/images/work/portraits/amy-vaughan.webp" alt="Portrait of Amy Vaughan" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>EastRise Portraits</h3><p>${eastRiseSeries.images.length} leadership and board portraits.</p></a><a class="work-item" href="../blue-cross-portraits/"><img src="../../assets/images/work/portraits/beth-roberts.webp" alt="Portrait of Beth Roberts" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Portraits</h3><p>Seven selected portraits from the senior team and Lindsay Segale.</p></a></div></section>`,
 });
 await writeFile(path.join(root, "work/portraits-and-people/index.html"), indexHtml);
 console.log(`Generated ${data.totalImages} portraits across ${series.length} series.`);

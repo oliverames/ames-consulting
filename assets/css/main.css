@@ -1519,26 +1519,35 @@
   }
 
   .portrait-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(0.75rem, 2vw, 1.25rem);
+    column-count: 4;
+    column-gap: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  @media (max-width: 52rem) {
+    .portrait-gallery { column-count: 2; }
+  }
+
+  @media (max-width: 30rem) {
+    .portrait-gallery { column-count: 1; }
   }
 
   .portrait-gallery figure {
-    min-width: 0;
-    margin: 0;
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 clamp(0.9rem, 2vw, 1.4rem);
+    break-inside: avoid;
   }
 
   .portrait-gallery__wide {
-    grid-column: span 2;
+    column-span: none;
   }
 
   .portrait-gallery img {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    object-position: center 24%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
     transition:
@@ -1546,9 +1555,7 @@
       box-shadow var(--motion-snap);
   }
 
-  .portrait-gallery__wide img {
-    aspect-ratio: 8 / 5;
-  }
+  .portrait-gallery__wide img { aspect-ratio: auto; }
 
   .portrait-gallery img:hover {
     transform: translateY(-2px);

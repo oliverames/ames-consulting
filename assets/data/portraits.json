@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-29",
-  "totalImages": 81,
+  "generatedAt": "2026-07-30",
+  "totalImages": 52,
   "series": [
     {
       "title": "EastRise leadership and board",
@@ -369,295 +369,70 @@
       ]
     },
     {
-      "title": "Blue Cross Vermont and CBSS",
+      "title": "Blue Cross Vermont senior team and Lindsay Segale",
       "slug": "blue-cross-cbss",
       "images": [
         {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02660-7dd3569411ea.webp",
-          "alt": "Blue Cross Vermont team portrait 1",
-          "caption": "Blue Cross Vermont portrait 1",
-          "width": 1600,
-          "height": 1208,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02676-024e63688046.webp",
-          "alt": "Blue Cross Vermont team portrait 2",
-          "caption": "Blue Cross Vermont portrait 2",
-          "width": 1600,
-          "height": 921,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02611-8c36d9a3d6d8.webp",
-          "alt": "Blue Cross Vermont team portrait 3",
-          "caption": "Blue Cross Vermont portrait 3",
-          "width": 1067,
-          "height": 1600,
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp",
+          "alt": "Portrait of Beth Roberts",
+          "caption": "Beth Roberts",
+          "width": 1500,
+          "height": 2130,
+          "source": "https://www.bluecrossvt.org/beth-roberts",
           "wide": false
         },
         {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02621-9756adac5c8d.webp",
-          "alt": "Blue Cross Vermont team portrait 4",
-          "caption": "Blue Cross Vermont portrait 4",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02634-04df46f25148.webp",
-          "alt": "Blue Cross Vermont team portrait 5",
-          "caption": "Blue Cross Vermont portrait 5",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02651-bfd498ccff42.webp",
-          "alt": "Blue Cross Vermont team portrait 6",
-          "caption": "Blue Cross Vermont portrait 6",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc02645-127eb1541379.webp",
-          "alt": "Blue Cross Vermont team portrait 7",
-          "caption": "Blue Cross Vermont portrait 7",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06316-605bc8febf16.webp",
-          "alt": "Blue Cross Vermont team portrait 8",
-          "caption": "Blue Cross Vermont portrait 8",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06325-ef3e68b98d16.webp",
-          "alt": "Blue Cross Vermont team portrait 9",
-          "caption": "Blue Cross Vermont portrait 9",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06407-ee009b8bc2cf.webp",
-          "alt": "Blue Cross Vermont team portrait 10",
-          "caption": "Blue Cross Vermont portrait 10",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06376-1681dc283ba1.webp",
-          "alt": "Blue Cross Vermont team portrait 11",
-          "caption": "Blue Cross Vermont portrait 11",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-f11183b687ce.webp",
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-executive.webp",
           "alt": "Portrait of Barbara Demas",
           "caption": "Barbara Demas",
-          "width": 1600,
-          "height": 1600,
+          "width": 1500,
+          "height": 2082,
+          "source": "https://www.bluecrossvt.org/barbara-demas",
           "wide": false
         },
         {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/rebecca-heintz-c7ae8686caa4.webp",
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/ruth-greene-executive.webp",
+          "alt": "Portrait of Ruth Greene",
+          "caption": "Ruth Greene",
+          "width": 1500,
+          "height": 1914,
+          "source": "https://www.bluecrossvt.org/ruth-greene",
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/rebecca-heintz-executive.webp",
           "alt": "Portrait of Rebecca Heintz",
           "caption": "Rebecca Heintz",
-          "width": 1067,
-          "height": 1600,
+          "width": 1500,
+          "height": 2010,
+          "source": "https://www.bluecrossvt.org/rebecca-heintz",
           "wide": false
         },
         {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-fa7bc1ac6337.webp",
-          "alt": "Portrait of Barbara Demas",
-          "caption": "Barbara Demas",
-          "width": 1067,
-          "height": 1600,
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-executive.webp",
+          "alt": "Portrait of Margaret Pinello-White",
+          "caption": "Margaret Pinello-White",
+          "width": 1500,
+          "height": 1496,
+          "source": "https://www.bluecrossvt.org/margaret-pinello-white",
           "wide": false
         },
         {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-510f489b8473.webp",
-          "alt": "Portrait of Barbara Demas",
-          "caption": "Barbara Demas",
-          "width": 1600,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/barbara-demas-f97829ba9f4c.webp",
-          "alt": "Portrait of Barbara Demas",
-          "caption": "Barbara Demas",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/beth-roberts-2b4650c591e6.webp",
-          "alt": "Portrait of Beth Roberts",
-          "caption": "Beth Roberts",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/heidi-masi-ec919f6d648c.webp",
-          "alt": "Portrait of Heidi Masi",
-          "caption": "Heidi Masi",
-          "width": 1600,
-          "height": 1067,
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/tom-weigel-executive.webp",
+          "alt": "Portrait of Tom Weigel, M.D.",
+          "caption": "Tom Weigel, M.D.",
+          "width": 2000,
+          "height": 1333,
+          "source": "https://www.bluecrossvt.org/tom-weigel",
           "wide": true
         },
         {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/beth-roberts-05c86e2c0360.webp",
-          "alt": "Portrait of Beth Roberts",
-          "caption": "Beth Roberts",
-          "width": 1067,
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/lindsay-segale.webp",
+          "alt": "Portrait of Lindsay Segale",
+          "caption": "Lindsay Segale",
+          "width": 2400,
           "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dr-tom-weigel-27991eee31e9.webp",
-          "alt": "Portrait of Dr Tom Weigel",
-          "caption": "Dr Tom Weigel",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/beth-roberts-f973f67f5b33.webp",
-          "alt": "Portrait of Beth Roberts",
-          "caption": "Beth Roberts",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dr-tom-weigel-7e180a8d1979.webp",
-          "alt": "Portrait of Dr Tom Weigel",
-          "caption": "Dr Tom Weigel",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-0aa2d73ebd9b.webp",
-          "alt": "Portrait of Margaret Pinello White",
-          "caption": "Margaret Pinello White",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-7526fc3c6a12.webp",
-          "alt": "Portrait of Margaret Pinello White",
-          "caption": "Margaret Pinello White",
-          "width": 1600,
-          "height": 1596,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/ruth-greene-c8182c6bb632.webp",
-          "alt": "Portrait of Ruth Greene",
-          "caption": "Ruth Greene",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/ruth-greene-737c424bb078.webp",
-          "alt": "Portrait of Ruth Greene",
-          "caption": "Ruth Greene",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06006-a7c6f2715aa8.webp",
-          "alt": "Blue Cross Vermont team portrait 27",
-          "caption": "Blue Cross Vermont portrait 27",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05907-eab39863e0d2.webp",
-          "alt": "Blue Cross Vermont team portrait 28",
-          "caption": "Blue Cross Vermont portrait 28",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05904-5140e5f0ebbc.webp",
-          "alt": "Blue Cross Vermont team portrait 29",
-          "caption": "Blue Cross Vermont portrait 29",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-aa6d06ffc77c.webp",
-          "alt": "Blue Cross Vermont team portrait 30",
-          "caption": "Blue Cross Vermont portrait 30",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06006-f7a513156c1c.webp",
-          "alt": "Blue Cross Vermont team portrait 31",
-          "caption": "Blue Cross Vermont portrait 31",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06113-03d765a7344f.webp",
-          "alt": "Blue Cross Vermont team portrait 32",
-          "caption": "Blue Cross Vermont portrait 32",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-fcc4b375ae6b.webp",
-          "alt": "Blue Cross Vermont team portrait 33",
-          "caption": "Blue Cross Vermont portrait 33",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06025-ac47a499a7df.webp",
-          "alt": "Blue Cross Vermont team portrait 34",
-          "caption": "Blue Cross Vermont portrait 34",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06025-054810c58bb7.webp",
-          "alt": "Blue Cross Vermont team portrait 35",
-          "caption": "Blue Cross Vermont portrait 35",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc03351-ef379107dd06.webp",
-          "alt": "Blue Cross Vermont team portrait 36",
-          "caption": "Blue Cross Vermont portrait 36",
-          "width": 1600,
-          "height": 1067,
+          "source": "Ames Consulting/Portfolio/Blue Cross VT/Headshots/Lindsay Segale/Edited Selects/DSC03351.jpg",
           "wide": true
         }
       ]

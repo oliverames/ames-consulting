@@ -16,11 +16,9 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await page.clock.fastForward("00:00:07");
   await expect(firstMetric).toBeVisible();
   await page.mouse.move(0, 0);
-  await page.clock.fastForward("00:00:07");
+  await page.clock.fastForward("00:00:13");
   await expect(page.getByText("569%", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Pause metrics" }).click();
-  await page.clock.fastForward("00:00:07");
-  await expect(page.getByText("569%", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Pause metrics" })).toHaveCount(0);
   await expect(page.getByRole("link", { name: /See the work/ })).toBeVisible();
 });
 
@@ -376,6 +374,8 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     "live-broadcasts/",
     "vtdigger-membership/",
     "fairbanks-planetarium/",
+    "connecticut-college/",
+    "stowe-ski-instruction/",
   ]);
 });
 
@@ -521,12 +521,14 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   await expect(
     page.getByRole("link", { name: "Micro.blog is my blog" }),
   ).toHaveAttribute("href", "https://oliverames.micro.blog/");
-  await expect(page.locator(".social-card")).toHaveCount(34);
-  await expect(page.locator(".social-card__media")).toHaveCount(6);
+  await expect(page.locator(".social-card")).toHaveCount(9);
   const writingProfiles = page.getByLabel("Writing profiles");
   await expect(
     writingProfiles.getByRole("link", { name: "Threads", exact: true }),
   ).toBeVisible();
+  await page.goto("/blog/archive/");
+  await expect(page.locator(".social-card")).toHaveCount(34);
+  await page.goto("/blog/");
   await expect(
     writingProfiles.getByRole("link", { name: "Instagram", exact: true }),
   ).toBeVisible();
@@ -540,7 +542,7 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   await expect(page).toHaveURL(
     /\/blog\/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids\/$/,
   );
-  await expect(page.locator(".writing-article__body p")).toHaveCount(10);
+  await expect(page.locator(".writing-article__body p")).toHaveCount(9);
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "The Sunshine Trail",
   );

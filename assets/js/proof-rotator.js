@@ -2,11 +2,9 @@ const rotator = document.querySelector("[data-proof-rotator]");
 
 if (rotator) {
   const pages = [...rotator.querySelectorAll("[data-proof-page]")];
-  const toggle = rotator.querySelector("[data-proof-toggle]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let currentPage = 0;
   let timer;
-  let manuallyPaused = false;
 
   const showPage = (nextPage) => {
     pages[currentPage].classList.add("is-leaving");
@@ -27,13 +25,8 @@ if (rotator) {
 
   const start = () => {
     stop();
-    if (reduceMotion.matches || manuallyPaused || pages.length < 2) return;
-    timer = window.setInterval(() => showPage((currentPage + 1) % pages.length), 6000);
-  };
-
-  const setToggleState = () => {
-    toggle.textContent = manuallyPaused ? "Play metrics" : "Pause metrics";
-    toggle.setAttribute("aria-pressed", String(manuallyPaused));
+    if (reduceMotion.matches || pages.length < 2) return;
+    timer = window.setInterval(() => showPage((currentPage + 1) % pages.length), 12000);
   };
 
   rotator.addEventListener("pointerenter", stop);
@@ -43,15 +36,7 @@ if (rotator) {
     if (!rotator.contains(event.relatedTarget)) start();
   });
 
-  toggle.addEventListener("click", () => {
-    manuallyPaused = !manuallyPaused;
-    setToggleState();
-    if (manuallyPaused) stop();
-    else start();
-  });
-
   reduceMotion.addEventListener("change", start);
   pages[0].classList.add("is-visible");
-  setToggleState();
   start();
 }

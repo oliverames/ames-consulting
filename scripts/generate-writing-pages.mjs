@@ -101,7 +101,7 @@ function localImage(post, depth) {
   return `${"../".repeat(depth)}assets/images/writing/${filename}`;
 }
 
-function renderCard(post) {
+function renderCard(post, depth = 1) {
   const longForm = isLongForm(post);
   const slug = longForm ? slugify(post.title || post.id) : "";
   const platforms = post.platforms
@@ -113,7 +113,7 @@ function renderCard(post) {
         `<a href="${escapeHtml(link.url)}" rel="noopener">View on ${escapeHtml(link.platform)} →</a>`,
     )
     .join("");
-  const imageSrc = localImage(post, 1);
+  const imageSrc = localImage(post, depth);
   const image = imageSrc
     ? `<img class="social-card__media" src="${imageSrc}" alt="Media attached to Oliver Ames's ${escapeHtml(post.platforms[0])} post" loading="lazy" width="1400" height="900">`
     : "";
@@ -123,7 +123,7 @@ function renderCard(post) {
   const action = longForm
     ? `<a class="social-card__read" href="${slug}/">Read on ames.consulting →</a>`
     : "";
-  return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="../assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy"><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${title}<p>${linkify(longForm ? excerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${image}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
+  return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy"><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${title}<p>${linkify(longForm ? excerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${image}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
 }
 
 function renderLongFormPage(post) {
@@ -131,7 +131,9 @@ function renderLongFormPage(post) {
   const description = excerpt(post.text, 155);
   const original =
     post.links.find((link) => link.platform === "Micro.blog") || post.links[0];
-  const body = `<article class="writing-article"><header class="writing-article__header"><p class="eyebrow">Personal writing · ${dateLabel(post.date, true)}</p><h1>${escapeHtml(post.title)}</h1><p>Originally published on <a href="${escapeHtml(original.url)}" rel="noopener">Micro.blog</a>.</p></header><div class="writing-article__body">${renderArticleText(post.text)}</div><footer class="writing-article__footer"><a class="btn btn--ghost" href="../">← Back to Writing</a><a href="${escapeHtml(original.url)}" rel="noopener">View the original on Micro.blog →</a></footer></article>`;
+  const imageSrc = localImage(post, 2);
+  const heroImage = imageSrc ? `<img class="writing-article__hero" src="${imageSrc}" alt="Image published with ${escapeHtml(post.title)}" width="1400" height="900" loading="eager" fetchpriority="high">` : "";
+  const body = `<article class="writing-article"><header class="writing-article__header"><p class="eyebrow">Personal writing · ${dateLabel(post.date, true)}</p><h1>${escapeHtml(post.title)}</h1><p>Originally published on <a href="${escapeHtml(original.url)}" rel="noopener">Micro.blog</a>.</p>${heroImage}</header><div class="writing-article__body">${renderArticleText(post.text)}</div><footer class="writing-article__footer"><a class="btn btn--ghost" href="../">← Back to Writing</a><a href="${escapeHtml(original.url)}" rel="noopener">View the original on Micro.blog →</a></footer></article>`;
   return {
     slug,
     html: page({
@@ -151,8 +153,9 @@ const profileLinks = feed.profiles
       `<a href="${escapeHtml(profile.url)}" rel="me noopener">${escapeHtml(profile.platform)}</a>`,
   )
   .join("");
-const cards = feed.posts.map(renderCard).join("");
-const indexBody = `<header class="page-header writing-header"><p class="eyebrow">Writing</p><h1>Notes, essays, and things I wanted to say in my own name.</h1><p><a href="${escapeHtml(feed.canonicalBlog)}" rel="me noopener">Micro.blog is my blog</a>. This page also gathers my original posts from the other places where I write publicly.</p><nav class="profile-links" aria-label="Writing profiles">${profileLinks}</nav></header><section class="writing-stream" aria-labelledby="recent-writing-title"><div class="section-heading writing-stream__heading"><p class="eyebrow">The feed</p><h2 id="recent-writing-title">Recent writing</h2></div><div class="social-card-grid">${cards}</div></section><section class="reading-section writing-work-link"><div><p class="eyebrow">Professional archive</p><h2>Writing for organizations</h2><p>The personal feed lives above. The complete professional archive is organized with the work it belonged to.</p></div><a class="btn btn--ghost" href="../work/eastrise-writing/">See all 53 EastRise articles →</a></section>`;
+const longFormPosts = feed.posts.filter(isLongForm);
+const socialPosts = feed.posts.filter((post) => !isLongForm(post));
+const indexBody = `<header class="page-header writing-header"><p class="eyebrow">Writing</p><h1>Notes, essays, and things I wanted to say in my own name.</h1><p><a href="${escapeHtml(feed.canonicalBlog)}" rel="me noopener">Micro.blog is my blog</a>. I also keep the public posts I write elsewhere in one place.</p><nav class="profile-links" aria-label="Writing profiles">${profileLinks}</nav></header><section class="writing-stream writing-stream--articles" aria-labelledby="recent-articles-title"><div class="section-heading writing-stream__heading"><p class="eyebrow">From Micro.blog</p><h2 id="recent-articles-title">Recent posts</h2></div><div class="social-card-grid social-card-grid--featured">${longFormPosts.slice(0, 3).map((post) => renderCard(post)).join("")}</div><a class="writing-stream__more" href="archive/#microblog">Browse every Micro.blog post →</a></section><section class="writing-stream writing-stream--social" aria-labelledby="recent-social-title"><div class="section-heading writing-stream__heading"><p class="eyebrow">Around the web</p><h2 id="recent-social-title">Recent social posts</h2></div><div class="social-card-grid">${socialPosts.slice(0, 8).map((post) => renderCard(post)).join("")}</div><a class="writing-stream__more" href="archive/#social">Browse the complete social history →</a></section><section class="reading-section writing-work-link"><div><p class="eyebrow">Professional archive</p><h2>Writing for organizations</h2><p>The complete professional archive is organized with the work it belonged to.</p></div><a class="btn btn--ghost" href="../work/eastrise-writing/">See all 53 EastRise articles →</a></section>`;
 
 await mkdir(join(root, "blog"), { recursive: true });
 await writeFile(
@@ -163,6 +166,18 @@ await writeFile(
     path: "blog/",
     depth: 1,
     body: indexBody,
+  }),
+);
+
+await mkdir(join(root, "blog", "archive"), { recursive: true });
+await writeFile(
+  join(root, "blog", "archive", "index.html"),
+  page({
+    title: "Writing archive",
+    description: "The complete personal writing and social archive of Oliver Ames.",
+    path: "blog/archive/",
+    depth: 2,
+    body: `<header class="page-header"><p class="eyebrow">Writing archive</p><h1>Everything, in reverse chronological order.</h1><p>Long-form posts stay separate from shorter social notes so each is easier to browse.</p></header><section class="writing-stream" id="microblog"><div class="section-heading"><p class="eyebrow">Micro.blog</p><h2>Blog posts</h2></div><div class="social-card-grid">${longFormPosts.map((post) => renderCard(post, 2)).join("")}</div></section><section class="writing-stream" id="social"><div class="section-heading"><p class="eyebrow">Social</p><h2>Original public posts</h2></div><div class="social-card-grid">${socialPosts.map((post) => renderCard(post, 2)).join("")}</div></section>`,
   }),
 );
 

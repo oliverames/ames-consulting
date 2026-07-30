@@ -12,8 +12,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">
     <link rel="stylesheet" href="./assets/css/main.css">
-  </head>
-  <body class="content-reset">
+  <script src="./assets/js/construction-gate.js"></script></head>
+  <body class="content-reset"><div class="construction-gate" id="construction-gate" role="dialog" aria-modal="true" aria-labelledby="construction-gate-title" aria-describedby="construction-gate-description">
+  <div class="construction-gate__mesh" aria-hidden="true"></div>
+  <section class="construction-gate__card">
+    <p class="construction-gate__eyebrow"><span aria-hidden="true"></span> Ames Consulting</p>
+    <h1 id="construction-gate-title">The site is under construction.</h1>
+    <p id="construction-gate-description">Enter the password to take a look around.</p>
+    <form class="construction-gate__form" id="construction-gate-form" autocomplete="off">
+      <label for="construction-gate-password">Password</label>
+      <div class="construction-gate__controls">
+        <input id="construction-gate-password" name="password" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="construction-gate-error" required>
+        <button type="submit">Enter <span aria-hidden="true">→</span></button>
+      </div>
+      <p class="construction-gate__error" id="construction-gate-error" role="alert" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
     <main id="main-content" tabindex="-1">
       <h1>404</h1>
       <a href="./">ames.consulting</a>

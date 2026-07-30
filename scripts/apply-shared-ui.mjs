@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile, readdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { join, relative, sep } from "node:path";
 import {
   siGithub,
   siMicrodotblog,
@@ -37,13 +37,14 @@ function addIcons(html) {
   });
 }
 
-function updateFooterGroups(html) {
-  const depthMatch = html.match(/<a href="((?:\.\.\/)+|\.\/)?work\/">All work<\/a>/);
-  const base = depthMatch?.[1] || "./";
+function updateFooterGroups(html, file) {
+  const pathParts = relative(root, file).split(sep);
+  const directoryDepth = pathParts.length - 1;
+  const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
   const workBase = `${base}work/`;
   return html.replace(
-    /<nav class="site-footer__sitemap" aria-label="Footer"><div><h3>(?:Campaigns|Services)<\/h3><ul>[\s\S]*?<\/ul><\/div>/,
-    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="${workBase}blue-cross-vermont/">Blue Cross Vermont campaigns</a></li><li><a href="${workBase}eastrise/">EastRise campaigns</a></li><li><a href="${workBase}beta-technologies/">BETA Technologies campaigns</a></li><li><a href="${workBase}green-mountain-community-fitness/">Green Mountain Community Fitness</a></li></ul></div>`,
+    /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h3>(?:Campaigns|Services|Work by organization)<\/h3>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
+    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="${workBase}?organization=blue-cross-vermont">Blue Cross Vermont campaigns</a></li><li><a href="${workBase}?organization=eastrise">EastRise campaigns</a></li><li><a href="${workBase}?organization=beta-technologies">BETA Technologies campaigns</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
   );
 }
 
@@ -60,7 +61,6 @@ async function collectHtml(directory) {
 
 for (const file of await collectHtml(root)) {
   const before = await readFile(file, "utf8");
-  const after = updateFooterGroups(addIcons(before));
+  const after = updateFooterGroups(addIcons(before), file);
   if (after !== before) await writeFile(file, after);
 }
-

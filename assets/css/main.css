@@ -350,6 +350,29 @@
     font-size: clamp(1.8rem, 3vw, 2.5rem);
   }
 
+  .software-card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-block-end: 0.7rem;
+  }
+
+  .software-card__title img {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    padding: 0.2rem;
+    border-radius: 0.65rem;
+    background: var(--surface-0);
+    object-fit: contain;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 18%);
+  }
+
+  .software-card__title h3 {
+    margin: 0;
+  }
+
   .software-card__body > p:not(.software-card__meta) {
     margin: 0 0 1.2rem;
     color: #d9dedc;
@@ -373,6 +396,11 @@
     font-family: var(--font-heading);
     font-size: 0.75rem;
     letter-spacing: 0.06em;
+  }
+
+  .software-facts .software-facts__stars {
+    border-color: color-mix(in srgb, var(--heritage-gold) 45%, transparent);
+    color: var(--heritage-gold);
   }
 
   .software-card__open {
@@ -2864,6 +2892,20 @@
     padding-bottom: var(--space-1);
     border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
     display: inline-block;
+  }
+
+  .work-filter-status {
+    margin: 0.25rem 0 1.25rem;
+    color: var(--text-1);
+  }
+
+  .work-filter-status a {
+    color: var(--link);
+  }
+
+  .work-item[hidden],
+  .software-work[hidden] {
+    display: none !important;
   }
 
   .work-list {

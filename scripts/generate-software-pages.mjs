@@ -16,6 +16,8 @@ const projects = [
     summary: "A native menu bar app that keeps local wireless discovery traffic from disrupting latency-sensitive work.",
     dek: "A small macOS utility with an unusually clear job: protect the connection when latency matters, then get out of the way.",
     repo: "https://github.com/oliverames/ping-warden",
+    icon: "ping-warden-icon.webp",
+    lastKnownStars: 80,
     facts: ["Swift", "macOS 13+", "Open source"],
     screenshot: "ping-warden-dashboard.webp",
     screenshotAlt: "Ping Warden dashboard showing latency, jitter, probes, and interventions",
@@ -33,6 +35,7 @@ const projects = [
     summary: "A personal MCP server that gives assistants controlled access to local Apple services.",
     dek: "Calendar, Notes, Mail, Messages, and the rest of a Mac are useful context, but only when every service and remote route stays under the Mac owner’s control.",
     repo: "https://github.com/oliverames/apple-core",
+    lastKnownStars: 1,
     facts: ["Swift", "77 tools", "Local by default"],
     icon: "apple-core-icon.webp",
     commands: ["notes.search", "mail.search", "calendar.events", "reminders.list"],
@@ -50,6 +53,7 @@ const projects = [
     summary: "A native gateway that discovers Mac-local MCP servers and exposes only the connectors their owner chooses.",
     dek: "Bridgeport turns one always-on Mac into a private connector host, with a deliberate path from local command-line tools to authenticated cloud clients.",
     repo: "https://github.com/oliverames/bridgeport",
+    lastKnownStars: 0,
     facts: ["Swift", "macOS 26+", "OAuth 2.1"],
     icon: "bridgeport-icon.webp",
     commands: ["connectors.discover", "routes.publish", "clients.export", "secrets.resolve"],
@@ -67,6 +71,7 @@ const projects = [
     summary: "One Model Context Protocol server for publishing, analytics, advertising, and commerce across Meta platforms.",
     dek: "A broad social-platform API translated into tools an assistant can use without hiding permissions, token failures, or platform boundaries.",
     repo: "https://github.com/oliverames/meta-mcp-server",
+    lastKnownStars: 24,
     facts: ["TypeScript", "200 tools", "7 platforms"],
     icon: "meta-mcp-icon.webp",
     commands: ["pages.publish", "instagram.insights", "threads.create", "ads.report"],
@@ -84,6 +89,7 @@ const projects = [
     summary: "A safety-first Model Context Protocol server for understanding and updating a YNAB budget.",
     dek: "Budget data is useful only when the numbers stay exact and a write can be explained, reviewed, and undone.",
     repo: "https://github.com/oliverames/ynab-mcp-server",
+    lastKnownStars: 10,
     facts: ["JavaScript", "58 tools", "Read-only by default"],
     icon: "ynab-mcp-icon.webp",
     commands: ["budget.health", "transactions.search", "category.plan", "changes.undo"],
@@ -101,6 +107,8 @@ const projects = [
     summary: "A native bridge between selected Apple Photos, Reminders, and Notes content and a Skylight family calendar.",
     dek: "The app lets a family choose what should cross the bridge, see what happened, and keep the rest of their Apple data private.",
     repo: "https://github.com/oliverames/skylight-bridge",
+    icon: "skylight-bridge-icon.webp",
+    lastKnownStars: 11,
     facts: ["Swift", "macOS 26+", "Signed and notarized"],
     screenshot: "skylight-bridge-overview.webp",
     screenshotAlt: "Skylight Bridge overview showing connected Apple services and sync activity",
@@ -114,6 +122,26 @@ const projects = [
 
 const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
+async function githubStars(project) {
+  const apiUrl = project.repo.replace("https://github.com/", "https://api.github.com/repos/");
+  try {
+    const response = await fetch(apiUrl, {
+      headers: { Accept: "application/vnd.github+json", "User-Agent": "ames-consulting-site-build" },
+    });
+    if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
+    const repository = await response.json();
+    if (!Number.isInteger(repository.stargazers_count)) throw new Error("GitHub response did not include stargazers_count");
+    return repository.stargazers_count;
+  } catch (error) {
+    console.warn(`Using the last verified star count for ${project.name}: ${error.message}`);
+    return project.lastKnownStars;
+  }
+}
+
+await Promise.all(projects.map(async (project) => {
+  project.stars = await githubStars(project);
+}));
+
 function visual(project, depth) {
   if (project.screenshot) {
     return `<div class="software-visual software-visual--screen"><div class="software-window-bar" aria-hidden="true"><span></span><span></span><span></span><b>${escapeHtml(project.type)}</b></div><img src="${depth}assets/images/work/software/${project.screenshot}" alt="${escapeHtml(project.screenshotAlt)}" loading="lazy"></div>`;
@@ -122,20 +150,25 @@ function visual(project, depth) {
 }
 
 function facts(project) {
-  return `<ul class="software-facts">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>`;
+  const starLabel = `${project.stars.toLocaleString("en-US")} GitHub ${project.stars === 1 ? "star" : "stars"}`;
+  return `<ul class="software-facts">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}<li class="software-facts__stars"><span aria-hidden="true">★</span> ${escapeHtml(starLabel)}</li></ul>`;
 }
 
 function footer(depth) {
   return `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="${depth}work/blue-cross-vermont/">Blue Cross Vermont campaigns</a></li><li><a href="${depth}work/eastrise/">EastRise campaigns</a></li><li><a href="${depth}work/beta-technologies/">BETA Technologies campaigns</a></li><li><a href="${depth}work/green-mountain-community-fitness/">Green Mountain Community Fitness</a></li></ul></div><div><h3>Company</h3><ul><li><a href="${depth}work/">All work</a></li><li><a href="${depth}blog/">Writing</a></li><li><a href="${depth}about/">About</a></li><li><a href="${depth}contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p><ul class="site-footer__social"><li><a href="https://github.com/oliverames" rel="me noopener">GitHub</a></li><li><a href="https://www.linkedin.com/in/oliverames" rel="me noopener">LinkedIn</a></li></ul></div></div></footer>`;
 }
 
-const cards = projects.map((project, index) => `<a class="software-card" href="${project.slug}/"><span class="software-card__number" aria-hidden="true">0${index + 1}</span>${visual(project, "../")}<div class="software-card__body"><p class="software-card__meta">${escapeHtml(project.type)} · ${escapeHtml(project.period)}</p><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.summary)}</p>${facts(project)}<span class="software-card__open">Open project <span aria-hidden="true">↗</span></span></div></a>`).join("");
+const cards = projects.map((project, index) => `<a class="software-card" href="${project.slug}/"><span class="software-card__number" aria-hidden="true">0${index + 1}</span>${visual(project, "../")}<div class="software-card__body"><p class="software-card__meta">${escapeHtml(project.type)} · ${escapeHtml(project.period)}</p><div class="software-card__title"><img src="../assets/images/work/software/${project.icon}" alt="" width="52" height="52" loading="lazy"><h3>${escapeHtml(project.name)}</h3></div><p>${escapeHtml(project.summary)}</p>${facts(project)}<span class="software-card__open">Open project <span aria-hidden="true">↗</span></span></div></a>`).join("");
 
 const section = `<section class="software-work" id="software-development" aria-labelledby="software-development-title"><div class="software-work__heading"><div><p class="eyebrow">Software development</p><h2 id="software-development-title">Small tools for real friction.</h2></div><p>I build software when the useful answer needs to be a working system, not another document. These projects cover native Mac apps, API integrations, and tools that help assistants do careful work.</p></div><div class="software-grid">${cards}</div></section>`;
 
 let workIndex = await readFile(workIndexPath, "utf8");
 workIndex = workIndex.replace(/<section class="software-work"[\s\S]*?<\/section>/, "");
-workIndex = workIndex.replace(/(<section class="work-category">\s*<h2>Client and institutional work<\/h2>)/, `${section}\n      $1`);
+if (/<section class="work-category">\s*<h2>Client and institutional work<\/h2>/.test(workIndex)) {
+  workIndex = workIndex.replace(/(<section class="work-category">\s*<h2>Client and institutional work<\/h2>)/, `${section}\n      $1`);
+} else {
+  workIndex = workIndex.replace(/\s*<\/main>/, `\n      ${section}\n    </main>`);
+}
 workIndex = workIndex.replace(/\n[ \t]+\n(?=[ \t]*<section class="work-category">\s*<h2>Client and institutional work<\/h2>)/, "\n");
 workIndex = workIndex.replace(
   /\n(?:[ \t]*\n)+(?=[ \t]*<section class="(?:software-work|work-category)")/g,

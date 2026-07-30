@@ -14,6 +14,102 @@ if (!html.includes('href="connecticut-college/"')) {
   const additions = `<a class="work-item" href="connecticut-college/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>2013</strong></div><span class="work-item__context">Connecticut College · 2013–2015</span><h3>Early digital storytelling</h3><p>College blogs, social content, donor events, and work on a major website redesign.</p></a><a class="work-item" href="stowe-ski-instruction/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>6 yrs</strong></div><span class="work-item__context">Stowe Mountain Resort · 2013–2019</span><h3>Teaching technical ideas in real time</h3><p>Six seasons of turning complicated physical instructions into something a skier could use on the next turn.</p></a>`;
   html = html.replace(/(<section class="work-category work-category--earlier">[\s\S]*?<div class="work-list">)/, `$1${additions}`);
 }
+
+const organizationByHref = new Map([
+  ["girls-on-the-run-2026/", "blue-cross-vermont"],
+  ["corporate-cup-2026/", "blue-cross-vermont"],
+  ["flight-paths/", "blue-cross-vermont"],
+  ["blue-cross-portraits/", "blue-cross-vermont"],
+  ["vermont-foodbank-volunteer-day-2026/", "vermont-foodbank"],
+  ["beta-andrew/", "beta-technologies"],
+  ["beta-emma/", "beta-technologies"],
+  ["beta-ethan/", "beta-technologies"],
+  ["eastrise-portraits/", "eastrise"],
+  ["member-banking-stories/", "eastrise"],
+  ["eastrise-social/", "eastrise"],
+  ["eastrise-writing/", "eastrise"],
+  ["wheels-for-warmth/", "eastrise"],
+  ["taylor-hoar-racing/", "eastrise"],
+  ["bike-fitting/", "green-mountain-community-fitness"],
+  ["sweat-heart-throwdown/", "green-mountain-community-fitness"],
+  ["eastrise-launch-campaign/", "eastrise"],
+  ["vsecu-website/", "eastrise"],
+  ["eastrise-website/", "eastrise"],
+  ["live-broadcasts/", "eastrise"],
+  ["vtdigger-membership/", "vtdigger"],
+  ["fairbanks-planetarium/", "fairbanks-museum"],
+  ["connecticut-college/", "connecticut-college"],
+  ["stowe-ski-instruction/", "stowe-mountain-resort"],
+]);
+
+const projectOrder = [
+  "girls-on-the-run-2026/",
+  "corporate-cup-2026/",
+  "flight-paths/",
+  "blue-cross-portraits/",
+  "vermont-foodbank-volunteer-day-2026/",
+  "beta-andrew/",
+  "beta-emma/",
+  "beta-ethan/",
+  "sweat-heart-throwdown/",
+  "member-banking-stories/",
+  "giron-family-fall-2025/",
+  "wheels-for-warmth/",
+  "taylor-hoar-racing/",
+  "eastrise-social/",
+  "eastrise-writing/",
+  "bike-fitting/",
+  "live-broadcasts/",
+  "eastrise-portraits/",
+  "eastrise-website/",
+  "eastrise-launch-campaign/",
+  "vsecu-website/",
+  "vtdigger-membership/",
+  "stowe-ski-instruction/",
+  "fairbanks-planetarium/",
+  "connecticut-college/",
+];
+
+const campaignSectionPattern = /(<section class="work-category">\s*<h2(?: id="project-list-title")?>(?:Campaigns and series|All projects)<\/h2>(?:<p class="work-filter-status" id="work-filter-status" hidden><\/p>)?\s*<div class="work-list">)([\s\S]*?)(\s*<\/div>\s*<\/section>)/;
+const earlierSectionPattern = /<section class="work-category work-category--earlier">\s*<h2>Earlier work<\/h2>\s*<div class="work-list">([\s\S]*?)\s*<\/div>\s*<\/section>/;
+const campaignMatch = html.match(campaignSectionPattern);
+const earlierMatch = html.match(earlierSectionPattern);
+
+if (campaignMatch && earlierMatch) {
+  const cards = [...`${campaignMatch[2]}${earlierMatch[1]}`.matchAll(/<a class="work-item" href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
+    .map((match) => ({ href: match[1], html: match[0] }));
+  const rank = new Map(projectOrder.map((href, index) => [href, index]));
+  const cardRank = (href) => href.startsWith("eastrise-photography/") ? 12.5 : (rank.get(href) ?? 999);
+  cards.sort((left, right) => cardRank(left.href) - cardRank(right.href));
+
+  const markedCards = cards.map((card) => {
+    const explicitOrganization = organizationByHref.get(card.href);
+    const inferredOrganization = card.href.startsWith("eastrise-photography/") ? "eastrise" : "";
+    const organization = explicitOrganization || inferredOrganization;
+    return organization
+      ? card.html.replace('<a class="work-item"', `<a class="work-item" data-organization="${organization}"`)
+      : card.html;
+  }).join("");
+
+  html = html.replace(
+    campaignSectionPattern,
+    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">All projects</h2><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}`,
+  );
+  html = html.replace(earlierSectionPattern, "");
+}
+
+html = html.replace(
+  /\s*<section class="work-category">\s*<h2>Client and institutional work<\/h2>[\s\S]*?<\/section>/,
+  "",
+);
+
+if (!html.includes('src="../assets/js/work-filter.js"')) {
+  html = html.replace(
+    "</body>",
+    '    <script type="module" src="../assets/js/work-filter.js"></script>\n  </body>',
+  );
+}
+html = html.replace(/[ \t]+$/gm, "");
 await writeFile(indexPath, html);
 
 const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="../blue-cross-vermont/">Blue Cross Vermont campaigns</a></li><li><a href="../eastrise/">EastRise campaigns</a></li><li><a href="../beta-technologies/">BETA Technologies campaigns</a></li><li><a href="../green-mountain-community-fitness/">Green Mountain Community Fitness</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
@@ -28,4 +124,3 @@ for (const [slug, eyebrow, title, intro, sections] of pages) {
   await mkdir(directory, { recursive: true });
   await writeFile(new URL("index.html", directory), page(slug, eyebrow, title, intro, sections));
 }
-

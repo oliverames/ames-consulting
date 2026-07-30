@@ -2,18 +2,25 @@
 
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
 const archiveManifestPath = "/Users/oliverames/Desktop/Archive Folder/EastRise/Public Photography/Public Photography Manifest.json";
-const blueCrossRoot = "/Users/oliverames/Documents/BCBS/Photography";
+const blueCrossRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
 const outputRoot = path.join(root, "assets/images/work/portraits/gallery");
+const existingData = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
+const blueCrossSourcesAvailable = await access(blueCrossRoot).then(() => true, () => false);
 
 const eastRiseNamePattern = /(Headshot|Bio|Alvah-Newhall|Arthur-G\.-Woolf|Frank-G\.-Harris|George-Sales|Greg\.|Ian-Squirrell|Jim-Towne|Margaret-H\.-ODonnell|Mark\.|Rob\.|Sue\.|Valerie\.)/i;
-const archive = JSON.parse(await readFile(archiveManifestPath, "utf8"));
+let archive = [];
+try {
+  archive = JSON.parse(await readFile(archiveManifestPath, "utf8"));
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
 const eastRiseCandidates = archive.filter((item) => item.group.startsWith("Verification Pending") && eastRiseNamePattern.test(path.basename(item.source)));
 const eastRise = [];
 const eastRiseHashes = new Set();
@@ -23,8 +30,12 @@ for (const item of eastRiseCandidates) {
   eastRiseHashes.add(hash);
 }
 
-const { stdout } = await exec("find", [blueCrossRoot, "-path", "*Headshot*", "-type", "f", "-iname", "*.jpg"]);
-const blueCross = stdout.split("\n").filter(Boolean).filter((file) => !file.includes("/RAWs and XMPs/"));
+const blueCross = blueCrossSourcesAvailable
+  ? (await exec("find", [blueCrossRoot, "-path", "*Headshot*", "-type", "f", "(", "-iname", "*.jpg", "-o", "-iname", "*.jpeg", ")"])).stdout
+      .split("\n")
+      .filter(Boolean)
+      .filter((file) => !file.includes("/RAWs and XMPs/"))
+  : [];
 
 function personName(file) {
   return path.basename(file, path.extname(file))
@@ -73,17 +84,25 @@ async function processSeries(sources, organization) {
   return images;
 }
 
+const existingEastRise = existingData.series.find((item) => item.slug === "eastrise-leadership-board");
+const existingBlueCross = existingData.series.find((item) => item.slug === "blue-cross-cbss");
+const eastRiseSeries = eastRise.length > 0
+  ? {
+      title: "EastRise leadership and board",
+      slug: "eastrise-leadership-board",
+      images: await processSeries(eastRise.map((item) => item.source), "EastRise"),
+    }
+  : existingEastRise;
+
 const series = [
-  {
-    title: "EastRise leadership and board",
-    slug: "eastrise-leadership-board",
-    images: await processSeries(eastRise.map((item) => item.source), "EastRise"),
-  },
-  {
-    title: "Blue Cross Vermont and CBSS",
-    slug: "blue-cross-cbss",
-    images: await processSeries(uniqueBlueCross, "Blue Cross Vermont"),
-  },
+  eastRiseSeries,
+  blueCrossSourcesAvailable
+    ? {
+        title: "Blue Cross Vermont and CBSS",
+        slug: "blue-cross-cbss",
+        images: await processSeries(uniqueBlueCross, "Blue Cross Vermont"),
+      }
+    : existingBlueCross,
 ];
 
 const data = { generatedAt: "2026-07-29", totalImages: series.reduce((total, item) => total + item.images.length, 0), series };
@@ -93,7 +112,7 @@ const gallery = (item) => `<section class="case-section portrait-series" aria-la
 
 const pageShell = ({ title, description, canonical, body }) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${title} | Ames Consulting</title><meta name="description" content="${description}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${canonical}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${body}</main><footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../taylor-hoar-racing/">Taylor Hoar Racing</a></li><li><a href="../wheels-for-warmth/">Wheels for Warmth</a></li><li><a href="../eastrise-portraits/">EastRise Portraits</a></li><li><a href="../blue-cross-portraits/">Blue Cross Portraits</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p></div></div></footer><script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
 
-const [eastRiseSeries, blueCrossSeries] = series;
+const [, blueCrossSeries] = series;
 const pages = [
   {
     slug: "eastrise-portraits",

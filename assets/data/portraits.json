@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-07-29",
-  "totalImages": 76,
+  "totalImages": 81,
   "series": [
     {
       "title": "EastRise leadership and board",
@@ -501,9 +501,49 @@
           "wide": false
         },
         {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/beth-roberts-2b4650c591e6.webp",
+          "alt": "Portrait of Beth Roberts",
+          "caption": "Beth Roberts",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
           "src": "../../assets/images/work/portraits/gallery/blue-cross/heidi-masi-ec919f6d648c.webp",
           "alt": "Portrait of Heidi Masi",
           "caption": "Heidi Masi",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/beth-roberts-05c86e2c0360.webp",
+          "alt": "Portrait of Beth Roberts",
+          "caption": "Beth Roberts",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dr-tom-weigel-27991eee31e9.webp",
+          "alt": "Portrait of Dr Tom Weigel",
+          "caption": "Dr Tom Weigel",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/beth-roberts-f973f67f5b33.webp",
+          "alt": "Portrait of Beth Roberts",
+          "caption": "Beth Roberts",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dr-tom-weigel-7e180a8d1979.webp",
+          "alt": "Portrait of Dr Tom Weigel",
+          "caption": "Dr Tom Weigel",
           "width": 1600,
           "height": 1067,
           "wide": true
@@ -542,54 +582,14 @@
         },
         {
           "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06006-a7c6f2715aa8.webp",
-          "alt": "Blue Cross Vermont team portrait 22",
-          "caption": "Blue Cross Vermont portrait 22",
+          "alt": "Blue Cross Vermont team portrait 27",
+          "caption": "Blue Cross Vermont portrait 27",
           "width": 1600,
           "height": 1067,
           "wide": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05907-eab39863e0d2.webp",
-          "alt": "Blue Cross Vermont team portrait 23",
-          "caption": "Blue Cross Vermont portrait 23",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05904-5140e5f0ebbc.webp",
-          "alt": "Blue Cross Vermont team portrait 24",
-          "caption": "Blue Cross Vermont portrait 24",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-aa6d06ffc77c.webp",
-          "alt": "Blue Cross Vermont team portrait 25",
-          "caption": "Blue Cross Vermont portrait 25",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06006-f7a513156c1c.webp",
-          "alt": "Blue Cross Vermont team portrait 26",
-          "caption": "Blue Cross Vermont portrait 26",
-          "width": 1600,
-          "height": 1067,
-          "wide": true
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06113-03d765a7344f.webp",
-          "alt": "Blue Cross Vermont team portrait 27",
-          "caption": "Blue Cross Vermont portrait 27",
-          "width": 1067,
-          "height": 1600,
-          "wide": false
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-fcc4b375ae6b.webp",
           "alt": "Blue Cross Vermont team portrait 28",
           "caption": "Blue Cross Vermont portrait 28",
           "width": 1067,
@@ -597,25 +597,65 @@
           "wide": false
         },
         {
-          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06025-ac47a499a7df.webp",
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05904-5140e5f0ebbc.webp",
           "alt": "Blue Cross Vermont team portrait 29",
           "caption": "Blue Cross Vermont portrait 29",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-aa6d06ffc77c.webp",
+          "alt": "Blue Cross Vermont team portrait 30",
+          "caption": "Blue Cross Vermont portrait 30",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06006-f7a513156c1c.webp",
+          "alt": "Blue Cross Vermont team portrait 31",
+          "caption": "Blue Cross Vermont portrait 31",
+          "width": 1600,
+          "height": 1067,
+          "wide": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06113-03d765a7344f.webp",
+          "alt": "Blue Cross Vermont team portrait 32",
+          "caption": "Blue Cross Vermont portrait 32",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc05875-fcc4b375ae6b.webp",
+          "alt": "Blue Cross Vermont team portrait 33",
+          "caption": "Blue Cross Vermont portrait 33",
+          "width": 1067,
+          "height": 1600,
+          "wide": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06025-ac47a499a7df.webp",
+          "alt": "Blue Cross Vermont team portrait 34",
+          "caption": "Blue Cross Vermont portrait 34",
           "width": 1600,
           "height": 1067,
           "wide": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc06025-054810c58bb7.webp",
-          "alt": "Blue Cross Vermont team portrait 30",
-          "caption": "Blue Cross Vermont portrait 30",
+          "alt": "Blue Cross Vermont team portrait 35",
+          "caption": "Blue Cross Vermont portrait 35",
           "width": 1600,
           "height": 1067,
           "wide": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/blue-cross/dsc03351-ef379107dd06.webp",
-          "alt": "Blue Cross Vermont team portrait 31",
-          "caption": "Blue Cross Vermont portrait 31",
+          "alt": "Blue Cross Vermont team portrait 36",
+          "caption": "Blue Cross Vermont portrait 36",
           "width": 1600,
           "height": 1067,
           "wide": true

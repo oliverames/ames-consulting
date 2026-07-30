@@ -302,7 +302,7 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
     `2 of ${firstGalleryCount}`,
   );
   await page.goto("/work/blue-cross-portraits/");
-  await expect(page.locator(".portrait-gallery img")).toHaveCount(31);
+  await expect(page.locator(".portrait-gallery img")).toHaveCount(36);
 });
 
 test("Flight Paths is a standalone video series", async ({ page }) => {

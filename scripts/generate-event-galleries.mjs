@@ -1,14 +1,21 @@
 #!/usr/bin/env node
 
 import { execFile } from "node:child_process";
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
-const blueCrossRoot = "/Users/oliverames/Documents/BCBS/Photography";
+const blueCrossRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
 const eastRiseData = JSON.parse(await readFile(path.join(root, "assets/data/eastrise-photography.json"), "utf8"));
+const blueCrossSourcesAvailable = await access(blueCrossRoot).then(() => true, () => false);
+
+function blueCrossSource(slug, source) {
+  return blueCrossSourcesAvailable
+    ? { source: path.join(blueCrossRoot, source) }
+    : { source: path.join(root, "assets/images/work/events", slug), prepared: true };
+}
 
 const definitions = [
   {
@@ -16,7 +23,7 @@ const definitions = [
     title: "Corporate Cup 2026",
     eyebrow: "Event photography · Blue Cross Vermont · May 14, 2026",
     intro: "A workday in Montpelier turned into a citywide race. I photographed the Blue Cross Vermont team, the start, the course, and the moments around the finish.",
-    source: `${blueCrossRoot}/2026-05-14 – Corporate Cup/Edited Selects`,
+    ...blueCrossSource("corporate-cup-2026", "2026-05-14 – Corporate Cup/Edited Selects"),
     organization: "Blue Cross Vermont",
   },
   {
@@ -24,7 +31,7 @@ const definitions = [
     title: "Girls on the Run 2026",
     eyebrow: "Event photography · Blue Cross Vermont · May 30, 2026",
     intro: "The finish line mattered, but the story was everywhere: teams arriving together, handmade signs, nervous starts, muddy shoes, and people making room for every runner.",
-    source: `${blueCrossRoot}/2026-05-30 – GOTR/Edited Selects`,
+    ...blueCrossSource("girls-on-the-run-2026", "2026-05-30 – GOTR/Edited Selects"),
     organization: "Blue Cross Vermont",
   },
   {
@@ -95,7 +102,9 @@ async function processImages(definition) {
       : path.join(root, "assets/images/work/events", definition.slug, `${path.basename(file, path.extname(file)).toLowerCase()}.webp`);
     if (!definition.prepared) {
       await mkdir(path.dirname(destination), { recursive: true });
-      await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", "1600x1600>", "-strip", "-quality", "82", destination]);
+      const maximumSize = definition.organization === "Blue Cross Vermont" ? "2400x2400>" : "1600x1600>";
+      const quality = definition.organization === "Blue Cross Vermont" ? "86" : "82";
+      await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", maximumSize, "-strip", "-quality", quality, destination]);
     }
     const [width, height] = (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", destination])).stdout.trim().split(" ").map(Number);
     const alt = definition.slug === "giron-family-fall-2025"

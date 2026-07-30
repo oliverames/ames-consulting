@@ -8,8 +8,15 @@ import { promisify } from "node:util";
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
 const blueCrossRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
+const gironRoot = "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/Kevin and Kayla Fall 2025/Deliverables";
 const eastRiseData = JSON.parse(await readFile(path.join(root, "assets/data/eastrise-photography.json"), "utf8"));
-const blueCrossSourcesAvailable = await access(blueCrossRoot).then(() => true, () => false);
+const existingEventData = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
+const blueCrossSourcesAvailable = !process.env.CI && await access(blueCrossRoot).then(() => true, () => false);
+const gironSourcesAvailable = !process.env.CI && await access(gironRoot).then(() => true, () => false);
+const existingDimensions = new Map(existingEventData.campaigns.flatMap((campaign) => campaign.images.map((image) => [
+  `${campaign.slug}/${path.basename(image.src)}`,
+  [image.width, image.height],
+])));
 
 function blueCrossSource(slug, source) {
   return blueCrossSourcesAvailable
@@ -39,7 +46,8 @@ const definitions = [
     title: "Giron Family, Fall 2025",
     eyebrow: "Family photography · Vermont · Fall 2025",
     intro: "A family session that moved from open fields into the fall woods, leaving room for the posed photographs and the much better moments that happened between them.",
-    source: "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/Kevin and Kayla Fall 2025/Deliverables",
+    source: gironSourcesAvailable ? gironRoot : path.join(root, "assets/images/work/events/giron-family-fall-2025"),
+    prepared: !gironSourcesAvailable,
     organization: "Giron family",
   },
   {
@@ -85,7 +93,10 @@ async function processImages(definition) {
   const sourcePattern = definition.prepared ? /\.webp$/i : /\.jpe?g$/i;
   let files = (await readdir(definition.source)).filter((file) => sourcePattern.test(file)).sort();
   if (definition.slug === "giron-family-fall-2025") {
-    const openingSequence = ["DSC06144.jpg", "DSC06117.jpg", "DSC06125.jpg", "DSC06145.jpg", "DSC06162.jpg"];
+    const sourceOpeningSequence = ["DSC06144.jpg", "DSC06117.jpg", "DSC06125.jpg", "DSC06145.jpg", "DSC06162.jpg"];
+    const openingSequence = definition.prepared
+      ? sourceOpeningSequence.map((file) => `${path.basename(file, path.extname(file)).toLowerCase()}.webp`)
+      : sourceOpeningSequence;
     files = [...openingSequence, ...files.filter((file) => !openingSequence.includes(file))];
   }
   if (definition.openingSequence) {
@@ -106,7 +117,10 @@ async function processImages(definition) {
       const quality = definition.organization === "Blue Cross Vermont" ? "86" : "82";
       await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", maximumSize, "-strip", "-quality", quality, destination]);
     }
-    const [width, height] = (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", destination])).stdout.trim().split(" ").map(Number);
+    const [width, height] = definition.prepared
+      ? existingDimensions.get(`${definition.slug}/${path.basename(destination)}`) || []
+      : (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", destination])).stdout.trim().split(" ").map(Number);
+    if (!width || !height) throw new Error(`Missing checked-in dimensions for ${destination}`);
     const alt = definition.slug === "giron-family-fall-2025"
       ? `Giron family fall portrait session, photograph ${index + 1} of ${files.length}`
       : `${definition.title}, photograph ${index + 1} of ${files.length}`;

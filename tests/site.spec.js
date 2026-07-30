@@ -296,8 +296,13 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
   await page.goto("/work/portraits-and-people/");
   await expect(page.locator(".work-item")).toHaveCount(2);
   await page.goto("/work/eastrise-portraits/");
-  await expect(page.locator(".portrait-gallery img")).toHaveCount(45);
-  const firstGallery = page.locator(".portrait-gallery");
+  await expect(page.locator(".portrait-gallery img")).toHaveCount(40);
+  await expect(page.locator(".portrait-gallery--featured img")).toHaveCount(11);
+  await expect(page.getByAltText("Portrait of Yvonne Garand")).toHaveCount(1);
+  for (const removedName of ["Samantha Waters", "Pamela Wooster", "Marty DiVenuti", "Mike Bouffard", "Lori Grego", "Kelley Colby", "Jim Oberg", "Frank G. Harris"]) {
+    await expect(page.getByAltText(`Portrait of ${removedName}`)).toHaveCount(0);
+  }
+  const firstGallery = page.locator(".portrait-gallery").first();
   const firstGalleryCount = await firstGallery.locator("img").count();
   const firstPortrait = firstGallery.locator("img").first();
   await firstPortrait.click();
@@ -312,10 +317,10 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
   await page.locator("#image-viewer-close").click();
   await firstGallery.locator("img").last().click();
   await expect(page.locator("#image-viewer-caption")).toContainText(
-    "Valerie Beaudin · EastRise senior team",
+    "Yvonne Garand · Former EastRise senior vice president",
   );
   await expect(page.locator("#image-viewer-caption")).toContainText(
-    `45 of ${firstGalleryCount}`,
+    `${firstGalleryCount} of ${firstGalleryCount}`,
   );
   await page.goto("/work/blue-cross-portraits/");
   await expect(page.locator(".portrait-gallery img")).toHaveCount(7);

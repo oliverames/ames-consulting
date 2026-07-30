@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-07-30",
-  "totalImages": 52,
+  "totalImages": 47,
   "series": [
     {
       "title": "EastRise leadership and board",
@@ -13,7 +13,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/amanda-seeholzer-65a4fab5390d.webp",
@@ -22,7 +23,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/amy-vaughan-f56acbe945f7.webp",
@@ -31,7 +33,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/arthur-g-woolf-001f95fa1205.webp",
@@ -40,7 +43,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/caroline-cross-3b74de79d7e7.webp",
@@ -49,7 +53,8 @@
           "width": 300,
           "height": 300,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp",
@@ -58,7 +63,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/christine-corbett-f205162e07db.webp",
@@ -67,7 +73,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/deanna-carol-09198be91fcf.webp",
@@ -76,7 +83,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/danielle-whitcomb-c469efe1923c.webp",
@@ -85,7 +93,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/denisa-yee-f468ef43177a.webp",
@@ -94,7 +103,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/emily-phelps-d5f17dad9b60.webp",
@@ -103,16 +113,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/frank-g-harris-2858668bfeee.webp",
-          "alt": "Portrait of Frank G. Harris",
-          "caption": "Frank G. Harris",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/george-sales-6147547e9321.webp",
@@ -121,7 +123,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/greg-1e9fb95882f7.webp",
@@ -130,7 +133,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/ibby-wilson-c0dd6ff4d25a.webp",
@@ -139,7 +143,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/ian-squirrell-07f536eac8c6.webp",
@@ -148,7 +153,8 @@
           "width": 347,
           "height": 396,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/jc-gepigon-120bfc4174df.webp",
@@ -157,16 +163,8 @@
           "width": 700,
           "height": 800,
           "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/jim-oberg-741a8551b1d5.webp",
-          "alt": "Portrait of Jim Oberg",
-          "caption": "Jim Oberg",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/jim-towne-8c7c16c59130.webp",
@@ -175,7 +173,8 @@
           "width": 1280,
           "height": 1600,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/john-dwyer-a32c6fed2b06.webp",
@@ -184,7 +183,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/julie-jorgensen-785822e57df4.webp",
@@ -193,7 +193,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/julie-lineberger-1bce039db269.webp",
@@ -202,7 +203,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/kathleen-s-emery-ginn-0923864444e4.webp",
@@ -211,25 +213,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/kelley-colby-4eb9b08c837e.webp",
-          "alt": "Portrait of Kelley Colby",
-          "caption": "Kelley Colby",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/lori-grego-5292423880ea.webp",
-          "alt": "Portrait of Lori Grego",
-          "caption": "Lori Grego",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/luke-buglion-gluck-d4bac0e9c5f2.webp",
@@ -238,16 +223,18 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/margaret-h-odonnell-8392b7cf89e5.webp",
-          "alt": "Portrait of Margaret H. ODonnell",
-          "caption": "Margaret H. ODonnell",
+          "alt": "Portrait of Margaret H. O’Donnell",
+          "caption": "Margaret H. O’Donnell",
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/mark-30f1ccb7c42a.webp",
@@ -256,16 +243,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/marty-divenuti-e157e12050fc.webp",
-          "alt": "Portrait of Marty DiVenuti",
-          "caption": "Marty DiVenuti",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/matt-sjoblom-5fd0e05eb0aa.webp",
@@ -274,7 +253,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/michael-hogan-b682c74b872f.webp",
@@ -283,25 +263,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/mike-bouffard-42125408a182.webp",
-          "alt": "Portrait of Mike Bouffard",
-          "caption": "Mike Bouffard",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/pamela-wooster-fc88002afc50.webp",
-          "alt": "Portrait of Pamela Wooster",
-          "caption": "Pamela Wooster",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/penny-overton-afc73b598499.webp",
@@ -310,7 +273,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/rion-bleicher-a7c9d6c6a682.webp",
@@ -319,7 +283,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/rob-8bfc691871e1.webp",
@@ -328,16 +293,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
-        },
-        {
-          "src": "../../assets/images/work/portraits/gallery/eastrise/samantha-waters-4ba3ee0a0be9.webp",
-          "alt": "Portrait of Samantha Waters",
-          "caption": "Samantha Waters",
-          "width": 500,
-          "height": 571,
-          "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/sara-wright-c46a02cd0123.webp",
@@ -346,7 +303,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/sarah-spaulding-c55a605c8245.webp",
@@ -355,7 +313,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp",
@@ -364,7 +323,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": true
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
@@ -373,7 +333,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/stephanie-meunier-642aefa190aa.webp",
@@ -382,7 +343,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/subha-luck-d0788fbd44e9.webp",
@@ -391,7 +353,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/sue-ee8e3f857bee.webp",
@@ -400,7 +363,8 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board"
+          "context": "EastRise leadership and board",
+          "featured": false
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/valerie-3c27bcc65850.webp",
@@ -409,7 +373,38 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise senior team"
+          "context": "EastRise senior team",
+          "featured": true
+        },
+        {
+          "src": "../../assets/images/testimonials/yvonne-garand.webp",
+          "alt": "Portrait of Yvonne Garand",
+          "caption": "Yvonne Garand",
+          "width": 400,
+          "height": 400,
+          "wide": false,
+          "context": "Former EastRise senior vice president",
+          "featured": true
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/elizabeth-morton-7fa90d0baa56.webp",
+          "alt": "Portrait of Elizabeth Morton",
+          "caption": "Elizabeth Morton",
+          "width": 500,
+          "height": 571,
+          "wide": false,
+          "context": "EastRise leadership and board",
+          "featured": false
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/rick-hommel-48907ad04940.webp",
+          "alt": "Portrait of Rick Hommel",
+          "caption": "Rick Hommel",
+          "width": 500,
+          "height": 571,
+          "wide": false,
+          "context": "EastRise leadership and board",
+          "featured": false
         }
       ]
     },

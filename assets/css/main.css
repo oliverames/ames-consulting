@@ -575,6 +575,10 @@
     margin-bottom: 0.55rem;
   }
 
+  .case-section:has(> .case-section__body) {
+    padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
   .testimonial-band {
     width: var(--web-measure-wide, min(64rem, 92vw));
     margin-inline: auto;

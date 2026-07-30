@@ -21,10 +21,18 @@ const records = Object.values(provenance.assets || {});
 const sources = [...new Map(records.filter((record) => record.source_url).map((record) => [record.source_url, record])).entries()]
   .map(([source_url, record]) => ({ source_url, source_channel: record.source_channel }));
 
-const canonicalUrl = (value) => value
-  .replace("://www.instagram.com/eastrisecu/", "://www.instagram.com/")
-  .replace(/[?#].*$/, "")
-  .replace(/\/$/, "");
+const canonicalUrl = (value) => {
+  const url = new URL(value);
+  url.hash = "";
+  if (url.hostname === "www.instagram.com") url.pathname = url.pathname.replace(/^\/eastrisecu\//, "/");
+  if (url.hostname === "www.linkedin.com") url.search = "";
+  if (url.hostname === "www.youtube.com" && url.pathname === "/watch") {
+    const videoId = url.searchParams.get("v");
+    url.search = videoId ? `?v=${videoId}` : "";
+  }
+  url.pathname = url.pathname.replace(/\/$/, "");
+  return url.toString();
+};
 const sourceId = (url, channel) => `${String(channel || "source").toLowerCase()}-${createHash("sha256").update(canonicalUrl(url)).digest("hex").slice(0, 16)}`;
 const manifestByUrl = new Map(captureManifest.map((entry) => [canonicalUrl(entry.url), entry]));
 

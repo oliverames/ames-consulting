@@ -40,7 +40,8 @@ const definitions = [
     title: "Vermont Foodbank Volunteer Day",
     eyebrow: "Documentary photography · Vermont Foodbank · January 21, 2026",
     intro: "Volunteers packed food for distribution inside the Vermont Foodbank warehouse. I photographed the work itself, the people moving through it, and the small details that made the day feel specific.",
-    source: "/Users/oliverames/Desktop/VT Foodbank Shoot",
+    source: path.join(root, "assets/images/work/events/vermont-foodbank-volunteer-day-2026"),
+    prepared: true,
     organization: "Vermont Foodbank",
     openingSequence: ["DSC08460.jpg", "DSC08342.jpg", "DSC08358.jpg", "DSC08434.jpg", "DSC08364.jpg"],
   },
@@ -49,7 +50,8 @@ const definitions = [
     title: "Andrew at BETA",
     eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
     intro: "Andrew at work inside BETA Technologies, photographed with the aircraft, tools, and manufacturing environment that give his role its context.",
-    source: "/Users/oliverames/Desktop/BETA ANDREW",
+    source: path.join(root, "assets/images/work/events/beta-andrew"),
+    prepared: true,
     organization: "BETA Technologies",
   },
   {
@@ -57,7 +59,8 @@ const definitions = [
     title: "Emma at BETA",
     eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
     intro: "A workplace portrait series following Emma inside BETA Technologies, moving between portraiture, hands-on detail, and the larger manufacturing floor.",
-    source: "/Users/oliverames/Desktop/BETA EMMA",
+    source: path.join(root, "assets/images/work/events/beta-emma"),
+    prepared: true,
     organization: "BETA Technologies",
   },
   {
@@ -65,26 +68,35 @@ const definitions = [
     title: "Ethan at BETA",
     eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
     intro: "Ethan at work inside BETA Technologies, photographed as a person within a much larger system of tools, components, and aircraft manufacturing.",
-    source: "/Users/oliverames/Desktop/BETA ETHAN",
+    source: path.join(root, "assets/images/work/events/beta-ethan"),
+    prepared: true,
     organization: "BETA Technologies",
   },
 ];
 
 async function processImages(definition) {
-  let files = (await readdir(definition.source)).filter((file) => /\.jpe?g$/i.test(file)).sort();
+  const sourcePattern = definition.prepared ? /\.webp$/i : /\.jpe?g$/i;
+  let files = (await readdir(definition.source)).filter((file) => sourcePattern.test(file)).sort();
   if (definition.slug === "giron-family-fall-2025") {
     const openingSequence = ["DSC06144.jpg", "DSC06117.jpg", "DSC06125.jpg", "DSC06145.jpg", "DSC06162.jpg"];
     files = [...openingSequence, ...files.filter((file) => !openingSequence.includes(file))];
   }
   if (definition.openingSequence) {
-    files = [...definition.openingSequence, ...files.filter((file) => !definition.openingSequence.includes(file))];
+    const openingSequence = definition.prepared
+      ? definition.openingSequence.map((file) => `${path.basename(file, path.extname(file)).toLowerCase()}.webp`)
+      : definition.openingSequence;
+    files = [...openingSequence, ...files.filter((file) => !openingSequence.includes(file))];
   }
   const images = [];
   for (const [index, file] of files.entries()) {
     const source = path.join(definition.source, file);
-    const destination = path.join(root, "assets/images/work/events", definition.slug, `${path.basename(file, path.extname(file)).toLowerCase()}.webp`);
-    await mkdir(path.dirname(destination), { recursive: true });
-    await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", "1600x1600>", "-strip", "-quality", "82", destination]);
+    const destination = definition.prepared
+      ? source
+      : path.join(root, "assets/images/work/events", definition.slug, `${path.basename(file, path.extname(file)).toLowerCase()}.webp`);
+    if (!definition.prepared) {
+      await mkdir(path.dirname(destination), { recursive: true });
+      await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", "1600x1600>", "-strip", "-quality", "82", destination]);
+    }
     const [width, height] = (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", destination])).stdout.trim().split(" ").map(Number);
     const alt = definition.slug === "giron-family-fall-2025"
       ? `Giron family fall portrait session, photograph ${index + 1} of ${files.length}`
@@ -126,5 +138,5 @@ for (const campaign of campaigns) {
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, html);
 }
-await writeFile(path.join(root, "assets/data/event-galleries.json"), `${JSON.stringify({ generatedAt: "2026-07-29", campaigns: campaigns.map(({ source: _source, ...campaign }) => campaign) }, null, 2)}\n`);
+await writeFile(path.join(root, "assets/data/event-galleries.json"), `${JSON.stringify({ generatedAt: "2026-07-29", campaigns: campaigns.map(({ source: _source, prepared: _prepared, ...campaign }) => campaign) }, null, 2)}\n`);
 console.log(campaigns.map((campaign) => `${campaign.title}: ${campaign.images.length}`).join("\n"));

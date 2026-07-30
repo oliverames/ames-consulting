@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build:site": "node scripts/generate-service-pages.mjs && node scripts/generate-event-galleries.mjs && node scripts/generate-career-work-pages.mjs && node scripts/generate-credit-union-websites-page.mjs && node scripts/generate-contact-page.mjs && node scripts/generate-about-page.mjs && node scripts/generate-testimonials.mjs && node scripts/generate-writing-pages.mjs && node scripts/generate-brand-icons.mjs && node scripts/refine-home.mjs && node scripts/refine-work.mjs && node scripts/refine-about.mjs && node scripts/refine-contact.mjs && node scripts/apply-shared-ui.mjs && node scripts/build-site.mjs",
+    "build:site": "node scripts/generate-service-pages.mjs && node scripts/generate-event-galleries.mjs && node scripts/generate-career-work-pages.mjs && node scripts/generate-software-pages.mjs && node scripts/generate-credit-union-websites-page.mjs && node scripts/generate-contact-page.mjs && node scripts/generate-about-page.mjs && node scripts/generate-testimonials.mjs && node scripts/generate-writing-pages.mjs && node scripts/generate-brand-icons.mjs && node scripts/refine-home.mjs && node scripts/refine-work.mjs && node scripts/refine-about.mjs && node scripts/refine-contact.mjs && node scripts/apply-shared-ui.mjs && node scripts/build-site.mjs",
     "refresh:writing": "node scripts/refresh-writing-content.mjs && node scripts/generate-writing-pages.mjs",
     "generate:public-site": "node scripts/generate-public-site.mjs && node scripts/generate-career-work-pages.mjs && node scripts/generate-writing-pages.mjs",
     "generate:writing": "node scripts/generate-writing-pages.mjs",

@@ -72,6 +72,10 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/work/green-mountain-community-fitness/`,
     `${siteUrl}/work/sweat-heart-throwdown/`,
     `${siteUrl}/work/bike-fitting/`,
+    `${siteUrl}/work/ping-warden/`,
+    `${siteUrl}/work/meta-mcp-server/`,
+    `${siteUrl}/work/ynab-mcp-server/`,
+    `${siteUrl}/work/skylight-bridge/`,
     `${siteUrl}/about/`,
     `${siteUrl}/contact/`
   ];

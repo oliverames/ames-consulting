@@ -309,6 +309,14 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
   await expect(page.locator("#image-viewer-caption")).toContainText(
     `2 of ${firstGalleryCount}`,
   );
+  await page.locator("#image-viewer-close").click();
+  await firstGallery.locator("img").last().click();
+  await expect(page.locator("#image-viewer-caption")).toContainText(
+    "Valerie Beaudin · EastRise senior team",
+  );
+  await expect(page.locator("#image-viewer-caption")).toContainText(
+    `45 of ${firstGalleryCount}`,
+  );
   await page.goto("/work/blue-cross-portraits/");
   await expect(page.locator(".portrait-gallery img")).toHaveCount(7);
   await expect(page.locator(".portrait-gallery img").first()).toHaveCSS(

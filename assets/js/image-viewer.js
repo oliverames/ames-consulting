@@ -34,13 +34,14 @@ function buildViewerDialog() {
 
   const title = document.createElement("h2");
   title.id = "image-viewer-title";
-  title.textContent = "Image Viewer";
+  title.className = "visually-hidden";
+  title.textContent = "Image viewer";
 
   const closeButton = document.createElement("button");
   closeButton.id = "image-viewer-close";
   closeButton.type = "button";
   closeButton.setAttribute("aria-label", "Close image viewer");
-  closeButton.textContent = "Close";
+  closeButton.innerHTML = '<span aria-hidden="true">×</span>';
 
   header.append(title, closeButton);
 
@@ -51,7 +52,7 @@ function buildViewerDialog() {
   previousButton.className = "image-viewer-nav image-viewer-nav--previous";
   previousButton.type = "button";
   previousButton.setAttribute("aria-label", "Previous image");
-  previousButton.textContent = "Previous";
+  previousButton.innerHTML = '<span aria-hidden="true">←</span>';
 
   const image = document.createElement("img");
   image.id = "image-viewer-image";
@@ -63,12 +64,20 @@ function buildViewerDialog() {
   const caption = document.createElement("figcaption");
   caption.id = "image-viewer-caption";
 
+  const captionLabel = document.createElement("span");
+  captionLabel.className = "image-viewer-caption__label";
+
+  const captionCount = document.createElement("span");
+  captionCount.className = "image-viewer-caption__count";
+
+  caption.append(captionLabel, captionCount);
+
   const nextButton = document.createElement("button");
   nextButton.id = "image-viewer-next";
   nextButton.className = "image-viewer-nav image-viewer-nav--next";
   nextButton.type = "button";
   nextButton.setAttribute("aria-label", "Next image");
-  nextButton.textContent = "Next";
+  nextButton.innerHTML = '<span aria-hidden="true">→</span>';
 
   figure.append(previousButton, image, nextButton, caption);
   article.append(header, figure);
@@ -140,6 +149,8 @@ export function wireImageViewer() {
   const viewerCaption = document.getElementById("image-viewer-caption");
   const previousButton = document.getElementById("image-viewer-previous");
   const nextButton = document.getElementById("image-viewer-next");
+  const captionLabel = viewerCaption?.querySelector(".image-viewer-caption__label");
+  const captionCount = viewerCaption?.querySelector(".image-viewer-caption__count");
 
   if (
     !(viewer instanceof HTMLDialogElement) ||
@@ -159,7 +170,9 @@ export function wireImageViewer() {
     const sourceImage = activeImages[activeIndex];
     viewerImage.src = sourceImage.currentSrc || sourceImage.src;
     viewerImage.alt = sourceImage.alt || "Image preview";
-    viewerCaption.textContent = `${sourceImage.alt || sourceImage.getAttribute("title") || ""} ${activeIndex + 1} of ${activeImages.length}`.trim();
+    const figureCaption = sourceImage.closest("figure")?.querySelector("figcaption")?.textContent?.trim();
+    if (captionLabel) captionLabel.textContent = figureCaption || sourceImage.alt || sourceImage.getAttribute("title") || "";
+    if (captionCount) captionCount.textContent = `${activeIndex + 1} of ${activeImages.length}`;
     const hasMultiple = activeImages.length > 1;
     if (previousButton instanceof HTMLButtonElement) previousButton.hidden = !hasMultiple;
     if (nextButton instanceof HTMLButtonElement) nextButton.hidden = !hasMultiple;
@@ -177,7 +190,8 @@ export function wireImageViewer() {
     viewer.close();
     viewerImage.src = "";
     viewerImage.alt = "";
-    viewerCaption.textContent = "";
+    if (captionLabel) captionLabel.textContent = "";
+    if (captionCount) captionCount.textContent = "";
     activeImages = [];
     activeIndex = -1;
   };
@@ -195,7 +209,8 @@ export function wireImageViewer() {
   viewer.addEventListener("cancel", () => {
     viewerImage.src = "";
     viewerImage.alt = "";
-    viewerCaption.textContent = "";
+    if (captionLabel) captionLabel.textContent = "";
+    if (captionCount) captionCount.textContent = "";
   });
 
   document.addEventListener("click", (event) => {

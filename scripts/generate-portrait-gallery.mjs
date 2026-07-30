@@ -76,6 +76,23 @@ const eastRiseSeries = eastRise.length > 0
     }
   : existingEastRise;
 
+const eastRiseNameOverrides = new Map([
+  ["Greg", "Greg Hahr"],
+  ["Mark", "Mark Ackerly"],
+  ["Rob", "Robert Miller"],
+  ["Sue", "Sue Leonard"],
+  ["Valerie", "Valerie Beaudin"],
+]);
+eastRiseSeries.images = eastRiseSeries.images.map((image) => {
+  const caption = eastRiseNameOverrides.get(image.caption) || image.caption;
+  return {
+    ...image,
+    caption,
+    alt: `Portrait of ${caption}`,
+    context: caption === "Valerie Beaudin" ? "EastRise senior team" : "EastRise leadership and board",
+  };
+});
+
 const blueCrossSeries = {
   title: "Blue Cross Vermont senior team and Lindsay Segale",
   slug: "blue-cross-cbss",
@@ -112,7 +129,7 @@ const gallery = (item) => {
   const description = isBlueCross
     ? "Six senior team headshots and one portrait of Lindsay Segale."
     : `${item.images.length} publicly used and approved portrait selections.`;
-  return `<section class="case-section portrait-series" aria-labelledby="${item.slug}-title"><h2 id="${item.slug}-title">${heading}</h2><p>${description}</p><div class="portrait-gallery" data-gallery="${item.slug}">${item.images.map((image) => `<figure><img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"><figcaption>${image.caption}</figcaption></figure>`).join("")}</div></section>`;
+  return `<section class="case-section portrait-series" aria-labelledby="${item.slug}-title"><h2 id="${item.slug}-title">${heading}</h2><p>${description}</p><div class="portrait-gallery" data-gallery="${item.slug}">${item.images.map((image) => `<figure><img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"><figcaption>${image.caption}${image.context ? ` · ${image.context}` : ""}</figcaption></figure>`).join("")}</div></section>`;
 };
 
 const pageShell = ({ title, description, canonical, body }) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${title} | Ames Consulting</title><meta name="description" content="${description}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${canonical}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${body}</main><footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../taylor-hoar-racing/">Taylor Hoar Racing</a></li><li><a href="../wheels-for-warmth/">Wheels for Warmth</a></li><li><a href="../eastrise-portraits/">EastRise Portraits</a></li><li><a href="../blue-cross-portraits/">Blue Cross Portraits</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p></div></div></footer><script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;

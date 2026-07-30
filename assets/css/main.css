@@ -3619,49 +3619,124 @@
     -webkit-touch-callout: none;
   }
 
+  #image-viewer {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+    background: #111817;
+    color: #faf8f5;
+  }
+
+  #image-viewer::backdrop {
+    background: rgb(10 14 14 / 0.92);
+    backdrop-filter: blur(18px);
+  }
+
   .image-viewer-content {
-    padding: var(--space-2);
+    position: relative;
+    display: grid;
+    min-height: 100%;
+    padding: clamp(1rem, 2.5vw, 2rem);
 
     & header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--space-2);
+      position: absolute;
+      z-index: 3;
+      inset-block-start: clamp(1rem, 2.5vw, 2rem);
+      inset-inline-end: clamp(1rem, 2.5vw, 2rem);
     }
 
     & button {
-      border: var(--border-soft);
-      border-radius: var(--radius-sm);
-      padding: 0.5rem 0.75rem;
-      background: var(--surface-1);
+      display: grid;
+      place-items: center;
+      width: 3.25rem;
+      height: 3.25rem;
+      border: 1px solid rgb(250 248 245 / 0.28);
+      border-radius: 50%;
+      padding: 0;
+      background: rgb(17 24 23 / 0.74);
+      color: #faf8f5;
       cursor: pointer;
+      font: 400 1.65rem/1 var(--font-body);
+      backdrop-filter: blur(12px);
+      transition:
+        background var(--transition-snappy),
+        border-color var(--transition-snappy),
+        transform var(--transition-snappy);
+
+      &:hover {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #111817;
+        transform: scale(1.06);
+      }
+
+      &:focus-visible {
+        outline-color: #faf8f5;
+        outline-offset: 4px;
+      }
     }
 
     & figure {
+      position: relative;
       margin: 0;
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: var(--space-1);
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: clamp(0.8rem, 2vh, 1.5rem);
       align-items: center;
       justify-items: center;
+      min-height: calc(100dvh - clamp(2rem, 5vw, 4rem));
     }
 
     & img {
-      max-inline-size: min(90vw, 72rem);
-      max-block-size: 76dvh;
+      grid-area: 1 / 1;
+      max-inline-size: min(88vw, 80rem);
+      max-block-size: calc(100dvh - 8rem);
       object-fit: contain;
+      border-radius: 0.35rem;
+      box-shadow: 0 1.5rem 5rem rgb(0 0 0 / 0.42);
     }
 
     & figcaption {
-      grid-column: 1 / -1;
-      color: var(--text-1);
+      display: grid;
+      gap: 0.25rem;
+      color: #faf8f5;
       text-align: center;
-      font-size: 0.9rem;
+    }
+
+    & .image-viewer-caption__label {
+      font-family: var(--font-heading);
+      font-size: clamp(1rem, 1.7vw, 1.25rem);
+      font-weight: 600;
+    }
+
+    & .image-viewer-caption__count {
+      color: rgb(250 248 245 / 0.62);
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
     & .image-viewer-nav {
-      min-width: 2.75rem;
-      min-height: 2.75rem;
+      position: absolute;
+      z-index: 2;
+      inset-block-start: 50%;
+      transform: translateY(-50%);
+
+      &:hover {
+        transform: translateY(-50%) scale(1.06);
+      }
+    }
+
+    & .image-viewer-nav--previous {
+      inset-inline-start: 0;
+    }
+
+    & .image-viewer-nav--next {
+      inset-inline-end: 0;
     }
   }
 
@@ -3681,17 +3756,36 @@
       grid-column: 1 / -1;
     }
 
-    .image-viewer-content .image-viewer-nav {
-      position: absolute;
-      inset-block-start: 50%;
-      z-index: 1;
-    }
+    .image-viewer-content {
+      padding: 0.75rem;
 
-    .image-viewer-nav--previous {
-      inset-inline-start: 0.75rem;
-    }
-    .image-viewer-nav--next {
-      inset-inline-end: 0.75rem;
+      & header {
+        inset-block-start: 0.75rem;
+        inset-inline-end: 0.75rem;
+      }
+
+      & button {
+        width: 2.85rem;
+        height: 2.85rem;
+      }
+
+      & figure {
+        min-height: calc(100dvh - 1.5rem);
+        padding-block-start: 3.5rem;
+      }
+
+      & img {
+        max-inline-size: calc(100vw - 1.5rem);
+        max-block-size: calc(100dvh - 10rem);
+      }
+
+      & .image-viewer-nav--previous {
+        inset-inline-start: 0.35rem;
+      }
+
+      & .image-viewer-nav--next {
+        inset-inline-end: 0.35rem;
+      }
     }
   }
 

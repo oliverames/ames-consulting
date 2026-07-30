@@ -8,6 +8,11 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const workIndexPath = join(root, "work", "index.html");
 const eastRisePhotography = JSON.parse(await readFile(join(root, "assets", "data", "eastrise-photography.json"), "utf8"));
 const eastRiseSocial = JSON.parse(await readFile(join(root, "assets", "data", "eastrise-social.json"), "utf8"));
+const escapeHtml = (value) => String(value)
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;");
 
 const institutional = `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list"><a class="work-item" href="eastrise/"><img src="../assets/images/work/eastrise/wheels-for-warmth-card.webp" alt="Wheels for Warmth tire collection" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Credit Union</h3><p>Six years of audience strategy, brand photography, campaigns, writing, video, and two website redesigns.</p></a><a class="work-item" href="blue-cross-vermont/"><img src="../assets/images/work/blue-cross/arrayrx-card.webp" alt="ArrayRx press conference photographed for Blue Cross Vermont" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Vermont</h3><p>Photography, community storytelling, video, social content, and digital infrastructure.</p></a><a class="work-item" href="beta-technologies/"><img src="../assets/images/work/campaigns/flight-paths.webp" alt="Flight Paths: Emma at BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · 2026</span><h3>BETA Technologies</h3><p>Documentary video about a Vermont aviation career built through an unexpected route.</p></a></div></section>`;
 
@@ -15,7 +20,7 @@ const earlier = `<section class="work-category work-category--earlier"><h2>Earli
 
 const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the last exhausted finish.</p></a><a class="work-item" href="bike-fitting/"><img src="../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025</span><h3>Bike Fitting</h3><p>A close, practical photo story about expertise, adjustment, and the small details that help a rider fit the bike.</p></a>`;
 
-const eastRisePhotographyCard = `<a class="work-item" href="eastrise-photography/"><img src="../assets/images/work/eastrise/taylor-milk-bowl-card.webp" alt="Taylor Hoar racing at Thunder Road" loading="lazy"><span class="work-item__context">EastRise · 2019–2025</span><h3>EastRise Photography</h3><p>${eastRisePhotography.totalImages} publicly published photographs organized by shoot, campaign, and series.</p></a>`;
+const eastRiseStandaloneSlugs = new Set(["taylor-hoar-racing", "eastrise-launch", "formal-headshots", "eastrise-candid-portraits"]);
 const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>Social Highlights</h3><p>Selected member stories, community coverage, campaigns, and lighter moments from six years of social publishing.</p></a>`;
 const gironFamilyCard = `<a class="work-item" href="giron-family-fall-2025/"><img src="../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family during a fall portrait session" loading="lazy"><span class="work-item__context">Family photography · Fall 2025</span><h3>Giron Family</h3><p>A 36-image family session moving from open fields into the fall woods.</p></a>`;
 const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-2026/"><img src="../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"><span class="work-item__context">Vermont Foodbank · January 2026</span><h3>Vermont Foodbank Volunteer Day</h3><p>A 38-image documentary series about the people and process behind a volunteer packing day.</p></a>`;
@@ -26,12 +31,6 @@ const betaEthanCard = `<a class="work-item" href="beta-ethan/"><img src="../asse
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
 const sourceLink = (href, label) => `<a href="${href}" rel="noopener">${label}</a>`;
-const escapeHtml = (value) => String(value)
-  .replaceAll("&", "&amp;")
-  .replaceAll("<", "&lt;")
-  .replaceAll(">", "&gt;")
-  .replaceAll('"', "&quot;");
-
 function sortWorkSection(html, heading, order) {
   const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const sectionPattern = new RegExp(
@@ -87,7 +86,7 @@ const campaignOrder = [
   "eastrise-writing/",
   "wheels-for-warmth/",
   "taylor-hoar-racing/",
-  "eastrise-photography/",
+  ...eastRisePhotography.series.filter((series) => !eastRiseStandaloneSlugs.has(series.slug)).map((series) => `eastrise-photography/#${series.slug}-title`),
   "bike-fitting/",
   "eastrise-launch-campaign/",
   "credit-union-websites/",
@@ -172,10 +171,12 @@ workIndex = workIndex.replace(legacyProof.test(workIndex) ? legacyProof : curren
 if (!workIndex.includes('href="sweat-heart-throwdown/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${gmcfCampaignCards}`);
 }
-if (workIndex.includes('href="eastrise-photography/"')) {
-  workIndex = workIndex.replace(/<a class="work-item" href="eastrise-photography\/">.*?<\/a>/, eastRisePhotographyCard);
-} else {
-  workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${eastRisePhotographyCard}`);
+workIndex = workIndex.replace(/<a class="work-item" href="eastrise-photography\/"\s*>[\s\S]*?<\/a\s*>/, "");
+for (const series of eastRisePhotography.series.filter((item) => !eastRiseStandaloneSlugs.has(item.slug))) {
+  const href = `eastrise-photography/#${series.slug}-title`;
+  const image = series.images[0];
+  const card = `<a class="work-item" href="${href}"><img src="${image.src.replace("../../assets/", "../assets/")}" alt="${escapeHtml(image.alt)}" loading="lazy"><span class="work-item__context">EastRise · ${series.images.length} photographs</span><h3>${series.title}</h3><p>${series.description}</p></a>`;
+  workIndex = upsertWorkCard(workIndex, "Campaigns and series", href, card);
 }
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-social/", eastRiseSocialCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "giron-family-fall-2025/", gironFamilyCard);
@@ -187,6 +188,7 @@ if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }
 workIndex = workIndex
+  .replaceAll("../assets/images/work/blue-cross/gotr.webp", "../assets/images/work/events/girls-on-the-run-2026/dsc05132.webp")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01141.webp", "../assets/images/work/gmcf/sweat-heart-card.webp")
   .replace("../assets/images/work/gmcf/bike-fitting/dsc09620.webp", "../assets/images/work/gmcf/bike-fitting-card.webp")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01706.webp", "../assets/images/work/gmcf/gmcf-card.webp");
@@ -198,7 +200,7 @@ await writeFile(workIndexPath, workIndex);
 for (const page of pages) {
   let content = page.sections.map(([title, body]) => `<section class="case-section"><h2>${title}</h2><div class="case-section__body">${body}</div></section>`).join("");
   if (page.photoSeries) {
-    content += page.photoSeries.map((series) => `<section class="case-section photo-series" aria-labelledby="${series.slug}-title"><h2 id="${series.slug}-title">${series.title}</h2><p>${series.description}</p><div class="campaign-collage" data-gallery="eastrise-${series.slug}">${series.images.map((image, index) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async" data-series-position="${index + 1}">`).join("")}</div></section>`).join("");
+    content += page.photoSeries.map((series) => `<section class="case-section photo-series" aria-labelledby="${series.slug}-title"><h2 id="${series.slug}-title">${series.title}</h2><p>${series.description}</p>${series.videoId ? `<div class="video-embed photo-series__video"><iframe src="https://www.youtube-nocookie.com/embed/${series.videoId}" title="${series.title} member story" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>` : ""}<div class="campaign-collage" data-gallery="eastrise-${series.slug}">${series.images.map((image, index) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async" data-orientation="${image.height > image.width ? "portrait" : "landscape"}" data-series-position="${index + 1}">`).join("")}</div></section>`).join("");
   }
   if (page.gallery) {
     const galleryDirectory = join(root, "assets", "images", "work", "gmcf", page.gallery.directory);

@@ -13,7 +13,7 @@ const eastRiseData = JSON.parse(await readFile(path.join(root, "assets/data/east
 const existingEventData = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
 const blueCrossSourcesAvailable = !process.env.CI && await access(blueCrossRoot).then(() => true, () => false);
 const gironSourcesAvailable = !process.env.CI && await access(gironRoot).then(() => true, () => false);
-const existingDimensions = new Map(existingEventData.campaigns.flatMap((campaign) => campaign.images.map((image) => [
+const existingDimensions = new Map(existingEventData.campaigns.flatMap((campaign) => campaign.images.filter((image) => image?.src).map((image) => [
   `${campaign.slug}/${path.basename(image.src)}`,
   [image.width, image.height],
 ])));
@@ -132,8 +132,8 @@ async function processImages(definition) {
 const campaigns = [];
 for (const definition of definitions) campaigns.push({ ...definition, images: await processImages(definition) });
 
-const launchSeries = eastRiseData.series.find((series) => series.title === "Member and Business Stories");
-const launchImages = launchSeries.images.filter((image) => /2024-10-(16|23)_/.test(image.src));
+const launchSeries = eastRiseData.series.find((series) => series.slug === "eastrise-launch");
+const launchImages = launchSeries.images;
 campaigns.push({
   slug: "eastrise-launch-campaign",
   title: "EastRise Launch Campaign",

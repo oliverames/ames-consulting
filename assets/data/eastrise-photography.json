@@ -1,12 +1,12 @@
 {
   "generatedAt": "2026-07-29",
   "publicSourceOnly": true,
-  "totalImages": 165,
+  "totalImages": 148,
   "series": [
     {
       "slug": "shred-fest",
       "title": "Shred Fest",
-      "description": "A public document-destruction and community service series.",
+      "description": "Document destruction and community service at EastRise branches.",
       "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/shred-fest/2025-08-15_20-02-13_UTC_DNY2qNUyTBU_1-4aa105ad20ce.webp",
@@ -51,9 +51,9 @@
       ]
     },
     {
-      "slug": "member-stories",
-      "title": "Member Stories",
-      "description": "Member photography used to tell practical stories about homes, families, and financial decisions.",
+      "slug": "karina-and-ryan",
+      "title": "Karina and Ryan",
+      "description": "A first-time homebuyer story photographed with Karina, Ryan, and their family.",
       "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/member-stories/2025-07-29_17-21-27_UTC_DMsyvgyuon8_3-ed215752755c.webp",
@@ -127,6 +127,30 @@
           "sourceUrl": "https://www.instagram.com/p/DMsyvgyuon8/",
           "sourcePlatform": "Instagram"
         },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_5084399b15cb-337278d635d9.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFQVMauJolAtA/image-shrink_800/B4EZhXM4i9GUAc-/0/1753809652424?e=1774634400&v=beta&t=wFOHMgA8008fzxTZNG2LX5hN_n5PYqyqnmkG5UwEksc",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_5d8c3705d4f8-8939c9a5e8f4.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQEgG4bepao4-Q/image-shrink_800/B4EZhXM4r6GwAg-/0/1753809653257?e=1774634400&v=beta&t=ZlpiwQDAx-ZCvzhhrC9npOgBLFVdRqu1dWTJ_hJmgiI",
+          "sourcePlatform": "LinkedIn"
+        }
+      ],
+      "videoId": "bFtuCFhGZQg"
+    },
+    {
+      "slug": "john-and-donia",
+      "title": "John and Donia",
+      "description": "An EastRise member story photographed at home with John and Donia.",
+      "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/member-stories/2025-08-06_19-22-56_UTC_DNBnAXzpEnQ_5-356776251e03.webp",
           "alt": "Meet EastRise members John and Donia.",
@@ -202,32 +226,48 @@
       ]
     },
     {
-      "slug": "people-and-financial-counseling",
-      "title": "People and Financial Counseling",
-      "description": "EastRise staff and financial counselors photographed for public education work.",
+      "slug": "bike-shop-member-story",
+      "title": "Bike Shop Member Story",
+      "description": "A Vermont couple photographed at work inside their bicycle shop.",
       "images": [
         {
-          "src": "../../assets/images/work/eastrise/photography/people-and-financial-counseling/2025-07-30_19-19-28_UTC_DMvlCwct3QB-7e3c7ad28cac.webp",
-          "alt": "Thank you for voting for EastRise in this year’s Seven Daysies for Best Bank/Credit Union and Best Mortgage Provider in Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DMvlCwct3QB/",
-          "sourcePlatform": "Instagram"
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_d43cea4f5fe6-e6629575d7b3.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGH92bFzWKTBQ/image-shrink_800/B4EZiA1au1HIAc-/0/1754508144154?e=1774634400&v=beta&t=pwlJC52x3mu0jpbnzkKDooxPmfKUj0TPGYbM0F9tzhQ",
+          "sourcePlatform": "LinkedIn"
         },
         {
-          "src": "../../assets/images/work/eastrise/photography/people-and-financial-counseling/2025-07-31_14-06-41_UTC_DMxmCwUtjLJ-dc3e85bbd8e9.webp",
-          "alt": "Looking to build your savings or manage debt?",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DMxmCwUtjLJ/",
-          "sourcePlatform": "Instagram"
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_02894d49f0bb-bf986f13890f.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQHKx0ajF-NYng/image-shrink_800/B4EZiA1bDuHoAg-/0/1754508145393?e=1774634400&v=beta&t=_clwsmsOrAfiXShL39fk_kygyMTbAlnsS5wYkBSpGAE",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_54e42f2518e1-6f3e4d5c08f8.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQELqOgvfF67_A/image-shrink_800/B4EZiA1a4MHgAg-/0/1754508144828?e=1774634400&v=beta&t=Sk2ruI9RLPFPeudAaL3kSK2UEwhs1U80k3dY0X91GCU",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_4ae96b17601c-9d5e15ca66c2.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQG8L8SolowKmQ/image-shrink_800/B4EZiA1anxHIAc-/0/1754508143561?e=1774634400&v=beta&t=5J9-_s3DO_ihN-mNB49XPPqYdt4FeFuWzVEaJAqqf9k",
+          "sourcePlatform": "LinkedIn"
         }
       ]
     },
     {
       "slug": "winooski-development",
       "title": "Winooski Development",
-      "description": "A public series documenting housing and economic development in Winooski.",
+      "description": "Housing and economic development photographed in Winooski.",
       "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/winooski-development/2025-06-26_17-53-48_UTC_DLX4NoqvK6-_4-3ec3910fe1ab.webp",
@@ -300,13 +340,422 @@
           "height": 810,
           "sourceUrl": "https://www.instagram.com/p/DLX4NoqvK6-/",
           "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_d161cd689c09-758c3b2c6a54.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 600,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFEm9aTsO27aQ/image-shrink_800/B4EZetdTRpHsAo-/0/1750961829301?e=1774634400&v=beta&t=gbf7jHkir9p_vWe11mJcCKZsFx3nNqUIsPh3XXUgh5U",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_87886176ef78-db722e735368.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 600,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFr9QRtYv1DSQ/image-shrink_800/B4EZetdTkjHwAg-/0/1750961830612?e=1774634400&v=beta&t=nxAaMeqevuPWuefFUdoqstbkTDg3Dc3fVuzSGcjKzhA",
+          "sourcePlatform": "LinkedIn"
         }
       ]
     },
     {
-      "slug": "veggievango",
-      "title": "VeggieVanGo",
-      "description": "Food access and volunteer work with the Vermont Foodbank's VeggieVanGo program.",
+      "slug": "cots-financial-literacy",
+      "title": "COTS Financial Literacy",
+      "description": "EastRise staff sharing practical financial education with COTS participants.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-27_20-20-20_UTC_DKK5I73x2QN_1-8b613b535c01.webp",
+          "alt": "Grateful to have @eastrisecu in last week to teach some financial literacy!",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DKK5I73x2QN/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-27_20-20-20_UTC_DKK5I73x2QN_2-a5ce96f7297f.webp",
+          "alt": "Grateful to have @eastrisecu in last week to teach some financial literacy!",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DKK5I73x2QN/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-27_20-20-20_UTC_DKK5I73x2QN_3-cf320cbe9af8.webp",
+          "alt": "Grateful to have @eastrisecu in last week to teach some financial literacy!",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DKK5I73x2QN/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_38643aee028f-03e615af6186.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 533,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGxq6nEGNxVtQ/image-shrink_800/image-shrink_800/0/1710777990637?e=1774634400&v=beta&t=iQBi9R8UxC7kEcyO2mZigy74nAqCi7hNcwwzVCnWsjU",
+          "sourcePlatform": "LinkedIn"
+        }
+      ]
+    },
+    {
+      "slug": "people-and-financial-counseling",
+      "title": "EastRise Staff at Work",
+      "description": "EastRise staff and financial counselors photographed in their working environment.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/people-and-financial-counseling/2025-07-30_19-19-28_UTC_DMvlCwct3QB-7e3c7ad28cac.webp",
+          "alt": "Thank you for voting for EastRise in this year’s Seven Daysies for Best Bank/Credit Union and Best Mortgage Provider in Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DMvlCwct3QB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/people-and-financial-counseling/2025-07-31_14-06-41_UTC_DMxmCwUtjLJ-dc3e85bbd8e9.webp",
+          "alt": "Looking to build your savings or manage debt?",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DMxmCwUtjLJ/",
+          "sourcePlatform": "Instagram"
+        }
+      ]
+    },
+    {
+      "slug": "formal-headshots",
+      "title": "Formal Headshots",
+      "description": "Formal studio-style portraits made for EastRise public profiles.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_f23578cab800-08f0d5347838.webp",
+          "alt": "A professional portrait of an individual wearing glasses, a dark blue suit, and a playful tie featuring colorful designs, set against a neutral gray background.",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFixx84hNh9UQ/image-shrink_800/image-shrink_800/0/1716310523805?e=1774634400&v=beta&t=wBM-RXf8AS-rCrheh6_xhrm9ZbLz69HS71sLkgg31LE",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_24fdd57c501c-0ddda4c9a133.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFHRFG8rQ999w/image-shrink_800/image-shrink_800/0/1737036017573?e=1774634400&v=beta&t=UTlW-Hmld_kq1s4DdChR6iTwlQMrTKua9R9Mv4HLhq4",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_27f8a29eccaf-0807d8b04742.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQFq3EwoxstAlw/image-shrink_800/image-shrink_800/0/1729010551837?e=1774634400&v=beta&t=t8rdO0h8kzC5Ibfo6x78r6jxhbBpfTovSWPIOh91avg",
+          "sourcePlatform": "LinkedIn"
+        }
+      ]
+    },
+    {
+      "slug": "eastrise-candid-portraits",
+      "title": "EastRise Candid Portraits",
+      "description": "Candid portraits of EastRise leaders and staff.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_f1336164519e-9018f1223a22.webp",
+          "alt": "CEO John Dwyer looking off camera, smiling.",
+          "width": 533,
+          "height": 711,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFSOTULTwY5nQ/image-shrink_1280/B4EZuVAK.SJ8Ac-/0/1767731409124?e=1774634400&v=beta&t=PgJIKS49Ckc4ePOkd1yKOFQS8-bEEHAuZESbl14cmvA",
+          "sourcePlatform": "LinkedIn"
+        }
+      ]
+    },
+    {
+      "slug": "wood-for-good",
+      "title": "Wood for Good",
+      "description": "EastRise volunteers splitting and stacking firewood for neighbors.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/wood-for-good/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_8-3c1cc0ddac69.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_9-1722b4fd7a11.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_3-044bea8a1d0d.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_4-f613d6a36366.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_5-035f559805fa.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_6-61f05ecc4ea0.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_7-6b53d8c7f7ae.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_8-3c1cc0ddac69.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_2-12254a522bfa.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_1-7c51a8e07bdd.webp",
+          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_ea2947a8532f-f4ff22f680ae.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQESdWm8G8_v3g/image-shrink_800/B4EZbuvR4sGcAc-/0/1747762094064?e=1774634400&v=beta&t=lKampLJvIhqRZg3CUMuROc88BAb5O8CmitE8oltZ6m4",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_61491d2ad4ca-c1c3463ba614.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGjiZE9QngXrw/image-shrink_800/B4EZbuvSKkGcAg-/0/1747762095459?e=1774634400&v=beta&t=qjKr_Y0f8ldg59wMwVa5bBZs3geckazKEkym2deBgD4",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_056a8068f216-567a62b48197.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQHEozBCb1HUZw/image-shrink_800/B4EZbuvSXAHYAg-/0/1747762096207?e=1774634400&v=beta&t=huMGPzUN7tcT92EoaYI6HX_G-Ot4VlwsRLgpy1wFaQM",
+          "sourcePlatform": "LinkedIn"
+        }
+      ]
+    },
+    {
+      "slug": "wheels-for-warmth-2024",
+      "title": "Wheels for Warmth 2024",
+      "description": "The 2024 tire collection photographed across volunteers, donors, and the work site.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_2-a4579b1f7505.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_3-c4d58545a28d.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_4-9af79752e714.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_5-263fead679c0.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_6-28029094f440.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_7-ec79415d28bb.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_8-b4cdee1cfad8.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 720,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_9-868dd7b2c527.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_10-43d47c7c6778.webp",
+          "alt": "We had an incredible day at @WheelsforWarmth!",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
+          "sourcePlatform": "Instagram"
+        }
+      ]
+    },
+    {
+      "slug": "veggievango-east-rise",
+      "title": "VeggieVanGo with EastRise",
+      "description": "EastRise staff supporting the Vermont Foodbank's VeggieVanGo distribution.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_1-7471ba48a2b8.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_2-bee0516f3e8d.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_3-88a633a0da76.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_4-84b7d02dfd99.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_5-dfc4b092bd23.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_6-56fb83958af0.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1346,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_7-9f8ae878d7e5.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_8-06f73d0a326d.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_9-6797ed80df61.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_10-eda698a27215.webp",
+          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
+          "sourcePlatform": "Instagram"
+        }
+      ]
+    },
+    {
+      "slug": "veggievango-taylor-hoar",
+      "title": "VeggieVanGo with Taylor Hoar",
+      "description": "Taylor Hoar joining EastRise and the Vermont Foodbank for a VeggieVanGo distribution.",
       "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/veggievango/2025-07-02_17-26-31_UTC_DLnR3ETN4pV_3-f9390a248be7.webp",
@@ -343,200 +792,9 @@
       ]
     },
     {
-      "slug": "linkedin-published-photography",
-      "title": "LinkedIn Published Photography",
-      "description": "Publicly published EastRise photography recovered from LinkedIn.",
-      "images": [
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_f1336164519e-9018f1223a22.webp",
-          "alt": "CEO John Dwyer looking off camera, smiling.",
-          "width": 533,
-          "height": 711,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFSOTULTwY5nQ/image-shrink_1280/B4EZuVAK.SJ8Ac-/0/1767731409124?e=1774634400&v=beta&t=PgJIKS49Ckc4ePOkd1yKOFQS8-bEEHAuZESbl14cmvA",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_fbbb767cda6f-6d1f68e78b60.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1200,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E22AQFE-YIwqamE6w/feedshare-shrink_800/B4EZaRrrxOHoAg-/0/1746200870779?e=1775692800&v=beta&t=22XDaPYMqAVPZxpy42A6UEvFrvncApqKM-MDsOLfxLs",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_f23578cab800-08f0d5347838.webp",
-          "alt": "A professional portrait of an individual wearing glasses, a dark blue suit, and a playful tie featuring colorful designs, set against a neutral gray background.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFixx84hNh9UQ/image-shrink_800/image-shrink_800/0/1716310523805?e=1774634400&v=beta&t=wBM-RXf8AS-rCrheh6_xhrm9ZbLz69HS71sLkgg31LE",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_daa49f294800-056ff6147712.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHKCNe5GkE9FA/image-shrink_800/image-shrink_800/0/1731531465032?e=1774634400&v=beta&t=GVy-lvfN_vJds5Om-N4EXZH4VXte8Plytcl93B395CE",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_ea2947a8532f-f4ff22f680ae.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQESdWm8G8_v3g/image-shrink_800/B4EZbuvR4sGcAc-/0/1747762094064?e=1774634400&v=beta&t=lKampLJvIhqRZg3CUMuROc88BAb5O8CmitE8oltZ6m4",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_d161cd689c09-758c3b2c6a54.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 600,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFEm9aTsO27aQ/image-shrink_800/B4EZetdTRpHsAo-/0/1750961829301?e=1774634400&v=beta&t=gbf7jHkir9p_vWe11mJcCKZsFx3nNqUIsPh3XXUgh5U",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_d43cea4f5fe6-e6629575d7b3.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGH92bFzWKTBQ/image-shrink_800/B4EZiA1au1HIAc-/0/1754508144154?e=1774634400&v=beta&t=pwlJC52x3mu0jpbnzkKDooxPmfKUj0TPGYbM0F9tzhQ",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_56702581a9c7-e8b2bd8d44d5.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 927,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQHAq55B9KFxrQ/image-shrink_800/B4EZtNIy8KKMAg-/0/1766525710477?e=1774634400&v=beta&t=VrbqHNx0TjaSSN863Tl3AOU35KPNpzqZdijbyRsNZno",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_87886176ef78-db722e735368.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 600,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFr9QRtYv1DSQ/image-shrink_800/B4EZetdTkjHwAg-/0/1750961830612?e=1774634400&v=beta&t=nxAaMeqevuPWuefFUdoqstbkTDg3Dc3fVuzSGcjKzhA",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_5084399b15cb-337278d635d9.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFQVMauJolAtA/image-shrink_800/B4EZhXM4i9GUAc-/0/1753809652424?e=1774634400&v=beta&t=wFOHMgA8008fzxTZNG2LX5hN_n5PYqyqnmkG5UwEksc",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_61491d2ad4ca-c1c3463ba614.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGjiZE9QngXrw/image-shrink_800/B4EZbuvSKkGcAg-/0/1747762095459?e=1774634400&v=beta&t=qjKr_Y0f8ldg59wMwVa5bBZs3geckazKEkym2deBgD4",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_38643aee028f-03e615af6186.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 533,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGxq6nEGNxVtQ/image-shrink_800/image-shrink_800/0/1710777990637?e=1774634400&v=beta&t=iQBi9R8UxC7kEcyO2mZigy74nAqCi7hNcwwzVCnWsjU",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_02894d49f0bb-bf986f13890f.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQHKx0ajF-NYng/image-shrink_800/B4EZiA1bDuHoAg-/0/1754508145393?e=1774634400&v=beta&t=_clwsmsOrAfiXShL39fk_kygyMTbAlnsS5wYkBSpGAE",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_54e42f2518e1-6f3e4d5c08f8.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQELqOgvfF67_A/image-shrink_800/B4EZiA1a4MHgAg-/0/1754508144828?e=1774634400&v=beta&t=Sk2ruI9RLPFPeudAaL3kSK2UEwhs1U80k3dY0X91GCU",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_056a8068f216-567a62b48197.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQHEozBCb1HUZw/image-shrink_800/B4EZbuvSXAHYAg-/0/1747762096207?e=1774634400&v=beta&t=huMGPzUN7tcT92EoaYI6HX_G-Ot4VlwsRLgpy1wFaQM",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_53ed1c19acae-0f8603b6f8a2.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQEwMvlucBvh8g/image-shrink_800/image-shrink_800/0/1730997811345?e=1774634400&v=beta&t=9DOOKMpp37DTIvKkNuZrJ5vI_eW268QUomRuXMVOhfA",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_24fdd57c501c-0ddda4c9a133.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFHRFG8rQ999w/image-shrink_800/image-shrink_800/0/1737036017573?e=1774634400&v=beta&t=UTlW-Hmld_kq1s4DdChR6iTwlQMrTKua9R9Mv4HLhq4",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_27f8a29eccaf-0807d8b04742.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQFq3EwoxstAlw/image-shrink_800/image-shrink_800/0/1729010551837?e=1774634400&v=beta&t=t8rdO0h8kzC5Ibfo6x78r6jxhbBpfTovSWPIOh91avg",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_6dd865f2b63a-a7bb13fdae26.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1200,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E22AQHxXFUoQYHgIA/feedshare-shrink_800/B4EZaRrrxPGQAg-/0/1746200870800?e=1775692800&v=beta&t=bytb-3JDoZDf9biL5rYLOk-PEA9dodKfrf-HDThiTPM",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_5d8c3705d4f8-8939c9a5e8f4.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQEgG4bepao4-Q/image-shrink_800/B4EZhXM4r6GwAg-/0/1753809653257?e=1774634400&v=beta&t=ZlpiwQDAx-ZCvzhhrC9npOgBLFVdRqu1dWTJ_hJmgiI",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_4ae96b17601c-9d5e15ca66c2.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQG8L8SolowKmQ/image-shrink_800/B4EZiA1anxHIAc-/0/1754508143561?e=1774634400&v=beta&t=5J9-_s3DO_ihN-mNB49XPPqYdt4FeFuWzVEaJAqqf9k",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_3f3606b341d7-845be7c4b3f5.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFQnhymIDFN2g/image-shrink_800/image-shrink_800/0/1734531615526?e=1774634400&v=beta&t=E01tJRAfn_e6GXxvUN3ucpvXl5_msWORxhaa5IqXFMw",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_2efb609948e1-2c2bdeae5cc5.webp",
-          "alt": "No alternative text description for this image",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHXTKxo8dSVTw/image-shrink_800/image-shrink_800/0/1731531462648?e=1774634400&v=beta&t=VbtfM8TWN8BuIZuxI0iSzUHODPgwFcvtMRI80posXMI",
-          "sourcePlatform": "LinkedIn"
-        }
-      ]
-    },
-    {
       "slug": "taylor-hoar-racing",
       "title": "Taylor Hoar Racing",
-      "description": "Race days, portraits, and sponsor storytelling from Thunder Road and the wider Vermont racing community.",
+      "description": "Race days, portraits, and sponsor storytelling from Thunder Road.",
       "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-75a93b64796d.webp",
@@ -825,346 +1083,29 @@
           "height": 1363,
           "sourceUrl": "https://www.instagram.com/p/DAWNuHROhIO/",
           "sourcePlatform": "Instagram"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_fbbb767cda6f-6d1f68e78b60.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1200,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E22AQFE-YIwqamE6w/feedshare-shrink_800/B4EZaRrrxOHoAg-/0/1746200870779?e=1775692800&v=beta&t=22XDaPYMqAVPZxpy42A6UEvFrvncApqKM-MDsOLfxLs",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_6dd865f2b63a-a7bb13fdae26.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1200,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E22AQHxXFUoQYHgIA/feedshare-shrink_800/B4EZaRrrxPGQAg-/0/1746200870800?e=1775692800&v=beta&t=bytb-3JDoZDf9biL5rYLOk-PEA9dodKfrf-HDThiTPM",
+          "sourcePlatform": "LinkedIn"
         }
       ]
     },
     {
-      "slug": "wood-for-good",
-      "title": "Wood for Good",
-      "description": "Volunteer firewood work photographed in the field.",
-      "images": [
-        {
-          "src": "../../assets/images/work/eastrise/photography/wood-for-good/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_8-3c1cc0ddac69.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        }
-      ]
-    },
-    {
-      "slug": "people-and-portraits",
-      "title": "People and Portraits",
-      "description": "Public portraits of EastRise staff.",
-      "images": [
-        {
-          "src": "../../assets/images/work/eastrise/photography/people-and-portraits/2025-05-27_14-40-34_UTC_DKKSQAFN_91-55e57c6bcf68.webp",
-          "alt": "Meet Sara, one of our veteran mortgage originators at EastRise.",
-          "width": 720,
-          "height": 900,
-          "sourceUrl": "https://www.instagram.com/p/DKKSQAFN_91/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/people-and-portraits/2024-10-15_16-42-38_UTC_DBJuJuUpFzc-0aff11d03784.webp",
-          "alt": "Meet Christine Corbett, one of our dedicated mortgage originators.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBJuJuUpFzc/",
-          "sourcePlatform": "Instagram"
-        }
-      ]
-    },
-    {
-      "slug": "community-and-volunteer-work",
-      "title": "Community and Volunteer Work",
-      "description": "People giving their time to food access, firewood programs, adaptive sports, and community events.",
-      "images": [
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-27_20-20-20_UTC_DKK5I73x2QN_1-8b613b535c01.webp",
-          "alt": "Grateful to have @eastrisecu in last week to teach some financial literacy!",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DKK5I73x2QN/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-27_20-20-20_UTC_DKK5I73x2QN_2-a5ce96f7297f.webp",
-          "alt": "Grateful to have @eastrisecu in last week to teach some financial literacy!",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DKK5I73x2QN/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-27_20-20-20_UTC_DKK5I73x2QN_3-cf320cbe9af8.webp",
-          "alt": "Grateful to have @eastrisecu in last week to teach some financial literacy!",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DKK5I73x2QN/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_9-1722b4fd7a11.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_3-044bea8a1d0d.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_4-f613d6a36366.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_5-035f559805fa.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_6-61f05ecc4ea0.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_7-6b53d8c7f7ae.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_8-3c1cc0ddac69.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_2-12254a522bfa.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2025-05-20_17-28-51_UTC_DJ4j8ekBHLB_1-7c51a8e07bdd.webp",
-          "alt": "There’s a special kind of warmth that comes from community spirit (and a well-stacked woodpile!).",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-11-05_15-12-18_UTC_DB_og-ipG9A_3-a0cf780f5bbc.webp",
-          "alt": "Meet Johnny McArdle, a true force on the track and one of the most spirited members of our EastRise family.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DB_og-ipG9A/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-11-05_15-12-18_UTC_DB_og-ipG9A_4-5559e0d38e14.webp",
-          "alt": "Meet Johnny McArdle, a true force on the track and one of the most spirited members of our EastRise family.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DB_og-ipG9A/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_2-a4579b1f7505.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_3-c4d58545a28d.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_4-9af79752e714.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_5-263fead679c0.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_6-28029094f440.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_7-ec79415d28bb.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_8-b4cdee1cfad8.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 720,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_9-868dd7b2c527.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_10-43d47c7c6778.webp",
-          "alt": "We had an incredible day at @WheelsforWarmth!",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBlvKpKtVEU/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-11-05_15-12-18_UTC_DB_og-ipG9A_1-44919b55c91c.webp",
-          "alt": "Meet Johnny McArdle, a true force on the track and one of the most spirited members of our EastRise family.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DB_og-ipG9A/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-11-05_15-12-18_UTC_DB_og-ipG9A_2-3745d8f30346.webp",
-          "alt": "Meet Johnny McArdle, a true force on the track and one of the most spirited members of our EastRise family.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DB_og-ipG9A/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_1-7471ba48a2b8.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_2-bee0516f3e8d.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_3-88a633a0da76.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_4-84b7d02dfd99.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_5-dfc4b092bd23.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_6-56fb83958af0.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1346,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_7-9f8ae878d7e5.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_8-06f73d0a326d.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_9-6797ed80df61.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-10-25_16-09-09_UTC_DBjaR68PTpx_10-eda698a27215.webp",
-          "alt": "Members of the EastRise team, including CEO John Dwyer and branch lead Shauna Allen, woke up early this morning to support the @VermontFoodbank’s VeggieVanGo program in central Vermont.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
-          "sourcePlatform": "Instagram"
-        }
-      ]
-    },
-    {
-      "slug": "member-and-business-stories",
-      "title": "Member and Business Stories",
-      "description": "Vermont members, makers, and small businesses photographed where their work happens.",
+      "slug": "eastrise-launch",
+      "title": "EastRise Launch",
+      "description": "Photography made for the 2024 EastRise brand launch and its first public campaign.",
       "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-11-07_16-43-53_UTC_DCE8lP9RE_L_5-1ff1eff3a6fe.webp",
@@ -1263,14 +1204,6 @@
           "sourcePlatform": "Instagram"
         },
         {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_9-2ccf422abec8.webp",
-          "alt": "If you’ve seen our latest commercial, you’ve met Melissa and Paul Perley—dedicated artisans who bring music and community together through their work.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBMo23Cundt/",
-          "sourcePlatform": "Instagram"
-        },
-        {
           "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-23_15-18-02_UTC_DBeK1grsBXs-fed6fe65df10.webp",
           "alt": "At EastRise Credit Union, ‘All the difference’ is more than a tagline—it’s our commitment to going beyond the basics.",
           "width": 1080,
@@ -1279,7 +1212,7 @@
           "sourcePlatform": "Instagram"
         },
         {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_3-fe83c5190712.webp",
+          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_9-2ccf422abec8.webp",
           "alt": "If you’ve seen our latest commercial, you’ve met Melissa and Paul Perley—dedicated artisans who bring music and community together through their work.",
           "width": 1080,
           "height": 1350,
@@ -1287,7 +1220,7 @@
           "sourcePlatform": "Instagram"
         },
         {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_4-ccf89ed1a93c.webp",
+          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_3-fe83c5190712.webp",
           "alt": "If you’ve seen our latest commercial, you’ve met Melissa and Paul Perley—dedicated artisans who bring music and community together through their work.",
           "width": 1080,
           "height": 1350,
@@ -1311,14 +1244,6 @@
           "sourcePlatform": "Instagram"
         },
         {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_7-0b05e1d819d3.webp",
-          "alt": "If you’ve seen our latest commercial, you’ve met Melissa and Paul Perley—dedicated artisans who bring music and community together through their work.",
-          "width": 1080,
-          "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBMo23Cundt/",
-          "sourcePlatform": "Instagram"
-        },
-        {
           "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_8-fecec1586cb0.webp",
           "alt": "If you’ve seen our latest commercial, you’ve met Melissa and Paul Perley—dedicated artisans who bring music and community together through their work.",
           "width": 1080,
@@ -1335,70 +1260,39 @@
           "sourcePlatform": "Instagram"
         },
         {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-10-16_19-54-02_UTC_DBMo23Cundt_2-bd9c0cddd466.webp",
-          "alt": "If you’ve seen our latest commercial, you’ve met Melissa and Paul Perley—dedicated artisans who bring music and community together through their work.",
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_daa49f294800-056ff6147712.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHKCNe5GkE9FA/image-shrink_800/image-shrink_800/0/1731531465032?e=1774634400&v=beta&t=GVy-lvfN_vJds5Om-N4EXZH4VXte8Plytcl93B395CE",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_53ed1c19acae-0f8603b6f8a2.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQEwMvlucBvh8g/image-shrink_800/image-shrink_800/0/1730997811345?e=1774634400&v=beta&t=9DOOKMpp37DTIvKkNuZrJ5vI_eW268QUomRuXMVOhfA",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_2efb609948e1-2c2bdeae5cc5.webp",
+          "alt": "No alternative text description for this image",
+          "width": 800,
+          "height": 1000,
+          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHXTKxo8dSVTw/image-shrink_800/image-shrink_800/0/1731531462648?e=1774634400&v=beta&t=VbtfM8TWN8BuIZuxI0iSzUHODPgwFcvtMRI80posXMI",
+          "sourcePlatform": "LinkedIn"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/community-and-volunteer-work/2024-11-05_15-12-18_UTC_DB_og-ipG9A_1-44919b55c91c.webp",
+          "alt": "Meet Johnny McArdle, a true force on the track and one of the most spirited members of our EastRise family.",
           "width": 1080,
           "height": 1350,
-          "sourceUrl": "https://www.instagram.com/p/DBMo23Cundt/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-09-30_14-07-13_UTC_DAi0dDkJcT__1-247955cffd32.webp",
-          "alt": "Meet Garrett Pembroke, a local sugar maker and father of two.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT_/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-09-30_14-07-13_UTC_DAi0dDkJcT__5-1379dcab2b35.webp",
-          "alt": "Meet Garrett Pembroke, a local sugar maker and father of two.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT_/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-09-30_14-07-13_UTC_DAi0dDkJcT__6-1276a3439253.webp",
-          "alt": "Meet Garrett Pembroke, a local sugar maker and father of two.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT_/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-09-30_14-07-13_UTC_DAi0dDkJcT__7-99f92ec80c7c.webp",
-          "alt": "Meet Garrett Pembroke, a local sugar maker and father of two.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT_/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-09-30_14-07-13_UTC_DAi0dDkJcT__2-22086ebfa60b.webp",
-          "alt": "Meet Garrett Pembroke, a local sugar maker and father of two.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT_/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-09-30_14-07-13_UTC_DAi0dDkJcT__3-7ba90d74b83b.webp",
-          "alt": "Meet Garrett Pembroke, a local sugar maker and father of two.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT_/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/member-and-business-stories/2024-09-30_14-07-13_UTC_DAi0dDkJcT__4-9ca349db84ba.webp",
-          "alt": "Meet Garrett Pembroke, a local sugar maker and father of two.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT_/",
+          "sourceUrl": "https://www.instagram.com/p/DB_og-ipG9A/",
           "sourcePlatform": "Instagram"
         }
       ]
     }
-  ]
+  ],
+  "curatedAt": "2026-07-30"
 }

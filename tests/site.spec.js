@@ -6,7 +6,7 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await expect(page).toHaveTitle(/Ames Consulting/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(
-    page.getByRole("heading", { level: 2, name: /Photography leads the work/ }),
+    page.getByRole("heading", { level: 2, name: /Photography comes first/ }),
   ).toBeVisible();
   const firstMetric = page.locator(".proof__link").first();
   await expect(firstMetric).toBeVisible();
@@ -19,7 +19,7 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await page.clock.fastForward("00:00:13");
   await expect(page.getByText("569%", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Pause metrics" })).toHaveCount(0);
-  await expect(page.getByRole("link", { name: /See the work/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /See my projects/ })).toBeVisible();
 });
 
 test("homepage chooses a new photography-led headline on refresh", async ({

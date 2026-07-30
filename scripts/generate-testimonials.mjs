@@ -38,10 +38,10 @@ const people = {
 };
 
 const portrait = (person, depth) => person.image
-  ? `<img src="${"../".repeat(depth)}assets/images/testimonials/${person.image}" alt="${person.name}" width="800" height="800" loading="lazy" data-no-zoom>`
+  ? `<a class="testimonial-card__portrait-link" href="${person.profile}" rel="noopener" aria-label="${person.name} on LinkedIn"><img src="${"../".repeat(depth)}assets/images/testimonials/${person.image}" alt="${person.name}" width="800" height="800" loading="lazy" data-no-zoom></a>`
   : `<span class="testimonial-card__initials" aria-hidden="true">${person.initials}</span>`;
 
-const card = ({ person, quote, depth, featured = false }) => `<figure class="testimonial-card${featured ? " testimonial-card--featured" : ""}"><blockquote><p>“${quote}”</p></blockquote><figcaption>${portrait(person, depth)}<span><strong>${person.name}</strong><small>${person.role}</small><a href="${person.profile}" rel="noopener">LinkedIn recommendation · ${person.date}</a></span></figcaption></figure>`;
+const card = ({ person, quote, depth, featured = false }) => `<figure class="testimonial-card${featured ? " testimonial-card--featured" : ""}"><blockquote><p>“${quote}”</p></blockquote><figcaption>${portrait(person, depth)}<span><strong><a href="${person.profile}" rel="noopener">${person.name}</a></strong><small>${person.role}</small><a href="${person.profile}" rel="noopener">LinkedIn recommendation · ${person.date}</a></span></figcaption></figure>`;
 
 const quotes = {
   yvonneLead: "Oliver is a rare talent, bringing energy, enthusiasm, and a true ‘can-do’ mindset to every project he takes on.",
@@ -63,7 +63,7 @@ const insertOnce = async (relative, marker, section) => {
 
 await insertOnce("index.html", '<section class="home-paths">', {
   id: "home-testimonial",
-  html: `<section class="testimonial-band home-testimonial" aria-labelledby="home-testimonial-title"><div class="section-heading"><p class="eyebrow">What collaborators say</p><h2 id="home-testimonial-title">The work travels because people trust it.</h2></div>${card({ person: people.yvonne, quote: quotes.yvonneLead, depth: 0, featured: true })}</section>`
+  html: `<section class="testimonial-band home-testimonial" aria-labelledby="home-testimonial-title"><div class="section-heading section-heading--standard"><h2 id="home-testimonial-title">Testimonials</h2><p class="section-heading__statement">People trust me with the stories that matter to them.</p></div>${card({ person: people.yvonne, quote: quotes.yvonneLead, depth: 0, featured: true })}</section>`
 });
 
 await insertOnce("about/index.html", '<section class="about-proof">', {

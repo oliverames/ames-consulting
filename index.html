@@ -112,6 +112,7 @@
               loading="eager"
               fetchpriority="high"
               decoding="async"
+              data-no-zoom
             />
           </figure>
           <div class="hero__ctas">
@@ -300,11 +301,11 @@
         class="testimonial-band home-testimonial"
         aria-labelledby="home-testimonial-title"
       >
-        <div class="section-heading">
-          <p class="eyebrow">What collaborators say</p>
-          <h2 id="home-testimonial-title">
+        <div class="section-heading section-heading--standard">
+          <h2 id="home-testimonial-title">Testimonials</h2>
+          <p class="section-heading__statement">
             People trust me with the stories that matter to them.
-          </h2>
+          </p>
         </div>
         <figure class="testimonial-card testimonial-card--featured">
           <blockquote>
@@ -314,15 +315,20 @@
             </p>
           </blockquote>
           <figcaption>
-            <img
+            <a
+              class="testimonial-card__portrait-link"
+              href="https://www.linkedin.com/in/yvonnegarand"
+              rel="noopener"
+              aria-label="Yvonne Garand on LinkedIn"
+              ><img
               src="assets/images/testimonials/yvonne-garand.webp"
               alt="Yvonne Garand"
               width="800"
               height="800"
               loading="lazy"
               data-no-zoom
-            /><span
-              ><strong>Yvonne Garand</strong
+            /></a><span
+              ><strong><a href="https://www.linkedin.com/in/yvonnegarand" rel="noopener">Yvonne Garand</a></strong
               ><small>Former senior vice president, VSECU and EastRise</small
               ><a href="https://www.linkedin.com/in/yvonnegarand" rel="noopener"
                 >LinkedIn recommendation · January 21, 2026</a
@@ -590,7 +596,7 @@
             firm that helps organizations with digital strategy, content,
             photography, and practical technology solutions.
           </p>
-          <ul class="site-footer__social">
+          <h3 class="site-footer__social-title">Social</h3><ul class="site-footer__social">
             <li>
               <a
                 href="https://github.com/oliverames"

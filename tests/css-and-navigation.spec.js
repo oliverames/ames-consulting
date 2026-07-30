@@ -60,8 +60,8 @@ test("software development has a distinct project interface", async ({ page }) =
   const section = page.locator("#software-development");
   await expect(section.getByRole("heading", { name: "Small tools for real friction." })).toBeVisible();
   await expect(section.locator(".software-card")).toHaveCount(6);
-  await expect(section.getByRole("link", { name: /Ping Warden/ }).locator("img")).toHaveAttribute("src", /ping-warden-dashboard\.webp$/);
-  await expect(section.getByRole("link", { name: /Skylight Bridge/ }).locator("img")).toHaveAttribute("src", /skylight-bridge-overview\.webp$/);
+  await expect(section.getByRole("link", { name: /Ping Warden/ }).locator("img").first()).toHaveAttribute("src", /ping-warden-dashboard\.webp$/);
+  await expect(section.getByRole("link", { name: /Skylight Bridge/ }).locator("img").first()).toHaveAttribute("src", /skylight-bridge-overview\.webp$/);
   await expect(section.getByText("200 tools", { exact: true })).toBeVisible();
   await expect(section.getByText("Read-only by default", { exact: true })).toBeVisible();
   await expect(section.getByText("77 tools", { exact: true })).toBeVisible();

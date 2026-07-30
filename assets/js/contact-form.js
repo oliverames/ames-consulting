@@ -75,7 +75,9 @@ async function initContactForm() {
   startedAtInput.value = String(Date.now());
 
   const requestedProject = new URLSearchParams(location.search).get("project");
-  if (requestedProject && projectType instanceof HTMLSelectElement) {
+  if (requestedProject && projectType instanceof RadioNodeList) {
+    projectType.value = requestedProject;
+  } else if (requestedProject && projectType instanceof HTMLSelectElement) {
     const matchingOption = [...projectType.options].find((option) => option.text === requestedProject);
     if (matchingOption) projectType.value = matchingOption.value;
   }

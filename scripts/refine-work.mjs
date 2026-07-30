@@ -80,23 +80,26 @@ const projectOrder = [
   "connecticut-college/",
 ];
 
-const campaignSectionPattern = /(<section class="work-category">\s*<h2(?: id="project-list-title")?>(?:Campaigns and series|All projects)<\/h2>(?:<p class="work-filter-status" id="work-filter-status" hidden><\/p>)?\s*<div class="work-list">)([\s\S]*?)(\s*<\/div>\s*<\/section>)/;
-const earlierSectionPattern = /<section class="work-category work-category--earlier">\s*<h2>Earlier work<\/h2>\s*<div class="work-list">([\s\S]*?)\s*<\/div>\s*<\/section>/;
+const campaignSectionPattern = /(<section class="work-category">\s*<h2(?: id="project-list-title")?>(?:Campaigns and series|All projects|Projects)<\/h2>(?:<nav class="work-filters"[\s\S]*?<\/nav>)?(?:<p class="work-filter-status" id="work-filter-status" hidden><\/p>)?\s*<div class="work-list">)([\s\S]*?)(\s*<\/div>\s*<\/section>)/;
+const earlierSectionPattern = /<section class="work-category work-category--earlier">\s*<h2>(?:Earlier work|Legacy work)<\/h2>\s*<div class="work-list">([\s\S]*?)\s*<\/div>\s*<\/section>/;
 const campaignMatch = html.match(campaignSectionPattern);
 const earlierMatch = html.match(earlierSectionPattern);
 
-if (campaignMatch && earlierMatch) {
-  const cards = [...`${campaignMatch[2]}${earlierMatch[1]}`.matchAll(/<a class="work-item" href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
+if (campaignMatch) {
+  const cards = [...`${campaignMatch[2]}${earlierMatch?.[1] ?? ""}`.matchAll(/<a class="work-item"[^>]*href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
     .map((match) => ({ href: match[1], html: match[0] }));
   const rank = new Map(projectOrder.map((href, index) => [href, index]));
   const cardRank = (href) => href.startsWith("eastrise-photography/") ? 12.5 : (rank.get(href) ?? 999);
   cards.sort((left, right) => cardRank(left.href) - cardRank(right.href));
 
-  const markedCards = cards.map((card) => {
+  const legacyHrefs = new Set(["vtdigger-membership/", "stowe-ski-instruction/", "fairbanks-planetarium/", "connecticut-college/"]);
+  const currentCards = cards.filter((card) => !legacyHrefs.has(card.href));
+  const legacyCards = cards.filter((card) => legacyHrefs.has(card.href));
+  const prepareCard = (card) => {
     const explicitOrganization = organizationByHref.get(card.href);
     const inferredOrganization = card.href.startsWith("eastrise-photography/") ? "eastrise" : "";
     const organization = explicitOrganization || inferredOrganization;
-    let cardHtml = card.html;
+    let cardHtml = card.html.replace(/ data-organization="[^"]+"/g, "");
     const feature = featuredImages.get(card.href);
     if (feature) {
       cardHtml = cardHtml.replace(/<img\s+src="[^"]+"\s+alt="[^"]*"/, `<img src="${feature[0]}" alt="${feature[1]}"`);
@@ -104,13 +107,15 @@ if (campaignMatch && earlierMatch) {
     return organization
       ? cardHtml.replace('<a class="work-item"', `<a class="work-item" data-organization="${organization}"`)
       : cardHtml;
-  }).join("");
+  };
+  const markedCards = currentCards.map(prepareCard).join("");
+  const markedLegacyCards = legacyCards.map(prepareCard).join("");
 
   html = html.replace(
     campaignSectionPattern,
-    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">All projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=blue-cross-vermont" data-work-filter="blue-cross-vermont">Blue Cross Vermont</a><a href="?organization=eastrise" data-work-filter="eastrise">EastRise</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA Technologies</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}`,
+    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">Projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=blue-cross-vermont" data-work-filter="blue-cross-vermont">Blue Cross Vermont</a><a href="?organization=eastrise" data-work-filter="eastrise">EastRise</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA Technologies</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}<section class="work-category work-category--earlier"><h2>Legacy work</h2><div class="work-list">${markedLegacyCards}</div></section>`,
   );
-  html = html.replace(earlierSectionPattern, "");
+  if (earlierMatch) html = html.replace(earlierSectionPattern, "");
 }
 
 html = html.replace(

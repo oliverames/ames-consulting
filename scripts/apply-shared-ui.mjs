@@ -37,6 +37,15 @@ function addIcons(html) {
   });
 }
 
+function addSocialHeading(html) {
+  return html.replace(
+    /(<div class="site-footer__colophon">[\s\S]*?)(<ul class="site-footer__social">)/g,
+    (match, before, list) => before.includes("site-footer__social-title")
+      ? match
+      : `${before}<h3 class="site-footer__social-title">Social</h3>${list}`,
+  );
+}
+
 function updateFooterGroups(html, file) {
   const pathParts = relative(root, file).split(sep);
   const directoryDepth = pathParts.length - 1;
@@ -64,7 +73,7 @@ for (const file of await collectHtml(root)) {
   const pathParts = relative(root, file).split(sep);
   const directoryDepth = pathParts.length - 1;
   const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
-  let after = updateFooterGroups(addIcons(before), file);
+  let after = updateFooterGroups(addSocialHeading(addIcons(before)), file);
   if (!after.includes("assets/js/content-protection.js")) {
     after = after.replace("</body>", `<script type="module" src="${base}assets/js/content-protection.js"></script></body>`);
   }

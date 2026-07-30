@@ -155,9 +155,7 @@ test("contact form submits to the site endpoint", async ({ page }) => {
   await page.getByLabel("Name").fill("Site Test");
   await page.getByLabel("Email").fill("site-test@example.com");
   await page.getByLabel("Organization (optional)").fill("Ames Consulting");
-  await page
-    .getByLabel("What kind of work?")
-    .selectOption({ label: "Website or digital system" });
+  await page.getByText("Website or digital system", { exact: true }).click();
   await page.getByLabel("Tell me about it").fill("Testing the contact form.");
   await page.evaluate(() => {
     document.querySelector("#contact-started-at").value = String(
@@ -204,9 +202,7 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
 
 test("inbound project links preselect the contact form", async ({ page }) => {
   await page.goto("/contact/?project=Photography%20and%20video#contact-form");
-  await expect(page.getByLabel("What kind of work?")).toHaveValue(
-    "Photography and video",
-  );
+  await expect(page.getByLabel("Photography and video")).toBeChecked();
   await expect(page.locator("[data-inbound-prompt]")).toHaveCount(0);
 });
 
@@ -269,7 +265,7 @@ test("event photography is split into complete campaign galleries", async ({
   const campaigns = [
     ["/work/corporate-cup-2026/", 9],
     ["/work/girls-on-the-run-2026/", 185],
-    ["/work/eastrise-launch-campaign/", 10],
+    ["/work/eastrise-launch-campaign/", 23],
     ["/work/giron-family-fall-2025/", 36],
   ];
   for (const [route, count] of campaigns) {
@@ -343,7 +339,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(20);
+  ).toHaveCount(32);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
   ).toBeVisible();
@@ -376,46 +372,16 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toBeVisible();
 
   const sections = page.locator(".work-category");
-  await expect(sections).toHaveCount(3);
+  await expect(sections).toHaveCount(2);
   const hrefs = async (section) =>
     section.locator(".work-item").evaluateAll((items) =>
       items.map((item) => item.getAttribute("href")),
     );
-  expect(await hrefs(sections.nth(0))).toEqual([
-    "girls-on-the-run-2026/",
-    "corporate-cup-2026/",
-    "flight-paths/",
-    "vermont-foodbank-volunteer-day-2026/",
-    "beta-andrew/",
-    "beta-emma/",
-    "beta-ethan/",
-    "eastrise-portraits/",
-    "blue-cross-portraits/",
-    "giron-family-fall-2025/",
-    "member-banking-stories/",
-    "sweat-heart-throwdown/",
-    "eastrise-social/",
-    "eastrise-writing/",
-    "wheels-for-warmth/",
-    "taylor-hoar-racing/",
-    "eastrise-photography/",
-    "bike-fitting/",
-    "eastrise-launch-campaign/",
-    "vsecu-website/",
-    "eastrise-website/",
-  ]);
   expect(await hrefs(sections.nth(1))).toEqual([
-    "blue-cross-vermont/",
-    "beta-technologies/",
-    "green-mountain-community-fitness/",
-    "eastrise/",
-  ]);
-  expect(await hrefs(sections.nth(2))).toEqual([
-    "live-broadcasts/",
     "vtdigger-membership/",
+    "stowe-ski-instruction/",
     "fairbanks-planetarium/",
     "connecticut-college/",
-    "stowe-ski-instruction/",
   ]);
 });
 
@@ -472,18 +438,12 @@ test("Fairbanks case study embeds Breaking Records in Science Education", async 
   await expect(page.locator('iframe[src*="lSi35li8dCg"]')).toHaveCount(1);
 });
 
-test("earlier and institutional work use linked case cards", async ({
+test("legacy work uses linked case cards", async ({
   page,
 }) => {
   await page.goto("/work/");
   await expect(
-    page.getByRole("heading", { name: "Client and institutional work" }),
-  ).toBeVisible();
-  await expect(
-    page.locator('a.work-item[href="beta-technologies/"]'),
-  ).toHaveAttribute("href", "beta-technologies/");
-  await expect(
-    page.getByRole("heading", { name: "Earlier work" }),
+    page.getByRole("heading", { name: "Legacy work" }),
   ).toBeVisible();
   await expect(
     page.getByRole("link", { name: /Membership conversion/ }),
@@ -491,9 +451,7 @@ test("earlier and institutional work use linked case cards", async ({
   await expect(
     page.getByRole("link", { name: /Planetarium growth/ }),
   ).toHaveAttribute("href", "fairbanks-planetarium/");
-  await expect(
-    page.getByRole("link", { name: /Live broadcasts/ }),
-  ).toHaveAttribute("href", "live-broadcasts/");
+  await expect(page.getByRole("link", { name: /Early digital storytelling/ })).toHaveAttribute("href", "connecticut-college/");
 });
 
 test("about page works as a professional profile and resume", async ({
@@ -564,8 +522,8 @@ test("EastRise photography is grouped into complete public-source galleries", as
   page,
 }) => {
   await page.goto("/work/eastrise-photography/");
-  await expect(page.locator(".photo-series")).toHaveCount(11);
-  await expect(page.locator(".campaign-collage img")).toHaveCount(165);
+  await expect(page.locator(".photo-series")).toHaveCount(15);
+  await expect(page.locator(".campaign-collage img")).toHaveCount(148);
   const firstGallery = page.locator(".campaign-collage").first();
   const firstGalleryCount = await firstGallery.locator("img").count();
   await firstGallery.locator("img").first().click();

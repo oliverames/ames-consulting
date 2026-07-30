@@ -5,6 +5,16 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
 let html = await readFile(indexPath, "utf8");
+const featuredImages = new Map([
+  ["girls-on-the-run-2026/", ["../assets/images/work/events/girls-on-the-run-2026/dsc03810.webp", "Girls on the Run participants starting together"]],
+  ["corporate-cup-2026/", ["../assets/images/work/events/corporate-cup-2026/dsc03213.webp", "Blue Cross Vermont team at the Corporate Cup"]],
+  ["vermont-foodbank-volunteer-day-2026/", ["../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08397.webp", "Mary volunteering at the Vermont Foodbank"]],
+  ["beta-andrew/", ["../assets/images/work/events/beta-andrew/dsc08088.webp", "Andrew at BETA Technologies"]],
+  ["beta-emma/", ["../assets/images/work/events/beta-emma/dsc07933.webp", "Emma at BETA Technologies"]],
+  ["beta-ethan/", ["../assets/images/work/events/beta-ethan/dsc08199.webp", "Ethan at BETA Technologies"]],
+  ["eastrise-portraits/", ["../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp", "Portrait of Christin Canter"]],
+  ["sweat-heart-throwdown/", ["../assets/images/work/gmcf/sweat-heart/dsc01171.webp", "Sweat-Heart Throwdown at Green Mountain Community Fitness"]],
+]);
 html = html.replace(
   /The organization provides the context\. The work itself provides the[\s\n]*structure\./,
   "I organize this work by the campaign, shoot, or series someone would actually want to explore. Start with the newest work, or keep going into the earlier jobs that taught me how to do it.",
@@ -86,14 +96,19 @@ if (campaignMatch && earlierMatch) {
     const explicitOrganization = organizationByHref.get(card.href);
     const inferredOrganization = card.href.startsWith("eastrise-photography/") ? "eastrise" : "";
     const organization = explicitOrganization || inferredOrganization;
+    let cardHtml = card.html;
+    const feature = featuredImages.get(card.href);
+    if (feature) {
+      cardHtml = cardHtml.replace(/<img\s+src="[^"]+"\s+alt="[^"]*"/, `<img src="${feature[0]}" alt="${feature[1]}"`);
+    }
     return organization
-      ? card.html.replace('<a class="work-item"', `<a class="work-item" data-organization="${organization}"`)
-      : card.html;
+      ? cardHtml.replace('<a class="work-item"', `<a class="work-item" data-organization="${organization}"`)
+      : cardHtml;
   }).join("");
 
   html = html.replace(
     campaignSectionPattern,
-    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">All projects</h2><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}`,
+    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">All projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=blue-cross-vermont" data-work-filter="blue-cross-vermont">Blue Cross Vermont</a><a href="?organization=eastrise" data-work-filter="eastrise">EastRise</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA Technologies</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}`,
   );
   html = html.replace(earlierSectionPattern, "");
 }

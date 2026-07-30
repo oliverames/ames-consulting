@@ -32,6 +32,7 @@ const definitions = [
     intro: "A workday in Montpelier turned into a citywide race. I photographed the Blue Cross Vermont team, the start, the course, and the moments around the finish.",
     ...blueCrossSource("corporate-cup-2026", "2026-05-14 – Corporate Cup/Edited Selects"),
     organization: "Blue Cross Vermont",
+    featuredFile: "dsc03213.webp",
   },
   {
     slug: "girls-on-the-run-2026",
@@ -40,6 +41,7 @@ const definitions = [
     intro: "The finish line mattered, but the story was everywhere: teams arriving together, handmade signs, nervous starts, muddy shoes, and people making room for every runner.",
     ...blueCrossSource("girls-on-the-run-2026", "2026-05-30 – GOTR/Edited Selects"),
     organization: "Blue Cross Vermont",
+    featuredFile: "dsc03810.webp",
   },
   {
     slug: "giron-family-fall-2025",
@@ -58,6 +60,7 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/vermont-foodbank-volunteer-day-2026"),
     prepared: true,
     organization: "Vermont Foodbank",
+    featuredFile: "dsc08397.webp",
     openingSequence: ["DSC08460.jpg", "DSC08342.jpg", "DSC08358.jpg", "DSC08434.jpg", "DSC08364.jpg"],
   },
   {
@@ -68,6 +71,7 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/beta-andrew"),
     prepared: true,
     organization: "BETA Technologies",
+    featuredFile: "dsc08088.webp",
   },
   {
     slug: "beta-emma",
@@ -77,6 +81,7 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/beta-emma"),
     prepared: true,
     organization: "BETA Technologies",
+    featuredFile: "dsc07933.webp",
   },
   {
     slug: "beta-ethan",
@@ -86,6 +91,7 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/beta-ethan"),
     prepared: true,
     organization: "BETA Technologies",
+    featuredFile: "dsc08199.webp",
   },
 ];
 
@@ -151,11 +157,14 @@ for (const campaign of campaigns) {
     : campaign.slug === "vermont-foodbank-volunteer-day-2026"
       ? `<section class="case-section"><h2>Work with a rhythm of its own</h2><div class="case-section__body"><p>The warehouse already had a visual system: pallets, rollers, open boxes, stacked cans, and people finding a pace together. I moved between the full process and the moments that showed concentration, cooperation, and the occasional laugh.</p><p>The final set gives the Vermont Foodbank a complete record of the volunteer day, with individual photographs that can also work across future stories, volunteer recruitment, and social posts.</p></div></section><section class="case-section"><h2>View the shoot</h2><div class="case-section__body">Select any photograph to open it full size. Use the buttons or the left and right arrow keys to move through all ${campaign.images.length} images.</div></section>`
       : "";
+  const featuredImage = campaign.featuredFile
+    ? campaign.images.find((image) => path.basename(image.src) === campaign.featuredFile)
+    : null;
   const hero = campaign.slug === "giron-family-fall-2025"
     ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="../../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family together during their fall portrait session" width="1067" height="1600" loading="eager" fetchpriority="high" decoding="async"></header>`
-    : campaign.slug === "vermont-foodbank-volunteer-day-2026"
-      ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="../../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" width="1067" height="1600" loading="eager" fetchpriority="high" decoding="async"></header>`
-      : `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></header>`;
+    : featuredImage
+        ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="${featuredImage.src}" alt="${featuredImage.alt}" width="${featuredImage.width}" height="${featuredImage.height}" loading="eager" fetchpriority="high" decoding="async"></header>`
+        : `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></header>`;
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${campaign.title} | Ames Consulting</title><meta name="description" content="${campaign.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${campaign.slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${familyStory}<section class="case-section case-section--gallery"><h2>Complete gallery</h2><div class="campaign-collage" data-gallery="${campaign.slug}">${gallery}</div></section></main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = path.join(root, "work", campaign.slug, "index.html");
   await mkdir(path.dirname(output), { recursive: true });

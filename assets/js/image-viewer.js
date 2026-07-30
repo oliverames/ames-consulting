@@ -183,11 +183,13 @@ export function wireImageViewer() {
     activeImages = [...gallery.querySelectorAll("img.zoomable-image")];
     activeIndex = activeImages.indexOf(sourceImage);
     showImage(activeIndex);
+    document.documentElement.classList.add("has-open-dialog");
     viewer.showModal();
   };
 
   const closeViewer = () => {
     viewer.close();
+    document.documentElement.classList.remove("has-open-dialog");
     viewerImage.src = "";
     viewerImage.alt = "";
     if (captionLabel) captionLabel.textContent = "";
@@ -207,6 +209,7 @@ export function wireImageViewer() {
   });
 
   viewer.addEventListener("cancel", () => {
+    document.documentElement.classList.remove("has-open-dialog");
     viewerImage.src = "";
     viewerImage.alt = "";
     if (captionLabel) captionLabel.textContent = "";

@@ -8,6 +8,11 @@ const labels = {
 const organization = new URLSearchParams(window.location.search).get("organization");
 const label = labels[organization];
 
+for (const link of document.querySelectorAll("[data-work-filter]")) {
+  const active = link.dataset.workFilter === (organization || "all");
+  if (active) link.setAttribute("aria-current", "true");
+}
+
 if (label) {
   const projectCards = [...document.querySelectorAll(".work-list > .work-item")];
   const software = document.querySelector("#software-development");

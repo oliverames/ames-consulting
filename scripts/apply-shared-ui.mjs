@@ -61,6 +61,12 @@ async function collectHtml(directory) {
 
 for (const file of await collectHtml(root)) {
   const before = await readFile(file, "utf8");
-  const after = updateFooterGroups(addIcons(before), file);
+  const pathParts = relative(root, file).split(sep);
+  const directoryDepth = pathParts.length - 1;
+  const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
+  let after = updateFooterGroups(addIcons(before), file);
+  if (!after.includes("assets/js/content-protection.js")) {
+    after = after.replace("</body>", `<script type="module" src="${base}assets/js/content-protection.js"></script></body>`);
+  }
   if (after !== before) await writeFile(file, after);
 }

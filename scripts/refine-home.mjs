@@ -32,4 +32,9 @@ if (!html.includes("Vermont Foodbank Volunteer Day</h3>")) {
   html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${foodbank}$2`);
 }
 
+if (!html.includes("Andrew at BETA</h3>")) {
+  const betaSeries = `<a class="path-thumb" href="work/beta-andrew/"><div class="path-thumb__img"><img src="assets/images/work/events/beta-andrew/dsc08015.webp" alt="Andrew working beside an aircraft structure at BETA Technologies" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">BETA Technologies · workplace photography</span><h3 class="path-thumb__title">Andrew at BETA</h3></div></a><a class="path-thumb" href="work/beta-emma/"><div class="path-thumb__img"><img src="assets/images/work/events/beta-emma/dsc07894.webp" alt="Emma holding a precision measuring tool at BETA Technologies" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">BETA Technologies · workplace photography</span><h3 class="path-thumb__title">Emma at BETA</h3></div></a><a class="path-thumb" href="work/beta-ethan/"><div class="path-thumb__img"><img src="assets/images/work/events/beta-ethan/dsc08105.webp" alt="Ethan at a workbench inside BETA Technologies" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">BETA Technologies · workplace photography</span><h3 class="path-thumb__title">Ethan at BETA</h3></div></a>`;
+  html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${betaSeries}$2`);
+}
+
 await writeFile(path, html);

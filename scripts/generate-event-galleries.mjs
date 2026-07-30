@@ -44,6 +44,30 @@ const definitions = [
     organization: "Vermont Foodbank",
     openingSequence: ["DSC08460.jpg", "DSC08342.jpg", "DSC08358.jpg", "DSC08434.jpg", "DSC08364.jpg"],
   },
+  {
+    slug: "beta-andrew",
+    title: "Andrew at BETA",
+    eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
+    intro: "Andrew at work inside BETA Technologies, photographed with the aircraft, tools, and manufacturing environment that give his role its context.",
+    source: "/Users/oliverames/Desktop/BETA ANDREW",
+    organization: "BETA Technologies",
+  },
+  {
+    slug: "beta-emma",
+    title: "Emma at BETA",
+    eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
+    intro: "A workplace portrait series following Emma inside BETA Technologies, moving between portraiture, hands-on detail, and the larger manufacturing floor.",
+    source: "/Users/oliverames/Desktop/BETA EMMA",
+    organization: "BETA Technologies",
+  },
+  {
+    slug: "beta-ethan",
+    title: "Ethan at BETA",
+    eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
+    intro: "Ethan at work inside BETA Technologies, photographed as a person within a much larger system of tools, components, and aircraft manufacturing.",
+    source: "/Users/oliverames/Desktop/BETA ETHAN",
+    organization: "BETA Technologies",
+  },
 ];
 
 async function processImages(definition) {

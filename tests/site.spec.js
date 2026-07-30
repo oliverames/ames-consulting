@@ -314,7 +314,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(17);
+  ).toHaveCount(20);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
   ).toBeVisible();
@@ -342,6 +342,9 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Vermont Foodbank Volunteer Day" }),
   ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Emma at BETA" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toBeVisible();
 
   const sections = page.locator(".work-category");
   await expect(sections).toHaveCount(3);
@@ -354,6 +357,9 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     "corporate-cup-2026/",
     "flight-paths/",
     "vermont-foodbank-volunteer-day-2026/",
+    "beta-andrew/",
+    "beta-emma/",
+    "beta-ethan/",
     "eastrise-portraits/",
     "blue-cross-portraits/",
     "giron-family-fall-2025/",
@@ -422,6 +428,22 @@ test("Vermont Foodbank shoot uses the complete gallery and paged lightbox", asyn
   await expect(page.locator("#image-viewer-caption")).toContainText("2 of 38");
 });
 
+test("BETA workplace series keep their complete galleries", async ({ page }) => {
+  for (const [slug, count] of [["beta-andrew", 17], ["beta-emma", 40], ["beta-ethan", 30]]) {
+    await page.goto(`/work/${slug}/`);
+    await expect(page.locator(".campaign-collage img")).toHaveCount(count);
+  }
+  await page.goto("/work/beta-technologies/");
+  await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Emma at BETA" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toBeVisible();
+});
+
+test("Fairbanks case study embeds the Guinness press video", async ({ page }) => {
+  await page.goto("/work/fairbanks-planetarium/");
+  await expect(page.locator('iframe[src*="lSi35li8dCg"]')).toHaveCount(1);
+});
+
 test("earlier and institutional work use linked case cards", async ({
   page,
 }) => {
@@ -430,7 +452,7 @@ test("earlier and institutional work use linked case cards", async ({
     page.getByRole("heading", { name: "Client and institutional work" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /BETA Technologies/ }),
+    page.locator('a.work-item[href="beta-technologies/"]'),
   ).toHaveAttribute("href", "beta-technologies/");
   await expect(
     page.getByRole("heading", { name: "Earlier work" }),

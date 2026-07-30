@@ -19,6 +19,9 @@ const eastRisePhotographyCard = `<a class="work-item" href="eastrise-photography
 const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Social</h3><p>${eastRiseSocial.totalPosts} archived social posts and memes treated as one campaign and project.</p></a>`;
 const gironFamilyCard = `<a class="work-item" href="giron-family-fall-2025/"><img src="../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family during a fall portrait session" loading="lazy"><span class="work-item__context">Family photography · Fall 2025</span><h3>Giron Family</h3><p>A 36-image family session moving from open fields into the fall woods.</p></a>`;
 const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-2026/"><img src="../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"><span class="work-item__context">Vermont Foodbank · January 2026</span><h3>Vermont Foodbank Volunteer Day</h3><p>A 38-image documentary series about the people and process behind a volunteer packing day.</p></a>`;
+const betaAndrewCard = `<a class="work-item" href="beta-andrew/"><img src="../assets/images/work/events/beta-andrew/dsc08015.webp" alt="Andrew working beside an aircraft structure at BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · January 2026</span><h3>Andrew at BETA</h3><p>A 17-image workplace series built around a person, an aircraft, and the process connecting them.</p></a>`;
+const betaEmmaCard = `<a class="work-item" href="beta-emma/"><img src="../assets/images/work/events/beta-emma/dsc07894.webp" alt="Emma holding a precision measuring tool at BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · January 2026</span><h3>Emma at BETA</h3><p>A 40-image workplace series moving between portraiture, detail, and the manufacturing floor.</p></a>`;
+const betaEthanCard = `<a class="work-item" href="beta-ethan/"><img src="../assets/images/work/events/beta-ethan/dsc08105.webp" alt="Ethan at a workbench inside BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · January 2026</span><h3>Ethan at BETA</h3><p>A 30-image workplace series about the person inside a larger manufacturing system.</p></a>`;
 
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
@@ -72,6 +75,9 @@ const campaignOrder = [
   "corporate-cup-2026/",
   "flight-paths/",
   "vermont-foodbank-volunteer-day-2026/",
+  "beta-andrew/",
+  "beta-emma/",
+  "beta-ethan/",
   "eastrise-portraits/",
   "blue-cross-portraits/",
   "giron-family-fall-2025/",
@@ -108,6 +114,7 @@ const pages = [
     ["The work", "As Planetarium Director, I managed programming, staff development, revenue, grants, and the planetarium's relationship with museum leadership. I also helped implement a museum-wide point-of-sale system and represented the museum in local media."],
     ["The result", "Archived revenue records show planetarium sales growing from $13,359.80 in 2014 to $31,363.40 in 2018. That is an $18,003.60 increase, or 134.8%. The planetarium's share of combined planetarium and museum admission revenue rose from 18.5% to 30.6%."],
     ["A much bigger night", "In 2018, I helped lead the museum's largest event to that point, a Guinness World Record attempt for the largest astronomy lesson. The official record counted 1,580 participants. The planning took five months and involved logistics, public relations, web work, vendors, crowd management, and a great deal of paperwork."],
+    ["Speaking to the press", "<div class=\"video-embed\"><iframe src=\"https://www.youtube-nocookie.com/embed/lSi35li8dCg\" title=\"Oliver Ames speaking to the press about the Guinness World Record astronomy lesson\" loading=\"lazy\" allow=\"accelerometer; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"],
     ["Sources", `${sourceLink("https://www.guinnessworldrecords.com/world-records/largest-astronomy-lesson", "Guinness World Records: Largest astronomy lesson")}<br>${sourceLink("https://www.wcax.com/content/news/Fairbanks-Museum-claims-record-for-largest-astronomy-lesson-490731831.html", "WCAX: Fairbanks Museum claims record for largest astronomy lesson")}<br><span>Revenue source: archived Fairbanks Museum planetarium sales records summarized in the Career work-sample archive.</span>`]
   ]},
   { slug: "live-broadcasts", eyebrow: "Hosting and production · VSECU and EastRise · 2019–2025", title: "Live broadcasts reached 10,000+ viewers.", intro: "A livestream is part interview, part live production, and part contingency plan. I handled all three while keeping the conversation understandable for the people watching.", sections: [
@@ -116,7 +123,8 @@ const pages = [
     ["What made it work", "The technology mattered, but preparation mattered more. I built a clear run of show, understood the material well enough to move when a conversation changed, and kept the production invisible to the audience."],
     ["Sources", "The 10,000+ figure is documented in Oliver Ames's archived 2025 resume and October 2025 LinkedIn profile. The underlying platform analytics are retained in the private career archive and do not have a durable public URL."]
   ]},
-  { slug: "beta-technologies", eyebrow: "Documentary video · BETA Technologies · 2026", title: "Emma's route into Vermont aviation.", intro: "Flight Paths follows people who found their way into Vermont aviation through training, curiosity, and a door that opened at the right time.", sections: [
+  { slug: "beta-technologies", eyebrow: "Photography and documentary video · BETA Technologies · 2026", title: "People building Vermont aviation.", intro: "Three workplace photography series and a Flight Paths film put the people inside BETA Technologies at the center of the story.", sections: [
+    ["Workplace photography", `<div class="work-list"><a class="work-item" href="../beta-andrew/"><img src="../../assets/images/work/events/beta-andrew/dsc08015.webp" alt="Andrew working beside an aircraft structure at BETA Technologies" loading="lazy"><span class="work-item__context">17 photographs</span><h3>Andrew at BETA</h3></a><a class="work-item" href="../beta-emma/"><img src="../../assets/images/work/events/beta-emma/dsc07894.webp" alt="Emma holding a precision measuring tool at BETA Technologies" loading="lazy"><span class="work-item__context">40 photographs</span><h3>Emma at BETA</h3></a><a class="work-item" href="../beta-ethan/"><img src="../../assets/images/work/events/beta-ethan/dsc08105.webp" alt="Ethan at a workbench inside BETA Technologies" loading="lazy"><span class="work-item__context">30 photographs</span><h3>Ethan at BETA</h3></a></div>`],
     ["The story", "I produced Emma's Flight Paths story at BETA Technologies. She joined BETA through its partnership with the Vermont Adult Learning Center, bringing a real workforce pathway into a story about the people building electric aviation in Vermont."],
     ["The approach", "The larger company was important, but Emma was the reason to watch. I built the piece around her own route into the work so the workforce program, the technology, and the organization arrived through a person instead of a list of claims."],
     ["Watch", "<div class=\"video-embed\"><iframe src=\"https://www.youtube-nocookie.com/embed/4r5N5DjmSCU\" title=\"Flight Paths: Emma at BETA\" loading=\"lazy\" allow=\"accelerometer; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>"],
@@ -175,6 +183,9 @@ if (workIndex.includes('href="eastrise-photography/"')) {
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-social/", eastRiseSocialCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "giron-family-fall-2025/", gironFamilyCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vermont-foodbank-volunteer-day-2026/", foodbankCard);
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "beta-andrew/", betaAndrewCard);
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "beta-emma/", betaEmmaCard);
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "beta-ethan/", betaEthanCard);
 if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }

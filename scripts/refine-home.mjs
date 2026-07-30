@@ -5,6 +5,10 @@ import { readFile, writeFile } from "node:fs/promises";
 const path = new URL("../index.html", import.meta.url);
 let html = await readFile(path, "utf8");
 
+html = html
+  .replaceAll("assets/images/work/eastrise/taylor-milk-bowl-card.webp", "assets/images/work/eastrise/photography/taylor-hoar-racing/2025-04-17_19-15-59_UTC_DIjx-o5p5N0-df7a815bc6ce.webp")
+  .replaceAll("Taylor Hoar racing at Thunder Road", "Taylor Hoar wearing her EastRise racing suit beside her race car");
+
 html = html.replace(/<div class="proof__controls">[\s\S]*?<\/div><\/div><\/div><\/section>/, "</div></div></section>");
 
 if (!html.includes("hero__portrait")) {

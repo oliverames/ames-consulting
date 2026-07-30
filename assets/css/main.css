@@ -353,6 +353,139 @@
     box-shadow: var(--shadow-card);
   }
 
+  .inbound-launcher {
+    position: fixed;
+    inset-inline-end: clamp(1rem, 2vw, 1.75rem);
+    inset-block-end: clamp(1rem, 2vw, 1.75rem);
+    z-index: 80;
+    padding: 0.75rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--heritage-gold) 55%, transparent);
+    border-radius: var(--radius-pill);
+    background: var(--surface-deep);
+    color: var(--surface-0);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-card-hover);
+    cursor: pointer;
+    transition: transform var(--motion-snap), background-color var(--motion-snap);
+  }
+
+  .inbound-launcher:hover,
+  .inbound-launcher:focus-visible {
+    transform: translateY(-2px);
+    background: color-mix(in srgb, var(--surface-deep) 88%, var(--manufacturing-red));
+  }
+
+  .inbound-prompt {
+    width: min(38rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid color-mix(in srgb, var(--heritage-gold) 35%, transparent);
+    border-radius: var(--radius-tile);
+    background: var(--surface-0);
+    color: var(--text-0);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+  }
+
+  .inbound-prompt::backdrop {
+    background: rgba(18, 27, 27, 0.68);
+    backdrop-filter: blur(4px);
+  }
+
+  .inbound-prompt__mesh {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--heritage-gold) 28%, transparent), transparent 38%),
+      radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--accent-plum) 18%, transparent), transparent 42%);
+    pointer-events: none;
+  }
+
+  .inbound-prompt__close {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-end: 0.75rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--surface-0) 90%, transparent);
+    color: var(--text-0);
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .inbound-prompt__eyebrow {
+    display: block;
+    padding-inline-end: 3rem;
+    color: var(--text-1);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .inbound-prompt h2 {
+    max-width: 16ch;
+    margin-block: 1rem 0.75rem;
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    line-height: 0.98;
+  }
+
+  .inbound-prompt > p {
+    max-width: 48ch;
+    margin: 0;
+    color: var(--text-1);
+  }
+
+  .inbound-prompt__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .inbound-prompt__actions .btn {
+    font-family: var(--font-heading);
+    cursor: pointer;
+  }
+
+  @media (max-width: 36rem) {
+    .inbound-prompt {
+      width: 100%;
+      max-width: none;
+      max-height: min(42rem, calc(100dvh - 1rem));
+      margin: auto 0 0;
+      border-radius: var(--radius-tile) var(--radius-tile) 0 0;
+    }
+
+    .inbound-prompt__actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .inbound-prompt__actions .btn {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .inbound-launcher,
+    .inbound-prompt,
+    .inbound-prompt__actions .btn {
+      transition: none;
+    }
+  }
+
   .source-index summary {
     cursor: pointer;
     font-family: var(--font-heading);

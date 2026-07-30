@@ -7,6 +7,8 @@
 //   <script type="module" src="<relative-path>/assets/js/header-scroll.js"></script>
 // It is side-effect-only — no exports.
 
+import "./inbound-prompt.js";
+
 const SCROLL_THRESHOLD = 10;
 
 const header = document.querySelector(".site-header");

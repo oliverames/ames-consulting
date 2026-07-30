@@ -52,3 +52,16 @@ for (const route of [
     );
   });
 }
+
+test("inbound project prompt has no critical accessibility issues", async ({ page }) => {
+  await page.goto("/work/giron-family-fall-2025/");
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.25));
+  await page.getByRole("button", { name: "Start a project" }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+
+  const results = await new AxeBuilder({ page }).include("#inbound-prompt").analyze();
+  const critical = results.violations.filter(
+    (violation) => violation.impact === "critical",
+  );
+  expect(critical).toEqual([]);
+});

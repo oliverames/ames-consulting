@@ -139,6 +139,46 @@ test("contact form submits to the site endpoint", async ({ page }) => {
   );
 });
 
+test("engaged visitors get a restrained project prompt", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/work/giron-family-fall-2025/");
+  await page.evaluate(() => localStorage.removeItem("ames_inbound_prompt_dismissed_at"));
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.5));
+  await page.clock.fastForward("00:00:31");
+
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("heading")).toHaveText(
+    "Need photographs that feel like the people in them?",
+  );
+  await expect(
+    dialog.getByRole("link", { name: /Tell me about the project/ }),
+  ).toHaveAttribute(
+    "href",
+    "../../contact/?project=Photography%20and%20video#contact-form",
+  );
+
+  await dialog.getByRole("button", { name: "Keep looking" }).click();
+  await expect(dialog).toBeHidden();
+  await page.reload();
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.5));
+  await page.clock.fastForward("00:00:31");
+  await expect(dialog).toBeHidden();
+
+  await page.getByRole("button", { name: "Start a project" }).click();
+  await expect(dialog).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+});
+
+test("inbound project links preselect the contact form", async ({ page }) => {
+  await page.goto("/contact/?project=Photography%20and%20video#contact-form");
+  await expect(page.getByLabel("What kind of work?")).toHaveValue(
+    "Photography and video",
+  );
+  await expect(page.locator("[data-inbound-prompt]")).toHaveCount(0);
+});
+
 test("website campaign contains the two PixelSpoke redesigns", async ({
   page,
 }) => {

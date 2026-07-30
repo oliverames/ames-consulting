@@ -63,6 +63,7 @@ async function initContactForm() {
   const submitButton = document.getElementById("contact-submit");
   const startedAtInput = document.getElementById("contact-started-at");
   const honeypotInput = document.getElementById("contact-company-website");
+  const projectType = form?.elements.namedItem("projectType");
 
   if (!(form instanceof HTMLFormElement) || !status || !submitButton || !startedAtInput || !honeypotInput) {
     return;
@@ -72,6 +73,12 @@ async function initContactForm() {
   const endpoint = isUsableEndpoint(config.contactFormEndpoint) ? config.contactFormEndpoint.trim() : "";
 
   startedAtInput.value = String(Date.now());
+
+  const requestedProject = new URLSearchParams(location.search).get("project");
+  if (requestedProject && projectType instanceof HTMLSelectElement) {
+    const matchingOption = [...projectType.options].find((option) => option.text === requestedProject);
+    if (matchingOption) projectType.value = matchingOption.value;
+  }
 
   if (!endpoint) {
     setStatus(

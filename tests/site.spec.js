@@ -486,7 +486,10 @@ test("about page works as a professional profile and resume", async ({
   ).toHaveAttribute("href", "mailto:oliver@ames.consulting");
   await expect(
     page.locator(".about-testimonials .testimonial-card"),
-  ).toHaveCount(4);
+  ).toHaveCount(2);
+  await expect(
+    page.getByRole("link", { name: /view more testimonials/i }),
+  ).toHaveAttribute("href", "../testimonials/");
   await expect(page.getByText("Yvonne Garand", { exact: true })).toBeVisible();
   await expect(page.getByText("Brad Meerholz", { exact: true })).toBeVisible();
 });
@@ -495,8 +498,11 @@ test("recommendations are distributed across relevant pages", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(page.locator(".home-testimonial")).toContainText(
+  await expect(page.locator(".home-testimonial").first()).toContainText(
     "Oliver is a rare talent",
+  );
+  await expect(page.locator(".home-testimonial").nth(1)).toContainText(
+    "During the EastRise launch",
   );
   await page.goto("/services/photography-and-video/");
   await expect(page.locator(".photography-testimonial")).toContainText(
@@ -516,7 +522,9 @@ test("testimonials archive combines recommendations and review feedback", async 
   await expect(page.locator(".review-entry")).toHaveCount(4);
   await expect(page.getByText("Yvonne Garand", { exact: true })).toBeVisible();
   await expect(page.getByText("Brad Meerholz", { exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Testimonials" })).toHaveCount(1);
+  await expect(
+    page.locator('.site-nav a[href="../testimonials/"]'),
+  ).toHaveAttribute("aria-current", "page");
 });
 
 test("EastRise writing archive contains every attributed article", async ({
@@ -596,4 +604,61 @@ test("campaign pages disclose tracked public image sources automatically", async
   await expect(disclosures).toHaveCount(12);
   await expect(disclosures.first()).toContainText("Image source: published by EastRise Credit Union on Facebook.");
   await expect(disclosures.first()).toContainText("Retrieved July 29, 2026.");
+});
+
+test("photo project cards scrub galleries horizontally and restore their pinned image", async ({
+  page,
+}) => {
+  await page.goto("/work/");
+  const card = page.locator('a.work-item[href="girls-on-the-run-2026/"]');
+  const image = card.locator("img").first();
+  const pinnedSource = await image.getAttribute("src");
+  await image.scrollIntoViewIfNeeded();
+  const box = await image.boundingBox();
+
+  expect(box).not.toBeNull();
+  await page.mouse.move(box.x + 8, box.y + box.height / 2);
+  await expect(image).toHaveAttribute("data-gallery-scrub-ready", "");
+  await page.mouse.move(box.x + 220, box.y + box.height / 2, { steps: 8 });
+  await expect.poll(() => image.getAttribute("src")).not.toBe(pinnedSource);
+
+  await page.mouse.move(0, 0);
+  await expect(image).toHaveAttribute("src", pinnedSource);
+});
+
+test("software project cards do not scrub their preview images", async ({ page }) => {
+  await page.goto("/work/");
+  const card = page.locator("#software-development .software-card").first();
+  const image = card.locator("img").first();
+  const pinnedSource = await image.getAttribute("src");
+  await image.scrollIntoViewIfNeeded();
+  const box = await image.boundingBox();
+
+  expect(box).not.toBeNull();
+  await page.mouse.move(box.x + 8, box.y + box.height / 2);
+  await page.mouse.move(box.x + box.width - 8, box.y + box.height / 2, { steps: 8 });
+  await expect(image).toHaveAttribute("src", pinnedSource);
+});
+
+test("home separates recent client and employer projects from software", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.getByRole("heading", { name: "Recent projects" })).toBeVisible();
+  await expect(page.locator(".home-paths .path-thumb")).not.toHaveCount(0);
+  await expect(page.locator('.home-paths a[href*="ping-warden"], .home-paths a[href*="apple-core"], .home-paths a[href*="bridgeport"]')).toHaveCount(0);
+  await expect(page.locator(".home-software .software-card")).toHaveCount(3);
+  await expect(page.locator(".home-testimonial")).toHaveCount(2);
+});
+
+test("about previews testimonials and links to the complete archive", async ({ page }) => {
+  await page.goto("/about/");
+
+  await expect(page.locator(".about-testimonials .testimonial-card")).toHaveCount(2);
+  await expect(page.getByRole("link", { name: /view more testimonials/i })).toHaveAttribute("href", "../testimonials/");
+});
+
+test("testimonials remains visible in the testimonials page navigation", async ({ page }) => {
+  await page.goto("/testimonials/");
+
+  await expect(page.locator('.site-nav a[href="../testimonials/"]')).toHaveAttribute("aria-current", "page");
 });

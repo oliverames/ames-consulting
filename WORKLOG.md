@@ -1,5 +1,19 @@
 # Worklog
 
+## 2026-07-30 - Gallery scrub, home project split, and feedback acceptance audit
+
+**What changed**: Added fixed-rate horizontal pointer scrubbing to gallery-backed work cards while preserving the pinned card image on exit, excluding software cards, touch input, and reduced-motion users. Renamed the home strip to Recent projects, removed software from that strip, added a second featured testimonial, and added a separate dark software section. Reduced About to two testimonial previews with a link to the complete archive and kept Testimonials visible in its own header navigation. Added a durable acceptance audit for the complete browser-feedback session.
+
+**Decisions made**: Pointer travel advances one gallery frame every 48 horizontal pixels and wraps, which keeps perceived speed consistent across small and very large galleries. Card hover alone does not change the image. Gallery data is loaded from the linked project only after pointer entry and cached for the remainder of the page visit.
+
+**Verification**: `npm run check:all` passes. It validates 50 pages, 714 images, 148 public EastRise photographs across 15 series, 51 EastRise social posts, 47 portraits, eight event galleries with 378 photographs, 194 Blue Cross event photographs and seven portraits against edited Portfolio sources, and 208 provenance records. `npm run test:e2e` passes all 95 browser and accessibility tests. The live domain showed the password gate in a fresh cookie-free browser context.
+
+**Left off at**: The site implementation, tests, Portfolio structure, and acceptance audit are ready for commit and deployment. Six Finder `.DS_Store` files were moved to Trash. Empty `Media` and `Public Images` source-record directories were preserved intentionally.
+
+**Open questions**: A LinkedIn-only recent-post section still needs an authenticated or exported personal LinkedIn source. Simeon Chapin and Abigail Stevenson need permission-safe local headshots. Incomplete provenance fields remain blank and are listed in `assets/data/media-provenance-missing.json`. A natural German edition needs approved German copy rather than automatic substitution.
+
+---
+
 ## 2026-07-30 - Public portfolio, responsive design, and search visibility
 
 **What changed**: Rebuilt the public portfolio around individual campaigns and series, added the Blue Cross Vermont, EastRise, BETA Technologies, Green Mountain Community Fitness, Giron Family, Vermont Foodbank, and software-development work, and replaced low-resolution scraped Blue Cross images with the edited portfolio sources. Added complete lazy-loaded galleries and lightboxes, separate portrait collections, the contact form and Turnstile protection, testimonials, responsive layout fixes, and a sitewide SEO, GEO, and AEO pass.

@@ -8,6 +8,7 @@
 // It is side-effect-only — no exports.
 
 import "./inbound-prompt.js";
+import "./gallery-card-scrub.js";
 
 const SCROLL_THRESHOLD = 10;
 

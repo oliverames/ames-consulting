@@ -27,10 +27,22 @@ const definitions = [
     source: `${blueCrossRoot}/2026-05-30 – GOTR/Edited Selects`,
     organization: "Blue Cross Vermont",
   },
+  {
+    slug: "giron-family-fall-2025",
+    title: "Giron Family, Fall 2025",
+    eyebrow: "Family photography · Vermont · Fall 2025",
+    intro: "A family session that moved from open fields into the fall woods, leaving room for the posed photographs and the much better moments that happened between them.",
+    source: "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/Kevin and Kayla Fall 2025/Deliverables",
+    organization: "Giron family",
+  },
 ];
 
 async function processImages(definition) {
-  const files = (await readdir(definition.source)).filter((file) => /\.jpe?g$/i.test(file)).sort();
+  let files = (await readdir(definition.source)).filter((file) => /\.jpe?g$/i.test(file)).sort();
+  if (definition.slug === "giron-family-fall-2025") {
+    const openingSequence = ["DSC06144.jpg", "DSC06117.jpg", "DSC06125.jpg", "DSC06145.jpg", "DSC06162.jpg"];
+    files = [...openingSequence, ...files.filter((file) => !openingSequence.includes(file))];
+  }
   const images = [];
   for (const [index, file] of files.entries()) {
     const source = path.join(definition.source, file);
@@ -38,7 +50,10 @@ async function processImages(definition) {
     await mkdir(path.dirname(destination), { recursive: true });
     await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", "1600x1600>", "-strip", "-quality", "82", destination]);
     const [width, height] = (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", destination])).stdout.trim().split(" ").map(Number);
-    images.push({ src: `../../assets/images/work/events/${definition.slug}/${path.basename(destination)}`, alt: `${definition.title}, photograph ${index + 1} of ${files.length}`, width, height });
+    const alt = definition.slug === "giron-family-fall-2025"
+      ? `Giron family fall portrait session, photograph ${index + 1} of ${files.length}`
+      : `${definition.title}, photograph ${index + 1} of ${files.length}`;
+    images.push({ src: `../../assets/images/work/events/${definition.slug}/${path.basename(destination)}`, alt, width, height });
   }
   return images;
 }
@@ -60,7 +75,13 @@ campaigns.push({
 const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../corporate-cup-2026/">Corporate Cup 2026</a></li><li><a href="../girls-on-the-run-2026/">Girls on the Run 2026</a></li><li><a href="../eastrise-launch-campaign/">EastRise Launch Campaign</a></li><li><a href="../taylor-hoar-racing/">Taylor Hoar Racing 2025</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
 for (const campaign of campaigns) {
   const gallery = campaign.images.map((image) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async">`).join("");
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${campaign.title} | Ames Consulting</title><meta name="description" content="${campaign.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${campaign.slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></header><section class="case-section case-section--gallery"><h2>Complete gallery</h2><div class="campaign-collage" data-gallery="${campaign.slug}">${gallery}</div></section></main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
+  const familyStory = campaign.slug === "giron-family-fall-2025"
+    ? `<section class="case-section"><h2>A walk, not a pose list</h2><div class="case-section__body"><p>We started with the photographs every family needs, then kept moving. The children had room to run, the parents could settle into the session, and the landscape changed from open sky to leaf-covered paths.</p><p>The result is a useful family record with enough movement, quiet, and personality to feel like this particular afternoon.</p></div></section><section class="case-section"><h2>View the session</h2><div class="case-section__body">Select any photograph to open it full size. Use the buttons or the left and right arrow keys to move through all ${campaign.images.length} images.</div></section>`
+    : "";
+  const hero = campaign.slug === "giron-family-fall-2025"
+    ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="../../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family together during their fall portrait session" width="1067" height="1600"></header>`
+    : `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></header>`;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${campaign.title} | Ames Consulting</title><meta name="description" content="${campaign.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${campaign.slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${familyStory}<section class="case-section case-section--gallery"><h2>Complete gallery</h2><div class="campaign-collage" data-gallery="${campaign.slug}">${gallery}</div></section></main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = path.join(root, "work", campaign.slug, "index.html");
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, html);

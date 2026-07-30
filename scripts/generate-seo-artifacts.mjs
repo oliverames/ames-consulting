@@ -58,6 +58,7 @@ async function getKnownRoutes(siteUrl) {
     `${siteUrl}/work/corporate-cup-2026/`,
     `${siteUrl}/work/girls-on-the-run-2026/`,
     `${siteUrl}/work/eastrise-launch-campaign/`,
+    `${siteUrl}/work/giron-family-fall-2025/`,
     `${siteUrl}/work/flight-paths/`,
     `${siteUrl}/work/blue-cross-vermont/`,
     `${siteUrl}/work/beta-technologies/`,

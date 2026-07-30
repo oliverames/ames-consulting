@@ -195,13 +195,14 @@ test("event photography is split into complete campaign galleries", async ({
     ["/work/corporate-cup-2026/", 9],
     ["/work/girls-on-the-run-2026/", 185],
     ["/work/eastrise-launch-campaign/", 10],
+    ["/work/giron-family-fall-2025/", 36],
   ];
   for (const [route, count] of campaigns) {
     await page.goto(route);
     await expect(page.locator(".campaign-collage img")).toHaveCount(count);
   }
   await page.locator(".campaign-collage img").first().click();
-  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 10");
+  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 36");
 });
 
 test("Taylor Hoar Milk Bowl story uses a paged photo gallery", async ({
@@ -250,7 +251,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(15);
+  ).toHaveCount(16);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
   ).toBeVisible();
@@ -272,6 +273,9 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Blue Cross Portraits" }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Giron Family" }),
+  ).toBeVisible();
 
   const sections = page.locator(".work-category");
   await expect(sections).toHaveCount(3);
@@ -285,6 +289,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     "flight-paths/",
     "eastrise-portraits/",
     "blue-cross-portraits/",
+    "giron-family-fall-2025/",
     "member-banking-stories/",
     "sweat-heart-throwdown/",
     "eastrise-social/",

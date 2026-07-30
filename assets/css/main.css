@@ -810,6 +810,32 @@
     max-width: 21ch;
   }
 
+  .case-hero--family {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.8fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+    padding-block: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .case-hero--family__copy {
+    display: grid;
+    gap: clamp(0.65rem, 1.5vw, 1rem);
+  }
+
+  .case-hero--family__copy > * {
+    margin: 0;
+  }
+
+  .case-hero--family img {
+    width: 100%;
+    max-height: 33rem;
+    object-fit: cover;
+    object-position: center 35%;
+    border-radius: var(--radius-tile, 18px);
+    box-shadow: var(--shadow-card);
+  }
+
   .portrait-count {
     font-family: var(--font-heading);
     font-size: 0.9rem !important;
@@ -1259,6 +1285,15 @@
   }
 
   @media (max-width: 44rem) {
+    .case-hero--family {
+      grid-template-columns: 1fr;
+      padding-top: 2rem;
+    }
+
+    .case-hero--family img {
+      max-height: 32rem;
+    }
+
     .site-header {
       padding-block: 0.65rem 0.35rem;
     }

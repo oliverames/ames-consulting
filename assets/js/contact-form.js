@@ -138,7 +138,8 @@ async function initContactForm() {
       });
 
       if (!response.ok) {
-        throw new Error(`Submission failed with status ${response.status}`);
+        const result = await response.json().catch(() => ({}));
+        throw new Error(result.error || `Submission failed with status ${response.status}`);
       }
 
       recentAttempts.push(now);
@@ -147,8 +148,12 @@ async function initContactForm() {
       setStatus(status, config.contactFormSuccessMessage || "Thanks, your message was sent.", "ok");
       form.reset();
       startedAtInput.value = String(Date.now());
-    } catch {
-      setStatus(status, "Message could not be sent right now. Please try again shortly.", "error");
+      window.turnstile?.reset();
+    } catch (error) {
+      const message = error instanceof Error && error.message.toLowerCase().includes("spam protection")
+        ? "Please complete the spam protection check and try again."
+        : "Message could not be sent right now. Please try again shortly.";
+      setStatus(status, message, "error");
     } finally {
       submitButton.disabled = false;
     }

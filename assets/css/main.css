@@ -3703,6 +3703,22 @@
     gap: var(--space-2);
   }
 
+  .contact-form__verification {
+    display: grid;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .contact-form__verification p {
+    margin: 0;
+    color: var(--text-1);
+    font-size: 0.76rem;
+  }
+
+  .contact-form__verification .cf-turnstile {
+    max-width: 100%;
+  }
+
   .contact-form__submit p {
     margin: 0;
     color: var(--text-1);

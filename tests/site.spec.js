@@ -144,6 +144,14 @@ test("contact form submits to the site endpoint", async ({ page }) => {
     page.getByRole("link", { name: "oliver@ames.consulting" }),
   ).toHaveAttribute("href", "mailto:oliver@ames.consulting");
   await expect(page.getByRole("status")).toBeHidden();
+  await expect(page.locator(".cf-turnstile")).toHaveAttribute(
+    "data-appearance",
+    "interaction-only",
+  );
+  await expect(page.locator(".cf-turnstile")).toHaveAttribute(
+    "data-action",
+    "contact",
+  );
   await page.getByLabel("Name").fill("Site Test");
   await page.getByLabel("Email").fill("site-test@example.com");
   await page.getByLabel("Organization (optional)").fill("Ames Consulting");

@@ -13,12 +13,42 @@ const escapeHtml = (value) => String(value)
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&#039;");
 
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+async function verifyTurnstile({ token, secret, remoteIp }) {
+  const body = new FormData();
+  body.set("secret", secret);
+  body.set("response", token);
+  if (remoteIp) body.set("remoteip", remoteIp);
+
+  const response = await fetch(TURNSTILE_VERIFY_URL, {
+    method: "POST",
+    body
+  });
+  if (!response.ok) return false;
+
+  const result = await response.json();
+  return result.success === true && result.action === "contact";
+}
+
 export async function onRequestPost({ request, env }) {
   if (!env.RESEND_API_KEY || !env.CONTACT_EMAIL) return json({ error: "Email service unavailable" }, 503);
 
   const data = await request.formData();
   const website = String(data.get("companyWebsite") || "").trim();
   if (website) return json({ ok: true });
+
+  if (!env.TURNSTILE_SECRET_KEY) return json({ error: "Spam protection unavailable" }, 503);
+
+  const turnstileToken = String(data.get("cf-turnstile-response") || "").trim();
+  if (!turnstileToken) return json({ error: "Please complete the spam protection check" }, 400);
+
+  const turnstileValid = await verifyTurnstile({
+    token: turnstileToken,
+    secret: env.TURNSTILE_SECRET_KEY,
+    remoteIp: request.headers.get("CF-Connecting-IP") || ""
+  });
+  if (!turnstileValid) return json({ error: "Spam protection check failed" }, 403);
 
   const name = String(data.get("name") || "").trim().slice(0, 120);
   const email = String(data.get("email") || "").trim().slice(0, 254);

@@ -107,6 +107,8 @@ Until then, the app automatically uses local sample content.
 
 GitHub remains the source of truth. A push to `main` uploads `assets/images/` to the dedicated `ames-website-assets` R2 bucket, rewrites the production artifact to use `assets.ames.consulting`, and deploys `_site/` to Cloudflare Pages.
 
+The contact form uses a Managed Cloudflare Turnstile widget with interaction-only appearance. Its public sitekey is part of the generated contact page; the private `TURNSTILE_SECRET_KEY` is stored as an encrypted Cloudflare Pages secret. The Pages Function validates every token with Cloudflare before sending the inquiry through Resend.
+
 ## CI/CD
 
 - **ci-quality.yml**: Static checks, broken link scan, browser tests, and accessibility checks

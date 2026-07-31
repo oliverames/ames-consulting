@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-Static personal portfolio/consulting site for ames.consulting. No framework — pure HTML, CSS (cascade layers), and vanilla ES modules. Hosted on Cloudflare Pages with website images delivered from R2.
+Static personal portfolio/consulting site for ames.consulting. No framework — pure HTML, CSS (cascade layers), and vanilla ES modules. Hosted on Cloudflare Pages (deployed with wrangler from `_site/`; the Cloudflare Functions handler in `functions/api/contact.js` powers the contact form).
 
-Content is sourced from a Local JSON JSON feed (with local fallback) and rendered client-side through a single canonical Post model. Multiple views (home, blog, work) are derived from the same content stream via tag filtering.
+Pages are fully static. A chain of Node generator scripts (`npm run build:site`) writes and refines the committed HTML in the source tree, then copies everything into `_site/` for deploy. There is no client-side content pipeline — the earlier JSON-feed/Post-model architecture was removed.
 
 ## Commands
 
@@ -17,27 +17,23 @@ Content is sourced from a Local JSON JSON feed (with local fallback) and rendere
 | **HTML validation** | `npm run check:html` |
 | **JS lint** | `npm run lint:js` |
 | **Local dev server** | `python3 -m http.server 4173` |
-| **Generate sitemap/robots** | `node scripts/generate-seo-artifacts.mjs --out-dir _site` |
-| **Generate blog pages** | `npm run generate:blog-posts` |
-| **Generate blog index cards** | `npm run generate:blog-index` |
-| **Generate photography galleries** | `npm run generate:photography` |
-| **Generate Financial Wellness pages** | `npm run generate:financial-wellness` |
-| **Generate AI summaries** | `npm run generate:ai-summaries` (uses Mistral) |
+| **Full site build (generators + `_site/`)** | `npm run build:site` |
+| **Generate sitemap/robots only** | `node scripts/generate-seo-artifacts.mjs --out-dir _site` |
+| **Refresh writing pages** | `npm run refresh:writing` |
 
 Always run `npm run check:all` before committing.
 
-`check:all` runs five checks in order: `check:js-syntax`, `lint:js`, `check:html`, `check:structured-data`, `check:sample-data`. Run individual checks when debugging a specific failure.
+`check:all` chains eleven checks: `check:js-syntax`, `lint:js`, `check:html`, `check:structured-data`, `check:image-loading`, `check:eastrise-photography`, `check:eastrise-social`, `check:portraits`, `check:event-galleries`, `check:blue-cross-sources`, and `check:media-provenance`. Run individual checks when debugging a specific failure.
+
+`build:site` mutates the committed HTML (generators write into the source tree), so expect a dirty git status after running it. The `apply-*` scripts at the end of the chain (`apply-shared-ui`, `apply-image-dimensions`, `apply-seo`) are sitewide normalizers: shared chrome, image `width`/`height` attributes, and SEO metadata are enforced there rather than in each generator template.
 
 ## First-Run Setup
 
-New clone or fresh dev session: the app needs `assets/data/site.config.json` or it silently falls back to `assets/data/content.example.json` (local sample data).
+New clone or fresh dev session: `assets/data/site.config.json` configures the contact form (`contactFormEndpoint`, success message). Without it the form shows a "not configured" notice; everything else on the site works.
 
 ```bash
 cp assets/data/site.config.example.json assets/data/site.config.json
-# Edit site.config.json: set jsonFeedUrl to your Local JSON JSON feed
 ```
-
-Without this file, `app.js` falls back to `content.example.json` automatically — useful for UI development but not for testing live content.
 
 ## Architecture
 
@@ -53,35 +49,32 @@ Color custom properties are registered with `@property` for animated transitions
 
 ### JavaScript — ES Modules (`assets/js/`)
 
-- **app.js** — Bootstrap for `/blog/`: loads config → fetches content → renders `<post-card>` elements → attaches filters/events. Imports image-viewer helpers; not loaded on other pages.
-- **post-card.js** — Custom element with private `#post` field, renders article cards
-- **content-sources.js** — Source adapter factory (`createSource()`), feed normalization, retry with exponential backoff
-- **site-config.js** — Loads `assets/data/site.config.json`, merges with defaults
-- **contact-form.js** — Form handling with rate limiting (3/10min), honeypot, minimum fill time
-- **seo.js** — Dynamic meta/OG tags, JSON-LD structured data, canonical URLs
-- **header-scroll.js** — Tiny shared module loaded on every page. Toggles `[data-scrolled]` on `.site-header` once `window.scrollY > 10`, which is what gates the blur backdrop in CSS.
-- **image-viewer.js** — Shared image lightbox: auto-injects its `<dialog>`, decorates content `<img>`s in `<main>`/`<article>` (skipping anything wrapped in `<a>`), and wires click/keyboard/asset-protection handlers. Idempotent — `app.js` imports the named helpers without double-wiring.
-- **photography-strip.js** — Renders the home-page photography strip from `photography.json`.
+All eleven modules are live; nothing else ships:
 
-### Content Model
-
-Everything is a "post" normalized to: `id`, `title`, `summary`, `contentHtml`, `url`, `publishedAt`, `tags[]`, `readTimeMinutes`, `imageUrl`/`featuredImage`, `source`. Views filter this single stream — the home page caps at `homePreviewLimit`, work filters by `portfolioTag`.
+- **construction-gate.js** — Password gate overlay (classic script in `<head>` of every page; unlock persists in localStorage as `amesConsultingConstructionAccess`).
+- **header-scroll.js** — Loaded on every page; toggles `[data-scrolled]` on `.site-header` once `window.scrollY > 10` (gates the blur backdrop). Imports `inbound-prompt.js` and `gallery-card-scrub.js`.
+- **inbound-prompt.js** — Time+scroll-triggered "Start a project" launcher and dialog; suppressed while the gate is locked or another dialog is open.
+- **gallery-card-scrub.js** — Pointer-scrub through gallery frames on work cards.
+- **image-viewer.js** — Shared image lightbox: auto-injects its `<dialog>`, decorates content `<img>`s, wires click/keyboard/asset-protection handlers. Idempotent named helpers.
+- **content-protection.js** — Context-menu/drag protection for photographs.
+- **contact-form.js** — Contact form handling: rate limiting (3/10min), honeypot, minimum fill time, Turnstile reset on both success and failure paths.
+- **site-config.js** — Loads `assets/data/site.config.json`, merges with defaults (used by contact-form).
+- **hero-headline.js** — Rotates the homepage H1 through five variants (sessionStorage-seeded).
+- **proof-rotator.js** — Rotates the homepage proof-stat pages every 12s; pauses on hover/focus and under reduced motion.
+- **work-filter.js** — `?organization=` filtering on `/work/`; unknown values fall back to the unfiltered view with "All" marked current.
 
 ### Static Generation
 
-Node.js scripts (`.mjs`) generate static HTML pages from dynamic sources (Local JSON feed, photography data, placeholder editorial XML). The build process outputs to `_site/` directory. Scripts must `cd _site` before generating pages to place files correctly relative to the published root.
+`npm run build:site` chains the generators in package.json order: page generators (services, event galleries, portraits, career work, software, credit-union sites, contact, about, testimonials, writing, brand icons, media provenance) → `refine-*` in-place page surgeries → `apply-shared-ui` → `apply-image-dimensions` → `apply-seo` → `build-site` (copies into `_site/` and emits sitemap/robots via `generate-seo-artifacts.mjs`).
 
-Key scripts:
-- **generate-seo-artifacts.mjs** — Creates sitemap.xml, robots.txt
-- **generate-blog-posts.mjs** — Creates individual blog post HTML from Local JSON content
-- **generate-blog-index.mjs** — Pre-renders `<post-card>` markup into `blog/index.html` between `BLOG_CARDS_START` / `BLOG_CARDS_END` sentinels. Eliminates the layout shift that occurred when the empty stream grew after `app.js` finished its async fetch. Idempotent. Swaps `.webp` → `-card.webp` thumbnail variants when they exist on disk; otherwise falls back to the original.
-- **generate-photography-galleries.mjs** — Creates gallery pages from photography.json
-- **generate-financial-wellness-pages.mjs** — Creates Financial Wellness blog post pages from XML feed
-- **generate-ai-summaries.mjs** — Generates blog previews via Mistral API
-- **parse-financial-wellness-posts.mjs** — Parses placeholder editorial XML feed into normalized data
-- **analyze-photo-folder.mjs** / **process-lab-photos.mjs** — Photo processing utilities
+Ground rules learned the hard way:
+- Generators and `refine-*` scripts run against the committed source tree and must tolerate their own previous output (idempotence). Pattern-matching surgeries warn loudly instead of silently no-opping when markup drifts.
+- Shared chrome (nav items, footer colophon/Company column, font preconnects) is normalized sitewide by `apply-shared-ui.mjs` — fix drift there, not per-template.
+- `apply-image-dimensions.mjs` injects intrinsic `width`/`height` on every `<img>` lacking them (pure-JS WebP/PNG/JPEG/SVG header parsing; fails the build on unmeasurable images).
+- Gallery pages held pending written permission carry `<meta name="robots" content="noindex">`, and `generate-seo-artifacts.mjs` excludes noindex pages from sitemap.xml.
+- **analyze-photo-folder.mjs** / **process-lab-photos.mjs** / **sync-eastrise-social-dimensions.mjs** / **sync-source-screenshots.mjs** — manual photo/data utilities, not part of `build:site`.
 
-**CI requirement:** Deploy workflow must run `npm ci` and all generation scripts before deploying to prevent silent failures.
+**CI requirement:** Deploy workflow must run `npm ci` and `npm run build:site` before deploying to prevent silent failures.
 
 ### Routes
 
@@ -97,17 +90,15 @@ Playwright with Chromium against a local Python HTTP server on port 4173.
 ## CI/CD (`.github/workflows/`)
 
 - **ci-quality.yml** — Static checks → broken link scan → E2E/a11y tests (on push to main + PRs)
-- **performance.yml** — Lighthouse CI budgets (perf ≥ 0.8, CLS ≤ 0.1, LCP ≤ 3s, total ≤ 500KB)
-- **deploy-pages.yml** — Uploads website images to R2, builds `_site/`, and deploys to Cloudflare Pages
+- **performance.yml** — Lighthouse CI budgets (perf ≥ 0.8, CLS ≤ 0.1, LCP ≤ 3s, total ≤ 500KB); a puppeteer script unlocks the construction gate first so the budgets measure real pages
+- **deploy-pages.yml** — Runs `build:site` and deploys `_site/` to Cloudflare Pages with wrangler (also uploads images to R2, though the site serves images same-origin — the R2 upload step is a candidate for removal)
 - **pr-hygiene.yml** — Enforces semantic PR titles (feat/fix/chore/docs/refactor/test/perf)
 
 ## Conventions
 
-- **Relative source paths**: Keep internal links and image references relative (`./`, `../`) for local development. The production build rewrites `assets/images/` references to the `assets.ames.consulting` R2 hostname.
+- **Relative source paths**: Keep internal links and image references relative (`./`, `../`). Images are served same-origin from Cloudflare Pages. Exception: `404.html` uses root-absolute asset paths because it renders at arbitrary missing URLs.
 - **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
-- **Progressive enhancement**: `<noscript>` fallbacks for JS-rendered content (especially `blog-strip`)
 - **Homepage section structure**: `path-row` (container) → `h2` (heading with link) → `path-strip` (horizontal scrollable) → `path-browse` (CTA link)
-- **Slug generation**: Use centralized `generateSlug()` for URL-safe slugs
 - **Social links**: `rel="me noopener"` for IndieWeb identity verification
 - **JSON-LD**: Every page has structured data — no `SearchAction` (client-side search only)
 - **`aria-current`**: `"page"` for exact-match nav links, `"true"` for section-parent links; each `<nav>` needs unique `aria-label`

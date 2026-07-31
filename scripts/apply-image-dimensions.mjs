@@ -74,12 +74,16 @@ async function imageDimensions(path) {
   return webpDimensions(buffer) ?? pngDimensions(buffer) ?? jpegDimensions(buffer);
 }
 
+// Keep in sync with apply-shared-ui.mjs, apply-seo.mjs, and
+// validate-structured-data.mjs.
+const EXCLUDED_DIRS = new Set(["node_modules", "_site", ".git", "playwright-report", "test-results", "output"]);
+
 async function collectHtml(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
     const path = join(directory, entry.name);
-    if (entry.isDirectory() && entry.name !== "node_modules" && entry.name !== "_site" && entry.name !== ".git") {
+    if (entry.isDirectory() && !EXCLUDED_DIRS.has(entry.name)) {
       files.push(...await collectHtml(path));
     }
     if (entry.isFile() && entry.name.endsWith(".html")) files.push(path);

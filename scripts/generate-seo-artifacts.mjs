@@ -42,6 +42,10 @@ async function getKnownRoutes(siteUrl, outDir) {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) await visit(fullPath);
       else if (entry.name === "index.html") {
+        // Pages marked noindex (e.g. galleries held pending written
+        // permission) must not be advertised to crawlers.
+        const html = await readFile(fullPath, "utf8");
+        if (/<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i.test(html)) continue;
         const relativePath = path.relative(outDir, fullPath).split(path.sep).join("/").replace(/index\.html$/, "");
         routes.push(`${siteUrl}/${relativePath}`);
       }

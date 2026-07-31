@@ -56,6 +56,11 @@ const inHouseCredits = {
   "blue-cross-vermont": "Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont.",
   eastrise: "Made as Digital Content Strategist, EastRise Credit Union.",
 };
+// Era-accurate overrides: the Digital Content Strategist title began in 2022,
+// so 2021-and-earlier VSECU work carries the title held at the time.
+const creditOverridesByHref = new Map([
+  ["vsecu-website/", "Made as Social Media Specialist, VSECU (now EastRise Credit Union)."],
+]);
 const inHouseDescriptions = new Map([
   ["girls-on-the-run-2026/", "I documented the full Vermont 5K in-house, building a 185-image library around the runners, volunteers, and Blue Cross presence."],
   ["corporate-cup-2026/", "I photographed the Blue Cross team in-house across the course, the crowd, and the rain-soaked finish in downtown Montpelier."],
@@ -100,12 +105,24 @@ const projectOrder = [
   "connecticut-college/",
 ];
 
-const campaignSectionPattern = /(<section class="work-category">\s*<h2(?: id="project-list-title")?>(?:Campaigns and series|All projects|Projects)<\/h2>(?:<nav class="work-filters"[\s\S]*?<\/nav>)?(?:<p class="work-filter-status" id="work-filter-status" hidden><\/p>)?\s*<div class="work-list">)([\s\S]*?)(\s*<\/div>\s*<\/section>)/;
+// Must tolerate every artifact of this script's own previous run: the framing
+// paragraph inserted after the heading, the filters nav, and the filter
+// status element. Otherwise the second build silently freezes all curated
+// ordering, descriptions, and organization tagging.
+const campaignSectionPattern = /(<section class="work-category">\s*<h2(?: id="project-list-title")?>(?:Campaigns and series|All projects|Projects)<\/h2>(?:<p class="work-category__framing">[\s\S]*?<\/p>)?(?:<nav class="work-filters"[\s\S]*?<\/nav>)?(?:<p class="work-filter-status" id="work-filter-status" hidden><\/p>)?\s*<div class="work-list">)([\s\S]*?)(\s*<\/div>\s*<\/section>)/;
 const earlierSectionPattern = /<section class="work-category work-category--earlier">\s*<h2>(?:Earlier work|Legacy work)<\/h2>\s*<div class="work-list">([\s\S]*?)\s*<\/div>\s*<\/section>/;
 const campaignMatch = html.match(campaignSectionPattern);
 const earlierMatch = html.match(earlierSectionPattern);
 
+if (!campaignMatch) {
+  console.warn("refine-work: campaign section pattern did not match work/index.html — curated ordering, descriptions, and organization tags were NOT applied.");
+}
+
 if (campaignMatch) {
+  // Remove the original earlier/legacy section before the campaign rewrite
+  // appends a fresh Legacy section; replacing afterwards would delete the
+  // freshly built section (the first match) and keep the stale one.
+  if (earlierMatch) html = html.replace(earlierSectionPattern, "");
   const cards = [...`${campaignMatch[2]}${earlierMatch?.[1] ?? ""}`.matchAll(/<a class="work-item"[^>]*href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
     .map((match) => ({ href: match[1], html: match[0] }));
   const rank = new Map(projectOrder.map((href, index) => [href, index]));
@@ -122,9 +139,15 @@ if (campaignMatch) {
     let cardHtml = card.html.replace(/ data-organization="[^"]+"/g, "");
     const feature = featuredImages.get(card.href);
     if (feature) {
-      cardHtml = cardHtml.replace(/<img\s+src="[^"]+"\s+alt="[^"]*"/, `<img src="${feature[0]}" alt="${feature[1]}"`);
+      // Rebuild the whole tag: swapping only src/alt would leave the previous
+      // image's width/height attributes attached to the new file.
+      // apply-image-dimensions.mjs re-measures downstream.
+      cardHtml = cardHtml.replace(/<img[^>]*>/, `<img src="${feature[0]}" alt="${feature[1]}" loading="lazy">`);
     }
-    const credit = inHouseCredits[organization];
+    // Strip any credit inserted by a previous run so the description replace
+    // below cannot stack a second credit paragraph.
+    cardHtml = cardHtml.replace(/<p class="work-item__credit">[\s\S]*?<\/p>/g, "");
+    const credit = creditOverridesByHref.get(card.href) || inHouseCredits[organization];
     if (credit) {
       const description = inHouseDescriptions.get(card.href) || (card.href.startsWith("eastrise-photography/")
         ? "I made this in-house photography series as part of EastRise’s ongoing public storytelling."
@@ -146,7 +169,6 @@ if (campaignMatch) {
     '<h2 id="project-list-title">Projects</h2><nav class="work-filters"',
     '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">Work made in-house at EastRise Credit Union and Blue Cross and Blue Shield of Vermont, alongside commissioned projects. Employer or client credited on each.</p><nav class="work-filters"',
   );
-  if (earlierMatch) html = html.replace(earlierSectionPattern, "");
 }
 
 html = html.replace(
@@ -163,8 +185,13 @@ if (!html.includes('src="../assets/js/work-filter.js"')) {
 html = html.replace(/[ \t]+$/gm, "");
 await writeFile(indexPath, html);
 
-const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="../blue-cross-vermont/">Blue Cross Vermont campaigns</a></li><li><a href="../eastrise/">EastRise campaigns</a></li><li><a href="../beta-technologies/">BETA Technologies campaigns</a></li><li><a href="../green-mountain-community-fitness/">Green Mountain Community Fitness</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
-const page = (slug, eyebrow, title, intro, sections) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="${intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:wght@400;500&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"><title>${title} | Ames Consulting</title></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content"><header class="case-hero"><p class="eyebrow">${eyebrow}</p><h1>${title}</h1><p>${intro}</p></header>${sections.map(([heading, body]) => `<section class="case-section"><h2>${heading}</h2><div class="case-section__body"><p>${body}</p></div></section>`).join("")}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script></body></html>`;
+// apply-shared-ui.mjs later normalizes the colophon and Company column
+// site-wide; this template just needs the same skeleton as its siblings.
+const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="../blue-cross-vermont/">Blue Cross Vermont campaigns</a></li><li><a href="../eastrise/">EastRise campaigns</a></li><li><a href="../beta-technologies/">BETA Technologies campaigns</a></li><li><a href="../green-mountain-community-fitness/">Green Mountain Community Fitness</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
+// Head/nav/main chrome mirrors generate-career-work-pages.mjs so these two
+// late-generated pages stay identical to their siblings (CSP, referrer,
+// view-transition, preconnects, ital Lora URL, Testimonials nav, tabindex).
+const page = (slug, eyebrow, title, intro, sections) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self';"><title>${title} | Ames Consulting</title><meta name="description" content="${intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="case-hero"><p class="eyebrow">${eyebrow}</p><h1>${title}</h1><p>${intro}</p></header>${sections.map(([heading, body]) => `<section class="case-section"><h2>${heading}</h2><div class="case-section__body"><p>${body}</p></div></section>`).join("")}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script></body></html>`;
 
 const pages = [
   ["connecticut-college", "Digital storytelling · 2013–2015", "Where digital storytelling became the job.", "At Connecticut College, I developed content for college blogs and social channels, supported donor events, and contributed to a major website redesign.", [["The work", "The assignment moved between writing, publishing, event support, and the practical details of a large institutional website. It was the point when something I had been doing instinctively became a profession."], ["What stayed with me", "The audience was never one group. Students, alumni, donors, and prospective families each arrived with different questions, so the work had to be clear about who it was helping and why."]]],

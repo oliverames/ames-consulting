@@ -4,7 +4,9 @@ import { join } from "node:path";
 async function collect(dir) {
   const files = [];
   for (const entry of await readdir(dir, { withFileTypes: true })) {
-    if (["node_modules", ".git", "_site"].includes(entry.name)) continue;
+    // Keep in sync with apply-shared-ui.mjs, apply-image-dimensions.mjs, and
+    // apply-seo.mjs.
+    if (["node_modules", ".git", "_site", "playwright-report", "test-results", "output"].includes(entry.name)) continue;
     const path = join(dir, entry.name);
     if (entry.isDirectory()) files.push(...await collect(path));
     else if (entry.name === "index.html") files.push(path);

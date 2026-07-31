@@ -52,6 +52,10 @@ const overrides = {
     title: "Writing by Oliver Ames | Vermont Photography, Technology, and Work",
     description: "Essays and notes from Oliver Ames about photography, communications, technology, Vermont organizations, and the systems behind useful work."
   },
+  "/blog/archive/": {
+    title: "Writing Archive | Oliver Ames",
+    description: "Every article and note by Oliver Ames, in reverse chronological order."
+  },
   "/testimonials/": {
     title: "Client and Colleague Recommendations | Oliver Ames",
     description: "Recommendations and performance feedback about Oliver Ames's photography, creative strategy, problem-solving, initiative, and collaboration."
@@ -76,7 +80,9 @@ async function htmlFiles(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
-    if (["node_modules", ".git", "_site"].includes(entry.name)) continue;
+    // Keep in sync with apply-shared-ui.mjs, apply-image-dimensions.mjs, and
+    // validate-structured-data.mjs.
+    if (["node_modules", ".git", "_site", "playwright-report", "test-results", "output"].includes(entry.name)) continue;
     const path = join(dir, entry.name);
     if (entry.isDirectory()) files.push(...await htmlFiles(path));
     else if (entry.name === "index.html") files.push(path);
@@ -96,8 +102,14 @@ function imageFor(html) {
 }
 
 function metadataFor(route, html) {
-  const h1 = text(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "Oliver Ames");
-  const oldDescription = html.match(/<meta\s+name="description"\s+content="([^"]*)"\s*\/?>/i)?.[1];
+  // Skip the construction gate's injected <h1 id="construction-gate-title">
+  // so page titles derive from the page's real heading.
+  const h1Match = [...html.matchAll(/<h1([^>]*)>([\s\S]*?)<\/h1>/gi)]
+    .find((match) => !match[1].includes("construction-gate-title"));
+  const h1 = text(h1Match?.[2] || "Oliver Ames");
+  // Take the last description on the page: when a stale hand-authored block
+  // coexists with a previously generated one, the generated value is last.
+  const oldDescription = [...html.matchAll(/<meta\s[^>]*name="description"[^>]*content="([^"]*)"[^>]*>/gi)].at(-1)?.[1];
   const slug = route.split("/").filter(Boolean).at(-1) || "home";
   const slugTitle = slug.split("-").map((part) => part ? `${part[0].toUpperCase()}${part.slice(1)}` : part).join(" ")
     .replaceAll("Eastrise", "EastRise").replaceAll("Vtdigger", "VTDigger").replaceAll("Ynab", "YNAB").replaceAll("Mcp", "MCP").replaceAll("Beta", "BETA");
@@ -167,14 +179,26 @@ for (const file of await htmlFiles(root)) {
   const image = imageFor(html);
   let head = headMatch[1];
   head = replaceOrAdd(head, /<title>[\s\S]*?<\/title>/i, `<title>${attr(metadata.title)}</title>`);
-  head = replaceOrAdd(head, /<meta name="description" content="[^"]*">/i, `<meta name="description" content="${attr(metadata.description)}">`);
-  head = replaceOrAdd(head, /<meta name="robots" content="[^"]*">/i, '<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">');
-  head = replaceOrAdd(head, /<link rel="canonical" href="[^"]*">/i, `<link rel="canonical" href="${canonical}">`);
+  // Strip every existing description/robots/canonical — including
+  // Prettier-formatted self-closing and multi-line tags — then append exactly
+  // one generated instance, so hand-authored and generated blocks can never
+  // coexist with conflicting values.
+  // Pages generated with noindex (e.g. galleries held pending written
+  // permission) keep it; everything else gets the standard directives.
+  const keepNoindex = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"[^>]*>/i.test(head);
+  head = head.replace(/<meta\s[^>]*name="description"[^>]*>/gi, "");
+  head = head.replace(/<meta\s[^>]*name="robots"[^>]*>/gi, "");
+  head = head.replace(/<link\s[^>]*rel="canonical"[^>]*>/gi, "");
+  head += `<meta name="description" content="${attr(metadata.description)}">`;
+  head += keepNoindex
+    ? '<meta name="robots" content="noindex">'
+    : '<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">';
+  head += `<link rel="canonical" href="${canonical}">`;
   if (route === "/" && !head.includes("HTxwL3I-JCGChYJ8VI-L6OO_au7B4873z3bWuYMBYro.woff2")) {
     const fontPreloads = '<link rel="preload" href="https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4873z3bWuYMBYro.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B46r2z3bWuYMBYro.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="https://fonts.gstatic.com/s/lora/v37/0QIvMX1D_JOuMwr7I_FMl_E.woff2" as="font" type="font/woff2" crossorigin>';
     head = head.replace(/(<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com"[^>]*>)/i, `$1${fontPreloads}`);
   }
-  head = head.replace(/<meta property="og:[^"]+" content="[^"]*">/gi, "").replace(/<meta name="twitter:[^"]+" content="[^"]*">/gi, "").replace(/<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, "");
+  head = head.replace(/<meta\s[^>]*property="og:[^"]*"[^>]*>/gi, "").replace(/<meta\s[^>]*name="twitter:[^"]*"[^>]*>/gi, "").replace(/<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, "");
   head += `<meta property="og:site_name" content="Oliver Ames"><meta property="og:locale" content="en_US"><meta property="og:type" content="${route.startsWith("/blog/") && route !== "/blog/" ? "article" : "website"}"><meta property="og:title" content="${attr(metadata.title)}"><meta property="og:description" content="${attr(metadata.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${attr(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(metadata.title)}"><meta name="twitter:description" content="${attr(metadata.description)}"><meta name="twitter:image" content="${attr(image)}"><script type="application/ld+json">${json(graphFor(route, metadata, image))}</script>`;
   html = html.replace(headMatch[0], `<head>${head}</head>`).replace(/[ \t]+$/gm, "");
   if (route === "/") {

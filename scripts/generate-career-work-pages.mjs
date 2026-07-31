@@ -40,14 +40,32 @@ const eastRiseWebsiteCard = `<a class="work-item" href="eastrise-website/"><img 
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
 
 const sourceLink = (href, label) => `<a href="${href}" rel="noopener">${label}</a>`;
-function sortWorkSection(html, heading, order) {
-  const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const sectionPattern = new RegExp(
-    `(<section class="work-category(?: work-category--earlier)?">\\s*<h2>${escapedHeading}</h2>\\s*<div class="work-list">)([\\s\\S]*?)(\\s*</div>\\s*</section>)`,
+
+// refine-work.mjs (which runs later in build:site and whose output is
+// committed) renames these section headings, so every pattern must match both
+// the original and the refined state or the surgery silently no-ops.
+const headingAliases = {
+  "Campaigns and series": ["Campaigns and series", "Projects"],
+  "Earlier work": ["Earlier work", "Legacy work"],
+};
+
+function workSectionPattern(heading) {
+  const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const alternatives = (headingAliases[heading] || [heading]).map(escape).join("|");
+  return new RegExp(
+    `(<section class="work-category(?: work-category--earlier)?">\\s*<h2(?: id="project-list-title")?>(?:${alternatives})</h2>(?:<p class="work-category__framing">[\\s\\S]*?</p>)?(?:<nav class="work-filters"[\\s\\S]*?</nav>)?(?:<p class="work-filter-status"[^>]*></p>)?\\s*<div class="work-list">)([\\s\\S]*?)(\\s*</div>\\s*</section>)`,
   );
+}
+
+function sortWorkSection(html, heading, order) {
+  const sectionPattern = workSectionPattern(heading);
+  if (!sectionPattern.test(html)) {
+    console.warn(`generate-career-work-pages: no "${heading}" section found — sort skipped.`);
+    return html;
+  }
 
   return html.replace(sectionPattern, (section, opening, cardMarkup, closing) => {
-    const cards = [...cardMarkup.matchAll(/<a class="work-item" href="([^"]+)"[\s\S]*?<\/a\s*>/g)].map(
+    const cards = [...cardMarkup.matchAll(/<a class="work-item"[^>]*?href="([^"]+)"[\s\S]*?<\/a\s*>/g)].map(
       (match) => ({ href: match[1], html: match[0] }),
     );
     if (cards.length === 0) return section;
@@ -63,14 +81,15 @@ function sortWorkSection(html, heading, order) {
 }
 
 function upsertWorkCard(html, heading, href, card) {
-  const escapedHeading = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const escapedHref = href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const sectionPattern = new RegExp(
-    `(<section class="work-category(?: work-category--earlier)?">\\s*<h2>${escapedHeading}</h2>\\s*<div class="work-list">)([\\s\\S]*?)(\\s*</div>\\s*</section>)`,
-  );
+  const sectionPattern = workSectionPattern(heading);
+  if (!sectionPattern.test(html)) {
+    console.warn(`generate-career-work-pages: no "${heading}" section found — card ${href} not upserted.`);
+    return html;
+  }
 
   return html.replace(sectionPattern, (section, opening, cardMarkup, closing) => {
-    const cardPattern = new RegExp(`<a class="work-item" href="${escapedHref}"[\\s\\S]*?</a\\s*>`);
+    const cardPattern = new RegExp(`<a class="work-item"[^>]*?href="${escapedHref}"[\\s\\S]*?</a\\s*>`);
     const updatedCards = cardPattern.test(cardMarkup)
       ? cardMarkup.replace(cardPattern, card)
       : `${card}${cardMarkup}`;
@@ -182,11 +201,17 @@ pages.push({
 let workIndex = await readFile(workIndexPath, "utf8");
 const legacyProof = /<section class="proof-band"><h2>Earlier work<\/h2>.*?<\/section>/;
 const currentCategories = /<section class="work-category"><h2>Client and institutional work<\/h2>.*?<\/section><section class="work-category work-category--earlier"><h2>Earlier work<\/h2>.*?<\/section>/;
-workIndex = workIndex.replace(legacyProof.test(workIndex) ? legacyProof : currentCategories, `${institutional}${earlier}`);
+if (legacyProof.test(workIndex) || currentCategories.test(workIndex)) {
+  workIndex = workIndex.replace(legacyProof.test(workIndex) ? legacyProof : currentCategories, `${institutional}${earlier}`);
+} else if (!workIndex.includes('id="project-list-title"')) {
+  // In the refined layout (refine-work.mjs) these sections were merged into
+  // "Projects"/"Legacy work" — only warn when neither format is present.
+  console.warn("generate-career-work-pages: neither the legacy nor the refined work-index layout was found; institutional/earlier sections not rebuilt.");
+}
 if (!workIndex.includes('href="sweat-heart-throwdown/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${gmcfCampaignCards}`);
 }
-workIndex = workIndex.replace(/<a class="work-item" href="eastrise-photography\/"\s*>[\s\S]*?<\/a\s*>/, "");
+workIndex = workIndex.replace(/<a class="work-item"[^>]*?href="eastrise-photography\/"\s*>[\s\S]*?<\/a\s*>/, "");
 for (const series of eastRisePhotography.series.filter((item) => !eastRiseStandaloneSlugs.has(item.slug))) {
   const href = `eastrise-photography/#${series.slug}-title`;
   const image = series.images[0];
@@ -201,7 +226,7 @@ for (const href of betaPhotographyHrefs) {
   const escapedHref = href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   workIndex = workIndex.replace(new RegExp(`<a class="work-item"[^>]*href="${escapedHref}"[\\s\\S]*?</a\\s*>`), "");
 }
-workIndex = workIndex.replace(/<a class="work-item" href="credit-union-websites\/"\s*>[\s\S]*?<\/a\s*>/, "");
+workIndex = workIndex.replace(/<a class="work-item"[^>]*?href="credit-union-websites\/"\s*>[\s\S]*?<\/a\s*>/, "");
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vsecu-website/", vsecuWebsiteCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-website/", eastRiseWebsiteCard);
 if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
@@ -215,7 +240,11 @@ workIndex = workIndex
   .replace("../assets/images/work/gmcf/bike-fitting/dsc09620.webp", "../assets/images/work/gmcf/bike-fitting-card.webp")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01706.webp", "../assets/images/work/gmcf/gmcf-card.webp");
 workIndex = sortWorkSection(workIndex, "Campaigns and series", campaignOrder);
-workIndex = sortWorkSection(workIndex, "Client and institutional work", institutionalOrder);
+// In the refined layout these cards live inside "Projects" and refine-work
+// owns their ordering; only sort when the legacy section actually exists.
+if (workIndex.includes("<h2>Client and institutional work</h2>")) {
+  workIndex = sortWorkSection(workIndex, "Client and institutional work", institutionalOrder);
+}
 workIndex = sortWorkSection(workIndex, "Earlier work", earlierWorkOrder);
 await writeFile(workIndexPath, workIndex);
 
@@ -234,7 +263,7 @@ for (const page of pages) {
     const screenshots = page.socialPosts.map((post, index) => `<img src="../../${post.screenshot}" alt="${escapeHtml(post.title)}, ${post.platform} capture ${index + 1} of ${page.socialPosts.length}" width="${post.width}" height="${post.height}" loading="lazy" decoding="async">`).join("");
     content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Selected posts</h2><p>Select any post to open the full viewer.</p><div class="campaign-collage campaign-collage--screenshots" data-gallery="${page.slug}">${screenshots}</div></section>`;
   }
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self';"><title>${page.title} | Ames Consulting</title><meta name="description" content="${page.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${page.slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="page">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="case-hero"><p class="eyebrow">${page.eyebrow}</p><h1>${page.title}</h1><p>${page.intro}</p></header>${content}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self';"><title>${page.title} | Ames Consulting</title><meta name="description" content="${page.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${page.slug}/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="case-hero"><p class="eyebrow">${page.eyebrow}</p><h1>${page.title}</h1><p>${page.intro}</p></header>${content}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = join(root, "work", page.slug, "index.html");
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, html);

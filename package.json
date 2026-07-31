@@ -25,15 +25,9 @@
     "test:a11y": "playwright test tests/accessibility.spec.js",
     "test:e2e": "playwright test",
     "generate:seo-artifacts": "node scripts/generate-seo-artifacts.mjs",
-    "generate:ai-summaries": "node scripts/generate-ai-summaries.mjs",
-    "generate:blog-posts": "node scripts/generate-blog-posts.mjs",
-    "generate:blog-index": "node scripts/generate-blog-index.mjs",
-    "generate:photography": "node scripts/generate-photography-galleries.mjs",
     "generate:portraits": "node scripts/generate-portrait-gallery.mjs",
     "generate:event-galleries": "node scripts/generate-event-galleries.mjs",
-    "generate:credit-union-websites": "node scripts/generate-credit-union-websites-page.mjs",
-    "generate:financial-wellness": "node scripts/generate-financial-wellness-pages.mjs",
-    "generate:eastrise": "node scripts/generate-eastrise-pages.mjs"
+    "generate:credit-union-websites": "node scripts/generate-credit-union-websites-page.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",

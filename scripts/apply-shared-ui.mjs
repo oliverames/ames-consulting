@@ -48,11 +48,72 @@ const constructionGate = `<div class="construction-gate" id="construction-gate" 
 const icon = (brand) => `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="${brand.path}"></path></svg><span class="visually-hidden">${brand.title}</span>`;
 
 function addIcons(html) {
-  return html.replace(/<a href="([^"]+)"([^>]*)>(GitHub|LinkedIn|Micro\.blog|Mastodon|Bluesky|Threads|Instagram)<\/a>/g, (match, href, attrs) => {
+  // Tolerates Prettier-formatted anchors (newlines inside the tag and around
+  // the label), which the previous single-line pattern silently skipped.
+  return html.replace(/<a href="([^"]+)"([^>]*)>\s*(GitHub|LinkedIn|Micro\.blog|Mastodon|Bluesky|Threads|Instagram)\s*<\/a\s*>/g, (match, href, attrs) => {
     const brand = networks.find(([host]) => href.includes(host))?.[1];
     if (!brand) return match;
-    return `<a href="${href}"${attrs} aria-label="${brand.title}">${icon(brand)}</a>`;
+    return `<a href="${href}"${attrs.replace(/\s+/g, " ").trimEnd()} aria-label="${brand.title}">${icon(brand)}</a>`;
   });
+}
+
+const socialProfiles = [
+  ["GitHub", "https://github.com/oliverames"],
+  ["LinkedIn", "https://www.linkedin.com/in/oliverames"],
+  ["Micro.blog", "https://oliverames.micro.blog/"],
+  ["Mastodon", "https://mastodon.social/@oliverames"],
+  ["Bluesky", "https://bsky.app/profile/oliverames.bsky.social"],
+  ["Threads", "https://www.threads.com/@oliverames"],
+  ["Instagram", "https://www.instagram.com/oliverames/"],
+];
+
+const firmDescription = "Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.";
+
+// Rebuild the footer colophon canonically on every page. Generators had
+// drifted into three variants (full 7-icon, GitHub+LinkedIn only, and a
+// minimal no-social version); one deterministic rebuild ends the drift.
+// Text links here are converted to SVG icons by the addIcons pass.
+function normalizeColophon(html) {
+  const socialList = socialProfiles
+    .map(([title, href]) => `<li><a href="${href}" rel="me noopener">${title}</a></li>`)
+    .join("");
+  const canonical = `<div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>${firmDescription}</p><h3 class="site-footer__social-title">Social</h3><ul class="site-footer__social">${socialList}</ul></div>`;
+  return html.replace(/<div class="site-footer__colophon">[\s\S]*?<\/div>/, canonical);
+}
+
+// Every page's primary nav and footer Company column carry the same items.
+// Late-running page rewrites (refine-work) used to drop the Testimonials
+// entry that generate-testimonials added earlier in the build.
+function normalizeNavAndCompany(html, base) {
+  let out = html;
+  if (!/<ul class="site-nav">[\s\S]*?Testimonials/.test(out)) {
+    out = out.replace(
+      /(<ul class="site-nav">[\s\S]*?<li><a href="[^"]*about\/"[^>]*>About<\/a><\/li>)/,
+      `$1<li><a href="${base}testimonials/">Testimonials</a></li>`,
+    );
+  }
+  out = out.replace(/(<h3>Company<\/h3>\s*<ul>)([\s\S]*?)(<\/ul>)/, (match, openTag, items, closeTag) => {
+    let list = items.replace(/(<a href="[^"]*work\/"[^>]*>)(?:All projects|Work)(<\/a>)/, "$1All work$2");
+    if (!list.includes("Testimonials")) {
+      list = list.replace(
+        /(<li><a href="[^"]*contact\/"[^>]*>Contact<\/a><\/li>)/,
+        `<li><a href="${base}testimonials/">Testimonials</a></li>$1`,
+      );
+    }
+    return `${openTag}${list}${closeTag}`;
+  });
+  return out;
+}
+
+// Pages that load Google Fonts CSS need the matching preconnect hints; six
+// generator templates drifted apart on this.
+function ensureFontPreconnects(html) {
+  if (!html.includes("fonts.googleapis.com/css2")) return html;
+  if (html.includes('rel="preconnect" href="https://fonts.googleapis.com"')) return html;
+  return html.replace(
+    /(<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com\/css2)/,
+    '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>$1',
+  );
 }
 
 function addSocialHeading(html) {
@@ -100,12 +161,17 @@ function addProvenanceDisclosure(html, file) {
   return cleaned.replace("</main>", `<footer class="asset-provenance" aria-label="Image provenance"><h2>Image provenance</h2><ul>${lines.join("")}</ul></footer></main>`);
 }
 
+// Shared with apply-image-dimensions.mjs, apply-seo.mjs, and
+// validate-structured-data.mjs — keep the four lists identical so no sweeper
+// ever mutates a Playwright report or scratch output.
+const EXCLUDED_DIRS = new Set(["node_modules", "_site", ".git", "playwright-report", "test-results", "output"]);
+
 async function collectHtml(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
     const path = join(directory, entry.name);
-    if (entry.isDirectory() && entry.name !== "node_modules" && entry.name !== "_site") files.push(...await collectHtml(path));
+    if (entry.isDirectory() && !EXCLUDED_DIRS.has(entry.name)) files.push(...await collectHtml(path));
     if (entry.isFile() && entry.name.endsWith(".html")) files.push(path);
   }
   return files;
@@ -116,7 +182,10 @@ for (const file of await collectHtml(root)) {
   const pathParts = relative(root, file).split(sep);
   const directoryDepth = pathParts.length - 1;
   const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
-  let after = addProvenanceDisclosure(updateFooterGroups(addSocialHeading(addIcons(before)), file), file);
+  let after = normalizeColophon(before);
+  after = normalizeNavAndCompany(after, base);
+  after = ensureFontPreconnects(after);
+  after = addProvenanceDisclosure(updateFooterGroups(addSocialHeading(addIcons(after)), file), file);
   if (!after.includes("assets/js/construction-gate.js")) {
     after = after.replace("</head>", `<script src="${base}assets/js/construction-gate.js"></script></head>`);
   }

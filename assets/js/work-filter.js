@@ -8,9 +8,11 @@ const labels = {
 const organization = new URLSearchParams(window.location.search).get("organization");
 const label = labels[organization];
 
+// An unrecognized ?organization= value falls back to the unfiltered view, so
+// "All" stays marked current rather than leaving no filter highlighted.
+const activeFilter = label ? organization : "all";
 for (const link of document.querySelectorAll("[data-work-filter]")) {
-  const active = link.dataset.workFilter === (organization || "all");
-  if (active) link.setAttribute("aria-current", "true");
+  if (link.dataset.workFilter === activeFilter) link.setAttribute("aria-current", "true");
 }
 
 if (label) {

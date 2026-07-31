@@ -67,7 +67,23 @@ function wasRecentlyDismissed() {
 
 function scrollProgress() {
   const available = document.documentElement.scrollHeight - innerHeight;
-  return available <= 0 ? 1 : scrollY / available;
+  // A page that cannot scroll (including the construction gate's scroll lock)
+  // counts as unscrolled, not fully scrolled, so the trigger never latches
+  // from a locked page.
+  return available <= 0 ? 0 : scrollY / available;
+}
+
+function gateIsLocked() {
+  return (
+    document.getElementById("construction-gate") !== null &&
+    !document.documentElement.classList.contains("construction-authenticated")
+  );
+}
+
+function anotherDialogIsOpen(dialog) {
+  return [...document.querySelectorAll("dialog[open]")].some(
+    (other) => other !== dialog,
+  );
 }
 
 function initInboundPrompt() {
@@ -122,6 +138,9 @@ function initInboundPrompt() {
   const open = ({ automatic = false } = {}) => {
     if (dialog.open) return;
     if (automatic && wasRecentlyDismissed()) return;
+    // Never stack over the construction gate or another open dialog
+    // (e.g. the image-viewer lightbox).
+    if (gateIsLocked() || anotherDialogIsOpen(dialog)) return;
     dialog.showModal();
   };
   const maybeOpen = () => {

@@ -65,12 +65,18 @@ function attach(card) {
   let frameIndex = 0;
   let lastX = 0;
   let travel = 0;
+  let hovering = false;
 
   image.addEventListener("pointerenter", async (event) => {
     if (reducedMotion.matches || event.pointerType === "touch") return;
+    hovering = true;
     lastX = event.clientX;
     travel = 0;
-    frames = await galleryFor(card, image);
+    const loaded = await galleryFor(card, image);
+    // The pointer may have left while the gallery list loaded; do not re-arm
+    // scrub state after pointerleave already cleared it.
+    if (!hovering) return;
+    frames = loaded;
     frameIndex = Math.max(0, frames.indexOf(absoluteUrl(image.currentSrc || image.src)));
     image.toggleAttribute("data-gallery-scrub-ready", frames.length > 1);
     preload(frames[(frameIndex + 1) % frames.length]);
@@ -90,6 +96,7 @@ function attach(card) {
   });
 
   image.addEventListener("pointerleave", () => {
+    hovering = false;
     frames = [];
     frameIndex = 0;
     travel = 0;

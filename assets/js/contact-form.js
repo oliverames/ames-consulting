@@ -156,6 +156,10 @@ async function initContactForm() {
         ? "Please complete the spam protection check and try again."
         : "Message could not be sent right now. Please try again shortly.";
       setStatus(status, message, "error");
+      // Turnstile tokens are single-use and the server consumes them before
+      // sending mail, so a failed submission must mint a fresh token or every
+      // retry fails spam verification.
+      window.turnstile?.reset();
     } finally {
       submitButton.disabled = false;
     }

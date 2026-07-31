@@ -14,7 +14,7 @@
 //        (skipping anything wrapped in an <a> so links keep navigating)
 //      - wire global click / keyboard / context-menu handlers
 //
-// 2) Manual import. Other modules (notably `app.js`) can import the named
+// 2) Manual import. Other modules can import the named
 //    helpers directly. The wiring functions are idempotent — calling them
 //    a second time after auto-init is a no-op — so importers don't need to
 //    coordinate with the auto-init.
@@ -191,7 +191,7 @@ export function wireImageViewer() {
   const closeViewer = () => {
     viewer.close();
     document.documentElement.classList.remove("has-open-dialog");
-    viewerImage.src = "";
+    viewerImage.removeAttribute("src");
     viewerImage.alt = "";
     if (captionLabel) captionLabel.textContent = "";
     if (captionCount) captionCount.textContent = "";
@@ -211,7 +211,7 @@ export function wireImageViewer() {
 
   viewer.addEventListener("cancel", () => {
     document.documentElement.classList.remove("has-open-dialog");
-    viewerImage.src = "";
+    viewerImage.removeAttribute("src");
     viewerImage.alt = "";
     if (captionLabel) captionLabel.textContent = "";
     if (captionCount) captionCount.textContent = "";
@@ -277,8 +277,8 @@ export function wireAssetProtection() {
 }
 
 // Auto-init once the DOM is ready. Other modules that import named helpers
-// (like app.js) get the same wiring without doubled-up event listeners
-// thanks to the idempotency flags above.
+// get the same wiring without doubled-up event listeners thanks to the
+// idempotency flags above.
 function autoInit() {
   ensureViewerDialog();
 

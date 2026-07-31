@@ -85,7 +85,7 @@ Key scripts:
 
 ### Routes
 
-`/` (home), `/blog/`, `/work/`, `/work/carebridge-companion/`, `/work/neighborhood-giving-map/`, `/work/financial-wellness-library/`, `/photography/`, `/links/`, `/contact/`, `/likes/`, `/colophon/`
+`/` (home), `/about/`, `/blog/` (+ `/blog/archive/` and per-post pages), `/contact/`, `/testimonials/`, `/services/photography-and-video/`, `/services/strategy-and-content/`, `/services/practical-technology/`, `/work/` (+ ~45 per-project pages such as `/work/eastrise/`, `/work/taylor-hoar-racing/`, `/work/ping-warden/`). The `?organization=` query on `/work/` drives client-side filtering. There are no `/photography/`, `/links/`, `/likes/`, or `/colophon/` routes — those were removed in an earlier redesign.
 
 ## Testing
 

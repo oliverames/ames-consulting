@@ -11,8 +11,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">
-    <link rel="stylesheet" href="./assets/css/main.css">
-  <script src="./assets/js/construction-gate.js"></script></head>
+    <!-- Absolute paths on purpose: this page is served at arbitrary missing
+         URLs (e.g. /some/missing/page/), where relative paths resolve against
+         the nonexistent directory and 404. Exception to the relative-paths rule. -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/construction-gate.js"></script></head>
   <body class="content-reset"><div class="construction-gate" id="construction-gate" role="dialog" aria-modal="true" aria-labelledby="construction-gate-title" aria-describedby="construction-gate-description">
   <div class="construction-gate__mesh" aria-hidden="true"></div>
   <section class="construction-gate__card">
@@ -31,7 +34,8 @@
 </div>
     <main id="main-content" tabindex="-1">
       <h1>404</h1>
-      <a href="./">ames.consulting</a>
+      <p>That page does not exist or has moved.</p>
+      <a href="/">ames.consulting</a>
     </main>
-  <script type="module" src="./assets/js/content-protection.js"></script></body>
+  <script type="module" src="/assets/js/content-protection.js"></script></body>
 </html>

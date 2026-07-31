@@ -80,9 +80,9 @@
   }
 
   .asset-provenance {
-    max-width: var(--content-wide);
+    max-width: var(--measure-wide);
     margin: var(--space-5) auto 0;
-    padding: var(--space-3) var(--page-gutter);
+    padding: var(--space-3) var(--space-3);
     font-size: 0.72rem;
     line-height: 1.5;
   }
@@ -104,7 +104,7 @@
     grid-column: 1 / -1;
     margin-top: var(--space-4);
     padding-top: var(--space-4);
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--rule);
   }
 
   .service-answer-heading h3 {
@@ -167,8 +167,8 @@
     z-index: -1;
     border-radius: 50%;
     background:
-      radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--heritage-gold) 44%, transparent), transparent 38%),
-      radial-gradient(circle at 78% 22%, color-mix(in srgb, var(--manufacturing-red) 30%, transparent), transparent 40%),
+      radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 44%, transparent), transparent 38%),
+      radial-gradient(circle at 78% 22%, color-mix(in srgb, var(--accent-hover) 30%, transparent), transparent 40%),
       radial-gradient(circle at 60% 80%, color-mix(in srgb, var(--accent-plum) 24%, transparent), transparent 42%);
     filter: blur(70px);
     opacity: 0.7;
@@ -199,8 +199,8 @@
     inline-size: 0.5rem;
     block-size: 0.5rem;
     border-radius: 50%;
-    background: var(--manufacturing-red);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--manufacturing-red) 20%, transparent);
+    background: var(--accent-hover);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-hover) 20%, transparent);
   }
 
   .construction-gate h1 {
@@ -256,20 +256,20 @@
   }
 
   .construction-gate__controls button:hover {
-    border-color: var(--manufacturing-red);
-    background: var(--manufacturing-red);
+    border-color: var(--accent-hover);
+    background: var(--accent-hover);
   }
 
   .construction-gate__controls input:focus-visible,
   .construction-gate__controls button:focus-visible {
-    outline: 3px solid var(--heritage-gold);
+    outline: 3px solid var(--accent);
     outline-offset: 3px;
   }
 
   .construction-gate__error {
     min-block-size: 1.5em;
     margin: 0.55rem 0 0;
-    color: var(--manufacturing-red);
+    color: var(--accent-hover);
     font-size: 0.9rem;
   }
 
@@ -287,7 +287,7 @@
     overflow: hidden;
     margin-block: var(--space-5);
     padding: clamp(1.4rem, 3.5vw, 3.5rem);
-    border: 1px solid color-mix(in srgb, var(--heritage-gold) 26%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
     border-radius: var(--radius-tile);
     scroll-margin-top: 7rem;
     background-color: #1c2929;
@@ -303,12 +303,12 @@
       ),
       radial-gradient(
         circle at 12% 8%,
-        color-mix(in srgb, var(--heritage-gold) 18%, transparent),
+        color-mix(in srgb, var(--accent) 18%, transparent),
         transparent 34%
       ),
       radial-gradient(
         circle at 88% 92%,
-        color-mix(in srgb, var(--manufacturing-red) 12%, transparent),
+        color-mix(in srgb, var(--accent-hover) 12%, transparent),
         transparent 34%
       );
     background-size:
@@ -330,7 +330,7 @@
 
   .software-work__heading .eyebrow {
     margin: 0 0 0.65rem;
-    color: var(--heritage-gold);
+    color: var(--accent);
   }
 
   .software-work__heading h2 {
@@ -379,7 +379,7 @@
 
   .software-card:hover,
   .software-card:focus-visible {
-    border-color: var(--heritage-gold);
+    border-color: var(--accent);
     box-shadow: 0 28px 64px rgb(0 0 0 / 34%);
     transform: translateY(-4px);
   }
@@ -422,10 +422,10 @@
   }
 
   .software-window-bar span:first-child {
-    background: var(--manufacturing-red);
+    background: var(--accent-hover);
   }
   .software-window-bar span:nth-child(2) {
-    background: var(--heritage-gold);
+    background: var(--accent);
   }
   .software-window-bar span:nth-child(3) {
     background: #80a698;
@@ -510,7 +510,7 @@
 
   .software-card__meta {
     margin: 0 0 0.45rem;
-    color: var(--heritage-gold);
+    color: var(--accent);
     font-family: var(--font-heading);
     font-size: 0.78rem;
     font-weight: 600;
@@ -573,8 +573,8 @@
   }
 
   .software-facts .software-facts__stars {
-    border-color: color-mix(in srgb, var(--heritage-gold) 45%, transparent);
-    color: var(--heritage-gold);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--accent);
   }
 
   .software-card__open {
@@ -587,7 +587,7 @@
   }
 
   .software-detail {
-    inline-size: min(100% - 2 * var(--space-2), var(--content-max));
+    inline-size: min(100% - 2 * var(--space-2), var(--measure-wide));
     margin-inline: auto;
     padding-block: var(--space-4) var(--space-5);
   }
@@ -603,7 +603,7 @@
     background-color: #1c2929;
     background-image: radial-gradient(
       circle at 12% 12%,
-      color-mix(in srgb, var(--heritage-gold) 16%, transparent),
+      color-mix(in srgb, var(--accent) 16%, transparent),
       transparent 38%
     );
     box-shadow: var(--shadow-card);
@@ -611,7 +611,7 @@
   }
 
   .software-hero .eyebrow {
-    color: var(--heritage-gold);
+    color: var(--accent);
   }
   .software-hero h1 {
     margin-block: 0.55rem 1rem;
@@ -659,14 +659,14 @@
 
   .software-story {
     padding: clamp(1.25rem, 2.5vw, 2rem);
-    border-block-start: 4px solid var(--heritage-gold);
+    border-block-start: 4px solid var(--accent);
     border-radius: 0 0 var(--radius-sm) var(--radius-sm);
     background: var(--surface-0);
     box-shadow: var(--shadow-card);
   }
 
   .software-story:nth-child(2) {
-    border-block-start-color: var(--manufacturing-red);
+    border-block-start-color: var(--accent-hover);
   }
   .software-story:nth-child(3) {
     border-block-start-color: var(--surface-deep);
@@ -757,7 +757,7 @@
 
   .case-section {
     border-top: 1px solid
-      color-mix(in srgb, var(--heritage-gold) 40%, transparent);
+      color-mix(in srgb, var(--accent) 40%, transparent);
   }
 
   .case-section > h2,
@@ -786,7 +786,7 @@
     margin-inline: auto;
     padding-block: var(--space-5, clamp(3rem, 7vw, 6rem));
     border-top: 1px solid
-      color-mix(in srgb, var(--heritage-gold) 40%, transparent);
+      color-mix(in srgb, var(--accent) 40%, transparent);
   }
 
   .testimonial-grid {
@@ -901,7 +901,7 @@
     margin-inline: auto;
     padding-block: var(--space-5, clamp(3rem, 7vw, 6rem));
     border-top: 1px solid
-      color-mix(in srgb, var(--heritage-gold) 40%, transparent);
+      color-mix(in srgb, var(--accent) 40%, transparent);
   }
 
   .recommendation-grid,
@@ -1061,7 +1061,7 @@
     inset-block-end: clamp(1rem, 2vw, 1.75rem);
     z-index: 80;
     padding: 0.75rem 1rem;
-    border: 1px solid color-mix(in srgb, var(--heritage-gold) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
     border-radius: var(--radius-pill);
     background: var(--surface-deep);
     color: var(--surface-0);
@@ -1083,7 +1083,7 @@
     background: color-mix(
       in srgb,
       var(--surface-deep) 88%,
-      var(--manufacturing-red)
+      var(--accent-hover)
     );
   }
 
@@ -1106,7 +1106,7 @@
     max-height: calc(100dvh - 2rem);
     overflow: auto;
     padding: clamp(1.5rem, 4vw, 3rem);
-    border: 1px solid color-mix(in srgb, var(--heritage-gold) 35%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
     border-radius: var(--radius-tile);
     background: var(--surface-0);
     color: var(--text-0);
@@ -1126,7 +1126,7 @@
     background:
       radial-gradient(
         circle at 12% 0%,
-        color-mix(in srgb, var(--heritage-gold) 28%, transparent),
+        color-mix(in srgb, var(--accent) 28%, transparent),
         transparent 38%
       ),
       radial-gradient(
@@ -1238,7 +1238,7 @@
     gap: 1px;
     overflow: hidden;
     border-radius: var(--radius-card, 12px);
-    background: color-mix(in srgb, var(--heritage-gold) 35%, transparent);
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
   }
 
   .metric-grid article {
@@ -1249,13 +1249,13 @@
   }
 
   .metric-grid strong {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: clamp(2.1rem, 5vw, 3.8rem);
     line-height: 1;
   }
 
   .metric-grid span {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     text-transform: uppercase;
     letter-spacing: 0.07em;
     font-size: 0.78rem;
@@ -1329,7 +1329,7 @@
     grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr);
     gap: 1rem;
     padding-block: 1rem;
-    border-top: 1px solid var(--hairline);
+    border-top: 1px solid var(--rule);
   }
 
   .timeline strong,
@@ -1338,7 +1338,7 @@
   }
 
   .timeline strong {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: 1.15rem;
   }
 
@@ -1347,8 +1347,8 @@
     gap: 1px;
     padding: 0;
     list-style: none;
-    background: var(--hairline);
-    border: 1px solid var(--hairline);
+    background: var(--rule);
+    border: 1px solid var(--rule);
     border-radius: var(--radius-card, 12px);
     overflow: hidden;
   }
@@ -1362,11 +1362,11 @@
   }
 
   .writing-list a:hover h2 {
-    color: var(--manufacturing-red);
+    color: var(--accent-hover);
   }
 
   .writing-list span {
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -1375,7 +1375,7 @@
 
   .writing-list h2 {
     margin: 0.35rem 0 0;
-    transition: color var(--transition);
+    transition: color var(--transition-snappy);
   }
 
   .writing-list small {
@@ -1393,23 +1393,23 @@
 
   .profile-links a {
     padding: 0.55rem 0.8rem;
-    border: 1px solid var(--hairline);
+    border: 1px solid var(--rule);
     border-radius: 999px;
     color: var(--text-0);
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     text-decoration: none;
     text-transform: uppercase;
     transition:
-      border-color var(--transition),
-      color var(--transition);
+      border-color var(--transition-snappy),
+      color var(--transition-snappy);
   }
 
   .profile-links a:hover,
   .profile-links a:focus-visible {
-    border-color: var(--manufacturing-red);
-    color: var(--manufacturing-red);
+    border-color: var(--accent-hover);
+    color: var(--accent-hover);
   }
 
   .writing-stream {
@@ -1488,7 +1488,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 1.1rem 0.85rem;
-    border-bottom: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--rule);
   }
 
   .social-card__header > img {
@@ -1546,7 +1546,7 @@
   }
 
   .social-card__body h2 a:hover {
-    color: var(--manufacturing-red);
+    color: var(--accent-hover);
   }
 
   .social-card__body p {
@@ -1560,7 +1560,7 @@
     max-height: 34rem;
     margin: 1rem -1.1rem -1.15rem;
     object-fit: cover;
-    border-top: 1px solid var(--hairline);
+    border-top: 1px solid var(--rule);
   }
 
   .social-card__footer {
@@ -1570,7 +1570,7 @@
     justify-content: space-between;
     gap: 0.65rem 1rem;
     padding: 0.85rem 1.1rem 1rem;
-    border-top: 1px solid var(--hairline);
+    border-top: 1px solid var(--rule);
   }
 
   .social-card__sources {
@@ -1622,7 +1622,7 @@
   .writing-article__header {
     padding-bottom: var(--space-4);
     border-bottom: 1px solid
-      color-mix(in srgb, var(--heritage-gold) 40%, transparent);
+      color-mix(in srgb, var(--accent) 40%, transparent);
   }
 
   .writing-article__header h1 {
@@ -1653,7 +1653,7 @@
     justify-content: space-between;
     gap: 1rem;
     padding-top: var(--space-3);
-    border-top: 1px solid var(--hairline);
+    border-top: 1px solid var(--rule);
   }
 
   @media (max-width: 44rem) {
@@ -1680,7 +1680,7 @@
     display: block;
     margin-top: 1rem;
     color: var(--text-1);
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -2023,12 +2023,14 @@
 
     /* Gradient accent + display type scale (Stripe-extension tier) */
     --accent-plum: #7a3a5e;
+    /* Stops hold >=3:1 contrast on --surface-0 so clipped display text stays legible */
     --web-gradient-hero: linear-gradient(
       120deg,
-      rgba(245, 165, 66, 0.58) 0%,
-      rgba(217, 74, 45, 0.26) 44%,
-      rgba(28, 41, 41, 0.08) 100%
+      #b06612 0%,
+      #d94a2d 44%,
+      #1c2929 100%
     );
+    --web-measure-wide: min(64rem, 92vw);
     --web-type-hero: clamp(3rem, 7vw, 5.75rem);
     --web-type-stat: clamp(2.25rem, 4.2vw, 3.25rem);
     --web-type-section: clamp(1.75rem, 3.2vw, 2.75rem);
@@ -2087,6 +2089,12 @@
         0 0 0 0.5px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2),
         0 12px 32px rgba(0, 0, 0, 0.16);
       --shadow-photo: 0 2px 8px rgba(0, 0, 0, 0.2);
+      --web-gradient-hero: linear-gradient(
+        120deg,
+        #f5a542 0%,
+        #ee7a5c 44%,
+        #faf8f5 100%
+      );
     }
 
     @supports (color: color(display-p3 1 1 1)) {
@@ -2117,6 +2125,12 @@
       0 0 0 0.5px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2),
       0 12px 32px rgba(0, 0, 0, 0.16);
     --shadow-photo: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --web-gradient-hero: linear-gradient(
+      120deg,
+      #f5a542 0%,
+      #ee7a5c 44%,
+      #faf8f5 100%
+    );
   }
 
   @supports (color: color(display-p3 1 1 1)) {
@@ -2683,9 +2697,18 @@
     filter: grayscale(1) contrast(1.16) brightness(0.9);
   }
 
+  /* Copy must stop short of the absolutely-positioned portrait. The three
+     clamps mirror .hero padding-inline, .hero__portrait inset-right, and
+     .hero__portrait width — keep them in sync if those change. */
   .hero:has(.hero__portrait) h1,
   .hero:has(.hero__portrait) .hero__sub {
-    max-width: min(62%, 54rem);
+    max-width: min(
+      calc(
+        100% + clamp(1.5rem, 4vw, 3rem) - clamp(2rem, 5vw, 4.5rem) -
+          clamp(15rem, 27vw, 23rem) - 2rem
+      ),
+      54rem
+    );
   }
 
   @media (max-width: 52rem) {
@@ -3115,7 +3138,9 @@
   }
 
   .work-filter-status a {
-    color: var(--link);
+    color: var(--accent-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
 
   .work-item[hidden],
@@ -3584,10 +3609,16 @@
     text-decoration: none;
   }
 
-  .work-filters a:hover,
-  .work-filters a[aria-current="true"] {
+  .work-filters a:hover {
     border-color: var(--accent);
     background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  /* Selected filter reads stronger than hover: solid border + deeper fill */
+  .work-filters a[aria-current="true"] {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 28%, transparent);
+    font-weight: 600;
   }
 
   .work-item img {
@@ -5216,6 +5247,8 @@
       color var(--motion-snap),
       border-color var(--motion-snap);
     border: 1px solid transparent;
+    /* Neutralize the UA default so <button class="btn"> matches <a class="btn"> */
+    background: transparent;
     cursor: pointer;
   }
 
@@ -6020,12 +6053,12 @@
     background:
       radial-gradient(
         circle at 20% 15%,
-        color-mix(in srgb, var(--heritage-gold) 18%, transparent),
+        color-mix(in srgb, var(--accent) 18%, transparent),
         transparent 32%
       ),
       radial-gradient(
         circle at 82% 80%,
-        color-mix(in srgb, var(--manufacturing-red) 10%, transparent),
+        color-mix(in srgb, var(--accent-hover) 10%, transparent),
         transparent 34%
       ),
       var(--surface-0);

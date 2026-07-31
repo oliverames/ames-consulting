@@ -57,7 +57,8 @@ function buildViewerDialog() {
   const image = document.createElement("img");
   image.id = "image-viewer-image";
   image.className = "protected-asset";
-  image.src = "";
+  // No src until an image opens: src="" resolves to the page URL and fires a
+  // spurious request in some browsers.
   image.alt = "";
   image.setAttribute("draggable", "false");
 

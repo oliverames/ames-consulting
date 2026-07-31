@@ -2512,8 +2512,8 @@
 
   .hero__mesh {
     position: absolute;
-    inset: -20% -18% auto -18%;
-    height: 82%;
+    inset: -8rem -18% auto -18%;
+    height: 42rem;
     z-index: -1;
     background:
       radial-gradient(
@@ -2541,6 +2541,16 @@
     background-size: 110% 110%;
     opacity: 0.5;
     pointer-events: none;
+  }
+
+  .hero__mesh::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: inherit;
+    background-position: 100% 70%;
+    background-size: inherit;
+    opacity: 0;
   }
 
   .hero__inner {
@@ -2815,17 +2825,17 @@
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .hero__mesh {
-      animation: hero-mesh-drift 28s ease-in-out infinite alternate;
+    .hero__mesh::after {
+      animation: hero-mesh-crossfade 28s ease-in-out infinite alternate;
     }
 
-    @keyframes hero-mesh-drift {
+    @keyframes hero-mesh-crossfade {
       from {
-        background-position: 0% 0%;
+        opacity: 0;
       }
 
       to {
-        background-position: 100% 70%;
+        opacity: 1;
       }
     }
 

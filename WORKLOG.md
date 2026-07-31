@@ -2,13 +2,13 @@
 
 ## 2026-07-30 - Homepage layout-shift fix
 
-**What changed**: Removed translation and scaling from the animated homepage hero mesh. The decorative gradient still shifts color through background-position animation, but its element box remains stationary and no longer contributes to Cumulative Layout Shift.
+**What changed**: Replaced movement of the homepage hero mesh with an opacity-only crossfade between two stationary gradient layers. The mesh now uses fixed decorative geometry instead of percentages of the hero, so web-font reflow cannot resize or reposition it. The decorative color treatment still changes, but neither layer changes geometry or background position during the animation.
 
-**Decisions made**: Kept the requested animated background treatment rather than disabling motion entirely. The fix targets the single element Lighthouse identified, `body > main#main-content > section.hero > div.hero__mesh`, and does not change content layout or reduced-motion behavior.
+**Decisions made**: Kept the requested animated background treatment rather than disabling motion entirely. The fix targets the single element Lighthouse identified, `body > main#main-content > section.hero > div.hero__mesh`, and uses a compositor-friendly opacity transition that does not change content layout or reduced-motion behavior.
 
-**Verification**: `npx --yes @lhci/cli@0.15.1 autorun` passes the configured Lighthouse assertions across Home, Writing, Work, and Contact. The prior homepage CLS value of `0.1236085353916762` is gone; only the existing non-blocking transfer-size warnings remain.
+**Verification**: `npx --yes @lhci/cli@0.15.1 autorun` passes the configured Lighthouse assertions across Home, Writing, Work, and Contact. The homepage report scores 0.99 for performance with CLS at 0.033, down from the failing CI value of 0.128. `npm run check:all` passes, including validation of 50 pages, 714 images, all tracked galleries, and 208 provenance records. `npm run test:e2e -- --reporter=dot` passes all 95 browser and accessibility tests. Only the existing non-blocking transfer-size warnings remain.
 
-**Left off at**: The performance-budget failure is resolved locally and ready for the standard quality and browser suites before shipping.
+**Left off at**: The performance-budget failure is resolved locally and ready to ship and verify in GitHub Actions.
 
 **Open questions**: Transfer-size warnings remain separate optimization work and do not fail the configured performance budget.
 

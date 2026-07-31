@@ -2821,12 +2821,10 @@
 
     @keyframes hero-mesh-drift {
       from {
-        transform: translate3d(-3%, -2%, 0) scale(1);
         background-position: 0% 0%;
       }
 
       to {
-        transform: translate3d(4%, 3%, 0) scale(1.08);
         background-position: 100% 70%;
       }
     }

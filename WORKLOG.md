@@ -1,5 +1,19 @@
 # Worklog
 
+## 2026-07-30 - Homepage layout-shift fix
+
+**What changed**: Removed translation and scaling from the animated homepage hero mesh. The decorative gradient still shifts color through background-position animation, but its element box remains stationary and no longer contributes to Cumulative Layout Shift.
+
+**Decisions made**: Kept the requested animated background treatment rather than disabling motion entirely. The fix targets the single element Lighthouse identified, `body > main#main-content > section.hero > div.hero__mesh`, and does not change content layout or reduced-motion behavior.
+
+**Verification**: `npx --yes @lhci/cli@0.15.1 autorun` passes the configured Lighthouse assertions across Home, Writing, Work, and Contact. The prior homepage CLS value of `0.1236085353916762` is gone; only the existing non-blocking transfer-size warnings remain.
+
+**Left off at**: The performance-budget failure is resolved locally and ready for the standard quality and browser suites before shipping.
+
+**Open questions**: Transfer-size warnings remain separate optimization work and do not fail the configured performance budget.
+
+---
+
 ## 2026-07-30 - Gallery scrub, home project split, and feedback acceptance audit
 
 **What changed**: Added fixed-rate horizontal pointer scrubbing to gallery-backed work cards while preserving the pinned card image on exit, excluding software cards, touch input, and reduced-motion users. Renamed the home strip to Recent projects, removed software from that strip, added a second featured testimonial, and added a separate dark software section. Reduced About to two testimonial previews with a link to the complete archive and kept Testimonials visible in its own header navigation. Added a durable acceptance audit for the complete browser-feedback session.

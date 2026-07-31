@@ -35,7 +35,7 @@ jobs:
       - name: Link check (offline)
         uses: lycheeverse/lychee-action@v2.9.0
         with:
-          args: --offline --no-progress --verbose --base-url https://ames.consulting './*.html' './blog/**/*.html' './services/**/*.html' './work/**/*.html' './contact/**/*.html' './photography/**/*.html' './links/**/*.html' './likes/**/*.html' './colophon/**/*.html' './README.md' './docs/**/*.md'
+          args: --offline --no-progress --verbose --base-url https://ames.consulting './*.html' './about/**/*.html' './blog/**/*.html' './services/**/*.html' './testimonials/**/*.html' './work/**/*.html' './contact/**/*.html' './README.md' './docs/**/*.md'
           fail: true
 
   e2e-and-a11y:
@@ -57,12 +57,6 @@ jobs:
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
-
-      - name: Generate all content for testing
-        run: |
-          node scripts/generate-blog-posts.mjs
-          node scripts/generate-photography-galleries.mjs
-          node scripts/generate-eastrise-pages.mjs
 
       - name: Run browser and accessibility tests
         run: npm run test:e2e

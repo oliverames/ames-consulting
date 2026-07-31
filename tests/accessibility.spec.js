@@ -5,6 +5,10 @@ for (const route of [
   "/",
   "/testimonials/",
   "/work/",
+  "/work/eastrise/",
+  "/work/blue-cross-vermont/",
+  "/work/connecticut-college/",
+  "/work/stowe-ski-instruction/",
   "/work/eastrise-photography/",
   "/work/eastrise-social/",
   "/work/eastrise-writing/",
@@ -44,10 +48,13 @@ for (const route of [
   "/services/photography-and-video/",
   "/services/practical-technology/",
   "/blog/",
+  "/blog/archive/",
   "/blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/",
   "/about/",
   "/contact/",
-  "/missing-page/",
+  // python http.server has no custom-404 support, so audit the 404 document
+  // directly rather than a missing route (which would serve Python's stub).
+  "/404.html",
 ]) {
   test(`no critical accessibility issues on ${route}`, async ({ page }) => {
     await page.goto(route);

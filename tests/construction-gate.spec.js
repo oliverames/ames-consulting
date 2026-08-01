@@ -23,6 +23,42 @@ test("construction gate protects direct routes and remembers access", async ({ b
   await context.close();
 });
 
+test("construction gate accepts the singular password with surrounding whitespace", async ({ browser }) => {
+  const context = await browser.newContext({ storageState: { cookies: [], origins: [] } });
+  const page = await context.newPage();
+
+  await page.goto("/");
+  const gate = page.getByRole("dialog", { name: "The site is under construction." });
+  await expect(gate).toBeVisible();
+
+  await page.locator("#construction-gate-password").fill("  Cow ");
+  await page.getByRole("button", { name: "Enter" }).click();
+  await expect(gate).toBeHidden();
+  await context.close();
+});
+
+test("construction gate keeps typing responsive after the first keystroke", async ({ browser }) => {
+  const context = await browser.newContext({ storageState: { cookies: [], origins: [] } });
+  const page = await context.newPage();
+
+  await page.goto("/");
+  const input = page.locator("#construction-gate-password");
+  await expect(input).toBeFocused();
+
+  // Type character by character rather than fill(), so a stalled main thread
+  // would drop keystrokes the way it does for a real visitor.
+  await page.keyboard.type("cows", { delay: 30 });
+  await expect(input).toHaveValue("cows");
+
+  // The page behind the gate must not be rendered, laid out, or reachable.
+  const behindGate = await page.evaluate(() => {
+    const main = document.querySelector("body > main");
+    return main ? getComputedStyle(main).contentVisibility : null;
+  });
+  expect(behindGate).toBe("hidden");
+  await context.close();
+});
+
 test("construction gate has no serious accessibility violations", async ({ browser }) => {
   const context = await browser.newContext({ storageState: { cookies: [], origins: [] } });
   const page = await context.newPage();

@@ -1,6 +1,8 @@
 (function () {
   const STORAGE_KEY = "amesConsultingConstructionAccess";
-  const PASSWORD = "cows";
+  // Both the singular and the plural unlock the gate. Comparison is done on the
+  // trimmed, lowercased input, so case and stray whitespace do not matter.
+  const PASSWORDS = ["cow", "cows"];
 
   function storageAvailable() {
     try {
@@ -46,7 +48,7 @@
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       const enteredPassword = input.value.trim().toLowerCase();
-      if (enteredPassword === PASSWORD) {
+      if (PASSWORDS.includes(enteredPassword)) {
         error.textContent = "";
         unlock();
         return;
@@ -57,8 +59,11 @@
       input.focus();
     });
 
+    // Only write when there is something to clear. Blindly assigning on every
+    // keystroke mutates a role="alert" live region, which makes assistive
+    // technology re-announce and costs a style pass per character.
     input.addEventListener("input", () => {
-      error.textContent = "";
+      if (error.textContent !== "") error.textContent = "";
     });
 
     window.setTimeout(() => input.focus(), 60);

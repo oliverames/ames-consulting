@@ -145,6 +145,16 @@
     overflow: hidden;
   }
 
+  /* Skip rendering the whole site while the gate is up. The page underneath is
+     invisible but was still being styled, laid out, and painted — including
+     .hero__mesh, another 70px blur — so every caret blink and keypress in the
+     password field competed with it for the main thread. This also keeps the
+     hidden page out of the focus and accessibility trees, covering elements
+     that scripts append after the gate has already snapshotted body children. */
+  html:not(.construction-authenticated) body > *:not(.construction-gate) {
+    content-visibility: hidden;
+  }
+
   .construction-gate {
     position: fixed;
     inset: 0;
@@ -172,6 +182,13 @@
       radial-gradient(circle at 60% 80%, color-mix(in srgb, var(--accent-plum) 24%, transparent), transparent 42%);
     filter: blur(70px);
     opacity: 0.7;
+    /* Rasterize the blur once, on its own compositing layer. A 70px blur
+       expands any paint invalidation inside the gate's stacking context by its
+       radius, so without this the typed character and the blinking caret each
+       force the full-viewport mesh to re-rasterize, which is what made the
+       field stall for seconds after the first keystroke. */
+    contain: paint;
+    will-change: transform;
   }
 
   .construction-gate__card {

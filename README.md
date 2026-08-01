@@ -28,42 +28,36 @@ The public repository uses demo names, contact details, and work samples. Replac
 
 ## Why This Structure
 
-A personal site should outlast whatever framework is trending. This site uses no build-time JavaScript framework. It is plain HTML, CSS (cascade layers, container queries, registered custom properties), and ES modules. Content from either a JSON feed or the local sample data is normalized into one post model, then filtered in the browser. The site stays quick to load and does not need a Node.js build pipeline in production.
+A personal site should outlast whatever framework is trending. This site has no client-side content pipeline at all: a chain of Node generator scripts (`npm run build:site`) writes and refines plain, committed HTML, then copies it into `_site/` for deploy. Nothing about a page's content depends on JavaScript running in the visitor's browser. CSS uses cascade layers, container queries, and registered custom properties; the handful of JS modules that do ship are progressive enhancements (image lightbox, contact-form validation, work filtering) layered on top of already-complete markup.
 
-Hosted on Cloudflare Pages with image assets delivered from Cloudflare R2. GitHub Actions enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
+Hosted on Cloudflare Pages, deployed with wrangler. GitHub Actions enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
 
 ## Site Structure
 
 | Route | Purpose |
 |---|---|
 | `/` | Home: intro, featured work, site directory |
-| `/work/` | Work landing: software, web, and consulting projects |
-| `/blog/` | Full Local JSON post stream with tag/search filtering |
-| `/photography/` | Photography galleries organized by shoot |
-| `/links/` | Link directory |
+| `/work/` | Work index plus ~45 per-project case studies; `?organization=` filters client-side |
+| `/blog/` | Writing index, archive, and per-post pages |
+| `/about/` | Profile and background |
+| `/services/*/` | Photography & video, strategy & content, practical technology |
+| `/testimonials/` | Client and colleague recommendations |
 | `/contact/` | Contact form and social links |
-| `/likes/` | Stuff I Like: curated recommendations |
-| `/colophon/` | How this site is built |
 
 ## Architecture Decisions
 
-- **One content source**: Local JSON posts.
-- **One canonical model**: every entry is a `post`.
-- **Blog and filtered views** are presentations of the same stream.
-- **Work pages** are hand-crafted case studies with static HTML.
-- **Progressive enhancement**: modern platform features with functional fallbacks.
+- **No runtime content pipeline**: every page is static HTML written by a build-time generator, not assembled from a client-side data fetch.
+- **Generators own their pages**: each content area (`services`, `event-galleries`, `portraits`, `career-work`, `software`, `credit-union-websites`, `writing`, `contact`, `about`, `testimonials`) has one generator script; shared chrome (footer, nav, image dimensions, SEO meta) is normalized sitewide by dedicated `apply-*` passes that run last.
+- **Work pages** are generated or hand-crafted case studies with static HTML, tagged by organization for the `/work/` filter.
+- **Progressive enhancement**: the JS that does ship never gates primary content.
 
-### Content Backend
-
-- Primary source: Local JSON JSON feed.
-- Development fallback: local JSON sample (`assets/data/content.example.json`).
-- Normalization layer converts feed items into a stable in-app schema.
+See `docs/ARCHITECTURE.md` and `docs/CONTENT-MODEL.md` for the full build chain and data-file inventory.
 
 ### Frontend Baseline
 
 - Pure static hosting target (Cloudflare Pages).
 - No framework lock-in.
-- ES modules for clear separation: configuration, source adapters, UI, web components.
+- ES modules for clear separation of concerns: header scroll state, image lightbox, contact form, gallery scrub, work filtering.
 
 ## Standards Coverage
 
@@ -71,7 +65,7 @@ Current baseline includes:
 
 - HTML: semantic landmarks, templates, custom elements integration, `dialog`, popover UI hooks, structured metadata (JSON-LD), form primitives.
 - CSS: cascade layers, registered custom properties (`@property`), container queries, `:has()`, nesting, `color-mix()`, Display P3 colors, reduced-motion handling.
-- JS: modular architecture, route-aware rendering, normalized data model, client-side tag/search filters.
+- JS: ES modules as progressive enhancement only — image lightbox, contact-form validation, gallery pointer-scrub, work filtering.
 
 Tracked in `docs/SPEC-MATRIX.md`.
 
@@ -88,24 +82,25 @@ Then open `http://localhost:4173/`.
 ## Quality Commands
 
 ```bash
-npm run check:all       # lint, HTML validation, structured data, sample data
-npm run test:e2e        # full Playwright test suite
+npm run build:site      # regenerate the site into the source tree and _site/
+npm run check:all       # syntax, lint, HTML validation, structured data, image loading, and content-integrity checks (11 total)
+npm run test:e2e        # full Playwright test suite (functional + accessibility)
 npm run test:regression # regression tests only
 npm run test:a11y       # accessibility audits only
 ```
 
+`build:site` mutates the committed HTML in place — expect a dirty git status after running it locally.
+
 ## Content Configuration
 
 1. Start with `assets/data/site.config.example.json` and update `assets/data/site.config.json`.
-2. Set `provider` to `microblog` if you want to use a JSON feed.
-3. Set `jsonFeedUrl` to that feed's URL.
-4. Set `contactFormEndpoint` when the form backend is ready.
+2. Set `contactFormEndpoint` and `contactFormSuccessMessage` for the contact form's Cloudflare Pages Function.
 
-Until then, the app automatically uses local sample content.
+That's the only remaining runtime config fetch; everything else on the site is static HTML.
 
 ## Cloudflare Hosting
 
-GitHub remains the source of truth. A push to `main` uploads `assets/images/` to the dedicated `ames-website-assets` R2 bucket, rewrites the production artifact to use `assets.ames.consulting`, and deploys `_site/` to Cloudflare Pages.
+GitHub remains the source of truth. A push to `main` runs `npm run build:site` and deploys `_site/` to Cloudflare Pages with wrangler. The same workflow also syncs `assets/images/` to an R2 bucket, but the deployed site currently serves its images same-origin from Cloudflare Pages rather than from the R2 hostname.
 
 The contact form uses a Managed Cloudflare Turnstile widget with interaction-only appearance. Its public sitekey is part of the generated contact page; the private `TURNSTILE_SECRET_KEY` is stored as an encrypted Cloudflare Pages secret. The Pages Function validates every token with Cloudflare before sending the inquiry through Resend.
 

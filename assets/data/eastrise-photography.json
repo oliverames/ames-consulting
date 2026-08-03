@@ -222,15 +222,7 @@
           "height": 1350,
           "sourceUrl": "https://www.instagram.com/p/DNBnAXzpEnQ/",
           "sourcePlatform": "Instagram"
-        }
-      ],
-      "videoId": "dffKrKG5Hbs"
-    },
-    {
-      "slug": "bike-shop-member-story",
-      "title": "Bike Shop Member Story",
-      "description": "A Vermont couple photographed at work inside their bicycle shop.",
-      "images": [
+        },
         {
           "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_d43cea4f5fe6-e6629575d7b3.webp",
           "alt": "A couple laughs at a bike shop counter while paying, with bikes and wheels hanging on the walls behind them.",
@@ -263,7 +255,8 @@
           "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQG8L8SolowKmQ/image-shrink_800/B4EZiA1anxHIAc-/0/1754508143561?e=1774634400&v=beta&t=5J9-_s3DO_ihN-mNB49XPPqYdt4FeFuWzVEaJAqqf9k",
           "sourcePlatform": "LinkedIn"
         }
-      ]
+      ],
+      "videoId": "dffKrKG5Hbs"
     },
     {
       "slug": "winooski-development",

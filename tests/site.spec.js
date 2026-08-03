@@ -548,7 +548,7 @@ test("EastRise photography is grouped into complete public-source galleries", as
   page,
 }) => {
   await page.goto("/work/eastrise-photography/");
-  await expect(page.locator(".photo-series")).toHaveCount(15);
+  await expect(page.locator(".photo-series")).toHaveCount(14);
   await expect(page.locator(".campaign-collage img")).toHaveCount(147);
   await expect(
     page.locator("#karina-and-ryan-title + p + .photo-series__video iframe"),
@@ -556,6 +556,12 @@ test("EastRise photography is grouped into complete public-source galleries", as
   await expect(
     page.locator("#john-and-donia-title + p + .photo-series__video iframe"),
   ).toHaveAttribute("src", /dffKrKG5Hbs/);
+  await expect(
+    page.locator('[aria-labelledby="john-and-donia-title"] .campaign-collage img'),
+  ).toHaveCount(13);
+  await expect(
+    page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator('img[src*="li_38643aee028f-03e615af6186"]')).toHaveCount(0);
   const firstGallery = page.locator(".campaign-collage").first();
   const firstGalleryCount = await firstGallery.locator("img").count();

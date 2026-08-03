@@ -271,11 +271,14 @@ test("event photography is split into complete campaign galleries", async ({
     ["/work/girls-on-the-run-2026/", 185],
     ["/work/eastrise-launch-campaign/", 23],
     ["/work/giron-family-fall-2025/", 36],
+    ["/work/giron-family-christmas-tree-farm-2024/", 122],
+    ["/work/giron-family-fall-2023/", 228],
   ];
   for (const [route, count] of campaigns) {
     await page.goto(route);
     await expect(page.locator(".campaign-collage img")).toHaveCount(count);
   }
+  await page.goto("/work/giron-family-fall-2025/");
   await page.locator(".campaign-collage img").first().click();
   await expect(page.locator("#image-viewer-caption")).toContainText("1 of 36");
 });
@@ -343,7 +346,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(30);
+  ).toHaveCount(32);
   await expect(
     page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
   ).toHaveCount(0);
@@ -370,7 +373,13 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     page.getByRole("heading", { name: "Blue Cross Portraits" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Giron Family" }),
+    page.getByRole("heading", { name: "Giron Family, Fall 2025", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Christmas Tree Farm Family Session", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Giron Family, Fall 2023", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Vermont Foodbank Volunteer Day" }),

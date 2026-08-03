@@ -8,11 +8,18 @@ import { promisify } from "node:util";
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
 const blueCrossRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
-const gironRoot = "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/Kevin and Kayla Fall 2025/Deliverables";
+const gironRoots = {
+  "giron-family-fall-2025": "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/Kevin and Kayla Fall 2025/Deliverables",
+  "giron-family-christmas-tree-farm-2024": "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/2024-12-01 Christmas Tree Farm Family Session",
+  "giron-family-fall-2023": "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/2023-10-08 Fall Family Session",
+};
 const eastRiseData = JSON.parse(await readFile(path.join(root, "assets/data/eastrise-photography.json"), "utf8"));
 const existingEventData = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
 const blueCrossSourcesAvailable = !process.env.CI && await access(blueCrossRoot).then(() => true, () => false);
-const gironSourcesAvailable = !process.env.CI && await access(gironRoot).then(() => true, () => false);
+const gironSourcesAvailable = new Map(await Promise.all(Object.entries(gironRoots).map(async ([slug, source]) => [
+  slug,
+  !process.env.CI && await access(source).then(() => true, () => false),
+])));
 const existingDimensions = new Map(existingEventData.campaigns.flatMap((campaign) => campaign.images.filter((image) => image?.src).map((image) => [
   `${campaign.slug}/${path.basename(image.src)}`,
   [image.width, image.height],
@@ -21,6 +28,12 @@ const existingDimensions = new Map(existingEventData.campaigns.flatMap((campaign
 function blueCrossSource(slug, source) {
   return blueCrossSourcesAvailable
     ? { source: path.join(blueCrossRoot, source) }
+    : { source: path.join(root, "assets/images/work/events", slug), prepared: true };
+}
+
+function gironSource(slug) {
+  return gironSourcesAvailable.get(slug)
+    ? { source: gironRoots[slug] }
     : { source: path.join(root, "assets/images/work/events", slug), prepared: true };
 }
 
@@ -84,9 +97,27 @@ const definitions = [
     title: "Giron Family, Fall 2025",
     eyebrow: "Family photography · Vermont · Fall 2025",
     intro: "A family session that moved from open fields into the fall woods, leaving room for the posed photographs and the much better moments that happened between them.",
-    source: gironSourcesAvailable ? gironRoot : path.join(root, "assets/images/work/events/giron-family-fall-2025"),
-    prepared: !gironSourcesAvailable,
+    ...gironSource("giron-family-fall-2025"),
     organization: "Giron family",
+    featuredFile: "dsc06125.webp",
+  },
+  {
+    slug: "giron-family-christmas-tree-farm-2024",
+    title: "Giron Family at the Christmas Tree Farm",
+    eyebrow: "Family photography · Vermont · December 1, 2024",
+    intro: "A snowy family session among the Christmas trees, with room for the children to explore and the family to settle into the afternoon together.",
+    ...gironSource("giron-family-christmas-tree-farm-2024"),
+    organization: "Giron family",
+    featuredFile: "dsc06782.webp",
+  },
+  {
+    slug: "giron-family-fall-2023",
+    title: "Giron Family, Fall 2023",
+    eyebrow: "Family photography · Vermont · October 8, 2023",
+    intro: "An autumn family session across the farm, moving between portraits, play, pumpkins, and the landscape around them.",
+    ...gironSource("giron-family-fall-2023"),
+    organization: "Giron family",
+    featuredFile: "dsc03800.webp",
   },
   {
     slug: "vermont-foodbank-volunteer-day-2026",
@@ -169,9 +200,7 @@ async function processImages(definition) {
       ? existingDimensions.get(`${definition.slug}/${path.basename(destination)}`) || []
       : (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", destination])).stdout.trim().split(" ").map(Number);
     if (!width || !height) throw new Error(`Missing checked-in dimensions for ${destination}`);
-    const alt = definition.slug === "giron-family-fall-2025"
-      ? `Giron family fall portrait session, photograph ${index + 1} of ${files.length}`
-      : `${definition.title}, photograph ${index + 1} of ${files.length}`;
+    const alt = `${definition.title}, photograph ${index + 1} of ${files.length}`;
     images.push({ src: `../../assets/images/work/events/${definition.slug}/${path.basename(destination)}`, alt, width, height });
   }
   return images;
@@ -196,7 +225,7 @@ for (const campaign of campaigns) {
   const gallery = campaign.heldPendingWrittenPermission
     ? "<!-- Held pending written permission. Gallery images intentionally do not render. -->"
     : campaign.images.map((image) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async">`).join("");
-  const familyStory = campaign.slug === "giron-family-fall-2025"
+  const familyStory = campaign.organization === "Giron family"
     ? `<section class="case-section"><h2>A walk, not a pose list</h2><div class="case-section__body"><p>We started with the photographs every family needs, then kept moving. The children had room to run, the parents could settle into the session, and the landscape changed from open sky to leaf-covered paths.</p><p>The result is a useful family record with enough movement, quiet, and personality to feel like this particular afternoon.</p></div></section><section class="case-section"><h2>View the session</h2><div class="case-section__body">Select any photograph to open it full size. Use the buttons or the left and right arrow keys to move through all ${campaign.images.length} images.</div></section>`
     : campaign.slug === "vermont-foodbank-volunteer-day-2026"
       ? `<section class="case-section"><h2>Work with a rhythm of its own</h2><div class="case-section__body"><p>The warehouse already had a visual system: pallets, rollers, open boxes, stacked cans, and people finding a pace together. I moved between the full process and the moments that showed concentration, cooperation, and the occasional laugh.</p><p>The final set gives the Vermont Foodbank a complete record of the volunteer day, with individual photographs that can also work across future stories, volunteer recruitment, and social posts.</p></div></section>`
@@ -206,8 +235,6 @@ for (const campaign of campaigns) {
     : null;
   const hero = campaign.heldPendingWrittenPermission
     ? `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p></header>`
-    : campaign.slug === "giron-family-fall-2025"
-    ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="../../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family together during their fall portrait session" width="1067" height="1600" loading="eager" fetchpriority="high" decoding="async"></header>`
     : featuredImage
         ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="${featuredImage.src}" alt="${featuredImage.alt}" width="${featuredImage.width}" height="${featuredImage.height}" loading="eager" fetchpriority="high" decoding="async"></header>`
         : `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></header>`;
@@ -222,5 +249,5 @@ for (const campaign of campaigns) {
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, html);
 }
-await writeFile(path.join(root, "assets/data/event-galleries.json"), `${JSON.stringify({ generatedAt: "2026-07-29", campaigns: campaigns.map(({ source: _source, prepared: _prepared, ...campaign }) => campaign) }, null, 2)}\n`);
+await writeFile(path.join(root, "assets/data/event-galleries.json"), `${JSON.stringify({ generatedAt: "2026-08-03", campaigns: campaigns.map(({ source: _source, prepared: _prepared, ...campaign }) => campaign) }, null, 2)}\n`);
 console.log(campaigns.map((campaign) => `${campaign.title}: ${campaign.images.length}`).join("\n"));

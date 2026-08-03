@@ -22,7 +22,11 @@ const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><i
 
 const eastRiseStandaloneSlugs = new Set(["taylor-hoar-racing", "eastrise-launch", "formal-headshots", "eastrise-candid-portraits"]);
 const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>Social Highlights</h3><p>Selected member stories, community coverage, campaigns, and lighter moments from six years of social publishing.</p></a>`;
-const gironFamilyCard = `<a class="work-item" href="giron-family-fall-2025/"><img src="../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family during a fall portrait session" loading="lazy"><span class="work-item__context">Family photography · Fall 2025</span><h3>Giron Family</h3><p>A 36-image family session moving from open fields into the fall woods.</p></a>`;
+const gironFamilyCards = [
+  `<a class="work-item" href="giron-family-fall-2025/"><img src="../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family during a fall portrait session" loading="lazy"><span class="work-item__context">Family photography · Fall 2025</span><h3>Giron Family, Fall 2025</h3><p>A 36-image family session moving from open fields into the fall woods.</p></a>`,
+  `<a class="work-item" href="giron-family-christmas-tree-farm-2024/"><img src="../assets/images/work/events/giron-family-christmas-tree-farm-2024/dsc06782.webp" alt="The Giron family together at a snowy Christmas tree farm" loading="lazy"><span class="work-item__context">Family photography · December 2024</span><h3>Christmas Tree Farm Family Session</h3><p>A snowy family session among the Christmas trees, with 122 photographs from the afternoon.</p></a>`,
+  `<a class="work-item" href="giron-family-fall-2023/"><img src="../assets/images/work/events/giron-family-fall-2023/dsc03800.webp" alt="The Giron family together during an autumn farm session" loading="lazy"><span class="work-item__context">Family photography · October 2023</span><h3>Giron Family, Fall 2023</h3><p>A 228-image family session across the farm, from portraits and play to pumpkins and open fields.</p></a>`,
+];
 const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-2026/"><img src="../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"><span class="work-item__context">Vermont Foodbank · January 2026</span><h3>Vermont Foodbank Volunteer Day</h3><p>A 38-image documentary series about the people and process behind a volunteer packing day.</p></a>`;
 /*
  * Held pending written permission. Keep these gallery cards in source so they
@@ -108,6 +112,8 @@ const campaignOrder = [
   "eastrise-portraits/",
   "blue-cross-portraits/",
   "giron-family-fall-2025/",
+  "giron-family-christmas-tree-farm-2024/",
+  "giron-family-fall-2023/",
   "member-banking-stories/",
   "sweat-heart-throwdown/",
   "eastrise-social/",
@@ -224,7 +230,10 @@ for (const series of eastRisePhotography.series.filter((item) =>
   workIndex = upsertWorkCard(workIndex, "Campaigns and series", href, card);
 }
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-social/", eastRiseSocialCard);
-workIndex = upsertWorkCard(workIndex, "Campaigns and series", "giron-family-fall-2025/", gironFamilyCard);
+for (const card of gironFamilyCards) {
+  const href = card.match(/href="([^"]+)"/)?.[1];
+  workIndex = upsertWorkCard(workIndex, "Campaigns and series", href, card);
+}
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vermont-foodbank-volunteer-day-2026/", foodbankCard);
 // Held pending written permission. Remove only the rendered cards; preserve the gallery pages and assets.
 for (const href of betaPhotographyHrefs) {

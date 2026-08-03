@@ -117,13 +117,17 @@ if (captureMissing && missing.length) {
 
 const resolved = new Set(results.map((result) => canonicalUrl(result.source_url)));
 const unresolved = missing.filter((source) => !resolved.has(canonicalUrl(source.source_url))).map(({ source_url, source_channel, error = "No archived capture was matched." }) => ({ source_url, source_channel, error }));
-const output = {
+const archiveOutput = {
   generated_at: new Date().toISOString(),
   screenshots: results.sort((a, b) => a.source_url.localeCompare(b.source_url)),
   missing: unresolved,
 };
-await writeFile(join(root, "assets/data/source-screenshot-manifest.json"), `${JSON.stringify(output, null, 2)}\n`);
-await writeFile(join(recordsRoot, "Manifests/Site Source Screenshot Manifest.json"), `${JSON.stringify(output, null, 2)}\n`);
+const publicOutput = {
+  ...archiveOutput,
+  screenshots: archiveOutput.screenshots.map(({ captured_from: _capturedFrom, ...record }) => record),
+};
+await writeFile(join(root, "assets/data/source-screenshot-manifest.json"), `${JSON.stringify(publicOutput, null, 2)}\n`);
+await writeFile(join(recordsRoot, "Manifests/Site Source Screenshot Manifest.json"), `${JSON.stringify(archiveOutput, null, 2)}\n`);
 await copyFile(provenancePath, join(recordsRoot, "Manifests/Site Media Provenance.json"));
 try {
   await copyFile(join(root, "assets/data/media-provenance-missing.json"), join(recordsRoot, "Manifests/Site Media Provenance Missing Fields.json"));

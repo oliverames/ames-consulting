@@ -339,7 +339,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(27);
+  ).toHaveCount(31);
   await expect(page.locator(".work-category--portraits .work-item")).toHaveCount(2);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),

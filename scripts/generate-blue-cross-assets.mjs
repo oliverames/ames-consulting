@@ -11,6 +11,7 @@ const portfolioRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blu
 const outputRoot = path.join(root, "assets/images/work/blue-cross");
 
 const assets = [
+  ["senior-games.webp", "2026-03-18 – Senior Games Press Event/Edited Selects/DSC01867.jpg"],
   ["arrayrx.webp", "2026-03-26 – ArrayRx Press Conference/Edited Selects/DSC02517.jpg"],
   ["walk-at-lunch.webp", "2026-04-29 – Walk@Lunch and GreenUp/Edited Selects/DSC02728.jpg"],
   ["be-well-at-work.webp", "2026-05-06 – Be Well at Work/Edited Selects/DSC03152.jpg"],
@@ -38,7 +39,7 @@ if (portfolioAvailable) {
     ]);
   }
 
-  for (const filename of ["arrayrx", "walk-at-lunch"]) {
+  for (const filename of ["senior-games", "arrayrx", "walk-at-lunch", "be-well-at-work"]) {
     await exec("/opt/homebrew/bin/magick", [
       path.join(outputRoot, `${filename}.webp`),
       "-resize",
@@ -58,3 +59,5 @@ if (portfolioAvailable) {
   for (const [filename] of assets) await access(path.join(outputRoot, filename));
   console.log("Blue Cross portfolio source is not mounted; using checked-in high-resolution derivatives.");
 }
+
+await import("./generate-blue-cross-project-pages.mjs");

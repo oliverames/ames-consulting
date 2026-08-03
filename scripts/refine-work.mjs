@@ -5,10 +5,25 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
 let html = await readFile(indexPath, "utf8");
+const blueCrossProjectCards = [
+  ["senior-games-press-event-2026/", "senior-games-card.webp", "Vermont Senior Games press event", "Blue Cross Vermont · March 18, 2026", "Senior Games Press Event", "Documentary coverage of the people and public announcement behind the Vermont Senior Games partnership."],
+  ["arrayrx-press-conference-2026/", "arrayrx-card.webp", "ArrayRx press conference in Vermont", "Blue Cross Vermont · March 26, 2026", "ArrayRx Press Conference", "Press conference photography centered on the speakers, partners, and public announcement."],
+  ["walk-at-lunch-and-green-up-2026/", "walk-at-lunch-card.webp", "Walk@Lunch and Green Up event", "Blue Cross Vermont · April 29, 2026", "Walk@Lunch and Green Up", "Workplace and community photography from a walk and Green Up activity in Montpelier."],
+  ["be-well-at-work-2026/", "be-well-at-work-card.webp", "Be Well at Work program", "Blue Cross Vermont · May 6, 2026", "Be Well at Work", "Documentary photography of a workplace wellness program and the people taking part."],
+];
+for (const [href, image, alt, context, title, description] of blueCrossProjectCards) {
+  if (!html.includes(`href="${href}"`)) {
+    html = html.replace(/(<section class="work-category">[\s\S]*?<div class="work-list">)/, `$1<a class="work-item" href="${href}"><img src="../assets/images/work/blue-cross/${image}" alt="${alt}" loading="lazy"><span class="work-item__context">${context}</span><h3>${title}</h3><p>${description}</p></a>`);
+  }
+}
 const existingPortraitCards = [...html.matchAll(/<section class="work-category work-category--portraits">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/g)].map((match) => match[1]).join("");
 const portraitFallbackCards = existingPortraitCards || `<a class="work-item" href="eastrise-portraits/"><img src="../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp" alt="Portrait of Christin Canter" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>EastRise Portraits</h3><p>Leadership, board, and staff portraits built as one coherent public library.</p></a><a class="work-item" href="blue-cross-portraits/"><img src="../assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp" alt="Portrait of Beth Roberts" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Portraits</h3><p>Senior-team and staff portraits made for public profiles and organizational storytelling.</p></a>`;
 html = html.replace(/<section class="work-category work-category--portraits">[\s\S]*?<\/section>/g, "");
 const featuredImages = new Map([
+  ["senior-games-press-event-2026/", ["../assets/images/work/blue-cross/senior-games-card.webp", "Vermont Senior Games press event"]],
+  ["arrayrx-press-conference-2026/", ["../assets/images/work/blue-cross/arrayrx-card.webp", "ArrayRx press conference in Vermont"]],
+  ["walk-at-lunch-and-green-up-2026/", ["../assets/images/work/blue-cross/walk-at-lunch-card.webp", "Walk@Lunch and Green Up event"]],
+  ["be-well-at-work-2026/", ["../assets/images/work/blue-cross/be-well-at-work-card.webp", "Be Well at Work program"]],
   ["girls-on-the-run-2026/", ["../assets/images/work/events/girls-on-the-run-2026/dsc03810.webp", "Girls on the Run participants starting together"]],
   ["corporate-cup-2026/", ["../assets/images/work/events/corporate-cup-2026/dsc03213.webp", "Blue Cross Vermont team at the Corporate Cup"]],
   ["vermont-foodbank-volunteer-day-2026/", ["../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08397.webp", "Mary volunteering at the Vermont Foodbank"]],
@@ -29,6 +44,10 @@ if (!html.includes('href="connecticut-college/"')) {
 }
 
 const organizationByHref = new Map([
+  ["senior-games-press-event-2026/", "blue-cross-vermont"],
+  ["arrayrx-press-conference-2026/", "blue-cross-vermont"],
+  ["walk-at-lunch-and-green-up-2026/", "blue-cross-vermont"],
+  ["be-well-at-work-2026/", "blue-cross-vermont"],
   ["girls-on-the-run-2026/", "blue-cross-vermont"],
   ["corporate-cup-2026/", "blue-cross-vermont"],
   ["flight-paths/", "blue-cross-vermont"],
@@ -65,6 +84,10 @@ const creditOverridesByHref = new Map([
   ["vsecu-website/", "Made as Social Media Specialist, VSECU (now EastRise Credit Union)."],
 ]);
 const inHouseDescriptions = new Map([
+  ["senior-games-press-event-2026/", "I photographed the people and public announcement behind the Vermont Senior Games partnership."],
+  ["arrayrx-press-conference-2026/", "I documented the ArrayRx press conference, including the speakers, partners, and public setting."],
+  ["walk-at-lunch-and-green-up-2026/", "I photographed employees taking part in a workplace walk and Green Up activity in Montpelier."],
+  ["be-well-at-work-2026/", "I documented a workplace wellness program through the people, activities, and practical details that made it useful."],
   ["girls-on-the-run-2026/", "I documented the full Vermont 5K in-house, building a 185-image library around the runners, volunteers, and Blue Cross presence."],
   ["corporate-cup-2026/", "I photographed the Blue Cross team in-house across the course, the crowd, and the rain-soaked finish in downtown Montpelier."],
   ["flight-paths/", "I produced this in-house video series around the people finding their way into Vermont’s growing aviation sector."],
@@ -84,6 +107,10 @@ const consultingHrefs = new Set(["flight-paths/"]);
 const projectOrder = [
   "girls-on-the-run-2026/",
   "corporate-cup-2026/",
+  "be-well-at-work-2026/",
+  "walk-at-lunch-and-green-up-2026/",
+  "arrayrx-press-conference-2026/",
+  "senior-games-press-event-2026/",
   "flight-paths/",
   "blue-cross-portraits/",
   "vermont-foodbank-volunteer-day-2026/",

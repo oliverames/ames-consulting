@@ -9,6 +9,24 @@ const events = JSON.parse(await readFile(path.join(root, "assets/data/event-gall
 const portraits = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
 const portfolioAvailable = await access(portfolioRoot).then(() => true, () => false);
 
+const expectedProjects = new Map([
+  ["senior-games-press-event-2026", "2026-03-18 – Senior Games Press Event"],
+  ["arrayrx-press-conference-2026", "2026-03-26 – ArrayRx Press Conference"],
+  ["blue-cross-portraits", "2026-04-08 – CBSS Headshots"],
+  ["walk-at-lunch-and-green-up-2026", "2026-04-29 – Walk@Lunch and GreenUp"],
+  ["be-well-at-work-2026", "2026-05-06 – Be Well at Work"],
+  ["corporate-cup-2026", "2026-05-14 – Corporate Cup"],
+  ["girls-on-the-run-2026", "2026-05-30 – GOTR"],
+]);
+const workIndex = await readFile(path.join(root, "work/index.html"), "utf8");
+for (const [slug, sourceDirectory] of expectedProjects) {
+  await access(path.join(root, "work", slug, "index.html"));
+  if (!workIndex.includes(`data-organization="blue-cross-vermont" href="${slug}/"`)) {
+    throw new Error(`${slug} is not attached to the Blue Cross Vermont organization filter.`);
+  }
+  if (portfolioAvailable) await access(path.join(portfolioRoot, sourceDirectory));
+}
+
 const keyFiles = [
   "scripts/generate-blue-cross-assets.mjs",
   "scripts/generate-event-galleries.mjs",
@@ -64,4 +82,4 @@ for (const image of blueCrossPortraits.images) {
 if (expectedPortraits.size) throw new Error(`Missing Blue Cross portraits: ${[...expectedPortraits].join(", ")}`);
 
 const sourceCheck = portfolioAvailable ? "against the edited Portfolio sources" : "using checked-in provenance and high-resolution derivatives";
-console.log(`Validated ${eventTotal} Blue Cross event photographs and ${blueCrossPortraits.images.length} portraits ${sourceCheck}.`);
+console.log(`Validated ${expectedProjects.size} Blue Cross projects, ${eventTotal} event photographs, and ${blueCrossPortraits.images.length} portraits ${sourceCheck}.`);

@@ -4291,6 +4291,7 @@
   }
 
   .home-testimonial {
+    width: 100%;
     padding-block: var(--space-4);
   }
 
@@ -4755,21 +4756,15 @@
   }
 
   .practice-card__link {
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     color: inherit;
     text-decoration: none;
   }
 
-  .practice-card__link::after {
-    content: "Read how →";
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--accent-hover);
-    font-family: var(--font-heading);
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+  .practice-card__link .practice-cta {
+    align-self: flex-start;
   }
 
   .practice-card:has(.practice-card__link:hover),
@@ -5165,4 +5160,3 @@
     margin-block-start: var(--space-2);
   }
 }
-

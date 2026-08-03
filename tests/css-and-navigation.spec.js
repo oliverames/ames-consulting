@@ -13,6 +13,36 @@ test("brand stylesheet and primary navigation are active", async ({ page }) => {
   ).toHaveAttribute("href", "./work/");
 });
 
+test("homepage section edges and practice calls to action align", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1600 });
+  await page.goto("/");
+
+  const layout = await page.evaluate(() => {
+    const practiceHeading = document
+      .querySelector(".practice-section > h2")
+      .getBoundingClientRect();
+    const testimonialHeading = document
+      .querySelector(".home-testimonial .section-heading > h2")
+      .getBoundingClientRect();
+    const ctaTops = [...document.querySelectorAll(".practice-cta")].map(
+      (element) => element.getBoundingClientRect().top,
+    );
+
+    return {
+      ctaTops,
+      headingOffset: Math.abs(
+        practiceHeading.left - testimonialHeading.left,
+      ),
+    };
+  });
+
+  expect(layout.ctaTops).toHaveLength(3);
+  expect(Math.max(...layout.ctaTops) - Math.min(...layout.ctaTops)).toBeLessThan(
+    1,
+  );
+  expect(layout.headingOffset).toBeLessThan(1);
+});
+
 test("all public content routes load", async ({ request }) => {
   for (const route of [
     "/",

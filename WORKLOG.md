@@ -1,5 +1,21 @@
 # Worklog
 
+## 2026-08-03 - Portfolio galleries, source hygiene, and archive cleanup
+
+**What changed**: Completed the current portfolio pass across the website and reference archive. The site now includes the full Blue Cross project inventory, corrected EastRise story groupings, Giron family sessions, curated Taylor Hoar selects, and private-path sanitization for published provenance data. The EastRise technical asset folders now follow the same organization-first, project-second model as the reference archive. Outside the repository, the unique Portfolio Research brief and LinkedIn captures moved into `Portfolio/Source Records/Career Research`; the reproducible indexes and retired source folder moved to the Trash. Five photographs that Oliver confirmed as his work moved out of the manual-review "Not Oliver's Photography" folder and into their manifest-defined collections.
+
+**Decisions made**: The Portfolio directory remains the private source archive. The website serves copied, web-optimized assets from the repository and publishes no local filesystem paths. Public EastRise photographs remain organized by campaign or story, with John and Donia, Karina and Ryan, and Will's story kept distinct. Manual authorship review remains the authority for photographs that cannot be proven from retained RAW files or existing public-source records.
+
+**Verification**: Commits `7bb3b9b`, `75437fc`, `7b18fc`, `e4bdb07`, and `d8e8aba` were pushed to `main`. The committed site passed the full quality suite after `d8e8aba`, and the production Taylor Hoar page referenced seven optimized WebP selects with no `/Users/oliverames/` paths. The five corrected EastRise photographs were verified by SHA-256 after their reversible moves. A fresh wrap-up run of `npm run check:all` does not pass against the current unrelated 44-file worktree: `validate-structured-data.mjs` reports `Missing <meta name="robots" in about/index.html`.
+
+**Left off at**: The session's commits are on `origin/main`. The repository still contains 44 uncommitted HTML changes from another active workstream, including the failing `about/index.html`; this wrap-up does not stage or alter them. The Portfolio Research filing has an undo log at `Portfolio/Source Records/Career Research/organize-inbox-undo-2026-08-03.tsv`. The five-photo authorship correction has an undo log at `EastRise Public Library/Photography/Public Photography/organize-inbox-undo-2026-08-03-authorship-correction.tsv`.
+
+**Open questions**:
+- Still open: Oliver will manually review the remaining `Verification Pending` and manual-review photographs, deleting only images he did not take.
+- NEW: Resolve or discard the unrelated 44-file HTML worktree, then rerun `npm run check:all`; the current concrete failure is missing robots metadata in `about/index.html`.
+
+---
+
 ## 2026-07-31 - Full-site visual audit, adversarial code review, and repair
 
 **What changed**: Browser-driven visual audit of the live site (construction-gate error state, hero/portrait collision, gradient-text contrast, CSS token resolution, work-filter states, contact-form states, mobile layout, 404 behavior) surfaced seven defects, all fixed at the layout/token level rather than patched per-instance so regeneration can't reintroduce them. Then ran a 66-agent adversarial-review workflow (7 domain reviewers, each finding independently skeptic-checked) against the whole repo; 57 of 59 findings confirmed. Fixed all of them, then ran a second full test-and-fix round because two of the fixes (re-enabling frozen generator surgery) introduced their own regressions, caught by Playwright before shipping.

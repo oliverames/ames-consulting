@@ -28,7 +28,11 @@ html = html
   )
   .replace(
     "EastRise commercial production photographed by Oliver Ames",
-    "A child riding a bicycle in an EastRise member story about homeownership",
+    "Karina riding a bicycle in Karina and Ryan’s EastRise member story",
+  )
+  .replace(
+    "Member Stories and Campaign Films",
+    "Member stories, including Karina and Ryan",
   );
 
 await writeFile(pagePath, html);

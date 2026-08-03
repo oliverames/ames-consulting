@@ -77,8 +77,13 @@ function normalizeColophon(html) {
   const socialList = socialProfiles
     .map(([title, href]) => `<li><a href="${href}" rel="me noopener">${title}</a></li>`)
     .join("");
-  const canonical = `<div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>${firmDescription}</p><h3 class="site-footer__social-title">Social</h3><ul class="site-footer__social">${socialList}</ul></div>`;
-  return html.replace(/<div class="site-footer__colophon">[\s\S]*?<\/div>/, canonical);
+  const canonical = `<div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>${firmDescription}</p></div>`;
+  let normalized = html.replace(/<div class="site-footer__colophon">[\s\S]*?<\/div>/, canonical);
+  normalized = normalized.replace(/<div class="site-footer__social-column">[\s\S]*?<\/div>/, "");
+  return normalized.replace(
+    /<\/nav>\s*(<div class="site-footer__colophon">)/,
+    `<div class="site-footer__social-column"><h3 class="site-footer__social-title">Social</h3><ul class="site-footer__social">${socialList}</ul></div></nav>$1`,
+  );
 }
 
 // Every page's primary nav and footer Company column carry the same items.
@@ -143,22 +148,28 @@ function addProvenanceDisclosure(html, file) {
   const page = relative(root, file).split(sep).join("/");
   if (!page.startsWith("work/") || page === "work/index.html") return html;
   const cleaned = html.replace(/<footer class="asset-provenance"[\s\S]*?<\/footer>/, "");
-  const lines = [];
+  const groups = new Map();
   for (const match of cleaned.matchAll(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/g)) {
     const asset = match[1].replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
     const data = provenance.assets?.[asset];
     if (!data) continue;
     const publisher = data.credit.includes("EastRise Credit Union") ? "EastRise Credit Union" : "Blue Cross and Blue Shield of Vermont";
-    let sentence = `Image source: published by ${publisher}`;
-    if (data.source_channel) sentence += data.source_url ? ` on <a href="${escapeHtml(data.source_url)}" rel="noopener">${escapeHtml(data.source_channel)}</a>` : ` on ${escapeHtml(data.source_channel)}`;
-    else if (data.source_url) sentence += ` at <a href="${escapeHtml(data.source_url)}" rel="noopener">the source page</a>`;
-    if (data.published_date) sentence += `, ${formatDate(data.published_date)}`;
-    sentence += ".";
-    if (data.downloaded_date) sentence += ` Retrieved ${formatDate(data.downloaded_date)}.`;
-    lines.push(`<li>${sentence}</li>`);
+    const key = `${publisher}|${data.source_channel || "source page"}|${data.published_date || ""}|${data.downloaded_date || ""}`;
+    const current = groups.get(key) || { count: 0, publisher, channel: data.source_channel, sourceUrl: data.source_url, publishedDate: data.published_date, downloadedDate: data.downloaded_date };
+    current.count += 1;
+    groups.set(key, current);
   }
-  if (!lines.length) return cleaned;
-  return cleaned.replace("</main>", `<footer class="asset-provenance" aria-label="Image provenance"><h2>Image provenance</h2><ul>${lines.join("")}</ul></footer></main>`);
+  if (!groups.size) return cleaned;
+  const items = [...groups.values()].map((group) => {
+    let sentence = `${group.count} image${group.count === 1 ? "" : "s"} published by ${group.publisher}`;
+    if (group.channel) sentence += group.sourceUrl ? ` on <a href="${escapeHtml(group.sourceUrl)}" rel="noopener">${escapeHtml(group.channel)}</a>` : ` on ${escapeHtml(group.channel)}`;
+    else if (group.sourceUrl) sentence += ` at <a href="${escapeHtml(group.sourceUrl)}" rel="noopener">the source page</a>`;
+    if (group.publishedDate) sentence += `, ${formatDate(group.publishedDate)}`;
+    sentence += ".";
+    if (group.downloadedDate) sentence += ` Retrieved ${formatDate(group.downloadedDate)}.`;
+    return `<li>${sentence}</li>`;
+  }).join("");
+  return cleaned.replace("</main>", `<footer class="asset-provenance" aria-label="Image provenance"><h2>Image provenance</h2><ul>${items}</ul></footer></main>`);
 }
 
 // Shared with apply-image-dimensions.mjs, apply-seo.mjs, and

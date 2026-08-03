@@ -7,15 +7,11 @@ if (rotator) {
   let timer;
 
   const showPage = (nextPage) => {
-    pages[currentPage].classList.add("is-leaving");
-
-    window.setTimeout(() => {
-      pages[currentPage].hidden = true;
-      pages[currentPage].classList.remove("is-visible", "is-leaving");
-      currentPage = nextPage;
-      pages[currentPage].hidden = false;
-      window.requestAnimationFrame(() => pages[currentPage].classList.add("is-visible"));
-    }, reduceMotion.matches ? 0 : 180);
+    pages[currentPage].classList.remove("is-visible");
+    pages[currentPage].setAttribute("aria-hidden", "true");
+    currentPage = nextPage;
+    pages[currentPage].classList.add("is-visible");
+    pages[currentPage].setAttribute("aria-hidden", "false");
   };
 
   const stop = () => {
@@ -37,6 +33,10 @@ if (rotator) {
   });
 
   reduceMotion.addEventListener("change", start);
-  pages[0].classList.add("is-visible");
+  pages.forEach((page, index) => {
+    page.hidden = reduceMotion.matches && index !== 0;
+    page.classList.toggle("is-visible", index === 0);
+    page.setAttribute("aria-hidden", index === 0 ? "false" : "true");
+  });
   start();
 }

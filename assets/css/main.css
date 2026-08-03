@@ -74,10 +74,27 @@
   }
 
   .work-item__credit {
-    margin-top: 0.65rem;
-    font-size: 0.78rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+    color: var(--text-1);
+    font-family: var(--font-heading);
+    font-size: 0.76rem;
     font-weight: 600;
+    letter-spacing: 0.035em;
   }
+
+  .work-item__credit::before {
+    content: "Role";
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--accent-hover);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .case-section__body > p + p { margin-top: 1.25em; }
 
   .asset-provenance {
     max-width: var(--measure-wide);
@@ -368,12 +385,13 @@
 
   .software-grid {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1rem, 2vw, 1.5rem);
   }
 
   .software-card {
-    grid-column: span 7;
+    grid-column: auto;
+    position: relative;
     display: grid;
     min-inline-size: 0;
     overflow: hidden;
@@ -389,11 +407,6 @@
       box-shadow 180ms ease;
   }
 
-  .software-card:nth-child(4n + 2),
-  .software-card:nth-child(4n + 3) {
-    grid-column: span 5;
-  }
-
   .software-card:hover,
   .software-card:focus-visible {
     border-color: var(--accent);
@@ -404,7 +417,8 @@
   .software-card__number {
     position: absolute;
     z-index: 2;
-    margin: 0.8rem;
+    inset: auto 0.9rem 0.9rem auto;
+    margin: 0;
     padding: 0.25rem 0.45rem;
     border: 1px solid color-mix(in srgb, white 22%, transparent);
     border-radius: 999px;
@@ -553,12 +567,11 @@
     height: 2.75rem;
     flex: 0 0 auto;
     box-sizing: border-box;
-    padding: 0.2rem;
+    padding: 0;
     border-radius: 0.65rem;
-    /* Constant plate on the permanently dark card (themed token vanishes in dark mode) */
-    background: #faf8f5;
+    background: transparent;
     object-fit: contain;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 18%);
+    box-shadow: none;
   }
 
   .software-card__title h3 {
@@ -700,8 +713,8 @@
 
   @media (max-width: 47.5rem) {
     .software-work {
-      margin-inline: calc(-1 * var(--space-1));
-      border-radius: 0;
+      margin-inline: 0;
+      border-radius: var(--radius-tile);
     }
     .software-work__heading {
       grid-template-columns: 1fr;
@@ -846,11 +859,15 @@
   }
 
   .testimonial-card figcaption {
+    position: relative;
     display: grid;
     grid-template-columns: 4.5rem minmax(0, 1fr);
     gap: 1rem;
     align-items: center;
   }
+
+  .testimonial-card figcaption { order: 2; }
+  .testimonial-card__more { order: 3; }
 
   .testimonial-card figcaption img,
   .testimonial-card__initials {
@@ -868,6 +885,23 @@
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 50%;
+  }
+
+  .testimonial-card__portrait-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .testimonial-card__more {
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    color: var(--accent-hover);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .testimonial-card__initials {
@@ -1465,6 +1499,15 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .social-card-stack {
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .social-card-stack .social-card {
+    width: 100%;
+  }
+
   .social-card {
     overflow: hidden;
     background: var(--surface-0);
@@ -1846,6 +1889,10 @@
     height: auto;
     object-fit: contain;
     filter: none;
+  }
+
+  .portrait-gallery--natural .portrait-gallery__wide {
+    grid-column: span 2;
   }
 
   .portrait-gallery figcaption {
@@ -2420,7 +2467,7 @@
 
   .site-footer__colophon {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) minmax(16rem, 0.7fr);
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: start;
     gap: var(--space-3);
     padding-top: var(--space-3);
@@ -2453,18 +2500,16 @@
   }
 
   .site-footer__social-title {
-    grid-column: 3;
     font-family: var(--font-heading);
     font-size: 0.95rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
-    margin: 0 0 2.1rem;
+    margin: 0 0 var(--space-2);
   }
 
   .site-footer__social-title + .site-footer__social {
-    grid-column: 3;
-    margin-top: -1.55rem;
+    margin-top: 0;
   }
 
   .site-footer__social a {
@@ -2665,7 +2710,7 @@
     height: 100%;
     object-fit: cover;
     object-position: 50% 32%;
-    filter: grayscale(1) contrast(1.16) brightness(0.9);
+    filter: grayscale(1) contrast(1.08) brightness(1.06);
   }
 
   /* Copy must stop short of the absolutely-positioned portrait. The three
@@ -2708,9 +2753,16 @@
     gap: 1.1rem;
   }
 
-  .proof__page[hidden] {
-    display: none;
+  .hero__proof {
+    display: grid;
   }
+
+  .hero__proof .proof__page {
+    grid-area: 1 / 1;
+  }
+
+  .proof__page[aria-hidden="true"] { pointer-events: none; }
+  .proof__page[hidden] { display: none; }
 
   .proof__item {
     position: relative;
@@ -2815,20 +2867,11 @@
 
     .proof__page {
       opacity: 0;
-      transform: translateY(0.4rem);
-      transition:
-        opacity 180ms ease,
-        transform 180ms ease;
+      transition: opacity 420ms ease;
     }
 
     .proof__page.is-visible {
       opacity: 1;
-      transform: translateY(0);
-    }
-
-    .proof__page.is-leaving {
-      opacity: 0;
-      transform: translateY(-0.3rem);
     }
   }
 
@@ -2948,6 +2991,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--focal-point, 50% 35%);
     display: block;
   }
 

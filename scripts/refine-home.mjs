@@ -33,7 +33,7 @@ if (!html.includes("Corporate Cup 2026</h3>")) {
 
 if (!html.includes("Vermont Foodbank Volunteer Day</h3>")) {
   const foodbank = `<a class="path-thumb" href="work/vermont-foodbank-volunteer-day-2026/"><div class="path-thumb__img"><img src="assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Vermont Foodbank · documentary photography</span><h3 class="path-thumb__title">Vermont Foodbank Volunteer Day</h3></div></a>`;
-  html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${foodbank}$2`);
+  html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div>\s*<a class="path-browse")/, `$1${foodbank}$2`);
 }
 
 /*
@@ -45,5 +45,24 @@ if (!html.includes("Vermont Foodbank Volunteer Day</h3>")) {
 for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
   html = html.replace(new RegExp(`<a class="path-thumb" href="work/${slug}/"[\\s\\S]*?</a\\s*>`), "");
 }
+
+const recentProjectOrder = [
+  "girls-on-the-run-2026/",
+  "corporate-cup-2026/",
+  "sweat-heart-throwdown/",
+  "vermont-foodbank-volunteer-day-2026/",
+  "giron-family-fall-2025/",
+  "taylor-hoar-racing/",
+  "wheels-for-warmth/",
+  "eastrise-portraits/",
+  "blue-cross-portraits/",
+];
+html = html.replace(/<div class="path-strip">([\s\S]*?)<\/div>\s*<a class="path-browse"/, (match, contents) => {
+  const cards = [...contents.matchAll(/<a class="path-thumb"[\s\S]*?<\/a\s*>/g)].map((item) => item[0]);
+  const byHref = new Map(cards.map((card) => [card.match(/href="work\/([^"]+)"/)?.[1], card]));
+  const ordered = recentProjectOrder.map((href) => byHref.get(href)).filter(Boolean);
+  const remaining = cards.filter((card) => !ordered.includes(card));
+  return `<div class="path-strip">${[...ordered, ...remaining].join("")}</div><a class="path-browse"`;
+});
 
 await writeFile(path, html);

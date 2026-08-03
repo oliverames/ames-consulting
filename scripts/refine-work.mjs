@@ -76,6 +76,7 @@ const inHouseDescriptions = new Map([
   ["vsecu-website/", "I helped deliver this in-house redesign through content, imagery, migration, implementation support, and quality assurance."],
   ["live-broadcasts/", "I hosted and produced these in-house broadcasts, translating leadership updates and financial results for public and employee audiences."],
 ]);
+const consultingHrefs = new Set(["flight-paths/"]);
 
 const projectOrder = [
   "girls-on-the-run-2026/",
@@ -147,7 +148,7 @@ if (campaignMatch) {
     // Strip any credit inserted by a previous run so the description replace
     // below cannot stack a second credit paragraph.
     cardHtml = cardHtml.replace(/<p class="work-item__credit">[\s\S]*?<\/p>/g, "");
-    const credit = creditOverridesByHref.get(card.href) || inHouseCredits[organization];
+    const credit = consultingHrefs.has(card.href) ? "" : (creditOverridesByHref.get(card.href) || inHouseCredits[organization]);
     if (credit) {
       const description = inHouseDescriptions.get(card.href) || (card.href.startsWith("eastrise-photography/")
         ? "I made this in-house photography series as part of EastRise’s ongoing public storytelling."
@@ -158,12 +159,14 @@ if (campaignMatch) {
       ? cardHtml.replace('<a class="work-item"', `<a class="work-item" data-organization="${organization}"`)
       : cardHtml;
   };
-  const markedCards = currentCards.map(prepareCard).join("");
+  const portraitHrefs = new Set(["eastrise-portraits/", "blue-cross-portraits/"]);
+  const markedCards = currentCards.filter((card) => !portraitHrefs.has(card.href)).map(prepareCard).join("");
+  const portraitCards = currentCards.filter((card) => portraitHrefs.has(card.href)).map(prepareCard).join("");
   const markedLegacyCards = legacyCards.map(prepareCard).join("");
 
   html = html.replace(
     campaignSectionPattern,
-    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">Projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=blue-cross-vermont" data-work-filter="blue-cross-vermont">Blue Cross Vermont</a><a href="?organization=eastrise" data-work-filter="eastrise">EastRise</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA Technologies</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}<section class="work-category work-category--earlier"><h2>Legacy work</h2><div class="work-list">${markedLegacyCards}</div></section>`,
+    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">Projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=blue-cross-vermont" data-work-filter="blue-cross-vermont">Blue Cross Vermont</a><a href="?organization=eastrise" data-work-filter="eastrise">EastRise</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA Technologies</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}<section class="work-category work-category--portraits"><h2>Portraits</h2><div class="work-list">${portraitCards}</div></section><section class="work-category work-category--earlier"><h2>Legacy work</h2><div class="work-list">${markedLegacyCards}</div></section>`,
   );
   html = html.replace(
     '<h2 id="project-list-title">Projects</h2><nav class="work-filters"',

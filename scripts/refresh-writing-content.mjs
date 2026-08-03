@@ -1,8 +1,12 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { execFile } from "node:child_process";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const exec = promisify(execFile);
 const eastRiseSource = "/Users/oliverames/My Drive (Personal)/Career/Work Samples/Oliver's EastRise Blog Posts.csv";
 
 function parseCsvLine(line) {
@@ -91,6 +95,15 @@ const threadsOriginals = [
   { id: "Dak4hmSEXjO", date: "2026-07-09T00:00:00Z", text: "The team that made this video truly cooked. Marketing at its finest!" }
 ];
 
+const linkedinOriginals = [
+  {
+    id: "pride-month-2026",
+    date: "2026-06-01T00:00:00Z",
+    text: "I've sat in enough marketing meetings to know how easily a post like this gets hedged into nothing, and this one didn't. That says a lot about the people I work with and the organization behind it. Proud of both. 💙 Happy #PrideMonth, #Vermont! 🌈",
+    url: "https://www.linkedin.com/in/oliverames/recent-activity/all/",
+  },
+];
+
 const rawPosts = [
   ...micro.items.map((item) => ({
     id: `microblog:${item.id}`,
@@ -127,8 +140,23 @@ const rawPosts = [
     text: item.text,
     url: `https://www.threads.com/@oliverames/post/${item.id}`,
     image: ""
+  })),
+  ...linkedinOriginals.map((item) => ({
+    id: `linkedin:${item.id}`,
+    platform: "LinkedIn",
+    date: item.date,
+    title: "",
+    text: item.text,
+    url: item.url,
+    image: "",
   }))
 ].filter((post) => post.text || post.title);
+
+for (const post of rawPosts) {
+  if (post.title?.includes("The Sunshine Trail:")) {
+    post.image = "https://cdn.uploads.micro.blog/92164/2026/the-sunshine-trail-screenshots.jpg";
+  }
+}
 
 const grouped = new Map();
 for (const post of rawPosts) {
@@ -152,11 +180,25 @@ for (const post of rawPosts) {
 }
 const posts = [...grouped.values()].sort((left, right) => new Date(right.date) - new Date(left.date));
 
+const writingImageDirectory = join(root, "assets/images/writing");
+await mkdir(writingImageDirectory, { recursive: true });
+for (const post of posts.filter((item) => item.image)) {
+  const response = await fetch(post.image);
+  if (!response.ok) throw new Error(`${response.status} while downloading ${post.image}`);
+  const stem = createHash("sha256").update(post.id).digest("hex").slice(0, 12);
+  const source = join(writingImageDirectory, `${stem}.source`);
+  const destination = join(writingImageDirectory, `${stem}.webp`);
+  await writeFile(source, Buffer.from(await response.arrayBuffer()));
+  await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", "1800x1800>", "-strip", "-quality", "86", destination]);
+  await exec("/usr/bin/trash", [source]);
+}
+
 await writeFile(join(root, "assets/data/eastrise-writing.json"), `${JSON.stringify({ count: eastRise.length, articles: eastRise }, null, 2)}\n`);
 await writeFile(join(root, "assets/data/writing-feed.json"), `${JSON.stringify({
   refreshedAt: new Date().toISOString(),
   canonicalBlog: "https://oliverames.micro.blog/",
   profiles: [
+    { platform: "LinkedIn", url: "https://www.linkedin.com/in/oliverames", automated: false },
     { platform: "Micro.blog", url: "https://oliverames.micro.blog/", feed: "https://oliverames.micro.blog/feed.json", automated: true },
     { platform: "Mastodon", url: "https://mastodon.social/@oliverames", automated: true },
     { platform: "Bluesky", url: "https://bsky.app/profile/oliverames.bsky.social", automated: true },

@@ -185,7 +185,7 @@ const gallery = (item) => {
   const description = isBlueCross
     ? "Six senior team headshots and one portrait of Lindsay Segale."
     : `${item.images.length} publicly used and approved portrait selections.`;
-  const card = (image) => `<figure><div class="portrait-card__image"><img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"></div><figcaption>${image.caption}${image.context ? ` · ${image.context}` : ""}</figcaption></figure>`;
+  const card = (image) => `<figure${image.wide ? ' class="portrait-gallery__wide"' : ""}><div class="portrait-card__image"><img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"></div><figcaption>${image.caption}${image.context ? ` · ${image.context}` : ""}</figcaption></figure>`;
   if (isBlueCross) return `<section class="case-section portrait-series" aria-labelledby="${item.slug}-title"><h2 id="${item.slug}-title">${heading}</h2><p>${description}</p><div class="portrait-gallery portrait-gallery--natural" data-gallery="${item.slug}">${item.images.map(card).join("")}</div></section>`;
   const featured = item.images.filter((image) => image.featured);
   const remaining = item.images.filter((image) => !image.featured);

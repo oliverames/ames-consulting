@@ -339,7 +339,8 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(29);
+  ).toHaveCount(27);
+  await expect(page.locator(".work-category--portraits .work-item")).toHaveCount(2);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
   ).toBeVisible();
@@ -372,12 +373,12 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toHaveCount(0);
 
   const sections = page.locator(".work-category");
-  await expect(sections).toHaveCount(2);
+  await expect(sections).toHaveCount(3);
   const hrefs = async (section) =>
     section.locator(".work-item").evaluateAll((items) =>
       items.map((item) => item.getAttribute("href")),
     );
-  expect(await hrefs(sections.nth(1))).toEqual([
+  expect(await hrefs(sections.nth(2))).toEqual([
     "vtdigger-membership/",
     "stowe-ski-instruction/",
     "fairbanks-planetarium/",
@@ -564,24 +565,20 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   await expect(
     page.getByRole("link", { name: "Micro.blog is my blog" }),
   ).toHaveAttribute("href", "https://oliverames.micro.blog/");
-  await expect(page.locator(".social-card")).toHaveCount(9);
+  await expect(page.locator(".social-card")).toHaveCount(3);
   const writingProfiles = page.getByLabel("Writing profiles");
   await expect(
     writingProfiles.getByRole("link", { name: "Threads", exact: true }),
   ).toBeVisible();
   await page.goto("/blog/archive/");
-  await expect(page.locator(".social-card")).toHaveCount(34);
+  await expect(page.locator(".social-card")).toHaveCount(36);
   await page.goto("/blog/");
   await expect(
     writingProfiles.getByRole("link", { name: "Instagram", exact: true }),
   ).toBeVisible();
-  await expect(
-    page.getByText(
-      "The team that made this video truly cooked. Marketing at its finest!",
-      { exact: true },
-    ),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Read on ames.consulting" }).click();
+  await expect(page.getByRole("heading", { name: "Recent LinkedIn posts" })).toBeVisible();
+  await expect(page.locator(".writing-stream--social .social-card")).toHaveCount(1);
+  await page.locator('.social-card:has-text("The Sunshine Trail") .social-card__read').click();
   await expect(page).toHaveURL(
     /\/blog\/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids\/$/,
   );
@@ -601,8 +598,8 @@ test("in-house campaign cards identify the employer and role", async ({ page }) 
 test("campaign pages disclose tracked public image sources automatically", async ({ page }) => {
   await page.goto("/work/eastrise-social/");
   const disclosures = page.locator(".asset-provenance li");
-  await expect(disclosures).toHaveCount(12);
-  await expect(disclosures.first()).toContainText("Image source: published by EastRise Credit Union on Facebook.");
+  await expect(disclosures).toHaveCount(1);
+  await expect(disclosures.first()).toContainText("12 images published by EastRise Credit Union on Facebook.");
   await expect(disclosures.first()).toContainText("Retrieved July 29, 2026.");
 });
 
@@ -646,7 +643,7 @@ test("home separates recent client and employer projects from software", async (
   await expect(page.getByRole("heading", { name: "Recent projects" })).toBeVisible();
   await expect(page.locator(".home-paths .path-thumb")).not.toHaveCount(0);
   await expect(page.locator('.home-paths a[href*="ping-warden"], .home-paths a[href*="apple-core"], .home-paths a[href*="bridgeport"]')).toHaveCount(0);
-  await expect(page.locator(".home-software .software-card")).toHaveCount(3);
+  await expect(page.locator(".home-software .software-card")).toHaveCount(6);
   await expect(page.locator(".home-testimonial")).toHaveCount(2);
 });
 

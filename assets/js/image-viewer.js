@@ -204,9 +204,10 @@ export function wireImageViewer() {
   nextButton?.addEventListener("click", () => showImage(activeIndex + 1));
 
   viewer.addEventListener("click", (event) => {
-    if (event.target === viewer) {
-      closeViewer();
-    }
+    const protectedControl = event.target.closest(
+      "#image-viewer-image, #image-viewer-close, .image-viewer-nav, #image-viewer-caption",
+    );
+    if (!protectedControl) closeViewer();
   });
 
   viewer.addEventListener("cancel", () => {

@@ -1481,6 +1481,10 @@
     border-top: 1px solid color-mix(in srgb, var(--accent) 48%, transparent);
   }
 
+  .writing-stream--social {
+    margin-top: var(--space-3);
+  }
+
   .writing-stream__more {
     display: inline-block;
     margin-top: var(--space-3);
@@ -1508,7 +1512,7 @@
 
   .social-card-stack {
     display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
+    gap: clamp(1.5rem, 3vw, 2.25rem);
   }
 
   .social-card-stack .social-card {
@@ -1625,10 +1629,30 @@
   .social-card__media {
     width: calc(100% + 2.2rem);
     max-width: none;
-    max-height: 34rem;
-    margin: 1rem -1.1rem -1.15rem;
+    height: auto;
+    max-height: none;
+    margin: -1.15rem -1.1rem 1rem;
     object-fit: cover;
-    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .social-card__shared {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    background: var(--surface-1);
+    border: 1px solid var(--rule);
+    border-radius: calc(var(--radius-card) * 0.7);
+  }
+
+  .social-card__shared strong {
+    display: block;
+    margin-bottom: 0.65rem;
+    font-family: var(--font-heading);
+  }
+
+  .social-card__shared p {
+    font-size: 0.95rem;
+    line-height: 1.55;
   }
 
   .social-card__footer {
@@ -1662,7 +1686,8 @@
     justify-content: space-between;
     gap: var(--space-3);
     padding: var(--space-4);
-    margin-block: 0 var(--space-5);
+    margin-block: var(--space-4) var(--space-5);
+    border-top: 1px solid color-mix(in srgb, var(--accent) 48%, transparent);
     background: var(--surface-0);
     border: 0;
     border-radius: var(--radius-card);
@@ -2506,13 +2531,19 @@
     position: static;
   }
 
+  .site-footer__social-column {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+  }
+
   .site-footer__social-title {
     font-family: var(--font-heading);
     font-size: 0.95rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
-    margin: 0 0 var(--space-2);
+    margin: 0;
   }
 
   .site-footer__social-title + .site-footer__social {

@@ -577,7 +577,19 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
     writingProfiles.getByRole("link", { name: "Instagram", exact: true }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Recent LinkedIn posts" })).toBeVisible();
-  await expect(page.locator(".writing-stream--social .social-card")).toHaveCount(1);
+  const linkedInCard = page.locator(".writing-stream--social .social-card");
+  await expect(linkedInCard).toHaveCount(1);
+  await expect(linkedInCard.locator(".social-card__media")).toBeVisible();
+  await expect(linkedInCard.locator(".social-card__shared")).toContainText(
+    "LGBTQ+ Vermonters deserve care that respects who they are",
+  );
+  const firstArticle = page.locator(".writing-stream--articles .social-card").first();
+  await expect(firstArticle.locator(".social-card__media")).toBeVisible();
+  expect(await firstArticle.evaluate((card) => {
+    const image = card.querySelector(".social-card__media");
+    const heading = card.querySelector("h2");
+    return image.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING;
+  })).toBeTruthy();
   await page.locator('.social-card:has-text("The Sunshine Trail") .social-card__read').click();
   await expect(page).toHaveURL(
     /\/blog\/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids\/$/,

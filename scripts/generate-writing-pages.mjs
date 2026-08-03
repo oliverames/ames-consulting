@@ -95,10 +95,18 @@ function page({ title, description, path, depth, body, type = "website" }) {
   return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${escapeHtml(documentTitle)} | Ames Consulting</title><meta name="description" content="${escapeHtml(description)}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="${canonical}"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}"><meta property="og:type" content="${type}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="${base}assets/css/main.css"><script type="application/ld+json">${JSON.stringify(schema)}</script></head><body>${header(depth)}<main id="main-content" tabindex="-1">${body}</main>${footer(depth)}<script type="module" src="${base}assets/js/header-scroll.js"></script><script type="module" src="${base}assets/js/image-viewer.js"></script></body></html>`;
 }
 
-function localImage(post, depth) {
-  if (!post.image) return "";
-  const filename = `${createHash("sha256").update(post.id).digest("hex").slice(0, 12)}.webp`;
+function localImage(post, depth, sourcePost = post) {
+  if (!sourcePost.image) return "";
+  const filename = `${createHash("sha256").update(sourcePost.id).digest("hex").slice(0, 12)}.webp`;
   return `${"../".repeat(depth)}assets/images/writing/${filename}`;
+}
+
+function cardImagePost(post) {
+  if (post.image) return post;
+  if (!isLongForm(post)) return post;
+  return feed.posts.find((candidate) =>
+    candidate.image && candidate.platforms.includes("Micro.blog") && new Date(candidate.date) <= new Date(post.date)
+  ) || post;
 }
 
 function renderCard(post, depth = 1) {
@@ -113,9 +121,13 @@ function renderCard(post, depth = 1) {
         `<a href="${escapeHtml(link.url)}" rel="noopener">View on ${escapeHtml(link.platform)} →</a>`,
     )
     .join("");
-  const imageSrc = localImage(post, depth);
+  const imagePost = cardImagePost(post);
+  const imageSrc = localImage(post, depth, imagePost);
   const image = imageSrc
-    ? `<img class="social-card__media" src="${imageSrc}" alt="Media attached to Oliver Ames's ${escapeHtml(post.platforms[0])} post" loading="lazy" width="1400" height="900">`
+    ? `<img class="social-card__media" src="${imageSrc}" alt="${post.image ? `Media attached to Oliver Ames&#39;s ${escapeHtml(post.platforms[0])} post` : `Recent image from Oliver Ames&#39;s blog`}" loading="lazy" width="1400" height="900">`
+    : "";
+  const sharedPost = post.sharedPost
+    ? `<aside class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong><p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p></aside>`
     : "";
   const title = post.title
     ? `<h2>${longForm ? `<a href="${slug}/">${escapeHtml(post.title)}</a>` : escapeHtml(post.title)}</h2>`
@@ -123,7 +135,7 @@ function renderCard(post, depth = 1) {
   const action = longForm
     ? `<a class="social-card__read" href="${slug}/">Read on ames.consulting →</a>`
     : "";
-  return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy"><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${title}<p>${linkify(longForm ? excerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${image}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
+  return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy"><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? excerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
 }
 
 function renderLongFormPage(post) {

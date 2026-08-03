@@ -101,6 +101,12 @@ const linkedinOriginals = [
     date: "2026-06-01T00:00:00Z",
     text: "I've sat in enough marketing meetings to know how easily a post like this gets hedged into nothing, and this one didn't. That says a lot about the people I work with and the organization behind it. Proud of both. 💙 Happy #PrideMonth, #Vermont! 🌈",
     url: "https://www.linkedin.com/in/oliverames/recent-activity/all/",
+    image: "https://media.licdn.com/dms/image/v2/D4E10AQF77ywkJl3faw/image-shrink_800/B4EZ6DsJ9wJwAg-/0/1780325851563?e=2147483647&v=beta&t=XuGuLYDNyBhEWvkMvylzX5tINJ29q0UX5Lj44HowNJA",
+    sharedPost: {
+      author: "Blue Cross and Blue Shield of Vermont",
+      url: "https://www.linkedin.com/posts/bluecrossvt_pride-month-is-a-good-time-to-say-something-activity-7467227840711819264-33mQ",
+      text: "Pride Month is a good time to say something plainly: LGBTQ+ Vermonters deserve care that respects who they are, because feeling safe and seen is part of being healthy.\n\nAt Blue Cross and Blue Shield of Vermont, whole person care means supporting both body and mind, so our member benefits include access to mental health counseling. In addition, we offer personalized, voluntary, no-cost support to navigate gender affirming services from our expert team of nurses and social workers.\n\nWe’re proud to support organizations like Outright Vermont, the Pride Center of Vermont, and the Barre People's Health & Wellness Clinic, which partners with the Rainbow Bridge Community Center to help community members access youth and family support, crisis resources, and free affirming care information.\n\nStart with mental health support resources: https://lnkd.in/eXKRjT-h",
+    },
   },
 ];
 
@@ -148,7 +154,8 @@ const rawPosts = [
     title: "",
     text: item.text,
     url: item.url,
-    image: "",
+    image: item.image,
+    sharedPost: item.sharedPost,
   }))
 ].filter((post) => post.text || post.title);
 
@@ -174,7 +181,8 @@ for (const post of rawPosts) {
       date: post.date,
       title: post.title,
       text: post.text,
-      image: post.image
+      image: post.image,
+      sharedPost: post.sharedPost,
     });
   }
 }

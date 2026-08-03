@@ -18,6 +18,9 @@ for (const series of data.series) {
   for (const image of series.images) {
     if (imageSources.has(image.src)) errors.push(`Duplicate image in ${series.title}: ${image.src}`);
     imageSources.add(image.src);
+    if (path.basename(path.dirname(image.src)) !== series.slug) {
+      errors.push(`Image is outside its collection folder (${series.slug}): ${image.src}`);
+    }
     if (!image.alt || image.alt.length < 12) errors.push(`Missing useful alt text: ${image.src}`);
     if (!/^https:\/\//.test(image.sourceUrl)) errors.push(`Missing public source URL: ${image.src}`);
     if (!(image.width > 0 && image.height > 0)) errors.push(`Invalid dimensions: ${image.src}`);

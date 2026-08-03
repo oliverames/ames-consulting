@@ -211,9 +211,10 @@ if (!workIndex.includes('href="sweat-heart-throwdown/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${gmcfCampaignCards}`);
 }
 workIndex = workIndex.replace(/<a class="work-item"[^>]*?href="eastrise-photography\/"\s*>[\s\S]*?<\/a\s*>/, "");
+workIndex = workIndex.replace(/<a class="work-item"[^>]*?href="eastrise-photography\/#bike-shop-member-story-title"\s*>[\s\S]*?<\/a\s*>/, "");
 for (const series of eastRisePhotography.series.filter((item) =>
   !eastRiseStandaloneSlugs.has(item.slug) &&
-  !["bike-shop-member-story", "people-and-financial-counseling"].includes(item.slug)
+  item.slug !== "people-and-financial-counseling"
 )) {
   const href = `eastrise-photography/#${series.slug}-title`;
   const image = series.images[0];

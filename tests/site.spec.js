@@ -343,7 +343,10 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
     page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(31);
+  ).toHaveCount(30);
+  await expect(
+    page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
+  ).toHaveCount(0);
   await expect(page.locator(".work-category--portraits .work-item")).toHaveCount(2);
   await expect(
     page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
@@ -549,7 +552,7 @@ test("EastRise photography is grouped into complete public-source galleries", as
 }) => {
   await page.goto("/work/eastrise-photography/");
   await expect(page.locator(".photo-series")).toHaveCount(14);
-  await expect(page.locator(".campaign-collage img")).toHaveCount(147);
+  await expect(page.locator(".campaign-collage img")).toHaveCount(146);
   await expect(
     page.locator("#karina-and-ryan-title + p + .photo-series__video iframe"),
   ).toHaveAttribute("src", /A1oAN6Ox6A0/);

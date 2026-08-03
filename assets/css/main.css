@@ -4396,7 +4396,17 @@
 
   .home-testimonial {
     width: 100%;
-    padding-block: var(--space-4);
+    margin-top: var(--space-2);
+    padding-block: var(--space-5) var(--space-4);
+  }
+
+  .member-story-visual .case-split {
+    align-items: start;
+  }
+
+  .member-story-visual .case-split img {
+    height: auto;
+    min-height: 0;
   }
 
   .home-paths {

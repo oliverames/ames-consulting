@@ -30,6 +30,17 @@ test("homepage section edges and practice calls to action align", async ({ page 
 
     return {
       ctaTops,
+      practiceEdges: [
+        document.querySelector(".practice-section").getBoundingClientRect().left,
+        document.querySelector(".practice-section").getBoundingClientRect().right,
+      ],
+      testimonialEdges: [
+        document.querySelector(".home-testimonial").getBoundingClientRect().left,
+        document.querySelector(".home-testimonial").getBoundingClientRect().right,
+      ],
+      testimonialBorder: getComputedStyle(
+        document.querySelector(".home-testimonial"),
+      ).borderTopWidth,
       headingOffset: Math.abs(
         practiceHeading.left - testimonialHeading.left,
       ),
@@ -41,6 +52,8 @@ test("homepage section edges and practice calls to action align", async ({ page 
     1,
   );
   expect(layout.headingOffset).toBeLessThan(1);
+  expect(layout.testimonialEdges).toEqual(layout.practiceEdges);
+  expect(layout.testimonialBorder).toBe("1px");
 });
 
 test("all public content routes load", async ({ request }) => {
@@ -54,6 +67,10 @@ test("all public content routes load", async ({ request }) => {
     "/work/member-banking-stories/",
     "/work/credit-union-websites/",
     "/work/community-photography/",
+    "/work/senior-games-press-event-2026/",
+    "/work/arrayrx-press-conference-2026/",
+    "/work/walk-at-lunch-and-green-up-2026/",
+    "/work/be-well-at-work-2026/",
     "/work/corporate-cup-2026/",
     "/work/girls-on-the-run-2026/",
     "/work/eastrise-launch-campaign/",

@@ -12,7 +12,11 @@ html = html
   )
   .replaceAll(
     "https://ames.consulting/assets/images/work/eastrise/brand-commercial.webp",
+    "https://ames.consulting/assets/images/work/campaigns/will-barbecue.webp",
+  )
+  .replaceAll(
     "https://ames.consulting/assets/images/work/campaigns/member-stories.webp",
+    "https://ames.consulting/assets/images/work/campaigns/will-barbecue.webp",
   )
   .replace(
     /I produced this series with Urban Rhino, starting with the member\s+stories and carrying them through interviews, filming, review, and\s+release\./,
@@ -24,15 +28,28 @@ html = html
   )
   .replace(
     "../../assets/images/work/eastrise/brand-commercial.webp",
+    "../../assets/images/work/campaigns/will-barbecue.webp",
+  )
+  .replace(
     "../../assets/images/work/campaigns/member-stories.webp",
+    "../../assets/images/work/campaigns/will-barbecue.webp",
   )
   .replace(
     "EastRise commercial production photographed by Oliver Ames",
-    "Karina riding a bicycle in Karina and Ryan’s EastRise member story",
+    "Will working at a barbecue grill in an EastRise member story",
+  )
+  .replace(
+    "A child riding a bicycle in an EastRise member story about homeownership",
+    "Will working at a barbecue grill in an EastRise member story",
   )
   .replace(
     "Member Stories and Campaign Films",
     "Member stories, including Karina and Ryan",
   );
+
+html = html.replace(
+  '<section class="case-section">\n        <h2>Real settings and real members</h2>',
+  '<section class="case-section member-story-visual">\n        <h2>Real settings and real members</h2>',
+);
 
 await writeFile(pagePath, html);

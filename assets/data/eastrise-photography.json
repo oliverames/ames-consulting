@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-07-29",
   "publicSourceOnly": true,
-  "totalImages": 148,
+  "totalImages": 147,
   "series": [
     {
       "slug": "shred-fest",
@@ -144,7 +144,7 @@
           "sourcePlatform": "LinkedIn"
         }
       ],
-      "videoId": "bFtuCFhGZQg"
+      "videoId": "A1oAN6Ox6A0"
     },
     {
       "slug": "john-and-donia",
@@ -223,7 +223,8 @@
           "sourceUrl": "https://www.instagram.com/p/DNBnAXzpEnQ/",
           "sourcePlatform": "Instagram"
         }
-      ]
+      ],
+      "videoId": "dffKrKG5Hbs"
     },
     {
       "slug": "bike-shop-member-story",
@@ -387,14 +388,6 @@
           "height": 720,
           "sourceUrl": "https://www.instagram.com/p/DKK5I73x2QN/",
           "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/linkedin-published-photography/li_38643aee028f-03e615af6186.webp",
-          "alt": "Four people smile from behind a metal stair railing at the entrance of a modern building with a wood-paneled ceiling.",
-          "width": 800,
-          "height": 533,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGxq6nEGNxVtQ/image-shrink_800/image-shrink_800/0/1710777990637?e=1774634400&v=beta&t=iQBi9R8UxC7kEcyO2mZigy74nAqCi7hNcwwzVCnWsjU",
-          "sourcePlatform": "LinkedIn"
         }
       ]
     },

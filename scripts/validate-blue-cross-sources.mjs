@@ -44,6 +44,10 @@ for (const relative of keyFiles) {
 }
 
 const eventSources = new Map([
+  ["senior-games-press-event-2026", "2026-03-18 – Senior Games Press Event/Edited Selects"],
+  ["arrayrx-press-conference-2026", "2026-03-26 – ArrayRx Press Conference/Edited Selects"],
+  ["walk-at-lunch-and-green-up-2026", "2026-04-29 – Walk@Lunch and GreenUp/Edited Selects"],
+  ["be-well-at-work-2026", "2026-05-06 – Be Well at Work/Edited Selects"],
   ["corporate-cup-2026", "2026-05-14 – Corporate Cup/Edited Selects"],
   ["girls-on-the-run-2026", "2026-05-30 – GOTR/Edited Selects"],
 ]);

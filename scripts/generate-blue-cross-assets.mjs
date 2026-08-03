@@ -59,5 +59,3 @@ if (portfolioAvailable) {
   for (const [filename] of assets) await access(path.join(outputRoot, filename));
   console.log("Blue Cross portfolio source is not mounted; using checked-in high-resolution derivatives.");
 }
-
-await import("./generate-blue-cross-project-pages.mjs");

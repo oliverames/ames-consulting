@@ -263,6 +263,10 @@ test("event photography is split into complete campaign galleries", async ({
   page,
 }) => {
   const campaigns = [
+    ["/work/senior-games-press-event-2026/", 114],
+    ["/work/arrayrx-press-conference-2026/", 28],
+    ["/work/walk-at-lunch-and-green-up-2026/", 85],
+    ["/work/be-well-at-work-2026/", 66],
     ["/work/corporate-cup-2026/", 9],
     ["/work/girls-on-the-run-2026/", 185],
     ["/work/eastrise-launch-campaign/", 23],
@@ -545,7 +549,14 @@ test("EastRise photography is grouped into complete public-source galleries", as
 }) => {
   await page.goto("/work/eastrise-photography/");
   await expect(page.locator(".photo-series")).toHaveCount(15);
-  await expect(page.locator(".campaign-collage img")).toHaveCount(148);
+  await expect(page.locator(".campaign-collage img")).toHaveCount(147);
+  await expect(
+    page.locator("#karina-and-ryan-title + p + .photo-series__video iframe"),
+  ).toHaveAttribute("src", /A1oAN6Ox6A0/);
+  await expect(
+    page.locator("#john-and-donia-title + p + .photo-series__video iframe"),
+  ).toHaveAttribute("src", /dffKrKG5Hbs/);
+  await expect(page.locator('img[src*="li_38643aee028f-03e615af6186"]')).toHaveCount(0);
   const firstGallery = page.locator(".campaign-collage").first();
   const firstGalleryCount = await firstGallery.locator("img").count();
   await firstGallery.locator("img").first().click();

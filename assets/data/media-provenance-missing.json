@@ -66,14 +66,6 @@
       ]
     },
     {
-      "asset": "assets/images/work/eastrise/photography/linkedin-published-photography/li_38643aee028f-03e615af6186.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
       "asset": "assets/images/work/eastrise/photography/linkedin-published-photography/li_f23578cab800-08f0d5347838.webp",
       "missing_fields": [
         "source_url",
@@ -659,6 +651,12 @@
       "asset": "assets/images/work/campaigns/member-stories.webp",
       "missing_fields": [
         "published_date"
+      ]
+    },
+    {
+      "asset": "assets/images/work/campaigns/will-barbecue.webp",
+      "missing_fields": [
+        "source_screenshot"
       ]
     },
     {

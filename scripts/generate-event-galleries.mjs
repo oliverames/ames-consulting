@@ -26,6 +26,42 @@ function blueCrossSource(slug, source) {
 
 const definitions = [
   {
+    slug: "senior-games-press-event-2026",
+    title: "Senior Games Press Event",
+    eyebrow: "Documentary photography · Blue Cross Vermont · March 18, 2026",
+    intro: "I documented a Senior Games press event through the speakers, attendees, and details that connected the announcement to the people it serves.",
+    ...blueCrossSource("senior-games-press-event-2026", "2026-03-18 – Senior Games Press Event/Edited Selects"),
+    organization: "Blue Cross Vermont",
+    featuredFile: "dsc01867.webp",
+  },
+  {
+    slug: "arrayrx-press-conference-2026",
+    title: "ArrayRx Press Conference",
+    eyebrow: "Documentary photography · Blue Cross Vermont · March 26, 2026",
+    intro: "I photographed the ArrayRx announcement at the Vermont State House, covering the speakers, press activity, and conversations around the event.",
+    ...blueCrossSource("arrayrx-press-conference-2026", "2026-03-26 – ArrayRx Press Conference/Edited Selects"),
+    organization: "Blue Cross Vermont",
+    featuredFile: "dsc02517.webp",
+  },
+  {
+    slug: "walk-at-lunch-and-green-up-2026",
+    title: "Walk@Lunch and Green Up",
+    eyebrow: "Documentary photography · Blue Cross Vermont · April 29, 2026",
+    intro: "I photographed employees taking part in a workplace walk and Green Up activity in Montpelier.",
+    ...blueCrossSource("walk-at-lunch-and-green-up-2026", "2026-04-29 – Walk@Lunch and GreenUp/Edited Selects"),
+    organization: "Blue Cross Vermont",
+    featuredFile: "dsc02728.webp",
+  },
+  {
+    slug: "be-well-at-work-2026",
+    title: "Be Well at Work",
+    eyebrow: "Documentary photography · Blue Cross Vermont · May 6, 2026",
+    intro: "I documented a workplace wellness program through the people, activities, and practical details that made it useful.",
+    ...blueCrossSource("be-well-at-work-2026", "2026-05-06 – Be Well at Work/Edited Selects"),
+    organization: "Blue Cross Vermont",
+    featuredFile: "dsc03152.webp",
+  },
+  {
     slug: "corporate-cup-2026",
     title: "Corporate Cup 2026",
     eyebrow: "Event photography · Blue Cross Vermont · May 14, 2026",

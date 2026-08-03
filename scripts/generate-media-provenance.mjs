@@ -62,6 +62,14 @@ assets["assets/images/work/campaigns/member-stories.webp"] = {
   credit: eastRiseCredit,
   source_screenshot: screenshotFor("https://www.youtube.com/watch?v=A1oAN6Ox6A0"),
 };
+assets["assets/images/work/campaigns/will-barbecue.webp"] = {
+  source_url: "https://www.youtube.com/watch?v=fAF3x-Iu2Bo",
+  source_channel: "YouTube",
+  published_date: "2025-12-30",
+  downloaded_date: "2026-08-03",
+  credit: eastRiseCredit,
+  source_screenshot: screenshotFor("https://www.youtube.com/watch?v=fAF3x-Iu2Bo"),
+};
 assets["assets/images/work/campaigns/flight-paths.webp"] = {
   source_url: "https://www.youtube.com/watch?v=4r5N5DjmSCU",
   source_channel: "YouTube",

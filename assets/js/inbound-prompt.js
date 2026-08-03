@@ -44,7 +44,7 @@ function storageSet(key, value) {
 function relativeContactUrl(type) {
   const depth = location.pathname.split("/").filter(Boolean).length;
   const base = depth === 0 ? "contact/" : `${"../".repeat(depth)}contact/`;
-  return `${base}?project=${encodeURIComponent(type)}#contact-form`;
+  return `${base}?project=${encodeURIComponent(type)}`;
 }
 
 function currentVariant() {

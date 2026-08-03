@@ -769,6 +769,8 @@
     display: grid;
     align-content: start;
     gap: var(--space-2, 1rem);
+    width: var(--measure-wide);
+    margin-inline: auto;
   }
 
   .page-header .profile-links {
@@ -949,7 +951,7 @@
 
   .recommendation-archive,
   .review-archive {
-    width: var(--web-measure-wide, min(64rem, 92vw));
+    width: var(--measure-wide);
     margin-inline: auto;
     padding-block: var(--space-5, clamp(3rem, 7vw, 6rem));
     border-top: 1px solid
@@ -1012,6 +1014,11 @@
   .recommendation-entry blockquote,
   .review-entry blockquote {
     font-size: clamp(1.05rem, 2vw, 1.35rem);
+  }
+
+  .recommendation-entry blockquote {
+    padding-left: 1rem;
+    border-left: 4px solid var(--accent);
   }
 
   .archive-note {
@@ -4205,6 +4212,7 @@
 
   .about-card-grid {
     display: grid;
+    align-items: start;
     gap: var(--space-3);
     padding-bottom: var(--space-5);
   }
@@ -4221,6 +4229,8 @@
     border-radius: var(--radius-tile);
     box-shadow: var(--shadow-card);
   }
+
+  .about-contact-card { align-self: start; }
 
   .about-intro-card {
     background: var(--surface-0);
@@ -4290,6 +4300,25 @@
     color: #faf8f5;
   }
 
+  .about-contact-card dd a[aria-label="LinkedIn"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: auto;
+    height: auto;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid rgba(250, 248, 245, 0.3);
+    border-radius: var(--radius-pill);
+  }
+
+  .about-contact-card dd a[aria-label="LinkedIn"] .visually-hidden {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    clip: auto !important;
+    clip-path: none !important;
+  }
+
   .about-proof,
   .about-capabilities,
   .about-experience,
@@ -4337,6 +4366,19 @@
   .home-testimonial {
     width: 100%;
     padding-block: var(--space-4);
+  }
+
+  .home-paths {
+    position: relative;
+    padding-top: var(--space-2);
+  }
+
+  .home-paths::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: color-mix(in srgb, var(--accent) 48%, transparent);
   }
 
   .about-proof__grid,
@@ -4468,7 +4510,8 @@
 
   @media (width >= 52rem) {
     .about-credentials {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: minmax(15rem, 0.75fr) minmax(18rem, 0.85fr) minmax(0, 1.4fr);
+      align-items: start;
     }
   }
 
@@ -4524,7 +4567,7 @@
   }
 
   .brand-mark-grid article {
-    min-height: 12rem;
+    min-height: 0;
     padding: 1.5rem;
     border-radius: var(--radius-tile);
     background: var(--surface-0);
@@ -4548,7 +4591,7 @@
   }
 
   .about-tool-list {
-    margin-top: var(--space-3);
+    margin-top: 0;
     padding: clamp(1.5rem, 3vw, 2.25rem);
     border-radius: var(--radius-tile);
     background: var(--surface-deep);
@@ -4615,6 +4658,34 @@
   .about-cta h2,
   .about-cta .eyebrow {
     color: #faf8f5;
+  }
+
+  .about-testimonials .testimonial-band__more {
+    margin-top: var(--space-3);
+  }
+
+  @media (max-width: 44rem) {
+    .contact-hero__content {
+      align-items: center;
+      text-align: center;
+    }
+
+    .case-hero--family {
+      display: block;
+      padding: 1.25rem;
+    }
+
+    .case-hero--family img {
+      margin-top: var(--space-2);
+      max-height: 25rem;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+    }
+
+    .site-footer__sitemap,
+    .site-footer__social {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* ─── Buttons ─── */

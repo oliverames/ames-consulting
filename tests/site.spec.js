@@ -155,7 +155,7 @@ test("contact form submits to the site endpoint", async ({ page }) => {
   await page.getByLabel("Name").fill("Site Test");
   await page.getByLabel("Email").fill("site-test@example.com");
   await page.getByLabel("Organization (optional)").fill("Ames Consulting");
-  await page.getByText("Website or digital system", { exact: true }).click();
+  await page.getByLabel("What kind of work?").selectOption({ label: "Website or digital system" });
   await page.getByLabel("Tell me about it").fill("Testing the contact form.");
   await page.evaluate(() => {
     document.querySelector("#contact-started-at").value = String(
@@ -184,7 +184,7 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
     dialog.getByRole("link", { name: /Tell me about the project/ }),
   ).toHaveAttribute(
     "href",
-    "../../contact/?project=Photography%20and%20video#contact-form",
+    "../../contact/?project=Photography%20and%20video",
   );
 
   await dialog.getByRole("button", { name: "Keep looking" }).click();
@@ -201,8 +201,8 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
 });
 
 test("inbound project links preselect the contact form", async ({ page }) => {
-  await page.goto("/contact/?project=Photography%20and%20video#contact-form");
-  await expect(page.getByLabel("Photography and video")).toBeChecked();
+  await page.goto("/contact/?project=Photography%20and%20video");
+  await expect(page.getByLabel("What kind of work?")).toHaveValue("Photography and video");
   await expect(page.locator("[data-inbound-prompt]")).toHaveCount(0);
 });
 
@@ -476,7 +476,7 @@ test("about page works as a professional profile and resume", async ({
     page.locator('img[alt="Oliver Ames smiling outdoors in Vermont"]'),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "The fuller version." }),
+    page.getByRole("heading", { name: "The full version." }),
   ).toBeVisible();
   await expect(page.locator(".about-role")).toHaveCount(8);
   await expect(

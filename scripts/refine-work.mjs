@@ -5,6 +5,9 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
 let html = await readFile(indexPath, "utf8");
+const existingPortraitCards = [...html.matchAll(/<section class="work-category work-category--portraits">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/g)].map((match) => match[1]).join("");
+const portraitFallbackCards = existingPortraitCards || `<a class="work-item" href="eastrise-portraits/"><img src="../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp" alt="Portrait of Christin Canter" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>EastRise Portraits</h3><p>Leadership, board, and staff portraits built as one coherent public library.</p></a><a class="work-item" href="blue-cross-portraits/"><img src="../assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp" alt="Portrait of Beth Roberts" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Portraits</h3><p>Senior-team and staff portraits made for public profiles and organizational storytelling.</p></a>`;
+html = html.replace(/<section class="work-category work-category--portraits">[\s\S]*?<\/section>/g, "");
 const featuredImages = new Map([
   ["girls-on-the-run-2026/", ["../assets/images/work/events/girls-on-the-run-2026/dsc03810.webp", "Girls on the Run participants starting together"]],
   ["corporate-cup-2026/", ["../assets/images/work/events/corporate-cup-2026/dsc03213.webp", "Blue Cross Vermont team at the Corporate Cup"]],
@@ -124,7 +127,7 @@ if (campaignMatch) {
   // appends a fresh Legacy section; replacing afterwards would delete the
   // freshly built section (the first match) and keep the stale one.
   if (earlierMatch) html = html.replace(earlierSectionPattern, "");
-  const cards = [...`${campaignMatch[2]}${earlierMatch?.[1] ?? ""}`.matchAll(/<a class="work-item"[^>]*href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
+  const cards = [...`${campaignMatch[2]}${portraitFallbackCards}${earlierMatch?.[1] ?? ""}`.matchAll(/<a class="work-item"[^>]*href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
     .map((match) => ({ href: match[1], html: match[0] }));
   const rank = new Map(projectOrder.map((href, index) => [href, index]));
   const cardRank = (href) => href.startsWith("eastrise-photography/") ? 12.5 : (rank.get(href) ?? 999);

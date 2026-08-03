@@ -15,6 +15,7 @@ const assets = {};
 const normalize = (value) => value.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
 const publicPage = (value) => /^https:\/\/(www\.)?(facebook\.com|instagram\.com|linkedin\.com|youtube\.com|youtu\.be)\//i.test(value || "") ? value : "";
 const screenshotFor = (sourceUrl) => screenshotBySource.get(sourceUrl) || "";
+const requiredFields = ["source_url", "source_channel", "published_date", "downloaded_date", "credit", "source_screenshot"];
 
 for (const series of photography.series) for (const image of series.images) {
   assets[normalize(image.src)] = {
@@ -24,6 +25,7 @@ for (const series of photography.series) for (const image of series.images) {
     downloaded_date: photography.generatedAt || "",
     credit: eastRiseCredit,
     source_screenshot: screenshotFor(publicPage(image.sourceUrl)),
+    archive_note: image.publicArchiveNote || "",
   };
 }
 for (const post of social.posts) {
@@ -87,10 +89,10 @@ assets["assets/images/work/campaigns/eastrise-writing.webp"] = {
   source_screenshot: "",
 };
 
-await writeFile(join(root, "assets/data/media-provenance.json"), `${JSON.stringify({ generated_at: "2026-07-30", assets }, null, 2)}\n`);
-const missing = Object.entries(assets).filter(([, data]) => Object.values(data).some((value) => value === "")).map(([asset, data]) => ({
+await writeFile(join(root, "assets/data/media-provenance.json"), `${JSON.stringify({ generated_at: "2026-08-03", assets }, null, 2)}\n`);
+const missing = Object.entries(assets).filter(([, data]) => requiredFields.some((field) => data[field] === "")).map(([asset, data]) => ({
   asset,
-  missing_fields: Object.entries(data).filter(([, value]) => value === "").map(([field]) => field),
+  missing_fields: requiredFields.filter((field) => data[field] === ""),
 }));
-await writeFile(join(root, "assets/data/media-provenance-missing.json"), `${JSON.stringify({ generated_at: "2026-07-30", missing }, null, 2)}\n`);
+await writeFile(join(root, "assets/data/media-provenance-missing.json"), `${JSON.stringify({ generated_at: "2026-08-03", missing }, null, 2)}\n`);
 console.log(`Tracked ${Object.keys(assets).length} public-source assets; ${missing.length} have omitted fields.`);

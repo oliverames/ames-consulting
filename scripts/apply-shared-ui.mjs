@@ -154,14 +154,17 @@ function addProvenanceDisclosure(html, file) {
     const data = provenance.assets?.[asset];
     if (!data) continue;
     const publisher = data.credit.includes("EastRise Credit Union") ? "EastRise Credit Union" : "Blue Cross and Blue Shield of Vermont";
-    const key = `${publisher}|${data.source_channel || "source page"}|${data.published_date || ""}|${data.downloaded_date || ""}`;
-    const current = groups.get(key) || { count: 0, publisher, channel: data.source_channel, sourceUrl: data.source_url, publishedDate: data.published_date, downloadedDate: data.downloaded_date };
+    const key = `${publisher}|${data.source_channel || "source page"}|${data.published_date || ""}|${data.downloaded_date || ""}|${data.archive_note || ""}`;
+    const current = groups.get(key) || { count: 0, publisher, channel: data.source_channel, sourceUrl: data.source_url, publishedDate: data.published_date, downloadedDate: data.downloaded_date, archiveNote: data.archive_note };
     current.count += 1;
     groups.set(key, current);
   }
   if (!groups.size) return cleaned;
   const items = [...groups.values()].map((group) => {
-    let sentence = `${group.count} image${group.count === 1 ? "" : "s"} published by ${group.publisher}`;
+    let sentence = group.archiveNote
+      ? `${group.count} image${group.count === 1 ? "" : "s"} ${group.archiveNote}`
+      : `${group.count} image${group.count === 1 ? "" : "s"} published by ${group.publisher}`;
+    if (group.archiveNote) return `<li>${sentence}</li>`;
     if (group.channel) sentence += group.sourceUrl ? ` on <a href="${escapeHtml(group.sourceUrl)}" rel="noopener">${escapeHtml(group.channel)}</a>` : ` on ${escapeHtml(group.channel)}`;
     else if (group.sourceUrl) sentence += ` at <a href="${escapeHtml(group.sourceUrl)}" rel="noopener">the source page</a>`;
     if (group.publishedDate) sentence += `, ${formatDate(group.publishedDate)}`;

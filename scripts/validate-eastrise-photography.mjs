@@ -22,7 +22,9 @@ for (const series of data.series) {
       errors.push(`Image is outside its collection folder (${series.slug}): ${image.src}`);
     }
     if (!image.alt || image.alt.length < 12) errors.push(`Missing useful alt text: ${image.src}`);
-    if (!/^https:\/\//.test(image.sourceUrl)) errors.push(`Missing public source URL: ${image.src}`);
+    if (!/^https:\/\//.test(image.sourceUrl || "") && !image.publicArchiveNote) {
+      errors.push(`Missing public source evidence: ${image.src}`);
+    }
     if (!(image.width > 0 && image.height > 0)) errors.push(`Invalid dimensions: ${image.src}`);
     const filePath = path.resolve("work/eastrise-photography", image.src);
     try {

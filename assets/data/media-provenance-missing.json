@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30",
+  "generated_at": "2026-08-03",
   "missing": [
     {
       "asset": "assets/images/work/eastrise/photography/karina-and-ryan/li_5084399b15cb-337278d635d9.webp",
@@ -117,6 +117,67 @@
       "asset": "assets/images/work/eastrise/photography/wood-for-good/li_056a8068f216-567a62b48197.webp",
       "missing_fields": [
         "source_url",
+        "published_date",
+        "source_screenshot"
+      ]
+    },
+    {
+      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp",
+      "missing_fields": [
+        "published_date",
+        "source_screenshot"
+      ]
+    },
+    {
+      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07711-3.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_screenshot"
+      ]
+    },
+    {
+      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07515.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_screenshot"
+      ]
+    },
+    {
+      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07430.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_screenshot"
+      ]
+    },
+    {
+      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07105.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_screenshot"
+      ]
+    },
+    {
+      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07993.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_screenshot"
+      ]
+    },
+    {
+      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc08024.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
         "published_date",
         "source_screenshot"
       ]

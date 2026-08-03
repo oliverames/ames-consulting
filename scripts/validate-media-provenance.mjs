@@ -17,6 +17,6 @@ for (const [asset, data] of Object.entries(provenance.assets || {})) {
     if (!/^assets\/images\/provenance\/source-screenshots\/.+\.png$/.test(data.source_screenshot)) throw new Error(`${asset} has an invalid source_screenshot path.`);
     await readFile(path.join(root, data.source_screenshot));
   }
-  if (Object.values(data).every(Boolean)) complete += 1;
+  if (fields.every((field) => Boolean(data[field]))) complete += 1;
 }
 console.log(`Validated ${Object.keys(provenance.assets || {}).length} provenance records; ${complete} contain every field value.`);

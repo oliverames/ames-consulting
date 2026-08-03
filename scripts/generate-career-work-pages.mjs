@@ -247,12 +247,17 @@ if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }
 workIndex = workIndex
-  .replaceAll("../assets/images/work/eastrise/taylor-milk-bowl-card.webp", "../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-04-17_19-15-59_UTC_DIjx-o5p5N0-df7a815bc6ce.webp")
+  .replaceAll("../assets/images/work/eastrise/taylor-milk-bowl-card.webp", "../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp")
+  .replaceAll("../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-04-17_19-15-59_UTC_DIjx-o5p5N0-df7a815bc6ce.webp", "../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp")
   .replaceAll("Taylor Hoar racing at Thunder Road", "Taylor Hoar wearing her EastRise racing suit beside her race car")
   .replaceAll("../assets/images/work/blue-cross/gotr.webp", "../assets/images/work/events/girls-on-the-run-2026/dsc05132.webp")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01141.webp", "../assets/images/work/gmcf/sweat-heart-card.webp")
   .replace("../assets/images/work/gmcf/bike-fitting/dsc09620.webp", "../assets/images/work/gmcf/bike-fitting-card.webp")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01706.webp", "../assets/images/work/gmcf/gmcf-card.webp");
+workIndex = workIndex.replace(
+  /(<a class="work-item"[^>]*href="taylor-hoar-racing\/"[\s\S]*?)<img[\s\S]*?>/,
+  '$1<img src="../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp" alt="Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car" width="1800" height="2400" loading="lazy">',
+);
 workIndex = sortWorkSection(workIndex, "Campaigns and series", campaignOrder);
 // In the refined layout these cards live inside "Projects" and refine-work
 // owns their ordering; only sort when the legacy section actually exists.

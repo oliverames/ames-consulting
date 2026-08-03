@@ -287,15 +287,23 @@ test("Taylor Hoar Milk Bowl story uses a paged photo gallery", async ({
   page,
 }) => {
   await page.goto("/work/taylor-hoar-racing/");
+  const portraits = page.getByRole("group", {
+    name: "2025 Taylor Hoar portrait gallery",
+  });
+  await expect(portraits.locator("img")).toHaveCount(7);
+  await expect(page.locator(".case-hero--family > img")).toHaveAttribute(
+    "src",
+    /featured-2025-dsc07501\.webp$/,
+  );
   const gallery = page.getByRole("group", {
     name: "2025 Milk Bowl photo gallery",
   });
   await expect(gallery.locator("img")).toHaveCount(8);
   await gallery.locator("img").first().click();
   await expect(page.locator("#image-viewer")).toBeVisible();
-  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 8");
+  await expect(page.locator("#image-viewer-caption")).toContainText("9 of 16");
   await page.keyboard.press("ArrowRight");
-  await expect(page.locator("#image-viewer-caption")).toContainText("2 of 8");
+  await expect(page.locator("#image-viewer-caption")).toContainText("10 of 16");
 });
 
 test("portrait work is split into complete framed galleries", async ({ page }) => {
@@ -561,7 +569,10 @@ test("EastRise photography is grouped into complete public-source galleries", as
 }) => {
   await page.goto("/work/eastrise-photography/");
   await expect(page.locator(".photo-series")).toHaveCount(14);
-  await expect(page.locator(".campaign-collage img")).toHaveCount(146);
+  await expect(page.locator(".campaign-collage img")).toHaveCount(153);
+  await expect(
+    page.locator('[aria-labelledby="taylor-hoar-racing-title"] .campaign-collage img').first(),
+  ).toHaveAttribute("src", /featured-2025-dsc07501\.webp$/);
   await expect(
     page.locator("#karina-and-ryan-title + p + .photo-series__video iframe"),
   ).toHaveAttribute("src", /A1oAN6Ox6A0/);

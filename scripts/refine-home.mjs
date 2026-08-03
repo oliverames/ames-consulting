@@ -6,8 +6,14 @@ const path = new URL("../index.html", import.meta.url);
 let html = await readFile(path, "utf8");
 
 html = html
-  .replaceAll("assets/images/work/eastrise/taylor-milk-bowl-card.webp", "assets/images/work/eastrise/photography/taylor-hoar-racing/2025-04-17_19-15-59_UTC_DIjx-o5p5N0-df7a815bc6ce.webp")
+  .replaceAll("assets/images/work/eastrise/taylor-milk-bowl-card.webp", "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp")
+  .replaceAll("assets/images/work/eastrise/photography/taylor-hoar-racing/2025-04-17_19-15-59_UTC_DIjx-o5p5N0-df7a815bc6ce.webp", "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp")
   .replaceAll("Taylor Hoar racing at Thunder Road", "Taylor Hoar wearing her EastRise racing suit beside her race car");
+
+html = html.replace(
+  /(<a class="path-thumb" href="work\/taylor-hoar-racing\/"\s*>[\s\S]*?)<img[\s\S]*?>/,
+  '$1<img src="assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp" alt="Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car" width="1800" height="2400" loading="lazy">',
+);
 
 html = html.replace(/<div class="proof__controls">[\s\S]*?<\/div><\/div><\/div><\/section>/, "</div></div></section>");
 

@@ -7,7 +7,6 @@ const root = path.resolve(import.meta.dirname, "..");
 const portfolioRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
 const events = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
 const portraits = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
-const portfolioAvailable = await access(portfolioRoot).then(() => true, () => false);
 
 const expectedProjects = new Map([
   ["senior-games-press-event-2026", "2026-03-18 – Senior Games Press Event"],
@@ -19,12 +18,11 @@ const expectedProjects = new Map([
   ["girls-on-the-run-2026", "2026-05-30 – GOTR"],
 ]);
 const workIndex = await readFile(path.join(root, "work/index.html"), "utf8");
-for (const [slug, sourceDirectory] of expectedProjects) {
+for (const [slug] of expectedProjects) {
   await access(path.join(root, "work", slug, "index.html"));
   if (!workIndex.includes(`data-organization="blue-cross-vermont" href="${slug}/"`)) {
     throw new Error(`${slug} is not attached to the Blue Cross Vermont organization filter.`);
   }
-  if (portfolioAvailable) await access(path.join(portfolioRoot, sourceDirectory));
 }
 
 const keyFiles = [
@@ -51,6 +49,21 @@ const eventSources = new Map([
   ["corporate-cup-2026", "2026-05-14 – Corporate Cup/Edited Selects"],
   ["girls-on-the-run-2026", "2026-05-30 – GOTR/Edited Selects"],
 ]);
+
+const requiredPrivateSources = [];
+for (const [slug, sourceDirectory] of eventSources) {
+  const campaign = events.campaigns.find((item) => item.slug === slug);
+  if (!campaign) throw new Error(`Missing ${slug} gallery data.`);
+  for (const image of campaign.images) {
+    const filename = path.basename(image.src, ".webp").toUpperCase();
+    requiredPrivateSources.push(path.join(portfolioRoot, sourceDirectory, `${filename}.jpg`));
+  }
+}
+const privateSourceChecks = await Promise.all(
+  requiredPrivateSources.map((filePath) => access(filePath).then(() => true, () => false)),
+);
+const portfolioAvailable = privateSourceChecks.length > 0 && privateSourceChecks.every(Boolean);
+
 let eventTotal = 0;
 for (const [slug, sourceDirectory] of eventSources) {
   const campaign = events.campaigns.find((item) => item.slug === slug);
@@ -85,5 +98,7 @@ for (const image of blueCrossPortraits.images) {
 }
 if (expectedPortraits.size) throw new Error(`Missing Blue Cross portraits: ${[...expectedPortraits].join(", ")}`);
 
-const sourceCheck = portfolioAvailable ? "against the edited Portfolio sources" : "using checked-in provenance and high-resolution derivatives";
+const sourceCheck = portfolioAvailable
+  ? "against every required edited Portfolio source"
+  : "using checked-in provenance and derivatives because the private source set is incomplete or unavailable";
 console.log(`Validated ${expectedProjects.size} Blue Cross projects, ${eventTotal} event photographs, and ${blueCrossPortraits.images.length} portraits ${sourceCheck}.`);

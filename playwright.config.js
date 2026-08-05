@@ -10,13 +10,6 @@ export default defineConfig({
   reporter: process.env.CI ? [["github"], ["html", { outputFolder: "playwright-report" }]] : "list",
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
-    storageState: {
-      cookies: [],
-      origins: [{
-        origin: `http://127.0.0.1:${PORT}`,
-        localStorage: [{ name: "amesConsultingConstructionAccess", value: "true" }]
-      }]
-    },
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
     video: "retain-on-failure"

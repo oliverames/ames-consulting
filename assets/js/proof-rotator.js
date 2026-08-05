@@ -2,41 +2,37 @@ const rotator = document.querySelector("[data-proof-rotator]");
 
 if (rotator) {
   const pages = [...rotator.querySelectorAll("[data-proof-page]")];
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let currentPage = 0;
-  let timer;
+  let currentPage = Math.max(0, pages.findIndex((page) => !page.hidden));
 
   const showPage = (nextPage) => {
-    pages[currentPage].classList.remove("is-visible");
-    pages[currentPage].setAttribute("aria-hidden", "true");
     currentPage = nextPage;
-    pages[currentPage].classList.add("is-visible");
-    pages[currentPage].setAttribute("aria-hidden", "false");
+    pages.forEach((page, index) => {
+      page.hidden = index !== currentPage;
+      page.classList.toggle("is-visible", index === currentPage);
+      page.removeAttribute("aria-hidden");
+    });
+    rotator.setAttribute(
+      "aria-label",
+      `Selected results, page ${currentPage + 1} of ${pages.length}`,
+    );
   };
 
-  const stop = () => {
-    window.clearInterval(timer);
-    timer = undefined;
-  };
+  showPage(currentPage);
 
-  const start = () => {
-    stop();
-    if (reduceMotion.matches || pages.length < 2) return;
-    timer = window.setInterval(() => showPage((currentPage + 1) % pages.length), 12000);
-  };
-
-  rotator.addEventListener("pointerenter", stop);
-  rotator.addEventListener("pointerleave", start);
-  rotator.addEventListener("focusin", stop);
-  rotator.addEventListener("focusout", (event) => {
-    if (!rotator.contains(event.relatedTarget)) start();
-  });
-
-  reduceMotion.addEventListener("change", start);
-  pages.forEach((page, index) => {
-    page.hidden = reduceMotion.matches && index !== 0;
-    page.classList.toggle("is-visible", index === 0);
-    page.setAttribute("aria-hidden", index === 0 ? "false" : "true");
-  });
-  start();
+  if (pages.length > 1) {
+    const controls = document.createElement("div");
+    controls.className = "proof__controls";
+    controls.innerHTML = `<button class="proof__control" type="button" data-proof-previous>Previous results</button><button class="proof__control" type="button" data-proof-next>Next results</button>`;
+    controls
+      .querySelector("[data-proof-previous]")
+      .addEventListener("click", () =>
+        showPage((currentPage - 1 + pages.length) % pages.length),
+      );
+    controls
+      .querySelector("[data-proof-next]")
+      .addEventListener("click", () =>
+        showPage((currentPage + 1) % pages.length),
+      );
+    rotator.append(controls);
+  }
 }

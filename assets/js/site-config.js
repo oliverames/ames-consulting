@@ -1,17 +1,6 @@
 const DEFAULT_CONFIG = {
-  provider: "local",
-  jsonFeedUrl: "",
-  siteTitle: "ames.consulting",
-  siteUrl: "https://ames.consulting",
-  siteDescription: "Placeholder consulting, writing, and portfolio content for a static site demo.",
-  authorName: "Avery Morgan",
-  locale: "en_US",
-  twitterHandle: "",
-  defaultSocialImage: "",
-  contactFormEndpoint: "",
-  contactFormSuccessMessage: "Thanks, your message was sent.",
-  portfolioTag: "portfolio",
-  homePreviewLimit: 6
+  contactFormEndpoint: "/api/contact",
+  contactFormSuccessMessage: "Thanks, your message was sent."
 };
 
 export async function loadSiteConfig() {

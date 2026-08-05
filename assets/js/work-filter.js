@@ -1,7 +1,6 @@
 const labels = {
   "blue-cross-vermont": "Blue Cross Vermont",
   "eastrise": "EastRise",
-  "beta-technologies": "BETA Technologies",
   "green-mountain-community-fitness": "Green Mountain Community Fitness",
 };
 

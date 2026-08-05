@@ -17,8 +17,12 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await expect(firstMetric).toBeVisible();
   await page.mouse.move(0, 0);
   await page.clock.fastForward("00:00:13");
+  await expect(page.getByText("319%", { exact: true })).toBeVisible();
+  await expect(page.getByText("569%", { exact: true })).toBeHidden();
+  const nextResults = page.getByRole("button", { name: "Next results" });
+  await nextResults.click();
   await expect(page.getByText("569%", { exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Pause metrics" })).toHaveCount(0);
+  await expect(nextResults).toBeFocused();
   await expect(page.getByRole("link", { name: /See my projects/ })).toBeVisible();
 });
 

@@ -17,10 +17,9 @@ committed HTML. See `docs/ARCHITECTURE.md` for the build chain.
 | `media-provenance.json` | `generate-media-provenance.mjs` | Per-page `.asset-provenance` disclosure lists |
 | `site.config.json` | `assets/js/site-config.js` | Contact-form endpoint and success message (the only remaining runtime config fetch) |
 
-## Held Content
+## Publication boundary
 
-A data entry can carry `heldPendingWrittenPermission: true` (see
-`event-galleries.json`'s `beta-*` entries). The generator still writes the
-page — so the gallery and its assets are preserved and restorable — but marks
-it `<meta name="robots" content="noindex">` and omits it from
-`sitemap.xml`. Nothing on the public site links to a held page.
+Every file under a deployed asset path is public, even when no page links to
+it. Content without publication clearance stays outside the repository and the
+generated site. A `noindex` directive can keep a page out of search results,
+but it does not restrict direct access.

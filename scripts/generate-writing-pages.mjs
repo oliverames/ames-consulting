@@ -112,6 +112,9 @@ function cardImagePost(post) {
 function renderCard(post, depth = 1) {
   const longForm = isLongForm(post);
   const slug = longForm ? slugify(post.title || post.id) : "";
+  const articleHref = longForm
+    ? `${"../".repeat(Math.max(0, depth - 1))}${slug}/`
+    : "";
   const platforms = post.platforms
     .map((platform) => `<span>${escapeHtml(platform)}</span>`)
     .join("");
@@ -130,10 +133,10 @@ function renderCard(post, depth = 1) {
     ? `<aside class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong><p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p></aside>`
     : "";
   const title = post.title
-    ? `<h2>${longForm ? `<a href="${slug}/">${escapeHtml(post.title)}</a>` : escapeHtml(post.title)}</h2>`
+    ? `<h2>${longForm ? `<a href="${articleHref}">${escapeHtml(post.title)}</a>` : escapeHtml(post.title)}</h2>`
     : "";
   const action = longForm
-    ? `<a class="social-card__read" href="${slug}/">Read on ames.consulting →</a>`
+    ? `<a class="social-card__read" href="${articleHref}">Read on ames.consulting →</a>`
     : "";
   return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy"><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? excerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
 }

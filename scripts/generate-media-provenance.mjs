@@ -5,10 +5,30 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const screenshotManifest = JSON.parse(await readFile(join(root, "assets/data/source-screenshot-manifest.json"), "utf8").catch(() => '{"screenshots":[]}'));
+const screenshotManifestPath = join(root, "assets/data/source-screenshot-manifest.json");
+
+async function readJson(filePath) {
+  let source;
+  try {
+    source = await readFile(filePath, "utf8");
+  } catch (error) {
+    throw new Error(`Cannot read required JSON input ${filePath}: ${error.message}`, { cause: error });
+  }
+
+  try {
+    return JSON.parse(source);
+  } catch (error) {
+    throw new Error(`Invalid JSON in ${filePath}: ${error.message}`, { cause: error });
+  }
+}
+
+const screenshotManifest = await readJson(screenshotManifestPath);
+if (!Array.isArray(screenshotManifest.screenshots)) {
+  throw new Error(`${screenshotManifestPath} must contain a screenshots array.`);
+}
 const screenshotBySource = new Map((screenshotManifest.screenshots || []).map((record) => [record.source_url, record.source_screenshot]));
-const photography = JSON.parse(await readFile(join(root, "assets/data/eastrise-photography.json"), "utf8"));
-const social = JSON.parse(await readFile(join(root, "assets/data/eastrise-social.json"), "utf8"));
+const photography = await readJson(join(root, "assets/data/eastrise-photography.json"));
+const social = await readJson(join(root, "assets/data/eastrise-social.json"));
 const eastRiseCredit = "Made as Digital Content Strategist, EastRise Credit Union";
 const blueCrossCredit = "Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont";
 const assets = {};

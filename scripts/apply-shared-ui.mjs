@@ -28,23 +28,6 @@ const networks = [
   ["instagram.com", siInstagram],
 ];
 
-const constructionGate = `<div class="construction-gate" id="construction-gate" role="dialog" aria-modal="true" aria-labelledby="construction-gate-title" aria-describedby="construction-gate-description">
-  <div class="construction-gate__mesh" aria-hidden="true"></div>
-  <section class="construction-gate__card">
-    <p class="construction-gate__eyebrow"><span aria-hidden="true"></span> Ames Consulting</p>
-    <h1 id="construction-gate-title">The site is under construction.</h1>
-    <p id="construction-gate-description">Enter the password to take a look around.</p>
-    <form class="construction-gate__form" id="construction-gate-form" autocomplete="off">
-      <label for="construction-gate-password">Password</label>
-      <div class="construction-gate__controls">
-        <input id="construction-gate-password" name="password" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-describedby="construction-gate-error" required>
-        <button type="submit">Enter <span aria-hidden="true">→</span></button>
-      </div>
-      <p class="construction-gate__error" id="construction-gate-error" role="alert" aria-live="polite"></p>
-    </form>
-  </section>
-</div>`;
-
 const icon = (brand) => `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="${brand.path}"></path></svg><span class="visually-hidden">${brand.title}</span>`;
 
 function addIcons(html) {
@@ -137,7 +120,7 @@ function updateFooterGroups(html, file) {
   const workBase = `${base}work/`;
   return html.replace(
     /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h3>(?:Campaigns|Services|Work by organization)<\/h3>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
-    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="${workBase}?organization=blue-cross-vermont">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}?organization=beta-technologies">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
+    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="${workBase}?organization=blue-cross-vermont">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}beta-technologies/">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
   );
 }
 
@@ -197,15 +180,17 @@ for (const file of await collectHtml(root)) {
   const directoryDepth = pathParts.length - 1;
   const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
   let after = normalizeColophon(before);
+  after = after.replace(
+    /<script\b[^>]*src="[^"]*assets\/js\/construction-gate\.js"[^>]*><\/script>/g,
+    "",
+  );
+  after = after.replace(
+    /<div class="construction-gate" id="construction-gate"[\s\S]*?<\/div>\s*(?=<a class="skip-link")/g,
+    "",
+  );
   after = normalizeNavAndCompany(after, base);
   after = ensureFontPreconnects(after);
   after = addProvenanceDisclosure(updateFooterGroups(addSocialHeading(addIcons(after)), file), file);
-  if (!after.includes("assets/js/construction-gate.js")) {
-    after = after.replace("</head>", `<script src="${base}assets/js/construction-gate.js"></script></head>`);
-  }
-  if (!after.includes('id="construction-gate"')) {
-    after = after.replace(/<body([^>]*)>/, `<body$1>${constructionGate}`);
-  }
   if (!after.includes("assets/js/content-protection.js")) {
     after = after.replace("</body>", `<script type="module" src="${base}assets/js/content-protection.js"></script></body>`);
   }

@@ -1,5 +1,9 @@
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
+import { execFile } from "node:child_process";
 import path from "node:path";
+import { promisify } from "node:util";
+
+const exec = promisify(execFile);
 
 function parseArgs(argv) {
   const parsed = {};
@@ -47,31 +51,51 @@ async function getKnownRoutes(siteUrl, outDir) {
         const html = await readFile(fullPath, "utf8");
         if (/<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i.test(html)) continue;
         const relativePath = path.relative(outDir, fullPath).split(path.sep).join("/").replace(/index\.html$/, "");
-        routes.push(`${siteUrl}/${relativePath}`);
+        routes.push({
+          url: `${siteUrl}/${relativePath}`,
+          sourcePath: path.relative(outDir, fullPath).split(path.sep).join("/"),
+        });
       }
     }
   }
   await visit(outDir);
-  return [...new Set(routes)].sort();
+  return [...new Map(routes.map((route) => [route.url, route])).values()]
+    .sort((left, right) => left.url.localeCompare(right.url));
 }
 
-function buildSitemapXml(urls) {
-  const now = new Date().toISOString();
-  const entries = urls
-    .map((url) => {
+async function getLastModified(sourcePath) {
+  try {
+    const { stdout: status } = await exec("git", ["status", "--porcelain", "--", sourcePath]);
+    if (status.trim()) {
+      const timestamp = process.env.SOURCE_DATE_EPOCH
+        ? new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000)
+        : new Date();
+      return timestamp.toISOString().slice(0, 10);
+    }
+    const { stdout } = await exec("git", ["log", "-1", "--format=%cs", "--", sourcePath]);
+    return stdout.trim() || null;
+  } catch {
+    return null;
+  }
+}
+
+async function buildSitemapXml(routes) {
+  const entries = await Promise.all(
+    routes.map(async ({ url, sourcePath }) => {
+      const lastModified = await getLastModified(sourcePath);
       return [
         "  <url>",
         `    <loc>${url}</loc>`,
-        `    <lastmod>${now}</lastmod>`,
+        ...(lastModified ? [`    <lastmod>${lastModified}</lastmod>`] : []),
         "  </url>"
       ].join("\n");
-    })
-    .join("\n");
+    }),
+  );
 
   return [
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
     "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
-    entries,
+    entries.join("\n"),
     "</urlset>",
     ""
   ].join("\n");
@@ -121,6 +145,6 @@ const siteUrl = normalizeSiteUrl(domain);
 const routes = await getKnownRoutes(siteUrl, outDir);
 
 await mkdir(outDir, { recursive: true });
-await writeFile(path.join(outDir, "sitemap.xml"), buildSitemapXml(routes), "utf8");
+await writeFile(path.join(outDir, "sitemap.xml"), await buildSitemapXml(routes), "utf8");
 await writeFile(path.join(outDir, "robots.txt"), buildRobotsTxt(siteUrl, domain), "utf8");
 await writeFile(path.join(outDir, "llms.txt"), buildLlmsTxt(siteUrl), "utf8");

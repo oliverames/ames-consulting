@@ -58,7 +58,7 @@ const overrides = {
   },
   "/testimonials/": {
     title: "Client and Colleague Recommendations | Oliver Ames",
-    description: "Recommendations and performance feedback about Oliver Ames's photography, creative strategy, problem-solving, initiative, and collaboration."
+    description: "Public LinkedIn recommendations about Oliver Ames's photography, creative strategy, problem-solving, initiative, and collaboration."
   },
   "/blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/": {
     title: "The Sunshine Trail Brand Campaign | Oliver Ames",
@@ -127,9 +127,12 @@ function breadcrumbs(route, title) {
   const parts = route.split("/").filter(Boolean);
   const names = { work: "Work", services: "Services", blog: "Writing", about: "About", contact: "Contact", testimonials: "Testimonials" };
   const items = [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }];
-  parts.forEach((part, index) => {
-    const path = `/${parts.slice(0, index + 1).join("/")}/`;
-    items.push({ "@type": "ListItem", position: index + 2, name: index === parts.length - 1 ? title.split(" | ")[0] : (names[part] || part), item: `${siteUrl}${path}` });
+  const navigableParts = parts
+    .map((part, index) => ({ part, index }))
+    .filter(({ part, index }) => !(part === "services" && index === 0));
+  navigableParts.forEach(({ part, index: partIndex }, index) => {
+    const path = `/${parts.slice(0, partIndex + 1).join("/")}/`;
+    items.push({ "@type": "ListItem", position: index + 2, name: partIndex === parts.length - 1 ? title.split(" | ")[0] : (names[part] || part), item: `${siteUrl}${path}` });
   });
   return items;
 }

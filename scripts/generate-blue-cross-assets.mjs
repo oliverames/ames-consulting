@@ -9,6 +9,7 @@ const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
 const portfolioRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
 const outputRoot = path.join(root, "assets/images/work/blue-cross");
+const magickPath = "/opt/homebrew/bin/magick";
 
 const assets = [
   ["senior-games.webp", "2026-03-18 – Senior Games Press Event/Edited Selects/DSC01867.jpg"],
@@ -20,14 +21,18 @@ const assets = [
   ["headshot.webp", "2026-04-08 – CBSS Headshots/Edited Selects/DSC02660.jpg"],
 ];
 
-const portfolioAvailable = await access(portfolioRoot).then(() => true, () => false);
+const cardNames = ["senior-games", "arrayrx", "walk-at-lunch", "be-well-at-work"];
+const sourcePaths = assets.map(([, relativeSource]) => path.join(portfolioRoot, relativeSource));
+const pathExists = (filePath) => access(filePath).then(() => true, () => false);
+const sourceChecks = await Promise.all([...sourcePaths, magickPath].map(pathExists));
+const portfolioAvailable = sourceChecks.every(Boolean);
 
 if (portfolioAvailable) {
   await mkdir(outputRoot, { recursive: true });
   for (const [filename, relativeSource] of assets) {
     const source = path.join(portfolioRoot, relativeSource);
     const destination = path.join(outputRoot, filename);
-    await exec("/opt/homebrew/bin/magick", [
+    await exec(magickPath, [
       source,
       "-auto-orient",
       "-resize",
@@ -39,8 +44,8 @@ if (portfolioAvailable) {
     ]);
   }
 
-  for (const filename of ["senior-games", "arrayrx", "walk-at-lunch", "be-well-at-work"]) {
-    await exec("/opt/homebrew/bin/magick", [
+  for (const filename of cardNames) {
+    await exec(magickPath, [
       path.join(outputRoot, `${filename}.webp`),
       "-resize",
       "960x640^",
@@ -57,5 +62,6 @@ if (portfolioAvailable) {
   console.log(`Generated ${assets.length} Blue Cross portfolio images from full-resolution edited JPGs.`);
 } else {
   for (const [filename] of assets) await access(path.join(outputRoot, filename));
-  console.log("Blue Cross portfolio source is not mounted; using checked-in high-resolution derivatives.");
+  for (const filename of cardNames) await access(path.join(outputRoot, `${filename}-card.webp`));
+  console.log("Blue Cross private sources are incomplete or unavailable; using checked-in derivatives.");
 }

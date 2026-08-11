@@ -23,7 +23,7 @@
     "check:publication-boundary": "node --test tests/publication-boundary.node.js",
     "check:built-site": "node scripts/validate-built-site.mjs",
     "check:build-idempotence": "node scripts/verify-build-idempotence.mjs",
-    "check:functions": "node --test tests/contact-function.node.js",
+    "check:functions": "node --test tests/contact-function.node.js tests/publication-middleware.node.js",
     "check:all": "npm run check:build-inputs && npm run check:publication-boundary && npm run check:functions && npm run check:js-syntax && npm run lint:js && npm run check:html && npm run check:structured-data && npm run check:image-loading && npm run check:eastrise-photography && npm run check:eastrise-social && npm run check:portraits && npm run check:event-galleries && npm run check:blue-cross-sources && npm run check:media-provenance",
     "test:regression": "playwright test tests/site.spec.js",
     "test:a11y": "playwright test tests/accessibility.spec.js",

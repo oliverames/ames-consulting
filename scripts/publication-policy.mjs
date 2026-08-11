@@ -1,4 +1,17 @@
 import path from "node:path";
+import {
+  RETIRED_ASSET_PREFIXES,
+  RETIRED_ROUTE_PREFIXES,
+  WITHHELD_ASSET_PREFIXES,
+  WITHHELD_ROUTE_PREFIXES,
+} from "./publication-denylist.mjs";
+
+export {
+  RETIRED_ASSET_PREFIXES,
+  RETIRED_ROUTE_PREFIXES,
+  WITHHELD_ASSET_PREFIXES,
+  WITHHELD_ROUTE_PREFIXES,
+} from "./publication-denylist.mjs";
 
 export const PUBLIC_ROUTE_ROOTS = Object.freeze([
   "about",
@@ -89,6 +102,7 @@ export const PUBLIC_RUNTIME_FILES = Object.freeze([
 ]);
 
 export const GENERATED_PUBLIC_FILES = Object.freeze([
+  "_routes.json",
   "llms.txt",
   "robots.txt",
   "sitemap.xml",
@@ -101,46 +115,9 @@ export const PUBLIC_IMAGE_PREFIXES = Object.freeze([
   "assets/images/writing/",
 ]);
 
-export const RETIRED_ROUTE_PREFIXES = Object.freeze([
-  "work/beta-andrew/",
-  "work/beta-emma/",
-  "work/beta-ethan/",
-]);
-
-export const RETIRED_ASSET_PREFIXES = Object.freeze([
-  "assets/images/provenance/source-screenshots/",
-  "assets/images/work/events/beta-andrew/",
-  "assets/images/work/events/beta-emma/",
-  "assets/images/work/events/beta-ethan/",
-  "assets/images/work/eastrise/photography/_unassigned-public-assets/",
-]);
-
 export const RETIRED_PUBLIC_PREFIXES = Object.freeze([
   ...RETIRED_ROUTE_PREFIXES,
   ...RETIRED_ASSET_PREFIXES,
-]);
-
-export const WITHHELD_ROUTE_PREFIXES = Object.freeze([
-  "work/arrayrx-press-conference-2026/",
-  "work/be-well-at-work-2026/",
-  "work/blue-cross-portraits/",
-  "work/corporate-cup-2026/",
-  "work/girls-on-the-run-2026/",
-  "work/senior-games-press-event-2026/",
-  "work/walk-at-lunch-and-green-up-2026/",
-]);
-
-export const WITHHELD_ASSET_PREFIXES = Object.freeze([
-  "assets/images/work/campaigns/flight-paths.webp",
-  "assets/images/work/blue-cross/",
-  "assets/images/work/events/arrayrx-press-conference-2026/",
-  "assets/images/work/events/be-well-at-work-2026/",
-  "assets/images/work/events/corporate-cup-2026/",
-  "assets/images/work/events/girls-on-the-run-2026/",
-  "assets/images/work/events/senior-games-press-event-2026/",
-  "assets/images/work/events/walk-at-lunch-and-green-up-2026/",
-  "assets/images/work/portraits/beth-roberts.webp",
-  "assets/images/work/portraits/gallery/blue-cross/",
 ]);
 
 export const WITHHELD_PUBLIC_PREFIXES = Object.freeze([

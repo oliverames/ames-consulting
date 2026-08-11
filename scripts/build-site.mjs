@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { execFileSync } from "node:child_process";
-import { cp, mkdir, readFile, readdir, rm, stat } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -16,6 +16,10 @@ import {
   isRetiredPublicPath,
   normalizePublicPath,
 } from "./publication-policy.mjs";
+import {
+  CLOUDFLARE_FUNCTION_EXCLUDES,
+  CLOUDFLARE_FUNCTION_ROUTES,
+} from "./publication-denylist.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, "..");
@@ -121,6 +125,14 @@ for (const relativePath of PUBLIC_HTML_FILES) {
 for (const relativePath of PUBLIC_RUNTIME_FILES) await copyAllowlistedFile(relativePath);
 
 const copiedImages = await copyReferencedImages();
+await writeFile(
+  join(outputDir, "_routes.json"),
+  `${JSON.stringify({
+    version: 1,
+    include: CLOUDFLARE_FUNCTION_ROUTES,
+    exclude: CLOUDFLARE_FUNCTION_EXCLUDES,
+  }, null, 2)}\n`,
+);
 
 for (const generator of ["optimize-site-images.mjs", "generate-seo-artifacts.mjs"]) {
   execFileSync(process.execPath, [join(projectRoot, "scripts", generator), "--out-dir", outputDir], {

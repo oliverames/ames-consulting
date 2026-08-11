@@ -8,6 +8,7 @@ _site/
 .playwright-mcp/
 test-results/
 .lighthouseci/
+.wrangler/
 output/
 .codex-backups/
 .claude/settings.json

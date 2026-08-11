@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Static personal portfolio/consulting site for ames.consulting. No framework — pure HTML, CSS (cascade layers), and vanilla ES modules. Hosted on Cloudflare Pages (deployed with wrangler from `_site/`; the Cloudflare Functions handler in `functions/api/contact.js` powers the contact form).
+Static personal portfolio/consulting site for ames.consulting. No framework — pure HTML, CSS (cascade layers), and vanilla ES modules. Hosted on Cloudflare Pages (deployed with wrangler from `_site/`; Cloudflare Functions power the contact form and enforce the publication denylist).
 
 Pages are static at runtime. `npm run build:site` validates inputs, regenerates and normalizes the committed HTML, then writes the public artifact to `_site/`. There is no client-side content pipeline.
 
@@ -71,6 +71,7 @@ Ground rules learned the hard way:
 - Shared chrome (nav items, footer colophon/Company column, font preconnects) is normalized sitewide by `apply-shared-ui.mjs` — fix drift there, not per-template.
 - `apply-image-dimensions.mjs` injects intrinsic `width`/`height` on every `<img>` lacking them (pure-JS WebP/PNG/JPEG/SVG header parsing; fails the build on unmeasurable images).
 - `build-site.mjs` publishes only the approved route tree, runtime CSS/JS/icons, `site.config.json`, and images referenced by public files.
+- `build-site.mjs` generates `_routes.json`, which invokes Functions only for `/api/*` and denied publication paths. `functions/_middleware.js` returns uncached 404 responses for those denied paths, and Pages Functions fail closed in production and preview.
 - `optimize-site-images.mjs` runs inside `build-site.mjs` and adds responsive image variants plus `srcset` and `sizes` attributes to the deploy artifact.
 - Only routes and assets cleared for public release enter generator inputs. Private or permission-restricted media stays outside the repository.
 - **analyze-photo-folder.mjs** / **sync-eastrise-social-dimensions.mjs** / **sync-source-screenshots.mjs** — manual photo/data utilities, not part of `build:site`.

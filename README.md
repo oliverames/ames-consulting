@@ -34,7 +34,7 @@ This repository contains Oliver's real portfolio content and media. Replace the 
 
 A personal site should outlast whatever framework is trending. This site has no client-side content pipeline at all: a chain of Node generator scripts (`npm run build:site`) writes and refines plain, committed HTML, then copies it into `_site/` for deploy. Nothing about a page's content depends on JavaScript running in the visitor's browser. CSS uses cascade layers, container queries, and registered custom properties; the handful of JS modules that do ship are progressive enhancements (image lightbox, contact-form validation, work filtering) layered on top of already-complete markup.
 
-Cloudflare Pages hosts the site, and wrangler handles deployment. GitHub Actions builds and validates the artifact before it reaches production.
+Cloudflare Pages hosts the site, and wrangler handles deployment. GitHub Actions builds and validates the artifact before it reaches production. A scoped Pages Function serves the contact endpoint and returns uncached 404 responses for withheld or retired publication paths.
 
 ## Site Structure
 

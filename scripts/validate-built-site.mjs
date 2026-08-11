@@ -13,6 +13,10 @@ import {
   normalizePublicPath,
   resolvePublishedLocalReference,
 } from "./publication-policy.mjs";
+import {
+  CLOUDFLARE_FUNCTION_EXCLUDES,
+  CLOUDFLARE_FUNCTION_ROUTES,
+} from "./publication-denylist.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const siteRoot = path.join(root, "_site");
@@ -68,6 +72,16 @@ if (unexpectedData.length) {
 }
 for (const filename of allowedDataFiles) {
   if (!dataFiles.includes(filename)) throw new Error(`Missing runtime data file: ${filename}`);
+}
+
+const functionRoutes = JSON.parse(await readFile(path.join(siteRoot, "_routes.json"), "utf8"));
+const expectedFunctionRoutes = {
+  version: 1,
+  include: CLOUDFLARE_FUNCTION_ROUTES,
+  exclude: CLOUDFLARE_FUNCTION_EXCLUDES,
+};
+if (JSON.stringify(functionRoutes) !== JSON.stringify(expectedFunctionRoutes)) {
+  throw new Error("_site/_routes.json does not match the publication denylist.");
 }
 
 const missingAssets = [];

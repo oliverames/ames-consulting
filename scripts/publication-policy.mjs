@@ -23,17 +23,14 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "services/strategy-and-content/index.html",
   "testimonials/index.html",
   "work/apple-core/index.html",
-  "work/arrayrx-press-conference-2026/index.html",
-  "work/be-well-at-work-2026/index.html",
   "work/beta-technologies/index.html",
   "work/bike-fitting/index.html",
-  "work/blue-cross-portraits/index.html",
   "work/blue-cross-vermont/index.html",
   "work/bridgeport/index.html",
   "work/community-photography/index.html",
   "work/connecticut-college/index.html",
-  "work/corporate-cup-2026/index.html",
   "work/credit-union-websites/index.html",
+  "work/drone-photography/index.html",
   "work/eastrise-launch-campaign/index.html",
   "work/eastrise-photography/index.html",
   "work/eastrise-portraits/index.html",
@@ -43,18 +40,18 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "work/eastrise/index.html",
   "work/fairbanks-planetarium/index.html",
   "work/flight-paths/index.html",
-  "work/girls-on-the-run-2026/index.html",
   "work/giron-family-christmas-tree-farm-2024/index.html",
   "work/giron-family-fall-2023/index.html",
   "work/giron-family-fall-2025/index.html",
   "work/green-mountain-community-fitness/index.html",
   "work/index.html",
   "work/live-broadcasts/index.html",
+  "work/london-2019/index.html",
   "work/member-banking-stories/index.html",
   "work/meta-mcp-server/index.html",
+  "work/neg-ecp-conference-2026/index.html",
   "work/ping-warden/index.html",
   "work/portraits-and-people/index.html",
-  "work/senior-games-press-event-2026/index.html",
   "work/skylight-bridge/index.html",
   "work/stowe-ski-instruction/index.html",
   "work/sweat-heart-throwdown/index.html",
@@ -62,7 +59,7 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "work/vermont-foodbank-volunteer-day-2026/index.html",
   "work/vsecu-website/index.html",
   "work/vtdigger-membership/index.html",
-  "work/walk-at-lunch-and-green-up-2026/index.html",
+  "work/whale-dance-randolph/index.html",
   "work/wheels-for-warmth/index.html",
   "work/ynab-mcp-server/index.html",
 ]);
@@ -86,6 +83,7 @@ export const PUBLIC_RUNTIME_FILES = Object.freeze([
   "assets/js/image-viewer.js",
   "assets/js/inbound-prompt.js",
   "assets/js/proof-rotator.js",
+  "assets/js/recommendation-dialog.js",
   "assets/js/site-config.js",
   "assets/js/work-filter.js",
 ]);
@@ -120,6 +118,34 @@ export const RETIRED_ASSET_PREFIXES = Object.freeze([
 export const RETIRED_PUBLIC_PREFIXES = Object.freeze([
   ...RETIRED_ROUTE_PREFIXES,
   ...RETIRED_ASSET_PREFIXES,
+]);
+
+export const WITHHELD_ROUTE_PREFIXES = Object.freeze([
+  "work/arrayrx-press-conference-2026/",
+  "work/be-well-at-work-2026/",
+  "work/blue-cross-portraits/",
+  "work/corporate-cup-2026/",
+  "work/girls-on-the-run-2026/",
+  "work/senior-games-press-event-2026/",
+  "work/walk-at-lunch-and-green-up-2026/",
+]);
+
+export const WITHHELD_ASSET_PREFIXES = Object.freeze([
+  "assets/images/work/campaigns/flight-paths.webp",
+  "assets/images/work/blue-cross/",
+  "assets/images/work/events/arrayrx-press-conference-2026/",
+  "assets/images/work/events/be-well-at-work-2026/",
+  "assets/images/work/events/corporate-cup-2026/",
+  "assets/images/work/events/girls-on-the-run-2026/",
+  "assets/images/work/events/senior-games-press-event-2026/",
+  "assets/images/work/events/walk-at-lunch-and-green-up-2026/",
+  "assets/images/work/portraits/beth-roberts.webp",
+  "assets/images/work/portraits/gallery/blue-cross/",
+]);
+
+export const WITHHELD_PUBLIC_PREFIXES = Object.freeze([
+  ...WITHHELD_ROUTE_PREFIXES,
+  ...WITHHELD_ASSET_PREFIXES,
 ]);
 
 const publicHtmlFiles = new Set(PUBLIC_HTML_FILES);
@@ -171,27 +197,38 @@ export function isRetiredPublicPath(value) {
   return RETIRED_PUBLIC_PREFIXES.some((prefix) => matchesPrefix(value, prefix));
 }
 
+export function isWithheldPublicPath(value) {
+  return WITHHELD_PUBLIC_PREFIXES.some((prefix) => matchesPrefix(value, prefix));
+}
+
+export function isUnpublishedPublicPath(value) {
+  return isRetiredPublicPath(value) || isWithheldPublicPath(value);
+}
+
 export function assertPublicPathIsActive(value) {
   const normalized = normalizePublicPath(value);
   if (isRetiredPublicPath(normalized)) {
     throw new Error(`Retired public path is denied: ${normalized}`);
+  }
+  if (isWithheldPublicPath(normalized)) {
+    throw new Error(`Withheld public path is denied: ${normalized}`);
   }
   return normalized;
 }
 
 export function isAllowedPublicHtmlPath(value) {
   const normalized = normalizePublicPath(value);
-  return !isRetiredPublicPath(normalized) && publicHtmlFiles.has(normalized);
+  return !isUnpublishedPublicPath(normalized) && publicHtmlFiles.has(normalized);
 }
 
 export function isAllowedRuntimePath(value) {
   const normalized = normalizePublicPath(value);
-  return !isRetiredPublicPath(normalized) && publicRuntimeFiles.has(normalized);
+  return !isUnpublishedPublicPath(normalized) && publicRuntimeFiles.has(normalized);
 }
 
 export function isAllowedPublicImagePath(value) {
   const normalized = normalizePublicPath(value);
-  return !isRetiredPublicPath(normalized)
+  return !isUnpublishedPublicPath(normalized)
     && PUBLIC_IMAGE_PREFIXES.some((prefix) => matchesPrefix(normalized, prefix))
     && path.posix.extname(normalized).toLowerCase() === ".webp";
 }
@@ -207,7 +244,7 @@ export function extractPublicImageReferences(source) {
 
 export function isAllowedPublishedArtifactPath(value, referencedImagePaths = new Set()) {
   const normalized = normalizePublicPath(value);
-  return !isRetiredPublicPath(normalized) && (
+  return !isUnpublishedPublicPath(normalized) && (
     publicHtmlFiles.has(normalized)
     || publicRuntimeFiles.has(normalized)
     || generatedPublicFiles.has(normalized)

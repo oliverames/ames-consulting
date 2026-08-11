@@ -42,6 +42,7 @@ stale exceptions, duplicate classifications, and missing-field drift.
 |---|---|
 | `publication_date_not_verifiable` | `published_date` |
 | `public_source_page_not_identified` | `source_url`, `published_date`, `source_capture` |
+| `portfolio_archive_publication_not_identified` | `source_url`, `source_channel`, `published_date`, `source_capture` |
 | `personal_archive_source_not_identified` | `source_url`, `source_channel`, `published_date`, `source_capture` |
 | `source_capture_not_available` | `source_capture` |
 | `collection_asset_without_single_source` | `source_url`, `published_date`, `source_capture` |

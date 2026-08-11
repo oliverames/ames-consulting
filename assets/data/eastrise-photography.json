@@ -1,7 +1,59 @@
 {
-  "generatedAt": "2026-08-03",
+  "generatedAt": "2026-08-11",
   "publicSourceOnly": true,
-  "totalImages": 153,
+  "totalImages": 139,
+  "confirmedOliverPhotographsWithheld": [
+    {
+      "sourceFilename": "2024-09-30_14-07-13_UTC_DAi0dDkJcT__4.jpg",
+      "expectedSeries": "member-and-business-stories",
+      "alt": "A family walks through a wooded sugarbush beneath maple sap lines.",
+      "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT/",
+      "sourcePlatform": "Instagram",
+      "authorship": "Oliver Ames",
+      "releaseStatus": "withheld",
+      "missingEvidence": ["source_capture"]
+    },
+    {
+      "sourceFilename": "2024-09-30_14-07-13_UTC_DAi0dDkJcT__5.jpg",
+      "expectedSeries": "member-and-business-stories",
+      "alt": "A bearded man kneels beside a smiling young boy and a metal sap bucket in the woods.",
+      "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT/",
+      "sourcePlatform": "Instagram",
+      "authorship": "Oliver Ames",
+      "releaseStatus": "withheld",
+      "missingEvidence": ["source_capture"]
+    },
+    {
+      "sourceFilename": "2024-09-30_14-07-13_UTC_DAi0dDkJcT__6.jpg",
+      "expectedSeries": "member-and-business-stories",
+      "alt": "A smiling woman carries a sleeping infant in a backpack carrier.",
+      "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT/",
+      "sourcePlatform": "Instagram",
+      "authorship": "Oliver Ames",
+      "releaseStatus": "withheld",
+      "missingEvidence": ["source_capture"]
+    },
+    {
+      "sourceFilename": "2024-09-30_14-07-13_UTC_DAi0dDkJcT__7.jpg",
+      "expectedSeries": "member-and-business-stories",
+      "alt": "A smiling young boy stands among trees in a wooded sugarbush.",
+      "sourceUrl": "https://www.instagram.com/p/DAi0dDkJcT/",
+      "sourcePlatform": "Instagram",
+      "authorship": "Oliver Ames",
+      "releaseStatus": "withheld",
+      "missingEvidence": ["source_capture"]
+    },
+    {
+      "sourceFilename": "li_3f3606b341d7.jpg",
+      "expectedSeries": "eastrise-candid-portraits",
+      "alt": "Black-and-white portrait of a smiling woman in a softly lit office.",
+      "sourceUrl": "",
+      "sourcePlatform": "LinkedIn",
+      "authorship": "Oliver Ames",
+      "releaseStatus": "withheld",
+      "missingEvidence": ["source_url", "source_capture"]
+    }
+  ],
   "series": [
     {
       "slug": "shred-fest",
@@ -126,22 +178,6 @@
           "height": 1350,
           "sourceUrl": "https://www.instagram.com/p/DMsyvgyuon8/",
           "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/karina-and-ryan/li_5084399b15cb-337278d635d9.webp",
-          "alt": "A young boy grips the ropes of a playground climbing net.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQFQVMauJolAtA/image-shrink_800/B4EZhXM4i9GUAc-/0/1753809652424?e=1774634400&v=beta&t=wFOHMgA8008fzxTZNG2LX5hN_n5PYqyqnmkG5UwEksc",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/karina-and-ryan/li_5d8c3705d4f8-8939c9a5e8f4.webp",
-          "alt": "A couple poses outdoors with their daughter and son.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQEgG4bepao4-Q/image-shrink_800/B4EZhXM4r6GwAg-/0/1753809653257?e=1774634400&v=beta&t=ZlpiwQDAx-ZCvzhhrC9npOgBLFVdRqu1dWTJ_hJmgiI",
-          "sourcePlatform": "LinkedIn"
         }
       ],
       "videoId": "A1oAN6Ox6A0"
@@ -222,38 +258,6 @@
           "height": 1350,
           "sourceUrl": "https://www.instagram.com/p/DNBnAXzpEnQ/",
           "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/john-and-donia/li_d43cea4f5fe6-e6629575d7b3.webp",
-          "alt": "A woman smiles at a bike shop counter with bicycle wheels behind her.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGH92bFzWKTBQ/image-shrink_800/B4EZiA1au1HIAc-/0/1754508144154?e=1774634400&v=beta&t=pwlJC52x3mu0jpbnzkKDooxPmfKUj0TPGYbM0F9tzhQ",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/john-and-donia/li_02894d49f0bb-bf986f13890f.webp",
-          "alt": "A couple holding paper cups smiles at each other against a brick wall.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQHKx0ajF-NYng/image-shrink_800/B4EZiA1bDuHoAg-/0/1754508145393?e=1774634400&v=beta&t=_clwsmsOrAfiXShL39fk_kygyMTbAlnsS5wYkBSpGAE",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/john-and-donia/li_54e42f2518e1-6f3e4d5c08f8.webp",
-          "alt": "A hand taps a bank card against a countertop payment terminal.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQELqOgvfF67_A/image-shrink_800/B4EZiA1a4MHgAg-/0/1754508144828?e=1774634400&v=beta&t=Sk2ruI9RLPFPeudAaL3kSK2UEwhs1U80k3dY0X91GCU",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/john-and-donia/li_4ae96b17601c-9d5e15ca66c2.webp",
-          "alt": "A smiling couple walks outdoors as the woman holds a bank card.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQG8L8SolowKmQ/image-shrink_800/B4EZiA1anxHIAc-/0/1754508143561?e=1774634400&v=beta&t=5J9-_s3DO_ihN-mNB49XPPqYdt4FeFuWzVEaJAqqf9k",
-          "sourcePlatform": "LinkedIn"
         }
       ],
       "videoId": "dffKrKG5Hbs"
@@ -529,30 +533,6 @@
           "height": 1350,
           "sourceUrl": "https://www.instagram.com/p/DJ4j8ekBHLB/",
           "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/wood-for-good/li_ea2947a8532f-f4ff22f680ae.webp",
-          "alt": "Two smiling volunteers lift logs overhead beside a woodpile.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQESdWm8G8_v3g/image-shrink_800/B4EZbuvR4sGcAc-/0/1747762094064?e=1774634400&v=beta&t=lKampLJvIhqRZg3CUMuROc88BAb5O8CmitE8oltZ6m4",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/wood-for-good/li_61491d2ad4ca-c1c3463ba614.webp",
-          "alt": "Volunteers feed logs into a processing machine beside a large woodpile.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQGjiZE9QngXrw/image-shrink_800/B4EZbuvSKkGcAg-/0/1747762095459?e=1774634400&v=beta&t=qjKr_Y0f8ldg59wMwVa5bBZs3geckazKEkym2deBgD4",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/wood-for-good/li_056a8068f216-567a62b48197.webp",
-          "alt": "A smiling volunteer carries an armful of split firewood past a machine.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQHEozBCb1HUZw/image-shrink_800/B4EZbuvSXAHYAg-/0/1747762096207?e=1774634400&v=beta&t=huMGPzUN7tcT92EoaYI6HX_G-Ot4VlwsRLgpy1wFaQM",
-          "sourcePlatform": "LinkedIn"
         }
       ]
     },
@@ -888,14 +868,6 @@
           "sourcePlatform": "Facebook"
         },
         {
-          "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-87800f412c98.webp",
-          "alt": "Taylor Hoar’s No. 48x car passes the grandstands with its pink camouflage number visible.",
-          "width": 1024,
-          "height": 682,
-          "sourceUrl": "https://www.facebook.com/photo.php?fbid=539068675733145&set=pb.100088900519709.-2207520000&type=3",
-          "sourcePlatform": "Facebook"
-        },
-        {
           "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-619d453cb2f1.webp",
           "alt": "A red stock car with a NEFCU + VSECU hood logo rounds a banked turn.",
           "width": 1284,
@@ -1053,14 +1025,6 @@
           "width": 1080,
           "height": 1350,
           "sourceUrl": "https://www.instagram.com/p/DIjx-o5p5N0/",
-          "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/2024-10-06_18-56-20_UTC_DAyyTyQvmIh-19eca379abf3.webp",
-          "alt": "Black-and-white motion shot of Taylor Hoar’s No. 48x car racing alongside another stock car.",
-          "width": 1080,
-          "height": 1080,
-          "sourceUrl": "https://www.instagram.com/p/DAyyTyQvmIh/",
           "sourcePlatform": "Instagram"
         },
         {
@@ -1293,30 +1257,6 @@
           "height": 1350,
           "sourceUrl": "https://www.instagram.com/p/DBMo23Cundt/",
           "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/li_daa49f294800-056ff6147712.webp",
-          "alt": "A smiling woman in glasses rolls a wrapped cylinder of textile across a textured worktable in front of bright windows.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHKCNe5GkE9FA/image-shrink_800/image-shrink_800/0/1731531465032?e=1774634400&v=beta&t=GVy-lvfN_vJds5Om-N4EXZH4VXte8Plytcl93B395CE",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/li_53ed1c19acae-0f8603b6f8a2.webp",
-          "alt": "Close-up of a kneeling worker's hand gripping a mason's hammer against a rough stone slab.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQEwMvlucBvh8g/image-shrink_800/image-shrink_800/0/1730997811345?e=1774634400&v=beta&t=9DOOKMpp37DTIvKkNuZrJ5vI_eW268QUomRuXMVOhfA",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/li_2efb609948e1-2c2bdeae5cc5.webp",
-          "alt": "A woman with short hair and glasses presses fibers into a textured felt piece beside a bright window.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHXTKxo8dSVTw/image-shrink_800/image-shrink_800/0/1731531462648?e=1774634400&v=beta&t=VbtfM8TWN8BuIZuxI0iSzUHODPgwFcvtMRI80posXMI",
-          "sourcePlatform": "LinkedIn"
         },
         {
           "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-11-05_15-12-18_UTC_DB_og-ipG9A_1-44919b55c91c.webp",

@@ -3,6 +3,13 @@
 import { access, readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import path from "node:path";
+import {
+  PUBLIC_HTML_FILES,
+  WITHHELD_ASSET_PREFIXES,
+  isAllowedPublicHtmlPath,
+  isAllowedPublicImagePath,
+  isWithheldPublicPath,
+} from "./publication-policy.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const portfolioRoot = process.env.AMES_BLUE_CROSS_PORTFOLIO_ROOT
@@ -19,12 +26,46 @@ const expectedProjects = new Map([
   ["corporate-cup-2026", "2026-05-14 – Corporate Cup"],
   ["girls-on-the-run-2026", "2026-05-30 – GOTR"],
 ]);
-const workIndex = await readFile(path.join(root, "work/index.html"), "utf8");
+
+const noindexPattern = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i;
 for (const [slug] of expectedProjects) {
-  await access(path.join(root, "work", slug, "index.html"));
-  if (!workIndex.includes(`data-organization="blue-cross-vermont" href="${slug}/"`)) {
-    throw new Error(`${slug} is not attached to the Blue Cross Vermont organization filter.`);
+  const route = `work/${slug}/index.html`;
+  const html = await readFile(path.join(root, route), "utf8");
+  if (!isWithheldPublicPath(route) || isAllowedPublicHtmlPath(route)) {
+    throw new Error(`${slug} must remain withheld from the public route manifest.`);
   }
+  if (!noindexPattern.test(html)) {
+    throw new Error(`${slug} must remain in the source tree with a noindex directive.`);
+  }
+}
+
+const flightPathsRoute = "work/flight-paths/index.html";
+if (
+  !PUBLIC_HTML_FILES.includes(flightPathsRoute)
+  || !isAllowedPublicHtmlPath(flightPathsRoute)
+  || isWithheldPublicPath(flightPathsRoute)
+) {
+  throw new Error("Flight Paths must remain public while the Blue Cross galleries are withheld.");
+}
+const flightPathsHtml = await readFile(path.join(root, flightPathsRoute), "utf8");
+const flightPathsMain = flightPathsHtml.match(/<main\b[\s\S]*?<\/main>/i)?.[0] || "";
+if (!/BETA Technologies/.test(flightPathsMain) || /Blue Cross Vermont/.test(flightPathsMain)) {
+  throw new Error("Flight Paths must be presented as BETA Technologies work.");
+}
+if (/<img\b/i.test(flightPathsMain)) {
+  throw new Error("Flight Paths must use the public video embed without a locally uploaded still image.");
+}
+
+for (const prefix of WITHHELD_ASSET_PREFIXES) {
+  await access(path.join(root, prefix));
+}
+
+function assertWithheldSourceAsset(value) {
+  const relativePath = value.replace(/^(?:\.\.\/)+/, "");
+  if (!isWithheldPublicPath(relativePath) || isAllowedPublicImagePath(relativePath)) {
+    throw new Error(`${relativePath} must remain available in source and denied from publication.`);
+  }
+  return relativePath;
 }
 
 const keyFiles = [
@@ -56,6 +97,7 @@ const requiredPrivateSources = [];
 for (const [slug, sourceDirectory] of eventSources) {
   const campaign = events.campaigns.find((item) => item.slug === slug);
   if (!campaign) throw new Error(`Missing ${slug} gallery data.`);
+  if (campaign.published !== false) throw new Error(`${slug} must record published: false.`);
   for (const image of campaign.images) {
     const filename = path.basename(image.src, ".webp").toUpperCase();
     requiredPrivateSources.push(path.join(portfolioRoot, sourceDirectory, `${filename}.jpg`));
@@ -76,7 +118,7 @@ for (const [slug, sourceDirectory] of eventSources) {
     }
     const filename = path.basename(image.src, ".webp").toUpperCase();
     if (portfolioAvailable) await access(path.join(portfolioRoot, sourceDirectory, `${filename}.jpg`));
-    await access(path.join(root, image.src.replace("../../", "")));
+    await access(path.join(root, assertWithheldSourceAsset(image.src)));
   }
   eventTotal += campaign.images.length;
 }
@@ -94,13 +136,16 @@ const expectedPortraits = new Set([
 if (!blueCrossPortraits || blueCrossPortraits.images.length !== expectedPortraits.size) {
   throw new Error("The Blue Cross portrait collection must contain the six senior team headshots and Lindsay Segale.");
 }
+if (blueCrossPortraits.published !== false) {
+  throw new Error("The Blue Cross portrait collection must record published: false.");
+}
 for (const image of blueCrossPortraits.images) {
   if (!expectedPortraits.delete(image.caption)) throw new Error(`Unexpected Blue Cross portrait: ${image.caption}`);
-  await access(path.join(root, image.src.replace("../../", "")));
+  await access(path.join(root, assertWithheldSourceAsset(image.src)));
 }
 if (expectedPortraits.size) throw new Error(`Missing Blue Cross portraits: ${[...expectedPortraits].join(", ")}`);
 
 const sourceCheck = portfolioAvailable
   ? "against every required edited Portfolio source"
   : "using checked-in provenance and derivatives because the private source set is incomplete or unavailable";
-console.log(`Validated ${expectedProjects.size} Blue Cross projects, ${eventTotal} event photographs, and ${blueCrossPortraits.images.length} portraits ${sourceCheck}.`);
+console.log(`Validated ${expectedProjects.size} withheld Blue Cross galleries, ${eventTotal} event photographs, and ${blueCrossPortraits.images.length} portraits ${sourceCheck}. Flight Paths remains public.`);

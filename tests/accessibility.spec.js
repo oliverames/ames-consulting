@@ -26,6 +26,34 @@ for (const route of publicRoutes) {
   });
 }
 
+test("YouTube facade documents have no moderate, serious, or critical accessibility issues", async ({ page }) => {
+  test.setTimeout(120_000);
+  const videoRoutes = [
+    "/work/eastrise-photography/",
+    "/work/member-banking-stories/",
+    "/work/fairbanks-planetarium/",
+    "/work/beta-technologies/",
+    "/work/flight-paths/",
+  ];
+  const facades = [];
+  for (const route of videoRoutes) {
+    await page.goto(route);
+    facades.push(...await page
+      .locator('iframe[src*="youtube-nocookie.com/embed/"]')
+      .evaluateAll((frames) => frames.map((frame) => frame.getAttribute("srcdoc"))));
+  }
+
+  expect(facades).toHaveLength(15);
+  for (const srcdoc of facades) {
+    await page.setContent(srcdoc);
+    const results = await new AxeBuilder({ page }).analyze();
+    const actionable = results.violations.filter(
+      (violation) => ["moderate", "serious", "critical"].includes(violation.impact),
+    );
+    expect(actionable).toEqual([]);
+  }
+});
+
 test("inbound project prompt has no moderate, serious, or critical accessibility issues", async ({ page }) => {
   await page.goto("/work/giron-family-fall-2025/");
   const launcher = page.getByRole("button", { name: "Start a project" });
@@ -37,6 +65,25 @@ test("inbound project prompt has no moderate, serious, or critical accessibility
   })).toBeVisible();
 
   const results = await new AxeBuilder({ page }).include("#inbound-prompt").analyze();
+  const actionable = results.violations.filter(
+    (violation) => ["moderate", "serious", "critical"].includes(violation.impact),
+  );
+  expect(actionable).toEqual([]);
+});
+
+test("full recommendation dialog has no moderate, serious, or critical accessibility issues", async ({ page }) => {
+  await page.goto("/testimonials/");
+  await page.getByRole("button", {
+    name: "Read the full recommendation from Yvonne Garand",
+  }).click();
+  const dialog = page.getByRole("dialog", {
+    name: "Recommendation from Yvonne Garand",
+  });
+  await expect(dialog).toBeVisible();
+
+  const results = await new AxeBuilder({ page })
+    .include("#recommendation-dialog")
+    .analyze();
   const actionable = results.violations.filter(
     (violation) => ["moderate", "serious", "critical"].includes(violation.impact),
   );

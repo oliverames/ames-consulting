@@ -353,6 +353,10 @@
     list-style: none;
   }
 
+  .home-software .software-console ul {
+    padding-top: 1.25rem;
+  }
+
   .software-console li {
     display: flex;
     align-items: center;
@@ -860,6 +864,114 @@
   .recommendation-entry blockquote {
     padding-left: 1rem;
     border-left: 4px solid var(--accent);
+  }
+
+  .recommendation-entry__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-top: auto;
+    padding-top: 0.25rem;
+  }
+
+  .recommendation-entry__more {
+    padding: 0.65rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--text-0) 28%, transparent);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-0);
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      border-color var(--transition-snappy),
+      background-color var(--transition-snappy);
+  }
+
+  .recommendation-entry__more:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
+  .recommendation-dialog {
+    width: min(calc(100% - 2rem), 48rem);
+    max-width: 48rem;
+    max-height: min(90dvh, 52rem);
+    margin: auto;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-tile, 18px);
+    background: transparent;
+    color: var(--text-0);
+    overflow: visible;
+  }
+
+  .recommendation-dialog::backdrop {
+    background: rgb(10 14 14 / 0.78);
+    backdrop-filter: blur(12px);
+  }
+
+  .recommendation-dialog__surface {
+    position: relative;
+    max-height: min(90dvh, 52rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border-radius: inherit;
+    background: var(--surface-0);
+    box-shadow: var(--shadow-card);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .recommendation-dialog__close {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--text-0) 24%, transparent);
+    border-radius: 50%;
+    background: var(--surface-0);
+    color: var(--text-0);
+    font-family: var(--font-body);
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .recommendation-dialog__content {
+    display: grid;
+    gap: var(--space-3, 2rem);
+  }
+
+  .recommendation-dialog__header {
+    display: grid;
+    gap: 0.5rem;
+    padding-inline-end: 2.75rem;
+  }
+
+  .recommendation-dialog__header h2,
+  .recommendation-dialog__header p,
+  .recommendation-dialog blockquote,
+  .recommendation-dialog blockquote p {
+    margin: 0;
+  }
+
+  .recommendation-dialog__meta {
+    color: var(--text-1);
+    font-size: 0.9rem;
+  }
+
+  .recommendation-dialog blockquote {
+    padding-left: clamp(1rem, 3vw, 1.5rem);
+    border-left: 4px solid var(--accent);
+    font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+    line-height: 1.65;
   }
 
   .archive-note {
@@ -2312,8 +2424,10 @@
 
   .site-footer__sitemap {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    gap: var(--space-3);
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    justify-content: start;
+    column-gap: clamp(2.5rem, 7vw, 6rem);
+    row-gap: var(--space-3);
   }
 
   .site-footer__sitemap > div h2 {
@@ -3180,6 +3294,7 @@
   /* ─── Work List Items ─── */
   .work-item {
     display: grid;
+    align-content: start;
     gap: var(--space-1);
     text-decoration: none;
     color: var(--text-0);
@@ -3271,6 +3386,21 @@
     font-family: var(--font-heading);
     font-size: clamp(2.5rem, 6vw, 4.75rem);
     line-height: 1;
+  }
+
+  .work-item__placeholder--metric {
+    align-content: center;
+    gap: 0.35rem;
+    text-align: center;
+  }
+
+  .work-item__placeholder--metric small {
+    color: var(--text-1);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   .work-category--earlier {
@@ -3676,7 +3806,7 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    width: var(--web-measure-wide);
+    width: var(--measure-wide);
     margin: var(--space-3) auto 0;
     min-height: clamp(27rem, 54vw, 39rem);
     display: grid;
@@ -3833,6 +3963,23 @@
     font-weight: 400;
   }
 
+  .contact-form .contact-form__label-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    color: var(--text-0);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .contact-form .contact-form__optional {
+    color: var(--text-1);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+  }
+
   .contact-form input,
   .contact-form textarea,
   .contact-form select {
@@ -3844,6 +3991,11 @@
     color: var(--text-0);
     font-family: var(--font-body);
     font-weight: 400;
+  }
+
+  .contact-form input:not([type="hidden"]),
+  .contact-form select {
+    block-size: 3.6rem;
   }
 
   .contact-form input:focus-visible,
@@ -4010,6 +4162,10 @@
   }
 
   .about-hero {
+    width: var(--measure-wide);
+  }
+
+  .about-hero {
     display: grid;
     gap: var(--space-3);
     align-items: stretch;
@@ -4119,9 +4275,9 @@
 
   .about-card-grid {
     display: grid;
-    align-items: start;
+    align-items: stretch;
     gap: var(--space-3);
-    padding-bottom: var(--space-5);
+    padding-bottom: var(--space-3);
   }
 
   @media (width >= 52rem) {
@@ -4137,7 +4293,7 @@
     box-shadow: var(--shadow-card);
   }
 
-  .about-contact-card { align-self: start; }
+  .about-contact-card { align-self: stretch; }
 
   .about-intro-card {
     background: var(--surface-0);
@@ -4154,6 +4310,10 @@
   .about-intro-card > p:not(.eyebrow) {
     max-width: 66ch;
     color: var(--text-1);
+  }
+
+  .about-intro-card > p:not(.eyebrow) + p {
+    margin-block-start: var(--space-2);
   }
 
   .about-contact-card {
@@ -4230,8 +4390,8 @@
   .about-capabilities,
   .about-experience,
   .about-credentials {
-    padding-block: var(--space-5);
-    border-top: 1px solid color-mix(in srgb, var(--accent) 48%, transparent);
+    padding-block: var(--space-4);
+    border-top: 0;
   }
 
   .section-heading {
@@ -4274,6 +4434,7 @@
     width: 100%;
     margin-top: var(--space-2);
     padding-block: var(--space-5) var(--space-4);
+    border-top: 0;
   }
 
   .member-story-visual .case-split {
@@ -4291,11 +4452,7 @@
   }
 
   .home-paths::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto;
-    height: 1px;
-    background: color-mix(in srgb, var(--accent) 48%, transparent);
+    content: none;
   }
 
   .about-proof__grid,
@@ -4427,19 +4584,37 @@
 
   @media (width >= 52rem) {
     .about-credentials {
-      grid-template-columns: minmax(15rem, 0.75fr) minmax(18rem, 0.85fr) minmax(0, 1.4fr);
-      align-items: start;
+      grid-template-columns: minmax(17rem, 0.7fr) minmax(0, 1.3fr);
+      align-items: stretch;
+    }
+
+    .about-credentials > .section-heading {
+      grid-column: 1 / -1;
+    }
+
+    .about-education {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .about-credentials > .brand-mark-grid {
+      grid-column: 2;
+      grid-row: 2 / span 2;
+    }
+
+    .about-credentials > .about-tool-list {
+      grid-column: 1;
+      grid-row: 3;
     }
   }
 
-  .about-credentials > div {
-    padding: clamp(1.4rem, 3vw, 2.25rem);
-    border-radius: var(--radius-tile);
-    background: var(--surface-0);
-    box-shadow: var(--shadow-card);
+  .about-credentials > .section-heading {
+    max-width: none;
+    margin-bottom: 0;
   }
 
   .about-education {
+    height: 100%;
     padding: clamp(1.4rem, 3vw, 2.25rem);
     border-radius: var(--radius-tile);
     background: var(--surface-0);
@@ -4469,6 +4644,15 @@
   .about-credentials li {
     color: var(--text-1);
     font-size: 0.94rem;
+  }
+
+  .about-credentials .section-heading__statement {
+    max-width: 24ch;
+    color: var(--text-0);
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
   }
 
   .brand-mark-grid {
@@ -4583,6 +4767,11 @@
 
   .about-testimonials .testimonial-band__more {
     margin-top: var(--space-3);
+  }
+
+  .about-testimonials {
+    padding-block: var(--space-4);
+    border-top: 0;
   }
 
   @media (max-width: 44rem) {

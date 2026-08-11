@@ -14,6 +14,11 @@ const escapeHtml = (value) => String(value)
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&#039;");
 
+const sanitizeHeaderValue = (value) => String(value)
+  .replace(/[\u0000-\u001F\u007F]+/g, " ")
+  .replace(/\s+/g, " ")
+  .trim();
+
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const MIN_FILL_MS = 3_000;
 const MAX_FILL_MS = 24 * 60 * 60 * 1000;
@@ -107,13 +112,13 @@ export async function onRequestPost({ request, env }) {
   const website = String(data.get("companyWebsite") || "").trim();
   if (website) return json({ ok: true });
 
-  const name = String(data.get("name") || "").trim().slice(0, 120);
+  const name = sanitizeHeaderValue(data.get("name") || "").slice(0, 120).trim();
   const email = String(data.get("email") || "").trim().slice(0, 254);
   const message = String(data.get("message") || "").trim().slice(0, 6000);
   const organization = String(data.get("organization") || "").trim().slice(0, 160);
   const projectType = String(data.get("projectType") || "").trim().slice(0, 120);
   const timeframe = String(data.get("timeframe") || "").trim().slice(0, 120);
-  if (!name || !email || !message || !/^\S+@\S+\.\S+$/.test(email)) {
+  if (!name || !email || !message || /[\u0000-\u001F\u007F]/.test(email) || !/^\S+@\S+\.\S+$/.test(email)) {
     return json({ error: "Please complete every field" }, 400);
   }
 

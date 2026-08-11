@@ -9,12 +9,16 @@ import {
   PUBLIC_RUNTIME_FILES,
   RETIRED_ASSET_PREFIXES,
   RETIRED_ROUTE_PREFIXES,
+  WITHHELD_ASSET_PREFIXES,
+  WITHHELD_ROUTE_PREFIXES,
+  assertPublicPathIsActive,
   extractPublicImageReferences,
   isAllowedPublicHtmlPath,
   isAllowedPublicImagePath,
   isAllowedPublishedArtifactPath,
   isAllowedRuntimePath,
   isRetiredPublicPath,
+  isWithheldPublicPath,
   normalizePublicPath,
   resolvePublishedLocalReference,
 } from "../scripts/publication-policy.mjs";
@@ -58,6 +62,86 @@ test("retired route and asset prefixes remain denied", () => {
   );
   assert.equal(isRetiredPublicPath("assets/images/work/events/%62eta-emma/photo.webp"), true);
   assert.equal(isRetiredPublicPath("work/beta-technologies/index.html"), false);
+});
+
+test("withheld Blue Cross galleries remain in source but outside the public artifact", async () => {
+  assert.deepEqual(WITHHELD_ROUTE_PREFIXES, [
+    "work/arrayrx-press-conference-2026/",
+    "work/be-well-at-work-2026/",
+    "work/blue-cross-portraits/",
+    "work/corporate-cup-2026/",
+    "work/girls-on-the-run-2026/",
+    "work/senior-games-press-event-2026/",
+    "work/walk-at-lunch-and-green-up-2026/",
+  ]);
+  assert.deepEqual(WITHHELD_ASSET_PREFIXES, [
+    "assets/images/work/campaigns/flight-paths.webp",
+    "assets/images/work/blue-cross/",
+    "assets/images/work/events/arrayrx-press-conference-2026/",
+    "assets/images/work/events/be-well-at-work-2026/",
+    "assets/images/work/events/corporate-cup-2026/",
+    "assets/images/work/events/girls-on-the-run-2026/",
+    "assets/images/work/events/senior-games-press-event-2026/",
+    "assets/images/work/events/walk-at-lunch-and-green-up-2026/",
+    "assets/images/work/portraits/beth-roberts.webp",
+    "assets/images/work/portraits/gallery/blue-cross/",
+  ]);
+
+  for (const prefix of [...WITHHELD_ROUTE_PREFIXES, ...WITHHELD_ASSET_PREFIXES]) {
+    assert.equal(isWithheldPublicPath(prefix), true);
+    assert.equal(isAllowedPublishedArtifactPath(`${prefix}withheld.webp`), false);
+    assert.throws(() => assertPublicPathIsActive(prefix), /Withheld public path is denied/);
+  }
+  for (const prefix of WITHHELD_ROUTE_PREFIXES) {
+    assert.equal(isAllowedPublicHtmlPath(`${prefix}index.html`), false);
+    assert.equal(PUBLIC_HTML_FILES.includes(`${prefix}index.html`), false);
+    const html = await readFile(path.join(root, prefix, "index.html"), "utf8");
+    assert.match(html, noindexPattern, prefix);
+  }
+  for (const prefix of WITHHELD_ASSET_PREFIXES) {
+    assert.equal(isAllowedPublicImagePath(prefix.endsWith(".webp") ? prefix : `${prefix}image.webp`), false);
+  }
+
+  assert.equal(isWithheldPublicPath("WORK/BLUE-CROSS-PORTRAITS/index.html"), true);
+  assert.equal(isWithheldPublicPath("work/%61rrayrx-press-conference-2026/index.html"), true);
+  assert.equal(isWithheldPublicPath("work/blue-cross-vermont/index.html"), false);
+  assert.equal(isWithheldPublicPath("work/flight-paths/index.html"), false);
+  assert.equal(isAllowedPublicHtmlPath("work/flight-paths/index.html"), true);
+
+  const eventGalleryData = JSON.parse(
+    await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"),
+  );
+  assert.deepEqual(
+    eventGalleryData.campaigns
+      .filter((campaign) => campaign.published === false)
+      .map((campaign) => campaign.slug)
+      .sort(),
+    WITHHELD_ROUTE_PREFIXES
+      .filter((prefix) => prefix !== "work/blue-cross-portraits/")
+      .map((prefix) => prefix.split("/")[1])
+      .sort(),
+  );
+
+  const portraitData = JSON.parse(
+    await readFile(path.join(root, "assets/data/portraits.json"), "utf8"),
+  );
+  const blueCrossPortraits = portraitData.series.find(
+    (series) => series.slug === "blue-cross-cbss",
+  );
+  assert.equal(blueCrossPortraits?.published, false);
+  assert.equal(blueCrossPortraits?.images.length, 7);
+
+  for (const activeRoute of [
+    "work/beta-technologies/index.html",
+    "work/flight-paths/index.html",
+    "work/london-2019/index.html",
+    "work/neg-ecp-conference-2026/index.html",
+    "work/vermont-foodbank-volunteer-day-2026/index.html",
+    "work/whale-dance-randolph/index.html",
+    "work/drone-photography/index.html",
+  ]) {
+    assert.equal(isAllowedPublicHtmlPath(activeRoute), true, activeRoute);
+  }
 });
 
 test("public route and runtime manifests reject arbitrary files", () => {

@@ -9,7 +9,6 @@
         "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-877610758ff0.webp": "2024-10-07",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-7227c07a3bde.webp": "2025-07-31",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-da1d95733685.webp": "2025-10-08",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-87800f412c98.webp": "2024-10-22",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-619d453cb2f1.webp": "2024-09-15",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-92b76530fdc4.webp": "2024-10-07",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-44ea518487a7.webp": "2025-02-05",
@@ -69,12 +68,6 @@
     {
       "evidence": "public_source_url_timestamp",
       "records": {
-        "assets/images/work/eastrise/photography/karina-and-ryan/li_5084399b15cb-337278d635d9.webp": "2025-07-29",
-        "assets/images/work/eastrise/photography/karina-and-ryan/li_5d8c3705d4f8-8939c9a5e8f4.webp": "2025-07-29",
-        "assets/images/work/eastrise/photography/john-and-donia/li_d43cea4f5fe6-e6629575d7b3.webp": "2025-08-06",
-        "assets/images/work/eastrise/photography/john-and-donia/li_02894d49f0bb-bf986f13890f.webp": "2025-08-06",
-        "assets/images/work/eastrise/photography/john-and-donia/li_54e42f2518e1-6f3e4d5c08f8.webp": "2025-08-06",
-        "assets/images/work/eastrise/photography/john-and-donia/li_4ae96b17601c-9d5e15ca66c2.webp": "2025-08-06",
         "assets/images/work/eastrise/social/linkedin-072.webp": "2025-08-05",
         "assets/images/work/eastrise/social/linkedin-073.webp": "2026-02-07",
         "assets/images/work/eastrise/social/linkedin-074.webp": "2026-01-06",
@@ -94,26 +87,5 @@
       }
     }
   ],
-  "public_sources": [
-    {
-      "evidence": "private_archive_capture",
-      "source_url": "https://www.linkedin.com/posts/eastrisecu_meet-karina-a-busy-waterbury-mom-who-dreamed-activity-7356010860974153728-paTk/",
-      "source_channel": "LinkedIn",
-      "assets": [
-        "assets/images/work/eastrise/photography/karina-and-ryan/li_5084399b15cb-337278d635d9.webp",
-        "assets/images/work/eastrise/photography/karina-and-ryan/li_5d8c3705d4f8-8939c9a5e8f4.webp"
-      ]
-    },
-    {
-      "evidence": "private_archive_capture",
-      "source_url": "https://www.linkedin.com/posts/eastrisecu_meet-eastrise-members-john-and-donia-recently-activity-7358940547194970112-yI2b/",
-      "source_channel": "LinkedIn",
-      "assets": [
-        "assets/images/work/eastrise/photography/john-and-donia/li_d43cea4f5fe6-e6629575d7b3.webp",
-        "assets/images/work/eastrise/photography/john-and-donia/li_02894d49f0bb-bf986f13890f.webp",
-        "assets/images/work/eastrise/photography/john-and-donia/li_54e42f2518e1-6f3e4d5c08f8.webp",
-        "assets/images/work/eastrise/photography/john-and-donia/li_4ae96b17601c-9d5e15ca66c2.webp"
-      ]
-    }
-  ]
+  "public_sources": []
 }

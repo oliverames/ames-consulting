@@ -12,9 +12,10 @@ function contactRequest({
   origin = "https://ames.consulting",
   startedAt = Date.now() - 5_000,
   contentLength,
+  name = "Test Visitor",
 } = {}) {
   const body = new FormData();
-  body.set("name", "Test Visitor");
+  body.set("name", name);
   body.set("email", "visitor@example.com");
   body.set("message", "This is an isolated function test.");
   body.set("startedAt", String(startedAt));
@@ -126,6 +127,36 @@ test("contact function verifies Turnstile before sending a valid message", async
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       "https://api.resend.com/emails",
     ]);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("contact function removes control characters from the outbound subject", async () => {
+  const originalFetch = globalThis.fetch;
+  let outboundEmail;
+  globalThis.fetch = async (url, options) => {
+    if (String(url).includes("siteverify")) {
+      return Response.json({ success: true, action: "contact" });
+    }
+    if (String(url) === "https://api.resend.com/emails") {
+      outboundEmail = JSON.parse(options.body);
+      return Response.json({ id: "test-message" });
+    }
+    throw new Error(`Unexpected URL: ${url}`);
+  };
+
+  try {
+    const response = await onRequestPost({
+      request: contactRequest({ name: "Jane\r\nBcc: visitor@example.com\u0000" }),
+      env,
+    });
+    assert.equal(response.status, 200);
+    assert.equal(
+      outboundEmail.subject,
+      "Website inquiry from Jane Bcc: visitor@example.com",
+    );
+    assert.doesNotMatch(outboundEmail.subject, /[\u0000-\u001F\u007F]/);
   } finally {
     globalThis.fetch = originalFetch;
   }

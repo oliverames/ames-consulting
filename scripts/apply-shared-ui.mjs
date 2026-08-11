@@ -10,6 +10,7 @@ import {
   siThreads,
   siInstagram,
 } from "simple-icons";
+import { applyYoutubeFacades } from "./youtube-facade.mjs";
 
 const root = new URL("../", import.meta.url).pathname;
 const provenance = JSON.parse(await readFile(join(root, "assets/data/media-provenance.json"), "utf8"));
@@ -160,7 +161,7 @@ function updateFooterGroups(html, file) {
   const workBase = `${base}work/`;
   return html.replace(
     /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h[23]>(?:Campaigns|Services|Work by organization)<\/h[23]>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
-    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization</h2><ul><li><a href="${workBase}?organization=blue-cross-vermont">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}beta-technologies/">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
+    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization</h2><ul><li><a href="${workBase}blue-cross-vermont/">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}?organization=beta-technologies">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
   );
 }
 
@@ -194,11 +195,18 @@ function addProvenanceDisclosure(html, file) {
   if (!page.startsWith("work/") || page === "work/index.html") return html;
   const cleaned = html.replace(/<footer class="asset-provenance"[\s\S]*?<\/footer>/, "");
   const groups = new Map();
+  const seenAssets = new Set();
   for (const match of cleaned.matchAll(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/g)) {
     const asset = match[1].replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
+    if (seenAssets.has(asset)) continue;
+    seenAssets.add(asset);
     const data = provenance.assets?.[asset];
     if (!data) continue;
-    const publisher = data.credit.includes("EastRise Credit Union") ? "EastRise Credit Union" : "Blue Cross and Blue Shield of Vermont";
+    const publisher = data.credit.includes("EastRise Credit Union")
+      ? "EastRise Credit Union"
+      : data.credit.includes("Blue Cross")
+        ? "Blue Cross and Blue Shield of Vermont"
+        : "Oliver Ames";
     const sourceUrl = normalizeSourceUrl(data.source_url);
     const key = `${publisher}|${data.source_channel || "source page"}|${sourceUrl}|${data.published_date || ""}|${data.downloaded_date || ""}|${data.archive_note || ""}`;
     const current = groups.get(key) || { count: 0, publisher, channel: data.source_channel, sourceUrl, publishedDate: data.published_date, downloadedDate: data.downloaded_date, archiveNote: data.archive_note };
@@ -248,6 +256,7 @@ for (const file of await collectHtml(root)) {
   after = ensureFontPreconnects(after);
   after = ensureFavicon(after, `${faviconBase}assets/images/brand/oa-social-mark.svg`);
   after = ensureHubSectionHeadings(after, file);
+  after = applyYoutubeFacades(after);
   after = addProvenanceDisclosure(
     normalizeFooterHeadingLevels(
       updateFooterGroups(addSocialHeading(addIcons(after)), file),

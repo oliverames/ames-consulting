@@ -80,7 +80,7 @@ test("homepage section edges and practice calls to action align", async ({ page 
   );
   expect(layout.headingOffset).toBeLessThan(1);
   expect(layout.testimonialEdges).toEqual(layout.practiceEdges);
-  expect(layout.testimonialBorder).toBe("1px");
+  expect(layout.testimonialBorder).toBe("0px");
 });
 
 test("homepage proof tooltips stay inside the hero", async ({ page }) => {
@@ -186,6 +186,21 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
     return hero.top - header.bottom;
   });
   expect(contactSpacing).toBeGreaterThanOrEqual(18);
+});
+
+test("about summary paragraphs keep a readable gap", async ({ page }) => {
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/about/");
+    const gap = await page.locator(".about-intro-card > p:not(.eyebrow)").evaluateAll(
+      (paragraphs) => {
+        const first = paragraphs[0].getBoundingClientRect();
+        const second = paragraphs[1].getBoundingClientRect();
+        return second.top - first.bottom;
+      },
+    );
+    expect(gap).toBeGreaterThanOrEqual(12);
+  }
 });
 
 test("narrow mobile layouts wrap without horizontal page overflow", async ({ page }) => {

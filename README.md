@@ -41,7 +41,7 @@ Cloudflare Pages hosts the site, and wrangler handles deployment. GitHub Actions
 | Route | Purpose |
 |---|---|
 | `/` | Home: intro, featured work, site directory |
-| `/work/` | Work index plus 42 project case studies; `?organization=` filters client-side |
+| `/work/` | Work index plus the project case studies listed in `publication-policy.mjs`; `?organization=` filters client-side |
 | `/blog/` | Writing index, archive, and per-post pages |
 | `/about/` | Profile and background |
 | `/services/*/` | Photography & video, strategy & content, practical technology |

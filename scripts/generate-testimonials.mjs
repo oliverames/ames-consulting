@@ -25,20 +25,83 @@ const people = {
     name: "Simeon Chapin",
     role: "SVP and chief community officer, American Eagle Financial Credit Union",
     profile: "https://www.linkedin.com/in/simeonchapin",
-    initials: "SC",
+    image: "simeon-chapin.webp",
     date: "November 5, 2025"
   },
   abigail: {
     name: "Abigail Stevenson",
     role: "Content and communications strategist, EastRise",
     profile: "https://www.linkedin.com/in/abigail-rose-stevenson",
-    initials: "AS",
+    image: "abigail-stevenson.webp",
     date: "November 5, 2025"
+  },
+  stephanie: {
+    name: "Stephanie Loscalzo",
+    role: "Financial education program manager, EastRise",
+    profile: "https://www.linkedin.com/in/stephanie-loscalzo-185652a2",
+    image: "stephanie-loscalzo.webp",
+    date: "January 25, 2023"
+  },
+  jennifer: {
+    name: "Jennifer Leeson",
+    role: "Senior consumer loan officer, EastRise",
+    profile: "https://www.linkedin.com/in/jenniferleeson",
+    image: "jennifer-leeson.webp",
+    date: "January 15, 2020"
+  },
+  dylan: {
+    name: "Dylan Woodrow",
+    role: "Digital marketing specialist",
+    profile: "https://www.linkedin.com/in/dylan-woodrow-0b974774",
+    image: "dylan-woodrow.webp",
+    date: "December 27, 2019"
+  },
+  rachel: {
+    name: "Rachel Feldman",
+    role: "Community organizer",
+    profile: "https://www.linkedin.com/in/rachel-feldman-070bb515",
+    image: "rachel-feldman.webp",
+    date: "December 27, 2019"
+  },
+  heidi: {
+    name: "Heidi White",
+    role: "Community advocate",
+    profile: "https://www.linkedin.com/in/heidiwhitevt",
+    image: "heidi-white.webp",
+    date: "December 19, 2019"
+  },
+  mitch: {
+    name: "Mitch Berriman",
+    role: "Owner, Berriman Web Marketing",
+    profile: "https://www.linkedin.com/in/mitch-berriman",
+    image: "mitch-berriman.webp",
+    date: "October 25, 2019"
+  },
+  diana: {
+    name: "Diana Clarke",
+    role: "Creative strategist, EastRise",
+    profile: "https://www.linkedin.com/in/dianamclarke",
+    image: "diana-clarke.webp",
+    date: "October 5, 2019"
+  },
+  jan: {
+    name: "Jan Reynolds",
+    role: "Author, lecturer, and photographer",
+    profile: "https://www.linkedin.com/in/jan-reynolds-36012124",
+    initials: "JR",
+    date: "September 4, 2012"
+  },
+  randy: {
+    name: "Randy Repass Jr.",
+    role: "Founder, West Marine",
+    profile: "https://www.linkedin.com/in/radmacdaddy",
+    image: "randy-repass-jr.webp",
+    date: "September 10, 2008"
   }
 };
 
 const portrait = (person, depth) => person.image
-  ? `<a class="testimonial-card__portrait-link" href="${person.profile}" rel="noopener" aria-label="${person.name} on LinkedIn"><img src="${"../".repeat(depth)}assets/images/testimonials/${person.image}" alt="${person.name}" width="800" height="800" loading="lazy" data-no-zoom></a>`
+  ? `<a class="testimonial-card__portrait-link" href="${person.profile}" rel="noopener" aria-label="${person.name} on LinkedIn"><img src="${"../".repeat(depth)}assets/images/testimonials/${person.image}" alt="${person.name}" width="400" height="400" loading="lazy" data-no-zoom></a>`
   : `<span class="testimonial-card__initials" aria-hidden="true">${person.initials}</span>`;
 
 const card = ({ person, quote, depth, featured = false }) => `<figure class="testimonial-card${featured ? " testimonial-card--featured" : ""}"><blockquote><p>“${quote}”</p></blockquote><figcaption>${portrait(person, depth)}<span><strong><a href="${person.profile}" rel="noopener">${person.name}</a></strong><small>${person.role}</small><a href="${person.profile}" rel="noopener">LinkedIn recommendation · ${person.date}</a></span></figcaption></figure>`;
@@ -101,15 +164,15 @@ const recommendationArchive = [
   [people.brad, quotes.bradFull, "Brad worked with Oliver during the EastRise brand launch while serving as a creative director at Adrenaline."],
   [people.simeon, "Oliver is a gem. His attention to detail and contribution to high functioning team culture stands out from our work together.", "Simeon worked with Oliver at VSECU."],
   [people.abigail, "Oliver is an exceptionally talented photographer, social media expert, and content creator whose creativity and professionalism allow him to shine through in every project.", "Abigail worked with Oliver at EastRise."],
-  [{ name: "Stephanie Loscalzo", role: "Financial education program manager, EastRise", initials: "SL", date: "January 25, 2023" }, "He puts in concerted effort to ensure his videos are pristine and professional, just as the social media accounts he oversees.", "Stephanie worked with Oliver at VSECU."],
-  [{ name: "Jennifer Leeson", role: "Senior consumer loan officer, EastRise", initials: "JL", date: "January 15, 2020" }, "Oliver shares his passion of social media in the workplace with others by having a genuine interest in helping them learn.", "Jennifer worked with Oliver at VSECU."],
-  [{ name: "Dylan Woodrow", role: "Digital marketing specialist", initials: "DW", date: "December 27, 2019" }, "He loves problems because he attacks them head on and won’t stop until a solution is found.", "Dylan worked with Oliver at VTDigger."],
-  [{ name: "Rachel Feldman", role: "Community organizer", initials: "RF", date: "December 27, 2019" }, "Working with him has changed our team for the better in countless ways.", "Rachel worked with Oliver at VTDigger."],
-  [{ name: "Heidi White", role: "Community advocate", initials: "HW", date: "December 19, 2019" }, "I am struck by the breadth of his knowledge, his capacity to draw on that knowledge base to create engaging social marketing posts, and his wisdom in analyzing and improving on his work.", "Heidi worked with Oliver at VTDigger."],
-  [{ name: "Mitch Berriman", role: "Owner, Berriman Web Marketing", initials: "MB", date: "October 25, 2019" }, "His engaging personality and knowledge of the social media and digital landscape make him a perfect fit for any social media marketing role.", "Mitch worked with Oliver at VTDigger."],
-  [{ name: "Diana Clarke", role: "Creative strategist, EastRise", initials: "DC", date: "October 5, 2019" }, "Oliver is an extremely hard-working and driven individual, who is always searching for, strategizing, and implementing new and better ideas.", "Diana worked with Oliver at VSECU."],
-  [{ name: "Jan Reynolds", role: "Author, lecturer, and photographer", initials: "JR", date: "September 4, 2012" }, "Oliver is very detailed and knowledgeable, has patience to explain the nuts and bolts, but likes to suggest ways to get beyond basics.", "Jan hired Oliver for consulting work."],
-  [{ name: "Randy Repass Jr.", role: "Founder, West Marine", initials: "RR", date: "September 10, 2008" }, "Oliver has shown not only a strong understanding of the use of such tools to share his knowledge, but regularly strives to offer his assistance to others in technological need.", "Randy wrote one of Oliver’s earliest professional recommendations."]
+  [people.stephanie, "He puts in concerted effort to ensure his videos are pristine and professional, just as the social media accounts he oversees.", "Stephanie worked with Oliver at VSECU."],
+  [people.jennifer, "Oliver shares his passion of social media in the workplace with others by having a genuine interest in helping them learn.", "Jennifer worked with Oliver at VSECU."],
+  [people.dylan, "He loves problems because he attacks them head on and won’t stop until a solution is found.", "Dylan worked with Oliver at VTDigger."],
+  [people.rachel, "Working with him has changed our team for the better in countless ways.", "Rachel worked with Oliver at VTDigger."],
+  [people.heidi, "I am struck by the breadth of his knowledge, his capacity to draw on that knowledge base to create engaging social marketing posts, and his wisdom in analyzing and improving on his work.", "Heidi worked with Oliver at VTDigger."],
+  [people.mitch, "His engaging personality and knowledge of the social media and digital landscape make him a perfect fit for any social media marketing role.", "Mitch worked with Oliver at VTDigger."],
+  [people.diana, "Oliver is an extremely hard-working and driven individual, who is always searching for, strategizing, and implementing new and better ideas.", "Diana worked with Oliver at VSECU."],
+  [people.jan, "Oliver is very detailed and knowledgeable, has patience to explain the nuts and bolts, but likes to suggest ways to get beyond basics.", "Jan hired Oliver for consulting work."],
+  [people.randy, "Oliver has shown not only a strong understanding of the use of such tools to share his knowledge, but regularly strives to offer his assistance to others in technological need.", "Randy wrote one of Oliver’s earliest professional recommendations."]
 ];
 
 const fullRecommendations = new Map([
@@ -119,9 +182,29 @@ const fullRecommendations = new Map([
   ["Abigail Stevenson", "Oliver is an exceptionally talented photographer, social media expert, and content creator whose creativity and professionalism allow him to shine through in every project. I appreciate his guidance and ability to pivot when something urgent arises. Beyond his technical skills, Oliver is a true team player who is always ready to support others and share ideas. He is a true pleasure to work with!"],
 ]);
 
-const archiveCards = recommendationArchive.map(([person, quote, context]) => `<article class="recommendation-entry"><div class="recommendation-entry__person">${portrait(person, 1)}<div><h3>${person.name}</h3><p>${person.role}</p><small>${person.date}</small></div></div><blockquote><p>“${quote}”</p></blockquote><p class="recommendation-entry__context">${context}</p>${fullRecommendations.has(person.name) ? `<details><summary>Read the full recommendation</summary><p>${fullRecommendations.get(person.name)}</p></details>` : ""}${person.profile ? `<a href="${person.profile}" rel="noopener">View LinkedIn profile →</a>` : ""}</article>`).join("");
+const recommendationId = (name) => `recommendation-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+
+const archiveCards = recommendationArchive.map(([person, quote, context]) => {
+  const fullRecommendationButton = fullRecommendations.has(person.name)
+    ? `<button class="recommendation-entry__more" type="button" aria-haspopup="dialog" aria-controls="recommendation-dialog" data-recommendation-dialog="${recommendationId(person.name)}" aria-label="Read the full recommendation from ${person.name}">Read the full recommendation</button>`
+    : "";
+  const profileLink = person.profile
+    ? `<a href="${person.profile}" rel="noopener">View LinkedIn profile →</a>`
+    : "";
+  const actions = fullRecommendationButton || profileLink
+    ? `<div class="recommendation-entry__actions">${fullRecommendationButton}${profileLink}</div>`
+    : "";
+  return `<article class="recommendation-entry"><div class="recommendation-entry__person">${portrait(person, 1)}<div><h3>${person.name}</h3><p>${person.role}</p><small>${person.date}</small></div></div><blockquote><p>“${quote}”</p></blockquote><p class="recommendation-entry__context">${context}</p>${actions}</article>`;
+}).join("");
+
+const recommendationDialogTemplates = [...fullRecommendations.entries()].map(([name, text]) => {
+  const person = recommendationArchive.find(([candidate]) => candidate.name === name)?.[0];
+  return `<template id="${recommendationId(name)}"><div class="recommendation-dialog__content"><div class="recommendation-dialog__header"><p class="eyebrow">Full recommendation</p><h2 data-recommendation-dialog-title>Recommendation from ${name}</h2><p class="recommendation-dialog__meta">${person.role} · ${person.date}</p></div><blockquote><p>“${text}”</p></blockquote></div></template>`;
+}).join("");
+
+const recommendationDialog = `<dialog class="recommendation-dialog" id="recommendation-dialog" aria-label="Full recommendation"><article class="recommendation-dialog__surface"><button class="recommendation-dialog__close" type="button" aria-label="Close full recommendation">×</button><div data-recommendation-dialog-content></div></article></dialog>${recommendationDialogTemplates}`;
 const testimonialsFooter = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../work/taylor-hoar-racing/">Taylor Hoar Racing</a></li><li><a href="../work/wheels-for-warmth/">Wheels for Warmth</a></li><li><a href="../work/eastrise-writing/">EastRise Writing</a></li><li><a href="../work/community-photography/">Community Photography</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../work/">All work</a></li><li><a href="../blog/">Writing</a></li><li><a href="../about/">About</a></li><li><a href="../testimonials/" aria-current="page">Testimonials</a></li><li><a href="../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p></div></div></footer>`;
-const testimonialsHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self';"><title>Testimonials | Ames Consulting</title><meta name="description" content="Public LinkedIn recommendations about Oliver Ames and his work."><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/testimonials/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../">Home</a></li><li><a href="../work/">Work</a></li><li><a href="../blog/">Writing</a></li><li><a href="../about/">About</a></li><li><a href="../testimonials/" aria-current="page">Testimonials</a></li><li><a href="../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="page-header"><p class="eyebrow">Testimonials</p><h1>What people say after working with me.</h1><p>These public LinkedIn recommendations come from people who have worked with me across several organizations.</p></header><section class="recommendation-archive" aria-labelledby="linkedin-recommendations"><div class="section-heading"><p class="eyebrow">LinkedIn recommendations</p><h2 id="linkedin-recommendations">Public recommendations, with the person and context attached.</h2></div><div class="recommendation-grid">${archiveCards}</div></section></main>${testimonialsFooter}<script type="module" src="../assets/js/header-scroll.js"></script></body></html>`;
+const testimonialsHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self';"><title>Testimonials | Ames Consulting</title><meta name="description" content="Public LinkedIn recommendations about Oliver Ames and his work."><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/testimonials/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../">Home</a></li><li><a href="../work/">Work</a></li><li><a href="../blog/">Writing</a></li><li><a href="../about/">About</a></li><li><a href="../testimonials/" aria-current="page">Testimonials</a></li><li><a href="../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="page-header"><p class="eyebrow">Testimonials</p><h1>What people say after working with me.</h1><p>These public LinkedIn recommendations come from people who have worked with me across several organizations.</p></header><section class="recommendation-archive" aria-labelledby="linkedin-recommendations"><div class="section-heading"><p class="eyebrow">LinkedIn recommendations</p><h2 id="linkedin-recommendations">Public recommendations, with the person and context attached.</h2></div><div class="recommendation-grid">${archiveCards}</div></section></main>${recommendationDialog}${testimonialsFooter}<script type="module" src="../assets/js/header-scroll.js"></script><script type="module" src="../assets/js/recommendation-dialog.js"></script></body></html>`;
 await mkdir(join(root, "testimonials"), { recursive: true });
 await writeFile(join(root, "testimonials", "index.html"), testimonialsHtml);
 

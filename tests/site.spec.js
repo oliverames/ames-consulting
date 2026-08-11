@@ -1,4 +1,18 @@
 import { test, expect } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+
+const readEventGalleries = async () => JSON.parse(
+  await readFile(new URL("../assets/data/event-galleries.json", import.meta.url), "utf8"),
+);
+const readEastRisePhotography = async () => JSON.parse(
+  await readFile(new URL("../assets/data/eastrise-photography.json", import.meta.url), "utf8"),
+);
+const readPortraits = async () => JSON.parse(
+  await readFile(new URL("../assets/data/portraits.json", import.meta.url), "utf8"),
+);
+const readWritingFeed = async () => JSON.parse(
+  await readFile(new URL("../assets/data/writing-feed.json", import.meta.url), "utf8"),
+);
 
 test("homepage presents the company and verified proof", async ({ page }) => {
   await page.clock.install();
@@ -117,11 +131,18 @@ test("homepage campaign strip keeps its first card on the content gutter", async
       Math.abs(positions.headingLeft - positions.cardLeft),
     ).toBeLessThanOrEqual(1);
   }
+  await expect(page.locator(".home-paths .path-thumb").first()).toHaveAttribute(
+    "href",
+    "work/neg-ecp-conference-2026/",
+  );
   await expect(
-    page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
+    page.getByRole("heading", { name: "47th NEG-ECP Conference", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Wheels for Warmth 2025" }),
+    page.getByRole("heading", { name: "Taylor Hoar Racing", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Wheels for Warmth", exact: true }),
   ).toBeVisible();
 });
 
@@ -367,71 +388,145 @@ test("member banking stories separates the Urban Rhino series", async ({
   ).toBeVisible();
 });
 
-test("community photography series uses the verified portfolio", async ({
+test("YouTube facades defer every player until the visitor presses Play", async ({
   page,
 }) => {
-  await page.goto("/work/community-photography/");
-  await expect(page.locator(".media-grid img")).toHaveCount(7);
+  const youtubeRequests = [];
+  page.on("request", (request) => {
+    if (new URL(request.url()).hostname === "www.youtube-nocookie.com") {
+      youtubeRequests.push(request.url());
+    }
+  });
+  const videoPages = [
+    ["/work/eastrise-photography/", 2],
+    ["/work/member-banking-stories/", 11],
+    ["/work/fairbanks-planetarium/", 1],
+    ["/work/flight-paths/", 1],
+  ];
+
+  for (const [route, expectedCount] of videoPages) {
+    await page.goto(route);
+    const videos = page.locator('iframe[src*="youtube-nocookie.com/embed/"]');
+    await expect(videos).toHaveCount(expectedCount);
+    await expect(
+      page.locator('iframe[src*="youtube-nocookie.com/embed/"][srcdoc]'),
+    ).toHaveCount(expectedCount);
+  }
+
+  expect(youtubeRequests).toEqual([]);
+  await page.route("https://www.youtube-nocookie.com/**", (route) => route.abort());
+  await page
+    .frameLocator('iframe[src*="youtube-nocookie.com/embed/"]')
+    .getByRole("link", { name: "Play Flight Paths: Emma at BETA" })
+    .click();
+  await expect.poll(() => youtubeRequests).toHaveLength(1);
+  expect(youtubeRequests[0]).toMatch(/4r5N5DjmSCU\?autoplay=1$/);
 });
 
 test("event photography is split into complete campaign galleries", async ({
   page,
 }) => {
-  const campaigns = [
-    ["/work/senior-games-press-event-2026/", 114],
-    ["/work/arrayrx-press-conference-2026/", 28],
-    ["/work/walk-at-lunch-and-green-up-2026/", 85],
-    ["/work/be-well-at-work-2026/", 66],
-    ["/work/corporate-cup-2026/", 9],
-    ["/work/girls-on-the-run-2026/", 185],
-    ["/work/eastrise-launch-campaign/", 23],
-    ["/work/giron-family-fall-2025/", 36],
-    ["/work/giron-family-christmas-tree-farm-2024/", 122],
-    ["/work/giron-family-fall-2023/", 228],
-  ];
-  for (const [route, count] of campaigns) {
-    await page.goto(route);
-    await expect(page.locator(".campaign-collage img")).toHaveCount(count);
+  const { campaigns } = await readEventGalleries();
+  const publishedCampaigns = campaigns.filter((campaign) => campaign.published !== false);
+  const requiredGalleryCounts = new Map([
+    ["neg-ecp-conference-2026", 35],
+    ["london-2019", 8],
+    ["vermont-foodbank-volunteer-day-2026", 38],
+    ["whale-dance-randolph", 8],
+    ["drone-photography", 62],
+  ]);
+
+  for (const [slug, count] of requiredGalleryCounts) {
+    const campaign = publishedCampaigns.find((item) => item.slug === slug);
+    expect(campaign, `${slug} should be a published event gallery`).toBeTruthy();
+    expect(campaign.images, `${slug} should retain every selected photograph`).toHaveLength(count);
   }
+
+  for (const campaign of publishedCampaigns) {
+    await page.goto(`/work/${campaign.slug}/`);
+    await expect(
+      page.locator(".campaign-collage img"),
+      campaign.slug,
+    ).toHaveCount(campaign.images.length);
+  }
+
+  const lightboxCampaign = publishedCampaigns.find(
+    (campaign) => campaign.slug === "giron-family-fall-2025",
+  );
   await page.goto("/work/giron-family-fall-2025/");
   await page.locator(".campaign-collage img").first().click();
-  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 36");
+  await expect(page.locator("#image-viewer-caption")).toContainText(
+    `1 of ${lightboxCampaign.images.length}`,
+  );
 });
 
-test("Taylor Hoar portrait and Milk Bowl galleries stay separate", async ({
+test("Taylor Hoar consolidates every approved racing and community photograph", async ({
   page,
 }) => {
+  const photography = await readEastRisePhotography();
+  const racingSeries = photography.series.find(
+    (series) => series.slug === "taylor-hoar-racing",
+  );
+  const veggieVanGoSeries = photography.series.find(
+    (series) => series.slug === "veggievango-taylor-hoar",
+  );
+
   await page.goto("/work/taylor-hoar-racing/");
-  const portraits = page.getByRole("group", {
-    name: "2025 Taylor Hoar portrait gallery",
-  });
-  await expect(portraits.locator("img")).toHaveCount(7);
-  const heroImage = page.locator(".case-hero--family > img");
-  await expect(heroImage).toHaveAttribute(
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Taylor Hoar Racing",
+  );
+  await expect(page.locator(".metric-grid article")).toHaveCount(4);
+  const racing = page.locator('[data-gallery="eastrise-taylor-hoar-racing"]');
+  await expect(racing.locator("img")).toHaveCount(racingSeries.images.length);
+  await expect(racing.locator("img").first()).toHaveAttribute(
     "src",
     /featured-2025-dsc07501\.webp$/,
   );
-  await expect(heroImage).toHaveAttribute("data-no-zoom", "");
-  await expect(heroImage).not.toHaveClass(/zoomable-image/);
-  await portraits.locator("img").first().click();
+  await racing.locator("img").first().click();
   const viewer = page.locator("#image-viewer");
   const viewerCaption = page.locator("#image-viewer-caption");
   await expect(viewer).toBeVisible();
-  await expect(viewerCaption).toContainText("1 of 7");
+  await expect(viewerCaption).toContainText(`1 of ${racingSeries.images.length}`);
   await page.keyboard.press("ArrowRight");
-  await expect(viewerCaption).toContainText("2 of 7");
+  await expect(viewerCaption).toContainText(`2 of ${racingSeries.images.length}`);
   await page.locator("#image-viewer-close").click();
 
-  const gallery = page.getByRole("group", {
-    name: "2025 Milk Bowl photo gallery",
-  });
-  await expect(gallery.locator("img")).toHaveCount(8);
-  await gallery.locator("img").first().click();
+  const veggieVanGo = page.locator(
+    '[data-gallery="eastrise-veggievango-taylor-hoar"]',
+  );
+  await expect(veggieVanGo.locator("img")).toHaveCount(
+    veggieVanGoSeries.images.length,
+  );
+  await veggieVanGo.locator("img").first().click();
   await expect(viewer).toBeVisible();
-  await expect(viewerCaption).toContainText("1 of 8");
+  await expect(viewerCaption).toContainText(
+    `1 of ${veggieVanGoSeries.images.length}`,
+  );
   await page.keyboard.press("ArrowRight");
-  await expect(viewerCaption).toContainText("2 of 8");
+  await expect(viewerCaption).toContainText(
+    `2 of ${veggieVanGoSeries.images.length}`,
+  );
   await expect(page.locator("body")).not.toContainText("personal photo library");
+});
+
+test("Wheels for Warmth combines 2025 results with the 2024 photo series", async ({
+  page,
+}) => {
+  const photography = await readEastRisePhotography();
+  const photoSeries = photography.series.find(
+    (series) => series.slug === "wheels-for-warmth-2024",
+  );
+
+  await page.goto("/work/wheels-for-warmth/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Wheels for Warmth",
+  );
+  await expect(page.locator(".metric-grid article")).toHaveCount(4);
+  await expect(page.locator(".metric-grid")).toContainText("65,906");
+  await expect(page.locator(".metric-grid")).toContainText("274");
+  await expect(
+    page.locator('[data-gallery="eastrise-wheels-for-warmth-2024"] img'),
+  ).toHaveCount(photoSeries.images.length);
 });
 
 test("career pages keep private evidence and unsupported claims out of public copy", async ({
@@ -439,7 +534,7 @@ test("career pages keep private evidence and unsupported claims out of public co
 }) => {
   await page.goto("/work/live-broadcasts/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Live broadcasts made complex updates easier to follow.",
+    "Live broadcasts made complex updates clear.",
   );
   await expect(page.locator("body")).not.toContainText("10,000");
   await expect(page.locator("body")).not.toContainText("2025 resume");
@@ -458,11 +553,13 @@ test("career pages keep private evidence and unsupported claims out of public co
 test("gallery images support keyboards and retain their context menus", async ({
   page,
 }) => {
+  const photography = await readEastRisePhotography();
+  const racingSeries = photography.series.find(
+    (series) => series.slug === "taylor-hoar-racing",
+  );
   await page.goto("/work/taylor-hoar-racing/");
-  const portraits = page.getByRole("group", {
-    name: "2025 Taylor Hoar portrait gallery",
-  });
-  const thumbnail = portraits.locator("img").first();
+  const gallery = page.locator('[data-gallery="eastrise-taylor-hoar-racing"]');
+  const thumbnail = gallery.locator("img").first();
 
   await expect(thumbnail).toHaveAttribute("role", "button");
   await expect(thumbnail).toHaveAttribute("tabindex", "0");
@@ -489,7 +586,9 @@ test("gallery images support keyboards and retain their context menus", async ({
   const viewerCaption = page.locator("#image-viewer-caption");
   const captionCount = page.locator(".image-viewer-caption__count");
   await expect(viewer).toBeVisible();
-  await expect(captionCount).toHaveText(/^\d+ of 7$/);
+  await expect(captionCount).toHaveText(
+    new RegExp(`^\\d+ of ${racingSeries.images.length}$`),
+  );
   await expect(viewerCaption).toHaveAttribute("role", "status");
   await expect(viewerCaption).toHaveAttribute("aria-live", "polite");
   await expect(viewerCaption).toHaveAttribute("aria-atomic", "true");
@@ -561,16 +660,52 @@ test("primary actions retain a visible keyboard focus ring", async ({ page }) =>
 });
 
 test("portrait work is split into complete framed galleries", async ({ page }) => {
+  const portraits = await readPortraits();
+  const eastRisePortraits = portraits.series.find(
+    (series) => series.slug === "eastrise-leadership-board",
+  );
+  expect(eastRisePortraits.images).toHaveLength(40);
+  expect(
+    eastRisePortraits.images.filter((image) => !image.source && !image.archiveNote),
+  ).toEqual([]);
+  expect(
+    eastRisePortraits.images.filter((image) => !/^Portrait of /.test(image.alt)),
+  ).toEqual([]);
+  const officialPortraitNames = [
+    "Elizabeth Morton",
+    "Greg Hahr",
+    "Mark Ackerly",
+    "Valerie Beaudin",
+    "Rick Hommel",
+    "Sue Leonard",
+    "Robert Miller",
+    "Subha Luck",
+    "Frank G. Harris",
+    "Margaret H. O’Donnell",
+    "Stephanie Meunier",
+    "Julie Lineberger",
+    "Amy Vaughan",
+    "Michael Hogan",
+    "George Sales",
+    "Spencer Newman",
+    "Arthur G. Woolf",
+  ];
   await page.setViewportSize({ width: 785, height: 863 });
   await page.goto("/work/portraits-and-people/");
-  await expect(page.locator(".work-item")).toHaveCount(2);
+  await expect(page.locator(".work-item")).toHaveCount(1);
+  await expect(page.locator('.work-item[href="../eastrise-portraits/"]')).toHaveCount(1);
+  await expect(page.locator('a[href*="blue-cross-portraits"]')).toHaveCount(0);
   await page.goto("/work/eastrise-portraits/");
-  await expect(page.locator(".portrait-gallery img")).toHaveCount(40);
-  await expect(page.locator(".portrait-gallery--featured img")).toHaveCount(11);
-  await expect(page.getByAltText("Portrait of Yvonne Garand")).toHaveCount(1);
-  for (const removedName of ["Samantha Waters", "Pamela Wooster", "Marty DiVenuti", "Mike Bouffard", "Lori Grego", "Kelley Colby", "Jim Oberg", "Frank G. Harris"]) {
-    await expect(page.getByAltText(`Portrait of ${removedName}`)).toHaveCount(0);
-  }
+  const portraitImages = page.locator(".portrait-gallery img");
+  await expect(portraitImages).toHaveCount(40);
+  const renderedNames = await portraitImages.evaluateAll((images) => images
+    .map((image) => image.alt.replace(/^Portrait of /, ""))
+    .sort((left, right) => left.localeCompare(right)));
+  expect(renderedNames.filter((name) => officialPortraitNames.includes(name))).toEqual(
+    [...officialPortraitNames].sort((left, right) => left.localeCompare(right)),
+  );
+  await expect(page.getByAltText("Portrait of Frank G. Harris")).toHaveCount(1);
+  await expect(page.getByAltText("Portrait of Yvonne Garand")).toHaveCount(0);
   const firstGallery = page.locator(".portrait-gallery").first();
   const firstGalleryCount = await firstGallery.locator("img").count();
   const firstPortrait = firstGallery.locator("img").first();
@@ -584,55 +719,67 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
     `2 of ${firstGalleryCount}`,
   );
   await page.locator("#image-viewer-close").click();
-  await firstGallery.locator("img").last().click();
+  await page.getByAltText("Portrait of Frank G. Harris").click();
   await expect(page.locator("#image-viewer-caption")).toContainText(
-    "Yvonne Garand · Former EastRise senior vice president",
-  );
-  await expect(page.locator("#image-viewer-caption")).toContainText(
-    `${firstGalleryCount} of ${firstGalleryCount}`,
-  );
-  await page.goto("/work/blue-cross-portraits/");
-  await expect(page.locator(".portrait-gallery img")).toHaveCount(7);
-  await expect(page.locator(".portrait-gallery img").first()).toHaveCSS(
-    "object-fit",
-    "contain",
+    "Frank G. Harris",
   );
 });
 
-test("Flight Paths is a standalone video series", async ({ page }) => {
+test("Flight Paths is the sole BETA media project", async ({ page }) => {
+  await page.goto("/work/");
+  const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
+  await expect(flightPathsCard).toHaveCount(1);
+  await expect(flightPathsCard).toHaveAttribute("data-organization", "beta-technologies");
+  await expect(flightPathsCard.locator("img, iframe")).toHaveCount(0);
+  await expect(
+    page.locator(
+      '.work-item[data-organization="blue-cross-vermont"]:has(img), .work-item[data-organization="blue-cross-vermont"]:has(iframe)',
+    ),
+  ).toHaveCount(0);
+  await expect(
+    page.locator(
+      '.work-item[href="beta-andrew/"], .work-item[href="beta-emma/"], .work-item[href="beta-ethan/"]',
+    ),
+  ).toHaveCount(0);
+
   await page.goto("/work/flight-paths/");
-  await expect(page.locator('iframe[src*="4r5N5DjmSCU"]')).toHaveCount(1);
+  await expect(page.locator("main img, main [data-gallery]")).toHaveCount(0);
+  const video = page.locator(
+    'iframe[src="https://www.youtube-nocookie.com/embed/4r5N5DjmSCU"]',
+  );
+  await expect(video).toHaveCount(1);
+  await expect(video).toHaveAttribute("srcdoc", /Play Flight Paths: Emma at BETA/);
+
+  await page.goto("/work/beta-technologies/");
+  await expect(page.locator("main img, main iframe, main [data-gallery]")).toHaveCount(0);
+  await expect(page.locator('main a[href="../flight-paths/"]')).toHaveCount(1);
 });
 
 test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   await expect(
-    page.locator(".work-category:first-of-type .work-item"),
-  ).toHaveCount(32);
-  await expect(
     page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
   ).toHaveCount(0);
-  await expect(page.locator(".work-category--portraits .work-item")).toHaveCount(2);
+  await expect(page.locator(".work-category--portraits .work-item")).toHaveCount(1);
   await expect(
-    page.getByRole("heading", { name: "Taylor Hoar Racing 2025" }),
+    page.getByRole("heading", { name: "Taylor Hoar Racing", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Wheels for Warmth 2025" }),
+    page.getByRole("heading", { name: "Wheels for Warmth", exact: true }),
   ).toBeVisible();
+  await expect(page.locator('a.work-item[href="taylor-hoar-racing/"]')).toHaveCount(1);
+  await expect(page.locator('a.work-item[href="wheels-for-warmth/"]')).toHaveCount(1);
   await expect(
-    page.getByRole("heading", { name: "Corporate Cup 2026" }),
-  ).toBeVisible();
+    page.locator('a.work-item[href="eastrise-photography/#veggievango-taylor-hoar-title"]'),
+  ).toHaveCount(0);
   await expect(
-    page.getByRole("heading", { name: "Girls on the Run 2026" }),
-  ).toBeVisible();
+    page.locator('a.work-item[href="eastrise-photography/#wheels-for-warmth-2024-title"]'),
+  ).toHaveCount(0);
   await expect(
     page.getByRole("heading", { name: "EastRise Launch Campaign" }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "EastRise Portraits" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Blue Cross Portraits" }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Giron Family, Fall 2025", exact: true }),
@@ -646,6 +793,25 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Vermont Foodbank Volunteer Day" }),
   ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "London at Dusk" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Whale Dance in Randolph" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Drone Photography" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Flight Paths" })).toBeVisible();
+  for (const withheldHeading of [
+    "Senior Games Press Event",
+    "ArrayRx Press Conference",
+    "Walk@Lunch and Green Up",
+    "Be Well at Work",
+    "Corporate Cup 2026",
+    "Girls on the Run 2026",
+    "Blue Cross Portraits",
+  ]) {
+    await expect(
+      page.getByRole("heading", { name: withheldHeading, exact: true }),
+    ).toHaveCount(0);
+  }
   await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Emma at BETA" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toHaveCount(0);
@@ -700,9 +866,10 @@ test("Vermont Foodbank shoot uses the complete gallery and paged lightbox", asyn
   await expect(page.locator("#image-viewer-caption")).toContainText("2 of 38");
 });
 
-test("BETA Technologies page keeps the public Flight Paths film", async ({ page }) => {
+test("BETA Technologies page points to the canonical Flight Paths film", async ({ page }) => {
   await page.goto("/work/beta-technologies/");
-  await expect(page.locator('iframe[src*="4r5N5DjmSCU"]')).toHaveCount(1);
+  await expect(page.locator("main iframe, main img, main [data-gallery]")).toHaveCount(0);
+  await expect(page.locator('main a[href="../flight-paths/"]')).toHaveCount(1);
 });
 
 test("Fairbanks case study embeds Breaking Records in Science Education", async ({ page }) => {
@@ -734,9 +901,20 @@ test("about page works as a professional profile and resume", async ({
     page.locator('img[alt="Oliver Ames smiling outdoors in Vermont"]'),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "The full version." }),
+    page.getByRole("heading", { name: "Experience" }),
   ).toBeVisible();
-  await expect(page.locator(".about-role")).toHaveCount(8);
+  await expect(
+    page.locator(".about-experience .section-heading__statement"),
+  ).toHaveText("The full version.");
+  await expect(page.locator(".about-role")).toHaveCount(9);
+  const betaRole = page.locator(".about-role").filter({
+    has: page.getByRole("heading", { name: "BETA Technologies", exact: true }),
+  });
+  const blueCrossRole = page.locator(".about-role").filter({
+    has: page.getByRole("heading", { name: "Blue Cross Vermont", exact: true }),
+  });
+  await expect(betaRole).toContainText("Flight Paths");
+  await expect(blueCrossRole).not.toContainText("Flight Paths");
   await expect(
     page.getByText("Boston University", { exact: true }),
   ).toBeVisible();
@@ -781,6 +959,40 @@ test("testimonials archive contains public recommendations only", async ({
   await expect(page.locator(".review-entry")).toHaveCount(0);
   await expect(page.getByText("Yvonne Garand", { exact: true })).toBeVisible();
   await expect(page.getByText("Brad Meerholz", { exact: true })).toBeVisible();
+  await expect(page.locator(".recommendation-entry details")).toHaveCount(0);
+  await expect(page.locator(".recommendation-entry img")).toHaveCount(12);
+  await expect(page.locator(".recommendation-entry .testimonial-card__initials")).toHaveCount(1);
+  await expect(
+    page.locator(".recommendation-entry").filter({ hasText: "Jan Reynolds" }).locator(".testimonial-card__initials"),
+  ).toHaveText("JR");
+  await expect(
+    page.locator(".recommendation-entry").filter({ hasText: "Simeon Chapin" }).locator('img[src$="simeon-chapin.webp"]'),
+  ).toHaveAttribute("alt", "Simeon Chapin");
+  await expect(
+    page.locator(".recommendation-entry").filter({ hasText: "Abigail Stevenson" }).locator('img[src$="abigail-stevenson.webp"]'),
+  ).toHaveAttribute("alt", "Abigail Stevenson");
+  const yvonneButton = page.getByRole("button", {
+    name: "Read the full recommendation from Yvonne Garand",
+  });
+  const yvonneProfile = page
+    .locator(".recommendation-entry")
+    .filter({ hasText: "Yvonne Garand" })
+    .getByRole("link", { name: "View LinkedIn profile" });
+  await expect(yvonneProfile).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/yvonnegarand",
+  );
+  await yvonneButton.click();
+  const dialog = page.getByRole("dialog", {
+    name: "Recommendation from Yvonne Garand",
+  });
+  await expect(dialog).toBeVisible();
+  await expect(dialog).toContainText("valuable asset to any team");
+  await expect(page.locator("html")).toHaveClass(/has-open-dialog/);
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+  await expect(yvonneButton).toBeFocused();
+  await expect(page.locator("html")).not.toHaveClass(/has-open-dialog/);
   await expect(
     page.locator('.site-nav a[href="../testimonials/"]'),
   ).toHaveAttribute("aria-current", "page");
@@ -806,21 +1018,45 @@ test("EastRise writing archive contains every attributed article", async ({
 test("EastRise photography is grouped into complete public-source galleries", async ({
   page,
 }) => {
+  const photography = await readEastRisePhotography();
+  const expectedImageCount = photography.series.reduce(
+    (total, series) => total + series.images.length,
+    0,
+  );
   await page.goto("/work/eastrise-photography/");
-  await expect(page.locator(".photo-series")).toHaveCount(14);
-  await expect(page.locator(".campaign-collage img")).toHaveCount(153);
+  await expect(page.locator(".photo-series")).toHaveCount(photography.series.length);
+  await expect(page.locator(".campaign-collage img")).toHaveCount(expectedImageCount);
   await expect(
     page.locator('[aria-labelledby="taylor-hoar-racing-title"] .campaign-collage img').first(),
   ).toHaveAttribute("src", /featured-2025-dsc07501\.webp$/);
+  const karinaVideo = page.locator(
+    "#karina-and-ryan-title + p + .photo-series__video iframe",
+  );
+  await expect(karinaVideo).toHaveAttribute("src", /A1oAN6Ox6A0/);
+  await expect(karinaVideo).toHaveAttribute(
+    "srcdoc",
+    /Play Karina and Ryan member story/,
+  );
   await expect(
-    page.locator("#karina-and-ryan-title + p + .photo-series__video iframe"),
-  ).toHaveAttribute("src", /A1oAN6Ox6A0/);
-  await expect(
-    page.locator("#john-and-donia-title + p + .photo-series__video iframe"),
-  ).toHaveAttribute("src", /dffKrKG5Hbs/);
+    page
+      .frameLocator("#karina-and-ryan-title + p + .photo-series__video iframe")
+      .getByRole("link", { name: "Play Karina and Ryan member story" }),
+  ).toHaveAttribute("href", /A1oAN6Ox6A0\?autoplay=1$/);
+  const johnVideo = page.locator(
+    "#john-and-donia-title + p + .photo-series__video iframe",
+  );
+  await expect(johnVideo).toHaveAttribute("src", /dffKrKG5Hbs/);
+  await expect(johnVideo).toHaveAttribute(
+    "srcdoc",
+    /Play John and Donia member story/,
+  );
+  const johnAndDonia = photography.series.find(
+    (series) => series.slug === "john-and-donia",
+  );
+  expect(johnAndDonia).toBeTruthy();
   await expect(
     page.locator('[aria-labelledby="john-and-donia-title"] .campaign-collage img'),
-  ).toHaveCount(13);
+  ).toHaveCount(johnAndDonia.images.length);
   await expect(
     page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
   ).toHaveCount(0);
@@ -840,31 +1076,66 @@ test("EastRise photography is grouped into complete public-source galleries", as
 test("Writing uses social cards and opens long-form posts on-site", async ({
   page,
 }) => {
+  const writingFeed = await readWritingFeed();
+  const isLongForm = (post) => post.platforms.includes("Micro.blog") && (post.title || post.text.length >= 800);
+  const oneYearAgo = new Date();
+  oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1);
+  const expectedLinkedInPosts = writingFeed.posts.filter(
+    (post) => !isLongForm(post)
+      && post.platforms.includes("LinkedIn")
+      && new Date(post.date) >= oneYearAgo,
+  );
+  const expectedMicroPosts = writingFeed.posts
+    .filter((post) => post.platforms.includes("Micro.blog"))
+    .slice(0, 6);
   await page.goto("/blog/");
   await expect(
     page.getByRole("link", { name: "Micro.blog is my blog" }),
   ).toHaveAttribute("href", "https://oliverames.micro.blog/");
-  await expect(page.locator(".social-card")).toHaveCount(3);
+  await expect(page.locator(".social-card")).toHaveCount(
+    expectedMicroPosts.length + expectedLinkedInPosts.length,
+  );
   const writingProfiles = page.getByLabel("Writing profiles");
   await expect(
     writingProfiles.getByRole("link", { name: "Threads", exact: true }),
   ).toBeVisible();
   await page.goto("/blog/archive/");
-  await expect(page.locator(".social-card")).toHaveCount(36);
+  await expect(page.locator(".social-card")).toHaveCount(writingFeed.posts.length);
   await page.goto("/blog/");
   await expect(
     writingProfiles.getByRole("link", { name: "Instagram", exact: true }),
   ).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Recent LinkedIn posts" })).toBeVisible();
-  const linkedInCard = page.locator(".writing-stream--social .social-card");
-  await expect(linkedInCard).toHaveCount(1);
-  await expect(linkedInCard.locator(".social-card__media")).toBeVisible();
-  await expect(linkedInCard.locator(".social-card__shared")).toContainText(
+  await expect(page.getByRole("heading", { name: "LinkedIn posts from the past year" })).toBeVisible();
+  const linkedInCards = page.locator(".writing-stream--social .social-card");
+  await expect(linkedInCards).toHaveCount(expectedLinkedInPosts.length);
+  await expect(linkedInCards.locator(".social-card__media")).toHaveCount(
+    expectedLinkedInPosts.filter((post) => post.image || post.localImage).length,
+  );
+  await expect(linkedInCards.locator(".social-card__shared").first()).toContainText(
     "LGBTQ+ Vermonters deserve care that respects who they are",
   );
-  const firstArticle = page.locator(".writing-stream--articles .social-card").first();
-  await expect(firstArticle.locator(".social-card__media")).toBeVisible();
-  expect(await firstArticle.evaluate((card) => {
+  await expect(
+    page.locator('a[href="https://www.linkedin.com/feed/update/urn:li:activity:7460782290340843520/"]'),
+  ).toBeVisible();
+  await expect(
+    page.locator('img[data-media-source="https://www.linkedin.com/feed/update/urn:li:activity:7440377520501387266/"]'),
+  ).toBeVisible();
+  const serviceCallCard = page.locator(
+    '.writing-stream--articles .social-card:has-text("How I used AI to find what two service calls missed")',
+  );
+  await expect(serviceCallCard.locator(".social-card__media")).toHaveAttribute(
+    "src",
+    /62df03f05515\.webp$/,
+  );
+  await expect(serviceCallCard.locator(".social-card__media")).toHaveAttribute(
+    "alt",
+    /expansion valve assembly.*UPSTAIRS/,
+  );
+  const articleWithMedia = page
+    .locator(".writing-stream--articles .social-card:has(.social-card__media)")
+    .first();
+  await expect(articleWithMedia.locator(".social-card__media")).toBeVisible();
+  expect(await articleWithMedia.evaluate((card) => {
     const image = card.querySelector(".social-card__media");
     const heading = card.querySelector("h2");
     return image.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING;
@@ -879,11 +1150,33 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   );
 });
 
-test("in-house campaign cards identify the employer and role", async ({ page }) => {
+test("in-house campaign cards identify the correct organization and role", async ({ page }) => {
   await page.goto("/work/");
-  await expect(page.locator(".work-category__framing")).toContainText("projects I made at EastRise Credit Union and Blue Cross and Blue Shield of Vermont");
+  await expect(page.locator(".work-category__framing")).toContainText(
+    "projects I made at EastRise Credit Union, BETA Technologies, and for commissioned clients",
+  );
   await expect(page.locator('[data-organization="eastrise"] .work-item__credit').first()).toHaveText("Made as Digital Content Strategist, EastRise Credit Union.");
-  await expect(page.locator('[data-organization="blue-cross-vermont"] .work-item__credit').first()).toHaveText("Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont.");
+  const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
+  await expect(flightPathsCard).toHaveAttribute("data-organization", "beta-technologies");
+  await expect(flightPathsCard.locator("img, iframe")).toHaveCount(0);
+  await expect(
+    page.locator('.work-filters [data-work-filter="beta-technologies"]'),
+  ).toHaveText("BETA");
+  await expect(
+    page.locator('.work-filters [data-work-filter="blue-cross-vermont"]'),
+  ).toHaveCount(0);
+
+  await page.goto("/work/?organization=beta-technologies");
+  await expect(page.locator("#project-list-title")).toHaveText("BETA Technologies projects");
+  await expect(page.locator(".work-filter-status")).toHaveText("1 project. Show all work");
+  await expect(
+    page.locator('.work-filters [data-work-filter="beta-technologies"]'),
+  ).toHaveAttribute("aria-current", "true");
+  await expect(page.locator(".work-list > .work-item:not([hidden])")).toHaveCount(1);
+  await expect(page.locator('.work-list > .work-item:not([hidden])')).toHaveAttribute(
+    "href",
+    "flight-paths/",
+  );
 });
 
 test("campaign pages disclose tracked public image sources automatically", async ({ page }) => {
@@ -906,7 +1199,7 @@ test("photo project cards scrub galleries horizontally and restore their pinned 
   page,
 }) => {
   await page.goto("/work/");
-  const card = page.locator('a.work-item[href="girls-on-the-run-2026/"]');
+  const card = page.locator('a.work-item[href="drone-photography/"]');
   const image = card.locator("img").first();
   const pinnedSource = await image.getAttribute("src");
   await image.scrollIntoViewIfNeeded();

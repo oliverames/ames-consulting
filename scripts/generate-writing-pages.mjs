@@ -9,6 +9,20 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const feed = JSON.parse(
   await readFile(join(root, "assets/data/writing-feed.json"), "utf8"),
 );
+const writingImageAlts = new Map([
+  ["62df03f05515.webp", "A small copper and brass expansion valve assembly held in a hand, hand-marked UPSTAIRS in black marker"],
+  ["81ef04e445e1.webp", "Vermont Senior Games athletes and supporters gathered at the Vermont State House"],
+  ["69183716a357.webp", "An EastRise Credit Union campaign photograph displayed on a city bus"],
+  ["d6d7727b8243.webp", "Taylor Hoar in her racing suit beside her race car"],
+  ["3ca6019aa53f.webp", "The Sunshine Trail interactive map showing a route from Vermont to North Carolina"],
+  ["dbd9983745d2.webp", "Pride Month graphic reading Proud to care for all Vermonters"],
+  ["6eb8a573ac24.webp", "OpenAI Codex video still showing two people at a laptop"],
+  ["2ec69027a425.webp", "Comparison of DeepSeek and ChatGPT responses to a car-wash question"],
+  ["f3d7b30a1396.webp", "Gemini app icon on a blue background"],
+  ["24d48dccb1fd.webp", "Surf social feed showing Apple Newsroom RSS posts"],
+  ["f2eab9fd630a.webp", "Codex app showing a software change and code diff"],
+  ["9c90d6abaee8.webp", "Weekly usage limit showing 66 percent remaining"],
+]);
 
 function escapeHtml(value = "") {
   return String(value)
@@ -113,17 +127,21 @@ function page({ title, description, path, depth, body, type = "website" }) {
 }
 
 function localImage(post, depth, sourcePost = post) {
-  if (!sourcePost.image) return "";
-  const filename = `${createHash("sha256").update(sourcePost.id).digest("hex").slice(0, 12)}.webp`;
+  if (!sourcePost.image && !sourcePost.localImage) return "";
+  const filename = `${createHash("sha256").update(sourcePost.assetId || sourcePost.id).digest("hex").slice(0, 12)}.webp`;
   return `${"../".repeat(depth)}assets/images/writing/${filename}`;
 }
 
+function localImageAlt(sourcePost) {
+  if (!sourcePost.image && !sourcePost.localImage) return "";
+  const filename = `${createHash("sha256").update(sourcePost.assetId || sourcePost.id).digest("hex").slice(0, 12)}.webp`;
+  const alt = writingImageAlts.get(filename);
+  if (!alt) throw new Error(`Missing descriptive alt text for ${filename}.`);
+  return alt;
+}
+
 function cardImagePost(post) {
-  if (post.image) return post;
-  if (!isLongForm(post)) return post;
-  return feed.posts.find((candidate) =>
-    candidate.image && candidate.platforms.includes("Micro.blog") && new Date(candidate.date) <= new Date(post.date)
-  ) || post;
+  return post;
 }
 
 function renderCard(post, depth = 1) {
@@ -143,11 +161,14 @@ function renderCard(post, depth = 1) {
     .join("");
   const imagePost = cardImagePost(post);
   const imageSrc = localImage(post, depth, imagePost);
+  const mediaSource = imagePost.mediaSource
+    ? ` data-media-source="${escapeHtml(imagePost.mediaSource)}"`
+    : "";
   const image = imageSrc
-    ? `<img class="social-card__media" src="${imageSrc}" alt="${post.image ? `Media attached to Oliver Ames&#39;s ${escapeHtml(post.platforms[0])} post` : `Recent image from Oliver Ames&#39;s blog`}" loading="lazy" width="1400" height="900">`
+    ? `<img class="social-card__media" src="${imageSrc}" alt="${escapeHtml(localImageAlt(imagePost))}" loading="lazy"${mediaSource}>`
     : "";
   const sharedPost = post.sharedPost
-    ? `<div class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong><p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p></div>`
+    ? `<div class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong>${post.sharedPost.text ? `<p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p>` : ""}</div>`
     : "";
   const title = post.title
     ? `<h2>${longForm ? `<a href="${articleHref}">${escapeHtml(post.title)}</a>` : escapeHtml(post.title)}</h2>`
@@ -164,7 +185,7 @@ function renderLongFormPage(post) {
   const original =
     post.links.find((link) => link.platform === "Micro.blog") || post.links[0];
   const imageSrc = localImage(post, 2);
-  const heroImage = imageSrc ? `<img class="writing-article__hero" src="${imageSrc}" alt="Image published with ${escapeHtml(post.title)}" width="1400" height="900" loading="eager" fetchpriority="high">` : "";
+  const heroImage = imageSrc ? `<img class="writing-article__hero" src="${imageSrc}" alt="${escapeHtml(localImageAlt(post))}" loading="eager" fetchpriority="high">` : "";
   const body = `<article class="writing-article"><header class="writing-article__header"><p class="eyebrow">Personal writing · <time datetime="${escapeHtml(post.date)}">${dateLabel(post.date, true)}</time></p><h1>${escapeHtml(post.title)}</h1><p>Originally published on <a href="${escapeHtml(original.url)}" rel="noopener">Micro.blog</a>.</p>${heroImage}</header><div class="writing-article__body">${renderArticleText(post.text)}</div><footer class="writing-article__footer"><a class="btn btn--ghost" href="../">← Back to Writing</a><a href="${escapeHtml(original.url)}" rel="noopener">View the original on Micro.blog →</a></footer></article>`;
   return {
     slug,
@@ -189,7 +210,12 @@ const longFormPosts = feed.posts.filter(isLongForm);
 const recentMicroPosts = feed.posts.filter((post) => post.platforms.includes("Micro.blog"));
 const socialPosts = feed.posts.filter((post) => !isLongForm(post));
 const linkedinPosts = socialPosts.filter((post) => post.platforms.includes("LinkedIn"));
-const indexBody = `<header class="page-header writing-header"><p class="eyebrow">Writing</p><h1>Notes, essays, and things I wanted to say in my own name.</h1><p><a href="${escapeHtml(feed.canonicalBlog)}" rel="me noopener">Micro.blog is my blog</a>. I also keep the public posts I write elsewhere in one place.</p><nav class="profile-links" aria-label="Writing profiles">${profileLinks}</nav></header><section class="writing-stream writing-stream--articles" aria-labelledby="recent-articles-title"><div class="section-heading writing-stream__heading"><p class="eyebrow">From Micro.blog</p><h2 id="recent-articles-title">Recent posts</h2></div><div class="social-card-stack">${recentMicroPosts.slice(0, 6).map((post) => renderCard(post)).join("")}</div><a class="writing-stream__more" href="archive/#microblog">Browse every Micro.blog post →</a></section><section class="writing-stream writing-stream--social" aria-labelledby="recent-social-title"><div class="section-heading writing-stream__heading"><p class="eyebrow">LinkedIn</p><h2 id="recent-social-title">Recent LinkedIn posts</h2></div><div class="social-card-stack">${linkedinPosts.slice(0, 8).map((post) => renderCard(post)).join("")}</div><a class="writing-stream__more" href="https://www.linkedin.com/in/oliverames/recent-activity/all/" rel="me noopener">See more on LinkedIn →</a></section><section class="reading-section writing-work-link"><div><p class="eyebrow">Professional archive</p><h2>Writing for organizations</h2><p>The complete professional archive is organized with the work it belonged to.</p></div><a class="btn btn--ghost" href="../work/eastrise-writing/">See all 53 EastRise articles →</a></section>`;
+const oneYearAgo = new Date();
+oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1);
+const linkedinPostsPastYear = linkedinPosts.filter(
+  (post) => new Date(post.date) >= oneYearAgo,
+);
+const indexBody = `<header class="page-header writing-header"><p class="eyebrow">Writing</p><h1>Notes, essays, and things I wanted to say in my own name.</h1><p><a href="${escapeHtml(feed.canonicalBlog)}" rel="me noopener">Micro.blog is my blog</a>. I also keep the public posts I write elsewhere in one place.</p><nav class="profile-links" aria-label="Writing profiles">${profileLinks}</nav></header><section class="writing-stream writing-stream--articles" aria-labelledby="recent-articles-title"><div class="section-heading writing-stream__heading"><p class="eyebrow">From Micro.blog</p><h2 id="recent-articles-title">Recent posts</h2></div><div class="social-card-stack">${recentMicroPosts.slice(0, 6).map((post) => renderCard(post)).join("")}</div><a class="writing-stream__more" href="archive/#microblog">Browse every Micro.blog post →</a></section><section class="writing-stream writing-stream--social" aria-labelledby="recent-social-title"><div class="section-heading writing-stream__heading"><p class="eyebrow">LinkedIn</p><h2 id="recent-social-title">LinkedIn posts from the past year</h2></div><div class="social-card-stack">${linkedinPostsPastYear.map((post) => renderCard(post)).join("")}</div><a class="writing-stream__more" href="https://www.linkedin.com/in/oliverames/recent-activity/all/" rel="me noopener">See more on LinkedIn →</a></section><section class="reading-section writing-work-link"><div><p class="eyebrow">Professional archive</p><h2>Writing for organizations</h2><p>The complete professional archive is organized with the work it belonged to.</p></div><a class="btn btn--ghost" href="../work/eastrise-writing/">See all 53 EastRise articles →</a></section>`;
 
 await mkdir(join(root, "blog"), { recursive: true });
 await writeFile(

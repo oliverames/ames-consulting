@@ -1,11 +1,247 @@
 {
-  "generatedAt": "2026-08-05",
+  "generatedAt": "2026-08-11",
   "campaigns": [
+    {
+      "slug": "neg-ecp-conference-2026",
+      "title": "47th NEG-ECP Conference",
+      "eyebrow": "Commissioned event photography · Shelburne Farms · August 10, 2026",
+      "intro": "I photographed the 47th New England Governors and Eastern Canadian Premiers conference at Shelburne Farms, from the empty Coach Barn and arrivals through the working sessions and press conference.",
+      "organization": "Cynosure, Inc. and GBIC",
+      "featuredFile": "dsc01378.webp",
+      "featuredAlt": "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn.",
+      "openingSequence": [
+        "DSC00051.jpg",
+        "DSC00197.jpg",
+        "DSC00262.jpg",
+        "DSC01378.jpg",
+        "DSC02335.jpg"
+      ],
+      "story": {
+        "title": "From setup through the press conference",
+        "paragraphs": [
+          "The empty Coach Barn established the setting. Once the conference began, I moved between wide views, individual speakers, reactions, and smaller exchanges around the table.",
+          "Cynosure, Inc. commissioned the photography through its sister organization, Greater Burlington Industrial Corporation."
+        ]
+      },
+      "images": [
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00051.webp",
+          "alt": "The empty Coach Barn is arranged with a hollow-square conference table, flags, microphones, and place cards.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00197.webp",
+          "alt": "Four delegates walk out of the Coach Barn beneath its tall brick arch.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00262.webp",
+          "alt": "A delegate wearing glasses speaks with another attendee during the morning arrival.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp",
+          "alt": "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc02335.webp",
+          "alt": "Two delegates stand together for a portrait inside the wood-paneled Coach Barn.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00135.webp",
+          "alt": "Three delegates approach through a brick arch, with the Shelburne Farms landscape beyond them.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00152.webp",
+          "alt": "A smiling delegate in a gray blazer walks across the Shelburne Farms courtyard.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00183.webp",
+          "alt": "Black-and-white portrait of a suited delegate looking down during an outdoor arrival.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00207.webp",
+          "alt": "A conference staff member crosses the courtyard carrying a blue folder and yellow lanyard.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00341.webp",
+          "alt": "A smiling speaker addresses the room at a microphone in a black-and-white photograph.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00372.webp",
+          "alt": "Delegates around the conference table smile as they listen to an opening speaker.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp",
+          "alt": "A row of delegates listens from behind microphones and nameplates inside the Coach Barn.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00562.webp",
+          "alt": "A speaker is framed between blurred attendees in a black-and-white view across the table.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00653.webp",
+          "alt": "Delegates sit in profile along the table while one participant watches the speaker.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00735.webp",
+          "alt": "A bearded delegate wearing glasses speaks into a microphone during the working session.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00757.webp",
+          "alt": "Two delegates listen closely, one resting his chin beside a woman at a microphone.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00759.webp",
+          "alt": "Black-and-white side view of delegates seated shoulder to shoulder behind tabletop microphones.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00781.webp",
+          "alt": "A delegate listens across the table with a Canadian flag filling the foreground.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00817.webp",
+          "alt": "A delegate speaks across the hollow-square table as microphones and water glasses frame the foreground.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00820.webp",
+          "alt": "A gray-haired delegate leans forward to address the room from across the conference table.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00937.webp",
+          "alt": "A delegate wearing glasses listens beside a colleague in a black-and-white photograph.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc00963.webp",
+          "alt": "A woman speaks with a tall suited delegate during a break inside the Coach Barn.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01060.webp",
+          "alt": "A delegate in a blue suit speaks with a colleague across the conference table.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01227.webp",
+          "alt": "Four delegates smile behind microphones with United States and Canadian flags behind them.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01315.webp",
+          "alt": "A delegate speaks at the head table beneath the projected NEG-ECP conference mark.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01457.webp",
+          "alt": "Two gray-haired delegates talk across the table as other participants blur into the foreground.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01534.webp",
+          "alt": "A seated delegate gestures while speaking at the head of the conference table.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01824.webp",
+          "alt": "A delegate wearing glasses listens at the table with a full audience seated behind him.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc01938.webp",
+          "alt": "A speaker addresses the conference from a wooden lectern framed by two seated attendees.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc02266.webp",
+          "alt": "A delegate wearing black glasses listens as another participant speaks across the table.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc02313.webp",
+          "alt": "A delegate gestures during a small roundtable conversation near the end of the conference.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc06647.webp",
+          "alt": "A delegate wearing glasses smiles while speaking with another attendee during a break.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc06709.webp",
+          "alt": "Three women share a laugh across the table during an informal conference exchange.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc06717.webp",
+          "alt": "Two women laugh together while another delegate smiles from her seat behind them.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/neg-ecp-conference-2026/dsc06748.webp",
+          "alt": "Two delegates sit at the table in conversation as a colleague gestures in the foreground.",
+          "width": 1600,
+          "height": 1067
+        }
+      ]
+    },
     {
       "slug": "senior-games-press-event-2026",
       "title": "Senior Games Press Event",
       "eyebrow": "Documentary photography · Blue Cross Vermont · March 18, 2026",
       "intro": "I documented a Senior Games press event through the speakers, attendees, and details that connected the announcement to the people it serves.",
+      "published": false,
       "organization": "Blue Cross Vermont",
       "featuredFile": "dsc01867.webp",
       "featuredAlt": "A man in a suit smiles while speaking with attendees inside the Vermont State House.",
@@ -701,6 +937,7 @@
       "title": "ArrayRx Press Conference",
       "eyebrow": "Documentary photography · Blue Cross Vermont · March 26, 2026",
       "intro": "I photographed the ArrayRx announcement at the Vermont State House, covering the speakers, press activity, and conversations around the event.",
+      "published": false,
       "organization": "Blue Cross Vermont",
       "featuredFile": "dsc02517.webp",
       "featuredAlt": "A woman speaks to reporters at the ArrayRx press conference inside the Vermont State House.",
@@ -880,6 +1117,7 @@
       "title": "Walk@Lunch and Green Up",
       "eyebrow": "Documentary photography · Blue Cross Vermont · April 29, 2026",
       "intro": "I photographed employees taking part in a workplace walk and Green Up activity in Montpelier.",
+      "published": false,
       "organization": "Blue Cross Vermont",
       "featuredFile": "dsc02728.webp",
       "featuredAlt": "Blue Cross Vermont employees collect gloves and safety vests before a Green Up walk in Montpelier.",
@@ -1401,6 +1639,7 @@
       "title": "Be Well at Work",
       "eyebrow": "Documentary photography · Blue Cross Vermont · May 6, 2026",
       "intro": "I documented a workplace wellness program through the people, activities, and practical details that made it useful.",
+      "published": false,
       "organization": "Blue Cross Vermont",
       "featuredFile": "dsc03152.webp",
       "featuredAlt": "Employees listen during a Be Well at Work workshop around tables covered with notes and water bottles.",
@@ -1808,6 +2047,7 @@
       "title": "Corporate Cup 2026",
       "eyebrow": "Event photography · Blue Cross Vermont · May 14, 2026",
       "intro": "A workday in Montpelier turned into a citywide race. I photographed the Blue Cross Vermont team, the start, the course, and the moments around the finish.",
+      "published": false,
       "organization": "Blue Cross Vermont",
       "featuredFile": "dsc03213.webp",
       "featuredAlt": "The Blue Cross Vermont Corporate Cup team waves from the Vermont State House steps in the rain.",
@@ -1873,6 +2113,7 @@
       "title": "Girls on the Run 2026",
       "eyebrow": "Event photography · Blue Cross Vermont · May 30, 2026",
       "intro": "The finish line mattered, but the story was everywhere: teams arriving together, handmade signs, nervous starts, muddy shoes, and people making room for every runner.",
+      "published": false,
       "organization": "Blue Cross Vermont",
       "featuredFile": "dsc03810.webp",
       "featuredAlt": "Girls on the Run participants surge across the starting line together.",
@@ -5613,6 +5854,537 @@
       ]
     },
     {
+      "slug": "london-2019",
+      "title": "London at Dusk",
+      "eyebrow": "Travel photography · London · September 6, 2019",
+      "intro": "Eight photographs along the River Thames as late sunlight, storm clouds, and blue hour changed the city around Tower Bridge.",
+      "organization": "Personal work",
+      "featuredFile": "dsc02427.webp",
+      "featuredAlt": "Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds.",
+      "openingSequence": [
+        "DSC02427.jpeg"
+      ],
+      "story": {
+        "title": "Stay through the change in light",
+        "paragraphs": [
+          "The weather moved from broken sunlight to a dark blue evening, changing the river and skyline from one frame to the next.",
+          "Tower Bridge and the Shard became fixed points as the light shifted around them."
+        ]
+      },
+      "images": [
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02427.webp",
+          "alt": "Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02408.webp",
+          "alt": "London skyline and a green-arched bridge across the River Thames beneath sunlit storm clouds",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02410.webp",
+          "alt": "Vertical view of the London skyline, a green bridge, and the River Thames under layered clouds",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02449.webp",
+          "alt": "Stone tower and blue suspension cables of Tower Bridge against a dark evening sky",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02459.webp",
+          "alt": "London office towers lit at dusk across the River Thames beneath heavy clouds",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02466.webp",
+          "alt": "The Shard and riverside buildings beside the River Thames at blue hour",
+          "width": 1600,
+          "height": 937
+        },
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02471.webp",
+          "alt": "Moon beside one of Tower Bridge's stone towers under a deep blue evening sky",
+          "width": 1600,
+          "height": 1194
+        },
+        {
+          "src": "../../assets/images/work/events/london-2019/dsc02476.webp",
+          "alt": "The Shard rising above illuminated London buildings at dusk",
+          "width": 1067,
+          "height": 1600
+        }
+      ]
+    },
+    {
+      "slug": "whale-dance-randolph",
+      "title": "Whale Dance in Randolph",
+      "eyebrow": "Landscape photography · Randolph, Vermont · September 24, 2021",
+      "intro": "Eight photographs of Jim Sardonis’s bronze Whale Dance sculpture against fog, autumn trees, and the layered hills around Randolph.",
+      "organization": "Personal work",
+      "featuredFile": "dsc06299.webp",
+      "featuredAlt": "Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills.",
+      "openingSequence": [
+        "DSC06299.jpeg"
+      ],
+      "story": {
+        "title": "The sculpture and the hillside",
+        "paragraphs": [
+          "The bronze forms shift as the view moves around them, sometimes reading as whale tails and sometimes as an opening onto the hills.",
+          "Sculptor Jim Sardonis identifies Whale Dance as the bronze work installed in Randolph in July 2019. <a href=\"https://www.sardonis.com/whale-dance/\" rel=\"noopener\">Read the artist’s description.</a>"
+        ]
+      },
+      "images": [
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06299.webp",
+          "alt": "Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06300.webp",
+          "alt": "Whale Dance framed against low clouds and forested hills in Randolph, Vermont",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06301.webp",
+          "alt": "Two bronze whale tails of Whale Dance rising above grass with misty mountains behind them",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06308-pano.webp",
+          "alt": "Wide view of Whale Dance on a grassy hill beneath bands of fog and cloud",
+          "width": 1600,
+          "height": 335
+        },
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06309.webp",
+          "alt": "Close view through the curved bronze forms of Whale Dance toward autumn hills and fog",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06310.webp",
+          "alt": "Bronze whale tails of Whale Dance silhouetted against layered hills and low clouds",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06313-pano.webp",
+          "alt": "Whale Dance centered in a panoramic view of green fields, autumn trees, and misty ridges",
+          "width": 1600,
+          "height": 633
+        },
+        {
+          "src": "../../assets/images/work/events/whale-dance-randolph/dsc06323-pano.webp",
+          "alt": "Panoramic view of forested Vermont ridges partly covered by long bands of fog",
+          "width": 1600,
+          "height": 220
+        }
+      ]
+    },
+    {
+      "slug": "drone-photography",
+      "title": "Drone Photography",
+      "eyebrow": "Aerial photography · 2018–2020",
+      "intro": "Sixty-two aerial photographs made above winter fields, cities, coastlines, mountains, civic places, and rail yards.",
+      "organization": "Personal work",
+      "featuredFile": "dji_0053.webp",
+      "featuredAlt": "Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence.",
+      "openingSequence": [
+        "DJI_0053.jpeg"
+      ],
+      "story": {
+        "title": "Use altitude to clarify the pattern",
+        "paragraphs": [
+          "The strongest frames use height to reveal a relationship that is harder to see from the ground: a road through a valley, tracks across snow, or buildings arranged around water.",
+          "The collection moves across several years and places, but it keeps returning to those lines, shapes, and changes in scale."
+        ]
+      },
+      "images": [
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0053.webp",
+          "alt": "Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0015.webp",
+          "alt": "Panoramic aerial view of a divided highway curving through green forest beneath patterned clouds",
+          "width": 1600,
+          "height": 573
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0019.webp",
+          "alt": "Aerial panorama of tree-lined city neighborhoods surrounding a winding river",
+          "width": 1600,
+          "height": 572
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0021.webp",
+          "alt": "Aerial view into Harvard Stadium with its horseshoe grandstand and red H at midfield",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0048.webp",
+          "alt": "Waterfront restaurant and marina glowing at dusk with boats moored around the docks",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0057.webp",
+          "alt": "Vertical aerial panorama of a river winding between forested hills and a parallel road",
+          "width": 666,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0112.webp",
+          "alt": "Snow-covered valley, wooded hills, and scattered homes under low winter sunlight",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0117.webp",
+          "alt": "Aerial view across a broad frozen lake toward wooded hills beneath a bright blue sky",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0128.webp",
+          "alt": "Snow-covered house surrounded by evergreens on the shore of a frozen lake",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0137.webp",
+          "alt": "Top-down view of small shelters casting long shadows across a snow-covered frozen lake",
+          "width": 1199,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0142.webp",
+          "alt": "Low winter sun above snow-covered valleys, wooded ridges, and distant lakes",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0153.webp",
+          "alt": "Red and orange sunset spreading above a small town and dark wooded hills",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0155.webp",
+          "alt": "Dark aerial panorama of a town silhouetted beneath a vivid red sunset",
+          "width": 1600,
+          "height": 573
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0162.webp",
+          "alt": "Lakeside property, green fields, and blue water with mountain ridges on the horizon",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0166.webp",
+          "alt": "Snow-covered fields divided by hedgerows and forested ridges in late afternoon light",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0167.webp",
+          "alt": "Formal gardens and historic buildings on a green lakeshore viewed from above",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0168.webp",
+          "alt": "Wide aerial view of formal gardens, fields, and buildings along a rocky lakeshore",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0170.webp",
+          "alt": "Broad green lawn descending toward a blue lake with mountains beyond",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0171.webp",
+          "alt": "Aerial view across a lakeside lawn and tree-lined shore toward a mountain range",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0172.webp",
+          "alt": "Snow-covered farm fields, a narrow road, and wooded hills in warm evening light",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0174-1.webp",
+          "alt": "Isolated buildings and a plowed road surrounded by expansive snow-covered fields",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0174.webp",
+          "alt": "Wooded peninsula with gardens and buildings extending into a deep blue lake",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0178.webp",
+          "alt": "Walt Disney Concert Hall and surrounding downtown Los Angeles streets viewed from above",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0180.webp",
+          "alt": "The Broad museum and neighboring downtown Los Angeles buildings viewed from above",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0181.webp",
+          "alt": "Low sun casting long shadows across a snow-covered field marked by vehicle tracks",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0183.webp",
+          "alt": "Walt Disney Concert Hall's curved metal roof forms against the Los Angeles skyline",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0188.webp",
+          "alt": "Curving cleared tracks and small shelters on a frozen lake at dusk",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0191.webp",
+          "alt": "Santa Monica Pier amusement rides extending over the Pacific Ocean",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0198.webp",
+          "alt": "Wide aerial view of Santa Monica Pier, the beach, and surrounding city streets",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0215.webp",
+          "alt": "Hollywood Sign on a dry hillside with Los Angeles neighborhoods below",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0220.webp",
+          "alt": "Close aerial view of the Hollywood Sign beneath a clear blue sky",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0242.webp",
+          "alt": "Panoramic sunset view of Griffith Observatory and the surrounding Los Angeles hills",
+          "width": 1600,
+          "height": 574
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0246.webp",
+          "alt": "Griffith Observatory on its hillside with mountains and city neighborhoods beyond",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0248.webp",
+          "alt": "Griffith Observatory and its domes lit by warm evening sunlight",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0254.webp",
+          "alt": "Close aerial view of Griffith Observatory against layered mountain ridges",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0256.webp",
+          "alt": "Wide sunset panorama of Griffith Observatory, winding roads, and Los Angeles hills",
+          "width": 1600,
+          "height": 573
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0277.webp",
+          "alt": "Homes surrounded by dense orange and gold foliage beneath a partly cloudy sky",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0279.webp",
+          "alt": "Low sun shining over an autumn town with church steeples and wooded hills",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0281.webp",
+          "alt": "Panoramic aerial view of a small town surrounded by autumn foliage and rolling hills",
+          "width": 1600,
+          "height": 572
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0360.webp",
+          "alt": "Sunlit mountain ridge rising above a broad forest in peak autumn color",
+          "width": 1600,
+          "height": 572
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0366.webp",
+          "alt": "Orange sunset breaking beneath dark clouds over a wide mountain valley",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0373.webp",
+          "alt": "Top-down aerial view of a house and clearing surrounded by multicolored autumn forest",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0377.webp",
+          "alt": "Aerial view of a small town in a valley surrounded by late-autumn hills",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0383.webp",
+          "alt": "Golden forest canopy stretching toward blue mountain ridges under low clouds",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0395.webp",
+          "alt": "Snow-covered mountain valley with ski trails, buildings, and winding roads",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0400.webp",
+          "alt": "Vertical panorama of snow-covered cliffs and evergreen forest beneath a pale winter sky",
+          "width": 666,
+          "height": 1600
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0412.webp",
+          "alt": "Frozen waterfall cascading between thick shelves of ice and snow-covered rocks",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0441.webp",
+          "alt": "Vermont State House illuminated at night amid snow-covered grounds",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0443.webp",
+          "alt": "Panoramic aerial view of downtown Austin and the Colorado River beneath rippled clouds",
+          "width": 1600,
+          "height": 644
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0447.webp",
+          "alt": "Downtown Austin skyline viewed from above beneath a broad field of rippled clouds",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0448.webp",
+          "alt": "Wide aerial panorama of downtown Austin towers under rows of textured clouds",
+          "width": 1600,
+          "height": 638
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0456.webp",
+          "alt": "Texas State Capitol and surrounding government buildings viewed from above",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0480.webp",
+          "alt": "Waterfront rail yard with a roundhouse, maintenance buildings, and parked trains",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0481.webp",
+          "alt": "Top-down view of parallel rail tracks filled with freight and passenger cars",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0543.webp",
+          "alt": "Green mountain ridges crossed by a highway beneath a bright blue sky",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0547.webp",
+          "alt": "Panoramic aerial view of sunlight over forested mountains and a curving highway",
+          "width": 1600,
+          "height": 557
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0618.webp",
+          "alt": "Large crowd filling a street beside the Vermont State House and nearby buildings",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0661.webp",
+          "alt": "Red and orange sunset glowing above a dark silhouette of distant mountains",
+          "width": 1600,
+          "height": 1200
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/dji_0792.webp",
+          "alt": "Snow-covered town and surrounding wooded hills beneath a deep blue winter sky",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/hdr_0001.webp",
+          "alt": "Top-down aerial view of snow-dusted evergreen trees casting long blue shadows",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/img_2459.webp",
+          "alt": "Winter sunset spreading through broken clouds above a snow-covered valley",
+          "width": 1600,
+          "height": 1199
+        },
+        {
+          "src": "../../assets/images/work/events/drone-photography/img_4079.webp",
+          "alt": "Sunlit panorama of green mountain ridges and a highway curving through the valley",
+          "width": 1600,
+          "height": 557
+        }
+      ]
+    },
+    {
       "slug": "eastrise-launch-campaign",
       "title": "EastRise Launch Campaign",
       "eyebrow": "Brand launch photography · EastRise · 2024",
@@ -5770,30 +6542,6 @@
           "height": 1350,
           "sourceUrl": "https://www.instagram.com/p/DBMo23Cundt/",
           "sourcePlatform": "Instagram"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/li_daa49f294800-056ff6147712.webp",
-          "alt": "A smiling woman in glasses rolls a wrapped cylinder of textile across a textured worktable in front of bright windows.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHKCNe5GkE9FA/image-shrink_800/image-shrink_800/0/1731531465032?e=1774634400&v=beta&t=GVy-lvfN_vJds5Om-N4EXZH4VXte8Plytcl93B395CE",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/li_53ed1c19acae-0f8603b6f8a2.webp",
-          "alt": "Close-up of a kneeling worker's hand gripping a mason's hammer against a rough stone slab.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D4E10AQEwMvlucBvh8g/image-shrink_800/image-shrink_800/0/1730997811345?e=1774634400&v=beta&t=9DOOKMpp37DTIvKkNuZrJ5vI_eW268QUomRuXMVOhfA",
-          "sourcePlatform": "LinkedIn"
-        },
-        {
-          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/li_2efb609948e1-2c2bdeae5cc5.webp",
-          "alt": "A woman with short hair and glasses presses fibers into a textured felt piece beside a bright window.",
-          "width": 800,
-          "height": 1000,
-          "sourceUrl": "https://media.licdn.com/dms/image/v2/D5610AQHXTKxo8dSVTw/image-shrink_800/image-shrink_800/0/1731531462648?e=1774634400&v=beta&t=VbtfM8TWN8BuIZuxI0iSzUHODPgwFcvtMRI80posXMI",
-          "sourcePlatform": "LinkedIn"
         },
         {
           "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-11-05_15-12-18_UTC_DB_og-ipG9A_1-44919b55c91c.webp",

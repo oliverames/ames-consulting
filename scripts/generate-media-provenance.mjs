@@ -80,10 +80,13 @@ for (const record of captureManifest.captures) {
 const photography = await readJson(join(root, "assets/data/eastrise-photography.json"));
 const portraits = await readJson(join(root, "assets/data/portraits.json"));
 const social = await readJson(join(root, "assets/data/eastrise-social.json"));
+const eventGalleries = await readJson(join(root, "assets/data/event-galleries.json"));
 const evidence = await readJson(evidencePath);
 const exceptions = await readJson(exceptionsPath);
 const eastRiseCredit = "Made as Digital Content Strategist, EastRise Credit Union";
+const eastRisePortraitCredit = "Photographed by Oliver Ames for EastRise Credit Union";
 const blueCrossCredit = "Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont";
+const negEcpCredit = "Photographed by Oliver Ames for Cynosure, Inc. and GBIC";
 const assets = {};
 const normalize = (value) => value.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
 const cleanSourceUrl = (value) => {
@@ -95,7 +98,7 @@ const cleanSourceUrl = (value) => {
   url.hash = "";
   return url.href;
 };
-const publicPage = (value) => /^https:\/\/(www\.)?(facebook\.com|instagram\.com|linkedin\.com|youtube\.com|youtu\.be)\//i.test(value || "") ? cleanSourceUrl(value) : "";
+const publicPage = (value) => /^https:\/\/(www\.)?(eastrise\.com|facebook\.com|instagram\.com|linkedin\.com|pixelspoke\.coop|youtube\.com|youtu\.be)\//i.test(value || "") ? cleanSourceUrl(value) : "";
 const captureFor = (sourceUrl) => captureBySource.get(sourceUrl) || captureBySource.get(canonicalSourceKey(sourceUrl)) || "";
 const requiredFields = ["source_url", "source_channel", "published_date", "downloaded_date", "credit", "source_capture"];
 
@@ -123,8 +126,26 @@ for (const post of social.posts) {
   };
 }
 
+const eastRisePortraits = portraits.series?.find((series) => series.slug === "eastrise-leadership-board");
+if (eastRisePortraits?.images?.length !== 40) throw new Error("portraits.json must contain 40 EastRise portraits.");
+const eastRiseLeadershipSource = publicPage(eastRisePortraits.sourcePage);
+for (const image of eastRisePortraits.images) {
+  const officialPagePortrait = Boolean(image.source);
+  assets[normalize(image.src)] = {
+    source_url: officialPagePortrait ? eastRiseLeadershipSource : "",
+    source_channel: officialPagePortrait ? "website" : "",
+    published_date: "",
+    downloaded_date: officialPagePortrait
+      ? eastRisePortraits.sourceCaptureDate
+      : eastRisePortraits.archiveReviewedDate,
+    credit: eastRisePortraitCredit,
+    source_capture: officialPagePortrait ? captureFor(eastRiseLeadershipSource) : "",
+    archive_note: image.archiveNote || "",
+  };
+}
+
 const blueCrossPortraits = portraits.series?.find((series) => series.slug === "blue-cross-cbss");
-if (!blueCrossPortraits?.images?.length) throw new Error("portraits.json must contain the public Blue Cross portrait series.");
+if (!blueCrossPortraits?.images?.length) throw new Error("portraits.json must contain the withheld Blue Cross portrait series.");
 for (const image of blueCrossPortraits.images) {
   const sourceUrl = /^https:\/\//.test(image.source || "") ? cleanSourceUrl(image.source) : "";
   assets[normalize(image.src)] = {
@@ -169,6 +190,38 @@ assets["assets/images/work/campaigns/eastrise-writing.webp"] = {
   credit: eastRiseCredit,
   source_capture: "",
 };
+for (const asset of [
+  "assets/images/work/credit-union-websites/eastrise-feature.webp",
+  "assets/images/work/credit-union-websites/eastrise-desktop.webp",
+  "assets/images/work/credit-union-websites/eastrise-mobile.webp",
+  "assets/images/work/credit-union-websites/eastrise-homepage.webp",
+]) {
+  const sourceUrl = "https://www.pixelspoke.coop/eastrise-credit-union-case-study";
+  assets[asset] = {
+    source_url: sourceUrl,
+    source_channel: "website",
+    published_date: "",
+    downloaded_date: "2026-08-11",
+    credit: eastRiseCredit,
+    source_capture: captureFor(sourceUrl),
+  };
+}
+
+const negEcpCampaign = eventGalleries.campaigns?.find((campaign) => campaign.slug === "neg-ecp-conference-2026");
+if (negEcpCampaign?.images?.length !== 35) {
+  throw new Error("event-galleries.json must contain 35 NEG-ECP conference photographs.");
+}
+for (const image of negEcpCampaign.images) {
+  assets[normalize(image.src)] = {
+    source_url: "",
+    source_channel: "",
+    published_date: "",
+    downloaded_date: "2026-08-11",
+    credit: negEcpCredit,
+    source_capture: "",
+    archive_note: "",
+  };
+}
 
 for (const group of evidence.public_sources || []) {
   for (const asset of group.assets || []) {
@@ -198,7 +251,7 @@ for (const group of exceptions.exceptions || []) {
   }
 }
 
-const generatedAt = "2026-08-05";
+const generatedAt = "2026-08-11";
 await writeFile(join(root, "assets/data/media-provenance.json"), `${JSON.stringify({ generated_at: generatedAt, assets }, null, 2)}\n`);
 const missing = Object.entries(assets).filter(([, data]) => requiredFields.some((field) => data[field] === "")).map(([asset, data]) => ({
   asset,

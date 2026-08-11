@@ -25,7 +25,7 @@ const stripMarkup = (value = "") => value
   .replace(/\s+/g, " ")
   .trim();
 
-const photographyImage = "https://ames.consulting/assets/images/work/blue-cross/arrayrx-card.webp";
+const photographyImage = "https://ames.consulting/assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp";
 
 for (const file of files) {
   const html = await readFile(file, "utf8");

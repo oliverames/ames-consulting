@@ -48,7 +48,7 @@ Color custom properties are registered with `@property` for animated transitions
 
 ### JavaScript — ES Modules (`assets/js/`)
 
-All ten modules are live; nothing else ships:
+All eleven modules are live; nothing else ships:
 
 - **header-scroll.js** — Loaded on every page; toggles `[data-scrolled]` on `.site-header` once `window.scrollY > 10` (gates the blur backdrop). Imports `inbound-prompt.js` and `gallery-card-scrub.js`.
 - **inbound-prompt.js** — Time+scroll-triggered "Start a project" launcher and dialog; suppressed while another dialog is open.
@@ -59,6 +59,7 @@ All ten modules are live; nothing else ships:
 - **site-config.js** — Loads `assets/data/site.config.json`, merges with defaults (used by contact-form).
 - **hero-headline.js** — Rotates the homepage H1 through five variants (sessionStorage-seeded).
 - **proof-rotator.js** — Adds manual previous and next controls to the homepage proof-stat pages and keeps the selected page labeled.
+- **recommendation-dialog.js** — Opens public LinkedIn recommendations in an accessible on-site dialog and restores focus when it closes.
 - **work-filter.js** — `?organization=` filtering on `/work/`; unknown values fall back to the unfiltered view with "All" marked current.
 
 ### Static Generation
@@ -78,7 +79,7 @@ Ground rules learned the hard way:
 
 ### Routes
 
-`/` (home), `/about/`, `/blog/` plus its archive and post pages, `/contact/`, `/testimonials/`, three direct `/services/.../` pages, and `/work/` plus 42 project pages. The `?organization=` query on `/work/` drives client-side filtering. There is no `/services/` index. The retired `/photography/`, `/links/`, `/likes/`, and `/colophon/` routes do not exist.
+`/` (home), `/about/`, `/blog/` plus its archive and post pages, `/contact/`, `/testimonials/`, three direct `/services/.../` pages, and `/work/` plus the project pages listed in `publication-policy.mjs`. The `?organization=` query on `/work/` drives client-side filtering. There is no `/services/` index. The retired `/photography/`, `/links/`, `/likes/`, and `/colophon/` routes do not exist.
 
 ## Testing
 
@@ -87,7 +88,7 @@ Playwright uses Chromium against a local Python server on port 4173. The default
 - **`tests/site.spec.js`** — Navigation, organization filtering, proof controls, archive links, image zoom, and contact behavior
 - **`tests/css-and-navigation.spec.js`** — Route publication, spacing, focus treatment, responsive layout, and overflow checks
 - **`tests/public-content.spec.js`** — Public-content boundaries, contact disclosure and fallback, and breadcrumb checks against the configured site root
-- **`tests/accessibility.spec.js`** — Axe audits all 55 public HTML documents plus the inbound dialog and fails on moderate, serious, or critical violations
+- **`tests/accessibility.spec.js`** — Axe audits every allowlisted public HTML document plus the inbound dialog and fails on moderate, serious, or critical violations
 
 ## CI/CD (`.github/workflows/`)
 

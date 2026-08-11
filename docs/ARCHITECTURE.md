@@ -18,7 +18,7 @@ Because generators mutate the committed source tree, running `build:site` locall
 ## Views
 
 - Home (`/`), About (`/about/`), Testimonials (`/testimonials/`): single hand-authored or generator-owned pages.
-- Work (`/work/`): index page plus 42 project pages. The `?organization=` query drives client-side filtering (`assets/js/work-filter.js`) over server-rendered cards; there is no runtime data fetch.
+- Work (`/work/`): index page plus the project pages listed in `publication-policy.mjs`. The `?organization=` query drives client-side filtering (`assets/js/work-filter.js`) over server-rendered cards; there is no runtime data fetch.
 - Writing (`/blog/`): index, archive, and per-post pages generated from `assets/data/writing-feed.json`.
 - Services (`/services/*/`): three pages generated from `scripts/generate-service-pages.mjs`.
 - Contact (`/contact/`): static form that loads Turnstile after the visitor first interacts with it. The Cloudflare Pages Function checks the request origin, size, fill time, fields, and Turnstile token before sending through Resend. Without JavaScript, the page shows a direct email alternative.

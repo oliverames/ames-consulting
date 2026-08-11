@@ -32,26 +32,60 @@ if (cards.length === 3) {
   html = html.replace(/<ul class="practice-grid">[\s\S]*?<\/ul>/, `<ul class="practice-grid">${reordered}</ul>`);
 }
 
-if (!html.includes("Corporate Cup 2026</h3>")) {
-  const more = `<a class="path-thumb" href="work/corporate-cup-2026/"><div class="path-thumb__img"><img src="assets/images/work/blue-cross/corporate-cup.webp" alt="Vermont Corporate Cup" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Event · documentary photography</span><h3 class="path-thumb__title">Corporate Cup 2026</h3></div></a><a class="path-thumb" href="work/girls-on-the-run-2026/"><div class="path-thumb__img"><img src="assets/images/work/events/girls-on-the-run-2026/dsc05132.webp" alt="Girls on the Run Vermont" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Event · documentary photography</span><h3 class="path-thumb__title">Girls on the Run 2026</h3></div></a><a class="path-thumb" href="work/eastrise-portraits/"><div class="path-thumb__img"><img src="assets/images/work/portraits/amy-vaughan.webp" alt="EastRise portrait" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Portrait series · photography</span><h3 class="path-thumb__title">EastRise Portraits</h3></div></a><a class="path-thumb" href="work/blue-cross-portraits/"><div class="path-thumb__img"><img src="assets/images/work/portraits/beth-roberts.webp" alt="Blue Cross Vermont portrait" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Portrait series · photography</span><h3 class="path-thumb__title">Blue Cross Portraits</h3></div></a><a class="path-thumb" href="work/giron-family-fall-2025/"><div class="path-thumb__img"><img src="assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="Giron family fall portrait session" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Family · photography</span><h3 class="path-thumb__title">Giron Family</h3></div></a><a class="path-thumb" href="work/sweat-heart-throwdown/"><div class="path-thumb__img"><img src="assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Fitness · event photography</span><h3 class="path-thumb__title">Sweat-Heart Throwdown</h3></div></a>`;
+if (!html.includes("EastRise Portraits</h3>")) {
+  const more = `<a class="path-thumb" href="work/eastrise-portraits/"><div class="path-thumb__img"><img src="assets/images/work/portraits/amy-vaughan.webp" alt="EastRise portrait" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Portrait series · photography</span><h3 class="path-thumb__title">EastRise Portraits</h3></div></a><a class="path-thumb" href="work/giron-family-fall-2025/"><div class="path-thumb__img"><img src="assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="Giron family fall portrait session" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Family · photography</span><h3 class="path-thumb__title">Giron Family</h3></div></a><a class="path-thumb" href="work/sweat-heart-throwdown/"><div class="path-thumb__img"><img src="assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Fitness · event photography</span><h3 class="path-thumb__title">Sweat-Heart Throwdown</h3></div></a>`;
   html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${more}$2`);
 }
+
+for (const href of [
+  "corporate-cup-2026/",
+  "girls-on-the-run-2026/",
+  "blue-cross-portraits/",
+]) {
+  const escapedHref = href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  html = html.replace(new RegExp(`<a class="path-thumb" href="work/${escapedHref}"\\s*>[\\s\\S]*?<\\/a\\s*>`, "g"), "");
+}
+
+html = html.replace(
+  /<a class="path-thumb" href="work\/community-photography\/"\s*>[\s\S]*?<\/a\s*>/g,
+  "",
+);
 
 if (!html.includes("Vermont Foodbank Volunteer Day</h3>")) {
   const foodbank = `<a class="path-thumb" href="work/vermont-foodbank-volunteer-day-2026/"><div class="path-thumb__img"><img src="assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Vermont Foodbank · documentary photography</span><h3 class="path-thumb__title">Vermont Foodbank Volunteer Day</h3></div></a>`;
   html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div>\s*<a class="path-browse")/, `$1${foodbank}$2`);
 }
 
+const requestedGalleryCards = [
+  ["47th NEG-ECP Conference", `<a class="path-thumb" href="work/neg-ecp-conference-2026/"><div class="path-thumb__img"><img src="assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp" alt="A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">NEG-ECP · event photography</span><h3 class="path-thumb__title">47th NEG-ECP Conference</h3></div></a>`],
+  ["London at Dusk", `<a class="path-thumb" href="work/london-2019/"><div class="path-thumb__img"><img src="assets/images/work/events/london-2019/dsc02427.webp" alt="Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">London · travel photography</span><h3 class="path-thumb__title">London at Dusk</h3></div></a>`],
+  ["Whale Dance in Randolph", `<a class="path-thumb" href="work/whale-dance-randolph/"><div class="path-thumb__img"><img src="assets/images/work/events/whale-dance-randolph/dsc06299.webp" alt="Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Randolph · landscape photography</span><h3 class="path-thumb__title">Whale Dance in Randolph</h3></div></a>`],
+  ["Drone Photography", `<a class="path-thumb" href="work/drone-photography/"><div class="path-thumb__img"><img src="assets/images/work/events/drone-photography/dji_0053.webp" alt="Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Aerial · landscape photography</span><h3 class="path-thumb__title">Drone Photography</h3></div></a>`],
+];
+for (const [title, card] of requestedGalleryCards) {
+  if (!html.includes(`${title}</h3>`)) {
+    html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div>\s*<a class="path-browse")/, `$1${card}$2`);
+  }
+}
+
+html = html
+  .replaceAll("Taylor Hoar Racing 2025</h3>", "Taylor Hoar Racing</h3>")
+  .replaceAll("Wheels for Warmth 2025</h3>", "Wheels for Warmth</h3>")
+  .replace(/^[ \t]*<div class="software-console__brand">[\s\S]*?<\/div>\r?\n?/gm, "")
+  .replace(/<div class="software-console__brand">[\s\S]*?<\/div>/g, "")
+  .replace(/^[ \t]+$/gm, "");
+
 const recentProjectOrder = [
-  "girls-on-the-run-2026/",
-  "corporate-cup-2026/",
+  "neg-ecp-conference-2026/",
   "sweat-heart-throwdown/",
   "vermont-foodbank-volunteer-day-2026/",
+  "drone-photography/",
+  "whale-dance-randolph/",
+  "london-2019/",
   "giron-family-fall-2025/",
   "taylor-hoar-racing/",
   "wheels-for-warmth/",
   "eastrise-portraits/",
-  "blue-cross-portraits/",
 ];
 html = html.replace(/<div class="path-strip">([\s\S]*?)<\/div>\s*<a class="path-browse"/, (match, contents) => {
   const cards = [...contents.matchAll(/<a class="path-thumb"[\s\S]*?<\/a\s*>/g)].map((item) => item[0]);

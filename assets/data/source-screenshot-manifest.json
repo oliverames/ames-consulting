@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30T19:44:06.945Z",
+  "generated_at": "2026-08-11T00:00:00.000Z",
   "captures": [
     {
       "source_url": "https://www.bluecrossvt.org/barbara-demas",
@@ -28,6 +28,11 @@
     },
     {
       "source_url": "https://www.bluecrossvt.org/tom-weigel",
+      "source_channel": "website",
+      "source_capture": "private_archive"
+    },
+    {
+      "source_url": "https://www.eastrise.com/leadership/",
       "source_channel": "website",
       "source_capture": "private_archive"
     },
@@ -494,6 +499,11 @@
     {
       "source_url": "https://www.linkedin.com/posts/eastrisecu_wheelsforwarmth-20yearsstrong-vermontcommunity-activity-7392636960973942784-yOMY/",
       "source_channel": "LinkedIn",
+      "source_capture": "private_archive"
+    },
+    {
+      "source_url": "https://www.pixelspoke.coop/eastrise-credit-union-case-study",
+      "source_channel": "website",
       "source_capture": "private_archive"
     },
     {

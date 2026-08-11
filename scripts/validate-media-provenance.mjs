@@ -19,10 +19,12 @@ const dateEvidence = new Set(["private_archive_capture", "repository_archive_not
 const exceptionRules = new Map([
   ["publication_date_not_verifiable", ["published_date"]],
   ["public_source_page_not_identified", ["source_url", "published_date", "source_capture"]],
+  ["portfolio_archive_publication_not_identified", ["source_url", "source_channel", "published_date", "source_capture"]],
   ["personal_archive_source_not_identified", ["source_url", "source_channel", "published_date", "source_capture"]],
   ["source_capture_not_available", ["source_capture"]],
   ["collection_asset_without_single_source", ["source_url", "published_date", "source_capture"]],
   ["portfolio_original_without_public_source", ["source_url", "source_channel", "published_date", "downloaded_date", "source_capture"]],
+  ["client_work_portfolio_rights", ["source_url", "source_channel", "published_date", "source_capture"]],
 ]);
 
 function assertObject(value, label) {
@@ -187,6 +189,11 @@ for (const [asset, data] of Object.entries(provenanceAssets)) {
     if (["public_source_page_not_identified", "personal_archive_source_not_identified", "collection_asset_without_single_source"].includes(configuredException.reason) && !data.archive_note) {
       throw new Error(`${asset} requires honest public archive wording for ${configuredException.reason}.`);
     }
+    if (configuredException.reason === "portfolio_archive_publication_not_identified") {
+      if (!asset.startsWith("assets/images/work/portraits/gallery/eastrise/") || !data.archive_note) {
+        throw new Error(`${asset} cannot use the EastRise portrait archive exception.`);
+      }
+    }
     if (configuredException.public_note && data.archive_note !== configuredException.public_note) {
       throw new Error(`${asset} does not contain the configured public exception wording.`);
     }
@@ -198,6 +205,11 @@ for (const [asset, data] of Object.entries(provenanceAssets)) {
     }
     if (configuredException.reason === "portfolio_original_without_public_source" && asset !== "assets/images/work/portraits/gallery/blue-cross/lindsay-segale.webp") {
       throw new Error(`${asset} cannot use the portfolio-original exception.`);
+    }
+    if (configuredException.reason === "client_work_portfolio_rights") {
+      if (!asset.startsWith("assets/images/work/events/neg-ecp-conference-2026/") || !data.archive_note) {
+        throw new Error(`${asset} cannot use the NEG-ECP client-work exception.`);
+      }
     }
     acceptedCounts.set(configuredException.reason, acceptedCounts.get(configuredException.reason) + 1);
     incompleteByAsset.set(asset, { missingFields, embeddedException });

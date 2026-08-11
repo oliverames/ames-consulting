@@ -25,7 +25,28 @@
         "assets/images/work/portraits/gallery/blue-cross/ruth-greene-executive.webp",
         "assets/images/work/portraits/gallery/blue-cross/rebecca-heintz-executive.webp",
         "assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-executive.webp",
-        "assets/images/work/portraits/gallery/blue-cross/tom-weigel-executive.webp"
+        "assets/images/work/portraits/gallery/blue-cross/tom-weigel-executive.webp",
+        "assets/images/work/portraits/gallery/eastrise/elizabeth-morton-7fa90d0baa56.webp",
+        "assets/images/work/portraits/gallery/eastrise/greg-hahr-1e9fb95882f7.webp",
+        "assets/images/work/portraits/gallery/eastrise/mark-ackerly-30f1ccb7c42a.webp",
+        "assets/images/work/portraits/gallery/eastrise/valerie-beaudin-3c27bcc65850.webp",
+        "assets/images/work/portraits/gallery/eastrise/rick-hommel-48907ad04940.webp",
+        "assets/images/work/portraits/gallery/eastrise/sue-leonard-ee8e3f857bee.webp",
+        "assets/images/work/portraits/gallery/eastrise/robert-miller-8bfc691871e1.webp",
+        "assets/images/work/portraits/gallery/eastrise/subha-luck-d0788fbd44e9.webp",
+        "assets/images/work/portraits/gallery/eastrise/frank-g-harris-2858668bfeee.webp",
+        "assets/images/work/portraits/gallery/eastrise/margaret-h-o-donnell-c05bf4f533cd.webp",
+        "assets/images/work/portraits/gallery/eastrise/stephanie-meunier-642aefa190aa.webp",
+        "assets/images/work/portraits/gallery/eastrise/julie-lineberger-1bce039db269.webp",
+        "assets/images/work/portraits/gallery/eastrise/amy-vaughan-f56acbe945f7.webp",
+        "assets/images/work/portraits/gallery/eastrise/michael-hogan-b682c74b872f.webp",
+        "assets/images/work/portraits/gallery/eastrise/george-sales-40429a12c861.webp",
+        "assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
+        "assets/images/work/portraits/gallery/eastrise/arthur-g-woolf-001f95fa1205.webp",
+        "assets/images/work/credit-union-websites/eastrise-feature.webp",
+        "assets/images/work/credit-union-websites/eastrise-desktop.webp",
+        "assets/images/work/credit-union-websites/eastrise-mobile.webp",
+        "assets/images/work/credit-union-websites/eastrise-homepage.webp"
       ]
     },
     {
@@ -44,14 +65,44 @@
         "assets/images/work/eastrise/photography/formal-headshots/li_24fdd57c501c-0ddda4c9a133.webp",
         "assets/images/work/eastrise/photography/formal-headshots/li_27f8a29eccaf-0807d8b04742.webp",
         "assets/images/work/eastrise/photography/eastrise-candid-portraits/li_f1336164519e-9018f1223a22.webp",
-        "assets/images/work/eastrise/photography/wood-for-good/li_ea2947a8532f-f4ff22f680ae.webp",
-        "assets/images/work/eastrise/photography/wood-for-good/li_61491d2ad4ca-c1c3463ba614.webp",
-        "assets/images/work/eastrise/photography/wood-for-good/li_056a8068f216-567a62b48197.webp",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/li_fbbb767cda6f-6d1f68e78b60.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/li_6dd865f2b63a-a7bb13fdae26.webp",
-        "assets/images/work/eastrise/photography/eastrise-launch/li_daa49f294800-056ff6147712.webp",
-        "assets/images/work/eastrise/photography/eastrise-launch/li_53ed1c19acae-0f8603b6f8a2.webp",
-        "assets/images/work/eastrise/photography/eastrise-launch/li_2efb609948e1-2c2bdeae5cc5.webp"
+        "assets/images/work/eastrise/photography/taylor-hoar-racing/li_6dd865f2b63a-a7bb13fdae26.webp"
+      ]
+    },
+    {
+      "reason": "portfolio_archive_publication_not_identified",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable.",
+      "public_note": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable.",
+      "assets": [
+        "assets/images/work/portraits/gallery/eastrise/alvah-newhall-51affaf9531d.webp",
+        "assets/images/work/portraits/gallery/eastrise/amanda-seeholzer-65a4fab5390d.webp",
+        "assets/images/work/portraits/gallery/eastrise/caroline-cross-3b74de79d7e7.webp",
+        "assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp",
+        "assets/images/work/portraits/gallery/eastrise/christine-corbett-f205162e07db.webp",
+        "assets/images/work/portraits/gallery/eastrise/deanna-carol-09198be91fcf.webp",
+        "assets/images/work/portraits/gallery/eastrise/danielle-whitcomb-c469efe1923c.webp",
+        "assets/images/work/portraits/gallery/eastrise/denisa-yee-f468ef43177a.webp",
+        "assets/images/work/portraits/gallery/eastrise/emily-phelps-d5f17dad9b60.webp",
+        "assets/images/work/portraits/gallery/eastrise/ibby-wilson-c0dd6ff4d25a.webp",
+        "assets/images/work/portraits/gallery/eastrise/ian-squirrell-07f536eac8c6.webp",
+        "assets/images/work/portraits/gallery/eastrise/jc-gepigon-120bfc4174df.webp",
+        "assets/images/work/portraits/gallery/eastrise/jim-towne-8c7c16c59130.webp",
+        "assets/images/work/portraits/gallery/eastrise/john-dwyer-a32c6fed2b06.webp",
+        "assets/images/work/portraits/gallery/eastrise/julie-jorgensen-785822e57df4.webp",
+        "assets/images/work/portraits/gallery/eastrise/kathleen-s-emery-ginn-0923864444e4.webp",
+        "assets/images/work/portraits/gallery/eastrise/luke-buglion-gluck-d4bac0e9c5f2.webp",
+        "assets/images/work/portraits/gallery/eastrise/matt-sjoblom-5fd0e05eb0aa.webp",
+        "assets/images/work/portraits/gallery/eastrise/penny-overton-afc73b598499.webp",
+        "assets/images/work/portraits/gallery/eastrise/rion-bleicher-a7c9d6c6a682.webp",
+        "assets/images/work/portraits/gallery/eastrise/sara-wright-c46a02cd0123.webp",
+        "assets/images/work/portraits/gallery/eastrise/sarah-spaulding-c55a605c8245.webp",
+        "assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp"
       ]
     },
     {
@@ -108,6 +159,54 @@
       "public_note": "was made by Oliver Ames for Blue Cross and Blue Shield of Vermont in 2026.",
       "assets": [
         "assets/images/work/portraits/gallery/blue-cross/lindsay-segale.webp"
+      ]
+    },
+    {
+      "reason": "client_work_portfolio_rights",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement.",
+      "public_note": "was made by Oliver Ames for Cynosure, Inc. and GBIC. Portfolio use is retained under the project agreement.",
+      "assets": [
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00051.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00135.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00152.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00183.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00197.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00207.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00262.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00341.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00372.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00562.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00653.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00735.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00757.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00759.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00781.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00817.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00820.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00937.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc00963.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01060.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01227.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01315.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01457.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01534.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01824.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc01938.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc02266.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc02313.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc02335.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc06647.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc06709.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc06717.webp",
+        "assets/images/work/events/neg-ecp-conference-2026/dsc06748.webp"
       ]
     }
   ]

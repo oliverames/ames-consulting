@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-05",
+  "generated_at": "2026-08-11",
   "missing": [
     {
       "asset": "assets/images/work/eastrise/photography/winooski-development/li_d161cd689c09-758c3b2c6a54.webp",
@@ -88,57 +88,6 @@
     },
     {
       "asset": "assets/images/work/eastrise/photography/eastrise-candid-portraits/li_f1336164519e-9018f1223a22.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "accepted_exception": {
-        "reason": "public_source_page_not_identified",
-        "missing_fields": [
-          "source_url",
-          "published_date",
-          "source_capture"
-        ],
-        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
-      }
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/wood-for-good/li_ea2947a8532f-f4ff22f680ae.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "accepted_exception": {
-        "reason": "public_source_page_not_identified",
-        "missing_fields": [
-          "source_url",
-          "published_date",
-          "source_capture"
-        ],
-        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
-      }
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/wood-for-good/li_61491d2ad4ca-c1c3463ba614.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "accepted_exception": {
-        "reason": "public_source_page_not_identified",
-        "missing_fields": [
-          "source_url",
-          "published_date",
-          "source_capture"
-        ],
-        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
-      }
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/wood-for-good/li_056a8068f216-567a62b48197.webp",
       "missing_fields": [
         "source_url",
         "published_date",
@@ -368,57 +317,6 @@
       }
     },
     {
-      "asset": "assets/images/work/eastrise/photography/eastrise-launch/li_daa49f294800-056ff6147712.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "accepted_exception": {
-        "reason": "public_source_page_not_identified",
-        "missing_fields": [
-          "source_url",
-          "published_date",
-          "source_capture"
-        ],
-        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
-      }
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/eastrise-launch/li_53ed1c19acae-0f8603b6f8a2.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "accepted_exception": {
-        "reason": "public_source_page_not_identified",
-        "missing_fields": [
-          "source_url",
-          "published_date",
-          "source_capture"
-        ],
-        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
-      }
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/eastrise-launch/li_2efb609948e1-2c2bdeae5cc5.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "accepted_exception": {
-        "reason": "public_source_page_not_identified",
-        "missing_fields": [
-          "source_url",
-          "published_date",
-          "source_capture"
-        ],
-        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
-      }
-    },
-    {
       "asset": "assets/images/work/eastrise/social/facebook-016.webp",
       "missing_fields": [
         "published_date"
@@ -507,6 +405,664 @@
           "published_date"
         ],
         "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/elizabeth-morton-7fa90d0baa56.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/greg-hahr-1e9fb95882f7.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/mark-ackerly-30f1ccb7c42a.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/valerie-beaudin-3c27bcc65850.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/rick-hommel-48907ad04940.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/sue-leonard-ee8e3f857bee.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/robert-miller-8bfc691871e1.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/subha-luck-d0788fbd44e9.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/frank-g-harris-2858668bfeee.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/margaret-h-o-donnell-c05bf4f533cd.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/stephanie-meunier-642aefa190aa.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/julie-lineberger-1bce039db269.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/amy-vaughan-f56acbe945f7.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/michael-hogan-b682c74b872f.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/george-sales-40429a12c861.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/arthur-g-woolf-001f95fa1205.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/alvah-newhall-51affaf9531d.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/amanda-seeholzer-65a4fab5390d.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/caroline-cross-3b74de79d7e7.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/christine-corbett-f205162e07db.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/deanna-carol-09198be91fcf.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/danielle-whitcomb-c469efe1923c.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/denisa-yee-f468ef43177a.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/emily-phelps-d5f17dad9b60.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/ibby-wilson-c0dd6ff4d25a.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/ian-squirrell-07f536eac8c6.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/jc-gepigon-120bfc4174df.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/jim-towne-8c7c16c59130.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/john-dwyer-a32c6fed2b06.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/julie-jorgensen-785822e57df4.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/kathleen-s-emery-ginn-0923864444e4.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/luke-buglion-gluck-d4bac0e9c5f2.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/matt-sjoblom-5fd0e05eb0aa.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/penny-overton-afc73b598499.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/rion-bleicher-a7c9d6c6a682.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/sara-wright-c46a02cd0123.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/sarah-spaulding-c55a605c8245.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
+      }
+    },
+    {
+      "asset": "assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_archive_publication_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable."
       }
     },
     {
@@ -636,6 +1192,723 @@
           "source_capture"
         ],
         "note": "This portfolio card represents a body of EastRise articles and does not correspond to one public page or publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/credit-union-websites/eastrise-feature.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/credit-union-websites/eastrise-desktop.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/credit-union-websites/eastrise-mobile.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/credit-union-websites/eastrise-homepage.webp",
+      "missing_fields": [
+        "published_date"
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00051.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00197.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00262.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc02335.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00135.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00152.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00183.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00207.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00341.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00372.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00562.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00653.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00735.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00757.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00759.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00781.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00817.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00820.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00937.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00963.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01060.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01227.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01315.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01457.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01534.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01824.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc01938.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc02266.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc02313.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc06647.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc06709.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc06717.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
+      }
+    },
+    {
+      "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc06748.webp",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "client_work_portfolio_rights",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "These photographs are Oliver Ames's commissioned client work for Cynosure, Inc. and GBIC, with portfolio use retained under the project agreement."
       }
     }
   ]

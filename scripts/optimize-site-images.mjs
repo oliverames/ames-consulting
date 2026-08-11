@@ -65,6 +65,10 @@ const imageProfiles = {
     widths: [240, 320, 480, 640, 800, 1200],
     sizes: "(max-width: 52rem) calc(50vw - 2rem), (max-width: 75rem) calc(23vw - 1.5rem), 16rem",
   },
+  campaign: {
+    widths: [320, 360, 480, 640, 800, 960, 1200],
+    sizes: "(max-width: 52rem) calc(50vw - 2rem), (max-width: 75rem) calc(31vw - 1.5rem), 20rem",
+  },
   third: {
     widths: [320, 360, 480, 640, 800, 960, 1200],
     sizes: "(max-width: 52rem) calc(50vw - 2rem), (max-width: 75rem) calc(31vw - 1.5rem), 21rem",
@@ -103,7 +107,8 @@ function profileForClasses(classes) {
   if (has("portrait-grid", "portrait-gallery")) {
     return has("portrait-gallery--featured") ? "third" : "quarter";
   }
-  if (has("media-grid--three", "campaign-collage")) return "third";
+  if (has("campaign-collage")) return "campaign";
+  if (has("media-grid--three")) return "third";
   if (has("media-grid", "case-split", "software-hero")) return "half";
   if (has("hero__portrait")) return "portrait";
   if (has("photo-gallery", "gallery-image")) return "third";

@@ -15,7 +15,7 @@ const overrides = {
   "/services/photography-and-video/": {
     title: "Commercial Photography and Video in Vermont | Oliver Ames",
     description: "Documentary workplace photography, corporate portraits, event coverage, and video production for Vermont organizations. See complete galleries and campaign work.",
-    image: `${siteUrl}/assets/images/work/blue-cross/arrayrx-card.webp`
+    image: `${siteUrl}/assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp`
   },
   "/services/strategy-and-content/": {
     title: "Content Strategy and Campaigns in Vermont | Oliver Ames",
@@ -28,6 +28,11 @@ const overrides = {
   "/work/": {
     title: "Vermont Photography, Video, and Campaign Work | Oliver Ames",
     description: "Commercial photography, portraits, events, video, campaigns, websites, and software by Montpelier-based photographer and strategist Oliver Ames."
+  },
+  "/work/neg-ecp-conference-2026/": {
+    title: "47th NEG-ECP Conference Photography | Oliver Ames",
+    description: "Thirty-five photographs by Oliver Ames from the 47th Conference of New England Governors and Eastern Canadian Premiers at Shelburne Farms on August 10, 2026.",
+    image: `${siteUrl}/assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp`
   },
   "/work/credit-union-websites/": {
     title: "Credit Union Website Projects | Oliver Ames",

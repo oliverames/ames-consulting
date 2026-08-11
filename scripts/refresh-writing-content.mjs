@@ -1,13 +1,14 @@
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const exec = promisify(execFile);
-const eastRiseSource = "/Users/oliverames/My Drive (Personal)/Career/Work Samples/Oliver's EastRise Blog Posts.csv";
+const eastRiseSource = join(homedir(), "My Drive (Personal)", "Career", "Work Samples", "Oliver's EastRise Blog Posts.csv");
 
 function parseCsvLine(line) {
   const fields = [];
@@ -74,7 +75,7 @@ try {
       title,
       date: date === "Not Available" ? null : date,
       category: category === "Not Available" ? "Technology & Banking" : category,
-      url,
+      url: title === "Page Not Found (404)" ? null : url,
       available: title !== "Page Not Found (404)",
       archivedTitle: title === "Page Not Found (404)" ? "A Comprehensive Guide to EV Charging Apps" : null
     };
@@ -109,6 +110,16 @@ const linkedinOriginals = [
     },
   },
 ];
+
+function sanitizePublicArchiveText(post) {
+  let text = post.text
+    .replace(/\n*https?:\/\/indieweb\.social\/\S+/giu, "")
+    .replace(/\n*indieweb\.social\/\S+/giu, "");
+  if (post.title?.includes("The Sunshine Trail:")) {
+    text = text.replace(/\n\nIf you want to explore it,[\s\S]*$/u, "");
+  }
+  return { ...post, text: text.replace(/\n{3,}/g, "\n\n").trim() };
+}
 
 const rawPosts = [
   ...micro.items.map((item) => ({
@@ -157,7 +168,7 @@ const rawPosts = [
     image: item.image,
     sharedPost: item.sharedPost,
   }))
-].filter((post) => post.text || post.title);
+].filter((post) => post.text || post.title).map(sanitizePublicArchiveText);
 
 for (const post of rawPosts) {
   if (post.title?.includes("The Sunshine Trail:")) {

@@ -3,6 +3,27 @@ import { loadSiteConfig } from "./site-config.js";
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX_ATTEMPTS = 3;
 const MIN_FILL_MS = 3_000;
+const FORM_UNAVAILABLE_MESSAGE = "The form is unavailable right now. Please email me at oliver@ames.consulting.";
+const TURNSTILE_SCRIPT_URL = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+
+let turnstileRequested = false;
+
+function requestTurnstile() {
+  if (turnstileRequested || window.turnstile) {
+    return;
+  }
+
+  turnstileRequested = true;
+  const script = document.createElement("script");
+  script.src = TURNSTILE_SCRIPT_URL;
+  script.async = true;
+  script.defer = true;
+  script.addEventListener("error", () => {
+    turnstileRequested = false;
+    script.remove();
+  }, { once: true });
+  document.head.append(script);
+}
 
 function getAttemptsKey() {
   return "ames_contact_attempt_timestamps";
@@ -59,6 +80,7 @@ function setStatus(node, message, tone = "info") {
 
 async function initContactForm() {
   const form = document.getElementById("contact-form");
+  const fallback = document.getElementById("contact-form-fallback");
   const status = document.getElementById("contact-form-status");
   const submitButton = document.getElementById("contact-submit");
   const startedAtInput = document.getElementById("contact-started-at");
@@ -72,7 +94,14 @@ async function initContactForm() {
   const config = await loadSiteConfig();
   const endpoint = isUsableEndpoint(config.contactFormEndpoint) ? config.contactFormEndpoint.trim() : "";
 
+  form.hidden = false;
+  if (fallback) {
+    fallback.hidden = true;
+  }
+
   startedAtInput.value = String(Date.now());
+  form.addEventListener("focusin", requestTurnstile, { once: true });
+  form.addEventListener("pointerdown", requestTurnstile, { once: true });
 
   const requestedProject = new URLSearchParams(location.search).get("project");
   if (requestedProject && projectType instanceof RadioNodeList) {
@@ -85,13 +114,14 @@ async function initContactForm() {
   if (!endpoint) {
     setStatus(
       status,
-      "Form endpoint is not configured yet. Add contactFormEndpoint in site.config.json to enable submissions.",
+      FORM_UNAVAILABLE_MESSAGE,
       "warn"
     );
   }
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    requestTurnstile();
 
     const now = Date.now();
 
@@ -106,7 +136,7 @@ async function initContactForm() {
     if (!endpoint) {
       setStatus(
         status,
-        "Form endpoint is not configured yet. Add contactFormEndpoint in site.config.json to enable submissions.",
+        FORM_UNAVAILABLE_MESSAGE,
         "warn"
       );
       return;

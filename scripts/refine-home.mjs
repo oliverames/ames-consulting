@@ -42,16 +42,6 @@ if (!html.includes("Vermont Foodbank Volunteer Day</h3>")) {
   html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div>\s*<a class="path-browse")/, `$1${foodbank}$2`);
 }
 
-/*
- * Held pending written permission. Preserve these homepage preview cards in
- * source, but do not render them until permission is documented.
- *
- * const betaSeries = `<a class="path-thumb" href="work/beta-andrew/"><div class="path-thumb__img"><img src="assets/images/work/events/beta-andrew/dsc08015.webp" alt="Andrew working beside an aircraft structure at BETA Technologies" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">BETA Technologies · workplace photography</span><h3 class="path-thumb__title">Andrew at BETA</h3></div></a><a class="path-thumb" href="work/beta-emma/"><div class="path-thumb__img"><img src="assets/images/work/events/beta-emma/dsc07894.webp" alt="Emma holding a precision measuring tool at BETA Technologies" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">BETA Technologies · workplace photography</span><h3 class="path-thumb__title">Emma at BETA</h3></div></a><a class="path-thumb" href="work/beta-ethan/"><div class="path-thumb__img"><img src="assets/images/work/events/beta-ethan/dsc08105.webp" alt="Ethan at a workbench inside BETA Technologies" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">BETA Technologies · workplace photography</span><h3 class="path-thumb__title">Ethan at BETA</h3></div></a>`;
- */
-for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
-  html = html.replace(new RegExp(`<a class="path-thumb" href="work/${slug}/"[\\s\\S]*?</a\\s*>`), "");
-}
-
 const recentProjectOrder = [
   "girls-on-the-run-2026/",
   "corporate-cup-2026/",

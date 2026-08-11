@@ -30,7 +30,7 @@ const networks = [
 
 const icon = (brand) => `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="${brand.path}"></path></svg><span class="visually-hidden">${brand.title}</span>`;
 
-function addIcons(html) {
+function decorateNetworkAnchors(html) {
   // Tolerates Prettier-formatted anchors (newlines inside the tag and around
   // the label), which the previous single-line pattern silently skipped.
   return html.replace(/<a href="([^"]+)"([^>]*)>\s*(GitHub|LinkedIn|Micro\.blog|Mastodon|Bluesky|Threads|Instagram)\s*<\/a\s*>/g, (match, href, attrs) => {
@@ -38,6 +38,15 @@ function addIcons(html) {
     if (!brand) return match;
     return `<a href="${href}"${attrs.replace(/\s+/g, " ").trimEnd()} aria-label="${brand.title}">${icon(brand)}</a>`;
   });
+}
+
+function addIcons(html) {
+  // Keep network icons in profile controls. Inline prose links retain their
+  // visible text, underline, and surrounding context.
+  return html.replace(
+    /<(ul|nav)\b[^>]*class="[^"]*(?:site-footer__social|profile-links)[^"]*"[^>]*>[\s\S]*?<\/\1>|<(?:aside|section) class="about-contact-card">[\s\S]*?<\/(?:aside|section)>/g,
+    decorateNetworkAnchors,
+  );
 }
 
 const socialProfiles = [
@@ -65,7 +74,7 @@ function normalizeColophon(html) {
   normalized = normalized.replace(/<div class="site-footer__social-column">[\s\S]*?<\/div>/, "");
   return normalized.replace(
     /<\/nav>\s*(<div class="site-footer__colophon">)/,
-    `<div class="site-footer__social-column"><h3 class="site-footer__social-title">Social</h3><ul class="site-footer__social">${socialList}</ul></div></nav>$1`,
+    `<div class="site-footer__social-column"><h2 class="site-footer__social-title">Social</h2><ul class="site-footer__social">${socialList}</ul></div></nav>$1`,
   );
 }
 
@@ -80,7 +89,7 @@ function normalizeNavAndCompany(html, base) {
       `$1<li><a href="${base}testimonials/">Testimonials</a></li>`,
     );
   }
-  out = out.replace(/(<h3>Company<\/h3>\s*<ul>)([\s\S]*?)(<\/ul>)/, (match, openTag, items, closeTag) => {
+  out = out.replace(/(<h[23]>Company<\/h[23]>\s*<ul>)([\s\S]*?)(<\/ul>)/, (match, openTag, items, closeTag) => {
     let list = items.replace(/(<a href="[^"]*work\/"[^>]*>)(?:All projects|Work)(<\/a>)/, "$1All work$2");
     if (!list.includes("Testimonials")) {
       list = list.replace(
@@ -104,12 +113,43 @@ function ensureFontPreconnects(html) {
   );
 }
 
+function ensureFavicon(html, href) {
+  const favicon = `<link rel="icon" href="${href}" type="image/svg+xml">`;
+  if (/<link\s[^>]*rel="icon"/i.test(html)) {
+    return html.replace(/<link\s[^>]*rel="icon"[^>]*>/i, favicon);
+  }
+  return html.replace("</head>", `${favicon}</head>`);
+}
+
 function addSocialHeading(html) {
   return html.replace(
     /(<div class="site-footer__colophon">[\s\S]*?)(<ul class="site-footer__social">)/g,
     (match, before, list) => before.includes("site-footer__social-title")
       ? match
-      : `${before}<h3 class="site-footer__social-title">Social</h3>${list}`,
+      : `${before}<h2 class="site-footer__social-title">Social</h2>${list}`,
+  );
+}
+
+function normalizeFooterHeadingLevels(html) {
+  return html.replace(
+    /<footer class="site-footer">[\s\S]*?<\/footer>/g,
+    (footer) => footer.replaceAll("<h3", "<h2").replaceAll("</h3>", "</h2>"),
+  );
+}
+
+function ensureHubSectionHeadings(html, file) {
+  const page = relative(root, file).split(sep).join("/");
+  const headings = new Map([
+    ["work/eastrise/index.html", ["work-category legacy-campaigns", "EastRise campaigns and projects"]],
+    ["work/blue-cross-vermont/index.html", ["work-category legacy-campaigns", "Blue Cross Vermont series"]],
+    ["work/portraits-and-people/index.html", ["work-category", "Portrait collections"]],
+  ]);
+  const setting = headings.get(page);
+  if (!setting) return html;
+  const [className, heading] = setting;
+  return html.replace(
+    `<section class="${className}"><div class="work-list">`,
+    `<section class="${className}"><h2>${heading}</h2><div class="work-list">`,
   );
 }
 
@@ -119,13 +159,35 @@ function updateFooterGroups(html, file) {
   const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
   const workBase = `${base}work/`;
   return html.replace(
-    /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h3>(?:Campaigns|Services|Work by organization)<\/h3>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
-    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="${workBase}?organization=blue-cross-vermont">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}beta-technologies/">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
+    /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h[23]>(?:Campaigns|Services|Work by organization)<\/h[23]>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
+    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization</h2><ul><li><a href="${workBase}?organization=blue-cross-vermont">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}beta-technologies/">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
   );
 }
 
 const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 const formatDate = (value) => value ? new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`)) : "";
+
+function normalizeSourceUrl(value) {
+  if (!value) return "";
+  try {
+    const source = new URL(value);
+    for (const key of [...source.searchParams.keys()]) {
+      if (/^utm_/i.test(key) || key.toLowerCase() === "rcm") source.searchParams.delete(key);
+    }
+    source.hash = "";
+    return source.href;
+  } catch {
+    return value;
+  }
+}
+
+function agreeArchiveNote(note, count) {
+  const normalized = String(note || "").trim();
+  if (count === 1) {
+    return normalized.replace(/^were\b/i, "was").replace(/^are\b/i, "is").replace(/^have\b/i, "has");
+  }
+  return normalized.replace(/^was\b/i, "were").replace(/^is\b/i, "are").replace(/^has\b/i, "have");
+}
 
 function addProvenanceDisclosure(html, file) {
   const page = relative(root, file).split(sep).join("/");
@@ -137,15 +199,16 @@ function addProvenanceDisclosure(html, file) {
     const data = provenance.assets?.[asset];
     if (!data) continue;
     const publisher = data.credit.includes("EastRise Credit Union") ? "EastRise Credit Union" : "Blue Cross and Blue Shield of Vermont";
-    const key = `${publisher}|${data.source_channel || "source page"}|${data.published_date || ""}|${data.downloaded_date || ""}|${data.archive_note || ""}`;
-    const current = groups.get(key) || { count: 0, publisher, channel: data.source_channel, sourceUrl: data.source_url, publishedDate: data.published_date, downloadedDate: data.downloaded_date, archiveNote: data.archive_note };
+    const sourceUrl = normalizeSourceUrl(data.source_url);
+    const key = `${publisher}|${data.source_channel || "source page"}|${sourceUrl}|${data.published_date || ""}|${data.downloaded_date || ""}|${data.archive_note || ""}`;
+    const current = groups.get(key) || { count: 0, publisher, channel: data.source_channel, sourceUrl, publishedDate: data.published_date, downloadedDate: data.downloaded_date, archiveNote: data.archive_note };
     current.count += 1;
     groups.set(key, current);
   }
   if (!groups.size) return cleaned;
   const items = [...groups.values()].map((group) => {
     let sentence = group.archiveNote
-      ? `${group.count} image${group.count === 1 ? "" : "s"} ${group.archiveNote}`
+      ? `${group.count} image${group.count === 1 ? "" : "s"} ${agreeArchiveNote(group.archiveNote, group.count)}`
       : `${group.count} image${group.count === 1 ? "" : "s"} published by ${group.publisher}`;
     if (group.archiveNote) return `<li>${sentence}</li>`;
     if (group.channel) sentence += group.sourceUrl ? ` on <a href="${escapeHtml(group.sourceUrl)}" rel="noopener">${escapeHtml(group.channel)}</a>` : ` on ${escapeHtml(group.channel)}`;
@@ -179,18 +242,18 @@ for (const file of await collectHtml(root)) {
   const pathParts = relative(root, file).split(sep);
   const directoryDepth = pathParts.length - 1;
   const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
+  const faviconBase = relative(root, file) === "404.html" ? "/" : base;
   let after = normalizeColophon(before);
-  after = after.replace(
-    /<script\b[^>]*src="[^"]*assets\/js\/construction-gate\.js"[^>]*><\/script>/g,
-    "",
-  );
-  after = after.replace(
-    /<div class="construction-gate" id="construction-gate"[\s\S]*?<\/div>\s*(?=<a class="skip-link")/g,
-    "",
-  );
   after = normalizeNavAndCompany(after, base);
   after = ensureFontPreconnects(after);
-  after = addProvenanceDisclosure(updateFooterGroups(addSocialHeading(addIcons(after)), file), file);
+  after = ensureFavicon(after, `${faviconBase}assets/images/brand/oa-social-mark.svg`);
+  after = ensureHubSectionHeadings(after, file);
+  after = addProvenanceDisclosure(
+    normalizeFooterHeadingLevels(
+      updateFooterGroups(addSocialHeading(addIcons(after)), file),
+    ),
+    file,
+  );
   if (!after.includes("assets/js/content-protection.js")) {
     after = after.replace("</body>", `<script type="module" src="${base}assets/js/content-protection.js"></script></body>`);
   }

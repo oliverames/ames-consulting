@@ -18,15 +18,20 @@ async function listFiles(directory) {
   return files;
 }
 
-async function hashSite() {
-  const hash = createHash("sha256");
+async function snapshotSite() {
+  const files = new Map();
   for (const filePath of (await listFiles(siteRoot)).sort()) {
-    hash.update(path.relative(siteRoot, filePath));
+    const relativePath = path.relative(siteRoot, filePath);
+    files.set(relativePath, createHash("sha256").update(await readFile(filePath)).digest("hex"));
+  }
+  const hash = createHash("sha256");
+  for (const [relativePath, fileHash] of files) {
+    hash.update(relativePath);
     hash.update("\0");
-    hash.update(await readFile(filePath));
+    hash.update(fileHash);
     hash.update("\0");
   }
-  return hash.digest("hex");
+  return { files, hash: hash.digest("hex") };
 }
 
 function build() {
@@ -34,8 +39,14 @@ function build() {
 }
 
 build();
-const first = await hashSite();
+const first = await snapshotSite();
 build();
-const second = await hashSite();
-if (first !== second) throw new Error(`Build output changed between runs: ${first} != ${second}`);
-console.log(`Build output is content-idempotent: ${second}`);
+const second = await snapshotSite();
+if (first.hash !== second.hash) {
+  const filenames = new Set([...first.files.keys(), ...second.files.keys()]);
+  const changed = [...filenames].filter((filename) => first.files.get(filename) !== second.files.get(filename));
+  throw new Error(
+    `Build output changed between runs (${first.hash} != ${second.hash}):\n${changed.slice(0, 30).join("\n")}`,
+  );
+}
+console.log(`Build output is content-idempotent: ${second.hash}`);

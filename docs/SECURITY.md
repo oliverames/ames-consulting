@@ -4,22 +4,20 @@ This project is a static site with client-rendered enhancements. Security focuse
 
 ## Implemented Controls
 
-- Runtime HTML sanitization for preview content.
-- CSP baseline via `meta http-equiv` on route shells for directives browsers support there.
-- Referrer policy (`strict-origin-when-cross-origin`).
-- Permissions policy with sensitive APIs disabled.
-- Contact form anti-abuse: honeypot, minimum-fill-time gate, local rate limiter.
-- Asset extraction deterrence for protected images (right-click/drag/save-key interception).
+- Gallery scrubbing fetches only same-origin pages, parses them with `DOMParser`, and extracts image URLs instead of inserting fetched markup into the live page.
+- CSP in route metadata and the Cloudflare `_headers` policy, including framing and object restrictions.
+- HSTS, MIME-sniffing protection, a strict referrer policy, and a permissions policy that disables sensitive APIs.
+- Contact form anti-abuse: same-origin enforcement, payload and fill-time limits, a honeypot, Turnstile verification, and a supplementary local rate limiter.
+- Accidental image dragging is disabled without blocking text selection, context menus, save shortcuts, or printing.
 
 ## Known Limits
 
 - Browser-delivered assets cannot be fully copy-protected.
-- Meta-tag CSP is weaker than server headers. Framing protection such as `frame-ancestors` must be set as an HTTP response header.
-- Client-side anti-spam controls are supplementary; endpoint-side protections remain required.
+- The browser-local rate limiter is not a security boundary. The endpoint relies on same-origin checks and single-use Turnstile tokens.
 
-## Recommended Edge/Header Policy
+## Edge Response Headers
 
-When a CDN/proxy layer is introduced, set headers there:
+Cloudflare Pages applies these headers to every static response through the root `_headers` file:
 
 - `Content-Security-Policy`
 - `Referrer-Policy`
@@ -27,18 +25,18 @@ When a CDN/proxy layer is introduced, set headers there:
 - `X-Content-Type-Options: nosniff`
 - `Strict-Transport-Security`
 
-## Contact Endpoint Requirements
+## Contact Endpoint
 
-Use a backend that supports:
+The Pages Function validates:
 
-- server-side rate limiting
-- spam scoring/honeypot verification
-- request origin validation
-- abuse logging
+- the request origin and payload size
+- the honeypot and minimum fill time
+- required fields and field lengths
+- a single-use Turnstile token before sending through Resend
 
 ## Secure Change Checklist
 
 - Any new third-party script is documented and justified.
 - Any endpoint domain is reflected in CSP/connect policy.
-- New HTML rendering paths pass sanitizer review.
+- New HTML rendering paths avoid untrusted markup and receive an injection review.
 - New form fields are validated client-side and server-side.

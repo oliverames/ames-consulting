@@ -2,19 +2,31 @@
 
 import { execFile } from "node:child_process";
 import { access, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { homedir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
-const blueCrossRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
+const escapeAttribute = (value) => String(value)
+  .replaceAll("&", "&amp;")
+  .replaceAll('"', "&quot;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;");
+const documentsRoot = process.env.AMES_CONSULTING_DOCUMENTS_ROOT
+  || path.join(homedir(), "Documents", "Ames Consulting");
+const blueCrossRoot = process.env.AMES_BLUE_CROSS_PORTFOLIO_ROOT
+  || path.join(documentsRoot, "Portfolio", "Blue Cross VT");
+const gironRoot = process.env.AMES_GIRON_CLIENT_ROOT
+  || path.join(documentsRoot, "Clients", "Giron Family");
 const gironRoots = {
-  "giron-family-fall-2025": "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/Kevin and Kayla Fall 2025/Deliverables",
-  "giron-family-christmas-tree-farm-2024": "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/2024-12-01 Christmas Tree Farm Family Session",
-  "giron-family-fall-2023": "/Users/oliverames/Documents/Ames Consulting/Clients/Giron Family/2023-10-08 Fall Family Session",
+  "giron-family-fall-2025": path.join(gironRoot, "Kevin and Kayla Fall 2025", "Deliverables"),
+  "giron-family-christmas-tree-farm-2024": path.join(gironRoot, "2024-12-01 Christmas Tree Farm Family Session"),
+  "giron-family-fall-2023": path.join(gironRoot, "2023-10-08 Fall Family Session"),
 };
 const eastRiseData = JSON.parse(await readFile(path.join(root, "assets/data/eastrise-photography.json"), "utf8"));
 const existingEventData = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
+const eventAltTextRoot = path.join(root, "assets/data/event-gallery-alt-text");
 const blueCrossSourcesAvailable = !process.env.CI && await access(blueCrossRoot).then(() => true, () => false);
 const gironSourcesAvailable = new Map(await Promise.all(Object.entries(gironRoots).map(async ([slug, source]) => [
   slug,
@@ -46,6 +58,7 @@ const definitions = [
     ...blueCrossSource("senior-games-press-event-2026", "2026-03-18 – Senior Games Press Event/Edited Selects"),
     organization: "Blue Cross Vermont",
     featuredFile: "dsc01867.webp",
+    featuredAlt: "A man in a suit smiles while speaking with attendees inside the Vermont State House.",
   },
   {
     slug: "arrayrx-press-conference-2026",
@@ -55,6 +68,7 @@ const definitions = [
     ...blueCrossSource("arrayrx-press-conference-2026", "2026-03-26 – ArrayRx Press Conference/Edited Selects"),
     organization: "Blue Cross Vermont",
     featuredFile: "dsc02517.webp",
+    featuredAlt: "A woman speaks to reporters at the ArrayRx press conference inside the Vermont State House.",
   },
   {
     slug: "walk-at-lunch-and-green-up-2026",
@@ -64,6 +78,7 @@ const definitions = [
     ...blueCrossSource("walk-at-lunch-and-green-up-2026", "2026-04-29 – Walk@Lunch and GreenUp/Edited Selects"),
     organization: "Blue Cross Vermont",
     featuredFile: "dsc02728.webp",
+    featuredAlt: "Blue Cross Vermont employees collect gloves and safety vests before a Green Up walk in Montpelier.",
   },
   {
     slug: "be-well-at-work-2026",
@@ -73,6 +88,7 @@ const definitions = [
     ...blueCrossSource("be-well-at-work-2026", "2026-05-06 – Be Well at Work/Edited Selects"),
     organization: "Blue Cross Vermont",
     featuredFile: "dsc03152.webp",
+    featuredAlt: "Employees listen during a Be Well at Work workshop around tables covered with notes and water bottles.",
   },
   {
     slug: "corporate-cup-2026",
@@ -82,6 +98,7 @@ const definitions = [
     ...blueCrossSource("corporate-cup-2026", "2026-05-14 – Corporate Cup/Edited Selects"),
     organization: "Blue Cross Vermont",
     featuredFile: "dsc03213.webp",
+    featuredAlt: "The Blue Cross Vermont Corporate Cup team waves from the Vermont State House steps in the rain.",
   },
   {
     slug: "girls-on-the-run-2026",
@@ -91,6 +108,7 @@ const definitions = [
     ...blueCrossSource("girls-on-the-run-2026", "2026-05-30 – GOTR/Edited Selects"),
     organization: "Blue Cross Vermont",
     featuredFile: "dsc03810.webp",
+    featuredAlt: "Girls on the Run participants surge across the starting line together.",
   },
   {
     slug: "giron-family-fall-2025",
@@ -100,6 +118,14 @@ const definitions = [
     ...gironSource("giron-family-fall-2025"),
     organization: "Giron family",
     featuredFile: "dsc06125.webp",
+    featuredAlt: "The Giron family stands in a sunny field with Vermont's fall hills behind them.",
+    story: {
+      title: "Start with the family portrait",
+      paragraphs: [
+        "We made the family portraits in the open field first, while the light still reached the hills behind them.",
+        "Then we walked into the woods and let the children set the pace. Those quieter photographs happened once everyone stopped thinking about the camera.",
+      ],
+    },
   },
   {
     slug: "giron-family-christmas-tree-farm-2024",
@@ -109,6 +135,14 @@ const definitions = [
     ...gironSource("giron-family-christmas-tree-farm-2024"),
     organization: "Giron family",
     featuredFile: "dsc06782.webp",
+    featuredAlt: "The Giron family holds their children beside a snow-covered Christmas tree.",
+    story: {
+      title: "Use the weather",
+      paragraphs: [
+        "Fresh snow gave the session its setting, but it also kept everyone moving. We worked between the tree rows and stopped for portraits when the children were ready.",
+        "The finished set feels like that afternoon because the snow, winter coats, and chosen tree are part of the family record.",
+      ],
+    },
   },
   {
     slug: "giron-family-fall-2023",
@@ -118,6 +152,14 @@ const definitions = [
     ...gironSource("giron-family-fall-2023"),
     organization: "Giron family",
     featuredFile: "dsc03800.webp",
+    featuredAlt: "The Giron family sits together on a wooden farm chair in late-afternoon autumn light.",
+    story: {
+      title: "Let the farm change the frame",
+      paragraphs: [
+        "We moved between the pumpkin field and open grass, then used the farm's oversized wooden chair for the family portrait.",
+        "The children had room to play between photographs, which gave the session a pace that felt like them.",
+      ],
+    },
   },
   {
     slug: "vermont-foodbank-volunteer-day-2026",
@@ -128,47 +170,25 @@ const definitions = [
     prepared: true,
     organization: "Vermont Foodbank",
     featuredFile: "dsc08397.webp",
+    featuredAlt: "A Vermont Foodbank volunteer lifts an empty box above a warehouse packing line.",
     openingSequence: ["DSC08460.jpg", "DSC08342.jpg", "DSC08358.jpg", "DSC08434.jpg", "DSC08364.jpg"],
-  },
-  {
-    slug: "beta-andrew",
-    title: "Andrew at BETA",
-    eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
-    intro: "Andrew at work inside BETA Technologies, photographed with the aircraft, tools, and manufacturing environment that give his role its context.",
-    source: path.join(root, "assets/images/work/events/beta-andrew"),
-    prepared: true,
-    organization: "BETA Technologies",
-    featuredFile: "dsc08088.webp",
-    // Held pending written permission. Preserve the gallery data and assets, but do not render them publicly.
-    heldPendingWrittenPermission: true,
-  },
-  {
-    slug: "beta-emma",
-    title: "Emma at BETA",
-    eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
-    intro: "A workplace portrait series following Emma inside BETA Technologies, moving between portraiture, hands-on detail, and the larger manufacturing floor.",
-    source: path.join(root, "assets/images/work/events/beta-emma"),
-    prepared: true,
-    organization: "BETA Technologies",
-    featuredFile: "dsc07933.webp",
-    // Held pending written permission. Preserve the gallery data and assets, but do not render them publicly.
-    heldPendingWrittenPermission: true,
-  },
-  {
-    slug: "beta-ethan",
-    title: "Ethan at BETA",
-    eyebrow: "Workplace photography · BETA Technologies · January 16, 2026",
-    intro: "Ethan at work inside BETA Technologies, photographed as a person within a much larger system of tools, components, and aircraft manufacturing.",
-    source: path.join(root, "assets/images/work/events/beta-ethan"),
-    prepared: true,
-    organization: "BETA Technologies",
-    featuredFile: "dsc08199.webp",
-    // Held pending written permission. Preserve the gallery data and assets, but do not render them publicly.
-    heldPendingWrittenPermission: true,
+    story: {
+      title: "Follow the packing line",
+      paragraphs: [
+        "Volunteers opened boxes, sorted food, and moved packed cases toward the pallets waiting at the end of the line.",
+        "I photographed the full warehouse process and stayed close enough to show the hands and small decisions that kept it moving.",
+      ],
+    },
   },
 ];
 
 async function processImages(definition) {
+  const altDataPath = path.join(eventAltTextRoot, `${definition.slug}.json`);
+  const altData = JSON.parse(await readFile(altDataPath, "utf8"));
+  if (altData.slug !== definition.slug || !Array.isArray(altData.images)) {
+    throw new Error(`Invalid event alt-text data: ${altDataPath}`);
+  }
+  const altByFile = new Map(altData.images.map((image) => [image.file, image.alt]));
   const sourcePattern = definition.prepared ? /\.webp$/i : /\.jpe?g$/i;
   let files = (await readdir(definition.source)).filter((file) => sourcePattern.test(file)).sort();
   if (definition.slug === "giron-family-fall-2025") {
@@ -185,7 +205,7 @@ async function processImages(definition) {
     files = [...openingSequence, ...files.filter((file) => !openingSequence.includes(file))];
   }
   const images = [];
-  for (const [index, file] of files.entries()) {
+  for (const file of files) {
     const source = path.join(definition.source, file);
     const destination = definition.prepared
       ? source
@@ -200,8 +220,21 @@ async function processImages(definition) {
       ? existingDimensions.get(`${definition.slug}/${path.basename(destination)}`) || []
       : (await exec("/opt/homebrew/bin/magick", ["identify", "-format", "%w %h", destination])).stdout.trim().split(" ").map(Number);
     if (!width || !height) throw new Error(`Missing checked-in dimensions for ${destination}`);
-    const alt = `${definition.title}, photograph ${index + 1} of ${files.length}`;
-    images.push({ src: `../../assets/images/work/events/${definition.slug}/${path.basename(destination)}`, alt, width, height });
+    const outputFile = path.basename(destination);
+    const alt = String(altByFile.get(outputFile) || "").trim();
+    if (!alt) throw new Error(`Missing event alt text for ${definition.slug}/${outputFile}`);
+    images.push({
+      src: `../../assets/images/work/events/${definition.slug}/${outputFile}`,
+      alt,
+      width,
+      height,
+    });
+  }
+  const unexpectedAltFiles = [...altByFile.keys()].filter(
+    (file) => !images.some((image) => path.basename(image.src) === file),
+  );
+  if (unexpectedAltFiles.length) {
+    throw new Error(`Unexpected event alt-text files for ${definition.slug}: ${unexpectedAltFiles.join(", ")}`);
   }
   return images;
 }
@@ -222,32 +255,28 @@ campaigns.push({
 
 const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../corporate-cup-2026/">Corporate Cup 2026</a></li><li><a href="../girls-on-the-run-2026/">Girls on the Run 2026</a></li><li><a href="../eastrise-launch-campaign/">EastRise Launch Campaign</a></li><li><a href="../taylor-hoar-racing/">Taylor Hoar Racing 2025</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
 for (const campaign of campaigns) {
-  const gallery = campaign.heldPendingWrittenPermission
-    ? "<!-- Held pending written permission. Gallery images intentionally do not render. -->"
-    : campaign.images.map((image) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async">`).join("");
-  const familyStory = campaign.organization === "Giron family"
-    ? `<section class="case-section"><h2>A walk, not a pose list</h2><div class="case-section__body"><p>We started with the photographs every family needs, then kept moving. The children had room to run, the parents could settle into the session, and the landscape changed from open sky to leaf-covered paths.</p><p>The result is a useful family record with enough movement, quiet, and personality to feel like this particular afternoon.</p></div></section><section class="case-section"><h2>View the session</h2><div class="case-section__body">Select any photograph to open it full size. Use the buttons or the left and right arrow keys to move through all ${campaign.images.length} images.</div></section>`
-    : campaign.slug === "vermont-foodbank-volunteer-day-2026"
-      ? `<section class="case-section"><h2>Work with a rhythm of its own</h2><div class="case-section__body"><p>The warehouse already had a visual system: pallets, rollers, open boxes, stacked cans, and people finding a pace together. I moved between the full process and the moments that showed concentration, cooperation, and the occasional laugh.</p><p>The final set gives the Vermont Foodbank a complete record of the volunteer day, with individual photographs that can also work across future stories, volunteer recruitment, and social posts.</p></div></section>`
-      : "";
-  const featuredImage = campaign.featuredFile && !campaign.heldPendingWrittenPermission
+  const gallery = campaign.images.map((image, index) => {
+    const description = String(image.alt || "").trim();
+    const label = description
+      ? `Open larger image: ${description}`
+      : `Open photograph ${index + 1} of ${campaign.images.length} from ${campaign.title}`;
+    return `<img src="${escapeAttribute(image.src)}" alt="${escapeAttribute(description)}" aria-label="${escapeAttribute(label)}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async">`;
+  }).join("");
+  const story = campaign.story
+    ? `<section class="case-section"><h2>${campaign.story.title}</h2><div class="case-section__body">${campaign.story.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</div></section>`
+    : "";
+  const featuredImage = campaign.featuredFile
     ? campaign.images.find((image) => path.basename(image.src) === campaign.featuredFile)
     : null;
-  const hero = campaign.heldPendingWrittenPermission
-    ? `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p></header>`
-    : featuredImage
-        ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="${featuredImage.src}" alt="${featuredImage.alt}" width="${featuredImage.width}" height="${featuredImage.height}" loading="eager" fetchpriority="high" decoding="async"></header>`
+  const hero = featuredImage
+        ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="${featuredImage.src}" alt="${campaign.featuredAlt || campaign.title}" width="${featuredImage.width}" height="${featuredImage.height}" loading="eager" fetchpriority="high" decoding="async" data-no-zoom></header>`
         : `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></header>`;
-  const gallerySection = campaign.heldPendingWrittenPermission
-    ? gallery
-    : `<section class="case-section case-section--gallery"><h2>Complete gallery</h2><div class="campaign-collage" data-gallery="${campaign.slug}">${gallery}</div></section>`;
-  const robotsMeta = campaign.heldPendingWrittenPermission
-    ? '<meta name="robots" content="noindex">'
-    : "";
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';">${robotsMeta}<title>${campaign.title} | Ames Consulting</title><meta name="description" content="${campaign.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${campaign.slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${familyStory}${gallerySection}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
+  const gallerySummaryId = `${campaign.slug}-gallery-summary`;
+  const gallerySection = `<section class="case-section case-section--gallery"><h2>Complete gallery</h2><p class="visually-hidden" id="${gallerySummaryId}">${campaign.intro} This gallery contains ${campaign.images.length} photographs.</p><div class="campaign-collage" data-gallery="${campaign.slug}" aria-describedby="${gallerySummaryId}">${gallery}</div></section>`;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${campaign.title} | Ames Consulting</title><meta name="description" content="${campaign.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${campaign.slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${story}${gallerySection}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = path.join(root, "work", campaign.slug, "index.html");
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, html);
 }
-await writeFile(path.join(root, "assets/data/event-galleries.json"), `${JSON.stringify({ generatedAt: "2026-08-03", campaigns: campaigns.map(({ source: _source, prepared: _prepared, ...campaign }) => campaign) }, null, 2)}\n`);
+await writeFile(path.join(root, "assets/data/event-galleries.json"), `${JSON.stringify({ generatedAt: "2026-08-05", campaigns: campaigns.map(({ source: _source, prepared: _prepared, ...campaign }) => campaign) }, null, 2)}\n`);
 console.log(campaigns.map((campaign) => `${campaign.title}: ${campaign.images.length}`).join("\n"));

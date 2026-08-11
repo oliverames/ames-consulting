@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 import { access, readFile } from "node:fs/promises";
+import { homedir } from "node:os";
 import path from "node:path";
 
 const root = path.resolve(import.meta.dirname, "..");
-const portfolioRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
+const portfolioRoot = process.env.AMES_BLUE_CROSS_PORTFOLIO_ROOT
+  || path.join(homedir(), "Documents", "Ames Consulting", "Portfolio", "Blue Cross VT");
 const events = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
 const portraits = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
 
@@ -33,10 +35,10 @@ const keyFiles = [
 ];
 for (const relative of keyFiles) {
   const content = await readFile(path.join(root, relative), "utf8");
-  if (content.includes("/Users/oliverames/Desktop/review for deletion")) {
+  if (/\/Users\/[^/]+\/Desktop\/review for deletion/.test(content)) {
     throw new Error(`${relative} references the scraped review folder.`);
   }
-  if (content.includes("/Users/oliverames/Documents/BCBS/Photography")) {
+  if (/\/Users\/[^/]+\/Documents\/BCBS\/Photography/.test(content)) {
     throw new Error(`${relative} references the retired Blue Cross source tree.`);
   }
 }

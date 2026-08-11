@@ -42,12 +42,11 @@ async function getKnownRoutes(siteUrl, outDir) {
   const routes = [];
   async function visit(dir) {
     for (const entry of await readdir(dir, { withFileTypes: true })) {
-      if (["assets", ".git", "node_modules"].includes(entry.name)) continue;
+      if (["assets", ".git", "_site", "node_modules", "playwright-report", "test-results"].includes(entry.name)) continue;
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) await visit(fullPath);
       else if (entry.name === "index.html") {
-        // Pages marked noindex (e.g. galleries held pending written
-        // permission) must not be advertised to crawlers.
+        // Pages marked noindex must not be advertised to crawlers.
         const html = await readFile(fullPath, "utf8");
         if (/<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i.test(html)) continue;
         const relativePath = path.relative(outDir, fullPath).split(path.sep).join("/").replace(/index\.html$/, "");
@@ -65,12 +64,10 @@ async function getKnownRoutes(siteUrl, outDir) {
 
 async function getLastModified(sourcePath) {
   try {
-    const { stdout: status } = await exec("git", ["status", "--porcelain", "--", sourcePath]);
-    if (status.trim()) {
-      const timestamp = process.env.SOURCE_DATE_EPOCH
-        ? new Date(Number(process.env.SOURCE_DATE_EPOCH) * 1000)
-        : new Date();
-      return timestamp.toISOString().slice(0, 10);
+    if (process.env.SOURCE_DATE_EPOCH) {
+      const seconds = Number(process.env.SOURCE_DATE_EPOCH);
+      if (!Number.isFinite(seconds)) throw new Error("SOURCE_DATE_EPOCH must be a Unix timestamp.");
+      return new Date(seconds * 1000).toISOString().slice(0, 10);
     }
     const { stdout } = await exec("git", ["log", "-1", "--format=%cs", "--", sourcePath]);
     return stdout.trim() || null;

@@ -1,6 +1,6 @@
 # Editorial Redesign Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Status:** Archived historical plan. It is not a current instruction surface. See `docs/ARCHITECTURE.md` for the implemented system.
 
 **Goal:** Transform ames.consulting from functional-but-plain to editorially polished, using layered shadows, generous spacing, sticky blur nav, and refined typography while keeping existing brand, fonts, and HTML architecture.
 

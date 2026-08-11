@@ -1,5 +1,7 @@
 # Editorial Redesign Spec
 
+> **Status:** Archived historical specification. See `docs/ARCHITECTURE.md` for the implemented system.
+
 **Date:** 2026-03-30
 **Approach:** Things-Inspired Editorial Polish (Approach 2)
 **Guiding principle:** Functional-but-not-crafted becomes editorially polished. Warm indie magazine, not heavy product marketing site. Same brand, elevated execution. Fast-loading, Apple HIG-inspired.

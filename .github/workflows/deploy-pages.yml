@@ -9,18 +9,30 @@ permissions:
   contents: read
 
 concurrency:
-  group: cloudflare-pages
+  group: cloudflare-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  quality:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/ci-quality.yml
+
+  performance:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/performance.yml
+
   deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: [quality, performance]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           cache: npm
@@ -28,39 +40,51 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Upload website images to R2
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: auto
-          AWS_EC2_METADATA_DISABLED: "true"
-          R2_ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
-        run: |
-          aws s3 sync assets/images s3://ames-website-assets/ames-consulting/assets/images \
-            --endpoint-url "$R2_ENDPOINT" \
-            --exclude "*" \
-            --include "*.avif" \
-            --include "*.gif" \
-            --include "*.jpeg" \
-            --include "*.jpg" \
-            --include "*.png" \
-            --include "*.svg" \
-            --include "*.webp" \
-            --delete \
-            --cache-control "public, max-age=3600, stale-while-revalidate=604800"
-
       - name: Build static artifact
         run: npm run build:site
+
+      - name: Validate static artifact
+        run: npm run check:built-site
 
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx wrangler@4.112.0 pages deploy _site --project-name ames-consulting --branch main
+        run: npx --no-install wrangler pages deploy _site --project-name ames-consulting --branch main
 
       - name: Verify deployment
         run: |
-          test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/)" = "200"
-          test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/services/strategy-and-content/)" = "200"
-          test "$(curl -sS -o /dev/null -w '%{http_code}' https://ames-consulting.pages.dev/api/contact)" = "405"
-          test "$(curl -sS -o /dev/null -w '%{http_code}' https://assets.ames.consulting/ames-consulting/assets/images/brand/oa-social-mark.svg)" = "200"
+          for site_origin in \
+            https://ames-consulting.pages.dev \
+            https://ames.consulting \
+            https://www.ames.consulting
+          do
+            test "$(curl -sS -o /dev/null -w '%{http_code}' "$site_origin/")" = "200"
+            test "$(curl -sS -o /dev/null -w '%{http_code}' "$site_origin/services/strategy-and-content/")" = "200"
+            test "$(curl -sS -o /dev/null -w '%{http_code}' "$site_origin/api/contact")" = "405"
+            test "$(curl -sS -o /dev/null -w '%{http_code}' -X POST -H 'Origin: https://example.invalid' "$site_origin/api/contact")" = "403"
+            test "$(curl -sS -o /dev/null -w '%{http_code}' "$site_origin/assets/data/source-screenshot-manifest.json")" = "404"
+            test "$(curl -sS -o /dev/null -w '%{http_code}' "$site_origin/assets/data/media-provenance-missing.json")" = "404"
+            curl -fsSI "$site_origin/" > /tmp/ames-consulting-headers.txt
+            grep -Fqi "frame-ancestors 'none'" /tmp/ames-consulting-headers.txt
+            grep -Fqi "strict-transport-security: max-age=31536000; includeSubDomains" /tmp/ames-consulting-headers.txt
+            grep -Fqi "x-content-type-options: nosniff" /tmp/ames-consulting-headers.txt
+            for retired_path in \
+              work/beta-andrew/ \
+              work/beta-emma/ \
+              work/beta-ethan/ \
+              assets/images/work/events/beta-andrew/dsc08015.webp \
+              assets/images/work/events/beta-emma/dsc07894.webp \
+              assets/images/work/events/beta-ethan/dsc08105.webp \
+              assets/images/work/eastrise/photography/_unassigned-public-assets/people-and-portraits/2024-10-15_16-42-38_UTC_DBJuJuUpFzc-0aff11d03784.webp
+            do
+              test "$(curl -sS -o /dev/null -w '%{http_code}' "$site_origin/$retired_path")" = "404"
+            done
+          done
+          for retired_asset_path in \
+            assets/images/provenance/source-screenshots/linkedin-3e8825b69a5d616e.png \
+            assets/images/provenance/source-screenshots/facebook-ee2c2e373eb02133.png \
+            assets/images/provenance/source-screenshots/instagram-d6eb4ea6cbdde649.png
+          do
+            test "$(curl -sS -o /dev/null -w '%{http_code}' "https://assets.ames.consulting/ames-consulting/$retired_asset_path")" = "404"
+          done

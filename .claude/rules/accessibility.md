@@ -27,4 +27,4 @@ globs: ["*.html", "**/*.html", "assets/**/*.js"]
 
 ## Progressive Enhancement
 - Include `<noscript>` fallback content for JS-rendered sections
-- Contact form should function without JS (keep native validation)
+- When a third-party control requires JavaScript, provide a direct non-JavaScript alternative

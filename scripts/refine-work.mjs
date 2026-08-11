@@ -4,12 +4,13 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
+const eastRiseWritingPath = new URL("work/eastrise-writing/index.html", root);
 let html = await readFile(indexPath, "utf8");
 const blueCrossProjectCards = [
-  ["senior-games-press-event-2026/", "senior-games-card.webp", "Vermont Senior Games press event", "Blue Cross Vermont · March 18, 2026", "Senior Games Press Event", "Documentary coverage of the people and public announcement behind the Vermont Senior Games partnership."],
-  ["arrayrx-press-conference-2026/", "arrayrx-card.webp", "ArrayRx press conference in Vermont", "Blue Cross Vermont · March 26, 2026", "ArrayRx Press Conference", "Press conference photography centered on the speakers, partners, and public announcement."],
-  ["walk-at-lunch-and-green-up-2026/", "walk-at-lunch-card.webp", "Walk@Lunch and Green Up event", "Blue Cross Vermont · April 29, 2026", "Walk@Lunch and Green Up", "Workplace and community photography from a walk and Green Up activity in Montpelier."],
-  ["be-well-at-work-2026/", "be-well-at-work-card.webp", "Be Well at Work program", "Blue Cross Vermont · May 6, 2026", "Be Well at Work", "Documentary photography of a workplace wellness program and the people taking part."],
+  ["senior-games-press-event-2026/", "senior-games-card.webp", "Vermont Senior Games press event", "Blue Cross Vermont · March 18, 2026", "Senior Games Press Event", "I photographed the people and public announcement behind the Vermont Senior Games partnership."],
+  ["arrayrx-press-conference-2026/", "arrayrx-card.webp", "ArrayRx press conference in Vermont", "Blue Cross Vermont · March 26, 2026", "ArrayRx Press Conference", "I photographed the speakers, partners, and public announcement at the ArrayRx press conference."],
+  ["walk-at-lunch-and-green-up-2026/", "walk-at-lunch-card.webp", "Walk@Lunch and Green Up event", "Blue Cross Vermont · April 29, 2026", "Walk@Lunch and Green Up", "I photographed a workplace walk and Green Up activity in Montpelier."],
+  ["be-well-at-work-2026/", "be-well-at-work-card.webp", "Be Well at Work program", "Blue Cross Vermont · May 6, 2026", "Be Well at Work", "I photographed the people and activities in a workplace wellness program."],
 ];
 for (const [href, image, alt, context, title, description] of blueCrossProjectCards) {
   if (!html.includes(`href="${href}"`)) {
@@ -27,12 +28,13 @@ const featuredImages = new Map([
   ["girls-on-the-run-2026/", ["../assets/images/work/events/girls-on-the-run-2026/dsc03810.webp", "Girls on the Run participants starting together"]],
   ["corporate-cup-2026/", ["../assets/images/work/events/corporate-cup-2026/dsc03213.webp", "Blue Cross Vermont team at the Corporate Cup"]],
   ["vermont-foodbank-volunteer-day-2026/", ["../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08397.webp", "Mary volunteering at the Vermont Foodbank"]],
-  ["beta-andrew/", ["../assets/images/work/events/beta-andrew/dsc08088.webp", "Andrew at BETA Technologies"]],
-  ["beta-emma/", ["../assets/images/work/events/beta-emma/dsc07933.webp", "Emma at BETA Technologies"]],
-  ["beta-ethan/", ["../assets/images/work/events/beta-ethan/dsc08199.webp", "Ethan at BETA Technologies"]],
   ["eastrise-portraits/", ["../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp", "Portrait of Christin Canter"]],
   ["sweat-heart-throwdown/", ["../assets/images/work/gmcf/sweat-heart/dsc01171.webp", "Sweat-Heart Throwdown at Green Mountain Community Fitness"]],
 ]);
+html = html.replace(
+  "Campaigns and series built around a useful story.",
+  "I organize the work by project, not job title.",
+);
 html = html.replace(
   /The organization provides the context\. The work itself provides the[\s\n]*structure\./,
   "I organize this work by the campaign, shoot, or series someone would actually want to explore. Start with the newest work, or keep going into the earlier jobs that taught me how to do it.",
@@ -53,9 +55,6 @@ const organizationByHref = new Map([
   ["flight-paths/", "blue-cross-vermont"],
   ["blue-cross-portraits/", "blue-cross-vermont"],
   ["vermont-foodbank-volunteer-day-2026/", "vermont-foodbank"],
-  ["beta-andrew/", "beta-technologies"],
-  ["beta-emma/", "beta-technologies"],
-  ["beta-ethan/", "beta-technologies"],
   ["eastrise-portraits/", "eastrise"],
   ["member-banking-stories/", "eastrise"],
   ["eastrise-social/", "eastrise"],
@@ -114,9 +113,6 @@ const projectOrder = [
   "flight-paths/",
   "blue-cross-portraits/",
   "vermont-foodbank-volunteer-day-2026/",
-  "beta-andrew/",
-  "beta-emma/",
-  "beta-ethan/",
   "sweat-heart-throwdown/",
   "member-banking-stories/",
   "giron-family-fall-2025/",
@@ -200,7 +196,7 @@ if (campaignMatch) {
   );
   html = html.replace(
     '<h2 id="project-list-title">Projects</h2><nav class="work-filters"',
-    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">Work made in-house at EastRise Credit Union and Blue Cross and Blue Shield of Vermont, alongside commissioned projects. Employer or client credited on each.</p><nav class="work-filters"',
+    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">This work includes projects I made at EastRise Credit Union and Blue Cross and Blue Shield of Vermont, plus commissioned work. Each card names the employer or client.</p><nav class="work-filters"',
   );
 }
 
@@ -218,9 +214,23 @@ if (!html.includes('src="../assets/js/work-filter.js"')) {
 html = html.replace(/[ \t]+$/gm, "");
 await writeFile(indexPath, html);
 
+let eastRiseWritingHtml = await readFile(eastRiseWritingPath, "utf8");
+const unavailableArticleLink = /<li><a href="https:\/\/www\.eastrise\.com\/blog\/a-comprehensive-guide-ev-charging-apps\/" rel="noopener"><span>Technology &amp; Banking · Archived article<\/span><h2>A Comprehensive Guide to EV Charging Apps<\/h2><small>Original EastRise URL is no longer available<\/small><\/a><\/li>/;
+const unavailableArticle = '<li><div class="writing-list__unavailable"><span>Technology &amp; Banking · Archived article</span><h2>A Comprehensive Guide to EV Charging Apps</h2><small>EastRise no longer publishes this article</small></div></li>';
+if (unavailableArticleLink.test(eastRiseWritingHtml)) {
+  eastRiseWritingHtml = eastRiseWritingHtml.replace(unavailableArticleLink, unavailableArticle);
+} else if (!eastRiseWritingHtml.includes(unavailableArticle)) {
+  throw new Error("refine-work: unavailable EastRise article markup did not match.");
+}
+eastRiseWritingHtml = eastRiseWritingHtml.replace(
+  "Links go to the current EastRise versions. One migrated article is retained by title even though its original URL now returns a 404.",
+  "Links go to the current EastRise versions. One article is retained by title because EastRise no longer publishes it.",
+);
+await writeFile(eastRiseWritingPath, eastRiseWritingHtml);
+
 // apply-shared-ui.mjs later normalizes the colophon and Company column
 // site-wide; this template just needs the same skeleton as its siblings.
-const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="../blue-cross-vermont/">Blue Cross Vermont campaigns</a></li><li><a href="../eastrise/">EastRise campaigns</a></li><li><a href="../beta-technologies/">BETA Technologies campaigns</a></li><li><a href="../green-mountain-community-fitness/">Green Mountain Community Fitness</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
+const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Work by organization</h3><ul><li><a href="../blue-cross-vermont/">Blue Cross Vermont campaigns</a></li><li><a href="../eastrise/">EastRise campaigns</a></li><li><a href="../green-mountain-community-fitness/">Green Mountain Community Fitness</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
 // Head/nav/main chrome mirrors generate-career-work-pages.mjs so these two
 // late-generated pages stay identical to their siblings (CSP, referrer,
 // view-transition, preconnects, ital Lora URL, Testimonials nav, tabindex).

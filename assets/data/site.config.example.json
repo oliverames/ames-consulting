@@ -1,15 +1,4 @@
 {
-  "provider": "local",
-  "jsonFeedUrl": "",
-  "siteTitle": "ames.consulting",
-  "siteUrl": "https://ames.consulting",
-  "siteDescription": "ames.consulting",
-  "authorName": "Oliver Ames",
-  "locale": "en_US",
-  "twitterHandle": "@example",
-  "defaultSocialImage": "",
-  "contactFormEndpoint": "https://formspree.io/f/replace-with-form-id",
-  "contactFormSuccessMessage": "Thanks, your message was sent.",
-  "portfolioTag": "portfolio",
-  "homePreviewLimit": 6
+  "contactFormEndpoint": "/api/contact",
+  "contactFormSuccessMessage": "Thanks, your message was sent."
 }

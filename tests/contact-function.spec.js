@@ -17,11 +17,13 @@ test("contact email replies to the prospective client", async () => {
     form.set("name", "Prospective Client");
     form.set("email", "client@example.com");
     form.set("message", "I would like to discuss a photography project.");
+    form.set("startedAt", String(Date.now() - 5_000));
     form.set("cf-turnstile-response", "verified-test-token");
 
     const response = await onRequestPost({
       request: new Request("https://ames.consulting/api/contact", {
         method: "POST",
+        headers: { Origin: "https://ames.consulting" },
         body: form,
       }),
       env: {
@@ -56,11 +58,13 @@ test("contact endpoint rejects a failed Turnstile check before sending email", a
     form.set("name", "Suspicious Sender");
     form.set("email", "sender@example.com");
     form.set("message", "This request should not reach Resend.");
+    form.set("startedAt", String(Date.now() - 5_000));
     form.set("cf-turnstile-response", "invalid-test-token");
 
     const response = await onRequestPost({
       request: new Request("https://ames.consulting/api/contact", {
         method: "POST",
+        headers: { Origin: "https://ames.consulting" },
         body: form,
       }),
       env: {

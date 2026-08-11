@@ -13,16 +13,12 @@ const protectedHtml = html
     "script-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; form-action 'self';"
   )
   .replace(
-    '<link rel="preconnect" href="https://fonts.googleapis.com">',
-    '<link rel="preconnect" href="https://challenges.cloudflare.com"><link rel="preconnect" href="https://fonts.googleapis.com">'
+    '<form class="contact-form" id="contact-form" method="post" action="/api/contact">',
+    '<p class="contact-form__fallback" id="contact-form-fallback">This form needs JavaScript for spam protection. You can email <a href="mailto:oliver@ames.consulting">oliver@ames.consulting</a> instead.</p><form class="contact-form" id="contact-form" method="post" action="/api/contact" hidden>'
   )
   .replace(
     '<div class="contact-form__submit">',
     '<div class="contact-form__verification"><div class="cf-turnstile" data-sitekey="0x4AAAAAAEBX8_970rdISQ0E" data-theme="light" data-size="flexible" data-appearance="interaction-only" data-action="contact"></div><p>Spam protection runs automatically.</p></div><div class="contact-form__submit">'
-  )
-  .replace(
-    '<script type="module" src="../assets/js/header-scroll.js"></script>',
-    '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script><script type="module" src="../assets/js/header-scroll.js"></script>'
   );
 
 await writeFile(join(root, "contact", "index.html"), protectedHtml);

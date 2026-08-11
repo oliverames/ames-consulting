@@ -2,15 +2,17 @@
 
 import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
+import { homedir } from "node:os";
 import { basename, dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const libraryRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library";
-const recordsRoot = join(libraryRoot, "Source Records");
+const libraryRoot = process.env.AMES_EASTRISE_PUBLIC_LIBRARY_ROOT
+  || join(homedir(), "Documents", "Ames Consulting", "Portfolio", "EastRise Public Library");
+const recordsRoot = process.env.AMES_EASTRISE_SOURCE_RECORDS_ROOT
+  || join(libraryRoot, "Source Records");
 const recordsScreenshots = join(recordsRoot, "Public Source Screenshots");
-const siteScreenshots = join(root, "assets/images/provenance/source-screenshots");
 const manifestPath = join(recordsRoot, "Manifests/Capture Manifest.json");
 const provenancePath = join(root, "assets/data/media-provenance.json");
 const captureMissing = process.argv.includes("--capture-missing");
@@ -18,7 +20,15 @@ const captureMissing = process.argv.includes("--capture-missing");
 const provenance = JSON.parse(await readFile(provenancePath, "utf8"));
 const captureManifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const records = Object.values(provenance.assets || {});
-const sources = [...new Map(records.filter((record) => record.source_url).map((record) => [record.source_url, record])).entries()]
+const cleanSourceUrl = (value) => {
+  const url = new URL(value);
+  for (const key of [...url.searchParams.keys()]) {
+    if (/^utm_/i.test(key) || key.toLowerCase() === "rcm") url.searchParams.delete(key);
+  }
+  url.hash = "";
+  return url.href;
+};
+const sources = [...new Map(records.filter((record) => record.source_url).map((record) => [cleanSourceUrl(record.source_url), record])).entries()]
   .map(([source_url, record]) => ({ source_url, source_channel: record.source_channel }));
 
 const canonicalUrl = (value) => {
@@ -45,7 +55,6 @@ async function walk(directory, predicate, found = []) {
   return found;
 }
 
-await mkdir(siteScreenshots, { recursive: true });
 await mkdir(recordsScreenshots, { recursive: true });
 
 const archivedScreenshots = await walk(libraryRoot, (path) => basename(path) === "Page Screenshot.png");
@@ -63,7 +72,6 @@ const missing = [];
 for (const source of sources) {
   const id = sourceId(source.source_url, source.source_channel);
   const filename = `${id}.png`;
-  const sitePath = join(siteScreenshots, filename);
   const recordsPath = join(recordsScreenshots, filename);
   const manifestRecord = manifestByUrl.get(canonicalUrl(source.source_url));
   const archived = manifestRecord ? screenshotsBySequence.get(manifestRecord.sequence)?.[0] : undefined;
@@ -74,16 +82,15 @@ for (const source of sources) {
       await stat(recordsPath);
       origin = recordsPath;
     } catch {
-      missing.push({ ...source, id, sitePath, recordsPath });
+      missing.push({ ...source, id, recordsPath });
       continue;
     }
   }
 
   if (origin !== recordsPath) await copyFile(origin, recordsPath);
-  await copyFile(origin, sitePath);
   results.push({
     ...source,
-    source_screenshot: relative(root, sitePath),
+    source_capture: "private_archive",
     source_record: relative(recordsRoot, recordsPath),
     captured_from: origin,
   });
@@ -98,11 +105,10 @@ if (captureMissing && missing.length) {
       await page.goto(source.source_url, { waitUntil: "domcontentloaded", timeout: 60_000 });
       await page.waitForTimeout(5_000);
       await page.screenshot({ path: source.recordsPath, fullPage: true, type: "png" });
-      await copyFile(source.recordsPath, source.sitePath);
       results.push({
         source_url: source.source_url,
         source_channel: source.source_channel,
-        source_screenshot: relative(root, source.sitePath),
+        source_capture: "private_archive",
         source_record: relative(recordsRoot, source.recordsPath),
         captured_from: source.source_url,
       });
@@ -119,12 +125,13 @@ const resolved = new Set(results.map((result) => canonicalUrl(result.source_url)
 const unresolved = missing.filter((source) => !resolved.has(canonicalUrl(source.source_url))).map(({ source_url, source_channel, error = "No archived capture was matched." }) => ({ source_url, source_channel, error }));
 const archiveOutput = {
   generated_at: new Date().toISOString(),
-  screenshots: results.sort((a, b) => a.source_url.localeCompare(b.source_url)),
+  captures: results.sort((a, b) => a.source_url.localeCompare(b.source_url)),
   missing: unresolved,
 };
 const publicOutput = {
-  ...archiveOutput,
-  screenshots: archiveOutput.screenshots.map(({ captured_from: _capturedFrom, ...record }) => record),
+  generated_at: archiveOutput.generated_at,
+  captures: archiveOutput.captures.map(({ captured_from: _capturedFrom, source_record: _sourceRecord, ...record }) => record),
+  missing: archiveOutput.missing,
 };
 await writeFile(join(root, "assets/data/source-screenshot-manifest.json"), `${JSON.stringify(publicOutput, null, 2)}\n`);
 await writeFile(join(recordsRoot, "Manifests/Site Source Screenshot Manifest.json"), `${JSON.stringify(archiveOutput, null, 2)}\n`);
@@ -134,4 +141,4 @@ try {
 } catch {
   // The missing-fields report is created by generate-media-provenance.mjs.
 }
-console.log(`Synchronized ${results.length} source screenshots; ${unresolved.length} remain missing.`);
+console.log(`Synchronized ${results.length} private source captures; ${unresolved.length} remain missing.`);

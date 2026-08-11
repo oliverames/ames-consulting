@@ -1,132 +1,158 @@
 {
-  "generated_at": "2026-08-03",
+  "generated_at": "2026-08-05",
   "missing": [
-    {
-      "asset": "assets/images/work/eastrise/photography/karina-and-ryan/li_5084399b15cb-337278d635d9.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/karina-and-ryan/li_5d8c3705d4f8-8939c9a5e8f4.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/john-and-donia/li_d43cea4f5fe6-e6629575d7b3.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/john-and-donia/li_02894d49f0bb-bf986f13890f.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/john-and-donia/li_54e42f2518e1-6f3e4d5c08f8.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/john-and-donia/li_4ae96b17601c-9d5e15ca66c2.webp",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_screenshot"
-      ]
-    },
     {
       "asset": "assets/images/work/eastrise/photography/winooski-development/li_d161cd689c09-758c3b2c6a54.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/winooski-development/li_87886176ef78-db722e735368.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/formal-headshots/li_f23578cab800-08f0d5347838.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/formal-headshots/li_24fdd57c501c-0ddda4c9a133.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/formal-headshots/li_27f8a29eccaf-0807d8b04742.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/eastrise-candid-portraits/li_f1336164519e-9018f1223a22.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/wood-for-good/li_ea2947a8532f-f4ff22f680ae.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/wood-for-good/li_61491d2ad4ca-c1c3463ba614.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/wood-for-good/li_056a8068f216-567a62b48197.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp",
-      "missing_fields": [
-        "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07711-3.webp",
@@ -134,8 +160,18 @@
         "source_url",
         "source_channel",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "personal_archive_source_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository records public sharing after the April 16, 2025 photo session, but not the channel, source page, or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07515.webp",
@@ -143,8 +179,18 @@
         "source_url",
         "source_channel",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "personal_archive_source_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository records public sharing after the April 16, 2025 photo session, but not the channel, source page, or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07430.webp",
@@ -152,8 +198,18 @@
         "source_url",
         "source_channel",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "personal_archive_source_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository records public sharing after the April 16, 2025 photo session, but not the channel, source page, or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07105.webp",
@@ -161,8 +217,18 @@
         "source_url",
         "source_channel",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "personal_archive_source_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository records public sharing after the April 16, 2025 photo session, but not the channel, source page, or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07993.webp",
@@ -170,8 +236,18 @@
         "source_url",
         "source_channel",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "personal_archive_source_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository records public sharing after the April 16, 2025 photo session, but not the channel, source page, or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc08024.webp",
@@ -179,560 +255,388 @@
         "source_url",
         "source_channel",
         "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-75a93b64796d.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-720a6cbc6367.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "personal_archive_source_not_identified",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository records public sharing after the April 16, 2025 photo session, but not the channel, source page, or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-6a8b93aa3c72.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-877610758ff0.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-7227c07a3bde.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-671c235f2ca9.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-da1d95733685.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-87800f412c98.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-619d453cb2f1.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-8ef469f5b947.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-92b76530fdc4.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-26408234030a.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-44ea518487a7.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-5ed4ca779848.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-6332f5c7de1e.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-65b7a5c06488.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-39ce0085fa72.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/558974574_815314564775220_4432876508052395697_n-58575a3e5a29.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/557641386_815318128108197_2489383043659968489_n-bb05a2b14f78.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-14a79c55e21f.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-8998855be149.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-4829095bafe4.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/654169554_18005669012855214_6794559586409473323_n-e2350b1f7f7f.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/670115398_18120507160621560_6001415701023002644_n-ba5af1ab5939.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/li_fbbb767cda6f-6d1f68e78b60.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/taylor-hoar-racing/li_6dd865f2b63a-a7bb13fdae26.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/eastrise-launch/li_daa49f294800-056ff6147712.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/eastrise-launch/li_53ed1c19acae-0f8603b6f8a2.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/photography/eastrise-launch/li_2efb609948e1-2c2bdeae5cc5.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-002.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-003.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-004.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-005.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-006.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-007.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-008.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-010.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-011.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-012.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-013.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-014.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-015.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "public_source_page_not_identified",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/social/facebook-016.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-017.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-018.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-019.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/social/facebook-020.webp",
       "missing_fields": [
         "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/social/facebook-021.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-022.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-023.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-024.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/social/facebook-025.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-026.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-028.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-029.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-030.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-038.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/social/facebook-039.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-040.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-041.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/social/facebook-043.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-047.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-054.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/facebook-066.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/eastrise/social/facebook-067.webp",
       "missing_fields": [
         "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/instagram-099.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/instagram-103.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/instagram-116.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/instagram-117.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/instagram-118.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/instagram-121.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-072.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-073.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-074.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-080.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-081.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-082.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-083.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-084.webp",
-      "missing_fields": [
-        "published_date"
-      ]
-    },
-    {
-      "asset": "assets/images/work/eastrise/social/linkedin-089.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp",
       "missing_fields": [
         "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/portraits/gallery/blue-cross/barbara-demas-executive.webp",
       "missing_fields": [
         "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/portraits/gallery/blue-cross/ruth-greene-executive.webp",
       "missing_fields": [
         "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/portraits/gallery/blue-cross/rebecca-heintz-executive.webp",
       "missing_fields": [
         "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-executive.webp",
       "missing_fields": [
         "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
       "asset": "assets/images/work/portraits/gallery/blue-cross/tom-weigel-executive.webp",
       "missing_fields": [
         "published_date"
-      ]
+      ],
+      "accepted_exception": {
+        "reason": "publication_date_not_verifiable",
+        "missing_fields": [
+          "published_date"
+        ],
+        "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date."
+      }
     },
     {
-      "asset": "assets/images/work/campaigns/member-stories.webp",
+      "asset": "assets/images/work/portraits/gallery/blue-cross/lindsay-segale.webp",
       "missing_fields": [
-        "published_date"
-      ]
+        "source_url",
+        "source_channel",
+        "published_date",
+        "downloaded_date",
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "portfolio_original_without_public_source",
+        "missing_fields": [
+          "source_url",
+          "source_channel",
+          "published_date",
+          "downloaded_date",
+          "source_capture"
+        ],
+        "note": "This commissioned portrait comes from Oliver Ames's portfolio original rather than a retained public source page."
+      }
     },
     {
       "asset": "assets/images/work/campaigns/will-barbecue.webp",
       "missing_fields": [
-        "source_screenshot"
-      ]
-    },
-    {
-      "asset": "assets/images/work/campaigns/flight-paths.webp",
-      "missing_fields": [
-        "published_date"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "source_capture_not_available",
+        "missing_fields": [
+          "source_capture"
+        ],
+        "note": "The public YouTube URL and publication date are verified, but no repository source capture is available."
+      }
     },
     {
       "asset": "assets/images/work/campaigns/eastrise-writing.webp",
       "missing_fields": [
         "source_url",
         "published_date",
-        "source_screenshot"
-      ]
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "collection_asset_without_single_source",
+        "missing_fields": [
+          "source_url",
+          "published_date",
+          "source_capture"
+        ],
+        "note": "This portfolio card represents a body of EastRise articles and does not correspond to one public page or publication date."
+      }
     }
   ]
 }

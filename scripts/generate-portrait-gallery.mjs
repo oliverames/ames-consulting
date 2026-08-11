@@ -3,12 +3,16 @@
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { homedir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
-const archiveManifestPath = "/Users/oliverames/Desktop/Archive Folder/EastRise/Public Photography/Public Photography Manifest.json";
+const documentsRoot = process.env.AMES_CONSULTING_DOCUMENTS_ROOT
+  || path.join(homedir(), "Documents", "Ames Consulting");
+const archiveManifestPath = process.env.AMES_EASTRISE_ARCHIVE_MANIFEST
+  || path.join(homedir(), "Desktop", "Archive Folder", "EastRise", "Public Photography", "Public Photography Manifest.json");
 const outputRoot = path.join(root, "assets/images/work/portraits/gallery");
 const existingData = JSON.parse(await readFile(path.join(root, "assets/data/portraits.json"), "utf8"));
 
@@ -122,7 +126,8 @@ eastRiseSeries.images = eastRiseSeries.images.map((image) => {
   };
 }).filter((image) => !eastRiseExcluded.has(image.caption));
 
-const canonicalEastRiseRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/EastRise Public Library/Photography/Leadership and Board Headshots/Original Portraits";
+const canonicalEastRiseRoot = process.env.AMES_EASTRISE_PORTRAIT_ROOT
+  || path.join(documentsRoot, "Portfolio", "EastRise Public Library", "Photography", "Leadership and Board Headshots", "Original Portraits");
 const missingCanonicalPortraits = ["Elizabeth Morton.jpg", "Rick Hommel.jpg"];
 for (const filename of missingCanonicalPortraits) {
   const name = personName(filename);
@@ -159,7 +164,7 @@ const blueCrossSeries = {
     ["Rebecca Heintz", "rebecca-heintz-executive.webp", 1500, 2010, "https://www.bluecrossvt.org/rebecca-heintz"],
     ["Margaret Pinello-White", "margaret-pinello-white-executive.webp", 1500, 1496, "https://www.bluecrossvt.org/margaret-pinello-white"],
     ["Tom Weigel, M.D.", "tom-weigel-executive.webp", 2000, 1333, "https://www.bluecrossvt.org/tom-weigel"],
-    ["Lindsay Segale", "lindsay-segale.webp", 2400, 1600, "Ames Consulting/Portfolio/Blue Cross VT/Headshots/Lindsay Segale/Edited Selects/DSC03351.jpg"],
+    ["Lindsay Segale", "lindsay-segale.webp", 2400, 1600, ""],
   ].map(([name, filename, width, height, source]) => ({
     src: `../../assets/images/work/portraits/gallery/blue-cross/${filename}`,
     alt: `Portrait of ${name}`,
@@ -225,7 +230,7 @@ const indexHtml = pageShell({
   title: "Portrait Collections",
   description: "Separate EastRise and Blue Cross Vermont portrait collections by Oliver Ames.",
   canonical: "portraits-and-people",
-  body: `<header class="case-hero"><p class="eyebrow">Portrait collections · 2024–2026</p><h1>Two organizations. Two portrait systems.</h1><p>Browse each collection separately.</p></header><section class="work-category"><div class="work-list"><a class="work-item" href="../eastrise-portraits/"><img src="../../assets/images/work/portraits/amy-vaughan.webp" alt="Portrait of Amy Vaughan" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>EastRise Portraits</h3><p>${eastRiseSeries.images.length} leadership and board portraits.</p></a><a class="work-item" href="../blue-cross-portraits/"><img src="../../assets/images/work/portraits/beth-roberts.webp" alt="Portrait of Beth Roberts" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Portraits</h3><p>Seven selected portraits from the senior team and Lindsay Segale.</p></a></div></section>`,
+  body: `<header class="case-hero"><p class="eyebrow">Portrait collections · 2024–2026</p><h1>Two organizations. Two portrait systems.</h1><p>Browse each collection separately.</p></header><section class="work-category"><h2>Portrait collections</h2><div class="work-list"><a class="work-item" href="../eastrise-portraits/"><img src="../../assets/images/work/portraits/amy-vaughan.webp" alt="Portrait of Amy Vaughan" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>EastRise Portraits</h3><p>${eastRiseSeries.images.length} leadership and board portraits.</p></a><a class="work-item" href="../blue-cross-portraits/"><img src="../../assets/images/work/portraits/beth-roberts.webp" alt="Portrait of Beth Roberts" loading="lazy"><span class="work-item__context">Blue Cross Vermont · 2026</span><h3>Blue Cross Portraits</h3><p>Seven selected portraits from the senior team and Lindsay Segale.</p></a></div></section>`,
 });
 await writeFile(path.join(root, "work/portraits-and-people/index.html"), indexHtml);
 console.log(`Generated ${data.totalImages} portraits across ${series.length} series.`);

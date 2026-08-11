@@ -14,7 +14,8 @@ const overrides = {
   },
   "/services/photography-and-video/": {
     title: "Commercial Photography and Video in Vermont | Oliver Ames",
-    description: "Documentary workplace photography, corporate portraits, event coverage, and video production for Vermont organizations. See complete galleries and campaign work."
+    description: "Documentary workplace photography, corporate portraits, event coverage, and video production for Vermont organizations. See complete galleries and campaign work.",
+    image: `${siteUrl}/assets/images/work/blue-cross/arrayrx-card.webp`
   },
   "/services/strategy-and-content/": {
     title: "Content Strategy and Campaigns in Vermont | Oliver Ames",
@@ -76,6 +77,26 @@ const text = (html = "") => decodeEntities(html.replace(/<[^>]+>/g, " ").replace
 const attr = (value = "") => value.replaceAll("&", "&amp;").replaceAll("\"", "&quot;");
 const json = (value) => JSON.stringify(value).replaceAll("<", "\\u003c");
 
+function sentenceSafeExcerpt(value, limit) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= limit) return normalized;
+
+  const sentences = [...new Intl.Segmenter("en", { granularity: "sentence" }).segment(normalized)]
+    .map(({ segment }) => segment.trim())
+    .filter(Boolean);
+  let excerpt = "";
+  for (const sentence of sentences) {
+    const candidate = excerpt ? `${excerpt} ${sentence}` : sentence;
+    if (candidate.length > limit) break;
+    excerpt = candidate;
+  }
+
+  // A complete first sentence is more useful than a shorter fragment. This
+  // fallback can exceed the preferred search-snippet length, but it never
+  // publishes a sentence that stops halfway through a thought.
+  return excerpt || sentences[0] || normalized;
+}
+
 async function htmlFiles(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
   const files = [];
@@ -95,17 +116,15 @@ function routeFor(file) {
   return rel === "index.html" ? "/" : `/${rel.replace(/index\.html$/, "")}`;
 }
 
-function imageFor(html) {
+function imageFor(route, html) {
+  if (overrides[route]?.image) return overrides[route].image;
   const match = html.match(/<img[^>]+src="([^"]+)"/i);
   if (!match) return defaultImage;
   try { return new URL(match[1], siteUrl).toString(); } catch { return defaultImage; }
 }
 
 function metadataFor(route, html) {
-  // Skip the construction gate's injected <h1 id="construction-gate-title">
-  // so page titles derive from the page's real heading.
-  const h1Match = [...html.matchAll(/<h1([^>]*)>([\s\S]*?)<\/h1>/gi)]
-    .find((match) => !match[1].includes("construction-gate-title"));
+  const h1Match = html.match(/<h1([^>]*)>([\s\S]*?)<\/h1>/i);
   const h1 = text(h1Match?.[2] || "Oliver Ames");
   // Take the last description on the page: when a stale hand-authored block
   // coexists with a previously generated one, the generated value is last.
@@ -115,7 +134,7 @@ function metadataFor(route, html) {
     .replaceAll("Eastrise", "EastRise").replaceAll("Vtdigger", "VTDigger").replaceAll("Ynab", "YNAB").replaceAll("Mcp", "MCP").replaceAll("Beta", "BETA");
   const fallbackTitle = route.startsWith("/work/") ? `${slugTitle} | Work by Oliver Ames` : `${h1} | Oliver Ames`;
   const rawDescription = (overrides[route]?.description || oldDescription || `${h1.replace(/[.!?]+$/, "")}. Photography, content, video, and technology work by Oliver Ames in Vermont.`).replaceAll("..", ".");
-  const description = rawDescription.length <= 165 ? rawDescription : `${rawDescription.slice(0, 162).replace(/\s+\S*$/, "")}…`;
+  const description = sentenceSafeExcerpt(rawDescription, 165);
   return {
     title: overrides[route]?.title || fallbackTitle,
     description
@@ -137,7 +156,11 @@ function breadcrumbs(route, title) {
   return items;
 }
 
-function graphFor(route, metadata, image) {
+function isBlogPost(route) {
+  return route.startsWith("/blog/") && !["/blog/", "/blog/archive/"].includes(route);
+}
+
+function graphFor(route, metadata, image, html) {
   const canonical = `${siteUrl}${route}`;
   const person = {
     "@type": "Person", "@id": `${siteUrl}/#oliver-ames`, name: "Oliver Ames", url: `${siteUrl}/about/`, image: defaultImage,
@@ -150,7 +173,7 @@ function graphFor(route, metadata, image) {
     areaServed: { "@type": "State", name: "Vermont" },
     knowsAbout: ["Commercial photography", "Workplace photography", "Corporate portraits", "Event photography", "Video production", "Content strategy", "Digital communications", "Web accessibility", "Software development"]
   };
-  const pageType = route.startsWith("/blog/") && route !== "/blog/" ? "BlogPosting" : route.startsWith("/work/") && route !== "/work/" ? "CreativeWork" : route.startsWith("/services/") ? "Service" : route === "/about/" ? "ProfilePage" : "WebPage";
+  const pageType = isBlogPost(route) ? "BlogPosting" : route === "/blog/archive/" ? "CollectionPage" : route.startsWith("/work/") && route !== "/work/" ? "CreativeWork" : route.startsWith("/services/") ? "Service" : route === "/about/" ? "ProfilePage" : "WebPage";
   const page = {
     "@type": pageType, "@id": `${canonical}#page`, url: canonical, name: metadata.title, description: metadata.description, image,
     inLanguage: "en-US", isPartOf: { "@id": `${siteUrl}/#website` }, author: { "@id": person["@id"] }
@@ -158,6 +181,15 @@ function graphFor(route, metadata, image) {
   if (pageType === "Service") {
     page.provider = { "@id": organization["@id"] };
     page.areaServed = { "@type": "State", name: "Vermont" };
+  }
+  if (pageType === "BlogPosting") {
+    const headline = text(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]);
+    const datePublished = html.match(/<time\b[^>]*\bdatetime="([^"]+)"[^>]*>/i)?.[1];
+    if (!headline || !datePublished) {
+      throw new Error(`Blog post ${route} must expose its headline and publication date in page content.`);
+    }
+    page.headline = headline;
+    page.datePublished = datePublished;
   }
   const graph = [
     { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: `${siteUrl}/`, name: "Oliver Ames", alternateName: "Ames Consulting", publisher: { "@id": organization["@id"] }, inLanguage: "en-US" },
@@ -179,15 +211,15 @@ for (const file of await htmlFiles(root)) {
   if (!headMatch) continue;
   const metadata = metadataFor(route, html);
   const canonical = `${siteUrl}${route}`;
-  const image = imageFor(html);
+  const image = imageFor(route, html);
   let head = headMatch[1];
   head = replaceOrAdd(head, /<title>[\s\S]*?<\/title>/i, `<title>${attr(metadata.title)}</title>`);
   // Strip every existing description/robots/canonical — including
   // Prettier-formatted self-closing and multi-line tags — then append exactly
   // one generated instance, so hand-authored and generated blocks can never
   // coexist with conflicting values.
-  // Pages generated with noindex (e.g. galleries held pending written
-  // permission) keep it; everything else gets the standard directives.
+  // Preserve any deliberate noindex directive. Give all other pages the
+  // standard search directives.
   const keepNoindex = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"[^>]*>/i.test(head);
   head = head.replace(/<meta\s[^>]*name="description"[^>]*>/gi, "");
   head = head.replace(/<meta\s[^>]*name="robots"[^>]*>/gi, "");
@@ -202,7 +234,7 @@ for (const file of await htmlFiles(root)) {
     head = head.replace(/(<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com"[^>]*>)/i, `$1${fontPreloads}`);
   }
   head = head.replace(/<meta\s[^>]*property="og:[^"]*"[^>]*>/gi, "").replace(/<meta\s[^>]*name="twitter:[^"]*"[^>]*>/gi, "").replace(/<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, "");
-  head += `<meta property="og:site_name" content="Oliver Ames"><meta property="og:locale" content="en_US"><meta property="og:type" content="${route.startsWith("/blog/") && route !== "/blog/" ? "article" : "website"}"><meta property="og:title" content="${attr(metadata.title)}"><meta property="og:description" content="${attr(metadata.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${attr(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(metadata.title)}"><meta name="twitter:description" content="${attr(metadata.description)}"><meta name="twitter:image" content="${attr(image)}"><script type="application/ld+json">${json(graphFor(route, metadata, image))}</script>`;
+  head += `<meta property="og:site_name" content="Oliver Ames"><meta property="og:locale" content="en_US"><meta property="og:type" content="${isBlogPost(route) ? "article" : "website"}"><meta property="og:title" content="${attr(metadata.title)}"><meta property="og:description" content="${attr(metadata.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${attr(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(metadata.title)}"><meta name="twitter:description" content="${attr(metadata.description)}"><meta name="twitter:image" content="${attr(image)}"><script type="application/ld+json">${json(graphFor(route, metadata, image, html))}</script>`;
   html = html.replace(headMatch[0], `<head>${head}</head>`).replace(/[ \t]+$/gm, "");
   if (route === "/") {
     html = html.replace(/\s*<script(?: type="module")? src="\.\/assets\/js\/hero-headline\.js"><\/script>/g, "");

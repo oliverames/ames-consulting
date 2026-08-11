@@ -60,9 +60,26 @@ function renderArticleText(value) {
     .join("");
 }
 
-function excerpt(value, limit = 420) {
+function truncateWords(value, limit) {
   if (value.length <= limit) return value;
   return `${value.slice(0, limit).replace(/\s+\S*$/, "")}…`;
+}
+
+function sentenceSafeExcerpt(value, limit = 420) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+  if (normalized.length <= limit) return normalized;
+
+  const sentences = [...new Intl.Segmenter("en", { granularity: "sentence" }).segment(normalized)]
+    .map(({ segment }) => segment.trim())
+    .filter(Boolean);
+  let excerpt = "";
+  for (const sentence of sentences) {
+    const candidate = excerpt ? `${excerpt} ${sentence}` : sentence;
+    if (candidate.length > limit) break;
+    excerpt = candidate;
+  }
+
+  return excerpt || sentences[0] || normalized;
 }
 
 const socialLinks = `<ul class="site-footer__social"><li><a href="https://github.com/oliverames" rel="me noopener">GitHub</a></li><li><a href="https://www.linkedin.com/in/oliverames" rel="me noopener">LinkedIn</a></li><li><a href="https://oliverames.micro.blog/" rel="me noopener">Micro.blog</a></li><li><a href="https://mastodon.social/@oliverames" rel="me noopener">Mastodon</a></li><li><a href="https://bsky.app/profile/oliverames.bsky.social" rel="me noopener">Bluesky</a></li><li><a href="https://www.threads.com/@oliverames" rel="me noopener">Threads</a></li><li><a href="https://www.instagram.com/oliverames/" rel="me noopener">Instagram</a></li></ul>`;
@@ -82,7 +99,7 @@ function footer(depth) {
 function page({ title, description, path, depth, body, type = "website" }) {
   const base = "../".repeat(depth);
   const canonical = `https://ames.consulting/${path}`;
-  const documentTitle = type === "article" ? excerpt(title, 50) : title;
+  const documentTitle = type === "article" ? truncateWords(title, 50) : title;
   const schema = {
     "@context": "https://schema.org",
     "@type": type === "article" ? "BlogPosting" : "WebPage",
@@ -130,7 +147,7 @@ function renderCard(post, depth = 1) {
     ? `<img class="social-card__media" src="${imageSrc}" alt="${post.image ? `Media attached to Oliver Ames&#39;s ${escapeHtml(post.platforms[0])} post` : `Recent image from Oliver Ames&#39;s blog`}" loading="lazy" width="1400" height="900">`
     : "";
   const sharedPost = post.sharedPost
-    ? `<aside class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong><p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p></aside>`
+    ? `<div class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong><p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p></div>`
     : "";
   const title = post.title
     ? `<h2>${longForm ? `<a href="${articleHref}">${escapeHtml(post.title)}</a>` : escapeHtml(post.title)}</h2>`
@@ -138,17 +155,17 @@ function renderCard(post, depth = 1) {
   const action = longForm
     ? `<a class="social-card__read" href="${articleHref}">Read on ames.consulting →</a>`
     : "";
-  return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy"><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? excerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
+  return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy" data-no-zoom><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? sentenceSafeExcerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
 }
 
 function renderLongFormPage(post) {
   const slug = slugify(post.title || post.id);
-  const description = excerpt(post.text, 155);
+  const description = sentenceSafeExcerpt(post.text, 155);
   const original =
     post.links.find((link) => link.platform === "Micro.blog") || post.links[0];
   const imageSrc = localImage(post, 2);
   const heroImage = imageSrc ? `<img class="writing-article__hero" src="${imageSrc}" alt="Image published with ${escapeHtml(post.title)}" width="1400" height="900" loading="eager" fetchpriority="high">` : "";
-  const body = `<article class="writing-article"><header class="writing-article__header"><p class="eyebrow">Personal writing · ${dateLabel(post.date, true)}</p><h1>${escapeHtml(post.title)}</h1><p>Originally published on <a href="${escapeHtml(original.url)}" rel="noopener">Micro.blog</a>.</p>${heroImage}</header><div class="writing-article__body">${renderArticleText(post.text)}</div><footer class="writing-article__footer"><a class="btn btn--ghost" href="../">← Back to Writing</a><a href="${escapeHtml(original.url)}" rel="noopener">View the original on Micro.blog →</a></footer></article>`;
+  const body = `<article class="writing-article"><header class="writing-article__header"><p class="eyebrow">Personal writing · <time datetime="${escapeHtml(post.date)}">${dateLabel(post.date, true)}</time></p><h1>${escapeHtml(post.title)}</h1><p>Originally published on <a href="${escapeHtml(original.url)}" rel="noopener">Micro.blog</a>.</p>${heroImage}</header><div class="writing-article__body">${renderArticleText(post.text)}</div><footer class="writing-article__footer"><a class="btn btn--ghost" href="../">← Back to Writing</a><a href="${escapeHtml(original.url)}" rel="noopener">View the original on Micro.blog →</a></footer></article>`;
   return {
     slug,
     html: page({

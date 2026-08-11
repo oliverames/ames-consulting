@@ -46,13 +46,24 @@ test("homepage chooses a new photography-led headline on refresh", async ({
   expect(expectedHeadlines).toContain(await headline.textContent());
 });
 
-test("homepage proof respects reduced motion", async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.clock.install();
+test("homepage proof uses labeled manual pagination", async ({ page }) => {
   await page.goto("/");
-  await page.clock.fastForward("00:00:07");
+  const proof = page.locator("[data-proof-rotator]");
+  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 1 of 3");
   await expect(page.getByText("319%", { exact: true })).toBeVisible();
   await expect(page.getByText("569%", { exact: true })).toBeHidden();
+  await page.getByRole("button", { name: "Next results" }).click();
+  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 2 of 3");
+  await expect(page.getByText("319%", { exact: true })).toBeHidden();
+  await expect(page.getByText("569%", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Next results" }).click();
+  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 3 of 3");
+  await expect(page.getByText("569%", { exact: true })).toBeHidden();
+  await expect(page.getByText("1.6M+", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Next results" }).click();
+  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 1 of 3");
+  await expect(page.getByText("319%", { exact: true })).toBeVisible();
+  await expect(page.getByText("1.6M+", { exact: true })).toBeHidden();
 });
 
 test("homepage service cards open article hubs", async ({ page }) => {
@@ -65,7 +76,7 @@ test("homepage service cards open article hubs", async ({ page }) => {
   await expect(page.locator(".service-project")).toHaveCount(3);
   await expect(page.locator(".service-proof")).toHaveAttribute(
     "href",
-    "../../work/eastrise/",
+    "../../work/eastrise-social/",
   );
 });
 
@@ -144,6 +155,8 @@ test("contact form submits to the site endpoint", async ({ page }) => {
     }),
   );
   await page.goto("/contact/");
+  await expect(page.locator("#contact-form")).toBeVisible();
+  await expect(page.locator("#contact-form-fallback")).toBeHidden();
   await expect(
     page.getByRole("link", { name: "oliver@ames.consulting" }),
   ).toHaveAttribute("href", "mailto:oliver@ames.consulting");
@@ -172,6 +185,90 @@ test("contact form submits to the site endpoint", async ({ page }) => {
   );
 });
 
+test("contact page gives a direct alternative without JavaScript", async ({
+  baseURL,
+  browser,
+}) => {
+  const context = await browser.newContext({
+    baseURL,
+    javaScriptEnabled: false,
+  });
+  const page = await context.newPage();
+
+  await page.goto("/contact/");
+  await expect(page.locator("#contact-form")).toBeHidden();
+  const fallback = page.locator("#contact-form-fallback");
+  await expect(fallback).toBeVisible();
+  await expect(
+    fallback.getByRole("link", { name: "oliver@ames.consulting" }),
+  ).toHaveAttribute("href", "mailto:oliver@ames.consulting");
+
+  await context.close();
+});
+
+test("contact form loads Turnstile after the first interaction", async ({ page }) => {
+  let turnstileRequests = 0;
+  await page.route("https://challenges.cloudflare.com/turnstile/v0/api.js", async (route) => {
+    turnstileRequests += 1;
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "window.turnstile = { reset() {} };",
+    });
+  });
+
+  await page.goto("/contact/");
+  expect(turnstileRequests).toBe(0);
+
+  await page.getByLabel("Name").focus();
+  await expect.poll(() => turnstileRequests).toBe(1);
+
+  await page.getByLabel("Email").focus();
+  expect(turnstileRequests).toBe(1);
+});
+
+test("contact form fields use the high-contrast focus token", async ({ page }) => {
+  await page.route("https://challenges.cloudflare.com/turnstile/v0/api.js", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "window.turnstile = { reset() {} };",
+    });
+  });
+
+  for (const colorScheme of ["light", "dark"]) {
+    await page.emulateMedia({ colorScheme });
+    await page.goto("/contact/");
+    const nameField = page.getByLabel("Name");
+    await nameField.focus();
+
+    const focusStyles = await nameField.evaluate((field) => {
+      const probe = document.createElement("span");
+      probe.style.color = "var(--focus-ring)";
+      document.body.append(probe);
+      const tokenColor = getComputedStyle(probe).color;
+      probe.remove();
+
+      const styles = getComputedStyle(field);
+      return {
+        offset: styles.outlineOffset,
+        outlineColor: styles.outlineColor,
+        outlineStyle: styles.outlineStyle,
+        outlineWidth: styles.outlineWidth,
+        tokenColor,
+      };
+    });
+
+    expect(focusStyles).toEqual({
+      offset: "3px",
+      outlineColor: focusStyles.tokenColor,
+      outlineStyle: "solid",
+      outlineWidth: "3px",
+      tokenColor: focusStyles.tokenColor,
+    });
+  }
+});
+
 test("engaged visitors get a restrained project prompt", async ({ page }) => {
   await page.clock.install();
   await page.goto("/work/giron-family-fall-2025/");
@@ -179,11 +276,16 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.5));
   await page.clock.fastForward("00:00:31");
 
-  const dialog = page.getByRole("dialog");
+  const dialog = page.getByRole("dialog", {
+    name: "Need photographs that feel like the people in them?",
+  });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole("heading")).toHaveText(
     "Need photographs that feel like the people in them?",
   );
+  await expect.poll(() => page.locator("html").evaluate(
+    (element) => getComputedStyle(element).overflowY,
+  )).toBe("hidden");
   await expect(
     dialog.getByRole("link", { name: /Tell me about the project/ }),
   ).toHaveAttribute(
@@ -193,6 +295,9 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
 
   await dialog.getByRole("button", { name: "Keep looking" }).click();
   await expect(dialog).toBeHidden();
+  await expect.poll(() => page.locator("html").evaluate(
+    (element) => getComputedStyle(element).overflowY,
+  )).not.toBe("hidden");
   await page.reload();
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.5));
   await page.clock.fastForward("00:00:31");
@@ -200,8 +305,14 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
 
   await page.getByRole("button", { name: "Start a project" }).click();
   await expect(dialog).toBeVisible();
+  await expect.poll(() => page.locator("html").evaluate(
+    (element) => getComputedStyle(element).overflowY,
+  )).toBe("hidden");
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
+  await expect.poll(() => page.locator("html").evaluate(
+    (element) => getComputedStyle(element).overflowY,
+  )).not.toBe("hidden");
 });
 
 test("inbound project links preselect the contact form", async ({ page }) => {
@@ -287,7 +398,7 @@ test("event photography is split into complete campaign galleries", async ({
   await expect(page.locator("#image-viewer-caption")).toContainText("1 of 36");
 });
 
-test("Taylor Hoar Milk Bowl story uses a paged photo gallery", async ({
+test("Taylor Hoar portrait and Milk Bowl galleries stay separate", async ({
   page,
 }) => {
   await page.goto("/work/taylor-hoar-racing/");
@@ -295,19 +406,158 @@ test("Taylor Hoar Milk Bowl story uses a paged photo gallery", async ({
     name: "2025 Taylor Hoar portrait gallery",
   });
   await expect(portraits.locator("img")).toHaveCount(7);
-  await expect(page.locator(".case-hero--family > img")).toHaveAttribute(
+  const heroImage = page.locator(".case-hero--family > img");
+  await expect(heroImage).toHaveAttribute(
     "src",
     /featured-2025-dsc07501\.webp$/,
   );
+  await expect(heroImage).toHaveAttribute("data-no-zoom", "");
+  await expect(heroImage).not.toHaveClass(/zoomable-image/);
+  await portraits.locator("img").first().click();
+  const viewer = page.locator("#image-viewer");
+  const viewerCaption = page.locator("#image-viewer-caption");
+  await expect(viewer).toBeVisible();
+  await expect(viewerCaption).toContainText("1 of 7");
+  await page.keyboard.press("ArrowRight");
+  await expect(viewerCaption).toContainText("2 of 7");
+  await page.locator("#image-viewer-close").click();
+
   const gallery = page.getByRole("group", {
     name: "2025 Milk Bowl photo gallery",
   });
   await expect(gallery.locator("img")).toHaveCount(8);
   await gallery.locator("img").first().click();
-  await expect(page.locator("#image-viewer")).toBeVisible();
-  await expect(page.locator("#image-viewer-caption")).toContainText("9 of 16");
+  await expect(viewer).toBeVisible();
+  await expect(viewerCaption).toContainText("1 of 8");
   await page.keyboard.press("ArrowRight");
-  await expect(page.locator("#image-viewer-caption")).toContainText("10 of 16");
+  await expect(viewerCaption).toContainText("2 of 8");
+  await expect(page.locator("body")).not.toContainText("personal photo library");
+});
+
+test("career pages keep private evidence and unsupported claims out of public copy", async ({
+  page,
+}) => {
+  await page.goto("/work/live-broadcasts/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Live broadcasts made complex updates easier to follow.",
+  );
+  await expect(page.locator("body")).not.toContainText("10,000");
+  await expect(page.locator("body")).not.toContainText("2025 resume");
+
+  await page.goto("/work/vtdigger-membership/");
+  await expect(page.locator("body")).not.toContainText("Local evidence");
+  await expect(page.locator("body")).not.toContainText("archived VTDigger work sample");
+
+  await page.goto("/work/");
+  await expect(page.locator("body")).not.toContainText("10,000+");
+
+  await page.goto("/services/practical-technology/");
+  await expect(page.locator("body")).not.toContainText("10,000 viewers");
+});
+
+test("gallery images support keyboards and retain their context menus", async ({
+  page,
+}) => {
+  await page.goto("/work/taylor-hoar-racing/");
+  const portraits = page.getByRole("group", {
+    name: "2025 Taylor Hoar portrait gallery",
+  });
+  const thumbnail = portraits.locator("img").first();
+
+  await expect(thumbnail).toHaveAttribute("role", "button");
+  await expect(thumbnail).toHaveAttribute("tabindex", "0");
+  await expect(thumbnail).toHaveAttribute("aria-label", /^Open larger image:/);
+  expect(await thumbnail.evaluate((image) => getComputedStyle(image).userSelect)).not.toBe("none");
+  expect(
+    await page.locator("main p").first().evaluate((paragraph) => getComputedStyle(paragraph).userSelect),
+  ).not.toBe("none");
+  expect(
+    await thumbnail.evaluate((image) => {
+      const event = new MouseEvent("contextmenu", {
+        bubbles: true,
+        cancelable: true,
+      });
+      image.dispatchEvent(event);
+      return event.defaultPrevented;
+    }),
+  ).toBe(false);
+
+  await thumbnail.focus();
+  await page.keyboard.press("Enter");
+  const viewer = page.locator("#image-viewer");
+  const viewerImage = page.locator("#image-viewer-image");
+  const viewerCaption = page.locator("#image-viewer-caption");
+  const captionCount = page.locator(".image-viewer-caption__count");
+  await expect(viewer).toBeVisible();
+  await expect(captionCount).toHaveText(/^\d+ of 7$/);
+  await expect(viewerCaption).toHaveAttribute("role", "status");
+  await expect(viewerCaption).toHaveAttribute("aria-live", "polite");
+  await expect(viewerCaption).toHaveAttribute("aria-atomic", "true");
+  const initialCount = await captionCount.textContent();
+  await expect(viewerImage).not.toHaveClass(/zoomable-image/);
+  expect(await viewerImage.getAttribute("role")).toBeNull();
+  expect(await viewerImage.getAttribute("aria-label")).toBeNull();
+  expect(await viewerImage.evaluate((image) => image.tabIndex)).toBe(-1);
+  expect(
+    await viewerImage.evaluate((image) => {
+      const event = new MouseEvent("contextmenu", {
+        bubbles: true,
+        cancelable: true,
+      });
+      image.dispatchEvent(event);
+      return event.defaultPrevented;
+    }),
+  ).toBe(false);
+  expect(
+    await viewerImage.evaluate((image) => {
+      const event = new KeyboardEvent("keydown", {
+        key: "s",
+        metaKey: true,
+        bubbles: true,
+        cancelable: true,
+      });
+      image.dispatchEvent(event);
+      return event.defaultPrevented;
+    }),
+  ).toBe(false);
+
+  await viewerImage.click();
+  await expect(captionCount).toHaveText(initialCount);
+  await expect(page.locator("#image-viewer-next")).toBeVisible();
+
+  await page.keyboard.press("Escape");
+  await page.emulateMedia({ media: "print" });
+  await expect(thumbnail).toBeVisible();
+});
+
+test("decorative images stay out of the image viewer", async ({ page }) => {
+  await page.goto("/work/apple-core/");
+  const icon = page.locator(".software-console__brand img").first();
+
+  await expect(icon).toHaveAttribute("alt", "");
+  await expect(icon).not.toHaveClass(/zoomable-image/);
+  await expect(icon).not.toHaveAttribute("role", "button");
+  await expect(icon).not.toHaveAttribute("tabindex", "0");
+});
+
+test("primary actions retain a visible keyboard focus ring", async ({ page }) => {
+  await page.goto("/");
+  const button = page.locator(".hero .btn--primary").first();
+  await button.focus();
+
+  const styles = await button.evaluate((element) => {
+    const buttonStyle = getComputedStyle(element);
+    const surfaceStyle = getComputedStyle(element.closest(".hero"));
+    return {
+      outlineColor: buttonStyle.outlineColor,
+      outlineStyle: buttonStyle.outlineStyle,
+      outlineWidth: buttonStyle.outlineWidth,
+      surfaceColor: surfaceStyle.backgroundColor,
+    };
+  });
+  expect(styles.outlineStyle).toBe("solid");
+  expect(styles.outlineWidth).toBe("3px");
+  expect(styles.outlineColor).not.toBe(styles.surfaceColor);
 });
 
 test("portrait work is split into complete framed galleries", async ({ page }) => {
@@ -399,7 +649,6 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Emma at BETA" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toHaveCount(0);
-
   const sections = page.locator(".work-category");
   await expect(sections).toHaveCount(3);
   const hrefs = async (section) =>
@@ -451,27 +700,8 @@ test("Vermont Foodbank shoot uses the complete gallery and paged lightbox", asyn
   await expect(page.locator("#image-viewer-caption")).toContainText("2 of 38");
 });
 
-test("BETA photography galleries stay preserved but unlisted pending permission", async ({ page }) => {
-  for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
-    await page.goto(`/work/${slug}/`);
-    await expect(page.locator(".campaign-collage img")).toHaveCount(0);
-    expect(await page.content()).toContain("Held pending written permission");
-  }
-
-  await page.goto("/work/");
-  for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
-    await expect(page.locator(`a.work-item[href="${slug}/"]`)).toHaveCount(0);
-  }
-
-  await page.goto("/");
-  for (const slug of ["beta-andrew", "beta-emma", "beta-ethan"]) {
-    await expect(page.locator(`a.path-thumb[href="work/${slug}/"]`)).toHaveCount(0);
-  }
-
+test("BETA Technologies page keeps the public Flight Paths film", async ({ page }) => {
   await page.goto("/work/beta-technologies/");
-  await expect(page.getByRole("heading", { name: "Andrew at BETA" })).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "Emma at BETA" })).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toHaveCount(0);
   await expect(page.locator('iframe[src*="4r5N5DjmSCU"]')).toHaveCount(1);
 });
 
@@ -491,7 +721,7 @@ test("legacy work uses linked case cards", async ({
     page.getByRole("link", { name: /Membership conversion/ }),
   ).toHaveAttribute("href", "vtdigger-membership/");
   await expect(
-    page.getByRole("link", { name: /Planetarium growth/ }),
+    page.getByRole("link", { name: /Public astronomy/ }),
   ).toHaveAttribute("href", "fairbanks-planetarium/");
   await expect(page.getByRole("link", { name: /Early digital storytelling/ })).toHaveAttribute("href", "connecticut-college/");
 });
@@ -543,12 +773,12 @@ test("recommendations are distributed across relevant pages", async ({
   );
 });
 
-test("testimonials archive combines recommendations and review feedback", async ({
+test("testimonials archive contains public recommendations only", async ({
   page,
 }) => {
   await page.goto("/testimonials/");
   await expect(page.locator(".recommendation-entry")).toHaveCount(13);
-  await expect(page.locator(".review-entry")).toHaveCount(4);
+  await expect(page.locator(".review-entry")).toHaveCount(0);
   await expect(page.getByText("Yvonne Garand", { exact: true })).toBeVisible();
   await expect(page.getByText("Brad Meerholz", { exact: true })).toBeVisible();
   await expect(
@@ -566,6 +796,11 @@ test("EastRise writing archive contains every attributed article", async ({
       exact: true,
     }),
   ).toBeVisible();
+  await expect(
+    page.getByRole("link", {
+      name: /A Comprehensive Guide to EV Charging Apps/,
+    }),
+  ).toHaveCount(0);
 });
 
 test("EastRise photography is grouped into complete public-source galleries", async ({
@@ -646,7 +881,7 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
 
 test("in-house campaign cards identify the employer and role", async ({ page }) => {
   await page.goto("/work/");
-  await expect(page.locator(".work-category__framing")).toContainText("Work made in-house at EastRise Credit Union and Blue Cross and Blue Shield of Vermont");
+  await expect(page.locator(".work-category__framing")).toContainText("projects I made at EastRise Credit Union and Blue Cross and Blue Shield of Vermont");
   await expect(page.locator('[data-organization="eastrise"] .work-item__credit').first()).toHaveText("Made as Digital Content Strategist, EastRise Credit Union.");
   await expect(page.locator('[data-organization="blue-cross-vermont"] .work-item__credit').first()).toHaveText("Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont.");
 });
@@ -654,9 +889,17 @@ test("in-house campaign cards identify the employer and role", async ({ page }) 
 test("campaign pages disclose tracked public image sources automatically", async ({ page }) => {
   await page.goto("/work/eastrise-social/");
   const disclosures = page.locator(".asset-provenance li");
-  await expect(disclosures).toHaveCount(1);
-  await expect(disclosures.first()).toContainText("12 images published by EastRise Credit Union on Facebook.");
-  await expect(disclosures.first()).toContainText("Retrieved July 29, 2026.");
+  const galleryImageCount = await page.locator('[data-gallery="eastrise-social"] img').count();
+  await expect(disclosures).toHaveCount(galleryImageCount);
+  await expect(page.locator(".asset-provenance li a")).toHaveCount(galleryImageCount);
+  const disclosedImageCount = (await disclosures.allTextContents()).reduce((total, text) => {
+    const count = Number(text.match(/^(\d+) images?/)?.[1] || 0);
+    return total + count;
+  }, 0);
+  expect(disclosedImageCount).toBe(galleryImageCount);
+  for (const disclosure of await disclosures.all()) {
+    await expect(disclosure).toContainText("Retrieved July 29, 2026.");
+  }
 });
 
 test("photo project cards scrub galleries horizontally and restore their pinned image", async ({

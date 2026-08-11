@@ -7,10 +7,12 @@ dist/
 _site/
 .playwright-mcp/
 test-results/
+.lighthouseci/
 output/
 .codex-backups/
 .claude/settings.json
 .claude/settings.local.json
+assets/images/provenance/source-screenshots/
 
 # Secrets & environment
 .env

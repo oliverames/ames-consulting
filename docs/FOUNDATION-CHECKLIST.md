@@ -1,8 +1,9 @@
-# Foundation Checklist
+# Foundation Checklist (Historical)
 
-This checklist converts reference-site patterns into build rules for `ames.consulting`.
-
-Use it as a gate before major design or feature changes.
+This checklist records an early design exploration that assumed a unified `Post`
+stream, tags, and a `/portfolio/` route. Those assumptions are no longer part of
+the site. Keep this file as design history, and use `ARCHITECTURE.md`,
+`CONTENT-MODEL.md`, and `RELEASE-PROCESS.md` for current implementation gates.
 
 ## Information Architecture
 

@@ -97,7 +97,8 @@ function initInboundPrompt() {
   dialog.id = "inbound-prompt";
   dialog.className = "inbound-prompt";
   dialog.dataset.inboundPrompt = "";
-  dialog.innerHTML = `<div class="inbound-prompt__mesh" aria-hidden="true"></div><button class="inbound-prompt__close" type="button" aria-label="Close project prompt">×</button><span class="inbound-prompt__eyebrow">Ames Consulting · Montpelier, Vermont</span><h2>${variant.title}</h2><p>${variant.body}</p><div class="inbound-prompt__actions"><a class="btn btn--primary" href="${relativeContactUrl(variant.type)}">Tell me about the project →</a><button class="btn btn--ghost" type="button" data-inbound-dismiss>Keep looking</button></div>`;
+  dialog.setAttribute("aria-labelledby", "inbound-prompt-title");
+  dialog.innerHTML = `<div class="inbound-prompt__mesh" aria-hidden="true"></div><button class="inbound-prompt__close" type="button" aria-label="Close project prompt">×</button><span class="inbound-prompt__eyebrow">Ames Consulting · Montpelier, Vermont</span><h2 id="inbound-prompt-title">${variant.title}</h2><p>${variant.body}</p><div class="inbound-prompt__actions"><a class="btn btn--primary" href="${relativeContactUrl(variant.type)}">Tell me about the project →</a><button class="btn btn--ghost" type="button" data-inbound-dismiss>Keep looking</button></div>`;
 
   document.body.append(launcher, dialog);
   const footer = document.querySelector(".site-footer");
@@ -132,6 +133,7 @@ function initInboundPrompt() {
     // Never stack over another open dialog, such as the image viewer.
     if (anotherDialogIsOpen(dialog)) return;
     dialog.showModal();
+    document.documentElement.classList.add("has-open-dialog");
   };
   const maybeOpen = () => {
     if (hasEnoughTime && hasEnoughScroll && !wasRecentlyDismissed())
@@ -172,6 +174,9 @@ function initInboundPrompt() {
   dialog.addEventListener("cancel", (event) => {
     event.preventDefault();
     close();
+  });
+  dialog.addEventListener("close", () => {
+    document.documentElement.classList.remove("has-open-dialog");
   });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) stopTimer();

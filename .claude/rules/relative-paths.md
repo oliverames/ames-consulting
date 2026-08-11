@@ -17,4 +17,4 @@ new URL("../data/file.json", import.meta.url)
 ```
 
 The site deploys to Cloudflare Pages from `_site/`; relative paths keep local dev servers and
-preview deployments working without a build step.
+preview deployments working after the static build.

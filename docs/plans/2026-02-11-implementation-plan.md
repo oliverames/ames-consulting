@@ -1,6 +1,6 @@
 # ames.consulting Visual Redesign — Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+> **Status:** Archived historical plan. It is not a current instruction surface. See `docs/ARCHITECTURE.md` for the implemented system.
 
 **Goal:** Transform the scaffolded site into a personal site with Ames heritage visual identity, light/dark mode, static portfolio, and lmnt.me-inspired site directory.
 
@@ -297,7 +297,7 @@ The intro section:
 <main id="main-content" tabindex="-1">
   <section class="intro">
     <h1>I translate complex ideas into stories people care about.</h1>
-    <p>I'm Avery Morgan — a content strategist, software tinkerer, and video producer in Riverside, the North Country. This is where my work lives.</p>
+    <p>I'm Oliver Ames, a content strategist, software tinkerer, and video producer in Montpelier, Vermont. This is where my work lives.</p>
   </section>
 
   <section class="home-paths">

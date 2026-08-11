@@ -12,7 +12,7 @@
 //        contain one
 //      - decorate every <img> inside <main>, <article>, or [data-zoomable]
 //        (skipping anything wrapped in an <a> so links keep navigating)
-//      - wire global click / keyboard / context-menu handlers
+//      - wire global click and keyboard handlers
 //
 // 2) Manual import. Other modules can import the named
 //    helpers directly. The wiring functions are idempotent — calling them
@@ -64,6 +64,9 @@ function buildViewerDialog() {
 
   const caption = document.createElement("figcaption");
   caption.id = "image-viewer-caption";
+  caption.setAttribute("role", "status");
+  caption.setAttribute("aria-live", "polite");
+  caption.setAttribute("aria-atomic", "true");
 
   const captionLabel = document.createElement("span");
   captionLabel.className = "image-viewer-caption__label";
@@ -97,11 +100,12 @@ export function ensureViewerDialog() {
 export function decorateContentMedia(container) {
   if (!container) return;
   container.querySelectorAll("img").forEach((image) => {
-    // Skip images that opt out, are already decorated, or are wrapped in a
-    // link (those should keep navigating, not zoom).
+    // Skip the viewer's own image, images that opt out, and images wrapped in
+    // a link (those should keep navigating, not zoom).
+    if (image.closest("#image-viewer")) return;
     if (image.dataset.noZoom != null) return;
-    if (image.classList.contains("zoomable-image")) return;
     if (image.closest("a")) return;
+    if (!image.alt?.trim() && !image.getAttribute("aria-label")?.trim()) return;
 
     image.classList.add("zoomable-image", "protected-asset");
     image.dataset.protectedAsset = "image";
@@ -169,7 +173,7 @@ export function wireImageViewer() {
     if (!activeImages.length) return;
     activeIndex = (index + activeImages.length) % activeImages.length;
     const sourceImage = activeImages[activeIndex];
-    viewerImage.src = sourceImage.currentSrc || sourceImage.src;
+    viewerImage.src = sourceImage.src;
     viewerImage.alt = sourceImage.alt || "Image preview";
     const figureCaption = sourceImage.closest("figure")?.querySelector("figcaption")?.textContent?.trim();
     if (captionLabel) captionLabel.textContent = figureCaption || sourceImage.alt || sourceImage.getAttribute("title") || "";
@@ -249,29 +253,10 @@ export function wireAssetProtection() {
   if (wiredAssetProtection) return;
   wiredAssetProtection = true;
 
-  document.addEventListener("contextmenu", (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) return;
-    if (isProtectedAssetTarget(target)) {
-      event.preventDefault();
-    }
-  });
-
   document.addEventListener("dragstart", (event) => {
     const target = event.target;
     if (!(target instanceof HTMLElement)) return;
     if (isProtectedAssetTarget(target)) {
-      event.preventDefault();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    const saveShortcut =
-      (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s";
-    if (!saveShortcut) return;
-
-    const viewer = document.getElementById("image-viewer");
-    if (viewer instanceof HTMLDialogElement && viewer.open) {
       event.preventDefault();
     }
   });

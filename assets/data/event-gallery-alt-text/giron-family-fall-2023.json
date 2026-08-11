@@ -1,0 +1,917 @@
+{
+  "slug": "giron-family-fall-2023",
+  "images": [
+    {
+      "file": "dsc03767.webp",
+      "alt": "Adult holding a baby in a light gray bear hat and cream jacket outdoors"
+    },
+    {
+      "file": "dsc03768.webp",
+      "alt": "Adult holding a baby in a light gray bear hat and cream jacket in a field"
+    },
+    {
+      "file": "dsc03771.webp",
+      "alt": "Child in a blue beanie and red plaid shirt steering a green tractor with yellow seat"
+    },
+    {
+      "file": "dsc03772.webp",
+      "alt": "Child in a blue beanie and red plaid shirt holding a tractor steering wheel"
+    },
+    {
+      "file": "dsc03773.webp",
+      "alt": "Child in a blue beanie and red plaid shirt driving a green tractor in a field"
+    },
+    {
+      "file": "dsc03774.webp",
+      "alt": "Child in a blue beanie and red plaid shirt sitting on a green tractor"
+    },
+    {
+      "file": "dsc03775.webp",
+      "alt": "Child in a blue beanie and red plaid shirt steering a green tractor outdoors"
+    },
+    {
+      "file": "dsc03776.webp",
+      "alt": "Adult in a blue cap holding a baby in a light gray bear hat and cream jacket"
+    },
+    {
+      "file": "dsc03778.webp",
+      "alt": "Adult holding a baby in a light gray knit hat and cream jacket by a wooden structure"
+    },
+    {
+      "file": "dsc03779.webp",
+      "alt": "Baby in a light gray knit hat and cream jacket with orange trim held close"
+    },
+    {
+      "file": "dsc03780.webp",
+      "alt": "Baby in a light gray knit hat and cream jacket with orange trim smiling"
+    },
+    {
+      "file": "dsc03781.webp",
+      "alt": "Baby in a light gray knit hat and cream jacket with orange trim looking up"
+    },
+    {
+      "file": "dsc03782.webp",
+      "alt": "Three people on a large wooden chair in a grassy field with autumn trees"
+    },
+    {
+      "file": "dsc03783.webp",
+      "alt": "Four people on large wooden chair in grassy field, autumn trees and orchard rows behind"
+    },
+    {
+      "file": "dsc03785.webp",
+      "alt": "Four people seated on wooden chair with sign above, grassy field and distant trees"
+    },
+    {
+      "file": "dsc03786.webp",
+      "alt": "Four people on wooden chair, orchard rows and autumn foliage in background"
+    },
+    {
+      "file": "dsc03787.webp",
+      "alt": "Four people on wooden chair, green grass and cloudy sky over orchard"
+    },
+    {
+      "file": "dsc03788.webp",
+      "alt": "Four people on wooden chair, sunset lighting on grassy field and trees"
+    },
+    {
+      "file": "dsc03789.webp",
+      "alt": "Four people on wooden chair, orchard rows and forested hills in distance"
+    },
+    {
+      "file": "dsc03790.webp",
+      "alt": "Four people on wooden chair, golden hour glow on open farmland"
+    },
+    {
+      "file": "dsc03791.webp",
+      "alt": "Four people on wooden chair, wide grassy field with scattered clouds"
+    },
+    {
+      "file": "dsc03792.webp",
+      "alt": "Four people on large wooden chair, grassy field and orchard rows with autumn foliage behind"
+    },
+    {
+      "file": "dsc03793.webp",
+      "alt": "Four people seated on a wooden bench in a grassy field with autumn trees in the background"
+    },
+    {
+      "file": "dsc03794.webp",
+      "alt": "Four people seated on a wooden bench in a grassy field with autumn trees in the background"
+    },
+    {
+      "file": "dsc03795.webp",
+      "alt": "Four people on wooden bench with sign above, orchard rows and distant trees under cloudy sky"
+    },
+    {
+      "file": "dsc03796.webp",
+      "alt": "Four people on wooden bench, sign above, grassy field and forested hills in distance"
+    },
+    {
+      "file": "dsc03799.webp",
+      "alt": "Four people on wooden bench, sign above, open field with distant trees and mountains"
+    },
+    {
+      "file": "dsc03800.webp",
+      "alt": "Four people on wooden bench, sign above, grassy field with farm equipment in background"
+    },
+    {
+      "file": "dsc03801.webp",
+      "alt": "Four people on wooden bench, sign above, orchard rows and golden hour light on landscape"
+    },
+    {
+      "file": "dsc03802.webp",
+      "alt": "Four people on wooden bench, sign above, grassy field with scattered clouds and hills"
+    },
+    {
+      "file": "dsc03803.webp",
+      "alt": "Four people on wooden bench, sign above, open farmland with distant trees and sky"
+    },
+    {
+      "file": "dsc03804.webp",
+      "alt": "Four people on large wooden chair with sign above, grassy field and orchard rows behind"
+    },
+    {
+      "file": "dsc03805.webp",
+      "alt": "Four people on wooden chair, orchard rows and autumn foliage in background"
+    },
+    {
+      "file": "dsc03806.webp",
+      "alt": "Four people on wooden chair, green grass and cloudy sky over orchard"
+    },
+    {
+      "file": "dsc03807.webp",
+      "alt": "Four people on wooden chair, sunset lighting on grassy field and trees"
+    },
+    {
+      "file": "dsc03812.webp",
+      "alt": "Four people on wooden chair, orchard rows and forested hills in distance"
+    },
+    {
+      "file": "dsc03813.webp",
+      "alt": "Four people on wooden chair, golden hour glow on open farmland"
+    },
+    {
+      "file": "dsc03814.webp",
+      "alt": "Four people on wooden chair, wide grassy field with scattered clouds"
+    },
+    {
+      "file": "dsc03815.webp",
+      "alt": "Four people on wooden chair, orchard rows and distant trees under cloudy sky"
+    },
+    {
+      "file": "dsc03816.webp",
+      "alt": "Four people on large wooden chair with sign above, grassy field and orchard rows behind"
+    },
+    {
+      "file": "dsc03817.webp",
+      "alt": "Four people seated on a large wooden chair in a grassy field with autumn trees"
+    },
+    {
+      "file": "dsc03818.webp",
+      "alt": "Four people seated on a large wooden chair in a grassy field with autumn trees"
+    },
+    {
+      "file": "dsc03820.webp",
+      "alt": "Baby in a light gray knit hat and cream jacket with orange trim held close"
+    },
+    {
+      "file": "dsc03822.webp",
+      "alt": "Adult in a blue cap holding a baby in a light gray bear hat and cream jacket"
+    },
+    {
+      "file": "dsc03831.webp",
+      "alt": "Adult in a brown beanie lifting a child in a black beanie onto a wooden chair"
+    },
+    {
+      "file": "dsc03836.webp",
+      "alt": "Child in a blue beanie and red plaid shirt steering a green tractor with yellow seat"
+    },
+    {
+      "file": "dsc03837.webp",
+      "alt": "Child in a blue beanie and red plaid shirt sitting on a green tractor"
+    },
+    {
+      "file": "dsc03838.webp",
+      "alt": "Baby in a light gray knit hat and cream jacket with orange trim seated in a yellow tractor seat"
+    },
+    {
+      "file": "dsc03841.webp",
+      "alt": "Two children in a green tractor, one in a cream bear suit on a yellow seat, the other steering"
+    },
+    {
+      "file": "dsc03842.webp",
+      "alt": "Child in red plaid shirt and blue beanie steering green tractor, baby in cream bear suit seated"
+    },
+    {
+      "file": "dsc03843.webp",
+      "alt": "Child in red plaid shirt and blue beanie reaching toward baby in cream bear suit on tractor"
+    },
+    {
+      "file": "dsc03844.webp",
+      "alt": "Child in red plaid shirt and blue beanie pointing at baby in cream bear suit on tractor"
+    },
+    {
+      "file": "dsc03845.webp",
+      "alt": "Child in red plaid shirt and blue beanie holding steering wheel, baby in cream bear suit seated"
+    },
+    {
+      "file": "dsc03846.webp",
+      "alt": "Child in red plaid shirt and blue beanie gripping steering wheel, baby in cream bear suit seated"
+    },
+    {
+      "file": "dsc03847.webp",
+      "alt": "Child in red plaid shirt and blue beanie turning steering wheel, baby in cream bear suit seated"
+    },
+    {
+      "file": "dsc03848.webp",
+      "alt": "Baby in cream bear suit and gray knit hat seated on a yellow tractor seat"
+    },
+    {
+      "file": "dsc03849.webp",
+      "alt": "Baby in cream bear suit with gray knit hat seated on yellow tractor seat"
+    },
+    {
+      "file": "dsc03850.webp",
+      "alt": "Baby in cream bear suit with gray knit hat sitting on yellow tractor seat, green tractor behind"
+    },
+    {
+      "file": "dsc03851.webp",
+      "alt": "Baby in cream bear suit and gray hat on yellow seat, green tractor with warning sign"
+    },
+    {
+      "file": "dsc03852.webp",
+      "alt": "Baby in cream bear suit and gray beanie on yellow seat, green tractor interior visible"
+    },
+    {
+      "file": "dsc03853.webp",
+      "alt": "Baby in cream bear suit with gray hat, yellow seat, green tractor and wooden wall"
+    },
+    {
+      "file": "dsc03854.webp",
+      "alt": "Baby in cream bear suit and gray beanie on yellow seat, green tractor with safety label"
+    },
+    {
+      "file": "dsc03855.webp",
+      "alt": "Baby in cream bear suit and gray hat, yellow seat, green tractor with warning sign"
+    },
+    {
+      "file": "dsc03856.webp",
+      "alt": "Baby in cream bear suit and gray beanie on yellow seat, green tractor and wooden wall"
+    },
+    {
+      "file": "dsc03857.webp",
+      "alt": "Baby in cream bear suit and gray hat on yellow seat, green tractor with partial hand visible"
+    },
+    {
+      "file": "dsc03858.webp",
+      "alt": "Baby in cream bear suit with gray knit hat on yellow tractor seat, green tractor behind"
+    },
+    {
+      "file": "dsc03859.webp",
+      "alt": "Baby in cream bear suit and gray hat on yellow seat, green tractor with warning sign"
+    },
+    {
+      "file": "dsc03860.webp",
+      "alt": "Baby in cream bear suit and gray beanie on yellow seat, green tractor interior visible"
+    },
+    {
+      "file": "dsc03861.webp",
+      "alt": "Baby in cream bear suit with gray hat, yellow seat, green tractor and wooden wall"
+    },
+    {
+      "file": "dsc03862.webp",
+      "alt": "Baby in cream bear suit and gray beanie on yellow seat, green tractor with safety label"
+    },
+    {
+      "file": "dsc03863.webp",
+      "alt": "Baby in cream bear suit and gray hat on yellow seat, green tractor with partial hand visible"
+    },
+    {
+      "file": "dsc03864.webp",
+      "alt": "Baby in cream bear suit and gray beanie on yellow seat, green tractor and wooden wall"
+    },
+    {
+      "file": "dsc03865.webp",
+      "alt": "Baby in cream bear suit and gray knit hat seated on yellow tractor seat"
+    },
+    {
+      "file": "dsc03868.webp",
+      "alt": "Child in red plaid shirt and navy beanie sitting on large wooden chair in grassy field"
+    },
+    {
+      "file": "dsc03869.webp",
+      "alt": "Child in red plaid shirt and navy beanie sitting on large wooden chair with sign, grassy field behind"
+    },
+    {
+      "file": "dsc03871.webp",
+      "alt": "Child in red plaid shirt and navy beanie kneeling on large wooden chair, orchard and tractor in background"
+    },
+    {
+      "file": "dsc03875.webp",
+      "alt": "Child in red plaid shirt and navy beanie sitting on large wooden chair, green tractor and trees behind"
+    },
+    {
+      "file": "dsc03877.webp",
+      "alt": "Two adults helping a child in red plaid shirt and blue beanie climb a large wooden chair"
+    },
+    {
+      "file": "dsc03878.webp",
+      "alt": "Adult in brown beanie and plaid shirt reaching for baby in cream bear suit on wooden bench"
+    },
+    {
+      "file": "dsc03879.webp",
+      "alt": "Baby in cream bear suit and white knit hat sitting on wooden bench between adults"
+    },
+    {
+      "file": "dsc03880.webp",
+      "alt": "Baby in cream bear suit and white knit hat seated on large wooden chair in grassy field"
+    },
+    {
+      "file": "dsc03881.webp",
+      "alt": "Baby in cream bear suit and white knit hat seated on large wooden chair in grassy field"
+    },
+    {
+      "file": "dsc03882.webp",
+      "alt": "Child in red plaid shirt and blue beanie approaching large wooden chair with baby seated"
+    },
+    {
+      "file": "dsc03883.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit on wooden bench"
+    },
+    {
+      "file": "dsc03884.webp",
+      "alt": "Adult in brown beanie and plaid shirt supporting baby in cream bear suit on wooden bench"
+    },
+    {
+      "file": "dsc03885.webp",
+      "alt": "Baby in cream bear suit and white knit hat sitting on wooden bench between adults"
+    },
+    {
+      "file": "dsc03886.webp",
+      "alt": "Adult in blue cap waving at baby in cream bear suit on large wooden chair"
+    },
+    {
+      "file": "dsc03887.webp",
+      "alt": "Child in gray beanie taking a photo of baby in cream bear suit on large wooden chair"
+    },
+    {
+      "file": "dsc03888.webp",
+      "alt": "Baby in cream bear suit and gray knit hat sitting on wooden bench"
+    },
+    {
+      "file": "dsc03889.webp",
+      "alt": "Baby in cream bear suit and gray knit hat on wooden bench, adult hand supporting"
+    },
+    {
+      "file": "dsc03890.webp",
+      "alt": "Adult in plaid shirt lifting child in red plaid shirt and blue beanie in grassy field"
+    },
+    {
+      "file": "dsc03892.webp",
+      "alt": "Two people walking on grass path toward corn maze with autumn trees"
+    },
+    {
+      "file": "dsc03893.webp",
+      "alt": "Two people walking on grass path toward corn maze under cloudy sky"
+    },
+    {
+      "file": "dsc03894.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit in orchard"
+    },
+    {
+      "file": "dsc03895.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit, orchard rows behind"
+    },
+    {
+      "file": "dsc03896.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit, orchard rows behind"
+    },
+    {
+      "file": "dsc03897.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit, cloudy sky above"
+    },
+    {
+      "file": "dsc03898.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit, green field and trees"
+    },
+    {
+      "file": "dsc03899.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit, orchard and distant tractor"
+    },
+    {
+      "file": "dsc03900.webp",
+      "alt": "Adult in brown beanie and plaid shirt holding baby in cream bear suit, grassy orchard with trees"
+    },
+    {
+      "file": "dsc03903.webp",
+      "alt": "Child in red plaid shirt and blue beanie crawling under Corn Maze sign"
+    },
+    {
+      "file": "dsc03904.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying under Corn Maze sign"
+    },
+    {
+      "file": "dsc03905.webp",
+      "alt": "Child in red plaid shirt and blue beanie squatting near wooden fence in grassy field"
+    },
+    {
+      "file": "dsc03906.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on grass near wooden fence"
+    },
+    {
+      "file": "dsc03907.webp",
+      "alt": "Child in red plaid shirt, orange pants, and gray beanie lying on grass near wooden fence"
+    },
+    {
+      "file": "dsc03908.webp",
+      "alt": "Child in red plaid shirt, orange pants, and gray beanie lying on grass with legs raised"
+    },
+    {
+      "file": "dsc03909.webp",
+      "alt": "Child in red plaid shirt, orange pants, and gray beanie lying on grass with one leg bent"
+    },
+    {
+      "file": "dsc03910.webp",
+      "alt": "Child in red plaid shirt, orange pants, and gray beanie lying on grass with one foot up"
+    },
+    {
+      "file": "dsc03911.webp",
+      "alt": "Two people in plaid shirts and caps sitting on grass with barn and cloudy sky behind"
+    },
+    {
+      "file": "dsc03912.webp",
+      "alt": "Adult in blue cap and plaid shirt holding child in red plaid shirt on grass"
+    },
+    {
+      "file": "dsc03913.webp",
+      "alt": "Adult in blue cap and plaid shirt holding child in red plaid shirt on grassy hill"
+    },
+    {
+      "file": "dsc03914.webp",
+      "alt": "Adult in blue cap and plaid shirt holding child in red plaid shirt on grass"
+    },
+    {
+      "file": "dsc03915.webp",
+      "alt": "Two people sitting on grassy hill, one in blue cap and plaid shirt holding child in red plaid shirt"
+    },
+    {
+      "file": "dsc03916.webp",
+      "alt": "Two people sitting on grassy hill, one in blue cap and plaid shirt holding child in red plaid"
+    },
+    {
+      "file": "dsc03917.webp",
+      "alt": "Two people on grassy hill, one in blue cap and plaid shirt holding child in red plaid shirt"
+    },
+    {
+      "file": "dsc03918.webp",
+      "alt": "Two people on grassy hill, one in blue cap and plaid shirt embracing child in red plaid"
+    },
+    {
+      "file": "dsc03919.webp",
+      "alt": "Two people on grassy hill, one in blue cap and plaid shirt embracing child in red plaid"
+    },
+    {
+      "file": "dsc03920.webp",
+      "alt": "Two people on grassy hill, one in blue cap and plaid shirt embracing child in red plaid shirt"
+    },
+    {
+      "file": "dsc03923.webp",
+      "alt": "Tall cornfield under cloudy sky with distant trees and mountains"
+    },
+    {
+      "file": "dsc03925.webp",
+      "alt": "Child in red plaid shirt and dark beanie crawling on grass near Corn Maze sign"
+    },
+    {
+      "file": "dsc03928.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on green grass with corn maze behind"
+    },
+    {
+      "file": "dsc03929.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on grass near corn maze"
+    },
+    {
+      "file": "dsc03930.webp",
+      "alt": "Child in red plaid shirt and blue beanie holding grass on green field"
+    },
+    {
+      "file": "dsc03931.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on grass with corn maze sign"
+    },
+    {
+      "file": "dsc03932.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on grass with cloudy sky"
+    },
+    {
+      "file": "dsc03933.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on grass under cloudy sky"
+    },
+    {
+      "file": "dsc03934.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on grass with corn maze sign"
+    },
+    {
+      "file": "dsc03935.webp",
+      "alt": "Child in red plaid shirt and blue beanie lying on grass holding grass"
+    },
+    {
+      "file": "dsc03936.webp",
+      "alt": "Child in red plaid shirt and dark beanie holding grass on green field with corn maze sign"
+    },
+    {
+      "file": "dsc03937.webp",
+      "alt": "Child in red plaid shirt and dark beanie lying on grass with corn maze sign"
+    },
+    {
+      "file": "dsc03938.webp",
+      "alt": "Child in red plaid shirt and dark beanie on grass with corn maze sign and cloudy sky"
+    },
+    {
+      "file": "dsc03939.webp",
+      "alt": "Child in red plaid shirt and dark beanie on grass with corn maze sign and fence"
+    },
+    {
+      "file": "dsc03940.webp",
+      "alt": "Child in red plaid shirt and dark beanie holding grass on green field"
+    },
+    {
+      "file": "dsc03941.webp",
+      "alt": "Child in red plaid shirt and dark beanie holding grass on green field with corn maze"
+    },
+    {
+      "file": "dsc03942.webp",
+      "alt": "Child in red plaid shirt and dark beanie on grass with corn maze sign and fence"
+    },
+    {
+      "file": "dsc03943.webp",
+      "alt": "Child in red plaid shirt and dark beanie on grass with corn maze sign and cloudy sky"
+    },
+    {
+      "file": "dsc03944.webp",
+      "alt": "Four people on red bench by wooden building with flowers, pumpkins, and blue chairs"
+    },
+    {
+      "file": "dsc03945.webp",
+      "alt": "Four people on red bench by wooden building, pumpkins and flowers in foreground"
+    },
+    {
+      "file": "dsc03946.webp",
+      "alt": "Four people on red bench by wooden building, pumpkins and flowers at their feet"
+    },
+    {
+      "file": "dsc03949.webp",
+      "alt": "Four people on red bench by wooden building, pumpkins and yellow flowers nearby"
+    },
+    {
+      "file": "dsc03950.webp",
+      "alt": "Four people on red bench by wooden building, pumpkins and purple flowers around"
+    },
+    {
+      "file": "dsc03951.webp",
+      "alt": "Child in red wagon on wood chips with pumpkins and grassy field behind"
+    },
+    {
+      "file": "dsc03952.webp",
+      "alt": "Child in red wagon on wood chips, pumpkins stacked in background"
+    },
+    {
+      "file": "dsc03953.webp",
+      "alt": "Child in navy beanie and red plaid shirt pulling red wagon on wood chips, pumpkins behind"
+    },
+    {
+      "file": "dsc03954.webp",
+      "alt": "Child in white hat and cream onesie held near large orange pumpkins on wooden display"
+    },
+    {
+      "file": "dsc03955.webp",
+      "alt": "Baby in cream bear suit and gray beanie seated among large orange pumpkins, hand reaching in"
+    },
+    {
+      "file": "dsc03956.webp",
+      "alt": "Child in white hat and cream onesie sitting between large orange pumpkins on wooden display"
+    },
+    {
+      "file": "dsc03957.webp",
+      "alt": "Child in white hat and cream onesie sitting beside large orange pumpkins on wooden display"
+    },
+    {
+      "file": "dsc03958.webp",
+      "alt": "Baby in cream bear suit and gray beanie sitting between large orange pumpkins on wooden display"
+    },
+    {
+      "file": "dsc03959.webp",
+      "alt": "Child in white hat and cream onesie sitting surrounded by large orange pumpkins on wooden display"
+    },
+    {
+      "file": "dsc03960.webp",
+      "alt": "Child in white hat and cream onesie sitting beside large orange pumpkins on wooden display"
+    },
+    {
+      "file": "dsc03961.webp",
+      "alt": "Baby in cream bear suit and gray beanie seated among large orange pumpkins, smiling"
+    },
+    {
+      "file": "dsc03962.webp",
+      "alt": "Child in white beanie and bear-hooded onesie sitting among large orange pumpkins on a wooden platform"
+    },
+    {
+      "file": "dsc03963.webp",
+      "alt": "Child in white beanie and bear-hooded onesie sitting on wooden platform surrounded by large orange pumpkins"
+    },
+    {
+      "file": "dsc03964.webp",
+      "alt": "Child in white beanie and bear-hooded onesie sitting on wooden platform with large orange pumpkins"
+    },
+    {
+      "file": "dsc03965.webp",
+      "alt": "Child in white beanie and bear-hooded onesie sitting on wooden platform beside large orange pumpkins"
+    },
+    {
+      "file": "dsc03966.webp",
+      "alt": "Child in white beanie and bear-hooded onesie sitting on wooden platform with large orange pumpkins around"
+    },
+    {
+      "file": "dsc03967.webp",
+      "alt": "Child in white beanie and bear-hooded onesie sitting on wooden platform among large orange pumpkins"
+    },
+    {
+      "file": "dsc03968.webp",
+      "alt": "Child in white beanie and bear-hooded onesie sitting on wooden platform surrounded by large orange pumpkins"
+    },
+    {
+      "file": "dsc03970.webp",
+      "alt": "Two children in hats sitting on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie"
+    },
+    {
+      "file": "dsc03971.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie crouching"
+    },
+    {
+      "file": "dsc03972.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie kneeling"
+    },
+    {
+      "file": "dsc03973.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie leaning forward"
+    },
+    {
+      "file": "dsc03974.webp",
+      "alt": "Two children on wooden platform beside large orange pumpkins, one in plaid shirt and navy beanie"
+    },
+    {
+      "file": "dsc03975.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins around, one in plaid shirt and navy beanie"
+    },
+    {
+      "file": "dsc03976.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie smiling"
+    },
+    {
+      "file": "dsc03977.webp",
+      "alt": "Two children on wooden platform surrounded by large orange pumpkins, one in plaid shirt and navy beanie"
+    },
+    {
+      "file": "dsc03978.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie crouching"
+    },
+    {
+      "file": "dsc03979.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie kneeling"
+    },
+    {
+      "file": "dsc03980.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie leaning forward"
+    },
+    {
+      "file": "dsc03982.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins, one in plaid shirt and navy beanie smiling"
+    },
+    {
+      "file": "dsc03983.webp",
+      "alt": "Two children on wooden platform beside large orange pumpkins, one in plaid shirt and navy beanie"
+    },
+    {
+      "file": "dsc03984.webp",
+      "alt": "Two children on wooden platform with large orange pumpkins around, one in plaid shirt and navy beanie"
+    },
+    {
+      "file": "dsc03985.webp",
+      "alt": "Child in light gray knit hat and cream bear-hooded onesie with hands near face"
+    },
+    {
+      "file": "dsc03986.webp",
+      "alt": "Child in light gray knit hat and cream bear-hooded onesie smiling with hands near face"
+    },
+    {
+      "file": "dsc03987.webp",
+      "alt": "Child in light gray knit hat and cream bear-hooded onesie laughing with hands near face"
+    },
+    {
+      "file": "dsc03988.webp",
+      "alt": "Child in light gray knit hat and cream bear-hooded onesie with hands near face"
+    },
+    {
+      "file": "dsc03989.webp",
+      "alt": "Pumpkins on wooden tables in grassy field with people and cloudy sky"
+    },
+    {
+      "file": "dsc03992.webp",
+      "alt": "Child in red plaid shirt and navy beanie sitting on hay bale by wooden fence"
+    },
+    {
+      "file": "dsc03993.webp",
+      "alt": "Child in red plaid shirt and navy beanie sitting on hay bale, hands on knees"
+    },
+    {
+      "file": "dsc03994.webp",
+      "alt": "Child in red plaid shirt and navy beanie sitting on hay bale, looking to the side"
+    },
+    {
+      "file": "dsc03995.webp",
+      "alt": "Child in navy beanie, red plaid shirt, and brown pants standing on hay bale"
+    },
+    {
+      "file": "dsc03998.webp",
+      "alt": "Child in navy beanie, red plaid shirt, and brown pants jumping on hay bales"
+    },
+    {
+      "file": "dsc04002.webp",
+      "alt": "Child in navy beanie, red plaid shirt, and brown pants stepping on hay bales"
+    },
+    {
+      "file": "dsc04003.webp",
+      "alt": "Child in black beanie, red plaid shirt, and orange pants jumping on hay bales in barn"
+    },
+    {
+      "file": "dsc04005.webp",
+      "alt": "Child in black beanie, red plaid shirt, and orange pants mid-jump on hay bales"
+    },
+    {
+      "file": "dsc04006.webp",
+      "alt": "Child in black beanie, red plaid shirt, and orange pants landing on hay bales"
+    },
+    {
+      "file": "dsc04007.webp",
+      "alt": "Child in black beanie, red plaid shirt, and orange pants bending over hay bales"
+    },
+    {
+      "file": "dsc04014.webp",
+      "alt": "Child in black beanie, red plaid shirt, and orange pants leaping from hay bales"
+    },
+    {
+      "file": "dsc04015.webp",
+      "alt": "Child in black beanie, red plaid shirt, and orange pants jumping off hay bales"
+    },
+    {
+      "file": "dsc04020.webp",
+      "alt": "Child in black beanie, red plaid shirt, and orange pants stepping on hay bales"
+    },
+    {
+      "file": "dsc04024.webp",
+      "alt": "Person crawling through black culvert under wooden fence in grassy field"
+    },
+    {
+      "file": "dsc04025.webp",
+      "alt": "Person crawling through black culvert under wooden fence in grassy field"
+    },
+    {
+      "file": "dsc04027.webp",
+      "alt": "Adult in plaid shirt and brown beanie walking past culvert in grassy area"
+    },
+    {
+      "file": "dsc04028.webp",
+      "alt": "Child in red plaid shirt and brown pants emerging from culvert, adult nearby"
+    },
+    {
+      "file": "dsc04029.webp",
+      "alt": "Child in red plaid shirt and brown pants exiting culvert, adult standing beside"
+    },
+    {
+      "file": "dsc04030.webp",
+      "alt": "Child in red plaid shirt and brown pants climbing out of culvert, adult watching"
+    },
+    {
+      "file": "dsc04031.webp",
+      "alt": "Child in red plaid shirt and brown pants at culvert entrance, adult observing"
+    },
+    {
+      "file": "dsc04032.webp",
+      "alt": "Child in red plaid shirt and brown pants near culvert, adult standing close"
+    },
+    {
+      "file": "dsc04033.webp",
+      "alt": "Child in red plaid shirt and brown pants pointing at culvert, adult beside"
+    },
+    {
+      "file": "dsc04035.webp",
+      "alt": "Child in red plaid shirt and brown pants lying in black culvert under wooden bridge"
+    },
+    {
+      "file": "dsc04036.webp",
+      "alt": "Child in red plaid shirt and brown pants sitting in black culvert under wooden bridge"
+    },
+    {
+      "file": "dsc04037.webp",
+      "alt": "Child in red plaid shirt and brown pants crouching in black culvert under wooden bridge"
+    },
+    {
+      "file": "dsc04038.webp",
+      "alt": "Child in red plaid shirt and brown pants crawling through black culvert under wooden bridge"
+    },
+    {
+      "file": "dsc04039.webp",
+      "alt": "Child in red plaid shirt and brown pants exiting black culvert under wooden bridge"
+    },
+    {
+      "file": "dsc04040.webp",
+      "alt": "Child in red plaid shirt and brown pants walking from black culvert under wooden bridge"
+    },
+    {
+      "file": "dsc04043.webp",
+      "alt": "Child in red plaid shirt, brown pants, and black beanie standing on grassy hill"
+    },
+    {
+      "file": "dsc04047.webp",
+      "alt": "Two people walking across grassy field with car and trees under cloudy sky"
+    },
+    {
+      "file": "dsc04050.webp",
+      "alt": "Two people walking on green grass under cloudy sky with trees and utility pole in background"
+    },
+    {
+      "file": "dsc04053.webp",
+      "alt": "Four people in plaid and beanies holding two children in autumn field with mountains and clouds"
+    },
+    {
+      "file": "dsc04055.webp",
+      "alt": "Four people in plaid and beanies holding two children in open field with distant mountains"
+    },
+    {
+      "file": "dsc04056.webp",
+      "alt": "Four people in plaid and beanies holding two children in field with cloudy sky"
+    },
+    {
+      "file": "dsc04057.webp",
+      "alt": "Four people in plaid and beanies holding two children in field with mountains and clouds"
+    },
+    {
+      "file": "dsc04058.webp",
+      "alt": "Four people in plaid and beanies holding two children in field with distant trees and mountains"
+    },
+    {
+      "file": "dsc04059.webp",
+      "alt": "Four people in plaid and beanies holding two children in open field with sunset clouds"
+    },
+    {
+      "file": "dsc04060.webp",
+      "alt": "Four people in plaid and beanies holding two children in field with mountains and scattered clouds"
+    },
+    {
+      "file": "dsc04061.webp",
+      "alt": "Four people in a field, two adults holding two children, mountains and clouds in background"
+    },
+    {
+      "file": "dsc04063.webp",
+      "alt": "Four people in a field, two adults holding two children, distant trees and mountains"
+    },
+    {
+      "file": "dsc04064.webp",
+      "alt": "Four people in a field, two adults holding two children, cloudy sky and hills"
+    },
+    {
+      "file": "dsc04065.webp",
+      "alt": "Four people in a field, two adults holding two children, open landscape with mountains"
+    },
+    {
+      "file": "dsc04066.webp",
+      "alt": "Four people in a field, two adults holding two children, forested hills in distance"
+    },
+    {
+      "file": "dsc04067.webp",
+      "alt": "Four people in a field, two adults holding two children, sunset lighting on landscape"
+    },
+    {
+      "file": "dsc04068.webp",
+      "alt": "Four people in a field, two adults holding two children, golden hour sky and mountains"
+    },
+    {
+      "file": "dsc04069.webp",
+      "alt": "Four people in a field, two adults holding two children, wide open farmland and sky"
+    },
+    {
+      "file": "img_0009.webp",
+      "alt": "Adult in plaid shirt holding baby in white bear hat and cream onesie by open car door"
+    },
+    {
+      "file": "img_0010.webp",
+      "alt": "Adult in plaid shirt and brown beanie holding baby in white bear hat by car"
+    },
+    {
+      "file": "img_0011.webp",
+      "alt": "Adult in plaid shirt and brown beanie holding baby in white bear hat near open car"
+    },
+    {
+      "file": "img_0012.webp",
+      "alt": "Adult in plaid shirt and brown beanie holding baby in white bear hat by car door"
+    }
+  ]
+}

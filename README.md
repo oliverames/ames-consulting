@@ -1,12 +1,16 @@
+<p align="center">
+  <img src="assets/images/brand/oa-social-mark.svg" width="80" height="80" alt="Oliver Ames monogram">
+</p>
+
 <h1 align="center">ames.consulting</h1>
 
 <p align="center">
-  <strong>Portfolio and consulting site for Oliver Ames, a content strategist, software tinkerer, and video producer in Montpelier, Vermont</strong>
+  <strong>Portfolio and consulting site for Oliver Ames, a photographer, content strategist, software tinkerer, and video producer in Montpelier, Vermont</strong>
 </p>
 
 <p align="center">
   <code>static site</code> &bull;
-  <code>Cloudflare Pages + R2</code> &bull;
+  <code>Cloudflare Pages</code> &bull;
   <code>no framework</code>
 </p>
 
@@ -24,20 +28,20 @@
 
 ---
 
-The public repository uses demo names, contact details, and work samples. Replace the demo pages and `assets/data/site.config.json` before publishing a fork.
+This repository contains Oliver's real portfolio content and media. Replace the pages, data, images, and contact settings before publishing a fork.
 
 ## Why This Structure
 
 A personal site should outlast whatever framework is trending. This site has no client-side content pipeline at all: a chain of Node generator scripts (`npm run build:site`) writes and refines plain, committed HTML, then copies it into `_site/` for deploy. Nothing about a page's content depends on JavaScript running in the visitor's browser. CSS uses cascade layers, container queries, and registered custom properties; the handful of JS modules that do ship are progressive enhancements (image lightbox, contact-form validation, work filtering) layered on top of already-complete markup.
 
-Hosted on Cloudflare Pages, deployed with wrangler. GitHub Actions enforces HTML validation, Lighthouse performance budgets, and accessibility audits on every push.
+Cloudflare Pages hosts the site, and wrangler handles deployment. GitHub Actions builds and validates the artifact before it reaches production.
 
 ## Site Structure
 
 | Route | Purpose |
 |---|---|
 | `/` | Home: intro, featured work, site directory |
-| `/work/` | Work index plus ~45 per-project case studies; `?organization=` filters client-side |
+| `/work/` | Work index plus 42 project case studies; `?organization=` filters client-side |
 | `/blog/` | Writing index, archive, and per-post pages |
 | `/about/` | Profile and background |
 | `/services/*/` | Photography & video, strategy & content, practical technology |
@@ -65,7 +69,7 @@ Current baseline includes:
 
 - HTML: semantic landmarks, templates, custom elements integration, `dialog`, popover UI hooks, structured metadata (JSON-LD), form primitives.
 - CSS: cascade layers, registered custom properties (`@property`), container queries, `:has()`, nesting, `color-mix()`, Display P3 colors, reduced-motion handling.
-- JS: ES modules as progressive enhancement only — image lightbox, contact-form validation, gallery pointer-scrub, work filtering.
+- JS: ES modules as progressive enhancement only, including the image lightbox, contact-form validation, gallery pointer-scrub, and work filtering.
 
 Tracked in `docs/SPEC-MATRIX.md`.
 
@@ -83,32 +87,33 @@ Then open `http://localhost:4173/`.
 
 ```bash
 npm run build:site      # regenerate the site into the source tree and _site/
-npm run check:all       # syntax, lint, HTML validation, structured data, image loading, and content-integrity checks (11 total)
+npm run check:all       # build inputs, syntax, lint, HTML, structured data, image loading, and content checks
+npm run check:built-site # verify that _site/ contains only the intended public artifact
 npm run test:e2e        # full Playwright test suite (functional + accessibility)
+npm run test:site       # run the Playwright suite against _site/
 npm run test:regression # regression tests only
 npm run test:a11y       # accessibility audits only
 ```
 
-`build:site` mutates the committed HTML in place — expect a dirty git status after running it locally.
+`build:site` mutates the committed HTML in place, so expect a dirty git status after running it locally.
 
 ## Content Configuration
 
-1. Start with `assets/data/site.config.example.json` and update `assets/data/site.config.json`.
-2. Set `contactFormEndpoint` and `contactFormSuccessMessage` for the contact form's Cloudflare Pages Function.
-
-That's the only remaining runtime config fetch; everything else on the site is static HTML.
+The contact form reads `contactFormEndpoint` and `contactFormSuccessMessage`
+from `assets/data/site.config.json`. Everything else on the site is static HTML.
 
 ## Cloudflare Hosting
 
-GitHub remains the source of truth. A push to `main` runs `npm run build:site` and deploys `_site/` to Cloudflare Pages with wrangler. The same workflow also syncs `assets/images/` to an R2 bucket, but the deployed site currently serves its images same-origin from Cloudflare Pages rather than from the R2 hostname.
+GitHub remains the source of truth. A push to `main` builds `_site/`, validates
+the generated artifact, and deploys it to Cloudflare Pages with wrangler.
 
-The contact form uses a Managed Cloudflare Turnstile widget with interaction-only appearance. Its public sitekey is part of the generated contact page; the private `TURNSTILE_SECRET_KEY` is stored as an encrypted Cloudflare Pages secret. The Pages Function validates every token with Cloudflare before sending the inquiry through Resend.
+The contact form loads its Managed Cloudflare Turnstile widget only after a visitor first interacts with the form. Its public sitekey is part of the generated contact page; the private `TURNSTILE_SECRET_KEY` is stored as an encrypted Cloudflare Pages secret. The Pages Function validates the request origin, payload, fill time, fields, and Turnstile token before sending the inquiry through Resend. Cloudflare applies the root `_headers` security policy to every static response.
 
 ## CI/CD
 
-- **ci-quality.yml**: Static checks, broken link scan, browser tests, and accessibility checks
-- **performance.yml**: Lighthouse budget enforcement
-- **deploy-pages.yml**: R2 image upload and Cloudflare Pages deployment with SEO artifact generation
+- **ci-quality.yml**: Pull-request checks and the reusable quality gate for the `main` deployment workflow
+- **performance.yml**: Lighthouse thresholds against core routes and representative image-heavy work pages, including a 500 KB total page-weight limit
+- **deploy-pages.yml**: Generated-artifact validation and Cloudflare Pages deployment
 - **pr-hygiene.yml**: Semantic PR title validation
 
 ---

@@ -1,15 +1,18 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "python3 -m http.server 4173",
-      "puppeteerScript": "./scripts/lighthouse-unlock.cjs",
+      "startServerCommand": "PORT=4175 node scripts/serve-built-site.mjs",
+      "startServerReadyPattern": "Serving .* on http",
       "url": [
-        "http://127.0.0.1:4173/",
-        "http://127.0.0.1:4173/blog/",
-        "http://127.0.0.1:4173/work/",
-        "http://127.0.0.1:4173/contact/"
+        "http://127.0.0.1:4175/",
+        "http://127.0.0.1:4175/blog/",
+        "http://127.0.0.1:4175/work/",
+        "http://127.0.0.1:4175/work/eastrise-photography/",
+        "http://127.0.0.1:4175/work/eastrise-launch-campaign/",
+        "http://127.0.0.1:4175/work/vermont-foodbank-volunteer-day-2026/",
+        "http://127.0.0.1:4175/contact/"
       ],
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "settings": {
         "preset": "desktop"
       }
@@ -23,7 +26,7 @@
           }
         ],
         "largest-contentful-paint": [
-          "warn",
+          "error",
           {
             "maxNumericValue": 3000
           }
@@ -35,7 +38,7 @@
           }
         ],
         "total-byte-weight": [
-          "warn",
+          "error",
           {
             "maxNumericValue": 500000
           }

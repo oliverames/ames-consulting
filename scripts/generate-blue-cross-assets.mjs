@@ -2,12 +2,14 @@
 
 import { execFile } from "node:child_process";
 import { access, mkdir } from "node:fs/promises";
+import { homedir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
 const root = path.resolve(import.meta.dirname, "..");
-const portfolioRoot = "/Users/oliverames/Documents/Ames Consulting/Portfolio/Blue Cross VT";
+const portfolioRoot = process.env.AMES_BLUE_CROSS_PORTFOLIO_ROOT
+  || path.join(homedir(), "Documents", "Ames Consulting", "Portfolio", "Blue Cross VT");
 const outputRoot = path.join(root, "assets/images/work/blue-cross");
 const magickPath = "/opt/homebrew/bin/magick";
 

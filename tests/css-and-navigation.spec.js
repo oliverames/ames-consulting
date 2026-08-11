@@ -1,4 +1,11 @@
 import { test, expect } from "@playwright/test";
+import { PUBLIC_HTML_FILES } from "../scripts/publication-policy.mjs";
+
+const publicRoutes = PUBLIC_HTML_FILES.map((filePath) => {
+  if (filePath === "index.html") return "/";
+  if (filePath === "404.html") return "/404.html";
+  return `/${filePath.replace(/index\.html$/, "")}`;
+});
 
 test("brand stylesheet and primary navigation are active", async ({ page }) => {
   await page.goto("/");
@@ -11,6 +18,26 @@ test("brand stylesheet and primary navigation are active", async ({ page }) => {
   await expect(
     page.getByRole("link", { name: "Work", exact: true }),
   ).toHaveAttribute("href", "./work/");
+});
+
+test("project launcher keeps readable contrast in dark mode", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+  await page.evaluate(() =>
+    scrollTo(0, document.documentElement.scrollHeight * 0.25),
+  );
+
+  const launcher = page.getByRole("button", { name: "Start a project" });
+  await expect(launcher).toBeVisible();
+  const colors = await launcher.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { background: style.backgroundColor, text: style.color };
+  });
+
+  expect(colors).toEqual({
+    background: "rgb(28, 41, 41)",
+    text: "rgb(250, 248, 245)",
+  });
 });
 
 test("homepage section edges and practice calls to action align", async ({ page }) => {
@@ -56,47 +83,46 @@ test("homepage section edges and practice calls to action align", async ({ page 
   expect(layout.testimonialBorder).toBe("1px");
 });
 
-test("all public content routes load", async ({ request }) => {
-  for (const route of [
-    "/",
-    "/work/",
-    "/work/eastrise-writing/",
-    "/work/eastrise-social/",
-    "/work/wheels-for-warmth/",
-    "/work/taylor-hoar-racing/",
-    "/work/member-banking-stories/",
-    "/work/credit-union-websites/",
-    "/work/community-photography/",
-    "/work/senior-games-press-event-2026/",
-    "/work/arrayrx-press-conference-2026/",
-    "/work/walk-at-lunch-and-green-up-2026/",
-    "/work/be-well-at-work-2026/",
-    "/work/corporate-cup-2026/",
-    "/work/girls-on-the-run-2026/",
-    "/work/eastrise-launch-campaign/",
-    "/work/giron-family-fall-2025/",
-    "/work/vermont-foodbank-volunteer-day-2026/",
-    "/work/beta-andrew/",
-    "/work/beta-emma/",
-    "/work/beta-ethan/",
-    "/work/portraits-and-people/",
-    "/work/eastrise-portraits/",
-    "/work/blue-cross-portraits/",
-    "/work/flight-paths/",
-    "/work/ping-warden/",
-    "/work/apple-core/",
-    "/work/bridgeport/",
-    "/work/meta-mcp-server/",
-    "/work/ynab-mcp-server/",
-    "/work/skylight-bridge/",
-    "/services/strategy-and-content/",
-    "/services/photography-and-video/",
-    "/services/practical-technology/",
-    "/blog/",
-    "/blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/",
-    "/about/",
-    "/contact/",
+test("homepage proof tooltips stay inside the hero", async ({ page }) => {
+  for (const { width, indexes } of [
+    { width: 900, indexes: [3] },
+    { width: 390, indexes: [1, 3] },
+    { width: 320, indexes: [1, 3] },
   ]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+
+    const links = page.locator(".proof__page.is-visible .proof__link");
+    for (const index of indexes) {
+      const link = links.nth(index);
+      const source = link.locator(".proof__source");
+      await link.hover();
+      await expect(source).toBeVisible();
+
+      const bounds = await page.evaluate(
+        ({ linkIndex }) => {
+          const hero = document.querySelector(".hero").getBoundingClientRect();
+          const tooltip = document
+            .querySelectorAll(".proof__page.is-visible .proof__source")
+            [linkIndex].getBoundingClientRect();
+          return {
+            heroLeft: hero.left,
+            heroRight: hero.right,
+            tooltipLeft: tooltip.left,
+            tooltipRight: tooltip.right,
+          };
+        },
+        { linkIndex: index },
+      );
+
+      expect(bounds.tooltipLeft).toBeGreaterThanOrEqual(bounds.heroLeft - 1);
+      expect(bounds.tooltipRight).toBeLessThanOrEqual(bounds.heroRight + 1);
+    }
+  }
+});
+
+test("all public content routes load", async ({ request }) => {
+  for (const route of publicRoutes) {
     const response = await request.get(route);
     expect(response.status(), `${route} should be published`).toBe(200);
   }
@@ -105,7 +131,7 @@ test("all public content routes load", async ({ request }) => {
 test("software development has a distinct project interface", async ({ page }) => {
   await page.goto("/work/");
   const section = page.locator("#software-development");
-  await expect(section.getByRole("heading", { name: "Small tools for real friction." })).toBeVisible();
+  await expect(section.getByRole("heading", { name: "Software for problems I kept running into." })).toBeVisible();
   await expect(section.locator(".software-card")).toHaveCount(6);
   await expect(section.getByRole("link", { name: /Ping Warden/ }).locator("img").first()).toHaveAttribute("src", /ping-warden-dashboard\.webp$/);
   await expect(section.getByRole("link", { name: /Skylight Bridge/ }).locator("img").first()).toHaveAttribute("src", /skylight-bridge-overview\.webp$/);
@@ -165,7 +191,16 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
 test("narrow mobile layouts wrap without horizontal page overflow", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 720 });
 
-  for (const route of ["/", "/about/", "/work/", "/blog/", "/contact/"]) {
+  for (const route of [
+    "/",
+    "/about/",
+    "/work/",
+    "/work/eastrise-photography/",
+    "/work/eastrise-launch-campaign/",
+    "/work/taylor-hoar-racing/",
+    "/blog/",
+    "/contact/",
+  ]) {
     await page.goto(route);
     const dimensions = await page.evaluate(() => ({
       viewportWidth: document.documentElement.clientWidth,

@@ -1,6 +1,9 @@
-# V1 Feature Charter
+# V1 Feature Charter (Superseded)
 
-This charter defines the first implementation-complete feature set for `ames.consulting` without requiring visual design decisions.
+This charter records an early proposal built around a Micro.blog runtime feed,
+a unified `Post` schema, and a `/portfolio/` route. None of those contracts are
+current. The file remains as project history. Use `ARCHITECTURE.md`,
+`CONTENT-MODEL.md`, and `RELEASE-PROCESS.md` for the implemented contracts.
 
 ## Summary
 

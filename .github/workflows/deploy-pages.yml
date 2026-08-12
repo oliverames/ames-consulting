@@ -137,6 +137,12 @@ jobs:
             curl -fsS "$site_origin/" > /tmp/ames-consulting-home.html
             ! grep -Fqi "construction-gate" /tmp/ames-consulting-home.html
             ! grep -Fqi "Enter the password" /tmp/ames-consulting-home.html
+            curl -fsS "$site_origin/contact/" > /tmp/ames-consulting-contact.html
+            grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-contact.html
+            ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-contact.html
+            curl -fsS "$site_origin/about/" > /tmp/ames-consulting-about.html
+            grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-about.html
+            ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-about.html
             curl -fsS "$site_origin/work/beta-technologies/" > /tmp/ames-consulting-beta.html
             ! grep -Fqi "<iframe" /tmp/ames-consulting-beta.html
             ! grep -Fqi "<img " /tmp/ames-consulting-beta.html

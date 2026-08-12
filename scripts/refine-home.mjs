@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile, writeFile } from "node:fs/promises";
+import { sortEntriesNewestFirst } from "./project-order.mjs";
 
 const path = new URL("../index.html", import.meta.url);
 let html = await readFile(path, "utf8");
@@ -75,24 +76,13 @@ html = html
   .replace(/<div class="software-console__brand">[\s\S]*?<\/div>/g, "")
   .replace(/^[ \t]+$/gm, "");
 
-const recentProjectOrder = [
-  "neg-ecp-conference-2026/",
-  "sweat-heart-throwdown/",
-  "vermont-foodbank-volunteer-day-2026/",
-  "drone-photography/",
-  "whale-dance-randolph/",
-  "london-2019/",
-  "giron-family-fall-2025/",
-  "taylor-hoar-racing/",
-  "wheels-for-warmth/",
-  "eastrise-portraits/",
-];
 html = html.replace(/<div class="path-strip">([\s\S]*?)<\/div>\s*<a class="path-browse"/, (match, contents) => {
-  const cards = [...contents.matchAll(/<a class="path-thumb"[\s\S]*?<\/a\s*>/g)].map((item) => item[0]);
-  const byHref = new Map(cards.map((card) => [card.match(/href="work\/([^"]+)"/)?.[1], card]));
-  const ordered = recentProjectOrder.map((href) => byHref.get(href)).filter(Boolean);
-  const remaining = cards.filter((card) => !ordered.includes(card));
-  return `<div class="path-strip">${[...ordered, ...remaining].join("")}</div><a class="path-browse"`;
+  const cards = [...contents.matchAll(/<a class="path-thumb"[\s\S]*?<\/a\s*>/g)].map((item) => ({
+    href: item[0].match(/href="work\/([^"]+)"/)?.[1],
+    html: item[0],
+  }));
+  const ordered = sortEntriesNewestFirst(cards, (card) => card.href);
+  return `<div class="path-strip">${ordered.map((card) => card.html).join("")}</div><a class="path-browse"`;
 });
 
 await writeFile(path, html);

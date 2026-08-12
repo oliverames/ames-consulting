@@ -1,0 +1,164 @@
+{
+  "verificationDate": "2026-03-20",
+  "evidenceBasis": "source-page-verification",
+  "images": [
+    {
+      "caption": "Alvah Newhall",
+      "source": "https://www.eastrise.com/files/Alvah-Newhall-Headshot-1.jpg",
+      "sourcePage": "https://www.eastrise.com/locations/montpelier",
+      "publicContext": "branch profile"
+    },
+    {
+      "caption": "Amanda Seeholzer",
+      "source": "https://www.eastrise.com/files/Amanda-Seeholzer-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/financial-health-advice/counseling",
+      "publicContext": "financial counseling profile"
+    },
+    {
+      "caption": "Caroline Cross",
+      "source": "https://www.eastrise.com/files/Caroline-Cross-Bio.jpg",
+      "sourcePage": "https://www.eastrise.com/blog/teach-your-preteen-how-to-save-money",
+      "publicContext": "blog contributor profile"
+    },
+    {
+      "caption": "Christin Canter",
+      "source": "https://www.eastrise.com/files/Christin-Canter-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers/christin-canter",
+      "publicContext": "mortgage loan officer profile"
+    },
+    {
+      "caption": "Christine Corbett",
+      "source": "https://www.eastrise.com/files/Christine-Corbett-Headshot-1.jpg",
+      "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+      "publicContext": "mortgage loan officer directory"
+    },
+    {
+      "caption": "Deanna Carol",
+      "source": "https://www.eastrise.com/files/Deanna-Carol-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/business/loan-officers",
+      "publicContext": "business loan officer directory"
+    },
+    {
+      "caption": "Danielle Whitcomb",
+      "source": "https://www.eastrise.com/files/Danielle-Whitcomb-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+      "publicContext": "mortgage loan officer directory"
+    },
+    {
+      "caption": "Denisa Yee",
+      "source": "https://www.eastrise.com/files/Denisa-Yee-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/business/loan-officers",
+      "publicContext": "business loan officer directory"
+    },
+    {
+      "caption": "Emily Phelps",
+      "source": "https://www.eastrise.com/files/Emily-Phelps-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/financial-health-advice/counseling",
+      "publicContext": "financial counseling profile"
+    },
+    {
+      "caption": "Ibby Wilson",
+      "source": "https://www.eastrise.com/files/Ibby-Wilson-Headshot-1.jpg",
+      "sourcePage": "https://www.eastrise.com/locations/south-burlington",
+      "publicContext": "branch profile"
+    },
+    {
+      "caption": "Ian Squirrell",
+      "source": "https://www.eastrise.com/files/Ian-Squirrell.jpg",
+      "sourcePage": "https://www.eastrise.com/business/loan-officers",
+      "publicContext": "business loan officer directory"
+    },
+    {
+      "caption": "JC Gepigon",
+      "source": "https://www.eastrise.com/files/JC-Gepigon-bio.avif",
+      "sourcePage": "https://www.eastrise.com/financial-advisors",
+      "publicContext": "financial advisor directory"
+    },
+    {
+      "caption": "Jim Towne",
+      "source": "https://www.eastrise.com/files/Jim-Towne.jpg",
+      "sourcePage": "https://www.eastrise.com/financial-advisors",
+      "publicContext": "financial advisor directory",
+      "capturedDate": "2025-08-14",
+      "captureDateBasis": "native-exif-datetime-original"
+    },
+    {
+      "caption": "John Dwyer",
+      "source": "https://www.eastrise.com/files/John-Dwyer-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/leadership",
+      "publicContext": "leadership page on verification date"
+    },
+    {
+      "caption": "Julie Jorgensen",
+      "source": "https://www.eastrise.com/files/Julie-Jorgensen-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers/julie-jorgensen",
+      "publicContext": "mortgage loan officer profile"
+    },
+    {
+      "caption": "Kathleen S. Emery Ginn",
+      "source": "https://www.eastrise.com/files/Kathleen-S.-Emery-Ginn-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/leadership",
+      "publicContext": "leadership page on verification date"
+    },
+    {
+      "caption": "Luke Buglion Gluck",
+      "source": "https://www.eastrise.com/files/Luke-Buglion-Gluck-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+      "publicContext": "mortgage loan officer directory"
+    },
+    {
+      "caption": "Matt Sjoblom",
+      "source": "https://www.eastrise.com/files/Matt-Sjoblom-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/business/loan-officers",
+      "publicContext": "business loan officer directory"
+    },
+    {
+      "caption": "Penny Overton",
+      "source": "https://www.eastrise.com/files/Penny-Overton-Headshot.jpg",
+      "sourcePage": "https://www.eastrise.com/business/loan-officers",
+      "publicContext": "business loan officer directory"
+    },
+    {
+      "caption": "Rion Bleicher",
+      "source": "https://www.eastrise.com/files/Rion-Bleicher-Headshot-1.jpg",
+      "sourcePage": "https://www.eastrise.com/locations/waterbury",
+      "publicContext": "branch profile"
+    },
+    {
+      "caption": "Sara Wright",
+      "source": "https://www.eastrise.com/files/Sara-Wright-Headshot-1.jpg",
+      "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+      "publicContext": "mortgage loan officer directory"
+    },
+    {
+      "caption": "Sarah Spaulding",
+      "source": "https://www.eastrise.com/files/Sarah-Spaulding-Headshot-1.jpg",
+      "sourcePage": "https://www.eastrise.com/locations/st-albans",
+      "publicContext": "branch profile"
+    },
+    {
+      "caption": "Shauna Allen",
+      "source": "https://www.eastrise.com/files/Shauna-Allen-Headshot-1.jpg",
+      "sourcePage": "https://www.eastrise.com/locations/essex",
+      "publicContext": "branch profile"
+    }
+  ],
+  "publishedVariants": [
+    {
+      "variantId": "luke-buglion-gluck-suit",
+      "caption": "Luke Buglion Gluck",
+      "outputName": "Luke Buglion Gluck Suit",
+      "insertAfterCaption": "Luke Buglion Gluck",
+      "source": "https://media.licdn.com/dms/image/v2/D4E10AQFixx84hNh9UQ/image-shrink_800/image-shrink_800/0/1716310523805?e=1774634400&v=beta&t=wBM-RXf8AS-rCrheh6_xhrm9ZbLz69HS71sLkgg31LE",
+      "sourcePage": "https://www.facebook.com/EastRiseCU/posts/pfbid02JLDQ9Hs9s2PdKoaeYg3XWvaJh9Wa4Ta8suMSALxZraZa7N4puMyqACDqqbySNeDtl",
+      "publicContext": "EastRise LinkedIn published portrait",
+      "publishedDate": "2024-05-21",
+      "dateBasis": "public-source-url-timestamp",
+      "dateEvidence": "The archived LinkedIn manifest retains the direct public media URL. Its embedded source timestamp resolves to May 21, 2024.",
+      "sourceFile": "Headshots/li_f23578cab800.jpg",
+      "sourceSha256": "08f0d5347838546f9603c2eed8ed38ffccdc93fb98d7d5525c01c1ce71fa3b86",
+      "sourceManifestFilename": "posts/li_f23578cab800.jpg",
+      "sourceManifestVerifiedAt": "2026-03-20T17:57:08.043209Z"
+    }
+  ]
+}

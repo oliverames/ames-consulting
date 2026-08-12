@@ -24,7 +24,7 @@ const gironRoot = process.env.AMES_GIRON_CLIENT_ROOT
 const negEcpRoot = process.env.AMES_NEG_ECP_CLIENT_ROOT
   || path.join(documentsRoot, "Clients", "GBIC", "NEG-ECP Conference", "Favorites");
 const gironRoots = {
-  "giron-family-fall-2025": path.join(gironRoot, "Kevin and Kayla Fall 2025", "Deliverables"),
+  "giron-family-fall-2025": path.join(gironRoot, "2025-09-28 Fall Family Session", "Deliverables"),
   "giron-family-christmas-tree-farm-2024": path.join(gironRoot, "2024-12-01 Christmas Tree Farm Family Session"),
   "giron-family-fall-2023": path.join(gironRoot, "2023-10-08 Fall Family Session"),
 };
@@ -68,9 +68,9 @@ const definitions = [
     intro: "I photographed the 47th New England Governors and Eastern Canadian Premiers conference at Shelburne Farms, from the empty Coach Barn and arrivals through the working sessions and press conference.",
     ...negEcpSource(),
     organization: "Cynosure, Inc. and GBIC",
+    orderMode: "chronological",
     featuredFile: "dsc01378.webp",
     featuredAlt: "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn.",
-    openingSequence: ["DSC00051.jpg", "DSC00197.jpg", "DSC00262.jpg", "DSC01378.jpg", "DSC02335.jpg"],
     story: {
       title: "From setup through the press conference",
       paragraphs: [
@@ -86,6 +86,7 @@ const definitions = [
     intro: "I documented a Senior Games press event through the speakers, attendees, and details that connected the announcement to the people it serves.",
     ...blueCrossSource("senior-games-press-event-2026", "2026-03-18 – Senior Games Press Event/Edited Selects"),
     published: false,
+    orderMode: "source",
     organization: "Blue Cross Vermont",
     featuredFile: "dsc01867.webp",
     featuredAlt: "A man in a suit smiles while speaking with attendees inside the Vermont State House.",
@@ -97,6 +98,7 @@ const definitions = [
     intro: "I photographed the ArrayRx announcement at the Vermont State House, covering the speakers, press activity, and conversations around the event.",
     ...blueCrossSource("arrayrx-press-conference-2026", "2026-03-26 – ArrayRx Press Conference/Edited Selects"),
     published: false,
+    orderMode: "source",
     organization: "Blue Cross Vermont",
     featuredFile: "dsc02517.webp",
     featuredAlt: "A woman speaks to reporters at the ArrayRx press conference inside the Vermont State House.",
@@ -108,6 +110,7 @@ const definitions = [
     intro: "I photographed employees taking part in a workplace walk and Green Up activity in Montpelier.",
     ...blueCrossSource("walk-at-lunch-and-green-up-2026", "2026-04-29 – Walk@Lunch and GreenUp/Edited Selects"),
     published: false,
+    orderMode: "source",
     organization: "Blue Cross Vermont",
     featuredFile: "dsc02728.webp",
     featuredAlt: "Blue Cross Vermont employees collect gloves and safety vests before a Green Up walk in Montpelier.",
@@ -119,6 +122,7 @@ const definitions = [
     intro: "I documented a workplace wellness program through the people, activities, and practical details that made it useful.",
     ...blueCrossSource("be-well-at-work-2026", "2026-05-06 – Be Well at Work/Edited Selects"),
     published: false,
+    orderMode: "source",
     organization: "Blue Cross Vermont",
     featuredFile: "dsc03152.webp",
     featuredAlt: "Employees listen during a Be Well at Work workshop around tables covered with notes and water bottles.",
@@ -130,6 +134,7 @@ const definitions = [
     intro: "A workday in Montpelier turned into a citywide race. I photographed the Blue Cross Vermont team, the start, the course, and the moments around the finish.",
     ...blueCrossSource("corporate-cup-2026", "2026-05-14 – Corporate Cup/Edited Selects"),
     published: false,
+    orderMode: "source",
     organization: "Blue Cross Vermont",
     featuredFile: "dsc03213.webp",
     featuredAlt: "The Blue Cross Vermont Corporate Cup team waves from the Vermont State House steps in the rain.",
@@ -141,6 +146,7 @@ const definitions = [
     intro: "The finish line mattered, but the story was everywhere: teams arriving together, handmade signs, nervous starts, muddy shoes, and people making room for every runner.",
     ...blueCrossSource("girls-on-the-run-2026", "2026-05-30 – GOTR/Edited Selects"),
     published: false,
+    orderMode: "source",
     organization: "Blue Cross Vermont",
     featuredFile: "dsc03810.webp",
     featuredAlt: "Girls on the Run participants surge across the starting line together.",
@@ -152,6 +158,8 @@ const definitions = [
     intro: "A family session that moved from open fields into the fall woods, leaving room for the posed photographs and the much better moments that happened between them.",
     ...gironSource("giron-family-fall-2025"),
     organization: "Giron family",
+    orderMode: "editorial",
+    orderNote: "The opening family portraits lead the sequence, followed by the remaining photographs in source order.",
     featuredFile: "dsc06125.webp",
     featuredAlt: "The Giron family stands in a sunny field with Vermont's fall hills behind them.",
     story: {
@@ -169,6 +177,7 @@ const definitions = [
     intro: "A snowy family session among the Christmas trees, with room for the children to explore and the family to settle into the afternoon together.",
     ...gironSource("giron-family-christmas-tree-farm-2024"),
     organization: "Giron family",
+    orderMode: "chronological",
     featuredFile: "dsc06782.webp",
     featuredAlt: "The Giron family holds their children beside a snow-covered Christmas tree.",
     story: {
@@ -186,6 +195,7 @@ const definitions = [
     intro: "An autumn family session across the farm, moving between portraits, play, pumpkins, and the landscape around them.",
     ...gironSource("giron-family-fall-2023"),
     organization: "Giron family",
+    orderMode: "chronological",
     featuredFile: "dsc03800.webp",
     featuredAlt: "The Giron family sits together on a wooden farm chair in late-afternoon autumn light.",
     story: {
@@ -204,9 +214,9 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/vermont-foodbank-volunteer-day-2026"),
     prepared: true,
     organization: "Vermont Foodbank",
+    orderMode: "chronological",
     featuredFile: "dsc08397.webp",
     featuredAlt: "A Vermont Foodbank volunteer lifts an empty box above a warehouse packing line.",
-    openingSequence: ["DSC08460.jpg", "DSC08342.jpg", "DSC08358.jpg", "DSC08434.jpg", "DSC08364.jpg"],
     story: {
       title: "Follow the packing line",
       paragraphs: [
@@ -223,6 +233,8 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/london-2019"),
     prepared: true,
     organization: "Personal work",
+    orderMode: "editorial",
+    orderNote: "The hero frame opens the sequence, followed by the remaining photographs in capture order.",
     featuredFile: "dsc02427.webp",
     featuredAlt: "Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds.",
     openingSequence: ["DSC02427.jpeg"],
@@ -242,6 +254,8 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/whale-dance-randolph"),
     prepared: true,
     organization: "Personal work",
+    orderMode: "editorial",
+    orderNote: "The hero frame opens the sequence, followed by the remaining photographs in capture order.",
     featuredFile: "dsc06299.webp",
     featuredAlt: "Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills.",
     openingSequence: ["DSC06299.jpeg"],
@@ -261,6 +275,8 @@ const definitions = [
     source: path.join(root, "assets/images/work/events/drone-photography"),
     prepared: true,
     organization: "Personal work",
+    orderMode: "editorial",
+    orderNote: "The hero frame opens the collection, followed by the original camera-file sequence across several years and locations.",
     featuredFile: "dji_0053.webp",
     featuredAlt: "Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence.",
     openingSequence: ["DJI_0053.jpeg"],
@@ -280,7 +296,7 @@ async function processImages(definition) {
   if (altData.slug !== definition.slug || !Array.isArray(altData.images)) {
     throw new Error(`Invalid event alt-text data: ${altDataPath}`);
   }
-  const altByFile = new Map(altData.images.map((image) => [image.file, image.alt]));
+  const metadataByFile = new Map(altData.images.map((image) => [image.file, image]));
   const sourcePattern = definition.prepared ? /\.webp$/i : /\.jpe?g$/i;
   let files = (await readdir(definition.source)).filter((file) => sourcePattern.test(file)).sort();
   if (definition.slug === "giron-family-fall-2025") {
@@ -316,20 +332,29 @@ async function processImages(definition) {
     }
     if (!width || !height) throw new Error(`Missing checked-in dimensions for ${destination}`);
     const outputFile = path.basename(destination);
-    const alt = String(altByFile.get(outputFile) || "").trim();
+    const metadata = metadataByFile.get(outputFile);
+    const alt = String(metadata?.alt || "").trim();
     if (!alt) throw new Error(`Missing event alt text for ${definition.slug}/${outputFile}`);
     images.push({
       src: `../../assets/images/work/events/${definition.slug}/${outputFile}`,
       alt,
       width,
       height,
+      ...(metadata?.capturedAt ? { capturedAt: metadata.capturedAt } : {}),
     });
   }
-  const unexpectedAltFiles = [...altByFile.keys()].filter(
+  const unexpectedMetadataFiles = [...metadataByFile.keys()].filter(
     (file) => !images.some((image) => path.basename(image.src) === file),
   );
-  if (unexpectedAltFiles.length) {
-    throw new Error(`Unexpected event alt-text files for ${definition.slug}: ${unexpectedAltFiles.join(", ")}`);
+  if (unexpectedMetadataFiles.length) {
+    throw new Error(`Unexpected event metadata files for ${definition.slug}: ${unexpectedMetadataFiles.join(", ")}`);
+  }
+  if (definition.orderMode === "chronological") {
+    const missingCaptureDates = images.filter((image) => !image.capturedAt).map((image) => path.basename(image.src));
+    if (missingCaptureDates.length) {
+      throw new Error(`Missing capture dates for chronological gallery ${definition.slug}: ${missingCaptureDates.join(", ")}`);
+    }
+    images.sort((left, right) => Date.parse(left.capturedAt) - Date.parse(right.capturedAt));
   }
   return images;
 }
@@ -338,13 +363,19 @@ const campaigns = [];
 for (const definition of definitions) campaigns.push({ ...definition, images: await processImages(definition) });
 
 const launchSeries = eastRiseData.series.find((series) => series.slug === "eastrise-launch");
-const launchImages = launchSeries.images;
+const launchImages = launchSeries.images.map((image) => {
+  const publishedAt = image.src.match(/\/(\d{4}-\d{2}-\d{2})_/u)?.[1];
+  if (!publishedAt) throw new Error(`Missing publication date in EastRise launch asset name: ${image.src}`);
+  return { ...image, publishedAt };
+});
 campaigns.push({
   slug: "eastrise-launch-campaign",
   title: "EastRise Launch Campaign",
   eyebrow: "Brand launch photography · EastRise · 2024",
   intro: "The new name needed to feel rooted in real people and real places immediately. This launch series paired the first brand commercial with still photography built for the website, social channels, and ongoing campaign work.",
   organization: "EastRise Credit Union",
+  orderMode: "editorial",
+  orderNote: "The campaign preserves the published carousel sequence instead of treating publication dates as capture dates.",
   images: launchImages,
 });
 
@@ -359,7 +390,12 @@ for (const campaign of campaigns) {
     const label = description
       ? `Open larger image: ${description}`
       : `Open photograph ${index + 1} of ${campaign.images.length} from ${campaign.title}`;
-    return `<img src="${escapeAttribute(image.src)}" alt="${escapeAttribute(description)}" aria-label="${escapeAttribute(label)}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async">`;
+    const dateMetadata = image.capturedAt
+      ? ` data-captured-at="${escapeAttribute(image.capturedAt)}"`
+      : image.publishedAt
+        ? ` data-published-at="${escapeAttribute(image.publishedAt)}"`
+        : "";
+    return `<img src="${escapeAttribute(image.src)}" alt="${escapeAttribute(description)}" aria-label="${escapeAttribute(label)}" width="${image.width}" height="${image.height}"${dateMetadata} loading="lazy" decoding="async">`;
   }).join("");
   const story = campaign.story
     ? `<section class="case-section"><h2>${campaign.story.title}</h2><div class="case-section__body">${campaign.story.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</div></section>`
@@ -371,7 +407,12 @@ for (const campaign of campaigns) {
         ? `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></div><img src="${featuredImage.src}" alt="${campaign.featuredAlt || campaign.title}" width="${featuredImage.width}" height="${featuredImage.height}" loading="eager" fetchpriority="high" decoding="async" data-no-zoom></header>`
         : `<header class="case-hero case-hero--portrait"><p class="eyebrow">${campaign.eyebrow}</p><h1>${campaign.title}</h1><p>${campaign.intro}</p><p class="portrait-count">${campaign.images.length} photographs</p></header>`;
   const gallerySummaryId = `${campaign.slug}-gallery-summary`;
-  const gallerySection = `<section class="case-section case-section--gallery"><h2>Complete gallery</h2><p class="visually-hidden" id="${gallerySummaryId}">${campaign.intro} This gallery contains ${campaign.images.length} photographs.</p><div class="campaign-collage" data-gallery="${campaign.slug}" aria-describedby="${gallerySummaryId}">${gallery}</div></section>`;
+  const orderSummary = campaign.orderMode === "chronological"
+    ? " Photographs appear in capture order, oldest first."
+    : campaign.orderMode === "editorial"
+      ? " Photographs appear in an editorial sequence."
+      : "";
+  const gallerySection = `<section class="case-section case-section--gallery"><h2>Complete gallery</h2><p class="visually-hidden" id="${gallerySummaryId}">${campaign.intro} This gallery contains ${campaign.images.length} photographs.${orderSummary}</p><div class="campaign-collage" data-gallery="${campaign.slug}" data-order-mode="${campaign.orderMode}" aria-describedby="${gallerySummaryId}">${gallery}</div></section>`;
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';">${robotsMeta}<title>${campaign.title} | Ames Consulting</title><meta name="description" content="${campaign.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${campaign.slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${story}${gallerySection}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = path.join(root, "work", campaign.slug, "index.html");
   await mkdir(path.dirname(output), { recursive: true });

@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "href": "neg-ecp-conference-2026/",
+      "sortDate": "2026-08-10",
+      "dateBasis": "exact",
+      "dateEvidence": "assets/data/event-gallery-alt-text/neg-ecp-conference-2026.json capture dates from the August 10, 2026 source event"
+    },
+    {
+      "href": "flight-paths/",
+      "sortDate": "2026-05-14",
+      "dateBasis": "exact",
+      "dateEvidence": "Authoritative archive yt-dlp metadata for YouTube video 4r5N5DjmSCU records upload_date 20260514"
+    },
+    {
+      "href": "beta-technologies/",
+      "sortDate": "2026-05-14",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest included BETA project is Flight Paths, published May 14, 2026"
+    },
+    {
+      "href": "member-banking-stories/",
+      "sortDate": "2026-04-08",
+      "dateBasis": "exact",
+      "dateEvidence": "Portfolio/EastRise/Member Stories/Public Videos/README.md and yt-dlp metadata record four public uploads on April 8, 2026"
+    },
+    {
+      "href": "sweat-heart-throwdown/",
+      "sortDate": "2026-02-14",
+      "dateBasis": "exact",
+      "dateEvidence": "DateTimeOriginal from the authoritative GMCF Sweat-Heart Preview source files"
+    },
+    {
+      "href": "green-mountain-community-fitness/",
+      "sortDate": "2026-02-14",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest included GMCF project is Sweat-Heart Throwdown, captured February 14, 2026"
+    },
+    {
+      "href": "vermont-foodbank-volunteer-day-2026/",
+      "sortDate": "2026-01-21",
+      "dateBasis": "exact",
+      "dateEvidence": "assets/data/event-gallery-alt-text/vermont-foodbank-volunteer-day-2026.json capture dates from the January 21, 2026 source event"
+    },
+    {
+      "href": "live-broadcasts/",
+      "sortDate": "2025-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed project range 2019–2025, normalized to the latest year end"
+    },
+    {
+      "href": "eastrise/",
+      "sortDate": "2025-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed institutional range 2019–2025, normalized to the latest year end"
+    },
+    {
+      "href": "eastrise-social/",
+      "sortDate": "2026-05-05",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest verified publication date in assets/data/eastrise-social.json"
+    },
+    {
+      "href": "eastrise-writing/",
+      "sortDate": "2025-10-24",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest article date in assets/data/eastrise-writing.json"
+    },
+    {
+      "href": "wheels-for-warmth/",
+      "sortDate": "2025-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed project range 2024–2025, normalized to the latest year end"
+    },
+    {
+      "href": "taylor-hoar-racing/",
+      "sortDate": "2025-10-08",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest verified public publication date in assets/data/eastrise-photography.json"
+    },
+    {
+      "href": "giron-family-fall-2025/",
+      "sortDate": "2025-09-28",
+      "dateBasis": "exact",
+      "dateEvidence": "Authoritative Giron source directory is dated 2025-09-28 and source EXIF agrees"
+    },
+    {
+      "href": "eastrise-portraits/",
+      "sortDate": "2025-08-14",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest native capture date in assets/data/portraits.json; source-page verification dates are not treated as photo dates"
+    },
+    {
+      "href": "bike-fitting/",
+      "sortDate": "2025-05-28",
+      "dateBasis": "exact",
+      "dateEvidence": "DateTimeOriginal from the authoritative GMCF Bike Fitting source files"
+    },
+    {
+      "href": "giron-family-christmas-tree-farm-2024/",
+      "sortDate": "2024-12-01",
+      "dateBasis": "exact",
+      "dateEvidence": "Authoritative Giron source directory is dated 2024-12-01 and source EXIF agrees"
+    },
+    {
+      "href": "eastrise-website/",
+      "sortDate": "2024-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed website project year 2024, normalized to the year end"
+    },
+    {
+      "href": "eastrise-launch-campaign/",
+      "sortDate": "2024-11-13",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest verified public publication date for the EastRise launch series in assets/data/eastrise-photography.json"
+    },
+    {
+      "href": "giron-family-fall-2023/",
+      "sortDate": "2023-10-08",
+      "dateBasis": "exact",
+      "dateEvidence": "Authoritative Giron source directory is dated 2023-10-08 and source EXIF agrees"
+    },
+    {
+      "href": "whale-dance-randolph/",
+      "sortDate": "2021-09-24",
+      "dateBasis": "exact",
+      "dateEvidence": "assets/data/event-gallery-alt-text/whale-dance-randolph.json capture dates from the authoritative Portfolio source"
+    },
+    {
+      "href": "vsecu-website/",
+      "sortDate": "2021-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed website project year 2021, normalized to the year end"
+    },
+    {
+      "href": "drone-photography/",
+      "sortDate": "2020-02-09",
+      "dateBasis": "exact",
+      "dateEvidence": "Latest capture date in assets/data/event-gallery-alt-text/drone-photography.json, derived from the authoritative Portfolio source"
+    },
+    {
+      "href": "london-2019/",
+      "sortDate": "2019-09-06",
+      "dateBasis": "exact",
+      "dateEvidence": "assets/data/event-gallery-alt-text/london-2019.json capture dates from the authoritative Portfolio source"
+    },
+    {
+      "href": "vtdigger-membership/",
+      "sortDate": "2019-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed project range 2018–2019, normalized to the latest year end"
+    },
+    {
+      "href": "stowe-ski-instruction/",
+      "sortDate": "2019-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed project year 2019, normalized to the year end"
+    },
+    {
+      "href": "fairbanks-planetarium/",
+      "sortDate": "2018-08-10",
+      "dateBasis": "exact",
+      "dateEvidence": "Public astronomy project records the Guinness World Record event on August 10, 2018"
+    },
+    {
+      "href": "connecticut-college/",
+      "sortDate": "2015-12-31",
+      "dateBasis": "range-end",
+      "dateEvidence": "Displayed project range 2013–2015, normalized to the latest year end"
+    }
+  ],
+  "galleryImageOrder": {
+    "sweat-heart-throwdown": {
+      "date": "2026-02-14",
+      "order": "oldest-first",
+      "basis": "DateTimeOriginal from the authoritative GMCF Preview source files",
+      "captureStart": "2026-02-14T09:56:03.658-04:00",
+      "captureEnd": "2026-02-14T15:57:12.763-04:00",
+      "capturedAt": {
+        "dsc09352.webp": "2026-02-14T09:56:03.658-04:00",
+        "dsc09459.webp": "2026-02-14T09:59:04.208-04:00",
+        "dsc09662.webp": "2026-02-14T10:32:09.908-04:00",
+        "dsc00098.webp": "2026-02-14T11:53:51.234-04:00",
+        "dsc00435.webp": "2026-02-14T12:14:14.193-04:00",
+        "dsc00605.webp": "2026-02-14T12:23:33.055-04:00",
+        "dsc00931.webp": "2026-02-14T13:35:41.945-04:00",
+        "dsc01115.webp": "2026-02-14T13:45:36.733-04:00",
+        "dsc01141.webp": "2026-02-14T13:48:13.955-04:00",
+        "dsc01146.webp": "2026-02-14T13:48:32.809-04:00",
+        "dsc01171.webp": "2026-02-14T14:16:08.311-04:00",
+        "dsc01288.webp": "2026-02-14T14:38:06.001-04:00",
+        "dsc01368.webp": "2026-02-14T14:43:43.803-04:00",
+        "dsc01518.webp": "2026-02-14T15:01:21.283-04:00",
+        "dsc01548.webp": "2026-02-14T15:18:38.801-04:00",
+        "dsc01558.webp": "2026-02-14T15:20:15.729-04:00",
+        "dsc01700.webp": "2026-02-14T15:33:12.211-04:00",
+        "dsc01706.webp": "2026-02-14T15:41:25.188-04:00",
+        "dsc01749.webp": "2026-02-14T15:43:31.788-04:00",
+        "dsc01776.webp": "2026-02-14T15:51:58.471-04:00",
+        "dsc01831.webp": "2026-02-14T15:54:32.001-04:00",
+        "dsc01859.webp": "2026-02-14T15:57:12.763-04:00"
+      },
+      "files": [
+        "dsc09352.webp",
+        "dsc09459.webp",
+        "dsc09662.webp",
+        "dsc00098.webp",
+        "dsc00435.webp",
+        "dsc00605.webp",
+        "dsc00931.webp",
+        "dsc01115.webp",
+        "dsc01141.webp",
+        "dsc01146.webp",
+        "dsc01171.webp",
+        "dsc01288.webp",
+        "dsc01368.webp",
+        "dsc01518.webp",
+        "dsc01548.webp",
+        "dsc01558.webp",
+        "dsc01700.webp",
+        "dsc01706.webp",
+        "dsc01749.webp",
+        "dsc01776.webp",
+        "dsc01831.webp",
+        "dsc01859.webp"
+      ]
+    },
+    "bike-fitting": {
+      "date": "2025-05-28",
+      "order": "oldest-first",
+      "basis": "DateTimeOriginal from the authoritative GMCF source files",
+      "captureStart": "2025-05-28T18:15:37.784-04:00",
+      "captureEnd": "2025-05-28T18:26:32.451-04:00",
+      "capturedAt": {
+        "dsc09614.webp": "2025-05-28T18:15:37.784-04:00",
+        "dsc09615.webp": "2025-05-28T18:15:40.925-04:00",
+        "dsc09620.webp": "2025-05-28T18:17:22.941-04:00",
+        "dsc09621.webp": "2025-05-28T18:17:50.292-04:00",
+        "dsc09624.webp": "2025-05-28T18:17:56.894-04:00",
+        "dsc09630.webp": "2025-05-28T18:18:11.442-04:00",
+        "dsc09633.webp": "2025-05-28T18:19:25.131-04:00",
+        "dsc09644.webp": "2025-05-28T18:20:32.749-04:00",
+        "dsc09645.webp": "2025-05-28T18:20:34.196-04:00",
+        "dsc09649.webp": "2025-05-28T18:20:47.622-04:00",
+        "dsc09651.webp": "2025-05-28T18:21:15.617-04:00",
+        "dsc09653.webp": "2025-05-28T18:21:22.995-04:00",
+        "dsc09654.webp": "2025-05-28T18:21:39.073-04:00",
+        "dsc09657.webp": "2025-05-28T18:22:01.528-04:00",
+        "dsc09665.webp": "2025-05-28T18:22:39.801-04:00",
+        "dsc09666.webp": "2025-05-28T18:22:40.902-04:00",
+        "dsc09668.webp": "2025-05-28T18:22:55.557-04:00",
+        "dsc09669.webp": "2025-05-28T18:22:58.845-04:00",
+        "dsc09675.webp": "2025-05-28T18:23:29.783-04:00",
+        "dsc09677.webp": "2025-05-28T18:23:53.255-04:00",
+        "dsc09683.webp": "2025-05-28T18:24:23.180-04:00",
+        "dsc09685.webp": "2025-05-28T18:24:50.724-04:00",
+        "dsc09689.webp": "2025-05-28T18:26:32.451-04:00"
+      },
+      "files": [
+        "dsc09614.webp",
+        "dsc09615.webp",
+        "dsc09620.webp",
+        "dsc09621.webp",
+        "dsc09624.webp",
+        "dsc09630.webp",
+        "dsc09633.webp",
+        "dsc09644.webp",
+        "dsc09645.webp",
+        "dsc09649.webp",
+        "dsc09651.webp",
+        "dsc09653.webp",
+        "dsc09654.webp",
+        "dsc09657.webp",
+        "dsc09665.webp",
+        "dsc09666.webp",
+        "dsc09668.webp",
+        "dsc09669.webp",
+        "dsc09675.webp",
+        "dsc09677.webp",
+        "dsc09683.webp",
+        "dsc09685.webp",
+        "dsc09689.webp"
+      ]
+    }
+  }
+}

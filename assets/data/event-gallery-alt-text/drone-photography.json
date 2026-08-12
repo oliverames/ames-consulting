@@ -3,251 +3,313 @@
   "images": [
     {
       "file": "dji_0015.webp",
-      "alt": "Panoramic aerial view of a divided highway curving through green forest beneath patterned clouds"
+      "alt": "Panoramic aerial view of a divided highway curving through green forest beneath patterned clouds",
+      "capturedAt": "2018-08-31T07:30:15.000-04:00"
     },
     {
       "file": "dji_0019.webp",
-      "alt": "Aerial panorama of tree-lined city neighborhoods surrounding a winding river"
+      "alt": "Aerial panorama of tree-lined city neighborhoods surrounding a winding river",
+      "capturedAt": "2018-08-31T13:20:58.000-04:00"
     },
     {
       "file": "dji_0021.webp",
-      "alt": "Aerial view into Harvard Stadium with its horseshoe grandstand and red H at midfield"
+      "alt": "Aerial view into Harvard Stadium with its horseshoe grandstand and red H at midfield",
+      "capturedAt": "2018-08-31T13:22:59.000-04:00"
     },
     {
       "file": "dji_0048.webp",
-      "alt": "Waterfront restaurant and marina glowing at dusk with boats moored around the docks"
+      "alt": "Waterfront restaurant and marina glowing at dusk with boats moored around the docks",
+      "capturedAt": "2018-09-01T19:57:17.000-04:00"
     },
     {
       "file": "dji_0053.webp",
-      "alt": "Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence"
+      "alt": "Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence",
+      "capturedAt": "2018-02-02T08:13:47.000-05:00"
     },
     {
       "file": "dji_0057.webp",
-      "alt": "Vertical aerial panorama of a river winding between forested hills and a parallel road"
+      "alt": "Vertical aerial panorama of a river winding between forested hills and a parallel road",
+      "capturedAt": "2018-09-02T16:47:55.000-04:00"
     },
     {
       "file": "dji_0112.webp",
-      "alt": "Snow-covered valley, wooded hills, and scattered homes under low winter sunlight"
+      "alt": "Snow-covered valley, wooded hills, and scattered homes under low winter sunlight",
+      "capturedAt": "2018-02-08T15:37:34.000-05:00"
     },
     {
       "file": "dji_0117.webp",
-      "alt": "Aerial view across a broad frozen lake toward wooded hills beneath a bright blue sky"
+      "alt": "Aerial view across a broad frozen lake toward wooded hills beneath a bright blue sky",
+      "capturedAt": "2018-02-08T15:39:13.000-05:00"
     },
     {
       "file": "dji_0128.webp",
-      "alt": "Snow-covered house surrounded by evergreens on the shore of a frozen lake"
+      "alt": "Snow-covered house surrounded by evergreens on the shore of a frozen lake",
+      "capturedAt": "2018-02-08T15:43:32.000-05:00"
     },
     {
       "file": "dji_0137.webp",
-      "alt": "Top-down view of small shelters casting long shadows across a snow-covered frozen lake"
+      "alt": "Top-down view of small shelters casting long shadows across a snow-covered frozen lake",
+      "capturedAt": "2018-02-08T15:48:27.000-05:00"
     },
     {
       "file": "dji_0142.webp",
-      "alt": "Low winter sun above snow-covered valleys, wooded ridges, and distant lakes"
+      "alt": "Low winter sun above snow-covered valleys, wooded ridges, and distant lakes",
+      "capturedAt": "2018-02-08T15:49:23.000-05:00"
     },
     {
       "file": "dji_0153.webp",
-      "alt": "Red and orange sunset spreading above a small town and dark wooded hills"
+      "alt": "Red and orange sunset spreading above a small town and dark wooded hills",
+      "capturedAt": "2018-09-22T18:59:51.000-04:00"
     },
     {
       "file": "dji_0155.webp",
-      "alt": "Dark aerial panorama of a town silhouetted beneath a vivid red sunset"
+      "alt": "Dark aerial panorama of a town silhouetted beneath a vivid red sunset",
+      "capturedAt": "2018-09-22T19:01:04.000-04:00"
     },
     {
       "file": "dji_0162.webp",
-      "alt": "Lakeside property, green fields, and blue water with mountain ridges on the horizon"
+      "alt": "Lakeside property, green fields, and blue water with mountain ridges on the horizon",
+      "capturedAt": "2018-09-23T12:20:20.000-04:00"
     },
     {
       "file": "dji_0166.webp",
-      "alt": "Snow-covered fields divided by hedgerows and forested ridges in late afternoon light"
+      "alt": "Snow-covered fields divided by hedgerows and forested ridges in late afternoon light",
+      "capturedAt": "2018-02-12T16:41:15.000-05:00"
     },
     {
       "file": "dji_0167.webp",
-      "alt": "Formal gardens and historic buildings on a green lakeshore viewed from above"
+      "alt": "Formal gardens and historic buildings on a green lakeshore viewed from above",
+      "capturedAt": "2018-09-23T12:24:52.000-04:00"
     },
     {
       "file": "dji_0168.webp",
-      "alt": "Wide aerial view of formal gardens, fields, and buildings along a rocky lakeshore"
+      "alt": "Wide aerial view of formal gardens, fields, and buildings along a rocky lakeshore",
+      "capturedAt": "2018-09-23T12:25:30.000-04:00"
     },
     {
       "file": "dji_0170.webp",
-      "alt": "Broad green lawn descending toward a blue lake with mountains beyond"
+      "alt": "Broad green lawn descending toward a blue lake with mountains beyond",
+      "capturedAt": "2018-09-23T12:27:26.000-04:00"
     },
     {
       "file": "dji_0171.webp",
-      "alt": "Aerial view across a lakeside lawn and tree-lined shore toward a mountain range"
+      "alt": "Aerial view across a lakeside lawn and tree-lined shore toward a mountain range",
+      "capturedAt": "2018-09-23T12:27:38.000-04:00"
     },
     {
       "file": "dji_0172.webp",
-      "alt": "Snow-covered farm fields, a narrow road, and wooded hills in warm evening light"
+      "alt": "Snow-covered farm fields, a narrow road, and wooded hills in warm evening light",
+      "capturedAt": "2018-02-12T16:42:14.000-05:00"
     },
     {
       "file": "dji_0174-1.webp",
-      "alt": "Isolated buildings and a plowed road surrounded by expansive snow-covered fields"
+      "alt": "Isolated buildings and a plowed road surrounded by expansive snow-covered fields",
+      "capturedAt": "2018-02-12T16:42:49.000-05:00"
     },
     {
       "file": "dji_0174.webp",
-      "alt": "Wooded peninsula with gardens and buildings extending into a deep blue lake"
+      "alt": "Wooded peninsula with gardens and buildings extending into a deep blue lake",
+      "capturedAt": "2018-09-23T12:29:07.000-04:00"
     },
     {
       "file": "dji_0178.webp",
-      "alt": "Walt Disney Concert Hall and surrounding downtown Los Angeles streets viewed from above"
+      "alt": "Walt Disney Concert Hall and surrounding downtown Los Angeles streets viewed from above",
+      "capturedAt": "2018-09-25T16:51:09.000-07:00"
     },
     {
       "file": "dji_0180.webp",
-      "alt": "The Broad museum and neighboring downtown Los Angeles buildings viewed from above"
+      "alt": "The Broad museum and neighboring downtown Los Angeles buildings viewed from above",
+      "capturedAt": "2018-09-25T16:51:37.000-07:00"
     },
     {
       "file": "dji_0181.webp",
-      "alt": "Low sun casting long shadows across a snow-covered field marked by vehicle tracks"
+      "alt": "Low sun casting long shadows across a snow-covered field marked by vehicle tracks",
+      "capturedAt": "2018-02-12T16:45:36.000-05:00"
     },
     {
       "file": "dji_0183.webp",
-      "alt": "Walt Disney Concert Hall's curved metal roof forms against the Los Angeles skyline"
+      "alt": "Walt Disney Concert Hall's curved metal roof forms against the Los Angeles skyline",
+      "capturedAt": "2018-09-25T16:52:08.000-07:00"
     },
     {
       "file": "dji_0188.webp",
-      "alt": "Curving cleared tracks and small shelters on a frozen lake at dusk"
+      "alt": "Curving cleared tracks and small shelters on a frozen lake at dusk",
+      "capturedAt": "2018-02-15T16:54:29.000-05:00"
     },
     {
       "file": "dji_0191.webp",
-      "alt": "Santa Monica Pier amusement rides extending over the Pacific Ocean"
+      "alt": "Santa Monica Pier amusement rides extending over the Pacific Ocean",
+      "capturedAt": "2018-09-25T18:51:22.000-07:00"
     },
     {
       "file": "dji_0198.webp",
-      "alt": "Wide aerial view of Santa Monica Pier, the beach, and surrounding city streets"
+      "alt": "Wide aerial view of Santa Monica Pier, the beach, and surrounding city streets",
+      "capturedAt": "2018-09-25T18:52:53.000-07:00"
     },
     {
       "file": "dji_0215.webp",
-      "alt": "Hollywood Sign on a dry hillside with Los Angeles neighborhoods below"
+      "alt": "Hollywood Sign on a dry hillside with Los Angeles neighborhoods below",
+      "capturedAt": "2018-09-26T12:55:56.000-07:00"
     },
     {
       "file": "dji_0220.webp",
-      "alt": "Close aerial view of the Hollywood Sign beneath a clear blue sky"
+      "alt": "Close aerial view of the Hollywood Sign beneath a clear blue sky",
+      "capturedAt": "2018-09-26T12:59:00.000-07:00"
     },
     {
       "file": "dji_0242.webp",
-      "alt": "Panoramic sunset view of Griffith Observatory and the surrounding Los Angeles hills"
+      "alt": "Panoramic sunset view of Griffith Observatory and the surrounding Los Angeles hills",
+      "capturedAt": "2018-09-26T18:31:14.000-07:00"
     },
     {
       "file": "dji_0246.webp",
-      "alt": "Griffith Observatory on its hillside with mountains and city neighborhoods beyond"
+      "alt": "Griffith Observatory on its hillside with mountains and city neighborhoods beyond",
+      "capturedAt": "2018-09-26T18:33:01.000-07:00"
     },
     {
       "file": "dji_0248.webp",
-      "alt": "Griffith Observatory and its domes lit by warm evening sunlight"
+      "alt": "Griffith Observatory and its domes lit by warm evening sunlight",
+      "capturedAt": "2018-09-26T18:33:19.000-07:00"
     },
     {
       "file": "dji_0254.webp",
-      "alt": "Close aerial view of Griffith Observatory against layered mountain ridges"
+      "alt": "Close aerial view of Griffith Observatory against layered mountain ridges",
+      "capturedAt": "2018-09-26T18:35:22.000-07:00"
     },
     {
       "file": "dji_0256.webp",
-      "alt": "Wide sunset panorama of Griffith Observatory, winding roads, and Los Angeles hills"
+      "alt": "Wide sunset panorama of Griffith Observatory, winding roads, and Los Angeles hills",
+      "capturedAt": "2018-09-26T18:37:41.000-07:00"
     },
     {
       "file": "dji_0277.webp",
-      "alt": "Homes surrounded by dense orange and gold foliage beneath a partly cloudy sky"
+      "alt": "Homes surrounded by dense orange and gold foliage beneath a partly cloudy sky",
+      "capturedAt": "2018-10-04T17:58:14.000-04:00"
     },
     {
       "file": "dji_0279.webp",
-      "alt": "Low sun shining over an autumn town with church steeples and wooded hills"
+      "alt": "Low sun shining over an autumn town with church steeples and wooded hills",
+      "capturedAt": "2018-10-04T17:58:35.000-04:00"
     },
     {
       "file": "dji_0281.webp",
-      "alt": "Panoramic aerial view of a small town surrounded by autumn foliage and rolling hills"
+      "alt": "Panoramic aerial view of a small town surrounded by autumn foliage and rolling hills",
+      "capturedAt": "2018-10-04T17:59:46.000-04:00"
     },
     {
       "file": "dji_0360.webp",
-      "alt": "Sunlit mountain ridge rising above a broad forest in peak autumn color"
+      "alt": "Sunlit mountain ridge rising above a broad forest in peak autumn color",
+      "capturedAt": "2018-10-13T17:59:32.000-04:00"
     },
     {
       "file": "dji_0366.webp",
-      "alt": "Orange sunset breaking beneath dark clouds over a wide mountain valley"
+      "alt": "Orange sunset breaking beneath dark clouds over a wide mountain valley",
+      "capturedAt": "2018-10-13T18:04:05.000-04:00"
     },
     {
       "file": "dji_0373.webp",
-      "alt": "Top-down aerial view of a house and clearing surrounded by multicolored autumn forest"
+      "alt": "Top-down aerial view of a house and clearing surrounded by multicolored autumn forest",
+      "capturedAt": "2018-10-13T18:11:36.000-04:00"
     },
     {
       "file": "dji_0377.webp",
-      "alt": "Aerial view of a small town in a valley surrounded by late-autumn hills"
+      "alt": "Aerial view of a small town in a valley surrounded by late-autumn hills",
+      "capturedAt": "2018-10-14T08:21:36.000-04:00"
     },
     {
       "file": "dji_0383.webp",
-      "alt": "Golden forest canopy stretching toward blue mountain ridges under low clouds"
+      "alt": "Golden forest canopy stretching toward blue mountain ridges under low clouds",
+      "capturedAt": "2018-10-14T08:30:07.000-04:00"
     },
     {
       "file": "dji_0395.webp",
-      "alt": "Snow-covered mountain valley with ski trails, buildings, and winding roads"
+      "alt": "Snow-covered mountain valley with ski trails, buildings, and winding roads",
+      "capturedAt": "2018-11-10T11:40:50.000-05:00"
     },
     {
       "file": "dji_0400.webp",
-      "alt": "Vertical panorama of snow-covered cliffs and evergreen forest beneath a pale winter sky"
+      "alt": "Vertical panorama of snow-covered cliffs and evergreen forest beneath a pale winter sky",
+      "capturedAt": "2018-11-15T12:12:45.000-05:00"
     },
     {
       "file": "dji_0412.webp",
-      "alt": "Frozen waterfall cascading between thick shelves of ice and snow-covered rocks"
+      "alt": "Frozen waterfall cascading between thick shelves of ice and snow-covered rocks",
+      "capturedAt": "2018-03-18T11:40:35.000-04:00"
     },
     {
       "file": "dji_0441.webp",
-      "alt": "Vermont State House illuminated at night amid snow-covered grounds"
+      "alt": "Vermont State House illuminated at night amid snow-covered grounds",
+      "capturedAt": "2018-11-30T21:57:15.000-05:00"
     },
     {
       "file": "dji_0443.webp",
-      "alt": "Panoramic aerial view of downtown Austin and the Colorado River beneath rippled clouds"
+      "alt": "Panoramic aerial view of downtown Austin and the Colorado River beneath rippled clouds",
+      "capturedAt": "2018-12-03T15:56:06.000-06:00"
     },
     {
       "file": "dji_0447.webp",
-      "alt": "Downtown Austin skyline viewed from above beneath a broad field of rippled clouds"
+      "alt": "Downtown Austin skyline viewed from above beneath a broad field of rippled clouds",
+      "capturedAt": "2018-12-03T15:59:17.000-06:00"
     },
     {
       "file": "dji_0448.webp",
-      "alt": "Wide aerial panorama of downtown Austin towers under rows of textured clouds"
+      "alt": "Wide aerial panorama of downtown Austin towers under rows of textured clouds",
+      "capturedAt": "2018-12-03T16:00:12.000-06:00"
     },
     {
       "file": "dji_0456.webp",
-      "alt": "Texas State Capitol and surrounding government buildings viewed from above"
+      "alt": "Texas State Capitol and surrounding government buildings viewed from above",
+      "capturedAt": "2018-12-03T16:59:07.000-06:00"
     },
     {
       "file": "dji_0480.webp",
-      "alt": "Waterfront rail yard with a roundhouse, maintenance buildings, and parked trains"
+      "alt": "Waterfront rail yard with a roundhouse, maintenance buildings, and parked trains",
+      "capturedAt": "2018-04-14T12:47:00.000-04:00"
     },
     {
       "file": "dji_0481.webp",
-      "alt": "Top-down view of parallel rail tracks filled with freight and passenger cars"
+      "alt": "Top-down view of parallel rail tracks filled with freight and passenger cars",
+      "capturedAt": "2018-04-14T12:47:17.000-04:00"
     },
     {
       "file": "dji_0543.webp",
-      "alt": "Green mountain ridges crossed by a highway beneath a bright blue sky"
+      "alt": "Green mountain ridges crossed by a highway beneath a bright blue sky",
+      "capturedAt": "2018-05-20T19:41:07.000-04:00"
     },
     {
       "file": "dji_0547.webp",
-      "alt": "Panoramic aerial view of sunlight over forested mountains and a curving highway"
+      "alt": "Panoramic aerial view of sunlight over forested mountains and a curving highway",
+      "capturedAt": "2018-05-20T19:44:26.000-04:00"
     },
     {
       "file": "dji_0618.webp",
-      "alt": "Large crowd filling a street beside the Vermont State House and nearby buildings"
+      "alt": "Large crowd filling a street beside the Vermont State House and nearby buildings",
+      "capturedAt": "2019-05-16T17:58:01.000-04:00"
     },
     {
       "file": "dji_0661.webp",
-      "alt": "Red and orange sunset glowing above a dark silhouette of distant mountains"
+      "alt": "Red and orange sunset glowing above a dark silhouette of distant mountains",
+      "capturedAt": "2019-06-16T20:51:12.000-04:00"
     },
     {
       "file": "dji_0792.webp",
-      "alt": "Snow-covered town and surrounding wooded hills beneath a deep blue winter sky"
+      "alt": "Snow-covered town and surrounding wooded hills beneath a deep blue winter sky",
+      "capturedAt": "2020-02-09T13:10:21.000-05:00"
     },
     {
       "file": "hdr_0001.webp",
-      "alt": "Top-down aerial view of snow-dusted evergreen trees casting long blue shadows"
+      "alt": "Top-down aerial view of snow-dusted evergreen trees casting long blue shadows",
+      "capturedAt": "2018-02-02T08:16:42.000-05:00"
     },
     {
       "file": "img_2459.webp",
-      "alt": "Winter sunset spreading through broken clouds above a snow-covered valley"
+      "alt": "Winter sunset spreading through broken clouds above a snow-covered valley",
+      "capturedAt": "2018-02-24T17:27:12.000-05:00"
     },
     {
       "file": "img_4079.webp",
-      "alt": "Sunlit panorama of green mountain ridges and a highway curving through the valley"
+      "alt": "Sunlit panorama of green mountain ridges and a highway curving through the valley",
+      "capturedAt": "2018-05-20T19:44:26.000-04:00"
     }
   ]
 }

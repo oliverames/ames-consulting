@@ -154,6 +154,26 @@ test("software cards collapse to a single column on small screens", async ({ pag
   expect(Math.max(...boxes) - Math.min(...boxes)).toBeLessThan(2);
 });
 
+test("software project previews do not clip on small screens", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const route of [
+    "/work/apple-core/",
+    "/work/bridgeport/",
+    "/work/meta-mcp-server/",
+    "/work/ping-warden/",
+    "/work/skylight-bridge/",
+    "/work/ynab-mcp-server/",
+  ]) {
+    await page.goto(route);
+    const preview = page.locator(".software-hero .software-visual");
+    await expect(preview).toBeVisible();
+    expect(
+      await preview.evaluate((element) => element.scrollHeight <= element.clientHeight + 1),
+      `${route} preview should fit its container`,
+    ).toBe(true);
+  }
+});
+
 test("small-screen navigation and page headers keep deliberate spacing", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/blog/");

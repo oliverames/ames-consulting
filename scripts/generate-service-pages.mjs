@@ -66,7 +66,7 @@ const pages = [
     ],
     projects: [
       ["Vermont Foodbank Volunteer Day", "A documentary series about the people and process behind a volunteer packing day.", "../../work/vermont-foodbank-volunteer-day-2026/"],
-      ["EastRise Portraits", "Leadership, board, and staff portraits made as one coherent library.", "../../work/eastrise-portraits/"],
+      ["EastRise Portraits", "Eighteen leadership portraits and 24 additional formal portraits in one public library.", "../../work/eastrise-portraits/"],
       ["Giron Family", "A fall family session designed as a complete, browsable gallery.", "../../work/giron-family-fall-2025/"]
     ],
     contactProject: "Photography and video"
@@ -97,7 +97,7 @@ const pages = [
     ],
     projects: [
       ["Credit Union Website Redesigns", "The VSECU and EastRise rebuilds, with the work and source trail attached.", "../../work/credit-union-websites/"],
-      ["EastRise Social", "The editorial, publishing, and measurement system behind six years of social work.", "../../work/eastrise-social/"],
+      ["EastRise Social", "The editorial, publishing, and measurement system behind the dated social archive.", "../../work/eastrise-social/"],
       ["Live Broadcasts", "Production systems for public programs and employee broadcasts.", "../../work/live-broadcasts/"]
     ],
     contactProject: "Website or digital system"

@@ -355,10 +355,16 @@ test("website projects are separated by institution", async ({
   await expect(page.getByRole("link", { name: /EastRise Website Launch/ })).toBeVisible();
   await page.goto("/work/vsecu-website/");
   await expect(page.locator(".website-proof article")).toHaveCount(3);
+  expect(await page.locator(".website-proof").evaluate(
+    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
+  )).toBe(3);
   await expect(page.locator(".website-header-image img")).toHaveCount(1);
   await expect(page.locator(".website-screen-gallery img")).toHaveCount(0);
   await page.goto("/work/eastrise-website/");
   await expect(page.locator(".website-proof article")).toHaveCount(4);
+  expect(await page.locator(".website-proof").evaluate(
+    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
+  )).toBe(4);
   await expect(page.locator(".website-header-image img")).toHaveCount(1);
   await expect(page.locator(".website-screen-gallery img")).toHaveCount(3);
   await expect(
@@ -367,6 +373,16 @@ test("website projects are separated by institution", async ({
     "href",
     "https://www.pixelspoke.coop/eastrise-credit-union-case-study",
   );
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/work/vsecu-website/");
+  expect(await page.locator(".website-proof").evaluate(
+    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
+  )).toBe(1);
+  await page.goto("/work/eastrise-website/");
+  expect(await page.locator(".website-proof").evaluate(
+    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
+  )).toBe(2);
 });
 
 test("member banking stories separates the Urban Rhino series", async ({
@@ -664,9 +680,11 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
   const eastRisePortraits = portraits.series.find(
     (series) => series.slug === "eastrise-leadership-board",
   );
-  expect(eastRisePortraits.images).toHaveLength(40);
+  expect(eastRisePortraits).toBeTruthy();
+  expect(eastRisePortraits.images).toHaveLength(42);
+  expect(new Set(eastRisePortraits.images.map((image) => image.caption)).size).toBe(41);
   expect(
-    eastRisePortraits.images.filter((image) => !image.source && !image.archiveNote),
+    eastRisePortraits.images.filter((image) => !image.source),
   ).toEqual([]);
   expect(
     eastRisePortraits.images.filter((image) => !/^Portrait of /.test(image.alt)),
@@ -689,7 +707,19 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
     "George Sales",
     "Spencer Newman",
     "Arthur G. Woolf",
+    "Yvonne Garand",
   ];
+  const leadershipPortraits = eastRisePortraits.images.filter(
+    (image) => image.portraitGroup === "leadership",
+  );
+  const additionalPortraits = eastRisePortraits.images.filter(
+    (image) => image.portraitGroup === "portrait",
+  );
+  expect(leadershipPortraits).toHaveLength(18);
+  expect(leadershipPortraits.map((image) => image.caption)).toEqual(officialPortraitNames);
+  expect(additionalPortraits).toHaveLength(24);
+  expect(new Set(additionalPortraits.map((image) => image.caption)).size).toBe(23);
+  expect(additionalPortraits.filter((image) => image.caption === "Luke Buglion Gluck")).toHaveLength(2);
   await page.setViewportSize({ width: 785, height: 863 });
   await page.goto("/work/portraits-and-people/");
   await expect(page.locator(".work-item")).toHaveCount(1);
@@ -697,16 +727,20 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
   await expect(page.locator('a[href*="blue-cross-portraits"]')).toHaveCount(0);
   await page.goto("/work/eastrise-portraits/");
   const portraitImages = page.locator(".portrait-gallery img");
-  await expect(portraitImages).toHaveCount(40);
-  const renderedNames = await portraitImages.evaluateAll((images) => images
-    .map((image) => image.alt.replace(/^Portrait of /, ""))
-    .sort((left, right) => left.localeCompare(right)));
-  expect(renderedNames.filter((name) => officialPortraitNames.includes(name))).toEqual(
-    [...officialPortraitNames].sort((left, right) => left.localeCompare(right)),
-  );
+  await expect(portraitImages).toHaveCount(42);
+  const leadershipGallery = page.locator('[data-gallery="eastrise-leadership"]');
+  const portraitsGallery = page.locator('[data-gallery="eastrise-portraits"]');
+  await expect(leadershipGallery.locator("img")).toHaveCount(18);
+  await expect(portraitsGallery.locator("img")).toHaveCount(24);
+  await expect(leadershipGallery.locator('img[data-date-status="dated"]')).toHaveCount(18);
+  await expect(portraitsGallery.locator('img[data-date-status="dated"]')).toHaveCount(24);
+  const renderedLeadershipNames = await leadershipGallery.locator("img").evaluateAll((images) => images
+    .map((image) => image.alt.replace(/^Portrait of /, "")));
+  expect(renderedLeadershipNames).toEqual(officialPortraitNames);
   await expect(page.getByAltText("Portrait of Frank G. Harris")).toHaveCount(1);
-  await expect(page.getByAltText("Portrait of Yvonne Garand")).toHaveCount(0);
-  const firstGallery = page.locator(".portrait-gallery").first();
+  await expect(page.getByAltText("Portrait of Yvonne Garand")).toHaveCount(1);
+  await expect(page.getByAltText("Portrait of Luke Buglion Gluck")).toHaveCount(2);
+  const firstGallery = leadershipGallery;
   const firstGalleryCount = await firstGallery.locator("img").count();
   const firstPortrait = firstGallery.locator("img").first();
   await firstPortrait.click();
@@ -822,8 +856,8 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
       items.map((item) => item.getAttribute("href")),
     );
   expect(await hrefs(sections.nth(2))).toEqual([
-    "vtdigger-membership/",
     "stowe-ski-instruction/",
+    "vtdigger-membership/",
     "fairbanks-planetarium/",
     "connecticut-college/",
   ]);
@@ -1019,6 +1053,13 @@ test("EastRise photography is grouped into complete public-source galleries", as
   page,
 }) => {
   const photography = await readEastRisePhotography();
+  expect(photography.totalImages).toBe(136);
+  expect(photography.series).toHaveLength(13);
+  expect(photography.series.some((series) => series.slug === "formal-headshots")).toBe(false);
+  const candidPortraits = photography.series.find(
+    (series) => series.slug === "eastrise-candid-portraits",
+  );
+  expect(candidPortraits.images).toHaveLength(1);
   const expectedImageCount = photography.series.reduce(
     (total, series) => total + series.images.length,
     0,
@@ -1061,15 +1102,15 @@ test("EastRise photography is grouped into complete public-source galleries", as
     page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
   ).toHaveCount(0);
   await expect(page.locator('img[src*="li_38643aee028f-03e615af6186"]')).toHaveCount(0);
-  const firstGallery = page.locator(".campaign-collage").first();
-  const firstGalleryCount = await firstGallery.locator("img").count();
-  await firstGallery.locator("img").first().click();
+  const multiImageGallery = page.locator('[aria-labelledby="taylor-hoar-racing-title"] .campaign-collage');
+  const multiImageGalleryCount = await multiImageGallery.locator("img").count();
+  await multiImageGallery.locator("img").first().click();
   await expect(page.locator("#image-viewer-caption")).toContainText(
-    `1 of ${firstGalleryCount}`,
+    `1 of ${multiImageGalleryCount}`,
   );
   await page.keyboard.press("ArrowRight");
   await expect(page.locator("#image-viewer-caption")).toContainText(
-    `2 of ${firstGalleryCount}`,
+    `2 of ${multiImageGalleryCount}`,
   );
 });
 

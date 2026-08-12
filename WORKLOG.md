@@ -41,3 +41,15 @@ Search directives such as `noindex` control indexing, not access.
 **Open questions**: NEW: Any deletion of legacy Cloudflare deployments or retired object-storage assets, and any Git history rewrite, remains destructive cleanup that requires explicit approval.
 
 ---
+
+## 2026-08-11 - Contact delivery and gallery chronology
+
+**What changed**: Verified the production contact form with one real submission and confirmed mailbox delivery, Reply-To behavior, and SPF, DKIM, and DMARC results. Protected the direct email fallback from Cloudflare address obfuscation. Added a shared project-date registry, explicit gallery order modes, original capture or publication dates, and chronology checks across the public portfolio.
+
+**Decisions made**: Project cards and gallery navigation sort newest-first. Documentary event galleries sort oldest-first when capture evidence supports that sequence. Curated galleries remain editorial and say so in their data. Every EastRise photograph now has a verified publication date or a documented native capture date.
+
+**Left off at**: Local release verification is complete. The final artifact passed `npm run check:all`, `npm run check:built-site`, `npm run check:build-idempotence`, `npm run test:e2e` with 143 passes and one intended source-only skip, and `npm run test:site` with 144 passes. Every one of the 52 public pages was reviewed at 1,440, 1,024, and 390 pixels wide. The audit found and fixed clipped mobile software previews and an empty EastRise/VSECU website proof-grid cell. Current source manifests contain 1,044 event photographs, 136 EastRise photographs across 13 series, and 42 EastRise formal portraits of 41 people. The formal collection has 18 Leadership images and 24 Portraits images, including two distinct portraits of Luke Buglion Gluck. The `ames.photo` and `www.ames.photo` domains redirect to `ames.consulting` while preserving the path and query. Production deployment verification follows the push.
+
+**Open questions**: None for this release.
+
+---

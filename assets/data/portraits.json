@@ -1,13 +1,16 @@
 {
   "generatedAt": "2026-08-11",
-  "totalImages": 47,
+  "totalImages": 49,
   "series": [
     {
-      "title": "EastRise leadership and board",
+      "title": "EastRise formal portraits",
       "slug": "eastrise-leadership-board",
       "sourcePage": "https://www.eastrise.com/leadership/",
       "sourceCaptureDate": "2026-07-29",
       "photographer": "Oliver Ames",
+      "orderMode": "editorial",
+      "dateStatus": "dated",
+      "orderNote": "Every portrait includes dated public-source or native-capture evidence. The gallery order remains editorial.",
       "images": [
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/elizabeth-morton-7fa90d0baa56.webp",
@@ -17,9 +20,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Elizabeth-Morton-1.jpg",
-          "context": "EastRise leadership and board",
-          "featured": true,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/greg-hahr-1e9fb95882f7.webp",
@@ -29,9 +37,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Greg.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/mark-ackerly-30f1ccb7c42a.webp",
@@ -41,9 +54,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Mark.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/valerie-beaudin-3c27bcc65850.webp",
@@ -53,9 +71,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Valerie.jpg",
-          "context": "EastRise leadership and board",
-          "featured": true,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/rick-hommel-48907ad04940.webp",
@@ -65,9 +88,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Untitled-1.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/sue-leonard-ee8e3f857bee.webp",
@@ -77,9 +105,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Sue.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/robert-miller-8bfc691871e1.webp",
@@ -89,9 +122,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Rob.jpg",
-          "context": "EastRise leadership and board",
-          "featured": true,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/subha-luck-d0788fbd44e9.webp",
@@ -101,9 +139,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Subha-Luck-Headshot.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/frank-g-harris-2858668bfeee.webp",
@@ -113,9 +156,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Frank-G.-Harris.jpg",
-          "context": "EastRise leadership and board",
-          "featured": true,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/margaret-h-o-donnell-c05bf4f533cd.webp",
@@ -125,9 +173,14 @@
           "height": 540,
           "wide": false,
           "source": "https://www.eastrise.com/files/Margaret-H.-ODonnell.avif",
-          "context": "EastRise leadership and board",
-          "featured": true,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/stephanie-meunier-642aefa190aa.webp",
@@ -137,9 +190,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Stephanie-Meunier-Headshot-1.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/julie-lineberger-1bce039db269.webp",
@@ -149,9 +207,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Julie-Lineberger-Headshot.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/amy-vaughan-f56acbe945f7.webp",
@@ -161,9 +224,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Amy-Vaughan-Headshot.jpg",
-          "context": "EastRise leadership and board",
-          "featured": true,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/michael-hogan-b682c74b872f.webp",
@@ -173,9 +241,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Michael-Hogan-Headshot.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/george-sales-40429a12c861.webp",
@@ -185,9 +258,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/George-Sales-1.avif",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
@@ -197,9 +275,14 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Spencer-Newman-Headshot.jpg",
-          "context": "EastRise leadership and board",
-          "featured": true,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/arthur-g-woolf-001f95fa1205.webp",
@@ -209,9 +292,31 @@
           "height": 571,
           "wide": false,
           "source": "https://www.eastrise.com/files/Arthur-G.-Woolf.jpg",
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": ""
+          "sourcePage": "https://www.eastrise.com/leadership/",
+          "portraitGroup": "leadership",
+          "publicContext": "current leadership profile",
+          "publishedDate": null,
+          "dateEvidence": {
+            "date": "2026-07-29",
+            "basis": "source-page-verification"
+          }
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/yvonne-garand-9858f4aa5ee3.webp",
+          "alt": "Portrait of Yvonne Garand",
+          "caption": "Yvonne Garand",
+          "width": 1600,
+          "height": 1600,
+          "wide": false,
+          "source": "https://www.facebook.com/photo/?fbid=6062881253790078&set=a.556826133310535",
+          "sourcePage": "https://www.facebook.com/photo/?fbid=6062881253790078&set=a.556826133310535",
+          "portraitGroup": "leadership",
+          "publicContext": "VSECU public recognition post",
+          "publishedDate": "2023-03-08",
+          "dateEvidence": {
+            "date": "2023-03-08",
+            "basis": "public-post-publication"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/alvah-newhall-51affaf9531d.webp",
@@ -220,9 +325,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Alvah-Newhall-Headshot-1.jpg",
+          "sourcePage": "https://www.eastrise.com/locations/montpelier",
+          "portraitGroup": "portrait",
+          "publicContext": "branch profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/amanda-seeholzer-65a4fab5390d.webp",
@@ -231,9 +342,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Amanda-Seeholzer-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/financial-health-advice/counseling",
+          "portraitGroup": "portrait",
+          "publicContext": "financial counseling profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/caroline-cross-3b74de79d7e7.webp",
@@ -242,9 +359,15 @@
           "width": 300,
           "height": 300,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Caroline-Cross-Bio.jpg",
+          "sourcePage": "https://www.eastrise.com/blog/teach-your-preteen-how-to-save-money",
+          "portraitGroup": "portrait",
+          "publicContext": "blog contributor profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp",
@@ -253,9 +376,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Christin-Canter-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers/christin-canter",
+          "portraitGroup": "portrait",
+          "publicContext": "mortgage loan officer profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/christine-corbett-f205162e07db.webp",
@@ -264,9 +393,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Christine-Corbett-Headshot-1.jpg",
+          "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "mortgage loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/deanna-carol-09198be91fcf.webp",
@@ -275,9 +410,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Deanna-Carol-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/business/loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "business loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/danielle-whitcomb-c469efe1923c.webp",
@@ -286,9 +427,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Danielle-Whitcomb-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "mortgage loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/denisa-yee-f468ef43177a.webp",
@@ -297,9 +444,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Denisa-Yee-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/business/loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "business loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/emily-phelps-d5f17dad9b60.webp",
@@ -308,9 +461,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Emily-Phelps-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/financial-health-advice/counseling",
+          "portraitGroup": "portrait",
+          "publicContext": "financial counseling profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/ibby-wilson-c0dd6ff4d25a.webp",
@@ -319,9 +478,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Ibby-Wilson-Headshot-1.jpg",
+          "sourcePage": "https://www.eastrise.com/locations/south-burlington",
+          "portraitGroup": "portrait",
+          "publicContext": "branch profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/ian-squirrell-07f536eac8c6.webp",
@@ -330,9 +495,15 @@
           "width": 347,
           "height": 396,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Ian-Squirrell.jpg",
+          "sourcePage": "https://www.eastrise.com/business/loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "business loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/jc-gepigon-120bfc4174df.webp",
@@ -341,9 +512,15 @@
           "width": 700,
           "height": 800,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/JC-Gepigon-bio.avif",
+          "sourcePage": "https://www.eastrise.com/financial-advisors",
+          "portraitGroup": "portrait",
+          "publicContext": "financial advisor directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/jim-towne-8c7c16c59130.webp",
@@ -352,9 +529,17 @@
           "width": 1280,
           "height": 1600,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Jim-Towne.jpg",
+          "sourcePage": "https://www.eastrise.com/financial-advisors",
+          "portraitGroup": "portrait",
+          "publicContext": "financial advisor directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          },
+          "capturedDate": "2025-08-14",
+          "captureDateBasis": "native-exif-datetime-original"
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/john-dwyer-a32c6fed2b06.webp",
@@ -363,9 +548,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/John-Dwyer-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/leadership",
+          "portraitGroup": "portrait",
+          "publicContext": "leadership page on verification date",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/julie-jorgensen-785822e57df4.webp",
@@ -374,9 +565,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Julie-Jorgensen-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers/julie-jorgensen",
+          "portraitGroup": "portrait",
+          "publicContext": "mortgage loan officer profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/kathleen-s-emery-ginn-0923864444e4.webp",
@@ -385,9 +582,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Kathleen-S.-Emery-Ginn-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/leadership",
+          "portraitGroup": "portrait",
+          "publicContext": "leadership page on verification date",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/luke-buglion-gluck-d4bac0e9c5f2.webp",
@@ -396,9 +599,37 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Luke-Buglion-Gluck-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "mortgage loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
+        },
+        {
+          "src": "../../assets/images/work/portraits/gallery/eastrise/luke-buglion-gluck-suit-08f0d5347838.webp",
+          "alt": "Portrait of Luke Buglion Gluck",
+          "caption": "Luke Buglion Gluck",
+          "width": 800,
+          "height": 1000,
+          "wide": false,
+          "variantId": "luke-buglion-gluck-suit",
+          "source": "https://media.licdn.com/dms/image/v2/D4E10AQFixx84hNh9UQ/image-shrink_800/image-shrink_800/0/1716310523805?e=1774634400&v=beta&t=wBM-RXf8AS-rCrheh6_xhrm9ZbLz69HS71sLkgg31LE",
+          "sourcePage": "https://www.facebook.com/EastRiseCU/posts/pfbid02JLDQ9Hs9s2PdKoaeYg3XWvaJh9Wa4Ta8suMSALxZraZa7N4puMyqACDqqbySNeDtl",
+          "portraitGroup": "portrait",
+          "publicContext": "EastRise LinkedIn published portrait",
+          "publishedDate": "2024-05-21",
+          "dateEvidence": {
+            "date": "2024-05-21",
+            "basis": "public-source-url-timestamp"
+          },
+          "sourceEvidence": "The archived LinkedIn manifest retains the direct public media URL. Its embedded source timestamp resolves to May 21, 2024.",
+          "sourceSha256": "08f0d5347838546f9603c2eed8ed38ffccdc93fb98d7d5525c01c1ce71fa3b86",
+          "sourceManifestFilename": "posts/li_f23578cab800.jpg",
+          "sourceManifestVerifiedAt": "2026-03-20T17:57:08.043209Z"
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/matt-sjoblom-5fd0e05eb0aa.webp",
@@ -407,9 +638,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Matt-Sjoblom-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/business/loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "business loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/penny-overton-afc73b598499.webp",
@@ -418,9 +655,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Penny-Overton-Headshot.jpg",
+          "sourcePage": "https://www.eastrise.com/business/loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "business loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/rion-bleicher-a7c9d6c6a682.webp",
@@ -429,9 +672,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Rion-Bleicher-Headshot-1.jpg",
+          "sourcePage": "https://www.eastrise.com/locations/waterbury",
+          "portraitGroup": "portrait",
+          "publicContext": "branch profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/sara-wright-c46a02cd0123.webp",
@@ -440,9 +689,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Sara-Wright-Headshot-1.jpg",
+          "sourcePage": "https://www.eastrise.com/home-loans/mortgage-loan-officers",
+          "portraitGroup": "portrait",
+          "publicContext": "mortgage loan officer directory",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/sarah-spaulding-c55a605c8245.webp",
@@ -451,9 +706,15 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Sarah-Spaulding-Headshot-1.jpg",
+          "sourcePage": "https://www.eastrise.com/locations/st-albans",
+          "portraitGroup": "portrait",
+          "publicContext": "branch profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         },
         {
           "src": "../../assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp",
@@ -462,12 +723,17 @@
           "width": 500,
           "height": 571,
           "wide": false,
-          "context": "EastRise leadership and board",
-          "featured": false,
-          "archiveNote": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable."
+          "publishedDate": null,
+          "source": "https://www.eastrise.com/files/Shauna-Allen-Headshot-1.jpg",
+          "sourcePage": "https://www.eastrise.com/locations/essex",
+          "portraitGroup": "portrait",
+          "publicContext": "branch profile",
+          "dateEvidence": {
+            "date": "2026-03-20",
+            "basis": "source-page-verification"
+          }
         }
-      ],
-      "archiveReviewedDate": "2026-07-30"
+      ]
     },
     {
       "title": "Blue Cross Vermont senior team and Lindsay Segale",

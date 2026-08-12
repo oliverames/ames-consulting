@@ -99,15 +99,25 @@ const cleanSourceUrl = (value) => {
   return url.href;
 };
 const publicPage = (value) => /^https:\/\/(www\.)?(eastrise\.com|facebook\.com|instagram\.com|linkedin\.com|pixelspoke\.coop|youtube\.com|youtu\.be)\//i.test(value || "") ? cleanSourceUrl(value) : "";
+const channelFor = (sourceUrl, fallback = "") => {
+  if (!sourceUrl) return fallback;
+  const hostname = new URL(sourceUrl).hostname.replace(/^www\./, "").toLowerCase();
+  if (hostname === "facebook.com") return "Facebook";
+  if (hostname === "instagram.com") return "Instagram";
+  if (hostname === "linkedin.com") return "LinkedIn";
+  if (hostname === "youtube.com" || hostname === "youtu.be") return "YouTube";
+  if (hostname === "eastrise.com" || hostname === "pixelspoke.coop") return "website";
+  return fallback;
+};
 const captureFor = (sourceUrl) => captureBySource.get(sourceUrl) || captureBySource.get(canonicalSourceKey(sourceUrl)) || "";
 const requiredFields = ["source_url", "source_channel", "published_date", "downloaded_date", "credit", "source_capture"];
 
 for (const series of photography.series) for (const image of series.images) {
-  const sourceUrl = publicPage(image.sourceUrl);
+  const sourceUrl = publicPage(image.sourcePage || image.sourceUrl);
   assets[normalize(image.src)] = {
     source_url: sourceUrl,
-    source_channel: image.sourcePlatform || "",
-    published_date: image.src.match(/\/(\d{4}-\d{2}-\d{2})_/)?.[1] || "",
+    source_channel: channelFor(sourceUrl, image.sourcePlatform || ""),
+    published_date: image.publishedDate || image.src.match(/\/(\d{4}-\d{2}-\d{2})_/)?.[1] || "",
     downloaded_date: photography.generatedAt || "",
     credit: eastRiseCredit,
     source_capture: captureFor(sourceUrl),
@@ -127,19 +137,21 @@ for (const post of social.posts) {
 }
 
 const eastRisePortraits = portraits.series?.find((series) => series.slug === "eastrise-leadership-board");
-if (eastRisePortraits?.images?.length !== 40) throw new Error("portraits.json must contain 40 EastRise portraits.");
-const eastRiseLeadershipSource = publicPage(eastRisePortraits.sourcePage);
+if (eastRisePortraits?.images?.length !== 42) throw new Error("portraits.json must contain 42 EastRise portraits.");
 for (const image of eastRisePortraits.images) {
-  const officialPagePortrait = Boolean(image.source);
+  const sourceUrl = publicPage(image.sourcePage || image.source);
+  if (!sourceUrl) throw new Error(`EastRise portrait ${image.caption} lacks a public source URL.`);
+  const sourceChannel = channelFor(sourceUrl);
+  const sourceVerificationDate = image.dateEvidence?.basis === "source-page-verification"
+    ? image.dateEvidence.date
+    : portraits.generatedAt;
   assets[normalize(image.src)] = {
-    source_url: officialPagePortrait ? eastRiseLeadershipSource : "",
-    source_channel: officialPagePortrait ? "website" : "",
-    published_date: "",
-    downloaded_date: officialPagePortrait
-      ? eastRisePortraits.sourceCaptureDate
-      : eastRisePortraits.archiveReviewedDate,
+    source_url: sourceUrl,
+    source_channel: sourceChannel,
+    published_date: image.publishedDate || "",
+    downloaded_date: sourceVerificationDate,
     credit: eastRisePortraitCredit,
-    source_capture: officialPagePortrait ? captureFor(eastRiseLeadershipSource) : "",
+    source_capture: sourceChannel === "LinkedIn" ? captureFor(sourceUrl) : "private_archive",
     archive_note: image.archiveNote || "",
   };
 }

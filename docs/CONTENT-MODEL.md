@@ -12,15 +12,37 @@ feed later build stages. See `docs/ARCHITECTURE.md` for the build chain.
 | `writing-feed.json` | Writing source | Refreshed by `refresh-writing-content.mjs`; read by `generate-writing-pages.mjs` for the blog index, archive, and post pages |
 | `eastrise-photography.json` | Photography source | Read by `generate-career-work-pages.mjs`, `generate-event-galleries.mjs`, and `generate-media-provenance.mjs` |
 | `eastrise-social.json` | Social source | Read by `generate-career-work-pages.mjs` and `generate-media-provenance.mjs` |
+| `eastrise-website-gallery.json` | Website-gallery order policy | Read by the gallery-order validator to preserve the documented editorial screenshot sequence |
 | `event-gallery-alt-text/*.json` | Event-gallery source | Read by `generate-event-galleries.mjs` for file-specific image descriptions |
 | `event-galleries.json` | Generated event manifest | Read and rewritten by `generate-event-galleries.mjs`; checked by the event and source validators |
+| `eastrise-portrait-sources.json` | Portrait source evidence | Read by `generate-portrait-gallery.mjs` for verified public EastRise profile sources and published portrait variants |
 | `portraits.json` | Generated portrait manifest | Read and rewritten by `generate-portrait-gallery.mjs`; also read by the media-provenance generator and validators |
+| `project-dates.json` | Project and custom-gallery order source | Read by `project-order.mjs` to sort project cards newest-first and to preserve verified capture order in custom galleries |
 | `media-provenance-evidence.json` | Provenance source | Read by `generate-media-provenance.mjs` for verified dates and public-source corrections |
 | `media-provenance-exceptions.json` | Provenance source | Read by `generate-media-provenance.mjs` for accepted omissions and public notes |
 | `source-screenshot-manifest.json` | Private-capture status source | Written by `sync-source-screenshots.mjs`; read by the media-provenance generator and validator; excluded from `_site/` |
 | `media-provenance.json` | Generated provenance manifest | Written by `generate-media-provenance.mjs`; read by `apply-shared-ui.mjs` for page disclosures |
 | `media-provenance-missing.json` | Generated audit report | Written by `generate-media-provenance.mjs`; read by the provenance validator; excluded from `_site/` |
 | `site.config.json` | Public runtime config | Read by `assets/js/site-config.js` for the contact endpoint and success message |
+
+## Date and gallery order
+
+Project cards use the normalized ISO dates in `project-dates.json`. Exact event,
+capture, or publication dates use `dateBasis: "exact"`. Multi-year work uses the
+declared end of its displayed range and `dateBasis: "range-end"`. A missing date
+stays missing and sorts after verified dates.
+
+Every public `data-gallery` container declares one display policy:
+
+- `chronological`: oldest verified capture first.
+- `reverse-chronological`: newest verified publication first, with declared undated items last.
+- `editorial`: an intentional visual or narrative sequence that is not presented as chronology.
+
+Event source files store `capturedAt` timestamps from the original files when
+the gallery is chronological. EastRise manifests store verified publication
+dates separately from capture dates. Validators reject invented dates,
+unmarked undated content, reversed chronology, and public galleries without a
+declared order policy.
 
 ## Media provenance
 
@@ -42,10 +64,11 @@ stale exceptions, duplicate classifications, and missing-field drift.
 |---|---|
 | `publication_date_not_verifiable` | `published_date` |
 | `public_source_page_not_identified` | `source_url`, `published_date`, `source_capture` |
-| `portfolio_archive_publication_not_identified` | `source_url`, `source_channel`, `published_date`, `source_capture` |
 | `personal_archive_source_not_identified` | `source_url`, `source_channel`, `published_date`, `source_capture` |
 | `source_capture_not_available` | `source_capture` |
 | `collection_asset_without_single_source` | `source_url`, `published_date`, `source_capture` |
+| `portfolio_original_without_public_source` | `source_url`, `source_channel`, `published_date`, `downloaded_date`, `source_capture` |
+| `client_work_portfolio_rights` | `source_url`, `source_channel`, `published_date`, `source_capture` |
 
 When no source record already supplies an honest `archive_note`, an exception
 that affects public wording also requires `public_note`. The note must describe

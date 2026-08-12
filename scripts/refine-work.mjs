@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { sortEntriesNewestFirst } from "./project-order.mjs";
 
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
 const eastRiseWritingPath = new URL("work/eastrise-writing/index.html", root);
 let html = await readFile(indexPath, "utf8");
 const existingPortraitCards = [...html.matchAll(/<section class="work-category work-category--portraits">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/g)].map((match) => match[1]).join("");
-const portraitFallbackCards = existingPortraitCards || `<a class="work-item" href="eastrise-portraits/"><img src="../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp" alt="Portrait of Christin Canter" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>EastRise Portraits</h3><p>Leadership, board, and staff portraits built as one coherent public library.</p></a>`;
+const portraitFallbackCards = existingPortraitCards || `<a class="work-item" href="eastrise-portraits/"><img src="../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp" alt="Portrait of Christin Canter" loading="lazy"><span class="work-item__context">EastRise · 42 formal portraits</span><h3>EastRise Portraits</h3><p>Forty-two formal portraits of 41 people, organized into Leadership and Portraits galleries.</p></a>`;
 html = html.replace(/<section class="work-category work-category--portraits">[\s\S]*?<\/section>/g, "");
 const featuredImages = new Map([
   ["neg-ecp-conference-2026/", ["../assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp", "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn"]],
@@ -69,41 +70,15 @@ const inHouseDescriptions = new Map([
   ["flight-paths/", "I produced this documentary about a person finding her way into Vermont’s growing aviation sector."],
   ["wheels-for-warmth/", "I built this in-house public-service project across the 2024 collection-day photography and the 2025 campaign."],
   ["taylor-hoar-racing/", "I ran this in-house sponsorship story across racing, portraits, community work, social publishing, local history, and performance reporting."],
-  ["eastrise-social/", "I led six years of in-house social publishing across member stories, community coverage, campaigns, and timely lighter moments."],
+  ["eastrise-social/", "I led this dated in-house social archive across member stories, community coverage, campaigns, and timely lighter moments."],
   ["eastrise-writing/", "I wrote this in-house financial-education archive to make complicated member decisions useful and understandable."],
-  ["eastrise-portraits/", "I built this in-house leadership and board portrait system for public profiles and organizational communications."],
+  ["eastrise-portraits/", "I built this in-house formal portrait library for public profiles and organizational communications."],
   ["eastrise-website/", "I helped launch this in-house public website through content strategy, photography, migration, implementation, and quality assurance."],
   ["eastrise-launch-campaign/", "I co-produced this in-house brand launch, selected talent and locations, and made the still photography that carried the new institution into public view."],
   ["vsecu-website/", "I helped deliver this in-house redesign through content, imagery, migration, implementation support, and quality assurance."],
   ["live-broadcasts/", "I hosted and produced these in-house broadcasts, translating leadership updates and financial results for public and employee audiences."],
 ]);
 const consultingHrefs = new Set(["flight-paths/"]);
-
-const projectOrder = [
-  "neg-ecp-conference-2026/",
-  "flight-paths/",
-  "vermont-foodbank-volunteer-day-2026/",
-  "drone-photography/",
-  "whale-dance-randolph/",
-  "london-2019/",
-  "sweat-heart-throwdown/",
-  "member-banking-stories/",
-  "giron-family-fall-2025/",
-  "wheels-for-warmth/",
-  "taylor-hoar-racing/",
-  "eastrise-social/",
-  "eastrise-writing/",
-  "bike-fitting/",
-  "live-broadcasts/",
-  "eastrise-portraits/",
-  "eastrise-website/",
-  "eastrise-launch-campaign/",
-  "vsecu-website/",
-  "vtdigger-membership/",
-  "stowe-ski-instruction/",
-  "fairbanks-planetarium/",
-  "connecticut-college/",
-];
 
 // Must tolerate every artifact of this script's own previous run: the framing
 // paragraph inserted after the heading, the filters nav, and the filter
@@ -129,13 +104,11 @@ if (campaignMatch) {
   if (earlierMatch) html = html.replace(earlierSectionPattern, "");
   const cards = [...`${campaignMatch[2]}${portraitFallbackCards}${earlierMatch?.[1] ?? ""}`.matchAll(/<a class="work-item"[^>]*href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
     .map((match) => ({ href: match[1], html: match[0] }));
-  const rank = new Map(projectOrder.map((href, index) => [href, index]));
-  const cardRank = (href) => href.startsWith("eastrise-photography/") ? 12.5 : (rank.get(href) ?? 999);
-  cards.sort((left, right) => cardRank(left.href) - cardRank(right.href));
+  const orderedCards = sortEntriesNewestFirst(cards, (card) => card.href);
 
   const legacyHrefs = new Set(["vtdigger-membership/", "stowe-ski-instruction/", "fairbanks-planetarium/", "connecticut-college/"]);
-  const currentCards = cards.filter((card) => !legacyHrefs.has(card.href));
-  const legacyCards = cards.filter((card) => legacyHrefs.has(card.href));
+  const currentCards = orderedCards.filter((card) => !legacyHrefs.has(card.href));
+  const legacyCards = orderedCards.filter((card) => legacyHrefs.has(card.href));
   const prepareCard = (card) => {
     const explicitOrganization = organizationByHref.get(card.href);
     const inferredOrganization = card.href.startsWith("eastrise-photography/") ? "eastrise" : "";
@@ -147,6 +120,12 @@ if (campaignMatch) {
       // image's width/height attributes attached to the new file.
       // apply-image-dimensions.mjs re-measures downstream.
       cardHtml = cardHtml.replace(/<img[^>]*>/, `<img src="${feature[0]}" alt="${feature[1]}" loading="lazy">`);
+    }
+    if (card.href === "eastrise-portraits/") {
+      cardHtml = cardHtml.replace(
+        /<span class="work-item__context">[\s\S]*?<\/span>/,
+        '<span class="work-item__context">EastRise · 42 formal portraits</span>',
+      );
     }
     // Strip any credit inserted by a previous run so the description replace
     // below cannot stack a second credit paragraph.

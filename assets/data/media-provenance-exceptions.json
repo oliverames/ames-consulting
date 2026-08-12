@@ -8,18 +8,6 @@
       ],
       "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date.",
       "assets": [
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-6a8b93aa3c72.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-671c235f2ca9.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-8ef469f5b947.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/Original-Public-Image-26408234030a.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/558974574_815314564775220_4432876508052395697_n-58575a3e5a29.webp",
-        "assets/images/work/eastrise/social/facebook-016.webp",
-        "assets/images/work/eastrise/social/facebook-020.webp",
-        "assets/images/work/eastrise/social/facebook-021.webp",
-        "assets/images/work/eastrise/social/facebook-025.webp",
-        "assets/images/work/eastrise/social/facebook-039.webp",
-        "assets/images/work/eastrise/social/facebook-043.webp",
-        "assets/images/work/eastrise/social/facebook-067.webp",
         "assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp",
         "assets/images/work/portraits/gallery/blue-cross/barbara-demas-executive.webp",
         "assets/images/work/portraits/gallery/blue-cross/ruth-greene-executive.webp",
@@ -43,43 +31,6 @@
         "assets/images/work/portraits/gallery/eastrise/george-sales-40429a12c861.webp",
         "assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
         "assets/images/work/portraits/gallery/eastrise/arthur-g-woolf-001f95fa1205.webp",
-        "assets/images/work/credit-union-websites/eastrise-feature.webp",
-        "assets/images/work/credit-union-websites/eastrise-desktop.webp",
-        "assets/images/work/credit-union-websites/eastrise-mobile.webp",
-        "assets/images/work/credit-union-websites/eastrise-homepage.webp"
-      ]
-    },
-    {
-      "reason": "public_source_page_not_identified",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "note": "The repository preserves a LinkedIn-hosted image and its public channel, but not the originating post URL or exact publication date.",
-      "public_note": "appeared publicly on LinkedIn, but the original post URLs and publication dates are unavailable.",
-      "assets": [
-        "assets/images/work/eastrise/photography/winooski-development/li_d161cd689c09-758c3b2c6a54.webp",
-        "assets/images/work/eastrise/photography/winooski-development/li_87886176ef78-db722e735368.webp",
-        "assets/images/work/eastrise/photography/formal-headshots/li_f23578cab800-08f0d5347838.webp",
-        "assets/images/work/eastrise/photography/formal-headshots/li_24fdd57c501c-0ddda4c9a133.webp",
-        "assets/images/work/eastrise/photography/formal-headshots/li_27f8a29eccaf-0807d8b04742.webp",
-        "assets/images/work/eastrise/photography/eastrise-candid-portraits/li_f1336164519e-9018f1223a22.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/li_fbbb767cda6f-6d1f68e78b60.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/li_6dd865f2b63a-a7bb13fdae26.webp"
-      ]
-    },
-    {
-      "reason": "portfolio_archive_publication_not_identified",
-      "missing_fields": [
-        "source_url",
-        "source_channel",
-        "published_date",
-        "source_capture"
-      ],
-      "note": "Oliver Ames confirmed these EastRise portraits, and the curated portfolio archive preserves them, but the original public page URLs and native captures are unavailable.",
-      "public_note": "were retained from Oliver Ames’s archive of EastRise portraits previously used publicly. The original page URLs and native captures are unavailable.",
-      "assets": [
         "assets/images/work/portraits/gallery/eastrise/alvah-newhall-51affaf9531d.webp",
         "assets/images/work/portraits/gallery/eastrise/amanda-seeholzer-65a4fab5390d.webp",
         "assets/images/work/portraits/gallery/eastrise/caroline-cross-3b74de79d7e7.webp",
@@ -102,7 +53,11 @@
         "assets/images/work/portraits/gallery/eastrise/rion-bleicher-a7c9d6c6a682.webp",
         "assets/images/work/portraits/gallery/eastrise/sara-wright-c46a02cd0123.webp",
         "assets/images/work/portraits/gallery/eastrise/sarah-spaulding-c55a605c8245.webp",
-        "assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp"
+        "assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp",
+        "assets/images/work/credit-union-websites/eastrise-feature.webp",
+        "assets/images/work/credit-union-websites/eastrise-desktop.webp",
+        "assets/images/work/credit-union-websites/eastrise-mobile.webp",
+        "assets/images/work/credit-union-websites/eastrise-homepage.webp"
       ]
     },
     {
@@ -113,14 +68,13 @@
         "published_date",
         "source_capture"
       ],
-      "note": "The repository records public sharing after the April 16, 2025 photo session, but not the channel, source page, or exact publication date.",
+      "note": "Native EXIF and the Drive archive identify the April 16, 2025 session, but the exact public channel, source page, publication date, and source capture are unavailable.",
+      "public_note": "was retained from the April 16, 2025 Taylor Hoar photo session; the exact public post is no longer identifiable.",
       "assets": [
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07711-3.webp",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07515.webp",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07430.webp",
         "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07105.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07993.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc08024.webp"
+        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07993.webp"
       ]
     },
     {
@@ -128,7 +82,7 @@
       "missing_fields": [
         "source_capture"
       ],
-      "note": "The public YouTube URL and publication date are verified, but no repository source capture is available.",
+      "note": "The public source URL and publication date are verified, but no repository source capture is available.",
       "assets": [
         "assets/images/work/campaigns/will-barbecue.webp"
       ]

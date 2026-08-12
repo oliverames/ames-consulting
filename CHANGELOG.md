@@ -8,6 +8,13 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 
 ### Fixed
 
+- Preserved direct email links for visitors without JavaScript by disabling Cloudflare email obfuscation around the contact and About addresses.
+- Prevented all six software project previews from clipping their console or screen content on mobile.
+- Matched three-item and four-item website proof grids to their actual content, which removed the empty VSECU tile.
+- Sorted public project cards and gallery navigation by verified dates, and sorted documentary galleries by original capture time.
+- Declared and validated chronological, reverse-chronological, editorial, and undated gallery policies across the public site.
+- Split 42 EastRise formal portraits of 41 people into an 18-image Leadership gallery and a 24-image Portraits gallery, while retaining both Luke Buglion Gluck portraits.
+- Kept the candid John Dwyer portrait in the separate EastRise photography archive, which now contains 136 dated images across 13 series.
 - Scoped the blog metadata browser test to the visible blog article so the image viewer dialog does not trigger Playwright strict mode.
 - Updated stale image checks to match the WebP files served by the work pages.
 - Fixed mobile path strips that widened the document beyond the viewport.

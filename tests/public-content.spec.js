@@ -83,12 +83,18 @@ test("Fairbanks pages use the public Guinness record instead of internal revenue
 
 test("contact form names the services that process an inquiry", async () => {
   const html = await read("contact/index.html");
+  const aboutHtml = await read("about/index.html");
 
   expect(html).toContain("Cloudflare Turnstile checks this form for spam");
   expect(html).toContain("Resend delivers your message by email");
   expect(html).toContain("I use your contact details and message to reply to your inquiry");
   expect(html).toContain("This form needs JavaScript for spam protection");
   expect(html).toContain('href="mailto:oliver@ames.consulting"');
+  expect(html.match(/<!--email_off-->/g)).toHaveLength(2);
+  expect(html.match(/<!--\/email_off-->/g)).toHaveLength(2);
+  expect(aboutHtml).toContain(
+    '<!--email_off--><a href="mailto:oliver@ames.consulting">oliver@ames.consulting</a><!--/email_off-->',
+  );
 });
 
 test("contact form fallback gives visitors a direct alternative", async () => {

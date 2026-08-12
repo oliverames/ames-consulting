@@ -3,6 +3,7 @@
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { galleryOrderFor, orderedGalleryFiles, sortEntriesNewestFirst } from "./project-order.mjs";
 import { youtubeFacade } from "./youtube-facade.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -37,10 +38,9 @@ const eastRiseStandaloneSlugs = new Set([
   "veggievango-taylor-hoar",
   "wheels-for-warmth-2024",
   "eastrise-launch",
-  "formal-headshots",
   "eastrise-candid-portraits",
 ]);
-const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>Social Highlights</h3><p>Selected member stories, community coverage, campaigns, and lighter moments from six years of social publishing.</p></a>`;
+const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2020–2026</span><h3>Social Highlights</h3><p>Selected member stories, community coverage, campaigns, and lighter moments from the dated social archive.</p></a>`;
 const flightPathsCard = `<a class="work-item" data-organization="beta-technologies" href="flight-paths/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>Video</strong><small>Flight Paths</small></div><span class="work-item__context">BETA Technologies · 2026</span><h3>Flight Paths</h3><p>A documentary about a person finding her way into Vermont’s growing aviation sector.</p></a>`;
 const wheelsCard = `<a class="work-item" data-organization="eastrise" href="wheels-for-warmth/"><img src="../assets/images/work/eastrise/photography/wheels-for-warmth-2024/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp" alt="A Wheels for Warmth volunteer waves during the 2024 tire collection" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>Wheels for Warmth</h3><p>Collection-day photography from 2024 and a public-service campaign with measurable results from 2025.</p></a>`;
 const taylorCard = `<a class="work-item" data-organization="eastrise" href="taylor-hoar-racing/"><img src="../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp" alt="Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>Taylor Hoar Racing</h3><p>Racing, portraits, community work, social publishing, local history, and campaign results from the full sponsorship.</p></a>`;
@@ -76,7 +76,7 @@ function workSectionPattern(heading) {
   );
 }
 
-function sortWorkSection(html, heading, order) {
+function sortWorkSection(html, heading) {
   const sectionPattern = workSectionPattern(heading);
   if (!sectionPattern.test(html)) {
     console.warn(`generate-career-work-pages: no "${heading}" section found — sort skipped.`);
@@ -89,13 +89,8 @@ function sortWorkSection(html, heading, order) {
     );
     if (cards.length === 0) return section;
 
-    const rank = new Map(order.map((href, index) => [href, index]));
-    cards.sort(
-      (left, right) =>
-        (rank.get(left.href) ?? Number.MAX_SAFE_INTEGER) -
-        (rank.get(right.href) ?? Number.MAX_SAFE_INTEGER),
-    );
-    return `${opening}${cards.map((card) => card.html).join("")}${closing}`;
+    const ordered = sortEntriesNewestFirst(cards, (card) => card.href);
+    return `${opening}${ordered.map((card) => card.html).join("")}${closing}`;
   });
 }
 
@@ -116,38 +111,6 @@ function upsertWorkCard(html, heading, href, card) {
   });
 }
 
-const campaignOrder = [
-  "flight-paths/",
-  "vermont-foodbank-volunteer-day-2026/",
-  "drone-photography/",
-  "whale-dance-randolph/",
-  "london-2019/",
-  "eastrise-portraits/",
-  "giron-family-fall-2025/",
-  "giron-family-christmas-tree-farm-2024/",
-  "giron-family-fall-2023/",
-  "member-banking-stories/",
-  "sweat-heart-throwdown/",
-  "eastrise-social/",
-  "eastrise-writing/",
-  "wheels-for-warmth/",
-  "taylor-hoar-racing/",
-  ...eastRisePhotography.series.filter((series) => !eastRiseStandaloneSlugs.has(series.slug)).map((series) => `eastrise-photography/#${series.slug}-title`),
-  "bike-fitting/",
-  "eastrise-launch-campaign/",
-  "vsecu-website/",
-  "eastrise-website/",
-];
-const institutionalOrder = [
-  "beta-technologies/",
-  "green-mountain-community-fitness/",
-  "eastrise/",
-];
-const earlierWorkOrder = [
-  "live-broadcasts/",
-  "vtdigger-membership/",
-  "fairbanks-planetarium/",
-];
 const pages = [
   { slug: "vtdigger-membership", eyebrow: "Membership strategy · VTDigger · 2018–2019", title: "Donation conversion increased 137%.", intro: "VTDigger joined the Facebook Journalism Project Membership Accelerator with a practical goal: make it easier for readers to support independent Vermont journalism.", sections: [
     ["What changed", "I worked across the membership funnel, including campaign messaging, analytics, email, and the donation experience. The team simplified the donation page layout and checkout process, then measured what visitors did instead of relying on instinct."],
@@ -233,18 +196,18 @@ const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav
 
 pages.push({
   slug: "eastrise-photography",
-  eyebrow: "Public photography archive · EastRise · 2019–2025",
-  title: "The photographs behind six years of public work.",
-  intro: `This archive brings together ${eastRisePhotography.totalImages} photographs from EastRise campaigns and series published between 2019 and 2025.`,
+  eyebrow: "Dated photography archive · EastRise · 2024–2026",
+  title: "Photographs across three years of public work.",
+  intro: `This archive brings together ${eastRisePhotography.totalImages} photographs from EastRise campaigns and portfolio records dated from 2024 through 2026.`,
   photoSeries: eastRisePhotography.series,
   sections: [],
 });
 
 pages.push({
   slug: "eastrise-social",
-  eyebrow: "Social media · VSECU and EastRise · 2019–2025",
+  eyebrow: "Social media · VSECU and EastRise · 2020–2026",
   title: "Social highlights.",
-  intro: "Selected member stories, community coverage, campaigns, and lighter moments from six years of social publishing.",
+  intro: "Selected member stories, community coverage, campaigns, and lighter moments from the dated social archive.",
   socialPosts: eastRiseSocial.posts.filter((post) => eastRiseSocial.highlightIds.includes(post.id)),
   sections: [],
 });
@@ -325,13 +288,13 @@ workIndex = workIndex.replace(
   /(<a class="work-item"[^>]*href="taylor-hoar-racing\/"[\s\S]*?)<img[\s\S]*?>/,
   '$1<img src="../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp" alt="Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car" width="1800" height="2400" loading="lazy">',
 );
-workIndex = sortWorkSection(workIndex, "Campaigns and series", campaignOrder);
+workIndex = sortWorkSection(workIndex, "Campaigns and series");
 // In the refined layout these cards live inside "Projects" and refine-work
 // owns their ordering; only sort when the legacy section actually exists.
 if (workIndex.includes("<h2>Client and institutional work</h2>")) {
-  workIndex = sortWorkSection(workIndex, "Client and institutional work", institutionalOrder);
+  workIndex = sortWorkSection(workIndex, "Client and institutional work");
 }
-workIndex = sortWorkSection(workIndex, "Earlier work", earlierWorkOrder);
+workIndex = sortWorkSection(workIndex, "Earlier work");
 await writeFile(workIndexPath, workIndex);
 
 for (const page of pages) {
@@ -341,17 +304,19 @@ for (const page of pages) {
     content = `<section class="metric-grid" aria-label="Campaign results">${metrics}</section>${content}`;
   }
   if (page.photoSeries) {
-    content += page.photoSeries.map((series) => `<section class="case-section photo-series" aria-labelledby="${series.slug}-title"><h2 id="${series.slug}-title">${series.title}</h2><p>${series.description}</p>${series.videoId ? youtubeFacade(series.videoId, `${series.title} member story`, "video-embed photo-series__video") : ""}<div class="campaign-collage" data-gallery="eastrise-${series.slug}">${series.images.map((image, index) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async" data-orientation="${image.height > image.width ? "portrait" : "landscape"}" data-series-position="${index + 1}">`).join("")}</div></section>`).join("");
+    content += page.photoSeries.map((series) => `<section class="case-section photo-series" aria-labelledby="${series.slug}-title"><h2 id="${series.slug}-title">${series.title}</h2><p>${series.description}</p>${series.videoId ? youtubeFacade(series.videoId, `${series.title} member story`, "video-embed photo-series__video") : ""}<div class="campaign-collage" data-gallery="eastrise-${series.slug}" data-order-mode="${escapeHtml(series.displayOrderMode)}">${series.images.map((image, index) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async" data-orientation="${image.height > image.width ? "portrait" : "landscape"}" data-series-position="${index + 1}" data-date-status="${image.publishedDate || image.capturedDate ? "dated" : "undated"}"${image.publishedDate ? ` data-published-at="${escapeHtml(image.publishedDate)}"` : ""}${image.capturedDate ? ` data-captured-at="${escapeHtml(image.capturedDate)}"` : ""}${image.dateBasis ? ` data-date-basis="${escapeHtml(image.dateBasis)}"` : ""}>`).join("")}</div></section>`).join("");
   }
   if (page.gallery) {
     const galleryDirectory = join(root, "assets", "images", "work", "gmcf", page.gallery.directory);
-    const images = (await readdir(galleryDirectory)).filter((file) => file.endsWith(".webp")).sort();
-    const gallery = images.map((file, index) => `<img src="../../assets/images/work/gmcf/${page.gallery.directory}/${file}" alt="${page.gallery.alt}, photograph ${index + 1} of ${images.length}" loading="lazy" decoding="async">`).join("");
-    content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Complete photo series</h2><div class="campaign-collage" data-gallery="${page.slug}">${gallery}</div></section>`;
+    const availableImages = (await readdir(galleryDirectory)).filter((file) => file.endsWith(".webp"));
+    const images = orderedGalleryFiles(page.slug, availableImages);
+    const orderMetadata = galleryOrderFor(page.slug);
+    const gallery = images.map((file, index) => `<img src="../../assets/images/work/gmcf/${page.gallery.directory}/${file}" alt="${page.gallery.alt}, photograph ${index + 1} of ${images.length}" data-captured-at="${orderMetadata.capturedAt[file]}" loading="lazy" decoding="async">`).join("");
+    content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Complete photo series</h2><div class="campaign-collage" data-gallery="${page.slug}" data-order-mode="chronological" data-capture-start="${orderMetadata.captureStart}" data-capture-end="${orderMetadata.captureEnd}">${gallery}</div></section>`;
   }
   if (page.socialPosts) {
-    const screenshots = page.socialPosts.map((post, index) => `<img src="../../${post.screenshot}" alt="${escapeHtml(post.title)}, ${post.platform} capture ${index + 1} of ${page.socialPosts.length}" width="${post.width}" height="${post.height}" loading="lazy" decoding="async">`).join("");
-    content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Selected posts</h2><p>Select any post to open the full viewer.</p><div class="campaign-collage campaign-collage--screenshots" data-gallery="${page.slug}">${screenshots}</div></section>`;
+    const screenshots = page.socialPosts.map((post, index) => `<img src="../../${post.screenshot}" alt="${escapeHtml(post.title)}, ${post.platform} capture ${index + 1} of ${page.socialPosts.length}" width="${post.width}" height="${post.height}" loading="lazy" decoding="async" data-date-status="${post.publishedDate ? "dated" : "undated"}"${post.publishedDate ? ` data-published-at="${escapeHtml(post.publishedDate)}"` : ""}>`).join("");
+    content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Selected posts</h2><p>Select any post to open the full viewer.</p><div class="campaign-collage campaign-collage--screenshots" data-gallery="${page.slug}" data-order-mode="reverse-chronological" data-undated-placement="after-dated">${screenshots}</div></section>`;
   }
   const featuredImage = page.featuredFile
     ? `<img src="../../assets/images/work/gmcf/${page.gallery.directory}/${page.featuredFile}" alt="${page.gallery.alt}" loading="eager" fetchpriority="high" decoding="async">`

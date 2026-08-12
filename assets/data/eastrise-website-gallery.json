@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "title": "EastRise website views",
+  "orderMode": "editorial",
+  "dateStatus": "not-applicable",
+  "orderNote": "Device overviews lead, followed by the homepage view. The screenshots document one launch and do not form a chronology.",
+  "images": [
+    {
+      "src": "assets/images/work/credit-union-websites/eastrise-desktop.webp",
+      "position": 1
+    },
+    {
+      "src": "assets/images/work/credit-union-websites/eastrise-mobile.webp",
+      "position": 2
+    },
+    {
+      "src": "assets/images/work/credit-union-websites/eastrise-homepage.webp",
+      "position": 3
+    }
+  ]
+}

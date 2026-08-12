@@ -14,6 +14,7 @@ const readPublic = (relativePath) => {
 };
 const readSource = (relativePath) => readFile(join(root, relativePath), "utf8");
 const EASTRISE_LEADERSHIP_SOURCE = "https://www.eastrise.com/leadership/";
+const YVONNE_SOURCE = "https://www.facebook.com/photo/?fbid=6062881253790078&set=a.556826133310535";
 const OFFICIAL_EASTRISE_PORTRAITS = new Map([
   ["Elizabeth Morton", "Elizabeth-Morton-1.jpg"],
   ["Greg Hahr", "Greg.jpg"],
@@ -34,51 +35,109 @@ const OFFICIAL_EASTRISE_PORTRAITS = new Map([
   ["Arthur G. Woolf", "Arthur-G.-Woolf.jpg"],
 ]);
 
-test("EastRise portraits match the official leadership source", async () => {
+test("EastRise formal portraits preserve their verified public sources", async () => {
   const data = JSON.parse(await readFile(join(root, "assets/data/portraits.json"), "utf8"));
+  const sourceData = JSON.parse(
+    await readFile(join(root, "assets/data/eastrise-portrait-sources.json"), "utf8"),
+  );
   const series = data.series.find((item) => item.slug === "eastrise-leadership-board");
   const expectedNames = [...OFFICIAL_EASTRISE_PORTRAITS.keys()]
     .sort((left, right) => left.localeCompare(right));
-  const sourcedImages = series?.images.filter((image) => image.source) || [];
+  const officialImages = series?.images.filter(
+    (image) => OFFICIAL_EASTRISE_PORTRAITS.has(image.caption),
+  ) || [];
+  const leadershipImages = series?.images.filter((image) => image.portraitGroup === "leadership") || [];
+  const portraitImages = series?.images.filter((image) => image.portraitGroup === "portrait") || [];
 
   expect(series?.sourcePage).toBe(EASTRISE_LEADERSHIP_SOURCE);
   expect(series?.sourceCaptureDate).toBe("2026-07-29");
   expect(series?.photographer).toBe("Oliver Ames");
+  expect(series?.images).toHaveLength(42);
+  expect(leadershipImages).toHaveLength(18);
+  expect(portraitImages).toHaveLength(24);
+  expect(new Set(series.images.map((image) => image.caption)).size).toBe(41);
+  expect(series.images.filter((image) => image.caption === "Luke Buglion Gluck")).toHaveLength(2);
   expect(
-    sourcedImages.map((image) => image.caption)
+    officialImages.map((image) => image.caption)
       .sort((left, right) => left.localeCompare(right)),
   ).toEqual(expectedNames);
 
-  for (const image of sourcedImages) {
+  for (const image of officialImages) {
     const sourceFile = OFFICIAL_EASTRISE_PORTRAITS.get(image.caption);
-    expect(sourceFile, image.caption).toBeTruthy();
     expect(image.alt).toBe(`Portrait of ${image.caption}`);
     expect(image.source).toBe(`https://www.eastrise.com/files/${sourceFile}`);
+    expect(image.sourcePage).toBe(EASTRISE_LEADERSHIP_SOURCE);
+    expect(image.portraitGroup).toBe("leadership");
+  }
+
+  expect(sourceData.images).toHaveLength(23);
+  for (const source of sourceData.images) {
+    const image = series.images.find(
+      (candidate) => candidate.caption === source.caption && !candidate.variantId,
+    );
+    expect(image, source.caption).toBeTruthy();
+    expect(image.source, source.caption).toBe(source.source);
+    expect(image.sourcePage, source.caption).toBe(source.sourcePage);
+    expect(image.portraitGroup, source.caption).toBe("portrait");
   }
 
   const provenance = JSON.parse(
     await readFile(join(root, "assets/data/media-provenance.json"), "utf8"),
   );
-  expect(
-    Object.values(provenance.assets)
-      .filter((record) => record.source_url === EASTRISE_LEADERSHIP_SOURCE),
-  ).toHaveLength(OFFICIAL_EASTRISE_PORTRAITS.size);
-  for (const image of sourcedImages) {
+  const portraitRecords = series.images.map((image) => (
+    provenance.assets[image.src.replace(/^\.\.\/\.\.\//, "")]
+  ));
+  expect(portraitRecords.filter((record) => record.source_channel === "website")).toHaveLength(40);
+  expect(portraitRecords.filter((record) => record.source_channel === "Facebook")).toHaveLength(2);
+  expect(portraitRecords.filter((record) => record.source_channel === "LinkedIn")).toHaveLength(0);
+
+  for (const image of series.images.filter((candidate) => candidate.sourcePage.includes("eastrise.com"))) {
     const assetPath = image.src.replace(/^\.\.\/\.\.\//, "");
     const record = provenance.assets[assetPath];
-    expect(record?.source_url, image.caption).toBe(EASTRISE_LEADERSHIP_SOURCE);
+    expect(record?.source_url, image.caption).toBe(image.sourcePage);
     expect(record?.source_channel, image.caption).toBe("website");
-    expect(record?.downloaded_date, image.caption).toBe("2026-07-29");
+    expect(record?.downloaded_date, image.caption).toBe(image.dateEvidence.date);
     expect(record?.credit, image.caption).toBe(
       "Photographed by Oliver Ames for EastRise Credit Union",
     );
+    expect(record?.source_capture, image.caption).toBe("private_archive");
     expect(record?.accepted_exception?.reason, image.caption).toBe(
       "publication_date_not_verifiable",
     );
   }
 
+  const yvonne = series.images.find((image) => image.caption === "Yvonne Garand");
+  const yvonneRecord = provenance.assets[yvonne.src.replace(/^\.\.\/\.\.\//, "")];
+  expect(yvonne.portraitGroup).toBe("leadership");
+  expect(yvonneRecord).toMatchObject({
+    source_url: YVONNE_SOURCE,
+    source_channel: "Facebook",
+    published_date: "2023-03-08",
+    downloaded_date: "2026-08-11",
+    source_capture: "private_archive",
+  });
+  expect(yvonneRecord.accepted_exception).toBeUndefined();
+
+  const lukePortraits = series.images.filter((image) => image.caption === "Luke Buglion Gluck");
+  expect(lukePortraits.map((image) => image.variantId || "website")).toEqual([
+    "website",
+    "luke-buglion-gluck-suit",
+  ]);
+  const lukeSuit = lukePortraits.find((image) => image.variantId === "luke-buglion-gluck-suit");
+  const lukeSuitRecord = provenance.assets[lukeSuit.src.replace(/^\.\.\/\.\.\//, "")];
+  expect(lukeSuitRecord).toMatchObject({
+    source_url: lukeSuit.sourcePage,
+    source_channel: "Facebook",
+    published_date: "2024-05-21",
+    downloaded_date: "2026-08-11",
+    source_capture: "private_archive",
+  });
+  expect(lukeSuitRecord.accepted_exception).toBeUndefined();
+
   const html = await readPublic("work/eastrise-portraits/index.html");
   expect(html).toContain(`href="${EASTRISE_LEADERSHIP_SOURCE}"`);
+  expect(html).toContain(`href="${lukeSuit.sourcePage}"`);
+  expect(html).not.toContain("media.licdn.com");
 });
 
 test("withheld portrait source preserves every Blue Cross provenance record", async () => {

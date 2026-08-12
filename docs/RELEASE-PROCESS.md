@@ -27,6 +27,8 @@ Configure `main` with:
 - Run `npm run check:build-idempotence`, `npm run check:all`, `npm run check:built-site`, and `npm run test:site`.
 - Smoke-test `/`, `/blog/`, `/work/`, `/contact/`, and representative service and work pages in the built artifact.
 - Confirm sitemap and robots generation, the production contact configuration, and the contact email fallback.
+- Confirm project cards are newest-first and every public gallery has its declared chronological, reverse-chronological, or editorial order.
+- Confirm EastRise formal portraits remain split 18 and 24, both Luke Buglion Gluck portraits remain, and the candid portrait remains in photography.
 - Merge or push the verified commit to `main`. The `deploy-pages.yml` workflow reruns quality and performance gates before deploying `_site/` to Cloudflare Pages.
 - Confirm the workflow's live route, contact endpoint, security header, publication-boundary, and retired-path checks pass.
 

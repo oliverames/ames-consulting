@@ -12,6 +12,7 @@ const evidence = await readJson("assets/data/media-provenance-evidence.json");
 const exceptionConfig = await readJson("assets/data/media-provenance-exceptions.json");
 const captureManifest = await readJson("assets/data/source-screenshot-manifest.json");
 const portraits = await readJson("assets/data/portraits.json");
+const photography = await readJson("assets/data/eastrise-photography.json");
 const fields = ["source_url", "source_channel", "published_date", "downloaded_date", "credit", "source_capture"];
 const channels = new Set(["", "website", "Facebook", "Instagram", "LinkedIn", "YouTube"]);
 const dateFields = new Set(["published_date", "downloaded_date"]);
@@ -19,7 +20,6 @@ const dateEvidence = new Set(["private_archive_capture", "repository_archive_not
 const exceptionRules = new Map([
   ["publication_date_not_verifiable", ["published_date"]],
   ["public_source_page_not_identified", ["source_url", "published_date", "source_capture"]],
-  ["portfolio_archive_publication_not_identified", ["source_url", "source_channel", "published_date", "source_capture"]],
   ["personal_archive_source_not_identified", ["source_url", "source_channel", "published_date", "source_capture"]],
   ["source_capture_not_available", ["source_capture"]],
   ["collection_asset_without_single_source", ["source_url", "published_date", "source_capture"]],
@@ -48,6 +48,16 @@ function assertCleanSourceUrl(value, label) {
   if (trackingKeys.length) throw new Error(`${label} contains tracking parameters: ${trackingKeys.join(", ")}.`);
 }
 
+function expectedChannelForSource(value) {
+  const hostname = new URL(value).hostname.replace(/^www\./, "").toLowerCase();
+  if (hostname === "facebook.com") return "Facebook";
+  if (hostname === "instagram.com") return "Instagram";
+  if (hostname === "linkedin.com") return "LinkedIn";
+  if (hostname === "youtube.com" || hostname === "youtu.be") return "YouTube";
+  if (hostname === "eastrise.com" || hostname === "pixelspoke.coop") return "website";
+  return "";
+}
+
 assertObject(captureManifest, "source-screenshot-manifest.json");
 assertExactKeys(captureManifest, ["generated_at", "captures", "missing"], "source-screenshot-manifest.json");
 if (!Array.isArray(captureManifest.captures) || !Array.isArray(captureManifest.missing)) {
@@ -73,8 +83,23 @@ for (const [index, record] of captureManifest.missing.entries()) {
 
 function linkedInDate(sourceUrl) {
   const activityId = sourceUrl.match(/activity-(\d{16,})/)?.[1];
-  if (!activityId) return "";
-  return new Date(Number(BigInt(activityId) >> 22n)).toISOString().slice(0, 10);
+  if (activityId) return new Date(Number(BigInt(activityId) >> 22n)).toISOString().slice(0, 10);
+  const mediaTimestamp = sourceUrl.match(/\/0\/(\d{13})(?:\?|$)/)?.[1];
+  return mediaTimestamp ? new Date(Number(mediaTimestamp)).toISOString().slice(0, 10) : "";
+}
+
+const linkedInEvidenceUrls = new Map();
+for (const series of photography.series || []) {
+  for (const image of series.images || []) {
+    const asset = image.src.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
+    if (image.dateBasis === "public-source-url-timestamp") linkedInEvidenceUrls.set(asset, image.sourceUrl);
+  }
+}
+for (const series of portraits.series || []) {
+  for (const image of series.images || []) {
+    const asset = image.src.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
+    if (image.dateEvidence?.basis === "public-source-url-timestamp") linkedInEvidenceUrls.set(asset, image.source);
+  }
 }
 
 assertObject(exceptionConfig, "media-provenance-exceptions.json");
@@ -169,6 +194,9 @@ for (const [asset, data] of Object.entries(provenanceAssets)) {
   }
   if (data.source_url && !/^https:\/\//.test(data.source_url)) throw new Error(`${asset} has an invalid source_url.`);
   if (data.source_url) assertCleanSourceUrl(data.source_url, `${asset} source_url`);
+  if (data.source_url && expectedChannelForSource(data.source_url) && data.source_channel !== expectedChannelForSource(data.source_url)) {
+    throw new Error(`${asset} source_channel does not match its public source URL.`);
+  }
   if (data.source_capture && data.source_capture !== "private_archive") throw new Error(`${asset} has an invalid source_capture value.`);
 
   const configuredException = exceptionsByAsset.get(asset);
@@ -188,11 +216,6 @@ for (const [asset, data] of Object.entries(provenanceAssets)) {
     if (!isDeepStrictEqual(data.accepted_exception, embeddedException)) throw new Error(`${asset} has stale accepted_exception metadata.`);
     if (["public_source_page_not_identified", "personal_archive_source_not_identified", "collection_asset_without_single_source"].includes(configuredException.reason) && !data.archive_note) {
       throw new Error(`${asset} requires honest public archive wording for ${configuredException.reason}.`);
-    }
-    if (configuredException.reason === "portfolio_archive_publication_not_identified") {
-      if (!asset.startsWith("assets/images/work/portraits/gallery/eastrise/") || !data.archive_note) {
-        throw new Error(`${asset} cannot use the EastRise portrait archive exception.`);
-      }
     }
     if (configuredException.public_note && data.archive_note !== configuredException.public_note) {
       throw new Error(`${asset} does not contain the configured public exception wording.`);
@@ -223,8 +246,8 @@ for (const [asset, record] of datesByAsset) {
   if (record.evidence === "private_archive_capture" && data.source_capture !== "private_archive") throw new Error(`${asset} lacks the private archive capture used for its date.`);
   if (record.evidence === "repository_archive_note" && !data.archive_note) throw new Error(`${asset} lacks the repository archive note used for its date.`);
   if (record.evidence === "public_platform_metadata" && !data.source_url) throw new Error(`${asset} lacks the public platform URL used for its date.`);
-  if (record.evidence === "public_source_url_timestamp" && linkedInDate(data.source_url) !== record.publishedDate) {
-    throw new Error(`${asset} published_date does not match its LinkedIn activity URL timestamp.`);
+  if (record.evidence === "public_source_url_timestamp" && linkedInDate(linkedInEvidenceUrls.get(asset) || data.source_url) !== record.publishedDate) {
+    throw new Error(`${asset} published_date does not match its LinkedIn URL timestamp.`);
   }
 }
 for (const [asset, record] of sourcesByAsset) {

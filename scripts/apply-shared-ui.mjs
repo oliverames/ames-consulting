@@ -10,6 +10,7 @@ import {
   siThreads,
   siInstagram,
 } from "simple-icons";
+import { projectDateFor, sortEntriesNewestFirst } from "./project-order.mjs";
 import { applyYoutubeFacades } from "./youtube-facade.mjs";
 
 const root = new URL("../", import.meta.url).pathname;
@@ -165,6 +166,25 @@ function updateFooterGroups(html, file) {
   );
 }
 
+function sortGalleryNavigation(html, file) {
+  const pageHref = relative(root, file)
+    .split(sep).join("/")
+    .replace(/^work\//, "")
+    .replace(/index\.html$/, "");
+  if (!projectDateFor(pageHref)) return html;
+
+  return html.replace(
+    /(<h[23]>Galleries<\/h[23]>\s*<ul>)([\s\S]*?)(<\/ul>)/,
+    (match, opening, items, closing) => {
+      const links = [...items.matchAll(/<li><a href="([^"]+)"[\s\S]*?<\/a><\/li>/g)]
+        .map((item) => ({ href: item[1], html: item[0] }));
+      if (!links.length) return match;
+      const ordered = sortEntriesNewestFirst(links, (item) => item.href);
+      return `${opening}${ordered.map((item) => item.html).join("")}${closing}`;
+    },
+  );
+}
+
 const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 const formatDate = (value) => value ? new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`)) : "";
 
@@ -259,7 +279,7 @@ for (const file of await collectHtml(root)) {
   after = applyYoutubeFacades(after);
   after = addProvenanceDisclosure(
     normalizeFooterHeadingLevels(
-      updateFooterGroups(addSocialHeading(addIcons(after)), file),
+      sortGalleryNavigation(updateFooterGroups(addSocialHeading(addIcons(after)), file), file),
     ),
     file,
   );

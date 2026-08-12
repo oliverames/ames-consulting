@@ -11,6 +11,7 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 - Preserved direct email links for visitors without JavaScript by disabling Cloudflare email obfuscation around the contact and About addresses.
 - Prevented all six software project previews from clipping their console or screen content on mobile.
 - Matched three-item and four-item website proof grids to their actual content, which removed the empty VSECU tile.
+- Kept the homepage hero copy width stable while its portrait and rotating headline initialize, which prevents first-paint layout shifts.
 - Sorted public project cards and gallery navigation by verified dates, and sorted documentary galleries by original capture time.
 - Declared and validated chronological, reverse-chronological, editorial, and undated gallery policies across the public site.
 - Split 42 EastRise formal portraits of 41 people into an 18-image Leadership gallery and a 24-image Portraits gallery, while retaining both Luke Buglion Gluck portraits.

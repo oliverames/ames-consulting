@@ -121,6 +121,27 @@ test("homepage proof tooltips stay inside the hero", async ({ page }) => {
   }
 });
 
+test("homepage hero copy width does not depend on portrait parse timing", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1350, height: 940 });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+
+  const widths = await page.locator(".hero h1").evaluate((heading) => {
+    const portrait = document.querySelector(".hero__portrait");
+    const originalWidth = heading.getBoundingClientRect().width;
+    portrait.remove();
+    const withoutPortraitWidth = heading.getBoundingClientRect().width;
+    document.querySelector(".hero__inner").append(portrait);
+    return { originalWidth, withoutPortraitWidth };
+  });
+
+  expect(Math.abs(widths.originalWidth - widths.withoutPortraitWidth)).toBeLessThan(
+    1,
+  );
+});
+
 test("all public content routes load", async ({ request }) => {
   for (const route of publicRoutes) {
     const response = await request.get(route);

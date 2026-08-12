@@ -2732,8 +2732,8 @@
   /* Copy must stop short of the absolutely-positioned portrait. The three
      clamps mirror .hero padding-inline, .hero__portrait inset-right, and
      .hero__portrait width — keep them in sync if those change. */
-  .hero:has(.hero__portrait) h1,
-  .hero:has(.hero__portrait) .hero__sub {
+  .hero h1,
+  .hero .hero__sub {
     max-width: min(
       calc(
         100% + clamp(1.5rem, 4vw, 3rem) - clamp(2rem, 5vw, 4.5rem) -
@@ -2757,8 +2757,8 @@
       aspect-ratio: 16 / 10;
     }
 
-    .hero:has(.hero__portrait) h1,
-    .hero:has(.hero__portrait) .hero__sub {
+    .hero h1,
+    .hero .hero__sub {
       max-width: 100%;
     }
   }

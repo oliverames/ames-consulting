@@ -10,6 +10,7 @@ import {
   PRIVATE_RUNTIME_PATHS,
   PUBLIC_RUNTIME_EXCEPTIONS,
 } from "../scripts/publication-denylist.mjs";
+import { SECURITY_HEADERS } from "../scripts/security-headers.mjs";
 
 test("publication middleware blocks every retired, withheld, and private path", () => {
   for (const prefix of BLOCKED_PUBLIC_PREFIXES) {
@@ -51,19 +52,11 @@ test("publication middleware returns an uncached 404 before a blocked asset can 
   assert.equal(blockedResponse.status, 404);
   assert.equal(blockedResponse.headers.get("cache-control"), "no-store");
   assert.match(blockedResponse.headers.get("content-security-policy"), /frame-ancestors 'none'/);
-  assert.equal(blockedResponse.headers.get("cross-origin-opener-policy"), "same-origin");
-  assert.equal(
-    blockedResponse.headers.get("permissions-policy"),
-    "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
-  );
-  assert.equal(blockedResponse.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
-  assert.equal(
-    blockedResponse.headers.get("strict-transport-security"),
-    "max-age=31536000; includeSubDomains",
-  );
+  assert.match(blockedResponse.headers.get("strict-transport-security"), /; preload$/);
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    assert.equal(blockedResponse.headers.get(name), value, name);
+  }
   assert.equal(blockedResponse.headers.get("x-ames-tombstone"), "1");
-  assert.equal(blockedResponse.headers.get("x-content-type-options"), "nosniff");
-  assert.equal(blockedResponse.headers.get("x-frame-options"), "DENY");
   assert.equal(blockedResponse.headers.get("x-robots-tag"), "noindex");
   assert.equal(nextCalls, 0);
 

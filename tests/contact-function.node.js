@@ -47,19 +47,45 @@ test("contact function rejects cross-origin submissions before external calls", 
   }
 });
 
-test("contact function rejects oversized and implausibly fast submissions", async () => {
+test("contact function rejects oversized submissions and implausible timestamps", async () => {
   const oversized = await onRequestPost({
     request: contactRequest({ contentLength: 25_001 }),
     env,
   });
   assert.equal(oversized.status, 413);
 
-  const tooFast = await onRequestPost({
-    request: contactRequest({ startedAt: Date.now() }),
+  const farFuture = await onRequestPost({
+    request: contactRequest({ startedAt: Date.now() + 10 * 60 * 1000 }),
     env,
   });
-  assert.equal(tooFast.status, 400);
-  assert.equal((await tooFast.json()).error, "Please refresh the form and try again");
+  assert.equal(farFuture.status, 400);
+  assert.equal((await farFuture.json()).error, "Please refresh the form and try again");
+
+  const missing = await onRequestPost({
+    request: contactRequest({ startedAt: 0 }),
+    env,
+  });
+  assert.equal(missing.status, 400);
+});
+
+test("contact function tolerates a visitor clock running slightly ahead", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("siteverify")) {
+      return Response.json({ success: true, action: "contact", hostname: "ames.consulting" });
+    }
+    return Response.json({ id: "test-message" });
+  };
+
+  try {
+    const response = await onRequestPost({
+      request: contactRequest({ startedAt: Date.now() + 2 * 60 * 1000 }),
+      env,
+    });
+    assert.equal(response.status, 200);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });
 
 test("contact function measures the body when content length is absent", async () => {
@@ -111,7 +137,7 @@ test("contact function verifies Turnstile before sending a valid message", async
   globalThis.fetch = async (url) => {
     calls.push(String(url));
     if (String(url).includes("siteverify")) {
-      return Response.json({ success: true, action: "contact" });
+      return Response.json({ success: true, action: "contact", hostname: "ames.consulting" });
     }
     if (String(url) === "https://api.resend.com/emails") {
       return Response.json({ id: "test-message" });
@@ -132,12 +158,69 @@ test("contact function verifies Turnstile before sending a valid message", async
   }
 });
 
+test("contact function rejects a Turnstile token solved on another hostname", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("siteverify")) {
+      return Response.json({ success: true, action: "contact", hostname: "evil.example" });
+    }
+    throw new Error("Resend should not be called for a mismatched hostname");
+  };
+
+  try {
+    const response = await onRequestPost({ request: contactRequest(), env });
+    assert.equal(response.status, 403);
+    assert.equal((await response.json()).error, "Spam protection check failed");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("contact function returns clean JSON when Turnstile verification is unreachable", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("siteverify")) {
+      throw new TypeError("network error");
+    }
+    throw new Error("Resend should not be called when verification fails");
+  };
+
+  try {
+    const response = await onRequestPost({ request: contactRequest(), env });
+    assert.equal(response.status, 502);
+    assert.equal(
+      (await response.json()).error,
+      "Verification service is unavailable right now",
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("contact function returns clean JSON when the email service is unreachable", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("siteverify")) {
+      return Response.json({ success: true, action: "contact", hostname: "ames.consulting" });
+    }
+    throw new TypeError("network error");
+  };
+
+  try {
+    const response = await onRequestPost({ request: contactRequest(), env });
+    assert.equal(response.status, 502);
+    assert.equal((await response.json()).error, "Message could not be sent");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test("contact function removes control characters from the outbound subject", async () => {
   const originalFetch = globalThis.fetch;
   let outboundEmail;
   globalThis.fetch = async (url, options) => {
     if (String(url).includes("siteverify")) {
-      return Response.json({ success: true, action: "contact" });
+      return Response.json({ success: true, action: "contact", hostname: "ames.consulting" });
     }
     if (String(url) === "https://api.resend.com/emails") {
       outboundEmail = JSON.parse(options.body);

@@ -20,9 +20,10 @@ const sanitizeHeaderValue = (value) => String(value)
   .trim();
 
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
-const MIN_FILL_MS = 3_000;
+const MAX_CLOCK_SKEW_MS = 5 * 60 * 1000;
 const MAX_FILL_MS = 24 * 60 * 60 * 1000;
 const MAX_BODY_BYTES = 25_000;
+const UPSTREAM_TIMEOUT_MS = 10_000;
 
 function isSameOrigin(request) {
   const origin = request.headers.get("Origin");
@@ -35,7 +36,7 @@ function isSameOrigin(request) {
   }
 }
 
-async function verifyTurnstile({ token, secret, remoteIp }) {
+async function verifyTurnstile({ token, secret, remoteIp, expectedHostname }) {
   const body = new FormData();
   body.set("secret", secret);
   body.set("response", token);
@@ -43,12 +44,15 @@ async function verifyTurnstile({ token, secret, remoteIp }) {
 
   const response = await fetch(TURNSTILE_VERIFY_URL, {
     method: "POST",
-    body
+    body,
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS)
   });
   if (!response.ok) return false;
 
   const result = await response.json();
-  return result.success === true && result.action === "contact";
+  return result.success === true
+    && result.action === "contact"
+    && result.hostname === expectedHostname;
 }
 
 async function readBoundedBody(request) {
@@ -122,9 +126,13 @@ export async function onRequestPost({ request, env }) {
     return json({ error: "Please complete every field" }, 400);
   }
 
+  // startedAt comes from the visitor's clock, so a minimum-fill-time check here
+  // false-rejects honest visitors whose clocks run ahead of the server. The
+  // client enforces the minimum fill time against its own clock; the server
+  // only rejects timestamps outside a plausible skew window.
   const startedAt = Number(data.get("startedAt") || 0);
   const fillTime = Date.now() - startedAt;
-  if (!Number.isFinite(startedAt) || fillTime < MIN_FILL_MS || fillTime > MAX_FILL_MS) {
+  if (!Number.isFinite(startedAt) || startedAt <= 0 || fillTime < -MAX_CLOCK_SKEW_MS || fillTime > MAX_FILL_MS) {
     return json({ error: "Please refresh the form and try again" }, 400);
   }
 
@@ -134,29 +142,41 @@ export async function onRequestPost({ request, env }) {
   const turnstileToken = String(data.get("cf-turnstile-response") || "").trim();
   if (!turnstileToken) return json({ error: "Please complete the spam protection check" }, 400);
 
-  const turnstileValid = await verifyTurnstile({
-    token: turnstileToken,
-    secret: env.TURNSTILE_SECRET_KEY,
-    remoteIp: request.headers.get("CF-Connecting-IP") || ""
-  });
+  let turnstileValid;
+  try {
+    turnstileValid = await verifyTurnstile({
+      token: turnstileToken,
+      secret: env.TURNSTILE_SECRET_KEY,
+      remoteIp: request.headers.get("CF-Connecting-IP") || "",
+      expectedHostname: new URL(request.url).hostname
+    });
+  } catch {
+    return json({ error: "Verification service is unavailable right now" }, 502);
+  }
   if (!turnstileValid) return json({ error: "Spam protection check failed" }, 403);
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${env.RESEND_API_KEY}`,
-      "content-type": "application/json",
-      "idempotency-key": crypto.randomUUID()
-    },
-    body: JSON.stringify({
-      from: "Ames Consulting Website <website@amesvt.com>",
-      to: [env.CONTACT_EMAIL],
-      reply_to: email,
-      subject: `Website inquiry from ${name}`,
-      html: `<h1>New website inquiry</h1><p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>${organization ? `<p><strong>Organization:</strong> ${escapeHtml(organization)}</p>` : ""}${projectType ? `<p><strong>Work:</strong> ${escapeHtml(projectType)}</p>` : ""}${timeframe ? `<p><strong>Timing:</strong> ${escapeHtml(timeframe)}</p>` : ""}<p>${escapeHtml(message).replaceAll("\n", "<br>")}</p>`,
-      text: `New website inquiry\n\nFrom: ${name} <${email}>${organization ? `\nOrganization: ${organization}` : ""}${projectType ? `\nWork: ${projectType}` : ""}${timeframe ? `\nTiming: ${timeframe}` : ""}\n\n${message}`
-    })
-  });
+  let response;
+  try {
+    response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+      headers: {
+        authorization: `Bearer ${env.RESEND_API_KEY}`,
+        "content-type": "application/json",
+        "idempotency-key": crypto.randomUUID()
+      },
+      body: JSON.stringify({
+        from: "Ames Consulting Website <website@amesvt.com>",
+        to: [env.CONTACT_EMAIL],
+        reply_to: email,
+        subject: `Website inquiry from ${name}`,
+        html: `<h1>New website inquiry</h1><p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>${organization ? `<p><strong>Organization:</strong> ${escapeHtml(organization)}</p>` : ""}${projectType ? `<p><strong>Work:</strong> ${escapeHtml(projectType)}</p>` : ""}${timeframe ? `<p><strong>Timing:</strong> ${escapeHtml(timeframe)}</p>` : ""}<p>${escapeHtml(message).replaceAll("\n", "<br>")}</p>`,
+        text: `New website inquiry\n\nFrom: ${name} <${email}>${organization ? `\nOrganization: ${organization}` : ""}${projectType ? `\nWork: ${projectType}` : ""}${timeframe ? `\nTiming: ${timeframe}` : ""}\n\n${message}`
+      })
+    });
+  } catch {
+    return json({ error: "Message could not be sent" }, 502);
+  }
 
   if (!response.ok) return json({ error: "Message could not be sent" }, 502);
   return json({ ok: true });

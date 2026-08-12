@@ -5,6 +5,7 @@ import {
   PRIVATE_RUNTIME_PATHS,
   PUBLIC_RUNTIME_EXCEPTIONS,
 } from "../scripts/publication-denylist.mjs";
+import { SECURITY_HEADERS } from "../scripts/security-headers.mjs";
 
 const normalizePolicyPath = (value) => value.replace(/^\/+|\/+$/g, "").toLowerCase();
 const normalizedBlockedPrefixes = BLOCKED_PUBLIC_PREFIXES.map((prefix) => ({
@@ -54,16 +55,10 @@ export function onRequest({ request, next }) {
   return new Response("Not found", {
     status: 404,
     headers: {
+      ...SECURITY_HEADERS,
       "cache-control": "no-store",
-      "content-security-policy": "default-src 'self'; base-uri 'self'; connect-src 'self' https://challenges.cloudflare.com; font-src 'self' https://fonts.gstatic.com data:; form-action 'self'; frame-ancestors 'none'; frame-src https://www.youtube-nocookie.com https://challenges.cloudflare.com; img-src 'self' data:; object-src 'none'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; upgrade-insecure-requests",
       "content-type": "text/plain; charset=utf-8",
-      "cross-origin-opener-policy": "same-origin",
-      "permissions-policy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
-      "referrer-policy": "strict-origin-when-cross-origin",
-      "strict-transport-security": "max-age=31536000; includeSubDomains",
       "x-ames-tombstone": "1",
-      "x-content-type-options": "nosniff",
-      "x-frame-options": "DENY",
       "x-robots-tag": "noindex",
     },
   });

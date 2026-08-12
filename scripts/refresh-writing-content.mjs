@@ -8,6 +8,8 @@ import { promisify } from "node:util";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const exec = promisify(execFile);
+// One hung feed API should fail loudly instead of stalling the whole refresh.
+const FETCH_TIMEOUT_MS = 30_000;
 const eastRiseSource = join(homedir(), "My Drive (Personal)", "Career", "Work Samples", "Oliver's EastRise Blog Posts.csv");
 
 function parseCsvLine(line) {
@@ -60,7 +62,10 @@ function bskyUrl(uri) {
 }
 
 async function json(url) {
-  const response = await fetch(url, { headers: { "User-Agent": "ames.consulting writing archive" } });
+  const response = await fetch(url, {
+    headers: { "User-Agent": "ames.consulting writing archive" },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  });
   if (!response.ok) throw new Error(`${response.status} for ${url}`);
   return response.json();
 }
@@ -404,7 +409,7 @@ const posts = [...grouped.values()].sort((left, right) => new Date(right.date) -
 const writingImageDirectory = join(root, "assets/images/writing");
 await mkdir(writingImageDirectory, { recursive: true });
 for (const post of posts.filter((item) => item.image)) {
-  const response = await fetch(post.image);
+  const response = await fetch(post.image, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   if (!response.ok) throw new Error(`${response.status} while downloading ${post.image}`);
   const stem = createHash("sha256").update(post.id).digest("hex").slice(0, 12);
   const source = join(writingImageDirectory, `${stem}.source`);

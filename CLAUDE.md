@@ -100,12 +100,10 @@ Playwright uses Chromium against a local Python server on port 4173. The default
 
 ## Conventions
 
-- **Relative source paths**: Keep internal links and image references relative (`./`, `../`). Images are served same-origin from Cloudflare Pages. Exception: `404.html` uses root-absolute asset paths because it renders at arbitrary missing URLs.
-- **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
+- **Paths**: relative-path and JS module-path rules live in `.claude/rules/relative-paths.md` (auto-loaded).
 - **Homepage section structure**: `path-row` (container) → `h2` (heading with link) → `path-strip` (horizontal scrollable) → `path-browse` (CTA link)
 - **Social links**: `rel="me noopener"` for IndieWeb identity verification
 - **JSON-LD**: Every page has structured data — no `SearchAction` (client-side search only)
-- **`aria-current`**: `"page"` for exact-match nav links, `"true"` for section-parent links; each `<nav>` needs unique `aria-label`
 - **External content**: Use `DOMParser` (not `innerHTML`) for untrusted HTML. Keep CSP headers updated for external image sources.
 - **2-space indentation**, LF line endings (see `.editorconfig`)
 

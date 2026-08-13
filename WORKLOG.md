@@ -30,6 +30,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
 
+## 2026-08-13 - Security hardening sweep
+
+**What changed**: Hardened the contact Function (Turnstile result now bound to the requesting hostname, 10-second timeouts with structured 502 JSON around the Turnstile and Resend fetches, and a clock-skew-tolerant timestamp window replacing the server-side minimum-fill check). Moved the sitewide security-header policy into `scripts/security-headers.mjs` as the single source, imported by the publication middleware and enforced against `_headers` by the new `check:security-headers` gate. Added the HSTS `preload` token, a Dependabot config for Actions and npm, and fetch timeouts in `refresh-writing-content.mjs`. Commits `5a247c8` and `5f2800b`.
+
+**Decisions made**: A Cloudflare WAF rate-limiting rule "Contact form POST throttle" (POST /api/contact, per-IP, 5 requests/10s, block 10s) now lives in the dashboard, using the free plan's only rule slot; it covers the custom domains but not `ames-consulting.pages.dev`. ames.consulting was submitted to hstspreload.org (status pending). The server no longer enforces a minimum fill time because the client-supplied timestamp made it false-reject visitors with fast clocks while stopping no real attacker. The generator-embedded meta CSP on writing pages stays page-specific by design.
+
+**Left off at**: Deploy run 31673576335 green with 145 Playwright passes. Live checks confirmed: burst of 8 POSTs returned five 403s then 429s, and the apex serves `strict-transport-security: max-age=31536000; includeSubDomains; preload`. The first deploy attempt failed because `tests/contact-function.spec.js` mocked siteverify without a hostname; fixed in `5f2800b`.
+
+**Open questions**: None. Watch hstspreload.org status flipping from pending to preloaded over the coming weeks.
+
+---
+
 ## 2026-08-11 - Public portfolio release
 
 **What changed**: Completed the public-release sweep across the site, including all 35 browser review items. Removed the password gate, refined the core page layouts and copy, added the approved portfolio galleries, improved testimonial and writing content, and strengthened the contact form and publication checks.

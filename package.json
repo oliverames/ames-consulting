@@ -42,12 +42,12 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.62.1",
-    "eslint": "^10.8.0",
+    "eslint": "^10.8.1",
     "globals": "^17.9.0",
     "html-validate": "^11.6.2",
     "sharp": "^0.35.3",
     "simple-icons": "^16.28.0",
-    "wrangler": "4.119.0",
+    "wrangler": "4.120.1",
     "xml2js": "^0.6.2"
   },
   "overrides": {

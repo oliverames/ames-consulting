@@ -1102,6 +1102,24 @@ test("EastRise photography is grouped into complete public-source galleries", as
     "srcdoc",
     /Play John and Donia member story/,
   );
+  if (test.info().config.metadata?.siteRoot === "_site") {
+    await expect(karinaVideo).toHaveAttribute(
+      "data-youtube-poster",
+      /A1oAN6Ox6A0\.webp$/,
+    );
+    await expect(karinaVideo).toHaveAttribute(
+      "srcdoc",
+      /A1oAN6Ox6A0-960w\.webp/,
+    );
+    await expect(johnVideo).toHaveAttribute(
+      "data-youtube-poster",
+      /dffKrKG5Hbs\.webp$/,
+    );
+    await expect(johnVideo).toHaveAttribute(
+      "srcdoc",
+      /dffKrKG5Hbs-960w\.webp/,
+    );
+  }
   const johnAndDonia = photography.series.find(
     (series) => series.slug === "john-and-donia",
   );
@@ -1147,6 +1165,13 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   await expect(page.locator(".social-card")).toHaveCount(
     expectedMicroPosts.length + expectedLinkedInPosts.length,
   );
+  if (test.info().config.metadata?.siteRoot === "_site") {
+    await expect(page.locator(".social-card__avatar").first()).toHaveAttribute("sizes", "3rem");
+    await expect(page.locator(".social-card__media-item img").first()).toHaveAttribute(
+      "sizes",
+      "(max-width: 42rem) 71vw, (max-width: 75rem) 44vw, 30rem",
+    );
+  }
   const writingProfiles = page.getByLabel("Writing profiles");
   await expect(
     writingProfiles.getByRole("link", { name: "Threads", exact: true }),
@@ -1237,11 +1262,19 @@ test("LinkedIn image posts scroll like carousels and open in the site viewer", a
   await expect(page.locator("#image-viewer-caption")).toContainText("1 of 12");
   await page.locator("#image-viewer-close").click();
 
-  for (let index = 2; index <= 12; index += 1) {
+  for (let index = 2; index <= 10; index += 1) {
     await next.click();
     await expect(count).toHaveText(`${index}/12`);
   }
+  await next.click();
+  await expect(count).toHaveText("12/12");
   await expect(next).toBeDisabled();
+  expect(await items.last().evaluate((item) => {
+    const trackElement = item.parentElement;
+    const itemBox = item.getBoundingClientRect();
+    const trackBox = trackElement.getBoundingClientRect();
+    return itemBox.left >= trackBox.left && itemBox.right <= trackBox.right;
+  })).toBe(true);
 
   const twoImageCard = page.locator('[data-post-id="linkedin:7396253468706971648"]');
   await twoImageCard.scrollIntoViewIfNeeded();

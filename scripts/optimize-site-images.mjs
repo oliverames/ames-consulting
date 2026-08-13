@@ -53,6 +53,18 @@ function variantPath(originalPath, width) {
 }
 
 const imageProfiles = {
+  avatar: {
+    widths: [64, 96, 128],
+    sizes: "3rem",
+  },
+  carousel: {
+    widths: [320, 480, 640, 720],
+    sizes: "(max-width: 42rem) 71vw, (max-width: 75rem) 44vw, 30rem",
+  },
+  poster: {
+    widths: [960],
+    sizes: "58rem",
+  },
   thumbnail: {
     widths: [320, 480, 640, 720],
     sizes: "(max-width: 53.57rem) 15rem, (max-width: 75rem) 28vw, 21rem",
@@ -102,6 +114,8 @@ function classesFromTag(tag) {
 
 function profileForClasses(classes) {
   const has = (...names) => names.some((name) => classes.has(name));
+  if (has("social-card__avatar")) return "avatar";
+  if (has("social-card__media-item")) return "carousel";
   if (has("path-thumb")) return "thumbnail";
   if (has("work-item", "software-card")) return "card";
   if (has("portrait-grid", "portrait-gallery")) {
@@ -149,6 +163,19 @@ function collectImageReferences(html) {
         profile: profileForClasses(classes),
       });
     }
+    if (name === "iframe") {
+      const poster = tag.match(/\bdata-youtube-poster="([^"]+)"/i)?.[1];
+      if (poster) {
+        references.push({
+          tag,
+          start: match.index,
+          end: match.index + tag.length,
+          profile: "poster",
+          source: poster,
+          kind: "poster",
+        });
+      }
+    }
     if (!voidElements.has(name) && !/\/>$/.test(tag)) {
       stack.push({ name, classes: ownClasses });
     }
@@ -167,7 +194,7 @@ for (const htmlPath of htmlFiles) {
   const html = await readFile(htmlPath, "utf8");
   for (const reference of collectImageReferences(html)) {
     if (/\bsrcset\s*=/i.test(reference.tag)) continue;
-    const source = reference.tag.match(/\bsrc="([^"]+)"/i)?.[1];
+    const source = reference.source || reference.tag.match(/\bsrc="([^"]+)"/i)?.[1];
     if (!source || !/\.(?:jpe?g|png|webp)(?:[?#]|$)/i.test(source)) continue;
     const imagePath = resolveImagePath(outDir, htmlPath, source);
     if (!imagePath || !imagePath.startsWith(`${imagesRoot}${path.sep}`)) continue;
@@ -212,6 +239,24 @@ const worker = async () => {
 
     for (const reference of job.references) {
       const profileWidths = new Set(imageProfiles[reference.profile].widths);
+      if (reference.kind === "poster") {
+        const optimizedWidth = entries
+          .filter(({ width }) => profileWidths.has(width))
+          .at(-1)?.width;
+        if (!optimizedWidth) continue;
+        const optimizedSource = variantSource(reference.source, optimizedWidth);
+        const replacement = reference.tag.replace(
+          `src=&quot;${reference.source}&quot;`,
+          `src=&quot;${optimizedSource}&quot;`,
+        );
+        if (!htmlUpdates.has(reference.htmlPath)) htmlUpdates.set(reference.htmlPath, []);
+        htmlUpdates.get(reference.htmlPath).push({
+          start: reference.start,
+          end: reference.end,
+          replacement,
+        });
+        continue;
+      }
       const srcset = [
         ...entries
           .filter(({ width }) => profileWidths.has(width))

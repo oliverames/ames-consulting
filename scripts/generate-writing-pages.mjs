@@ -226,7 +226,7 @@ function renderCard(post, depth = 1) {
   const action = longForm
     ? `<a class="social-card__read" href="${articleHref}">Read on ames.consulting →</a>`
     : "";
-  return `<article class="social-card${longForm ? " social-card--article" : ""}" data-post-id="${escapeHtml(post.id)}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy" data-no-zoom><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? sentenceSafeExcerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}${originalMedia}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
+  return `<article class="social-card${longForm ? " social-card--article" : ""}" data-post-id="${escapeHtml(post.id)}"><header class="social-card__header"><img class="social-card__avatar" src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy" data-no-zoom><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? sentenceSafeExcerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}${originalMedia}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
 }
 
 function renderLongFormPage(post) {

@@ -83,6 +83,99 @@ test("homepage section edges and practice calls to action align", async ({ page 
   expect(layout.testimonialBorder).toBe("0px");
 });
 
+test("homepage sections use one vertical rhythm", async ({ page }) => {
+  for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+
+    const layout = await page.evaluate(() => {
+      const bounds = (selector) =>
+        document.querySelector(selector).getBoundingClientRect();
+      const hero = bounds(".hero");
+      const practiceHeading = bounds(".practice-section > h2");
+      const practiceGrid = bounds(".practice-grid");
+      const firstTestimonialHeading = bounds(
+        ".home-testimonial:not(.home-testimonial--secondary) .section-heading",
+      );
+      const firstTestimonialCard = bounds(
+        ".home-testimonial:not(.home-testimonial--secondary) .testimonial-card",
+      );
+      const pathHeading = bounds(".path-row > h2");
+      const pathBrowse = bounds(".path-browse");
+      const secondTestimonialCard = bounds(
+        ".home-testimonial--secondary .testimonial-card",
+      );
+      const software = bounds(".home-software");
+      const footer = bounds(".site-footer");
+
+      return {
+        rhythm: Number.parseFloat(
+          getComputedStyle(document.querySelector(".practice-section")).marginTop,
+        ),
+        gaps: [
+          practiceHeading.top - hero.bottom,
+          firstTestimonialHeading.top - practiceGrid.bottom,
+          pathHeading.top - firstTestimonialCard.bottom,
+          secondTestimonialCard.top - pathBrowse.bottom,
+          software.top - secondTestimonialCard.bottom,
+          footer.top - software.bottom,
+        ],
+      };
+    });
+
+    for (const gap of layout.gaps) {
+      expect(Math.abs(gap - layout.rhythm)).toBeLessThan(1);
+    }
+  }
+});
+
+test("wide page sections align with their top blocks", async ({ page }) => {
+  for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+
+    await page.goto("/contact/");
+    const contactWidths = await page.evaluate(() => [
+      document.querySelector(".contact-hero").getBoundingClientRect().width,
+      document.querySelector(".contact-workspace").getBoundingClientRect().width,
+    ]);
+    expect(Math.max(...contactWidths) - Math.min(...contactWidths)).toBeLessThan(1);
+
+    await page.goto("/about/");
+    const aboutWidths = await page.evaluate(() =>
+      [...document.querySelector("main").children].map(
+        (element) => element.getBoundingClientRect().width,
+      ),
+    );
+    expect(Math.max(...aboutWidths) - Math.min(...aboutWidths)).toBeLessThan(1);
+  }
+});
+
+test("work headings keep space before their content", async ({ page }) => {
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/work/");
+
+    const gap = await page.evaluate(() => {
+      const heading = document
+        .querySelector(".work-category > h2")
+        .getBoundingClientRect();
+      const framing = document
+        .querySelector(".work-category__framing")
+        .getBoundingClientRect();
+      return framing.top - heading.bottom;
+    });
+
+    expect(gap).toBeGreaterThanOrEqual(12);
+  }
+});
+
 test("homepage proof tooltips stay inside the hero", async ({ page }) => {
   for (const { width, indexes } of [
     { width: 900, indexes: [3] },

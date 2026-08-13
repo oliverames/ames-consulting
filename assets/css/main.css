@@ -2095,7 +2095,7 @@
       #d94a2d 44%,
       #1c2929 100%
     );
-    --web-measure-wide: min(64rem, 92vw);
+    --web-measure-wide: var(--measure-wide);
     --web-type-hero: clamp(3rem, 7vw, 5.75rem);
     --web-type-stat: clamp(2.25rem, 4.2vw, 3.25rem);
     --web-type-section: clamp(1.75rem, 3.2vw, 2.75rem);
@@ -3117,7 +3117,7 @@
     text-transform: uppercase;
     letter-spacing: 0.14em;
     color: var(--text-1);
-    margin-bottom: var(--space-3);
+    margin: 0 0 var(--space-3);
     padding-bottom: var(--space-1);
     border-bottom: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
     display: inline-block;
@@ -4119,6 +4119,10 @@
     color: #faf8f5;
   }
 
+  .contact-notes > .eyebrow {
+    margin-bottom: var(--space-1);
+  }
+
   .contact-notes > ul {
     display: grid;
     gap: var(--space-2);
@@ -4435,6 +4439,10 @@
     width: fit-content;
   }
 
+  .work-category > h2 {
+    margin-bottom: var(--space-3);
+  }
+
   .section-heading__statement {
     margin: 0;
     max-width: 24ch;
@@ -4444,10 +4452,21 @@
     line-height: 1.08;
   }
 
+  main:has(> .hero) {
+    padding-block-end: calc(var(--space-5) - var(--space-3));
+  }
+
+  main:has(> .hero) > * {
+    margin-block: 0;
+  }
+
+  main:has(> .hero) > * + * {
+    margin-block-start: var(--space-5);
+  }
+
   .home-testimonial {
     width: 100%;
-    margin-top: var(--space-2);
-    padding-block: var(--space-5) var(--space-4);
+    padding-block: 0;
     border-top: 0;
   }
 
@@ -4462,7 +4481,7 @@
 
   .home-paths {
     position: relative;
-    padding-top: var(--space-2);
+    padding-block: 0;
   }
 
   .home-paths::before {

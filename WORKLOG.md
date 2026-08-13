@@ -30,6 +30,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
 
+## 2026-08-13 - Sitewide consistency pass
+
+**What changed**: Standardized the site's content width, vertical rhythm, project typography, card surfaces, button treatments, footer targets, dialog controls, and contact-form errors. Added the Services index, one shared three-service taxonomy, canonical project titles, consistent navigation state, visible Work return links, gallery-order notes, and a permanent redirect from the duplicate portrait route. Commit `f57a6b5`.
+
+**Decisions made**: The public service names are Photography and video, Strategy and content, and Practical technology. Internal links use `→`, external links use `↗`, and parent links use `←`. Exact top-level routes use `aria-current="page"`; section children mark their parent with `aria-current="true"`. `/work/eastrise-portraits/` is the canonical EastRise portrait route.
+
+**Left off at**: GitHub Actions run `31728993837` passed static checks, repeat-build validation, link checks, Lighthouse, and all 153 deploy-artifact browser and accessibility tests. Cloudflare deployment and live verification passed. Direct checks returned 200 for `/`, `/services/`, and `/contact/`, and 301 from `/work/portraits-and-people/` to the canonical portrait route.
+
+**Open questions**: Resolved this session: the spacing, width, component, navigation, service-taxonomy, project-naming, and duplicate-route inconsistencies. Still open from the separate security sweep: monitor the ames.consulting HSTS preload submission until its status changes from pending.
+
+---
+
 ## 2026-08-13 - Security hardening sweep
 
 **What changed**: Hardened the contact Function (Turnstile result now bound to the requesting hostname, 10-second timeouts with structured 502 JSON around the Turnstile and Resend fetches, and a clock-skew-tolerant timestamp window replacing the server-side minimum-fill check). Moved the sitewide security-header policy into `scripts/security-headers.mjs` as the single source, imported by the publication middleware and enforced against `_headers` by the new `check:security-headers` gate. Added the HSTS `preload` token, a Dependabot config for Actions and npm, and fetch timeouts in `refresh-writing-content.mjs`. Commits `5a247c8` and `5f2800b`.

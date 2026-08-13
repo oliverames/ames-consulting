@@ -61,7 +61,7 @@ test("inbound project prompt has no moderate, serious, or critical accessibility
   await expect(launcher).toBeVisible();
   await launcher.click();
   await expect(page.getByRole("dialog", {
-    name: "Need photographs that feel like the people in them?",
+    name: "Do you need photographs of people at work?",
   })).toBeVisible();
 
   const results = await new AxeBuilder({ page }).include("#inbound-prompt").analyze();

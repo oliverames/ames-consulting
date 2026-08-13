@@ -17,7 +17,7 @@ const readSource = (relativePath) => readFile(join(root, relativePath), "utf8");
 test("public testimonials omit private performance-review material", async () => {
   const html = await read("testimonials/index.html");
 
-  expect(html).toContain("Public LinkedIn recommendations");
+  expect(html).toContain('<p class="eyebrow">LinkedIn recommendations</p>');
   expect(html).toContain('id="recommendation-dialog"');
   expect(html).toContain("assets/js/recommendation-dialog.js");
   expect(html).not.toContain("<details>");

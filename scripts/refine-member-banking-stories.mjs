@@ -7,6 +7,14 @@ let html = await readFile(pagePath, "utf8");
 
 html = html
   .replaceAll(
+    "Banking stories built around what people were trying to do.",
+    "EastRise member stories and campaign films",
+  )
+  .replace(
+    /The useful story was never the account itself\. It was the home,\s+business, savings habit, or next step the account made possible\./,
+    "This page collects eleven EastRise films from 2025 and 2026, including nine member stories I co-produced with Urban Rhino.",
+  )
+  .replaceAll(
     "Eleven EastRise films, including nine member-story spots produced by Oliver Ames with Urban Rhino.",
     "Eleven EastRise films, including nine member-story spots co-produced by Oliver Ames with Urban Rhino.",
   )
@@ -45,11 +53,30 @@ html = html
   .replace(
     "Member Stories and Campaign Films",
     "Member stories, including Karina and Ryan",
+  )
+  .replaceAll(
+    "Real settings and real members",
+    "Photography and distribution",
+  )
+  .replace(
+    /The visual system used Vermont places and people instead of\s+generic financial imagery\./,
+    "We filmed and photographed members in Vermont homes and businesses.",
   );
 
 html = html.replace(
-  '<section class="case-section">\n        <h2>Real settings and real members</h2>',
-  '<section class="case-section member-story-visual">\n        <h2>Real settings and real members</h2>',
+  '<section class="case-section">\n        <h2>Photography and distribution</h2>',
+  '<section class="case-section member-story-visual">\n        <h2>Photography and distribution</h2>',
 );
+
+for (const expected of [
+  "EastRise member stories and campaign films",
+  "This page collects eleven EastRise films from 2025 and 2026",
+  "Photography and distribution",
+  "We filmed and photographed members in Vermont homes and businesses.",
+]) {
+  if (!html.includes(expected)) {
+    throw new Error(`refine-member-banking-stories: copy did not match: ${expected}`);
+  }
+}
 
 await writeFile(pagePath, html);

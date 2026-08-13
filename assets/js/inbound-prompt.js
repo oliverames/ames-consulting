@@ -8,19 +8,19 @@ const variants = [
     match:
       /\/(photography|portraits|family|corporate-cup|girls-on-the-run|giron|sweat-heart|bike-fitting)/,
     type: "Photography and video",
-    title: "Need photographs that feel like the people in them?",
-    body: "Tell me what you need to show, who it is for, and where the photographs need to work.",
+    title: "Do you need photographs of people at work?",
+    body: "Tell me who I’m photographing, where the shoot will happen, and how you plan to use the images.",
   },
   {
     match: /\/(blog|writing|strategy-and-content|eastrise-writing)/,
     type: "Strategy and content",
-    title: "Have something difficult to explain?",
-    body: "Tell me what people need to understand and where the explanation keeps getting stuck.",
+    title: "Do you need help explaining something complicated?",
+    body: "Tell me who needs the information, what they need to know, and what you’ve tried so far.",
   },
   {
     match: /\/(practical-technology|credit-union-websites)/,
     type: "Website or digital system",
-    title: "Is useful work stuck behind a persnickety system?",
+    title: "What keeps breaking or taking too long?",
     body: "Tell me what should happen, what happens now, and who has to work around it.",
   },
 ];
@@ -51,8 +51,8 @@ function currentVariant() {
   return (
     variants.find((variant) => variant.match.test(location.pathname)) || {
       type: "Something else",
-      title: "Have something useful that needs a clearer story?",
-      body: "Tell me what you are making and where it is getting stuck. I will tell you if I can help.",
+      title: "What are you working on?",
+      body: "Send me the short version, including what you’re making and where you need help. I’ll tell you whether I’m a good fit.",
     }
   );
 }

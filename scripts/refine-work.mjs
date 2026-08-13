@@ -5,6 +5,7 @@ import { sortEntriesNewestFirst } from "./project-order.mjs";
 
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
+const eastRiseHubPath = new URL("work/eastrise/index.html", root);
 const eastRiseWritingPath = new URL("work/eastrise-writing/index.html", root);
 let html = await readFile(indexPath, "utf8");
 const existingPortraitCards = [...html.matchAll(/<section class="work-category work-category--portraits">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/g)].map((match) => match[1]).join("");
@@ -22,16 +23,16 @@ const featuredImages = new Map([
   ["taylor-hoar-racing/", ["../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp", "Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car"]],
 ]);
 html = html.replace(
-  /(?:Campaigns and series built around a useful story\.|I organize the work by project, not job title\.)/,
-  "Work, one project at a time.",
+  /(?:Campaigns and series built around a useful story\.|I organize the work by project, not job title\.|Photography, video, communications, websites, and software\.|Work organized by project, not job title\.)/,
+  "Here’s the work, newest first.",
 );
 html = html.replace(
-  /(?:The organization provides the context\. The work itself provides the[\s\n]*structure\.|I organize this work by the campaign, shoot, or series someone would actually want to explore\. Start with the newest work, or keep going into the earlier jobs that taught me how to do it\.)/,
-  "Browse the newest campaigns, shoots, and series, or continue into the earlier work that taught me how to do it.",
+  /(?:The organization provides the context\. The work itself provides the[\s\n]*structure\.|I organize this work by the campaign, shoot, or series someone would actually want to explore\. Start with the newest work, or keep going into the earlier jobs that taught me how to do it\.|The newest projects come first\. Each card names the organization and my role\.|Each campaign, shoot, and series has its own place\. Start with the newest work, or continue into the earlier jobs that taught me how to do it\.)/,
+  "The projects include photography, video, communications, websites, and software. Each card names the organization and my role.",
 );
 
 if (!html.includes('href="connecticut-college/"')) {
-  const additions = `<a class="work-item" href="connecticut-college/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>2013</strong></div><span class="work-item__context">Connecticut College · 2013–2015</span><h3>Early digital storytelling</h3><p>College blogs, social content, donor events, and work on a major website redesign.</p></a><a class="work-item" href="stowe-ski-instruction/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>6 yrs</strong></div><span class="work-item__context">Stowe Mountain Resort · 2013–2019</span><h3>Teaching technical ideas in real time</h3><p>Six seasons of turning complicated physical instructions into something a skier could use on the next turn.</p></a>`;
+  const additions = `<a class="work-item" href="connecticut-college/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>2013</strong></div><span class="work-item__context">Connecticut College · 2013–2015</span><h3>Connecticut College</h3><p>I wrote college blogs and social content, covered donor events, and worked on a major website redesign.</p></a><a class="work-item" href="stowe-ski-instruction/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>6 yrs</strong></div><span class="work-item__context">Stowe Mountain Resort · 2013–2019</span><h3>Stowe ski instruction</h3><p>I taught skiing at Stowe for six seasons.</p></a>`;
   html = html.replace(/(<section class="work-category work-category--earlier">[\s\S]*?<div class="work-list">)/, `$1${additions}`);
 }
 
@@ -68,17 +69,24 @@ const creditOverridesByHref = new Map([
 ]);
 const inHouseDescriptions = new Map([
   ["flight-paths/", "I produced this documentary about a person finding her way into Vermont’s growing aviation sector."],
-  ["wheels-for-warmth/", "I built this in-house public-service project across the 2024 collection-day photography and the 2025 campaign."],
-  ["taylor-hoar-racing/", "I ran this in-house sponsorship story across racing, portraits, community work, social publishing, local history, and performance reporting."],
-  ["eastrise-social/", "I led this dated in-house social archive across member stories, community coverage, campaigns, and timely lighter moments."],
-  ["eastrise-writing/", "I wrote this in-house financial-education archive to make complicated member decisions useful and understandable."],
+  ["member-banking-stories/", "I co-produced eleven EastRise films, including nine with Urban Rhino."],
+  ["wheels-for-warmth/", "I photographed the 2024 collection day, then planned and ran the 2025 public-service campaign."],
+  ["taylor-hoar-racing/", "I covered the sponsorship through racing, portraits, community events, social posts, local history, and performance reports."],
+  ["eastrise-social/", "I led this dated archive of member stories, community coverage, campaigns, and lighter posts."],
+  ["eastrise-writing/", "I wrote 53 financial education articles for VSECU and EastRise."],
   ["eastrise-portraits/", "I built this in-house formal portrait library for public profiles and organizational communications."],
-  ["eastrise-website/", "I helped launch this in-house public website through content strategy, photography, migration, implementation, and quality assurance."],
-  ["eastrise-launch-campaign/", "I co-produced this in-house brand launch, selected talent and locations, and made the still photography that carried the new institution into public view."],
-  ["vsecu-website/", "I helped deliver this in-house redesign through content, imagery, migration, implementation support, and quality assurance."],
-  ["live-broadcasts/", "I hosted and produced these in-house broadcasts, translating leadership updates and financial results for public and employee audiences."],
+  ["eastrise-website/", "I worked on content, photography, migration, implementation, and quality assurance for the EastRise launch."],
+  ["eastrise-launch-campaign/", "I co-produced the EastRise launch, selected talent and locations, and made the still photographs."],
+  ["vsecu-website/", "I worked on content, imagery, migration, implementation, and quality assurance for the VSECU redesign."],
+  ["live-broadcasts/", "I hosted and produced public and employee broadcasts about leadership updates and financial results."],
 ]);
 const consultingHrefs = new Set(["flight-paths/"]);
+const legacyCardCopy = new Map([
+  ["stowe-ski-instruction/", ["Stowe ski instruction", "I taught alpine skiing at Stowe for six seasons."]],
+  ["vtdigger-membership/", ["VTDigger membership", "I simplified the donation page and ran the tests that increased membership conversion by 137%."]],
+  ["fairbanks-planetarium/", ["Fairbanks Museum Planetarium", "I ran the planetarium and helped organize a Guinness World Record astronomy lesson."]],
+  ["connecticut-college/", ["Connecticut College", "I wrote college blogs and social content, covered donor events, and worked on a major website redesign."]],
+]);
 
 // Must tolerate every artifact of this script's own previous run: the framing
 // paragraph inserted after the heading, the filters nav, and the filter
@@ -114,6 +122,12 @@ if (campaignMatch) {
     const inferredOrganization = card.href.startsWith("eastrise-photography/") ? "eastrise" : "";
     const organization = explicitOrganization || inferredOrganization;
     let cardHtml = card.html.replace(/ data-organization="[^"]+"/g, "");
+    const legacyCopy = legacyCardCopy.get(card.href);
+    if (legacyCopy) {
+      cardHtml = cardHtml
+        .replace(/<h3>[\s\S]*?<\/h3>/, `<h3>${legacyCopy[0]}</h3>`)
+        .replace(/<p>[\s\S]*?<\/p>/, `<p>${legacyCopy[1]}</p>`);
+    }
     const feature = featuredImages.get(card.href);
     if (feature) {
       // Rebuild the whole tag: swapping only src/alt would leave the previous
@@ -132,10 +146,10 @@ if (campaignMatch) {
     cardHtml = cardHtml.replace(/<p class="work-item__credit">[\s\S]*?<\/p>/g, "");
     const credit = consultingHrefs.has(card.href) ? "" : (creditOverridesByHref.get(card.href) || inHouseCredits[organization]);
     if (credit) {
-      const description = inHouseDescriptions.get(card.href) || (card.href.startsWith("eastrise-photography/")
-        ? "I made this in-house photography series as part of EastRise’s ongoing public storytelling."
-        : "I made this work in-house as part of the organization’s public communications program.");
-      cardHtml = cardHtml.replace(/<p>[\s\S]*?<\/p>/, `<p>${description}</p><p class="work-item__credit">${credit}</p>`);
+      const description = inHouseDescriptions.get(card.href);
+      cardHtml = description
+        ? cardHtml.replace(/<p>[\s\S]*?<\/p>/, `<p>${description}</p><p class="work-item__credit">${credit}</p>`)
+        : cardHtml.replace(/(<p>[\s\S]*?<\/p>)/, `$1<p class="work-item__credit">${credit}</p>`);
     }
     return organization
       ? cardHtml.replace('<a class="work-item"', `<a class="work-item" data-organization="${organization}"`)
@@ -162,7 +176,7 @@ if (campaignMatch) {
   );
   html = html.replace(
     '<h2 id="project-list-title">Projects</h2><nav class="work-filters"',
-    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">This work includes projects I made at EastRise Credit Union, BETA Technologies, and for commissioned clients. Each card names the organization.</p><nav class="work-filters"',
+    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">These include in-house projects at EastRise Credit Union and BETA Technologies, plus commissioned work. Each card names the organization and my role.</p><nav class="work-filters"',
   );
 }
 
@@ -180,7 +194,40 @@ if (!html.includes('src="../assets/js/work-filter.js"')) {
 html = html.replace(/[ \t]+$/gm, "");
 await writeFile(indexPath, html);
 
+let eastRiseHubHtml = await readFile(eastRiseHubPath, "utf8");
+eastRiseHubHtml = eastRiseHubHtml
+  .replaceAll("Portfolio update", "VSECU and EastRise · 2019–2025")
+  .replaceAll("EastRise work is now organized by campaign.", "Work for VSECU and EastRise Credit Union")
+  .replace(
+    /This address remains available for old links\. Choose the body of work\s+you want to see\./,
+    "I worked on campaigns, films, articles, social content, and website projects for VSECU and EastRise. This page links to each project.",
+  );
+for (const expected of [
+  "VSECU and EastRise · 2019–2025",
+  "Work for VSECU and EastRise Credit Union",
+  "This page links to each project.",
+]) {
+  if (!eastRiseHubHtml.includes(expected)) {
+    throw new Error(`refine-work: EastRise hub copy did not match: ${expected}`);
+  }
+}
+await writeFile(eastRiseHubPath, eastRiseHubHtml);
+
 let eastRiseWritingHtml = await readFile(eastRiseWritingPath, "utf8");
+eastRiseWritingHtml = eastRiseWritingHtml
+  .replaceAll("Fifty-three explanations built for real financial decisions.", "Fifty-three articles for VSECU and EastRise")
+  .replaceAll(
+    "I wrote about the questions people were actually facing: stimulus checks, fraud, debt, electric vehicles, home energy, budgeting, travel, and life in Vermont. This is the complete attributable archive.",
+    "I wrote these articles between 2019 and 2025. They cover stimulus checks, fraud, debt, electric vehicles, home energy, budgeting, travel, and life in Vermont.",
+  );
+for (const expected of [
+  "Fifty-three articles for VSECU and EastRise",
+  "I wrote these articles between 2019 and 2025.",
+]) {
+  if (!eastRiseWritingHtml.includes(expected)) {
+    throw new Error(`refine-work: EastRise writing copy did not match: ${expected}`);
+  }
+}
 const unavailableArticleLink = /<li><a href="https:\/\/www\.eastrise\.com\/blog\/a-comprehensive-guide-ev-charging-apps\/" rel="noopener"><span>Technology &amp; Banking · Archived article<\/span><h2>A Comprehensive Guide to EV Charging Apps<\/h2><small>Original EastRise URL is no longer available<\/small><\/a><\/li>/;
 const unavailableArticle = '<li><div class="writing-list__unavailable"><span>Technology &amp; Banking · Archived article</span><h2>A Comprehensive Guide to EV Charging Apps</h2><small>EastRise no longer publishes this article</small></div></li>';
 if (unavailableArticleLink.test(eastRiseWritingHtml)) {
@@ -203,8 +250,8 @@ const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav
 const page = (slug, eyebrow, title, intro, sections) => `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self';"><title>${title} | Ames Consulting</title><meta name="description" content="${intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="case-hero"><p class="eyebrow">${eyebrow}</p><h1>${title}</h1><p>${intro}</p></header>${sections.map(([heading, body]) => `<section class="case-section"><h2>${heading}</h2><div class="case-section__body"><p>${body}</p></div></section>`).join("")}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script></body></html>`;
 
 const pages = [
-  ["connecticut-college", "Digital storytelling · 2013–2015", "Where digital storytelling became the job.", "At Connecticut College, I developed content for college blogs and social channels, supported donor events, and contributed to a major website redesign.", [["The work", "The assignment moved between writing, publishing, event support, and the practical details of a large institutional website. It was the point when something I had been doing instinctively became a profession."], ["What stayed with me", "The audience was never one group. Students, alumni, donors, and prospective families each arrived with different questions, so the work had to be clear about who it was helping and why."]]],
-  ["stowe-ski-instruction", "Instruction · Stowe Mountain Resort · 2013–2019", "The explanation had to work on the next turn.", "I spent six seasons teaching alpine skiing at Stowe Mountain Resort. It was technical communication with immediate feedback.", [["The work", "Every skier brought a different body, confidence level, and way of processing an instruction. I learned to change the explanation without changing the goal, then watch the next turn to see whether it worked."], ["Why it belongs here", "That habit still shapes my work. A clear explanation is useful only when the person receiving it can do something with it."]]],
+  ["connecticut-college", "Digital communications · 2013–2015", "Connecticut College", "At Connecticut College, I developed content for college blogs and social channels, supported donor events, and contributed to a major website redesign.", [["The work", "I wrote and published content, supported events, and worked on the practical details of a large institutional website. This was where digital communications became my job."], ["The audiences", "Students, alumni, donors, and prospective families came to the college with different questions, so the content had to account for who was reading it."]]],
+  ["stowe-ski-instruction", "Instruction · Stowe Mountain Resort · 2013–2019", "Six seasons of ski instruction", "I spent six seasons teaching alpine skiing at Stowe Mountain Resort. It was technical communication with immediate feedback.", [["The work", "Every skier brought a different body, confidence level, and way of processing an instruction. I learned to change the explanation without changing the goal, then watch the next turn to see whether it worked."], ["What I learned", "An explanation only worked when the skier could use it on the next turn."]]],
 ];
 for (const [slug, eyebrow, title, intro, sections] of pages) {
   const directory = new URL(`work/${slug}/`, root);

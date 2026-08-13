@@ -27,11 +27,11 @@ const taylorVeggieVanGoSeries = eastRiseSeries("veggievango-taylor-hoar");
 
 const institutional = `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list"><a class="work-item" href="eastrise/"><img src="../assets/images/work/eastrise/photography/wheels-for-warmth-2024/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp" alt="A Wheels for Warmth volunteer waves during the 2024 tire collection" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Credit Union</h3><p>Six years of audience strategy, brand photography, campaigns, writing, video, and two website redesigns.</p></a><a class="work-item" href="beta-technologies/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>BETA</strong><small>documentary video</small></div><span class="work-item__context">BETA Technologies · 2026</span><h3>BETA Technologies</h3><p>Documentary video about a Vermont aviation career built through an unexpected route.</p></a></div></section>`;
 
-const fairbanksCard = `<a class="work-item" href="fairbanks-planetarium/"><div class="work-item__placeholder work-item__placeholder--metric"><strong>1,580</strong><small>participants</small></div><span class="work-item__context">Fairbanks Museum &amp; Planetarium · 2015–2018</span><h3>Public astronomy</h3><p>Planetarium programming and a Guinness World Record event brought astronomy to a wider Vermont audience.</p></a>`;
+const fairbanksCard = `<a class="work-item" href="fairbanks-planetarium/"><div class="work-item__placeholder work-item__placeholder--metric"><strong>1,580</strong><small>participants</small></div><span class="work-item__context">Fairbanks Museum &amp; Planetarium · 2015–2018</span><h3>Fairbanks Museum Planetarium</h3><p>I ran the planetarium and helped organize a Guinness World Record astronomy lesson.</p></a>`;
 const liveBroadcastCard = `<a class="work-item" data-organization="eastrise" href="live-broadcasts/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>Live</strong><small>broadcasts</small></div><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>Live broadcasts</h3><p>Hosting, creative direction, and technical production for public programs and employee updates.</p></a>`;
-const earlier = `<section class="work-category work-category--earlier"><h2>Earlier work</h2><div class="work-list"><a class="work-item" href="vtdigger-membership/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>137%</strong></div><span class="work-item__context">VTDigger · 2018–2019</span><h3>Membership conversion</h3><p>A simpler donation page and a disciplined testing program increased membership conversion by 137%.</p></a>${fairbanksCard}${liveBroadcastCard}</div></section>`;
+const earlier = `<section class="work-category work-category--earlier"><h2>Earlier work</h2><div class="work-list"><a class="work-item" href="vtdigger-membership/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>137%</strong></div><span class="work-item__context">VTDigger · 2018–2019</span><h3>VTDigger membership</h3><p>I simplified the donation page and ran the tests that increased membership conversion by 137%.</p></a>${fairbanksCard}${liveBroadcastCard}</div></section>`;
 
-const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the last exhausted finish.</p></a><a class="work-item" href="bike-fitting/"><img src="../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025</span><h3>Bike Fitting</h3><p>A close, practical photo story about expertise, adjustment, and the small details that help a rider fit the bike.</p></a>`;
+const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the final heat.</p></a><a class="work-item" href="bike-fitting/"><img src="../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025</span><h3>Bike Fitting</h3><p>I photographed a one-to-one bike fitting, including the measurements, tools, and repeated adjustments.</p></a>`;
 
 const eastRiseStandaloneSlugs = new Set([
   "taylor-hoar-racing",
@@ -53,10 +53,10 @@ const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-
 const londonCard = `<a class="work-item" href="london-2019/"><img src="../assets/images/work/events/london-2019/dsc02427.webp" alt="Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds" loading="lazy"><span class="work-item__context">London · September 2019</span><h3>London at Dusk</h3><p>Eight photographs along the Thames as daylight gave way to a stormy blue hour.</p></a>`;
 const whaleDanceCard = `<a class="work-item" href="whale-dance-randolph/"><img src="../assets/images/work/events/whale-dance-randolph/dsc06299.webp" alt="Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills" loading="lazy"><span class="work-item__context">Randolph, Vermont · September 2021</span><h3>Whale Dance in Randolph</h3><p>Eight photographs of Jim Sardonis’s bronze sculpture against fog and autumn hills.</p></a>`;
 const droneCard = `<a class="work-item" href="drone-photography/"><img src="../assets/images/work/events/drone-photography/dji_0053.webp" alt="Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence" loading="lazy"><span class="work-item__context">Aerial photography · 2018–2020</span><h3>Drone Photography</h3><p>Sixty-two aerial photographs from winter fields, cities, coastlines, mountains, and rail yards.</p></a>`;
-const vsecuWebsiteCard = `<a class="work-item" href="vsecu-website/"><img src="../assets/images/work/credit-union-websites/vsecu-redesign.webp" alt="VSECU website redesign" loading="lazy"><span class="work-item__context">VSECU · 2021</span><h3>VSECU Website Redesign</h3><p>Content, imagery, migration, and quality assurance for a clearer digital member experience.</p></a>`;
+const vsecuWebsiteCard = `<a class="work-item" href="vsecu-website/"><img src="../assets/images/work/credit-union-websites/vsecu-redesign.webp" alt="VSECU website redesign" loading="lazy"><span class="work-item__context">VSECU · 2021</span><h3>VSECU Website Redesign</h3><p>Content, imagery, migration, implementation, and quality assurance for the 2021 redesign.</p></a>`;
 const eastRiseWebsiteCard = `<a class="work-item" href="eastrise-website/"><img src="../assets/images/work/credit-union-websites/eastrise-feature.webp" alt="EastRise website launch" loading="lazy"><span class="work-item__context">EastRise · 2024</span><h3>EastRise Website Launch</h3><p>A new public website built to introduce a new institution without losing its Vermont history.</p></a>`;
 
-const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Photography built around the people, expertise, and communities that make a fitness center feel like a place to belong.</p></a>`;
+const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Event and documentary photography from a fitness competition and a bike fitting.</p></a>`;
 
 const sourceLink = (href, label) => `<a href="${href}" rel="noopener">${label}</a>`;
 
@@ -115,56 +115,56 @@ const pages = [
   { slug: "vtdigger-membership", eyebrow: "Membership strategy · VTDigger · 2018–2019", title: "Donation conversion increased 137%.", intro: "VTDigger joined the Facebook Journalism Project Membership Accelerator with a practical goal: make it easier for readers to support independent Vermont journalism.", sections: [
     ["What changed", "I worked across the membership funnel, including campaign messaging, analytics, email, and the donation experience. The team simplified the donation page layout and checkout process, then measured what visitors did instead of relying on instinct."],
     ["What happened", "The redesigned page increased the share of visitors who proceeded to donate by 137%. Personalized email work also produced a 21% lift in open rate, and segmented campaigns helped increase new email subscribers by 20% within four months."],
-    ["Why it worked", "The page asked people to do one clear thing and removed friction around that decision. The larger program treated membership as a connected system, from the first message through the completed donation."],
+    ["Why it worked", "The revised page gave readers one decision and made the checkout easier to complete. We measured the whole path from the first message through the donation."],
     ["Sources", `${sourceLink("https://www.lenfestinstitute.org/solutions-resources/participants-share-their-results-increasing-membership/", "Lenfest Institute: Participants share their results increasing membership")}<br>${sourceLink("https://www.lenfestinstitute.org/solutions-resources/facebook-membership-accelerator-lifetime-value-results/", "Lenfest Institute: Membership Accelerator lifetime value results")}`]
   ]},
   { slug: "fairbanks-planetarium", eyebrow: "Science communication · Fairbanks Museum · 2015–2018", title: "1,580 people joined an astronomy lesson.", intro: "Running the planetarium meant teaching astronomy, managing staff and grants, improving ticketing, and helping the museum stage a Guinness World Record event.", sections: [
     ["The work", "As Planetarium Director, I managed programming, staff development, grants, and the planetarium's relationship with museum leadership. I also helped implement a museum-wide point-of-sale system and represented the museum in local media."],
     ["The public result", "On August 10, 2018, Fairbanks Museum and Planetarium brought 1,580 people together for a 30-minute astronomy lesson and earned the Guinness World Record."],
-    ["A much bigger night", "I helped plan the event for five months, including public relations, web work, vendors, and crowd management. It turned a planetarium lesson into a community event."],
+    ["Planning the record attempt", "I helped plan the event for five months, including public relations, web work, vendors, and crowd management."],
     ["Breaking Records in Science Education", youtubeFacade("lSi35li8dCg", "Breaking Records in Science Education")],
     ["Sources", `${sourceLink("https://www.guinnessworldrecords.com/world-records/largest-astronomy-lesson", "Guinness World Records: Largest astronomy lesson")}<br>${sourceLink("https://www.wcax.com/content/news/Fairbanks-Museum-claims-record-for-largest-astronomy-lesson-490731831.html", "WCAX: Fairbanks Museum claims record for largest astronomy lesson")}`]
   ]},
-  { slug: "live-broadcasts", eyebrow: "Hosting and production · VSECU and EastRise · 2019–2025", title: "Live broadcasts made complex updates clear.", intro: "A livestream is part interview, part live production, and part contingency plan. I handled all three while keeping the conversation understandable for the people watching.", sections: [
+  { slug: "live-broadcasts", eyebrow: "Hosting and production · VSECU and EastRise · 2019–2025", title: "Live broadcasts", intro: "I hosted and produced public programs and employee updates for VSECU and EastRise.", sections: [
     ["Production and hosting", "I served as host, brand spokesperson, and technical lead for major livestreams. That included creative direction, production, live facilitation, and explaining quarterly financial results and organizational goals to employees."],
-    ["Clear facilitation", "I facilitated public programs and company-wide meetings, translating leadership updates into a conversation people could follow."],
-    ["Preparation", "The technology mattered, but preparation mattered more. I built a clear run of show, understood the material well enough to move when a conversation changed, and kept the production invisible to the audience."]
+    ["Facilitation", "I turned leadership updates into a conversation that employees and public audiences could follow."],
+    ["Preparation", "I built the run of show, learned the material, and planned for technical failures. That preparation let me adjust when a live conversation changed."]
   ]},
-  { slug: "beta-technologies", eyebrow: "Documentary video · BETA Technologies · 2026", title: "People building Vermont aviation.", intro: "Flight Paths puts a person inside BETA Technologies at the center of the story.", sections: [
-    ["The story", "I produced Emma's Flight Paths story at BETA Technologies. She joined BETA through its partnership with the Vermont Adult Learning Center, bringing a real workforce pathway into a story about the people building electric aviation in Vermont."],
-    ["The approach", "The larger company was important, but Emma was the reason to watch. I built the piece around her own route into the work so the workforce program, the technology, and the organization arrived through a person instead of a list of claims."],
+  { slug: "beta-technologies", eyebrow: "Documentary video · BETA Technologies · 2026", title: "BETA Technologies", intro: "I produced Flight Paths, a documentary about how Emma found her way into Vermont aviation.", sections: [
+    ["Emma’s story", "Emma joined BETA through its partnership with the Vermont Adult Learning Center. In the documentary, she explains how the program led her to BETA and her work in electric aviation."],
+    ["The production", "Emma’s interview tells the story. I used BETA’s aircraft, technology, and workforce program to show where her work takes place."],
     ["Watch", '<a class="btn btn--primary" href="../flight-paths/">Watch Flight Paths →</a>'],
     ["Source", sourceLink("https://beta.team/video-library", "BETA Technologies video library")]
   ]},
-  { slug: "flight-paths", eyebrow: "Documentary video · BETA Technologies · 2026", title: "Emma's route into Vermont aviation.", intro: "Flight Paths follows Emma's path into BETA Technologies and Vermont's growing aviation sector.", sections: [
-    ["Emma at BETA", `<p>I produced this story about how Emma found her way into Vermont’s growing aviation sector.</p>${youtubeFacade("4r5N5DjmSCU", "Flight Paths: Emma at BETA")}`]
+  { slug: "flight-paths", eyebrow: "Documentary video · BETA Technologies · 2026", title: "Flight Paths: Emma at BETA", intro: "Emma joined BETA Technologies through its partnership with the Vermont Adult Learning Center.", sections: [
+    ["The film", `<p>I produced this documentary about Emma’s route into electric aviation work in Vermont.</p>${youtubeFacade("4r5N5DjmSCU", "Flight Paths: Emma at BETA")}`]
   ]},
-  { slug: "wheels-for-warmth", eyebrow: "Public-service campaign · EastRise · 2024–2025", title: "Wheels for Warmth", intro: "Collection-day photography from 2024 and a practical donation campaign from 2025 tell the full Wheels for Warmth story.", metrics: [
+  { slug: "wheels-for-warmth", eyebrow: "Public-service campaign · EastRise · 2024–2025", title: "Wheels for Warmth", intro: "This project combines my photographs from the 2024 tire collection with the campaign I ran in 2025.", metrics: [
     ["65,906", "Views on the leading 2025 post"],
     ["274", "Shares on the leading 2025 post"],
     ["138,563", "October 2025 impressions"],
     ["4,553", "October 2025 engagements"],
   ], sections: [
-    ["The campaign", "<p>I built the 2025 campaign around clear donation guidance, event reminders, and measurable social performance. The strongest post told people which tires they could donate and where to bring them.</p>"],
+    ["The 2025 campaign", "<p>I wrote donation instructions and event reminders, then tracked the campaign results. The most-viewed post told people which tires they could donate and where to bring them.</p>"],
     ["The photography", "<p>The ten photographs below document the 2024 collection day through the volunteers, donors, tires, and work that made the event possible.</p>"],
   ], photoSeries: [{
     ...wheelsPhotoSeries,
     title: "The 2024 collection day",
     description: "Ten published photographs from the Wheels for Warmth tire collection.",
   }]},
-  { slug: "taylor-hoar-racing", eyebrow: "Sponsorship series · EastRise · 2024–2025", title: "Taylor Hoar Racing", intro: "The full sponsorship story spans race days, portraits, community events, social publishing, and campaign results from 2024 and 2025.", metrics: [
+  { slug: "taylor-hoar-racing", eyebrow: "Sponsorship series · EastRise · 2024–2025", title: "Taylor Hoar Racing", intro: "I covered the EastRise sponsorship through race days, portraits, community events, social posts, and performance reports in 2024 and 2025.", metrics: [
     ["80", "Pieces of 2025 content"],
     ["22", "Race and event days in 2025"],
     ["248,491", "Total 2025 views"],
     ["2,847", "2025 engagement actions"],
   ], sections: [
-    ["The sponsorship story", "<p>I treated the sponsorship as an editorial series instead of a logo placement. Race days, portraits, short-form posts, community events, and Thunder Road history gave the partnership a reason to matter between races.</p>"],
+    ["Coverage throughout the season", "<p>I published race-day coverage, portraits, short-form posts, community events, and stories from Thunder Road history between races.</p>"],
     ["The Milk Bowl", "<p>In 2025, Taylor raced in Tracie Bellerose’s colors, connecting a current driver with the woman who became the first to qualify for the Milk Bowl on her own merit 25 years earlier.</p>"],
   ], photoSeries: [
     {
       ...taylorRacingSeries,
       title: "Racing and portraits",
-      description: "Racing, race-shop, portrait, and sponsor-storytelling photographs from the public series.",
+      description: "Race-day, race-shop, and portrait photographs from the public series.",
     },
     {
       ...taylorVeggieVanGoSeries,
@@ -172,22 +172,22 @@ const pages = [
       description: "Four published photographs of Taylor joining EastRise and the Vermont Foodbank for a VeggieVanGo distribution.",
     },
   ]},
-  { slug: "sweat-heart-throwdown", eyebrow: "Event photography · Green Mountain Community Fitness · 2026", title: "Hard work, photographed with humanity.", intro: "The Sweat-Heart Throwdown brought teams, volunteers, judges, and spectators together for a Valentine’s Day competition at Green Mountain Community Fitness.", featuredFile: "dsc01171.webp", gallery: { directory: "sweat-heart", alt: "Sweat-Heart Throwdown at Green Mountain Community Fitness" }, sections: [
-    ["The assignment", "Photograph the whole event without flattening it into a string of action shots. The competition mattered, but so did the encouragement, the waiting, the judging, the laughter, and the moment after someone finally put the weight down."],
-    ["The approach", "I moved between wide views that establish the room and close frames that show effort and connection. The resulting set gives GMCF both an event record and a useful library for future social posts, promotions, and community storytelling."]
+  { slug: "sweat-heart-throwdown", eyebrow: "Event photography · Green Mountain Community Fitness · 2026", title: "Sweat-Heart Throwdown", intro: "The Sweat-Heart Throwdown brought teams, volunteers, judges, and spectators together for a Valentine’s Day competition at Green Mountain Community Fitness.", featuredFile: "dsc01171.webp", gallery: { directory: "sweat-heart", alt: "Sweat-Heart Throwdown at Green Mountain Community Fitness" }, sections: [
+    ["The assignment", "I needed to photograph the competition, but I also watched for encouragement between teammates, volunteers resetting equipment, judges at work, and the moment after each heat ended."],
+    ["The photographs", "I moved between wide views of the room and close frames of individual competitors. GMCF received an event record and a set it can reuse in social posts and promotions."]
   ]},
-  { slug: "bike-fitting", eyebrow: "Documentary photography · Green Mountain Community Fitness · 2025", title: "A bike fitting is a story told in small adjustments.", intro: "This shoot followed the practical, one-to-one work of fitting a rider to a bike at Green Mountain Community Fitness.", gallery: { directory: "bike-fitting", alt: "Bike fitting at Green Mountain Community Fitness" }, sections: [
-    ["The assignment", "Show the service clearly enough that a prospective rider can understand what happens, while keeping the photographs grounded in the relationship between the fitter, the rider, and the machine."],
-    ["The approach", "I photographed the full process and the details that make the expertise visible: posture, measurement, observation, tools, contact points, and repeated adjustments. The series works as a sequence, but each frame can also stand alone in a service page or social post."],
+  { slug: "bike-fitting", eyebrow: "Documentary photography · Green Mountain Community Fitness · 2025", title: "Bike fitting at GMCF", intro: "I photographed the one-to-one process of fitting a rider to a bike at Green Mountain Community Fitness.", gallery: { directory: "bike-fitting", alt: "Bike fitting at Green Mountain Community Fitness" }, sections: [
+    ["The assignment", "A prospective rider should be able to look through the photographs and understand what happens during a fitting."],
+    ["The photographs", "I followed the full process, including posture, measurements, observation, tools, contact points, and repeated adjustments. The sequence works as a complete set, and individual frames can stand alone on a service page or social post."],
     ["The gallery", "Select any photograph to open the full viewer. Use the buttons or the left and right arrow keys to move through the complete set."]
   ]},
-  { slug: "green-mountain-community-fitness", eyebrow: "Client work · 2025–2026", title: "Green Mountain Community Fitness work.", intro: "The photography work is organized by shoot so each assignment can keep its own people, purpose, and rhythm.", sections: [
-    ["Projects and series", `<div class="work-list"><a class="work-item" href="../sweat-heart-throwdown/"><img src="../../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Event photography · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A competition story built from effort, encouragement, volunteers, and the moments between heats.</p></a><a class="work-item" href="../bike-fitting/"><img src="../../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting" loading="lazy"><span class="work-item__context">Documentary photography · 2025</span><h3>Bike Fitting</h3><p>A service story told through posture, measurement, expertise, and small adjustments.</p></a></div>`]
+  { slug: "green-mountain-community-fitness", eyebrow: "Client work · 2025–2026", title: "Green Mountain Community Fitness", intro: "This page collects two photography assignments for Green Mountain Community Fitness.", sections: [
+    ["Projects and series", `<div class="work-list"><a class="work-item" href="../sweat-heart-throwdown/"><img src="../../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Event photography · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the final heat.</p></a><a class="work-item" href="../bike-fitting/"><img src="../../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting" loading="lazy"><span class="work-item__context">Documentary photography · 2025</span><h3>Bike Fitting</h3><p>A step-by-step look at a professional bike fitting.</p></a></div>`]
   ]},
-  { slug: "blue-cross-vermont", eyebrow: "Communications · Blue Cross Vermont · 2026–present", title: "Blue Cross Vermont work.", intro: "My current role includes brand communications, social content, and the digital systems behind the work.", sections: [
-    ["Current role", "<p>I support public communications through clear content, practical production systems, and audience-focused digital work.</p>"]
+  { slug: "blue-cross-vermont", eyebrow: "Communications · Blue Cross Vermont · 2026–present", title: "Blue Cross Vermont", intro: "My current role includes brand communications, social content, community photography, and production systems.", sections: [
+    ["Current role", "<p>I write and produce public communications and build the workflows used to publish them.</p>"]
   ]},
-  { slug: "community-photography", eyebrow: "Documentary photography · Vermont · 2023–2025", title: "Community photography rooted in place.", intro: "These photographs show public events and community programs through the people who gave each setting its character.", sections: [
+  { slug: "community-photography", eyebrow: "Documentary photography · Vermont · 2023–2025", title: "Community photography", intro: "These photographs come from public events and community programs in Vermont.", sections: [
     ["Credit union community work", `<div class="media-grid"><img src="../../assets/images/work/eastrise/uvm-soccer.webp" alt="A University of Vermont soccer event" loading="lazy"><img src="../../assets/images/work/eastrise/point-to-point.webp" alt="Cyclists at the Point to Point event" loading="lazy"></div>`]
   ]}
 ];
@@ -197,8 +197,8 @@ const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav
 pages.push({
   slug: "eastrise-photography",
   eyebrow: "Dated photography archive · EastRise · 2024–2026",
-  title: "Photographs across three years of public work.",
-  intro: `This archive brings together ${eastRisePhotography.totalImages} photographs from EastRise campaigns and portfolio records dated from 2024 through 2026.`,
+  title: "EastRise photography archive",
+  intro: `This archive contains ${eastRisePhotography.totalImages} photographs from EastRise projects dated from 2024 through 2026.`,
   photoSeries: eastRisePhotography.series,
   sections: [],
 });
@@ -206,8 +206,8 @@ pages.push({
 pages.push({
   slug: "eastrise-social",
   eyebrow: "Social media · VSECU and EastRise · 2020–2026",
-  title: "Social highlights.",
-  intro: "Selected member stories, community coverage, campaigns, and lighter moments from the dated social archive.",
+  title: "Selected social posts from VSECU and EastRise",
+  intro: "I selected these dated posts from work published for VSECU and EastRise between 2020 and 2026.",
   socialPosts: eastRiseSocial.posts.filter((post) => eastRiseSocial.highlightIds.includes(post.id)),
   sections: [],
 });

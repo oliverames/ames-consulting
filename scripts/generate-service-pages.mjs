@@ -12,60 +12,60 @@ const pages = [
   {
     slug: "strategy-and-content",
     title: "Strategy and content",
-    kicker: "Make the useful thing easier to understand.",
-    intro: "Most people aren't waiting to hear from an organization. They're trying to solve a problem, make a decision, or figure out what happens next. I start there, then build the editorial system that keeps the answer useful after one good post.",
+    kicker: "I plan, write, publish, and measure content.",
+    intro: "I plan and write content for organizations with complicated work to explain. I start with the question a reader is trying to answer, then decide what to make and how to measure it.",
     proof: { value: "319%", label: "year-over-year impression growth", href: "../../work/eastrise-social/", action: "See the social program →" },
     sections: [
       {
         eyebrow: "The starting point",
-        title: "Find the question hiding inside the assignment.",
+        title: "The reader’s question",
         paragraphs: [
-          "A request for a campaign, article, or content calendar usually arrives with a practical question buried inside it. For Wheels for Warmth, people needed to know which tires could be donated and where to bring them. A direct guide to acceptable tires earned 65,906 views and 274 shares because it gave people an answer they could use.",
-          "That is the kind of specificity I am after. Once the question is clear, the writing, photography, format, and distribution have a job to do."
+          "A request may arrive as a campaign, an article, or a content calendar. I start by finding out what the reader is trying to do. For Wheels for Warmth, people needed to know which tires they could donate and where to bring them. A direct guide earned 65,906 views and 274 shares.",
+          "Once I know the question, I can choose the writing, photographs, format, and distribution around it."
         ]
       },
       {
-        eyebrow: "The system",
-        title: "Give good work a way to repeat itself.",
+        eyebrow: "The process",
+        title: "An editorial plan the team can maintain",
         paragraphs: [
-          "One useful post can disappear as quickly as it arrived. I map the recurring questions, the people who can answer them, the formats that fit, and the evidence we will use to judge the result. Then the calendar reflects actual needs instead of becoming a blank grid everyone has to feed.",
-          "At VSECU, now EastRise, that approach supported 53 published financial education articles and a social program that grew annual Facebook impressions by 319%. The numbers mattered because they showed which explanations people returned to, shared, and acted on."
+          "I list the recurring questions, the people who can answer them, the formats, the owners, and the publishing dates. The team can then make the next piece without rebuilding the plan each time.",
+          "At VSECU, now EastRise, this approach supported 53 published financial education articles. It also helped grow annual Facebook impressions by 319%."
         ]
       }
     ],
     projects: [
-      ["Wheels for Warmth", "A public-service campaign built around clear donation instructions.", "../../work/wheels-for-warmth/"],
-      ["EastRise Writing", "Fifty-three articles that made financial subjects easier to use.", "../../work/eastrise-writing/"],
-      ["Taylor Hoar Racing", "A season-long story measured across 80 pieces of content.", "../../work/taylor-hoar-racing/"]
+      ["Wheels for Warmth", "Donation instructions, reminders, photography, and campaign reporting.", "../../work/wheels-for-warmth/"],
+      ["EastRise Writing", "Fifty-three published financial education articles.", "../../work/eastrise-writing/"],
+      ["Taylor Hoar Racing", "A season of racing coverage measured across 80 pieces of content.", "../../work/taylor-hoar-racing/"]
     ],
     contactProject: "Strategy and content"
   },
   {
     slug: "photography-and-video",
     title: "Photography and video",
-    kicker: "Show the people who make the work real.",
-    intro: "I photograph people as themselves, in places that belong to the story. I can keep the lighting and production consistent without sanding away the details that make a person or organization recognizable.",
+    kicker: "I photograph people, places, events, and work in progress.",
+    intro: "Most of my photography happens on location with people who are busy doing something. I plan the shot list and lighting, but I leave room for the moments nobody could schedule.",
     proof: { value: "500+", label: "photographs in current public galleries", href: "../../work/", action: "Browse the galleries →" },
     sections: [
       {
         eyebrow: "On location",
-        title: "Plan enough to notice what was never on the schedule.",
+        title: "Planning an on-location shoot",
         paragraphs: [
-          "Before an event, I work out what the photographs need to explain: where we are, what is happening, and who is doing the work. That gives me a structure. It also leaves room for the expression, small gesture, or odd Vermont weather that makes the final set feel like this event instead of any event.",
-          "I have used that approach at volunteer days, family sessions, public art, aerial shoots, tire collections, and race days at Thunder Road. Each shoot becomes a useful library, not a folder with one hero image and a hundred near-duplicates."
+          "Before a shoot, I work out where we are, what’s happening, and who needs to be in the final set. That gives me a shot list and enough flexibility to follow the day.",
+          "I’ve used this approach at volunteer days, family sessions, public art installations, tire collections, and race days at Thunder Road. I deliver a selection for websites, print, social media, and future projects."
         ]
       },
       {
         eyebrow: "Portraits and film",
-        title: "Consistency should help people look like themselves.",
+        title: "Portraits and documentary film",
         paragraphs: [
-          "A portrait system needs enough visual consistency to work across a website, annual report, and LinkedIn. The person still has to be there. I built the EastRise portrait library around that balance.",
-          "Video starts with the same discipline. I decide what the viewer should understand, then shape the interview, visuals, pacing, and distribution around it. Flight Paths and the EastRise member films explain the organization through individual lives, which is where the interesting part usually is."
+          "A portrait library needs enough consistency to work across a website, annual report, and LinkedIn. I made the EastRise library with one repeatable lighting and backdrop setup.",
+          "For video, I start with what the viewer needs to understand. Flight Paths and the EastRise member films use one person’s experience to explain a larger organization."
         ]
       }
     ],
     projects: [
-      ["Vermont Foodbank Volunteer Day", "A documentary series about the people and process behind a volunteer packing day.", "../../work/vermont-foodbank-volunteer-day-2026/"],
+      ["Vermont Foodbank Volunteer Day", "A volunteer packing day photographed from the group portrait through the production line.", "../../work/vermont-foodbank-volunteer-day-2026/"],
       ["EastRise Portraits", "Eighteen leadership portraits and 24 additional formal portraits in one public library.", "../../work/eastrise-portraits/"],
       ["Giron Family", "A fall family session designed as a complete, browsable gallery.", "../../work/giron-family-fall-2025/"]
     ],
@@ -74,31 +74,31 @@ const pages = [
   {
     slug: "practical-technology",
     title: "Practical technology",
-    kicker: "Fix the path behind the public experience.",
-    intro: "I like technology when it removes friction from useful work. That might mean rebuilding a website path, automating a dull handoff, or documenting the system that only one person knows how to operate.",
+    kicker: "I work on websites, forms, analytics, automations, and software.",
+    intro: "I work on websites, forms, analytics, and small automations when the problem sits behind what the public sees. I’m usually looking for a repeated manual step or broken path that everyone has learned to tolerate.",
     proof: { value: "2", label: "credit union websites rebuilt with PixelSpoke", href: "../../work/credit-union-websites/", action: "See both redesigns →" },
     sections: [
       {
         eyebrow: "The diagnosis",
-        title: "Start with the part everyone quietly works around.",
+        title: "Start with the repeated problem",
         paragraphs: [
-          "A new tool is not automatically an improvement. I look for the repeated manual step, the missing handoff, the broken measurement, or the form that makes a simple task feel like paperwork. Sometimes the answer is code. Sometimes it is a naming convention or one unnecessary step that can finally go away.",
-          "The goal is a system people can understand and maintain. If the fix creates a new mystery, it is not finished."
+          "I look for the manual step people repeat, the handoff that gets missed, the measurement that stopped working, or the form everyone complains about. I may write code, change the content, or remove an unnecessary step.",
+          "The people who use the system should be able to understand what changed and maintain it."
         ]
       },
       {
         eyebrow: "The public side",
-        title: "The experience changes what the words mean.",
+        title: "Check the path from one page to the next",
         paragraphs: [
-          "A website can have clear writing and still fail when the link is broken, the image is wrong, or the form asks people to fight it. I treat quality assurance, accessibility, performance, and content as parts of the same public experience.",
-          "For the VSECU and EastRise PixelSpoke redesigns, my work included content migration, extensive quality assurance, image direction, photography, and coding support. The useful story still needed a dependable way to reach someone."
+          "A page can be well written and still fail when a link is broken, an image is wrong, or a form is hard to use. I check accessibility, performance, content, and the path between pages together.",
+          "For the VSECU and EastRise PixelSpoke redesigns, I worked on content migration, quality assurance, image direction, photography, and coding support."
         ]
       }
     ],
     projects: [
-      ["Credit Union Website Redesigns", "The VSECU and EastRise rebuilds, with the work and source trail attached.", "../../work/credit-union-websites/"],
-      ["EastRise Social", "The editorial, publishing, and measurement system behind the dated social archive.", "../../work/eastrise-social/"],
-      ["Live Broadcasts", "Production systems for public programs and employee broadcasts.", "../../work/live-broadcasts/"]
+      ["Credit Union Website Redesigns", "My role in the VSECU and EastRise website projects.", "../../work/credit-union-websites/"],
+      ["EastRise Social", "A dated archive of social posts, publishing, and performance reports.", "../../work/eastrise-social/"],
+      ["Live Broadcasts", "Public programs and employee broadcasts that I hosted and produced.", "../../work/live-broadcasts/"]
     ],
     contactProject: "Website or digital system"
   }
@@ -110,28 +110,28 @@ for (const page of pages) {
   const sections = page.sections.map((section, index) => `<article class="service-story"><div class="service-story__number" aria-hidden="true">0${index + 1}</div><div class="service-story__copy"><p class="eyebrow">${section.eyebrow}</p><h2>${section.title}</h2>${section.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</div></article>`).join("");
   const questions = {
     "strategy-and-content": [
-      ["What does a content strategy project include?", "I start with the questions people are already asking, then map the writing, photography, publishing, ownership, and measurement needed to answer them consistently."],
-      ["Can you run the campaign as well as plan it?", "Yes. I can move from the plan into writing, photography, social publishing, quality assurance, and reporting, so the strategy stays connected to the work people actually see."],
-      ["Where do you work?", "I am based in Montpelier and work with organizations across Vermont. I can travel farther when the project makes sense."]
+      ["What does a content strategy project include?", "I start with the questions people already ask. Then I plan who will write, photograph, publish, own, and measure each part."],
+      ["Can you run the campaign as well as plan it?", "Yes. I can write, photograph, publish, check the finished work, and report on what happened."],
+      ["Where do you work?", "I’m based in Montpelier and work with organizations across Vermont. I’ll travel farther for the right project."]
     ],
     "photography-and-video": [
-      ["What kind of commercial photography do you do?", "I photograph people at work, corporate and leadership portraits, public events, campaigns, community programs, and documentary stories. The goal is a complete image library that can keep working after launch day."],
-      ["Do you photograph on location?", "Yes. Most of my work happens in the places where people actually work, gather, build, race, volunteer, or make decisions. I bring a plan and enough flexibility to notice what the schedule missed."],
-      ["Do you also produce video?", "Yes. I produce interviews, documentary profiles, campaign films, and event video, and I can connect the production to the surrounding content and distribution plan."],
-      ["Where are you available?", "I am based in Montpelier and available for commercial photography and video across Vermont and elsewhere in New England when the project calls for it."]
+      ["What kind of commercial photography do you do?", "I photograph people at work, portraits, public events, campaigns, community programs, and documentary projects. I deliver a set that clients can use beyond one launch day."],
+      ["Do you photograph on location?", "Yes. Most of my work happens where people already work, gather, build, race, or volunteer. I bring a plan and stay flexible when the day changes."],
+      ["Do you also produce video?", "Yes. I produce interviews, documentary profiles, campaign films, and event video. I can also plan the content around the finished video."],
+      ["Where are you available?", "I’m based in Montpelier and work across Vermont. I’m also available elsewhere in New England when the project calls for it."]
     ],
     "practical-technology": [
-      ["What kinds of digital systems do you work on?", "Websites, accessibility, analytics, forms, content operations, small automations, and software that removes a repeated manual step. I also build and maintain open-source tools."],
-      ["Can you improve an existing website instead of replacing it?", "Often, yes. I start with the bottleneck and the evidence. The useful fix may be a clearer path, better content, repaired measurement, or a small piece of code rather than a full rebuild."],
-      ["Who is this work for?", "I work best with Vermont organizations that need a senior generalist who can understand the public message and the system carrying it."]
+      ["What kinds of digital systems do you work on?", "I work on websites, accessibility, analytics, forms, content operations, small automations, and open-source software."],
+      ["Can you improve an existing website instead of replacing it?", "Often, yes. I start with the bottleneck. The fix may be better content, repaired analytics, a simpler path, or a small piece of code instead of a full rebuild."],
+      ["Who is this work for?", "I work best with Vermont organizations that need one experienced person who can understand the public message and the technology behind it."]
     ]
   };
   const projectCards = page.projects.map(([title, summary, href]) => `<a class="service-project" href="${href}"><span class="service-project__arrow" aria-hidden="true">↗</span><h3>${title}</h3><p>${summary}</p><span class="service-project__link">See the project</span></a>`).join("");
   const answerCards = questions[page.slug].map(([question, answer]) => `<article class="service-answer"><h3>${question}</h3><p>${answer}</p></article>`).join("");
   const testimonial = page.slug === "photography-and-video" ? `<figure class="testimonial-card testimonial-card--featured photography-testimonial"><blockquote><p>“His true strength lies in strategic creative content development. He has a natural eye for capturing moments through photography and videography.”</p></blockquote><figcaption><img src="../../assets/images/testimonials/yvonne-garand.webp" alt="Yvonne Garand" width="400" height="400" loading="lazy" data-no-zoom><span><strong>Yvonne Garand</strong><small>Former senior vice president, VSECU and EastRise</small><a href="https://www.linkedin.com/in/yvonnegarand" rel="noopener">LinkedIn recommendation · January 21, 2026</a></span></figcaption></figure>` : "";
-  const projects = `${projectCards}<div class="service-answer-heading"><p class="eyebrow">The practical questions</p><h3>What to expect.</h3></div>${answerCards}${testimonial}`;
+  const projects = `${projectCards}<div class="service-answer-heading"><p class="eyebrow">Before we start</p><h3>Common questions</h3></div>${answerCards}${testimonial}`;
   const contactHref = `../../contact/?project=${encodeURIComponent(page.contactProject)}#contact-form`;
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${page.title} | Ames Consulting</title><meta name="description" content="${escapeAttribute(page.intro)}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/services/${page.slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../../work/">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" class="service-page" tabindex="-1"><header class="service-hero"><div class="service-hero__mesh" aria-hidden="true"></div><div class="service-hero__copy"><p class="hero__eyebrow"><span class="hero__dot" aria-hidden="true"></span>What I do</p><h1>${page.title}</h1><p class="service-hero__kicker">${page.kicker}</p><p class="service-hero__intro">${page.intro}</p><div class="service-hero__actions"><a class="btn btn--primary" href="${contactHref}">Start a conversation →</a><a class="btn btn--ghost" href="#selected-work">See related work</a></div></div><a class="service-proof" href="${page.proof.href}"><strong>${page.proof.value}</strong><span>${page.proof.label}</span><small>${page.proof.action}</small></a></header><section class="service-stories" aria-label="How I approach ${page.title.toLowerCase()}">${sections}</section><section class="service-projects" id="selected-work" aria-labelledby="service-projects-title"><div class="section-heading"><p class="eyebrow">Selected work</p><h2 id="service-projects-title">See how this works in practice.</h2></div><div class="service-projects__grid">${projects}</div></section><section class="service-cta"><div><p class="eyebrow">Have something in mind?</p><h2>Tell me what you are trying to make clearer.</h2><p>A useful first message can be short. Tell me what you are making and where it is getting stuck.</p></div><a class="btn btn--primary" href="${contactHref}">Start a conversation →</a></section></main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script></body></html>`;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${page.title} | Ames Consulting</title><meta name="description" content="${escapeAttribute(page.intro)}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/services/${page.slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../../work/">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" class="service-page" tabindex="-1"><header class="service-hero"><div class="service-hero__mesh" aria-hidden="true"></div><div class="service-hero__copy"><p class="hero__eyebrow"><span class="hero__dot" aria-hidden="true"></span>What I do</p><h1>${page.title}</h1><p class="service-hero__kicker">${page.kicker}</p><p class="service-hero__intro">${page.intro}</p><div class="service-hero__actions"><a class="btn btn--primary" href="${contactHref}">Start a conversation →</a><a class="btn btn--ghost" href="#selected-work">See related work</a></div></div><a class="service-proof" href="${page.proof.href}"><strong>${page.proof.value}</strong><span>${page.proof.label}</span><small>${page.proof.action}</small></a></header><section class="service-stories" aria-label="How I approach ${page.title.toLowerCase()}">${sections}</section><section class="service-projects" id="selected-work" aria-labelledby="service-projects-title"><div class="section-heading"><p class="eyebrow">Selected work</p><h2 id="service-projects-title">Projects related to this service</h2></div><div class="service-projects__grid">${projects}</div></section><section class="service-cta"><div><p class="eyebrow">Have something in mind?</p><h2>Tell me what you’re working on.</h2><p>Send me the short version, including what you’re making and where you need help.</p></div><a class="btn btn--primary" href="${contactHref}">Start a conversation →</a></section></main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script></body></html>`;
   const output = join(root, "services", page.slug, "index.html");
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, html);

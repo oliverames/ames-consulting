@@ -10,24 +10,24 @@ const defaultImage = `${siteUrl}/assets/images/about/oliver-ames-profile.webp`;
 const overrides = {
   "/": {
     title: "Ames Consulting | Vermont Commercial Photographer and Strategist",
-    description: "Documentary commercial photography, video, content strategy, and practical technology for Vermont organizations, from Oliver Ames in Montpelier."
+    description: "Oliver Ames is a commercial photographer and strategist in Montpelier who also builds websites, automation, and software for Vermont organizations."
   },
   "/services/photography-and-video/": {
     title: "Commercial Photography and Video in Vermont | Oliver Ames",
-    description: "Documentary workplace photography, corporate portraits, event coverage, and video production for Vermont organizations. See complete galleries and campaign work.",
+    description: "Oliver Ames makes workplace photographs and portraits, covers events, and produces video for Vermont organizations.",
     image: `${siteUrl}/assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp`
   },
   "/services/strategy-and-content/": {
     title: "Content Strategy and Campaigns in Vermont | Oliver Ames",
-    description: "Content strategy, campaign planning, writing, social media, and measurement for Vermont organizations with useful work to explain."
+    description: "Oliver Ames helps Vermont organizations plan campaigns, write clearly, publish social content, and measure what worked."
   },
   "/services/practical-technology/": {
     title: "Websites, Automation, and Digital Systems in Vermont | Oliver Ames",
-    description: "Practical website, accessibility, analytics, automation, and software work for Vermont organizations that need clearer, maintainable digital systems."
+    description: "Oliver Ames helps Vermont organizations fix websites, automate routine work, understand their analytics, and build small software tools."
   },
   "/work/": {
     title: "Vermont Photography, Video, and Campaign Work | Oliver Ames",
-    description: "Commercial photography, portraits, events, video, campaigns, websites, and software by Montpelier-based photographer and strategist Oliver Ames."
+    description: "Browse photography, video, communications, and software projects by Oliver Ames in Montpelier, Vermont."
   },
   "/work/neg-ecp-conference-2026/": {
     title: "47th NEG-ECP Conference Photography | Oliver Ames",
@@ -36,27 +36,27 @@ const overrides = {
   },
   "/work/credit-union-websites/": {
     title: "Credit Union Website Projects | Oliver Ames",
-    description: "Separate VSECU and EastRise website projects covering content, photography, migration, implementation, and quality assurance."
+    description: "Oliver Ames helped build the VSECU and EastRise websites through content, photography, migration, implementation, and quality assurance."
   },
   "/work/vsecu-website/": {
     title: "VSECU Website Redesign | Oliver Ames",
-    description: "Oliver Ames's content, photography, migration, implementation, and quality-assurance role in the 2021 VSECU website redesign."
+    description: "For VSECU's 2021 website redesign, Oliver Ames worked on content, photography, migration, implementation, and quality assurance."
   },
   "/work/eastrise-website/": {
     title: "EastRise Website Launch | Oliver Ames",
-    description: "Oliver Ames's content, photography, migration, implementation, and quality-assurance role in the 2024 EastRise website launch."
+    description: "For EastRise's 2024 website launch, Oliver Ames worked on content, photography, migration, implementation, and quality assurance."
   },
   "/about/": {
     title: "Oliver Ames | Vermont Photographer, Strategist, and Developer",
-    description: "Meet Oliver Ames, a Montpelier-based commercial photographer, content strategist, video producer, and software developer working across Vermont."
+    description: "Oliver Ames is a Montpelier-based photographer and strategist who also produces video and builds software."
   },
   "/contact/": {
     title: "Contact a Vermont Commercial Photographer | Oliver Ames",
-    description: "Contact Oliver Ames about commercial photography, corporate portraits, event coverage, video, content strategy, or practical technology work in Vermont."
+    description: "Contact Oliver Ames about a photography, communications, website, or software project in Vermont."
   },
   "/blog/": {
     title: "Writing by Oliver Ames | Vermont Photography, Technology, and Work",
-    description: "Essays and notes from Oliver Ames about photography, communications, technology, Vermont organizations, and the systems behind useful work."
+    description: "Oliver Ames writes about photography, communications, technology, and his work in Vermont."
   },
   "/blog/archive/": {
     title: "Writing Archive | Oliver Ames",
@@ -64,11 +64,11 @@ const overrides = {
   },
   "/testimonials/": {
     title: "Client and Colleague Recommendations | Oliver Ames",
-    description: "Public LinkedIn recommendations about Oliver Ames's photography, creative strategy, problem-solving, initiative, and collaboration."
+    description: "Read public LinkedIn recommendations from clients and colleagues who worked with Oliver Ames."
   },
   "/blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/": {
     title: "The Sunshine Trail Brand Campaign | Oliver Ames",
-    description: "A speculative Vermont brand campaign by Oliver Ames, with an interactive route, community stories, impact data, and a practical marketing system."
+    description: "Oliver Ames built an interactive road trip from Waitsfield to Asheville as a speculative campaign for Lawson's Finest Liquids."
   }
 };
 
@@ -138,7 +138,7 @@ function metadataFor(route, html) {
   const slugTitle = slug.split("-").map((part) => part ? `${part[0].toUpperCase()}${part.slice(1)}` : part).join(" ")
     .replaceAll("Eastrise", "EastRise").replaceAll("Vtdigger", "VTDigger").replaceAll("Ynab", "YNAB").replaceAll("Mcp", "MCP").replaceAll("Beta", "BETA");
   const fallbackTitle = route.startsWith("/work/") ? `${slugTitle} | Work by Oliver Ames` : `${h1} | Oliver Ames`;
-  const rawDescription = (overrides[route]?.description || oldDescription || `${h1.replace(/[.!?]+$/, "")}. Photography, content, video, and technology work by Oliver Ames in Vermont.`).replaceAll("..", ".");
+  const rawDescription = (overrides[route]?.description || oldDescription || `${h1.replace(/[.!?]+$/, "")}. A project by Oliver Ames in Vermont.`).replaceAll("..", ".");
   const description = sentenceSafeExcerpt(rawDescription, 165);
   return {
     title: overrides[route]?.title || fallbackTitle,

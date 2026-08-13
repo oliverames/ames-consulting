@@ -61,7 +61,7 @@ const socialProfiles = [
   ["Instagram", "https://www.instagram.com/oliverames/"],
 ];
 
-const firmDescription = "Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.";
+const firmDescription = "Ames Consulting is my photography and communications practice in Montpelier, Vermont. I also build websites and apps when a project needs them.";
 
 // Rebuild the footer colophon canonically on every page. Generators had
 // drifted into three variants (full 7-icon, GitHub+LinkedIn only, and a

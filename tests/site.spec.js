@@ -20,7 +20,7 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await expect(page).toHaveTitle(/Ames Consulting/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(
-    page.getByRole("heading", { level: 2, name: /Photography comes first/ }),
+    page.getByRole("heading", { level: 2, name: /I’m a photographer in Montpelier, Vermont/ }),
   ).toBeVisible();
   const firstMetric = page.locator(".proof__link").first();
   await expect(firstMetric).toBeVisible();
@@ -50,11 +50,11 @@ test("homepage chooses a new photography-led headline on refresh", async ({
   await expect(headline).not.toHaveText(first);
 
   const expectedHeadlines = [
-    "I photograph people doing work that matters.",
-    "I make photographs that feel like the people in them.",
-    "I photograph the moments that explain what an organization does.",
-    "I turn real work into photographs people remember.",
-    "I translate complex ideas into stories people care about.",
+    "I photograph people while they’re doing the work.",
+    "I photograph people at work, at events, and in their communities.",
+    "I photograph employees, customers, and volunteers for organizations.",
+    "I make portrait and workplace photographs on location.",
+    "I photograph portraits, events, and documentary projects across Vermont.",
   ];
   expect(expectedHeadlines).toContain(first);
   expect(expectedHeadlines).toContain(await headline.textContent());
@@ -298,11 +298,11 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
   await page.clock.fastForward("00:00:31");
 
   const dialog = page.getByRole("dialog", {
-    name: "Need photographs that feel like the people in them?",
+    name: "Do you need photographs of people at work?",
   });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole("heading")).toHaveText(
-    "Need photographs that feel like the people in them?",
+    "Do you need photographs of people at work?",
   );
   await expect.poll(() => page.locator("html").evaluate(
     (element) => getComputedStyle(element).overflowY,
@@ -348,7 +348,7 @@ test("website projects are separated by institution", async ({
   await page.goto("/work/credit-union-websites/");
   await expect(
     page.getByRole("heading", {
-      name: "Two website projects, each with its own job.",
+      name: "Credit union website projects",
     }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: /VSECU Website Redesign/ })).toBeVisible();
@@ -550,7 +550,7 @@ test("career pages keep private evidence and unsupported claims out of public co
 }) => {
   await page.goto("/work/live-broadcasts/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Live broadcasts made complex updates clear.",
+    "Live broadcasts",
   );
   await expect(page.locator("body")).not.toContainText("10,000");
   await expect(page.locator("body")).not.toContainText("2025 resume");
@@ -866,7 +866,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
 test("EastRise social highlights use complete post-only captures", async ({ page }) => {
   await page.goto("/work/eastrise-social/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Social highlights.",
+    "Selected social posts from VSECU and EastRise",
   );
   await expect(page.locator('[data-gallery="eastrise-social"] img')).toHaveCount(12);
   await expect(page.locator(".source-index")).toHaveCount(0);
@@ -919,12 +919,12 @@ test("legacy work uses linked case cards", async ({
     page.getByRole("heading", { name: "Legacy work" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /Membership conversion/ }),
+    page.getByRole("link", { name: /VTDigger membership/ }),
   ).toHaveAttribute("href", "vtdigger-membership/");
   await expect(
-    page.getByRole("link", { name: /Public astronomy/ }),
+    page.getByRole("link", { name: /Fairbanks Museum Planetarium/ }),
   ).toHaveAttribute("href", "fairbanks-planetarium/");
-  await expect(page.getByRole("link", { name: /Early digital storytelling/ })).toHaveAttribute("href", "connecticut-college/");
+  await expect(page.getByRole("link", { name: /Connecticut College/ })).toHaveAttribute("href", "connecticut-college/");
 });
 
 test("about page works as a professional profile and resume", async ({
@@ -939,7 +939,7 @@ test("about page works as a professional profile and resume", async ({
   ).toBeVisible();
   await expect(
     page.locator(".about-experience .section-heading__statement"),
-  ).toHaveText("The full version.");
+  ).toHaveText("Here’s the longer version.");
   await expect(page.locator(".about-role")).toHaveCount(9);
   const betaRole = page.locator(".about-role").filter({
     has: page.getByRole("heading", { name: "BETA Technologies", exact: true }),
@@ -1194,7 +1194,7 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
 test("in-house campaign cards identify the correct organization and role", async ({ page }) => {
   await page.goto("/work/");
   await expect(page.locator(".work-category__framing")).toContainText(
-    "projects I made at EastRise Credit Union, BETA Technologies, and for commissioned clients",
+    "These include in-house projects at EastRise Credit Union and BETA Technologies, plus commissioned work. Each card names the organization and my role.",
   );
   await expect(page.locator('[data-organization="eastrise"] .work-item__credit').first()).toHaveText("Made as Digital Content Strategist, EastRise Credit Union.");
   const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');

@@ -1,11 +1,11 @@
 const headline = document.querySelector("[data-hero-headline]");
 
 const variants = [
-  ["I photograph ", "people", " doing work that matters."],
-  ["I make photographs that feel like the ", "people", " in them."],
-  ["I photograph the moments that explain ", "what an organization does", "."],
-  ["I turn real work into ", "photographs", " people remember."],
-  ["I translate complex ideas into ", "stories", " people care about."],
+  ["I photograph ", "people", " while they’re doing the work."],
+  ["I photograph ", "people at work", ", at events, and in their communities."],
+  ["I photograph ", "employees, customers, and volunteers", " for organizations."],
+  ["I make ", "portrait and workplace photographs", " on location."],
+  ["I photograph ", "portraits, events, and documentary projects", " across Vermont."],
 ];
 
 if (headline) {

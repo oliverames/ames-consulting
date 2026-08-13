@@ -104,7 +104,7 @@ test("contact form fallback gives visitors a direct alternative", async () => {
   expect(source).not.toContain("Add contactFormEndpoint in site.config.json");
 });
 
-test("service breadcrumbs omit the nonexistent services index", async () => {
+test("service breadcrumbs include the published services index", async () => {
   const html = await read("services/photography-and-video/index.html");
   const scripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
   const graphs = scripts.map((match) => JSON.parse(match[1]));
@@ -115,6 +115,7 @@ test("service breadcrumbs omit the nonexistent services index", async () => {
   expect(breadcrumb).toBeTruthy();
   expect(breadcrumb.itemListElement.map((item) => item.item)).toEqual([
     "https://ames.consulting/",
+    "https://ames.consulting/services/",
     "https://ames.consulting/services/photography-and-video/",
   ]);
 });

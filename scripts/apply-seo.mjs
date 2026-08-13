@@ -2,6 +2,7 @@
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative, sep } from "node:path";
+import { workProjectTitleForRoute } from "./site-taxonomy.mjs";
 
 const root = join(import.meta.dirname, "..");
 const siteUrl = "https://ames.consulting";
@@ -17,6 +18,10 @@ const overrides = {
     description: "Oliver Ames makes workplace photographs and portraits, covers events, and produces video for Vermont organizations.",
     image: `${siteUrl}/assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp`
   },
+  "/services/": {
+    title: "Photography, Content, and Practical Technology Services | Oliver Ames",
+    description: "Oliver Ames provides photography, content strategy, and practical technology services for organizations in Vermont."
+  },
   "/services/strategy-and-content/": {
     title: "Content Strategy and Campaigns in Vermont | Oliver Ames",
     description: "Oliver Ames helps Vermont organizations plan campaigns, write clearly, publish social content, and measure what worked."
@@ -30,20 +35,20 @@ const overrides = {
     description: "Browse photography, video, communications, and software projects by Oliver Ames in Montpelier, Vermont."
   },
   "/work/neg-ecp-conference-2026/": {
-    title: "47th NEG-ECP Conference Photography | Oliver Ames",
+    title: "47th NEG-ECP Conference Photography | Work by Oliver Ames",
     description: "Thirty-five photographs by Oliver Ames from the 47th Conference of New England Governors and Eastern Canadian Premiers at Shelburne Farms on August 10, 2026.",
     image: `${siteUrl}/assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp`
   },
   "/work/credit-union-websites/": {
-    title: "Credit Union Website Projects | Oliver Ames",
+    title: "Credit Union Website Projects | Work by Oliver Ames",
     description: "Oliver Ames helped build the VSECU and EastRise websites through content, photography, migration, implementation, and quality assurance."
   },
   "/work/vsecu-website/": {
-    title: "VSECU Website Redesign | Oliver Ames",
+    title: "VSECU Website Redesign | Work by Oliver Ames",
     description: "For VSECU's 2021 website redesign, Oliver Ames worked on content, photography, migration, implementation, and quality assurance."
   },
   "/work/eastrise-website/": {
-    title: "EastRise Website Launch | Oliver Ames",
+    title: "EastRise Website Launch | Work by Oliver Ames",
     description: "For EastRise's 2024 website launch, Oliver Ames worked on content, photography, migration, implementation, and quality assurance."
   },
   "/about/": {
@@ -134,29 +139,34 @@ function metadataFor(route, html) {
   // Take the last description on the page: when a stale hand-authored block
   // coexists with a previously generated one, the generated value is last.
   const oldDescription = [...html.matchAll(/<meta\s[^>]*name="description"[^>]*content="([^"]*)"[^>]*>/gi)].at(-1)?.[1];
-  const slug = route.split("/").filter(Boolean).at(-1) || "home";
-  const slugTitle = slug.split("-").map((part) => part ? `${part[0].toUpperCase()}${part.slice(1)}` : part).join(" ")
-    .replaceAll("Eastrise", "EastRise").replaceAll("Vtdigger", "VTDigger").replaceAll("Ynab", "YNAB").replaceAll("Mcp", "MCP").replaceAll("Beta", "BETA");
-  const fallbackTitle = route.startsWith("/work/") ? `${slugTitle} | Work by Oliver Ames` : `${h1} | Oliver Ames`;
+  const currentTitle = text(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || "");
+  const currentSubject = currentTitle.split(" | ")[0].trim();
+  const projectTitle = workProjectTitleForRoute(route);
+  const fallbackTitle = route.startsWith("/work/")
+    ? `${projectTitle || currentSubject || h1} | Work by Oliver Ames`
+    : `${h1} | Oliver Ames`;
   const rawDescription = (overrides[route]?.description || oldDescription || `${h1.replace(/[.!?]+$/, "")}. A project by Oliver Ames in Vermont.`).replaceAll("..", ".");
   const description = sentenceSafeExcerpt(rawDescription, 165);
   return {
     title: overrides[route]?.title || fallbackTitle,
-    description
+    description,
+    displayTitle: projectTitle || h1,
   };
 }
 
-function breadcrumbs(route, title) {
+function breadcrumbs(route, title, displayTitle) {
   if (route === "/") return [];
   const parts = route.split("/").filter(Boolean);
   const names = { work: "Work", services: "Services", blog: "Writing", about: "About", contact: "Contact", testimonials: "Testimonials" };
   const items = [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }];
-  const navigableParts = parts
-    .map((part, index) => ({ part, index }))
-    .filter(({ part, index }) => !(part === "services" && index === 0));
+  const navigableParts = parts.map((part, index) => ({ part, index }));
   navigableParts.forEach(({ part, index: partIndex }, index) => {
     const path = `/${parts.slice(0, partIndex + 1).join("/")}/`;
-    items.push({ "@type": "ListItem", position: index + 2, name: partIndex === parts.length - 1 ? title.split(" | ")[0] : (names[part] || part), item: `${siteUrl}${path}` });
+    const isLast = partIndex === parts.length - 1;
+    const name = isLast
+      ? (parts.length === 1 && names[part]) || displayTitle || title.split(" | ")[0]
+      : names[part] || part;
+    items.push({ "@type": "ListItem", position: index + 2, name, item: `${siteUrl}${path}` });
   });
   return items;
 }
@@ -178,9 +188,9 @@ function graphFor(route, metadata, image, html) {
     areaServed: { "@type": "State", name: "Vermont" },
     knowsAbout: ["Commercial photography", "Workplace photography", "Corporate portraits", "Event photography", "Video production", "Content strategy", "Digital communications", "Web accessibility", "Software development"]
   };
-  const pageType = isBlogPost(route) ? "BlogPosting" : route === "/blog/archive/" ? "CollectionPage" : route.startsWith("/work/") && route !== "/work/" ? "CreativeWork" : route.startsWith("/services/") ? "Service" : route === "/about/" ? "ProfilePage" : "WebPage";
+  const pageType = isBlogPost(route) ? "BlogPosting" : ["/blog/archive/", "/services/"].includes(route) ? "CollectionPage" : route.startsWith("/work/") && route !== "/work/" ? "CreativeWork" : route.startsWith("/services/") ? "Service" : route === "/about/" ? "ProfilePage" : "WebPage";
   const page = {
-    "@type": pageType, "@id": `${canonical}#page`, url: canonical, name: metadata.title, description: metadata.description, image,
+    "@type": pageType, "@id": `${canonical}#page`, url: canonical, name: pageType === "CreativeWork" ? metadata.displayTitle : metadata.title, description: metadata.description, image,
     inLanguage: "en-US", isPartOf: { "@id": `${siteUrl}/#website` }, author: { "@id": person["@id"] }
   };
   if (pageType === "Service") {
@@ -200,7 +210,7 @@ function graphFor(route, metadata, image, html) {
     { "@type": "WebSite", "@id": `${siteUrl}/#website`, url: `${siteUrl}/`, name: "Oliver Ames", alternateName: "Ames Consulting", publisher: { "@id": organization["@id"] }, inLanguage: "en-US" },
     person, organization, page
   ];
-  const crumbs = breadcrumbs(route, metadata.title);
+  const crumbs = breadcrumbs(route, metadata.title, metadata.displayTitle);
   if (crumbs.length) graph.push({ "@type": "BreadcrumbList", "@id": `${canonical}#breadcrumbs`, itemListElement: crumbs });
   return { "@context": "https://schema.org", "@graph": graph };
 }

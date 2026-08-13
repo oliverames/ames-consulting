@@ -48,7 +48,7 @@ Color custom properties are registered with `@property` for animated transitions
 
 ### JavaScript — ES Modules (`assets/js/`)
 
-All eleven modules are live; nothing else ships:
+All twelve modules are live; nothing else ships:
 
 - **header-scroll.js** — Loaded on every page; toggles `[data-scrolled]` on `.site-header` once `window.scrollY > 10` (gates the blur backdrop). Imports `inbound-prompt.js` and `gallery-card-scrub.js`.
 - **inbound-prompt.js** — Time+scroll-triggered "Start a project" launcher and dialog; suppressed while another dialog is open.
@@ -60,6 +60,7 @@ All eleven modules are live; nothing else ships:
 - **hero-headline.js** — Rotates the homepage H1 through five variants (sessionStorage-seeded).
 - **proof-rotator.js** — Adds manual previous and next controls to the homepage proof-stat pages and keeps the selected page labeled.
 - **recommendation-dialog.js** — Opens public LinkedIn recommendations in an accessible on-site dialog and restores focus when it closes.
+- **service-taxonomy.js** — Exposes the canonical public service slugs and labels to browser modules and build scripts.
 - **work-filter.js** — `?organization=` filtering on `/work/`; unknown values fall back to the unfiltered view with "All" marked current.
 
 ### Static Generation
@@ -80,7 +81,7 @@ Ground rules learned the hard way:
 
 ### Routes
 
-`/` (home), `/about/`, `/blog/` plus its archive and post pages, `/contact/`, `/testimonials/`, three direct `/services/.../` pages, and `/work/` plus the project pages listed in `publication-policy.mjs`. The `?organization=` query on `/work/` drives client-side filtering. There is no `/services/` index. The retired `/photography/`, `/links/`, `/likes/`, and `/colophon/` routes do not exist.
+`/` (home), `/about/`, `/blog/` plus its archive and post pages, `/contact/`, `/testimonials/`, `/services/` plus three service pages, and `/work/` plus the project pages listed in `publication-policy.mjs`. The `?organization=` query on `/work/` drives client-side filtering. The retired `/photography/`, `/links/`, `/likes/`, and `/colophon/` routes do not exist.
 
 ## Testing
 

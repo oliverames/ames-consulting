@@ -193,7 +193,7 @@ test("contact form submits to the site endpoint", async ({ page }) => {
   await page.getByLabel("Name").fill("Site Test");
   await page.getByLabel("Email").fill("site-test@example.com");
   await page.getByLabel("Organization (optional)").fill("Ames Consulting");
-  await page.getByLabel("What kind of work?").selectOption({ label: "Website or digital system" });
+  await page.getByLabel("What kind of work?").selectOption({ label: "Practical technology" });
   await page.getByLabel("Tell me about it").fill("Testing the contact form.");
   await page.evaluate(() => {
     document.querySelector("#contact-started-at").value = String(
@@ -308,7 +308,7 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
     (element) => getComputedStyle(element).overflowY,
   )).toBe("hidden");
   await expect(
-    dialog.getByRole("link", { name: /Tell me about the project/ }),
+    dialog.getByRole("link", { name: /Send me a note/ }),
   ).toHaveAttribute(
     "href",
     "../../contact/?project=Photography%20and%20video",
@@ -324,7 +324,7 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
   await page.clock.fastForward("00:00:31");
   await expect(dialog).toBeHidden();
 
-  await page.getByRole("button", { name: "Start a project" }).click();
+  await page.getByRole("button", { name: "Send me a note" }).click();
   await expect(dialog).toBeVisible();
   await expect.poll(() => page.locator("html").evaluate(
     (element) => getComputedStyle(element).overflowY,
@@ -550,7 +550,7 @@ test("career pages keep private evidence and unsupported claims out of public co
 }) => {
   await page.goto("/work/live-broadcasts/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Live broadcasts",
+    "Live Broadcasts",
   );
   await expect(page.locator("body")).not.toContainText("10,000");
   await expect(page.locator("body")).not.toContainText("2025 resume");
@@ -721,10 +721,6 @@ test("portrait work is split into complete framed galleries", async ({ page }) =
   expect(new Set(additionalPortraits.map((image) => image.caption)).size).toBe(23);
   expect(additionalPortraits.filter((image) => image.caption === "Luke Buglion Gluck")).toHaveLength(2);
   await page.setViewportSize({ width: 785, height: 863 });
-  await page.goto("/work/portraits-and-people/");
-  await expect(page.locator(".work-item")).toHaveCount(1);
-  await expect(page.locator('.work-item[href="../eastrise-portraits/"]')).toHaveCount(1);
-  await expect(page.locator('a[href*="blue-cross-portraits"]')).toHaveCount(0);
   await page.goto("/work/eastrise-portraits/");
   const portraitImages = page.locator(".portrait-gallery img");
   await expect(portraitImages).toHaveCount(42);
@@ -819,7 +815,7 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     page.getByRole("heading", { name: "Giron Family, Fall 2025", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "Christmas Tree Farm Family Session", exact: true }),
+    page.getByRole("heading", { name: "Giron Family at the Christmas Tree Farm", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Giron Family, Fall 2023", exact: true }),
@@ -919,7 +915,7 @@ test("legacy work uses linked case cards", async ({
     page.getByRole("heading", { name: "Legacy work" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /VTDigger membership/ }),
+    page.getByRole("link", { name: /VTDigger Membership/ }),
   ).toHaveAttribute("href", "vtdigger-membership/");
   await expect(
     page.getByRole("link", { name: /Fairbanks Museum Planetarium/ }),

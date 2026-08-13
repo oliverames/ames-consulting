@@ -78,6 +78,39 @@ function setStatus(node, message, tone = "info") {
   node.dataset.tone = tone;
 }
 
+function validationMessage(control) {
+  if (control.name === "name") return "Please enter your name.";
+  if (control.name === "email" && control.validity.typeMismatch) {
+    return "Please enter a valid email address.";
+  }
+  if (control.name === "email") return "Please enter your email address.";
+  if (control.name === "message") return "Please tell me what you’re working on.";
+  return "Please complete this field.";
+}
+
+function fieldError(control) {
+  const describedBy = control.getAttribute("aria-describedby");
+  return describedBy ? document.getElementById(describedBy) : null;
+}
+
+function showFieldError(control) {
+  control.setAttribute("aria-invalid", "true");
+  const error = fieldError(control);
+  if (error) error.textContent = validationMessage(control);
+}
+
+function clearFieldError(control) {
+  control.removeAttribute("aria-invalid");
+  const error = fieldError(control);
+  if (error) error.textContent = "";
+}
+
+function clearValidation(form) {
+  for (const control of form.querySelectorAll("[aria-invalid]")) {
+    clearFieldError(control);
+  }
+}
+
 async function initContactForm() {
   const form = document.getElementById("contact-form");
   const fallback = document.getElementById("contact-form-fallback");
@@ -102,6 +135,19 @@ async function initContactForm() {
   startedAtInput.value = String(Date.now());
   form.addEventListener("focusin", requestTurnstile, { once: true });
   form.addEventListener("pointerdown", requestTurnstile, { once: true });
+  form.addEventListener("invalid", (event) => {
+    const control = event.target;
+    if (!(control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement)) return;
+    showFieldError(control);
+    setStatus(status, "Please check the marked fields and try again.", "error");
+  }, true);
+  form.addEventListener("input", (event) => {
+    const control = event.target;
+    if (!(control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement)) return;
+    if (!control.hasAttribute("aria-invalid")) return;
+    if (control.validity.valid) clearFieldError(control);
+    else showFieldError(control);
+  });
 
   const requestedProject = new URLSearchParams(location.search).get("project");
   if (requestedProject && projectType instanceof RadioNodeList) {
@@ -129,6 +175,7 @@ async function initContactForm() {
       // Likely bot. Pretend success while dropping the payload.
       setStatus(status, config.contactFormSuccessMessage || "Thanks, your message was sent.", "ok");
       form.reset();
+      clearValidation(form);
       startedAtInput.value = String(Date.now());
       return;
     }
@@ -179,6 +226,7 @@ async function initContactForm() {
 
       setStatus(status, config.contactFormSuccessMessage || "Thanks, your message was sent.", "ok");
       form.reset();
+      clearValidation(form);
       startedAtInput.value = String(Date.now());
       window.turnstile?.reset();
     } catch (error) {

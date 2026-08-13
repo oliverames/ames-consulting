@@ -56,7 +56,7 @@ test("YouTube facade documents have no moderate, serious, or critical accessibil
 
 test("inbound project prompt has no moderate, serious, or critical accessibility issues", async ({ page }) => {
   await page.goto("/work/giron-family-fall-2025/");
-  const launcher = page.getByRole("button", { name: "Start a project" });
+  const launcher = page.getByRole("button", { name: "Send me a note" });
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.4));
   await expect(launcher).toBeVisible();
   await launcher.click();

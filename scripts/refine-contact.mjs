@@ -17,10 +17,6 @@ html = html
     '<label>Timing <span>(optional)</span><input type="text" name="timeframe"',
     '<label><span class="contact-form__label-text">Timing <span class="contact-form__optional">(optional)</span></span><input type="text" name="timeframe"',
   );
-html = html.replace(
-  /<ul><li><span>01<\/span><div><h3>Strategy and content[\s\S]*?<\/li><li><span>02<\/span><div><h3>Photography and video[\s\S]*?<\/li><li><span>03<\/span><div><h3>Websites and systems[\s\S]*?<\/li><\/ul>/,
-  `<ul><li class="contact-notes__primary"><span>01</span><div><h3>Photography and video</h3><p>I photograph people at work, at events, and on location.</p></div></li><li><span>02</span><div><h3>Strategy and content</h3><p>I plan and write content around the questions people ask.</p></div></li><li><span>03</span><div><h3>Websites and systems</h3><p>I build or repair websites, apps, and workflows.</p></div></li></ul>`,
-);
 html = html
   .replaceAll("Photograph people where the work happens.", "I photograph people at work, at events, and on location.")
   .replaceAll("Plan and write content around the questions people ask.", "I plan and write content around the questions people ask.")

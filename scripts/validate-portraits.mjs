@@ -4,7 +4,6 @@ import path from "node:path";
 const data = JSON.parse(await readFile("assets/data/portraits.json", "utf8"));
 const sourceData = JSON.parse(await readFile("assets/data/eastrise-portrait-sources.json", "utf8"));
 const eastRiseHtml = await readFile("work/eastrise-portraits/index.html", "utf8");
-const portraitIndexHtml = await readFile("work/portraits-and-people/index.html", "utf8");
 const errors = [];
 const sources = new Set();
 const officialEastRiseNames = [
@@ -278,10 +277,7 @@ if (!eastRiseHtml.includes("on May 21, 2024")) {
 if (/original page URLs|native captures are unavailable|retained from Oliver Ames’s archive/i.test(eastRiseHtml)) {
   errors.push("The EastRise page contains false archive-unavailable copy.");
 }
-if (!portraitIndexHtml.includes("18 leadership portraits and 24 additional formal portraits.")) {
-  errors.push("The portrait overview must state the 18 plus 24 collection split.");
-}
-if (/\b(?:40|41) portraits\b/i.test(eastRiseHtml) || /\b(?:40|41) portraits\b/i.test(portraitIndexHtml)) {
+if (/\b(?:40|41) portraits\b/i.test(eastRiseHtml)) {
   errors.push("Generated portrait pages retain an obsolete portrait total.");
 }
 

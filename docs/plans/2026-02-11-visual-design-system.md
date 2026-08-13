@@ -1,7 +1,9 @@
 # Visual Design System — ames.consulting
 
+> **Historical reference:** This document records the original February 2026 direction. The implemented navigation, routes, content, and component rules in `AGENTS.md` and `docs/ARCHITECTURE.md` now take precedence.
+
 **Date**: 2026-02-11
-**Status**: Design complete, ready for implementation
+**Status**: Archived after implementation
 **Branch**: `codex/site-hardening-infra`
 
 ---

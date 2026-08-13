@@ -412,11 +412,4 @@ for (const page of pages) {
   await writeFile(path.join(directory, "index.html"), applyPublicationPolicy(page.slug, page.html));
 }
 
-const indexHtml = pageShell({
-  title: "EastRise Portraits",
-  description: "The EastRise leadership and formal portrait collection by Oliver Ames.",
-  canonical: "portraits-and-people",
-  body: `<header class="case-hero"><p class="eyebrow">Portrait collection · EastRise</p><h1>EastRise portraits.</h1><p>Browse 42 formal portraits of 41 people made for EastRise and VSECU.</p></header><section class="work-category"><h2>Portrait collection</h2><div class="work-list"><a class="work-item" href="../eastrise-portraits/"><img src="../../assets/images/work/portraits/amy-vaughan.webp" alt="Portrait of Amy Vaughan" loading="lazy"><span class="work-item__context">EastRise</span><h3>EastRise Portraits</h3><p>18 leadership portraits and 24 additional formal portraits.</p></a></div></section>`,
-});
-await writeFile(path.join(root, "work/portraits-and-people/index.html"), indexHtml);
 console.log(`Generated ${data.totalImages} portraits across ${series.length} series.`);

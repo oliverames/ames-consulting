@@ -10,7 +10,6 @@ import {
   siThreads,
   siInstagram,
 } from "simple-icons";
-import { projectDateFor, sortEntriesNewestFirst } from "./project-order.mjs";
 import { applyYoutubeFacades } from "./youtube-facade.mjs";
 
 const root = new URL("../", import.meta.url).pathname;
@@ -83,24 +82,56 @@ function normalizeColophon(html) {
 // Every page's primary nav and footer Company column carry the same items.
 // Late-running page rewrites (refine-work) used to drop the Testimonials
 // entry that generate-testimonials added earlier in the build.
-function normalizeNavAndCompany(html, base) {
-  let out = html;
-  if (!/<ul class="site-nav">[\s\S]*?Testimonials/.test(out)) {
-    out = out.replace(
-      /(<ul class="site-nav">[\s\S]*?<li><a href="[^"]*about\/"[^>]*>About<\/a><\/li>)/,
-      `$1<li><a href="${base}testimonials/">Testimonials</a></li>`,
-    );
-  }
-  out = out.replace(/(<h[23]>Company<\/h[23]>\s*<ul>)([\s\S]*?)(<\/ul>)/, (match, openTag, items, closeTag) => {
-    let list = items.replace(/(<a href="[^"]*work\/"[^>]*>)(?:All projects|Work)(<\/a>)/, "$1All work$2");
-    if (!list.includes("Testimonials")) {
-      list = list.replace(
-        /(<li><a href="[^"]*contact\/"[^>]*>Contact<\/a><\/li>)/,
-        `<li><a href="${base}testimonials/">Testimonials</a></li>$1`,
-      );
-    }
-    return `${openTag}${list}${closeTag}`;
-  });
+function normalizeNavAndCompany(html, base, file) {
+  const page = relative(root, file).split(sep).join("/");
+  const topLevel = page === "index.html"
+    ? "Home"
+    : page.startsWith("work/")
+      ? "Work"
+      : page.startsWith("services/")
+        ? "Services"
+        : page.startsWith("blog/")
+          ? "Writing"
+          : page.startsWith("about/")
+            ? "About"
+            : page.startsWith("testimonials/")
+              ? "Testimonials"
+              : page.startsWith("contact/")
+                ? "Contact"
+                : "";
+  const exactTopLevel = new Set([
+    "index.html",
+    "work/index.html",
+    "services/index.html",
+    "blog/index.html",
+    "about/index.html",
+    "testimonials/index.html",
+    "contact/index.html",
+  ]).has(page);
+  const navItems = [
+    ["Home", base],
+    ["Work", `${base}work/`],
+    ["Services", `${base}services/`],
+    ["Writing", `${base}blog/`],
+    ["About", `${base}about/`],
+    ["Testimonials", `${base}testimonials/`],
+    ["Contact", `${base}contact/`],
+  ].map(([label, href]) => {
+    const current = label === topLevel
+      ? ` aria-current="${exactTopLevel ? "page" : "true"}"`
+      : "";
+    return `<li><a href="${href}"${current}>${label}</a></li>`;
+  }).join("");
+
+  let out = html.replace(
+    /<ul class="site-nav">[\s\S]*?<\/ul>/,
+    `<ul class="site-nav">${navItems}</ul>`,
+  );
+  const companyItems = `<li><a href="${base}work/">All work</a></li><li><a href="${base}services/">Services</a></li><li><a href="${base}blog/">Writing</a></li><li><a href="${base}about/">About</a></li><li><a href="${base}testimonials/">Testimonials</a></li><li><a href="${base}contact/">Contact</a></li>`;
+  out = out.replace(
+    /(<h[23]>Company<\/h[23]>\s*<ul>)[\s\S]*?(<\/ul>)/,
+    `$1${companyItems}$2`,
+  );
   return out;
 }
 
@@ -144,7 +175,6 @@ function ensureHubSectionHeadings(html, file) {
   const headings = new Map([
     ["work/eastrise/index.html", ["work-category legacy-campaigns", "EastRise campaigns and projects"]],
     ["work/blue-cross-vermont/index.html", ["work-category legacy-campaigns", "Blue Cross Vermont series"]],
-    ["work/portraits-and-people/index.html", ["work-category", "Portrait collections"]],
   ]);
   const setting = headings.get(page);
   if (!setting) return html;
@@ -161,26 +191,35 @@ function updateFooterGroups(html, file) {
   const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
   const workBase = `${base}work/`;
   return html.replace(
-    /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h[23]>(?:Campaigns|Services|Work by organization)<\/h[23]>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
+    /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h[23]>(?:Campaigns|Galleries|Services|Work by organization)<\/h[23]>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
     `<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization</h2><ul><li><a href="${workBase}blue-cross-vermont/">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}?organization=beta-technologies">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
   );
 }
 
-function sortGalleryNavigation(html, file) {
-  const pageHref = relative(root, file)
-    .split(sep).join("/")
-    .replace(/^work\//, "")
-    .replace(/index\.html$/, "");
-  if (!projectDateFor(pageHref)) return html;
+function ensureWorkReturn(html, file) {
+  const page = relative(root, file).split(sep).join("/");
+  if (!/^work\/[^/]+\/index\.html$/.test(page)) return html;
+  const cleaned = html.replace(/<nav class="work-return"[\s\S]*?<\/nav>/g, "");
+  return cleaned.replace(
+    /(<main\b[^>]*>)/,
+    '$1<nav class="work-return" aria-label="Project navigation"><a href="../">← All work</a></nav>',
+  );
+}
 
-  return html.replace(
-    /(<h[23]>Galleries<\/h[23]>\s*<ul>)([\s\S]*?)(<\/ul>)/,
-    (match, opening, items, closing) => {
-      const links = [...items.matchAll(/<li><a href="([^"]+)"[\s\S]*?<\/a><\/li>/g)]
-        .map((item) => ({ href: item[1], html: item[0] }));
-      if (!links.length) return match;
-      const ordered = sortEntriesNewestFirst(links, (item) => item.href);
-      return `${opening}${ordered.map((item) => item.html).join("")}${closing}`;
+const galleryOrderLabels = new Map([
+  ["chronological", "Shown in chronological order."],
+  ["reverse-chronological", "Shown in reverse chronological order."],
+  ["editorial", "Shown in an editorial sequence."],
+  ["source", "Shown in source order."],
+]);
+
+function ensureGalleryOrderNotes(html) {
+  const cleaned = html.replace(/<p class="gallery-order-note">[\s\S]*?<\/p>/g, "");
+  return cleaned.replace(
+    /<div\b([^>]*data-order-mode="([^"]+)"[^>]*)>/g,
+    (gallery, attributes, mode) => {
+      const label = galleryOrderLabels.get(mode);
+      return label ? `<p class="gallery-order-note">${label}</p><div${attributes}>` : gallery;
     },
   );
 }
@@ -272,14 +311,14 @@ for (const file of await collectHtml(root)) {
   const base = directoryDepth === 0 ? "./" : "../".repeat(directoryDepth);
   const faviconBase = relative(root, file) === "404.html" ? "/" : base;
   let after = normalizeColophon(before);
-  after = normalizeNavAndCompany(after, base);
+  after = normalizeNavAndCompany(after, base, file);
   after = ensureFontPreconnects(after);
   after = ensureFavicon(after, `${faviconBase}assets/images/brand/oa-social-mark.svg`);
   after = ensureHubSectionHeadings(after, file);
   after = applyYoutubeFacades(after);
   after = addProvenanceDisclosure(
     normalizeFooterHeadingLevels(
-      sortGalleryNavigation(updateFooterGroups(addSocialHeading(addIcons(after)), file), file),
+      updateFooterGroups(addSocialHeading(addIcons(ensureGalleryOrderNotes(ensureWorkReturn(after, file)))), file),
     ),
     file,
   );

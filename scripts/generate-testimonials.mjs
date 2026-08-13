@@ -197,7 +197,7 @@ const archiveCards = recommendationArchive.map(([person, quote, context]) => {
     ? `<button class="recommendation-entry__more" type="button" aria-haspopup="dialog" aria-controls="recommendation-dialog" data-recommendation-dialog="${recommendationId(person.name)}" aria-label="Read the full recommendation from ${person.name}">Read the full recommendation</button>`
     : "";
   const profileLink = person.profile
-    ? `<a href="${person.profile}" rel="noopener">View LinkedIn profile →</a>`
+    ? `<a href="${person.profile}" rel="noopener">View LinkedIn profile ↗</a>`
     : "";
   const actions = fullRecommendationButton || profileLink
     ? `<div class="recommendation-entry__actions">${fullRecommendationButton}${profileLink}</div>`

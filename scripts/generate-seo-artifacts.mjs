@@ -2,6 +2,7 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import path from "node:path";
 import { promisify } from "node:util";
+import { SERVICES } from "./site-taxonomy.mjs";
 
 const exec = promisify(execFile);
 
@@ -112,15 +113,18 @@ function buildRobotsTxt(siteUrl, domain) {
 }
 
 function buildLlmsTxt(siteUrl) {
+  const descriptions = {
+    "photography-and-video": "documentary workplace photography, corporate portraits, events, and video production across Vermont.",
+    "strategy-and-content": "campaign planning, writing, social media, and measurement.",
+    "practical-technology": "websites, accessibility, analytics, automation, and software.",
+  };
   return [
     "# Oliver Ames",
     "",
     "> Oliver Ames is a commercial photographer, content strategist, video producer, and software developer based in Montpelier, Vermont.",
     "",
     "## Primary services",
-    `- [Commercial photography and video](${siteUrl}/services/photography-and-video/): documentary workplace photography, corporate portraits, events, and video production across Vermont.`,
-    `- [Content strategy and campaigns](${siteUrl}/services/strategy-and-content/): campaign planning, writing, social media, and measurement.`,
-    `- [Websites and practical technology](${siteUrl}/services/practical-technology/): websites, accessibility, analytics, automation, and software.`,
+    ...SERVICES.map(({ slug, title }) => `- [${title}](${siteUrl}/services/${slug}/): ${descriptions[slug]}`),
     "",
     "## Evidence",
     `- [Selected work](${siteUrl}/work/)`,
@@ -129,7 +133,7 @@ function buildLlmsTxt(siteUrl) {
     `- [Writing](${siteUrl}/blog/)`,
     "",
     "## Contact",
-    `- [Start a conversation](${siteUrl}/contact/)`,
+    `- [Send me a note](${siteUrl}/contact/)`,
     "- Email: oliver@ames.consulting",
     ""
   ].join("\n");

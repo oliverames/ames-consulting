@@ -80,12 +80,10 @@ test("EastRise photography archive renders dated series first, newest first", as
   assert.ok(hrefs.every((href) => projectDateFor(href)?.sortDate));
 });
 
-test("public gallery footer navigation renders newest first", async () => {
+test("public gallery pages use the shared organization footer", async () => {
   const html = await read("work/neg-ecp-conference-2026/index.html");
-  const galleryLinks = html.match(/<h2>Galleries<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
-  assert.ok(galleryLinks, "Missing gallery navigation");
-  const hrefs = [...galleryLinks.matchAll(/<a href="([^"]+)"/g)].map((match) => match[1]);
-  assertNewestFirst(hrefs, "Gallery footer navigation");
+  assert.match(html, /<h2>Work by organization<\/h2>/);
+  assert.doesNotMatch(html, /<h2>Galleries<\/h2>/);
 });
 
 test("GMCF galleries declare and follow authoritative oldest-first capture order", async () => {

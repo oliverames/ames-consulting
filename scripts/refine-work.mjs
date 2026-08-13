@@ -2,6 +2,7 @@
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { sortEntriesNewestFirst } from "./project-order.mjs";
+import { WORK_PROJECT_TITLES } from "./site-taxonomy.mjs";
 
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
@@ -32,7 +33,7 @@ html = html.replace(
 );
 
 if (!html.includes('href="connecticut-college/"')) {
-  const additions = `<a class="work-item" href="connecticut-college/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>2013</strong></div><span class="work-item__context">Connecticut College · 2013–2015</span><h3>Connecticut College</h3><p>I wrote college blogs and social content, covered donor events, and worked on a major website redesign.</p></a><a class="work-item" href="stowe-ski-instruction/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>6 yrs</strong></div><span class="work-item__context">Stowe Mountain Resort · 2013–2019</span><h3>Stowe ski instruction</h3><p>I taught skiing at Stowe for six seasons.</p></a>`;
+  const additions = `<a class="work-item" href="connecticut-college/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>2013</strong></div><span class="work-item__context">Connecticut College · 2013–2015</span><h3>Connecticut College</h3><p>I wrote college blogs and social content, covered donor events, and worked on a major website redesign.</p></a><a class="work-item" href="stowe-ski-instruction/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>6 yrs</strong></div><span class="work-item__context">Stowe Mountain Resort · 2013–2019</span><h3>Stowe Ski Instruction</h3><p>I taught skiing at Stowe for six seasons.</p></a>`;
   html = html.replace(/(<section class="work-category work-category--earlier">[\s\S]*?<div class="work-list">)/, `$1${additions}`);
 }
 
@@ -82,8 +83,8 @@ const inHouseDescriptions = new Map([
 ]);
 const consultingHrefs = new Set(["flight-paths/"]);
 const legacyCardCopy = new Map([
-  ["stowe-ski-instruction/", ["Stowe ski instruction", "I taught alpine skiing at Stowe for six seasons."]],
-  ["vtdigger-membership/", ["VTDigger membership", "I simplified the donation page and ran the tests that increased membership conversion by 137%."]],
+  ["stowe-ski-instruction/", ["Stowe Ski Instruction", "I taught alpine skiing at Stowe for six seasons."]],
+  ["vtdigger-membership/", ["VTDigger Membership", "I simplified the donation page and ran the tests that increased membership conversion by 137%."]],
   ["fairbanks-planetarium/", ["Fairbanks Museum Planetarium", "I ran the planetarium and helped organize a Guinness World Record astronomy lesson."]],
   ["connecticut-college/", ["Connecticut College", "I wrote college blogs and social content, covered donor events, and worked on a major website redesign."]],
 ]);
@@ -127,6 +128,10 @@ if (campaignMatch) {
       cardHtml = cardHtml
         .replace(/<h3>[\s\S]*?<\/h3>/, `<h3>${legacyCopy[0]}</h3>`)
         .replace(/<p>[\s\S]*?<\/p>/, `<p>${legacyCopy[1]}</p>`);
+    }
+    const displayTitle = WORK_PROJECT_TITLES[card.href.replace(/\/$/, "")];
+    if (displayTitle) {
+      cardHtml = cardHtml.replace(/<h3>[\s\S]*?<\/h3>/, `<h3>${displayTitle}</h3>`);
     }
     const feature = featuredImages.get(card.href);
     if (feature) {

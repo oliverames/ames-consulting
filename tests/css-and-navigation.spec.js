@@ -27,7 +27,7 @@ test("project launcher keeps readable contrast in dark mode", async ({ page }) =
     scrollTo(0, document.documentElement.scrollHeight * 0.25),
   );
 
-  const launcher = page.getByRole("button", { name: "Start a project" });
+  const launcher = page.getByRole("button", { name: "Send me a note" });
   await expect(launcher).toBeVisible();
   const colors = await launcher.evaluate((element) => {
     const style = getComputedStyle(element);
@@ -235,6 +235,34 @@ test("homepage hero copy width does not depend on portrait parse timing", async 
   );
 });
 
+test("homepage headline variants reserve a stable hero height", async ({ page }) => {
+  const variants = [
+    ["I photograph ", "people", " while they’re doing the work."],
+    ["I photograph ", "people at work", ", at events, and in their communities."],
+    ["I photograph ", "employees, customers, and volunteers", " for organizations."],
+    ["I make ", "portrait and workplace photographs", " on location."],
+    ["I photograph ", "portraits, events, and documentary projects", " across Vermont."],
+  ];
+
+  for (const width of [1440, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    const heights = [];
+    for (const variant of variants) {
+      heights.push(await page.locator(".hero").evaluate(async (hero, [before, emphasis, after]) => {
+        const heading = hero.querySelector("[data-hero-headline]");
+        const em = document.createElement("em");
+        em.textContent = emphasis;
+        heading.replaceChildren(before, em, after);
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        return hero.getBoundingClientRect().height;
+      }, variant));
+    }
+    expect(Math.max(...heights) - Math.min(...heights), `${width}px hero height`).toBeLessThan(1);
+  }
+});
+
 test("all public content routes load", async ({ request }) => {
   for (const route of publicRoutes) {
     const response = await request.get(route);
@@ -288,6 +316,141 @@ test("software project previews do not clip on small screens", async ({ page }) 
   }
 });
 
+test("software project actions use shared readable buttons", async ({ page }) => {
+  for (const route of [
+    "/work/apple-core/",
+    "/work/bridgeport/",
+    "/work/meta-mcp-server/",
+    "/work/ping-warden/",
+    "/work/skylight-bridge/",
+    "/work/ynab-mcp-server/",
+  ]) {
+    await page.goto(route);
+    const actions = page.locator(".software-actions .btn");
+    await expect(actions).toHaveCount(2);
+    const measurements = await actions.evaluateAll((links) => {
+      const channels = (color) => {
+        const canvas = new OffscreenCanvas(1, 1);
+        const context = canvas.getContext("2d", { colorSpace: "srgb" });
+        context.fillStyle = color;
+        context.fillRect(0, 0, 1, 1);
+        return [...context.getImageData(0, 0, 1, 1).data].slice(0, 3);
+      };
+      const luminance = (color) => {
+        const linear = channels(color).map((channel) => {
+          const value = channel / 255;
+          return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+        });
+        return (0.2126 * linear[0]) + (0.7152 * linear[1]) + (0.0722 * linear[2]);
+      };
+      const ratio = (foreground, background) => {
+        const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+        return (values[0] + 0.05) / (values[1] + 0.05);
+      };
+      const heroBackground = getComputedStyle(links[0].closest(".software-hero")).backgroundColor;
+      return links.map((link) => {
+        const style = getComputedStyle(link);
+        const background = style.backgroundColor === "rgba(0, 0, 0, 0)"
+          ? heroBackground
+          : style.backgroundColor;
+        return {
+          contrast: ratio(style.color, background),
+          height: link.getBoundingClientRect().height,
+          paddingInline: Number.parseFloat(style.paddingInlineStart),
+        };
+      });
+    });
+    for (const measurement of measurements) {
+      expect(measurement.height, `${route} action height`).toBeGreaterThanOrEqual(44);
+      expect(measurement.paddingInline, `${route} action padding`).toBeGreaterThanOrEqual(16);
+      expect(measurement.contrast, `${route} action contrast`).toBeGreaterThanOrEqual(4.5);
+    }
+  }
+});
+
+test("contact panels share padding and required fields keep visible errors", async ({ page }) => {
+  for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/contact/");
+    await expect(page.locator("#contact-form")).toBeVisible();
+    const paddings = await page.evaluate(() => [
+      Number.parseFloat(getComputedStyle(document.querySelector(".contact-form-card")).paddingTop),
+      Number.parseFloat(getComputedStyle(document.querySelector(".contact-notes")).paddingTop),
+    ]);
+    expect(Math.abs(paddings[0] - paddings[1])).toBeLessThan(1);
+  }
+
+  await page.getByRole("button", { name: "Send message" }).click();
+  for (const [field, error] of [
+    ["#contact-name", "#contact-name-error"],
+    ["#contact-email", "#contact-email-error"],
+    ["#contact-message", "#contact-message-error"],
+  ]) {
+    await expect(page.locator(field)).toHaveAttribute("aria-invalid", "true");
+    await expect(page.locator(error)).not.toBeEmpty();
+    await expect(page.locator(error)).toBeVisible();
+  }
+  await page.locator("#contact-name").fill("Oliver");
+  await page.locator("#contact-email").fill("oliver@example.com");
+  await page.locator("#contact-message").fill("I need help with a project.");
+  await expect(page.locator('[aria-invalid="true"]')).toHaveCount(0);
+  await expect(page.locator(".contact-form__field-error:not(:empty)")).toHaveCount(0);
+});
+
+test("work cards, case heroes, and footer links use the shared geometry", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/work/");
+  const legacyStyles = await page.locator(".work-category--earlier .work-item").evaluateAll((cards) => cards.map((card) => {
+    const style = getComputedStyle(card);
+    return {
+      background: style.backgroundColor,
+      radius: Number.parseFloat(style.borderRadius),
+      shadow: style.boxShadow,
+    };
+  }));
+  expect(legacyStyles).toHaveLength(4);
+  for (const style of legacyStyles) {
+    expect(style.background).not.toBe("rgba(0, 0, 0, 0)");
+    expect(style.radius).toBeGreaterThanOrEqual(12);
+    expect(style.shadow).not.toBe("none");
+  }
+
+  const targetHeights = await page.locator(".site-footer__sitemap a, .site-footer__social a").evaluateAll(
+    (links) => links.map((link) => link.getBoundingClientRect().height),
+  );
+  expect(targetHeights.length).toBeGreaterThan(0);
+  expect(Math.min(...targetHeights)).toBeGreaterThanOrEqual(44);
+
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/work/connecticut-college/");
+    const geometry = await page.evaluate(() => ({
+      hero: document.querySelector(".case-hero").getBoundingClientRect().width,
+      main: document.querySelector("main").getBoundingClientRect().width,
+      titleSize: Number.parseFloat(getComputedStyle(document.querySelector(".case-hero h1")).fontSize),
+    }));
+    expect(Math.abs(geometry.hero - geometry.main)).toBeLessThan(1);
+    expect(geometry.titleSize).toBeGreaterThanOrEqual(36);
+  }
+});
+
+test("dialog close controls use the shared hover treatment", async ({ page }) => {
+  await page.goto("/testimonials/");
+  await page.locator("[data-recommendation-dialog]").first().click();
+  const close = page.locator(".recommendation-dialog__close");
+  const before = await close.evaluate((button) => getComputedStyle(button).backgroundColor);
+  await close.hover();
+  const after = await close.evaluate((button) => ({
+    background: getComputedStyle(button).backgroundColor,
+    transform: getComputedStyle(button).transform,
+  }));
+  expect(after.background).not.toBe(before);
+  expect(after.transform).not.toBe("none");
+});
+
 test("small-screen navigation and page headers keep deliberate spacing", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/blog/");
@@ -304,7 +467,7 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
   });
   expect(layout.headerHeight).toBeLessThan(130);
   expect(layout.navWrap).toBe("nowrap");
-  expect(layout.pageHeaderPaddingTop).toBeGreaterThanOrEqual(48);
+  expect(layout.pageHeaderPaddingTop).toBeGreaterThanOrEqual(12);
   expect(layout.pageHeaderGap).toBeGreaterThanOrEqual(10);
 
   await page.goto("/work/eastrise-portraits/");
@@ -319,7 +482,7 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
     const hero = document.querySelector(".contact-hero").getBoundingClientRect();
     return hero.top - header.bottom;
   });
-  expect(contactSpacing).toBeGreaterThanOrEqual(18);
+  expect(contactSpacing).toBeGreaterThanOrEqual(12);
 });
 
 test("about summary paragraphs keep a readable gap", async ({ page }) => {

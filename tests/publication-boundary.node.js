@@ -230,6 +230,7 @@ test("source routes match the explicit public HTML manifest", async () => {
 test("runtime source trees match the explicit runtime manifest", async () => {
   const discovered = new Set([
     "_headers",
+    "_redirects",
     "assets/data/site.config.json",
     "assets/images/brand/oa-social-mark.svg",
   ]);

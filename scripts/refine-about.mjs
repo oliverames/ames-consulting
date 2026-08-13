@@ -16,6 +16,6 @@ const credentials = `<section class="about-credentials"><div class="section-head
 html = html.replace(/<section class="about-credentials">[\s\S]*?<\/section><section class="about-cta">/, `${credentials}<section class="about-cta">`);
 html = html
   .replace('<div class="section-heading"><p class="eyebrow">Selected proof</p><h2>Each result links back to the project behind it.</h2></div>', '<div class="section-heading section-heading--standard"><h2>Selected proof</h2><p class="section-heading__statement">Each result links back to the project behind it.</p></div>')
-  .replace('<div class="section-heading"><p class="eyebrow">What I do</p><h2>I do four kinds of work, and projects often use more than one.</h2></div>', '<div class="section-heading section-heading--standard"><h2>What I do</h2><p class="section-heading__statement">I do four kinds of work, and projects often use more than one.</p></div>')
+    .replace('<div class="section-heading"><p class="eyebrow">What I do</p><h2>I do three kinds of work, and projects often use more than one.</h2></div>', '<div class="section-heading section-heading--standard"><h2>What I do</h2><p class="section-heading__statement">I do three kinds of work, and projects often use more than one.</p></div>')
   .replace(/<div class="section-heading"><p class="eyebrow">Experience<\/p><h2>Here’s the longer version\.<\/h2><\/div>/, '<div class="section-heading section-heading--standard"><h2>Experience</h2><p class="section-heading__statement">Here’s the longer version.</p></div>');
 await writeFile(path, html);

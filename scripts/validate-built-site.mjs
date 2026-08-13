@@ -17,6 +17,7 @@ import {
   CLOUDFLARE_FUNCTION_EXCLUDES,
   CLOUDFLARE_FUNCTION_ROUTES,
 } from "./publication-denylist.mjs";
+import { SERVICES } from "./site-taxonomy.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const siteRoot = path.join(root, "_site");
@@ -97,6 +98,13 @@ for (const htmlPath of htmlFiles) {
   }
   if (/\/Users\/|captured_from|assets\.ames\.consulting/i.test(html)) {
     throw new Error(`Private or retired publication reference found in ${relativePath}.`);
+  }
+  const orderedGalleries = html.match(/<[^>]+data-order-mode="[^"]+"/g) || [];
+  const galleryOrderNotes = html.match(/<p class="gallery-order-note">/g) || [];
+  if (galleryOrderNotes.length !== orderedGalleries.length) {
+    throw new Error(
+      `${relativePath} has ${orderedGalleries.length} ordered galleries but ${galleryOrderNotes.length} visible order notes.`,
+    );
   }
 
   for (const tag of html.match(/<(?:img|script|link)\b[^>]*>/gi) || []) {
@@ -190,6 +198,12 @@ const sitemap = await readFile(path.join(siteRoot, "sitemap.xml"), "utf8");
 const lastModified = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map((match) => match[1]);
 if (!lastModified.length || lastModified.some((value) => !/^\d{4}-\d{2}-\d{2}$/.test(value))) {
   throw new Error("Sitemap lastmod values must use stable YYYY-MM-DD dates.");
+}
+
+const llms = await readFile(path.join(siteRoot, "llms.txt"), "utf8");
+for (const { title, slug } of SERVICES) {
+  const link = `[${title}](https://ames.consulting/services/${slug}/)`;
+  if (!llms.includes(link)) throw new Error(`llms.txt omits the canonical service link: ${link}`);
 }
 
 const artifactBytes = (await Promise.all(files.map((filePath) => stat(filePath)))).reduce(

@@ -2,9 +2,21 @@
 
 import { readFile, writeFile } from "node:fs/promises";
 import { sortEntriesNewestFirst } from "./project-order.mjs";
+import { SERVICES } from "./site-taxonomy.mjs";
 
 const path = new URL("../index.html", import.meta.url);
 let html = await readFile(path, "utf8");
+
+html = html
+  .replace('<section class="practice-section">', '<section class="practice-section" id="services">')
+  .replaceAll(">Get in touch</a>", ">Send me a note</a>")
+  .replaceAll("Open project ↗", "Open project →")
+  .replaceAll("Giron Family</h3>", "Giron Family, Fall 2025</h3>");
+
+const practiceGridPattern = /<ul class="practice-grid">[\s\S]*?<\/ul>/;
+if (!practiceGridPattern.test(html)) throw new Error("Homepage practice grid was not found.");
+const practiceCards = SERVICES.map(({ slug, title, homeDescription }, index) => `<li><article class="practice-card${index === 0 ? " practice-card--primary" : ""}"><a class="practice-card__link" href="services/${slug}/"><h3>${title}</h3><p>${homeDescription}</p><span class="practice-cta">Read how →</span></a></article></li>`).join("");
+html = html.replace(practiceGridPattern, `<ul class="practice-grid">${practiceCards}</ul>`);
 
 html = html
   .replaceAll("assets/images/work/eastrise/taylor-milk-bowl-card.webp", "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp")
@@ -25,16 +37,8 @@ if (!html.includes("hero__portrait")) {
   );
 }
 
-const cards = [...html.matchAll(/<li><article class="practice-card">[\s\S]*?<\/article><\/li>/g)].map((match) => match[0]);
-if (cards.length === 3) {
-  const photography = cards.find((card) => card.includes("Photography and video"));
-  const others = cards.filter((card) => card !== photography);
-  const reordered = [photography.replace('class="practice-card"', 'class="practice-card practice-card--primary"'), ...others].join("");
-  html = html.replace(/<ul class="practice-grid">[\s\S]*?<\/ul>/, `<ul class="practice-grid">${reordered}</ul>`);
-}
-
 if (!html.includes("EastRise Portraits</h3>")) {
-  const more = `<a class="path-thumb" href="work/eastrise-portraits/"><div class="path-thumb__img"><img src="assets/images/work/portraits/amy-vaughan.webp" alt="EastRise portrait" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Portrait series · photography</span><h3 class="path-thumb__title">EastRise Portraits</h3></div></a><a class="path-thumb" href="work/giron-family-fall-2025/"><div class="path-thumb__img"><img src="assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="Giron family fall portrait session" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Family · photography</span><h3 class="path-thumb__title">Giron Family</h3></div></a><a class="path-thumb" href="work/sweat-heart-throwdown/"><div class="path-thumb__img"><img src="assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Fitness · event photography</span><h3 class="path-thumb__title">Sweat-Heart Throwdown</h3></div></a>`;
+  const more = `<a class="path-thumb" href="work/eastrise-portraits/"><div class="path-thumb__img"><img src="assets/images/work/portraits/amy-vaughan.webp" alt="EastRise portrait" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Portrait series · photography</span><h3 class="path-thumb__title">EastRise Portraits</h3></div></a><a class="path-thumb" href="work/giron-family-fall-2025/"><div class="path-thumb__img"><img src="assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="Giron family fall portrait session" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Family · photography</span><h3 class="path-thumb__title">Giron Family, Fall 2025</h3></div></a><a class="path-thumb" href="work/sweat-heart-throwdown/"><div class="path-thumb__img"><img src="assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Fitness · event photography</span><h3 class="path-thumb__title">Sweat-Heart Throwdown</h3></div></a>`;
   html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${more}$2`);
 }
 

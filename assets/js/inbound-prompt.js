@@ -1,25 +1,28 @@
+import { SERVICES } from "./service-taxonomy.js";
+
 const PROMPT_DELAY_MS = 30_000;
 const DISMISSAL_WINDOW_MS = 14 * 24 * 60 * 60 * 1000;
 const DISMISSED_KEY = "ames_inbound_prompt_dismissed_at";
 const SCROLL_TRIGGER = 0.35;
+const serviceTitles = Object.fromEntries(SERVICES.map(({ slug, title }) => [slug, title]));
 
 const variants = [
   {
     match:
       /\/(photography|portraits|family|corporate-cup|girls-on-the-run|giron|sweat-heart|bike-fitting)/,
-    type: "Photography and video",
+    type: serviceTitles["photography-and-video"],
     title: "Do you need photographs of people at work?",
     body: "Tell me who I’m photographing, where the shoot will happen, and how you plan to use the images.",
   },
   {
     match: /\/(blog|writing|strategy-and-content|eastrise-writing)/,
-    type: "Strategy and content",
+    type: serviceTitles["strategy-and-content"],
     title: "Do you need help explaining something complicated?",
     body: "Tell me who needs the information, what they need to know, and what you’ve tried so far.",
   },
   {
     match: /\/(practical-technology|credit-union-websites)/,
-    type: "Website or digital system",
+    type: serviceTitles["practical-technology"],
     title: "What keeps breaking or taking too long?",
     body: "Tell me what should happen, what happens now, and who has to work around it.",
   },
@@ -88,7 +91,7 @@ function initInboundPrompt() {
   const launcher = document.createElement("button");
   launcher.type = "button";
   launcher.className = "inbound-launcher";
-  launcher.textContent = "Start a project";
+  launcher.textContent = "Send me a note";
   launcher.setAttribute("aria-haspopup", "dialog");
   launcher.setAttribute("aria-controls", "inbound-prompt");
   launcher.hidden = true;
@@ -98,7 +101,7 @@ function initInboundPrompt() {
   dialog.className = "inbound-prompt";
   dialog.dataset.inboundPrompt = "";
   dialog.setAttribute("aria-labelledby", "inbound-prompt-title");
-  dialog.innerHTML = `<div class="inbound-prompt__mesh" aria-hidden="true"></div><button class="inbound-prompt__close" type="button" aria-label="Close project prompt">×</button><span class="inbound-prompt__eyebrow">Ames Consulting · Montpelier, Vermont</span><h2 id="inbound-prompt-title">${variant.title}</h2><p>${variant.body}</p><div class="inbound-prompt__actions"><a class="btn btn--primary" href="${relativeContactUrl(variant.type)}">Tell me about the project →</a><button class="btn btn--ghost" type="button" data-inbound-dismiss>Keep looking</button></div>`;
+  dialog.innerHTML = `<div class="inbound-prompt__mesh" aria-hidden="true"></div><button class="inbound-prompt__close" type="button" aria-label="Close project prompt">×</button><span class="inbound-prompt__eyebrow">Ames Consulting · Montpelier, Vermont</span><h2 id="inbound-prompt-title">${variant.title}</h2><p>${variant.body}</p><div class="inbound-prompt__actions"><a class="btn btn--primary" href="${relativeContactUrl(variant.type)}">Send me a note →</a><button class="btn btn--ghost" type="button" data-inbound-dismiss>Keep looking</button></div>`;
 
   document.body.append(launcher, dialog);
   const footer = document.querySelector(".site-footer");

@@ -31,6 +31,7 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/index.html",
   "contact/index.html",
   "index.html",
+  "services/index.html",
   "services/photography-and-video/index.html",
   "services/practical-technology/index.html",
   "services/strategy-and-content/index.html",
@@ -64,7 +65,6 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "work/meta-mcp-server/index.html",
   "work/neg-ecp-conference-2026/index.html",
   "work/ping-warden/index.html",
-  "work/portraits-and-people/index.html",
   "work/skylight-bridge/index.html",
   "work/stowe-ski-instruction/index.html",
   "work/sweat-heart-throwdown/index.html",
@@ -79,6 +79,7 @@ export const PUBLIC_HTML_FILES = Object.freeze([
 
 export const PUBLIC_RUNTIME_FILES = Object.freeze([
   "_headers",
+  "_redirects",
   "assets/css/main.css",
   "assets/data/site.config.json",
   "assets/icons/brands/googleanalytics.svg",
@@ -97,6 +98,7 @@ export const PUBLIC_RUNTIME_FILES = Object.freeze([
   "assets/js/inbound-prompt.js",
   "assets/js/proof-rotator.js",
   "assets/js/recommendation-dialog.js",
+  "assets/js/service-taxonomy.js",
   "assets/js/site-config.js",
   "assets/js/work-filter.js",
 ]);

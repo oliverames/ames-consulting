@@ -60,7 +60,7 @@ const socialProfiles = [
   ["Instagram", "https://www.instagram.com/oliverames/"],
 ];
 
-const firmDescription = "Ames Consulting is my photography and communications practice in Montpelier, Vermont. I also build websites and apps when a project needs them.";
+const firmDescription = "My name is Oliver. Ames Consulting is my photography and communications practice in Montpelier, Vermont. I also build websites and apps when a project needs them.";
 
 // Rebuild the footer colophon canonically on every page. Generators had
 // drifted into three variants (full 7-icon, GitHub+LinkedIn only, and a
@@ -241,6 +241,19 @@ function normalizeSourceUrl(value) {
   }
 }
 
+function canonicalSocialPostKey(sourceUrl) {
+  try {
+    const source = new URL(sourceUrl);
+    if (source.hostname === "www.instagram.com" || source.hostname === "instagram.com") {
+      const shortcode = source.pathname.match(/^\/(?:[^/]+\/)?(?:p|reel)\/([^/]+)/)?.[1];
+      if (shortcode) return `instagram:${shortcode}`;
+    }
+    return source.href;
+  } catch {
+    return sourceUrl;
+  }
+}
+
 function agreeArchiveNote(note, count) {
   const normalized = String(note || "").trim();
   if (count === 1) {
@@ -267,7 +280,11 @@ function addProvenanceDisclosure(html, file) {
         ? "Blue Cross and Blue Shield of Vermont"
         : "Oliver Ames";
     const sourceUrl = normalizeSourceUrl(data.source_url);
-    const key = `${publisher}|${data.source_channel || "source page"}|${sourceUrl}|${data.published_date || ""}|${data.downloaded_date || ""}|${data.archive_note || ""}`;
+    const socialPostKey = canonicalSocialPostKey(sourceUrl);
+    const isCanonicalInstagramPost = socialPostKey.startsWith("instagram:");
+    const key = isCanonicalInstagramPost && !data.archive_note
+      ? `${publisher}|${data.source_channel || "source page"}|${socialPostKey}`
+      : `${publisher}|${data.source_channel || "source page"}|${sourceUrl}|${data.published_date || ""}|${data.downloaded_date || ""}|${data.archive_note || ""}`;
     const current = groups.get(key) || { count: 0, publisher, channel: data.source_channel, sourceUrl, publishedDate: data.published_date, downloadedDate: data.downloaded_date, archiveNote: data.archive_note };
     current.count += 1;
     groups.set(key, current);

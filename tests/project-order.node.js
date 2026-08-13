@@ -59,7 +59,11 @@ test("home, work, and EastRise project cards render newest first", async () => {
   const work = await read("work/index.html");
   const projects = work.match(/<h2 id="project-list-title">Projects<\/h2>[\s\S]*?<div class="work-list">([\s\S]*?)<section class="work-category work-category--portraits">/)?.[1];
   assert.ok(projects, "Missing Work projects list");
-  assertNewestFirst(workItemHrefs(projects), "Work projects list");
+  const projectHrefs = workItemHrefs(projects);
+  const deferredHrefs = ["eastrise-social/", "member-banking-stories/", "live-broadcasts/"];
+  assert.deepEqual(projectHrefs.slice(-deferredHrefs.length), deferredHrefs, "Work archive projects are not grouped at the end");
+  assertNewestFirst(projectHrefs.slice(0, -deferredHrefs.length), "Work primary projects list");
+  assertNewestFirst(projectHrefs.slice(-deferredHrefs.length), "Work archive projects list");
 
   const legacy = work.match(/<section class="work-category work-category--earlier">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/)?.[1];
   assert.ok(legacy, "Missing Work legacy list");

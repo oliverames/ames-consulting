@@ -93,7 +93,7 @@ const people = {
   },
   randy: {
     name: "Randy Repass Jr.",
-    role: "Founder, West Marine",
+    role: "Chairman, Citizen Sea",
     profile: "https://www.linkedin.com/in/radmacdaddy",
     image: "randy-repass-jr.webp",
     date: "September 10, 2008"
@@ -108,6 +108,7 @@ const card = ({ person, quote, depth, featured = false }) => `<figure class="tes
 
 const quotes = {
   yvonneLead: "Oliver is a rare talent, bringing energy, enthusiasm, and a true ‘can-do’ mindset to every project he takes on.",
+  yvonneArchive: "Oliver is a rare talent, bringing energy, enthusiasm, and a true ‘can-do’ mindset to every project he takes on. I often sought him out for troubleshooting and problem-solving outside his formal scope because of his sharp intellect and ability to quickly absorb and apply complex information.",
   yvonneCreative: "His true strength lies in strategic creative content development. He has a natural eye for capturing moments through photography and videography.",
   yvonneFull: "I often describe Oliver as an ‘intrapreneur,’ someone who can independently ideate and execute with confidence and accountability, all while operating effectively within the structure of an organization.",
   bradLead: "Oliver is a true creative strategist and brand steward. He brings together strategy, photography, design thinking, and hands-on execution.",
@@ -129,7 +130,7 @@ await insertOnce("index.html", '<section class="home-paths">', {
   html: `<section class="testimonial-band home-testimonial" aria-labelledby="home-testimonial-title"><div class="section-heading section-heading--standard"><h2 id="home-testimonial-title">Testimonials</h2><p class="section-heading__statement">Here’s what people I’ve worked with say.</p></div>${card({ person: people.yvonne, quote: quotes.yvonneLead, depth: 0, featured: true })}</section>`
 });
 
-const aboutTestimonialsHtml = `<section class="testimonial-band about-testimonials" aria-labelledby="about-testimonials-title"><div class="section-heading section-heading--standard"><h2 id="about-testimonials-title">Testimonials</h2><p class="section-heading__statement">Two recommendations from people I worked with at EastRise.</p></div><div class="testimonial-grid">${card({ person: people.yvonne, quote: quotes.yvonneFull, depth: 1, featured: true })}${card({ person: people.brad, quote: quotes.bradFull, depth: 1 })}</div><p class="testimonial-band__more"><a class="btn btn--ghost" href="../testimonials/">View more testimonials →</a></p></section>`;
+const aboutTestimonialsHtml = `<section class="testimonial-band about-testimonials" aria-labelledby="about-testimonials-title"><div class="section-heading section-heading--standard"><h2 id="about-testimonials-title">Testimonials</h2><p class="section-heading__statement">Two recommendations from people I’ve worked with.</p></div><div class="testimonial-grid">${card({ person: people.yvonne, quote: quotes.yvonneFull, depth: 1, featured: true })}${card({ person: people.brad, quote: quotes.bradFull, depth: 1 })}</div><p class="testimonial-band__more"><a class="btn btn--ghost" href="../testimonials/">View more testimonials →</a></p></section>`;
 const aboutPath = join(root, "about/index.html");
 let aboutHtml = await readFile(aboutPath, "utf8");
 if (aboutHtml.includes("about-testimonials")) {
@@ -168,7 +169,7 @@ await insertOnce("work/eastrise-website/index.html", '<section class="case-secti
 });
 
 const recommendationArchive = [
-  [people.yvonne, quotes.yvonneLead, "Yvonne frequently sought Oliver out for troubleshooting beyond his formal scope."],
+  [people.yvonne, quotes.yvonneArchive, "Yvonne frequently sought Oliver out for troubleshooting beyond his formal scope."],
   [people.brad, quotes.bradFull, "Brad worked with Oliver during the EastRise brand launch while serving as a creative director at Adrenaline."],
   [people.simeon, "Oliver is a gem. His attention to detail and contribution to high functioning team culture stands out from our work together.", "Simeon worked with Oliver at VSECU."],
   [people.abigail, "Oliver is an exceptionally talented photographer, social media expert, and content creator whose creativity and professionalism allow him to shine through in every project.", "Abigail worked with Oliver at EastRise."],
@@ -188,6 +189,7 @@ const fullRecommendations = new Map([
   ["Brad Meerholz", "Oliver is a true creative strategist and brand steward. He brings together strategy, photography, design thinking, and hands-on execution in a way that feels both intentional and effortless. During the EastRise launch, he demonstrated a deep respect for the brand, a clear understanding of its purpose, and an exceptional ability to translate that vision into compelling, authentic creative work. What truly sets Oliver apart is his energy and work ethic. His enthusiasm is infectious, his attention to detail is unmatched, and his willingness to step in wherever needed makes him an invaluable collaborator. He approaches every challenge with curiosity, care, and a solutions-first mindset, all while maintaining a high bar for quality and consistency. Oliver is a true jack of all trades in the best sense of the phrase, grounded in strategy and fueled by creativity. Any company fortunate enough to hire him will gain not just a talented creative, but a passionate, thoughtful, and tireless advocate for their brand."],
   ["Simeon Chapin", "Oliver is a gem. His attention to detail and contribution to high functioning team culture stands out from our work together. Oliver built a digital practice at the credit union that was experimental, data driven, and focused on outcomes and learning for the next objective. Driven by values that build community, he is that wonderful combination of both self-reflective and bold. Oliver would be a valued asset on any team."],
   ["Abigail Stevenson", "Oliver is an exceptionally talented photographer, social media expert, and content creator whose creativity and professionalism allow him to shine through in every project. I appreciate his guidance and ability to pivot when something urgent arises. Beyond his technical skills, Oliver is a true team player who is always ready to support others and share ideas. He is a true pleasure to work with!"],
+  ["Randy Repass Jr.", "Oliver has shown enthusiasm and knowledge in his effort to understand one of the most world changing devices available to the average person, the iPhone. In doing this and in exploring the world of social networking Oliver has shown not only a strong understanding of the use of such tools to share his knowledge, but regularly strives to offer his assistance to others in technological need."],
 ]);
 
 const recommendationId = (name) => `recommendation-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;

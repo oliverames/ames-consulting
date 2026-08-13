@@ -11,7 +11,9 @@ html = html
   .replace('<section class="practice-section">', '<section class="practice-section" id="services">')
   .replaceAll(">Get in touch</a>", ">Send me a note</a>")
   .replaceAll("Open project ↗", "Open project →")
-  .replaceAll("Giron Family</h3>", "Giron Family, Fall 2025</h3>");
+  .replaceAll('href="work/giron-family-fall-2025/"', 'href="work/giron-family/"')
+  .replaceAll("Giron Family, Fall 2025</h3>", "Giron Family Portrait Sessions</h3>")
+  .replaceAll("Giron Family</h3>", "Giron Family Portrait Sessions</h3>");
 
 const practiceGridPattern = /<ul class="practice-grid">[\s\S]*?<\/ul>/;
 if (!practiceGridPattern.test(html)) throw new Error("Homepage practice grid was not found.");
@@ -28,7 +30,6 @@ html = html.replace(
   '$1<img src="assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp" alt="Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car" width="1800" height="2400" loading="lazy">',
 );
 
-html = html.replace(/<div class="proof__controls">[\s\S]*?<\/div><\/div><\/div><\/section>/, "</div></div></section>");
 
 if (!html.includes("hero__portrait")) {
   html = html.replace(
@@ -38,7 +39,7 @@ if (!html.includes("hero__portrait")) {
 }
 
 if (!html.includes("EastRise Portraits</h3>")) {
-  const more = `<a class="path-thumb" href="work/eastrise-portraits/"><div class="path-thumb__img"><img src="assets/images/work/portraits/amy-vaughan.webp" alt="EastRise portrait" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Portrait series · photography</span><h3 class="path-thumb__title">EastRise Portraits</h3></div></a><a class="path-thumb" href="work/giron-family-fall-2025/"><div class="path-thumb__img"><img src="assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="Giron family fall portrait session" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Family · photography</span><h3 class="path-thumb__title">Giron Family, Fall 2025</h3></div></a><a class="path-thumb" href="work/sweat-heart-throwdown/"><div class="path-thumb__img"><img src="assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Fitness · event photography</span><h3 class="path-thumb__title">Sweat-Heart Throwdown</h3></div></a>`;
+  const more = `<a class="path-thumb" href="work/eastrise-portraits/"><div class="path-thumb__img"><img src="assets/images/work/portraits/amy-vaughan.webp" alt="EastRise portrait" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Portrait series · photography</span><h3 class="path-thumb__title">EastRise Portraits</h3></div></a><a class="path-thumb" href="work/giron-family/"><div class="path-thumb__img"><img src="assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="Giron family fall portrait session" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Family · photography</span><h3 class="path-thumb__title">Giron Family Portrait Sessions</h3></div></a><a class="path-thumb" href="work/sweat-heart-throwdown/"><div class="path-thumb__img"><img src="assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Fitness · event photography</span><h3 class="path-thumb__title">Sweat-Heart Throwdown</h3></div></a>`;
   html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div><a class="path-browse")/, `$1${more}$2`);
 }
 
@@ -62,13 +63,19 @@ if (!html.includes("Vermont Foodbank Volunteer Day</h3>")) {
 }
 
 const requestedGalleryCards = [
-  ["47th NEG-ECP Conference", `<a class="path-thumb" href="work/neg-ecp-conference-2026/"><div class="path-thumb__img"><img src="assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp" alt="A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">NEG-ECP · event photography</span><h3 class="path-thumb__title">47th NEG-ECP Conference</h3></div></a>`],
+  ["47th NEG-ECP Conference", `<a class="path-thumb" href="work/neg-ecp-conference-2026/"><div class="path-thumb__img"><img src="assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp" alt="A row of delegates listens from behind microphones and nameplates inside the Coach Barn" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">NEG-ECP · event photography</span><h3 class="path-thumb__title">47th NEG-ECP Conference</h3></div></a>`],
   ["London at Dusk", `<a class="path-thumb" href="work/london-2019/"><div class="path-thumb__img"><img src="assets/images/work/events/london-2019/dsc02427.webp" alt="Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">London · travel photography</span><h3 class="path-thumb__title">London at Dusk</h3></div></a>`],
   ["Whale Dance in Randolph", `<a class="path-thumb" href="work/whale-dance-randolph/"><div class="path-thumb__img"><img src="assets/images/work/events/whale-dance-randolph/dsc06299.webp" alt="Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Randolph · landscape photography</span><h3 class="path-thumb__title">Whale Dance in Randolph</h3></div></a>`],
   ["Drone Photography", `<a class="path-thumb" href="work/drone-photography/"><div class="path-thumb__img"><img src="assets/images/work/events/drone-photography/dji_0053.webp" alt="Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence" loading="lazy"></div><div class="path-thumb__body"><span class="path-thumb__meta">Aerial · landscape photography</span><h3 class="path-thumb__title">Drone Photography</h3></div></a>`],
 ];
-for (const [title, card] of requestedGalleryCards) {
-  if (!html.includes(`${title}</h3>`)) {
+for (const [, card] of requestedGalleryCards) {
+  const href = card.match(/href="([^"]+)"/)?.[1];
+  if (!href) throw new Error("A requested homepage gallery card is missing its href.");
+  const escapedHref = href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const existingCard = new RegExp(`<a class="path-thumb" href="${escapedHref}"\\s*>[\\s\\S]*?<\\/a\\s*>`);
+  if (existingCard.test(html)) {
+    html = html.replace(existingCard, card);
+  } else {
     html = html.replace(/(<div class="path-strip">[\s\S]*?)(<\/div>\s*<a class="path-browse")/, `$1${card}$2`);
   }
 }

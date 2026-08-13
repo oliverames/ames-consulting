@@ -1,11 +1,11 @@
 {
-  "refreshedAt": "2026-08-11T19:46:08.663Z",
+  "refreshedAt": "2026-08-13T21:56:37.312Z",
   "canonicalBlog": "https://oliverames.micro.blog/",
   "profiles": [
     {
       "platform": "LinkedIn",
       "url": "https://www.linkedin.com/in/oliverames",
-      "automated": false
+      "automated": true
     },
     {
       "platform": "Micro.blog",
@@ -35,6 +35,108 @@
     }
   ],
   "posts": [
+    {
+      "id": "linkedin:7493102298634776576",
+      "platforms": [
+        "LinkedIn"
+      ],
+      "links": [
+        {
+          "platform": "LinkedIn",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7493102298634776576/"
+        }
+      ],
+      "date": "2026-08-12T00:33:22.750Z",
+      "title": "",
+      "text": "This Monday I had the honor and privilege to photograph the 47th New England Governors and Eastern Canadian Premiers Conference (NEG-ECP) at Shelburne Farms. Check out a few of my favorite shots from the day. 👇\n\nIn addition to the esteemed Heads of Delegation, special guests included Kyle Clark of BETA TECHNOLOGIES, U.S. Representative Becca Balint, and U.S. Senator Peter Welch.\n\nEnergy and affordability came up in nearly every conversation we had, and it was remarkable to hear people actually discuss ideas. It was far from how I'd imagined conversations like this would go, and what I heard instead was real warmth between them, and real respect for their constituents. It's how I grew up hoping politics would work, like I'd wandered into an episode of The West Wing.\n\nGovernor Phil Scott put the day in a sentence at the press conference: \"Our relationships are our most critical infrastructure.\"\n\nThanks to Amanda Wheeler for the introduction that put me in the room, and to Alex Demoly and everyone at GBIC: Greater Burlington Industrial Corporation for trusting me with the day.",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp",
+          "alt": "A row of delegates listens from behind microphones and nameplates inside the Coach Barn.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00262.webp",
+          "alt": "A delegate wearing glasses speaks with another attendee during the morning arrival.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7493102297154203648-03.webp",
+          "alt": "A smiling delegate in an orange blouse reacts during a conference discussion.",
+          "width": 1280,
+          "height": 853
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00759.webp",
+          "alt": "Black-and-white side view of delegates seated shoulder to shoulder behind tabletop microphones.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc01227.webp",
+          "alt": "Four delegates smile behind microphones with United States and Canadian flags behind them.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00820.webp",
+          "alt": "A gray-haired delegate leans forward to address the room from across the conference table.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00562.webp",
+          "alt": "A speaker is framed between blurred attendees in a black-and-white view across the table.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp",
+          "alt": "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00937.webp",
+          "alt": "A delegate wearing glasses listens beside a colleague in a black-and-white photograph.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00735.webp",
+          "alt": "A bearded delegate wearing glasses speaks into a microphone during the working session.",
+          "width": 1600,
+          "height": 1067
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00781.webp",
+          "alt": "A delegate listens across the table with a Canadian flag filling the foreground.",
+          "width": 1067,
+          "height": 1600
+        },
+        {
+          "type": "image",
+          "src": "assets/images/work/events/neg-ecp-conference-2026/dsc00341.webp",
+          "alt": "A smiling speaker addresses the room at a microphone in a black-and-white photograph.",
+          "width": 1600,
+          "height": 1067
+        }
+      ],
+      "ugcPostId": "7493102297154203648"
+    },
     {
       "id": "microblog:http://oliverames.micro.blog/2026/07/29/one-long-beep-at-a.html",
       "platforms": [
@@ -118,6 +220,22 @@
       "image": ""
     },
     {
+      "id": "linkedin:7467574515871481856",
+      "platforms": [
+        "LinkedIn"
+      ],
+      "links": [
+        {
+          "platform": "LinkedIn",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7467574515871481856/"
+        }
+      ],
+      "date": "2026-06-02T12:47:29.509Z",
+      "title": "",
+      "text": "Come work with me!",
+      "ugcPostId": "7467557504193900544"
+    },
+    {
       "id": "linkedin:7467314005167054848",
       "platforms": [
         "LinkedIn"
@@ -138,8 +256,18 @@
       "sharedPost": {
         "author": "Blue Cross and Blue Shield of Vermont",
         "url": "https://www.linkedin.com/feed/update/urn:li:activity:7467227840711819264/",
-        "text": "Pride Month is a good time to say something plainly: LGBTQ+ Vermonters deserve care that respects who they are, because feeling safe and seen is part of being healthy.\n\nAt Blue Cross and Blue Shield of Vermont, whole person care means supporting both body and mind, so our member benefits include access to mental health counseling. In addition, we offer personalized, voluntary, no-cost support to navigate gender affirming services from our expert team of nurses and social workers.\n\nWe’re proud to support organizations like Outright Vermont, the Pride Center of Vermont, and the Barre People's Health & Wellness Clinic, which partners with the Rainbow Bridge Community Center to help community members access youth and family support, crisis resources, and free affirming care information.\n\nStart with mental health support resources: https://lnkd.in/eXKRjT-h"
-      }
+        "text": "Pride Month is a good time to say something plainly: LGBTQ+ Vermonters deserve care that respects who they are, because feeling safe and seen is part of being healthy.\n\nAt Blue Cross and Blue Shield of Vermont, whole person care means supporting both body and mind, so our member benefits include access to mental health counseling. In addition, we offer personalized, voluntary, no-cost support to navigate gender affirming services from our expert team of nurses and social workers.\n\nWe’re proud to support organizations like Outright Vermont, the Pride Center of Vermont, and the Barre People's Health & Wellness Clinic, which partners with the Rainbow Bridge Community Center to help community members access youth and family support, crisis resources, and free affirming care information.\n\nStart with mental health support resources: https://lnkd.in/eXKRjT-h",
+        "media": [
+          {
+            "type": "image",
+            "src": "assets/images/writing/dbd9983745d2.webp",
+            "alt": "Pride Month graphic reading Proud to care for all Vermonters",
+            "width": 800,
+            "height": 800
+          }
+        ]
+      },
+      "ugcPostId": "7467314005167054848"
     },
     {
       "id": "linkedin:7460836075540799489",
@@ -158,8 +286,74 @@
       "image": "",
       "sharedPost": {
         "author": "Blue Cross and Blue Shield of Vermont",
-        "url": "https://www.linkedin.com/feed/update/urn:li:activity:7460834826116538368/"
-      }
+        "url": "https://www.linkedin.com/feed/update/urn:li:activity:7460834826116538368/",
+        "media": [
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-01.webp",
+            "alt": "Participants gather for the Corporate Cup on the Vermont State House steps.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-02.webp",
+            "alt": "A participant walks beneath a colorful umbrella during the rainy Corporate Cup.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-03.webp",
+            "alt": "Two Corporate Cup participants walk together in the rain.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-04.webp",
+            "alt": "Two women talk beneath umbrellas during the Corporate Cup.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-05.webp",
+            "alt": "A smiling Corporate Cup participant in a pink coat stands beneath an umbrella.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-06.webp",
+            "alt": "Two Corporate Cup participants talk beneath an umbrella.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-07.webp",
+            "alt": "A large crowd gathers on the Vermont State House lawn for the Corporate Cup.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-08.webp",
+            "alt": "The back of a blue 2026 Corporate Cup participant shirt.",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/corporate-cup-09.webp",
+            "alt": "Two Corporate Cup participants smile beneath a rainbow umbrella.",
+            "width": 1280,
+            "height": 853
+          }
+        ]
+      },
+      "ugcPostId": "7460836074978942978"
     },
     {
       "id": "linkedin:7460782290340843520",
@@ -179,8 +373,17 @@
       "sharedPost": {
         "author": "BETA TECHNOLOGIES",
         "url": "https://www.linkedin.com/feed/update/urn:li:activity:7460776055541501953/",
-        "text": "Emma joined BETA through our partnership with the Community College of Vermont's Career Pathway Entry Program, building new skills and finding a pathway into electric aerospace.\n\nThere’s more than one way to get here. From first jobs to career changes, we’re hiring.\n\nCome build electric airplanes with us at careers.beta.team"
-      }
+        "text": "Emma joined BETA through our partnership with the Community College of Vermont's Career Pathway Entry Program, building new skills and finding a pathway into electric aerospace.\n\nThere’s more than one way to get here. From first jobs to career changes, we’re hiring.\n\nCome build electric airplanes with us at careers.beta.team",
+        "media": [
+          {
+            "type": "youtube",
+            "videoId": "4r5N5DjmSCU",
+            "title": "Flight Paths: Emma at BETA",
+            "poster": "assets/images/work/campaigns/flight-paths.webp"
+          }
+        ]
+      },
+      "ugcPostId": "7460782289288003584"
     },
     {
       "id": "linkedin:7460781094884421632",
@@ -199,8 +402,17 @@
       "image": "",
       "sharedPost": {
         "author": "EastRise Credit Union",
-        "url": "https://www.linkedin.com/feed/update/urn:li:activity:7457506573163098113/"
-      }
+        "url": "https://www.linkedin.com/feed/update/urn:li:activity:7457506573163098113/",
+        "media": [
+          {
+            "type": "youtube",
+            "videoId": "fAF3x-Iu2Bo",
+            "title": "EastRise is Here to Help You Reach Your Goals",
+            "poster": "assets/images/work/campaigns/will-barbecue.webp"
+          }
+        ]
+      },
+      "ugcPostId": "7460781094326534144"
     },
     {
       "id": "mastodon:116574448249026560",
@@ -251,8 +463,81 @@
       "image": "",
       "sharedPost": {
         "author": "Blue Cross and Blue Shield of Vermont",
-        "url": "https://www.linkedin.com/feed/update/urn:li:activity:7455324792846725120/"
-      }
+        "url": "https://www.linkedin.com/feed/update/urn:li:activity:7455324792846725120/",
+        "media": [
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-01.webp",
+            "alt": "Five volunteers pose with green cleanup bags beside a road.",
+            "width": 1080,
+            "height": 720
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-02.webp",
+            "alt": "Three volunteers walk beside blue cleanup equipment.",
+            "width": 1080,
+            "height": 720
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-03.webp",
+            "alt": "Four Green Up Day volunteers stand together in safety vests.",
+            "width": 720,
+            "height": 720
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-04.webp",
+            "alt": "A volunteer collects roadside litter on Green Up Day.",
+            "width": 1080,
+            "height": 720
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-05.webp",
+            "alt": "A volunteer in a safety vest works among roadside brush.",
+            "width": 720,
+            "height": 1079
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-06.webp",
+            "alt": "Two volunteers walk together carrying green cleanup bags.",
+            "width": 1080,
+            "height": 720
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-07.webp",
+            "alt": "Four volunteers hold cleanup bags with Vermont mountains behind them.",
+            "width": 1080,
+            "height": 720
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-08.webp",
+            "alt": "A volunteer in a striped shirt and safety vest pauses during Green Up Day.",
+            "width": 720,
+            "height": 960
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-09.webp",
+            "alt": "A group of Green Up Day volunteers walks along a rural road.",
+            "width": 1124,
+            "height": 720
+          },
+          {
+            "type": "image",
+            "src": "assets/images/writing/shared/green-up-10.webp",
+            "alt": "A volunteer lifts a green cleanup bag on a grassy hillside.",
+            "width": 720,
+            "height": 720
+          }
+        ]
+      },
+      "ugcPostId": "7455326792883736576"
     },
     {
       "id": "mastodon:116459838681978081",
@@ -289,7 +574,8 @@
         "author": "Blue Cross and Blue Shield of Vermont",
         "url": "https://www.linkedin.com/feed/update/urn:li:activity:7450593597449527296/",
         "text": "Tuesday's Vermont Businesses for Social Responsibility (VBSR) Get-Together at BETA TECHNOLOGIES brought together Vermont employers who've committed to running their businesses in a way that's accountable to workers, community, and environment. Good conversations, and a lot to take back to the work ahead!\n\n📸 BETA TECHNOLOGIES/Brian Jenkins"
-      }
+      },
+      "ugcPostId": "7450594949588316160"
     },
     {
       "id": "mastodon:116414201613379746",
@@ -585,6 +871,45 @@
       "image": ""
     },
     {
+      "id": "linkedin:7446964935219224576",
+      "platforms": [
+        "LinkedIn"
+      ],
+      "links": [
+        {
+          "platform": "LinkedIn",
+          "url": "https://www.linkedin.com/feed/update/urn:li:activity:7446964935219224576/"
+        }
+      ],
+      "date": "2026-04-01T21:46:52.188Z",
+      "title": "",
+      "text": "Nearly one-third of Americans are making sacrifices to afford their health care, according to a new poll from West Health - Gallup.  \n  \nFor those without insurance, it’s even more stark – 62% made a tradeoff to pay for their care, including borrowing money, putting off prescriptions, skipping meals or skimping on utilities.  \n  \nIn Vermont, the issue is especially concerning. Vermont stands in the bottom 5 states for health care experience at #47 when ranked by cost, quality and access. \n  \nAs Vermont’s only non-profit insurer, these numbers hit home. While news like this is hard to hear, it also fuels our team’s commitment to drive savings for our members, advocate for lower health care costs and support greater access to care.  \n  \nWhile many factors impact the cost of care, prescription drugs are a significant driver. Last week, I was proud to stand with Treasurer Mike Pieciak at the State House to support bill H.577 and the ArrayRX program, which will help lower prescription drug costs by leveraging the collective buying power of Vermont and other states to provide a seamless pathway to more affordable medications.  \n  \nOne prescription drug program isn’t enough to end the real sacrifices many Vermonters are making to afford their health care. It’s a step in the right direction, though, and one we’re proud to support with leaders across our state.  \n \nSources and links in the comments. \n  \n#Vermont #HealthCare #PrescriptionDrugs",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7445225195440689152-01.webp",
+          "alt": "A woman speaks at a State House podium beside supporters and a sign calling for lower prescription drug costs.",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7445225195440689152-02.webp",
+          "alt": "An empty State House podium displays a green sign reading ‘Cut Prescription Drug Costs: Make Medicine More Affordable.’",
+          "width": 1800,
+          "height": 1200
+        },
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7445225195440689152-03.webp",
+          "alt": "A man in a navy suit and red tie speaks to reporters at the State House.",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "ugcPostId": "7445225195440689152"
+    },
+    {
       "id": "linkedin:7443387205353504768",
       "platforms": [
         "LinkedIn"
@@ -598,7 +923,17 @@
       "date": "2026-03-27T20:03:21.203Z",
       "title": "",
       "text": "Not a bad view from the new office! #Vermont",
-      "image": ""
+      "image": "",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7443387205353504768-01.webp",
+          "alt": "A panoramic office view shows snow-covered fields, wooded hills, and distant Vermont mountains beneath a blue sky.",
+          "width": 1800,
+          "height": 348
+        }
+      ],
+      "ugcPostId": "7443387205353504768"
     },
     {
       "id": "linkedin:7440378580276203521",
@@ -621,7 +956,8 @@
         "author": "Blue Cross and Blue Shield of Vermont",
         "url": "https://www.linkedin.com/feed/update/urn:li:activity:7440377520501387266/",
         "text": "We’re proud to be the presenting sponsor of this year's Vermont Senior Games (National Senior Games Association)! 🏅\n\nYesterday at the State House, our President and CEO Beth Roberts joined Governor Phil Scott to celebrate the athletes who competed in the national games. At 50 and up, these Vermonters are proof of what is possible when you prioritize your health.\n\nExercise can be the best medicine, and we’re honored to support an organization that shares our goal of a healthy #Vermont. vermontseniorgames.org\n\n#HealthyAging #VermontSeniorGames #SeniorGames"
-      }
+      },
+      "ugcPostId": "7440378579730780160"
     },
     {
       "id": "linkedin:7439306853655707650",
@@ -637,7 +973,17 @@
       "date": "2026-03-16T13:49:29.549Z",
       "title": "",
       "text": "I'm excited to share that I've joined Blue Cross and Blue Shield of Vermont! I'll be supporting the organization and the brand team as their Social Media Strategist.\n\nAfter nearly seven years building what became one of Vermont's most engaging social media presences at EastRise Credit Union, I'm bringing that same energy to an organization whose mission hits close to home: helping Vermonters access quality, affordable healthcare.\n\nVermont is a small state with big challenges and healthcare is at the center of so many of them. I'm excited to tell stories that matter, build community, and help people understand the resources available to them. That's always been what I love most about this work: using digital platforms to connect real people with things that actually improve their lives.\n\nBeth Wirsul, you were my dance partner through this entire process, from the very first phone call to the day I signed. Your professionalism, warmth, and transparency set the tone for everything that followed. I knew I'd be joining a team that values doing the work well and treating people right.\n\nTo everyone who supported me during the search, the advisors, the references, the friends who listened, the people who made introductions and sent encouragement when I needed it most, THANK YOU! The past few months taught me a lot about patience, persistence, and the value of genuine relationships.\n\nHere's to the next chapter! Let's go, Vermont. 💪\n\n#BlueCrossVT #SocialMediaStrategy #Vermont",
-      "image": ""
+      "image": "",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7439306853655707650-01.webp",
+          "alt": "The Blue Cross and Blue Shield of Vermont sign glows in late-day sunlight above a snow-covered hedge.",
+          "width": 840,
+          "height": 601
+        }
+      ],
+      "ugcPostId": "7439306853655707650"
     },
     {
       "id": "mastodon:116162559744462181",
@@ -717,7 +1063,17 @@
       "date": "2026-02-11T15:14:29.045Z",
       "title": "",
       "text": "I spend a lot of my free time thinking about how the brands I love in Vermont could push their digital experiences further. I can’t help it! I see a brand doing something great and I immediately start thinking about what else they could build.\n\nI’ll give you an example.\n\nLawson’s Finest Liquids is one of Vermont’s most beloved craft breweries, and they’re in the middle of expanding into new markets along the East Coast. Their brand is incredible, their community impact is real, and their commitment to freshness is central to everything they do. But that story is mostly told through a traditional website. I kept thinking: what if you could experience that expansion as a journey?\n\nSo I built The Sunshine Trail, an interactive map that connects Lawson’s home in Waitsfield, Vermont to Asheville, North Carolina. 791 miles of mountain communities, outdoor adventures, and cold beer.\n\nThe map shows every Lawson’s location I could identify (breweries, retailers, bars, restaurants) alongside hiking trails, river put-ins, community partners, and DC fast chargers along a scenic road trip route through the Blue Ridge Parkway, Skyline Drive, and Vermont Route 100. Every design element pulls directly from Lawson’s brand: their colors, their fonts, their custom SVGs, even the signature wave animation from their website. It should feel like something Lawson’s built themselves.\n\nBut the details are where it gets fun. Hover over “Sunshine” in the header and god rays shoot across the page. On HDR displays, the sun pushes brightness beyond standard range. Hover over “Cold Beer” and it starts snowing, a nod to their chain of freshness promise. The Sip of Sunshine logo spins with real momentum physics, and clicking it launches emoji bursts. None of these get in the way if you’re just there for the map. That’s the whole point of them being Easter eggs.\n\nThe live impact widget projects real historical data forward, showing dollars raised and solar energy generated ticking up in real time. Community partner popups tell actual impact stories with donate buttons linking directly to each organization. An email capture modal triggers after 30 seconds on the route view, creating a natural top-of-funnel opportunity with genuine value exchange: a curated road trip itinerary.\n\nI built the whole thing with Claude as a coding partner, tested it across 15 screen sizes, and added full accessibility support throughout. On mobile, tilting your phone creates wind that blows the snowflakes. The map expands when you tap a marker so you have room to actually read the popup. Every interaction is designed to teach you how to use the site without having to explain anything.\n\nIf you want to explore it, the site is live at thesunshinetrail.com. It's password protected, so use \"linkedin\" to get in. Let me know what you think in the comments! 👇\n\n#DigitalMarketing #CraftBeer #Vermont #AI #WebDevelopment #BrandStrategy",
-      "image": ""
+      "image": "",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7427369442927341568-01.webp",
+          "alt": "The Sunshine Trail website displays an interactive East Coast map, community stops, and a live-impact panel.",
+          "width": 1200,
+          "height": 627
+        }
+      ],
+      "ugcPostId": "7427369442927341568"
     },
     {
       "id": "mastodon:116026752698893613",
@@ -765,7 +1121,17 @@
       "date": "2026-02-04T02:17:13.258Z",
       "title": "",
       "text": "After a busy few months, I'm thrilled to share some news: I'm officially a member of the Montpelier Rotary Club.\n\nRotary has been part of my story since I was sixteen. Charles Hogan and the Cambridge Rotary Club took a chance on me and sent me to Belgium for a year through their Youth Exchange program. That experience was unforgettable!\n\nNow, what feels like a short time later, I'm excited to be officially joining. Local community organizations like Rotary are exactly what we need right now. Real people, doing real work, in real places.\n\nThank you to Marc Gwinn and Mark Provost for sponsoring me. And to Charles Hogan and everyone at Cambridge Rotary who believed in a teenager with big ideas way back when.\n\nLooking forward to doing some good work with this crew.\n\nIf you're still following me from those days, say hi in the comments! I have so many wonderful memories of Rotary, of Belgium, of host families and late-night conversations and figuring out who I was going to be. Would love to reconnect.\n\n#Rotary #Vermont #Community #YouthExchange",
-      "image": ""
+      "image": "",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7424637123200221184-01.webp",
+          "alt": "A teenage Oliver Ames wearing Rotary exchange pins stands beside a woman holding a Rotary gala program.",
+          "width": 1280,
+          "height": 956
+        }
+      ],
+      "ugcPostId": "7424637123200221184"
     },
     {
       "id": "linkedin:7422289170049523714",
@@ -783,7 +1149,17 @@
       "text": "It's not every day you see a photo you took on a bus! 🚌\n\nI was the professional photographer for EastRise Credit Union during my time there, doing imagery for everything from brand development all the way through our campaigns in late 2025 and 2026. I'm mostly a digital content guy, but there's truly nothing more special than seeing your work out in the world — on a bus, no less!\n\nAs a kid, I thought pictures on NYC buses were the highest form of advertising. Only the most prestigious brands could afford to advertise there. 🤭 That's still kind of how I feel? Seeing this in the wild, unexpectedly, was a moment.\n\nI started as a passionate hobbyist. EastRise helped me grow into a professional. They really do nurture their own, and I'm forever grateful for that.\n\nIf you ever need photography for your business, I'm around! I'd love to chat.",
       "image": "",
       "localImage": true,
-      "mediaSource": "https://www.linkedin.com/feed/update/urn:li:activity:7422289170049523714/"
+      "mediaSource": "https://www.linkedin.com/feed/update/urn:li:activity:7422289170049523714/",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7422289170049523714-01.webp",
+          "alt": "A city bus carries an EastRise Credit Union wrap featuring a member portrait and the credit union’s branding.",
+          "width": 1800,
+          "height": 1350
+        }
+      ],
+      "ugcPostId": "7422289170049523714"
     },
     {
       "id": "mastodon:115889270577139356",
@@ -836,7 +1212,8 @@
         "author": "Adrenaline",
         "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401666966333202432/",
         "text": "Brand and culture must work together to shape a cohesive organization from the inside out. See how these two merging credit union brands built upon a bold new brand identity, successfully integrating two cultures into a singular institution with a strong brand purpose. https://hubs.ly/Q03VgMYg0"
-      }
+      },
+      "ugcPostId": "7407619780834246657"
     },
     {
       "id": "linkedin:7397604744460025856",
@@ -854,7 +1231,17 @@
       "text": "Working with Taylor Hoar was a highlight of my time at EastRise Credit Union.\n\nTaylor made history in 2025 as the first Vermonter ever selected for the prestigious Kulwicki Driver Development Program, becoming the first female finalist since 2022. At Thunder Road, she earned a podium finish in the Squier Cup and continues to prove herself in one of short track racing's most competitive environments.\n\nBut here's what I'll remember most:\n\nIt wasn't just her performance on the track—it was how she showed up everywhere else. Four years with Race to Read. Volunteering at the Vermont Foodbank. Bringing hope to kids at CAMP TA-KUM-TA.\n\nTaylor embodied something I see in Vermont's best: the drive to excel in your craft while lifting up the community around you.\n\nI'll see you on the high banks, Taylor! Keep showing #Vermont what hard work and heart can accomplish.\n\nOne of my favorite shots from 2025 📸 https://lnkd.in/etur9Gy8",
       "image": "",
       "localImage": true,
-      "mediaSource": "https://www.linkedin.com/feed/update/urn:li:activity:7397604744460025856/"
+      "mediaSource": "https://www.linkedin.com/feed/update/urn:li:activity:7397604744460025856/",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7397604744460025856-01.webp",
+          "alt": "Race car driver Taylor Hoar poses in her EastRise racing suit with a helmet in front of her No. 48 car.",
+          "width": 1280,
+          "height": 1600
+        }
+      ],
+      "ugcPostId": "7397604744460025856"
     },
     {
       "id": "linkedin:7396613980082950144",
@@ -870,7 +1257,17 @@
       "date": "2025-11-18T18:23:15.294Z",
       "title": "",
       "text": "After nearly seven years at EastRise Credit Union, I'm exploring what's next.\n\nIt's been a significant chapter. I arrived when we were VSECU, helped build Vermont's most engaging credit union social media presence, and navigated a complete organizational merger and rebrand. I'm proud of what we built—from a viral cow that raised funds for members during COVID, to content that consistently outperformed organizations many times our size, to establishing EastRise's digital voice.\n\nThanks to my wonderful colleagues—from facilities and branch teams to my compatriots in marketing. Y'all do great work, and I'm looking forward to seeing what you do next. I'm particularly thankful to Jevonne for her guidance and leadership.\n\nTo the members I got the pleasure of working with, you're incredible.\n\nWhen I graduated high school right here in Morrisville, Vermont, I thought I'd be looking outside the state for a meaningful career. I'm so happy that I chose to build that right here, along with my beautiful family.\n\nThe work mattered because it helped Vermonters understand that financial empowerment isn't intimidating—it's accessible. That's always been the thread through my career: making complex things clear, whether it's astronomy, independent journalism, or why your local credit union actually gives a damn about your financial future.\n\nI'm really excited for this next chapter. I'm looking for what's next—ideally with mission-driven organizations that prioritize authentic community connection. I thrive in innovative, data-driven environments, and where someone can be equally comfortable in a strategy meeting or behind the camera.\n\nThat intersection—where data meets storytelling—is where I thrive. I’m looking forward to finding the next place to do exactly that.",
-      "image": ""
+      "image": "",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7396613980082950144-01.webp",
+          "alt": "Oliver Ames takes a rainy racetrack selfie in an orange jacket and reflective safety vest while holding a camera.",
+          "width": 1280,
+          "height": 1707
+        }
+      ],
+      "ugcPostId": "7396613980082950144"
     },
     {
       "id": "linkedin:7396253468706971648",
@@ -886,7 +1283,24 @@
       "date": "2025-11-17T18:30:42.684Z",
       "title": "",
       "text": "As a sixth-generation Vermonter, I had an incredible experience at BETA TECHNOLOGIES' Career Day yesterday. I couldn't be prouder to see our state leading the charge in electric aviation.\n\nWhat struck me most was how BETA embodies Vermont values while tackling global challenges. This isn't just about electric aircraft; it's about proving that transformative technology can emerge from a state that's always balanced innovation with purpose.\n\nWalking through the South Burlington facility, the scale, innovation, and genuine passion of the team were truly inspiring. This is Vermont manufacturing at its finest – sustainable, innovative, and built by people who genuinely care about the mission. Great to see this opportunity for graduates from University of Vermont and Vermont State University!\n\nThank you to everyone at BETA who took the time to share their perspectives. I'm incredibly excited about the future of sustainable aviation in Vermont, supported by a great tech ecosystem with partners like Vermont Manufacturing Extension Center (VMEC) and the Vermont Department of Labor.\n\n✈️⚡ #ElectricAviation #VermontInnovation #SustainableTransportation #BETATechnologies #Vermont #VT #VTtech #MadeinVermont #VermontBusiness #Industry40",
-      "image": ""
+      "image": "",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7396253467742261248-01.webp",
+          "alt": "Oliver Ames smiles for an indoor selfie while wearing a teal jacket.",
+          "width": 1280,
+          "height": 1707
+        },
+        {
+          "type": "image",
+          "src": "assets/images/writing/linkedin/7396253467742261248-02.webp",
+          "alt": "A large white BETA Technologies facility stands on a grassy slope beneath dark clouds.",
+          "width": 1800,
+          "height": 1350
+        }
+      ],
+      "ugcPostId": "7396253467742261248"
     },
     {
       "id": "linkedin:7392623143162650626",
@@ -906,7 +1320,8 @@
       "sharedPost": {
         "author": "EastRise Credit Union",
         "url": "https://www.linkedin.com/feed/update/urn:li:activity:7392622065939550208/"
-      }
+      },
+      "ugcPostId": "7392623143162650626"
     },
     {
       "id": "linkedin:7392295981154836481",

@@ -172,6 +172,14 @@ test("public provenance keeps distinct sources and removes tracking parameters",
   expect(disclosure).toContain("1 image was published April 17, 2025, with credit to Oliver Ames.");
 });
 
+test("Taylor provenance combines account-prefixed and canonical Instagram URLs", async () => {
+  const html = await readPublic("work/taylor-hoar-racing/index.html");
+  const disclosure = html.match(/<footer class="asset-provenance"[\s\S]*?<\/footer>/)?.[0] || "";
+
+  expect(disclosure.match(/DJJ9BxStqip/g) || []).toHaveLength(1);
+  expect(disclosure).toContain("5 images published by EastRise Credit Union");
+});
+
 test("EastRise gallery alt text describes images instead of social captions", async () => {
   const data = JSON.parse(await readFile(join(root, "assets/data/eastrise-photography.json"), "utf8"));
   const alts = data.series.flatMap((series) => series.images.map((image) => image.alt));
@@ -196,14 +204,14 @@ test("EastRise launch gallery keeps its descriptions without JavaScript", async 
   expect(html).not.toMatch(/aria-label="Open photograph \d+/);
 });
 
-function expectEventGalleryDescriptions(campaign, html) {
+function expectEventGalleryDescriptions(campaign, html, { expectFeaturedHero = true } = {}) {
   for (const image of campaign.images) {
     const description = escapeAttribute(image.alt);
     expect(description.length).toBeGreaterThan(0);
     expect(html).toContain(`alt="${description}" aria-label="Open larger image: ${description}"`);
   }
   expect(html).not.toMatch(/aria-label="Open photograph \d+/);
-  if (campaign.featuredFile) {
+  if (campaign.featuredFile && expectFeaturedHero) {
     const featuredImage = campaign.images.find(
       (image) => image.src.endsWith(`/${campaign.featuredFile}`),
     );
@@ -216,8 +224,10 @@ test("every published event gallery renders scene-level descriptions", async () 
   const data = JSON.parse(await readFile(join(root, "assets/data/event-galleries.json"), "utf8"));
 
   for (const campaign of data.campaigns.filter((item) => item.published !== false)) {
-    const html = await readPublic(`work/${campaign.slug}/index.html`);
-    expectEventGalleryDescriptions(campaign, html);
+    const html = await readPublic(`work/${campaign.projectSlug || campaign.slug}/index.html`);
+    expectEventGalleryDescriptions(campaign, html, {
+      expectFeaturedHero: !campaign.projectSlug || campaign.slug === "giron-family-fall-2025",
+    });
   }
 });
 

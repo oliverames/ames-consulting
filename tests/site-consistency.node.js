@@ -10,6 +10,16 @@ const read = (file) => readFile(path.join(root, file), "utf8");
 const stripMarkup = (value) => value.replace(/<[^>]+>/g, "").replaceAll("&amp;", "&").trim();
 const serviceTitles = SERVICES.map(({ title }) => title);
 const workDetailFiles = PUBLIC_HTML_FILES.filter((file) => /^work\/[^/]+\/index\.html$/.test(file));
+const footerDescription = "My name is Oliver. Ames Consulting is my photography and communications practice in Montpelier, Vermont. I also build websites and apps when a project needs them.";
+const socialProfiles = [
+  "https://github.com/oliverames",
+  "https://www.linkedin.com/in/oliverames",
+  "https://oliverames.micro.blog/",
+  "https://mastodon.social/@oliverames",
+  "https://bsky.app/profile/oliverames.bsky.social",
+  "https://www.threads.com/@oliverames",
+  "https://www.instagram.com/oliverames/",
+];
 
 function expectedCurrent(file) {
   if (file === "index.html") return ["Home", "page"];
@@ -38,10 +48,13 @@ test("the project catalog covers every published work detail route", () => {
 });
 
 test("the retired portrait route redirects to the canonical collection", async () => {
-  assert.equal(
-    (await read("_redirects")).trim(),
+  const redirects = new Set((await read("_redirects")).trim().split("\n"));
+  assert.deepEqual(redirects, new Set([
     "/work/portraits-and-people/ /work/eastrise-portraits/ 301",
-  );
+    "/work/giron-family-fall-2023/ /work/giron-family/#giron-family-fall-2023 301",
+    "/work/giron-family-christmas-tree-farm-2024/ /work/giron-family/#giron-family-christmas-tree-farm-2024 301",
+    "/work/giron-family-fall-2025/ /work/giron-family/#giron-family-fall-2025 301",
+  ]));
 });
 
 test("primary navigation, section state, and shared footer stay canonical", async () => {
@@ -59,6 +72,14 @@ test("primary navigation, section state, and shared footer stay canonical", asyn
     assert.match(html, /<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization<\/h2>/, `${file} footer heading drifted`);
     const company = html.match(/<h2>Company<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
     assert.match(company || "", />Services<\/a>/, `${file} footer omits Services`);
+    assert.ok(html.includes(`<div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>${footerDescription}</p></div>`), `${file} footer description drifted`);
+    const social = html.match(/<ul class="site-footer__social">([\s\S]*?)<\/ul>/)?.[1];
+    assert.ok(social, `${file} footer omits social profiles`);
+    assert.deepEqual(
+      [...social.matchAll(/<a href="([^"]+)"/g)].map((match) => match[1]),
+      socialProfiles,
+      `${file} footer social profiles drifted`,
+    );
   }
 });
 

@@ -163,8 +163,6 @@ if (JSON.stringify(renderedPhotographyOrder) !== JSON.stringify(expectedPhotogra
 
 for (const { relativePath, id, slug } of [
   { relativePath: "work/eastrise-launch-campaign/index.html", id: "eastrise-launch-campaign", slug: "eastrise-launch" },
-  { relativePath: "work/taylor-hoar-racing/index.html", id: "eastrise-taylor-hoar-racing", slug: "taylor-hoar-racing" },
-  { relativePath: "work/taylor-hoar-racing/index.html", id: "eastrise-veggievango-taylor-hoar", slug: "veggievango-taylor-hoar" },
   { relativePath: "work/wheels-for-warmth/index.html", id: "eastrise-wheels-for-warmth-2024", slug: "wheels-for-warmth-2024" },
 ]) {
   const series = photography.series.find((item) => item.slug === slug);
@@ -180,6 +178,27 @@ for (const { relativePath, id, slug } of [
     relativePath,
     relativePath !== "work/eastrise-launch-campaign/index.html",
   );
+}
+
+const taylorPath = "work/taylor-hoar-racing/index.html";
+const taylorHtml = await readPublicHtml(taylorPath);
+expectGallery(taylorPath, "eastrise-taylor-hoar-racing", "reverse-chronological");
+const taylorSource = photography.series.find((series) => series.slug === "taylor-hoar-racing");
+const expectedTaylorSources = taylorSource.images
+  .filter((image) => !image.src.endsWith("/Original-Public-Image-8998855be149.webp"))
+  .toSorted((left, right) => {
+    const leftDate = left.publishedDate || left.capturedDate || "";
+    const rightDate = right.publishedDate || right.capturedDate || "";
+    return rightDate.localeCompare(leftDate);
+  })
+  .map((image) => image.src);
+const renderedTaylorSources = [...galleryBlock(taylorHtml, "eastrise-taylor-hoar-racing").matchAll(/<img\s[^>]*src="([^"]+)"[^>]*>/g)]
+  .map((match) => match[1]);
+if (JSON.stringify(renderedTaylorSources) !== JSON.stringify(expectedTaylorSources)) {
+  errors.push("Taylor Hoar Racing must omit the Race Week graphic and render the remaining series newest first.");
+}
+if (taylorHtml.includes("eastrise-veggievango-taylor-hoar")) {
+  errors.push("Taylor Hoar Racing must not duplicate the VeggieVanGo gallery.");
 }
 
 const portraitPath = "work/eastrise-portraits/index.html";
@@ -248,8 +267,8 @@ const renderedSocial = [...galleryBlock(socialHtml, "eastrise-social").matchAll(
     dateStatus: attribute(tag, "data-date-status"),
   };
 });
-if (JSON.stringify(renderedSocial.map((item) => item.post?.id)) !== JSON.stringify(social.highlightIds)) {
-  errors.push("The rendered EastRise social highlights do not match their newest-first manifest order.");
+if (JSON.stringify(renderedSocial.map((item) => item.post?.id)) !== JSON.stringify(social.posts.map((post) => post.id))) {
+  errors.push("The rendered EastRise social archive does not match its newest-first manifest order.");
 }
 for (const item of renderedSocial) {
   if (!item.post) {

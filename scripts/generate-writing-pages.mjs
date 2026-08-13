@@ -4,6 +4,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
+import { youtubeIframe } from "./youtube-facade.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const feed = JSON.parse(
@@ -110,7 +111,7 @@ function footer(depth) {
   return `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="${base}work/taylor-hoar-racing/">Taylor Hoar Racing</a></li><li><a href="${base}work/wheels-for-warmth/">Wheels for Warmth</a></li><li><a href="${base}work/eastrise-writing/">EastRise Writing</a></li><li><a href="${base}work/eastrise-portraits/">EastRise Portraits</a></li></ul></div><div><h3>Company</h3><ul><li><a href="${base}work/">All work</a></li><li><a href="${base}blog/">Writing</a></li><li><a href="${base}about/">About</a></li><li><a href="${base}testimonials/">Testimonials</a></li><li><a href="${base}contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p>${socialLinks}</div></div></footer>`;
 }
 
-function page({ title, description, path, depth, body, type = "website" }) {
+function basePage({ title, description, path, depth, body, type = "website" }) {
   const base = "../".repeat(depth);
   const canonical = `https://ames.consulting/${path}`;
   const documentTitle = type === "article" ? truncateWords(title, 50) : title;
@@ -123,7 +124,14 @@ function page({ title, description, path, depth, body, type = "website" }) {
     description,
     author: { "@type": "Person", name: "Oliver Ames" },
   };
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${escapeHtml(documentTitle)} | Ames Consulting</title><meta name="description" content="${escapeHtml(description)}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="${canonical}"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}"><meta property="og:type" content="${type}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="${base}assets/css/main.css"><script type="application/ld+json">${JSON.stringify(schema)}</script></head><body>${header(depth)}<main id="main-content" tabindex="-1">${body}</main>${footer(depth)}<script type="module" src="${base}assets/js/header-scroll.js"></script><script type="module" src="${base}assets/js/image-viewer.js"></script></body></html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${escapeHtml(documentTitle)} | Ames Consulting</title><meta name="description" content="${escapeHtml(description)}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="${canonical}"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}"><meta property="og:type" content="${type}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="${base}assets/css/main.css"><script type="application/ld+json">${JSON.stringify(schema)}</script></head><body>${header(depth)}<main id="main-content" tabindex="-1">${body}</main>${footer(depth)}<script type="module" src="${base}assets/js/header-scroll.js"></script><script type="module" src="${base}assets/js/image-viewer.js"></script><script type="module" src="${base}assets/js/social-media-carousel.js"></script></body></html>`;
+}
+
+function page(options) {
+  return basePage(options).replace(
+    "script-src 'self'; form-action 'self';",
+    "script-src 'self'; frame-src https://www.youtube-nocookie.com; form-action 'self';",
+  );
 }
 
 function localImage(post, depth, sourcePost = post) {
@@ -142,6 +150,39 @@ function localImageAlt(sourcePost) {
 
 function cardImagePost(post) {
   return post;
+}
+
+function publicAssetPath(source, depth) {
+  if (!/^assets\/images\/[A-Za-z0-9_./-]+$/.test(source || "")) {
+    throw new Error(`Invalid public writing media path: ${source}`);
+  }
+  return `${"../".repeat(depth)}${source}`;
+}
+
+function renderMediaGallery(post, depth, media = post.sharedPost?.media || []) {
+  if (!media.length) return "";
+
+  const galleryId = `writing-${slugify(post.id)}`;
+
+  const items = media.map((item) => {
+    if (item.type === "image") {
+      if (!item.alt?.trim()) throw new Error(`Missing shared-media alt text on ${post.id}.`);
+      return `<div class="social-card__media-item" data-media-carousel-item><img src="${publicAssetPath(item.src, depth)}" alt="${escapeHtml(item.alt)}" width="${item.width}" height="${item.height}" loading="lazy"></div>`;
+    }
+    if (item.type === "youtube") {
+      return `<div class="social-card__media-item" data-media-carousel-item><div class="video-embed">${youtubeIframe(
+        item.videoId,
+        item.title,
+        publicAssetPath(item.poster, depth),
+      )}</div></div>`;
+    }
+    throw new Error(`Unsupported shared media type on ${post.id}: ${item.type}`);
+  });
+
+  const controls = media.length > 1
+    ? `<output class="social-card__media-count" data-media-carousel-count aria-label="Current post image" aria-live="polite">1/${media.length}</output><button class="social-card__media-control social-card__media-control--previous" type="button" data-media-carousel-previous aria-controls="${galleryId}" aria-label="Show previous post image">‹</button><button class="social-card__media-control social-card__media-control--next" type="button" data-media-carousel-next aria-controls="${galleryId}" aria-label="Show next post image">›</button>`
+    : "";
+  return `<div class="social-card__media-shell" data-media-carousel>${controls}<div class="social-card__media-gallery" id="${galleryId}" role="group" aria-label="Post media, ${media.length} items" data-media-carousel-track data-gallery="${galleryId}" data-order-mode="editorial">${items.join("")}</div></div>`;
 }
 
 function renderCard(post, depth = 1) {
@@ -164,11 +205,20 @@ function renderCard(post, depth = 1) {
   const mediaSource = imagePost.mediaSource
     ? ` data-media-source="${escapeHtml(imagePost.mediaSource)}"`
     : "";
-  const image = imageSrc
+  const image = imageSrc && longForm
     ? `<img class="social-card__media" src="${imageSrc}" alt="${escapeHtml(localImageAlt(imagePost))}" loading="lazy"${mediaSource}>`
     : "";
+  const originalMedia = !longForm && !post.sharedPost?.media?.length && (post.media?.length || imageSrc)
+    ? renderMediaGallery(post, depth, post.media?.length ? post.media : [{
+      type: "image",
+      src: imageSrc.replace("../".repeat(depth), ""),
+      alt: localImageAlt(imagePost),
+      width: imagePost.width || 800,
+      height: imagePost.height || 800,
+    }])
+    : "";
   const sharedPost = post.sharedPost
-    ? `<div class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong>${post.sharedPost.text ? `<p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p>` : ""}</div>`
+    ? `<div class="social-card__shared"><strong>Shared from <a href="${escapeHtml(post.sharedPost.url)}" rel="noopener">${escapeHtml(post.sharedPost.author)}</a></strong>${post.sharedPost.text ? `<p>${linkify(post.sharedPost.text).replaceAll("\n", "<br>")}</p>` : ""}${renderMediaGallery(post, depth)}</div>`
     : "";
   const title = post.title
     ? `<h2>${longForm ? `<a href="${articleHref}">${escapeHtml(post.title)}</a>` : escapeHtml(post.title)}</h2>`
@@ -176,7 +226,7 @@ function renderCard(post, depth = 1) {
   const action = longForm
     ? `<a class="social-card__read" href="${articleHref}">Read on ames.consulting →</a>`
     : "";
-  return `<article class="social-card${longForm ? " social-card--article" : ""}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy" data-no-zoom><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? sentenceSafeExcerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
+  return `<article class="social-card${longForm ? " social-card--article" : ""}" data-post-id="${escapeHtml(post.id)}"><header class="social-card__header"><img src="${"../".repeat(depth)}assets/images/about/oliver-ames-profile.webp" alt="" width="48" height="48" loading="lazy" data-no-zoom><div><strong>Oliver Ames</strong><div class="social-card__platforms">${platforms}</div></div><time datetime="${escapeHtml(post.date)}">${dateLabel(post.date)}</time></header><div class="social-card__body">${image}${title}<p>${linkify(longForm ? sentenceSafeExcerpt(post.text) : post.text).replaceAll("\n", "<br>")}</p>${sharedPost}${originalMedia}</div><footer class="social-card__footer">${action}<div class="social-card__sources">${links}</div></footer></article>`;
 }
 
 function renderLongFormPage(post) {

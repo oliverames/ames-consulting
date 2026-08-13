@@ -23,7 +23,6 @@ export const WITHHELD_ROUTE_PREFIXES = Object.freeze([
 ]);
 
 export const WITHHELD_ASSET_PREFIXES = Object.freeze([
-  "assets/images/work/campaigns/flight-paths.webp",
   "assets/images/work/blue-cross/",
   "assets/images/work/events/arrayrx-press-conference-2026/",
   "assets/images/work/events/be-well-at-work-2026/",
@@ -48,7 +47,6 @@ export const PRIVATE_RUNTIME_PATHS = Object.freeze([
 ]);
 
 export const BLOCKED_PUBLIC_FILE_STEMS = Object.freeze([
-  "assets/images/work/campaigns/flight-paths",
   "assets/images/work/portraits/beth-roberts",
 ]);
 

@@ -75,7 +75,6 @@ test("withheld Blue Cross galleries remain in source but outside the public arti
     "work/walk-at-lunch-and-green-up-2026/",
   ]);
   assert.deepEqual(WITHHELD_ASSET_PREFIXES, [
-    "assets/images/work/campaigns/flight-paths.webp",
     "assets/images/work/blue-cross/",
     "assets/images/work/events/arrayrx-press-conference-2026/",
     "assets/images/work/events/be-well-at-work-2026/",
@@ -207,6 +206,8 @@ test("public images require an approved root and an exact public reference", () 
     [...extractPublicImageReferences(`
       <img src="../../${approvedImage}"
         srcset="../../assets/images/work/software/ping-warden-icon-320w.webp 320w">
+      <iframe data-youtube-poster="../../${approvedImage}"
+        srcdoc="&lt;img src=&quot;../../${approvedImage}&quot;&gt;"></iframe>
     `)],
     [approvedImage, "assets/images/work/software/ping-warden-icon-320w.webp"],
   );

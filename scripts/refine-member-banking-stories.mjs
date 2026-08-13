@@ -64,8 +64,19 @@ html = html
   );
 
 html = html.replace(
-  '<section class="case-section">\n        <h2>Photography and distribution</h2>',
-  '<section class="case-section member-story-visual">\n        <h2>Photography and distribution</h2>',
+  /<header class="case-hero">([\s\S]*?)<\/header>/,
+  (_header, content) => `<header class="case-hero case-hero--family"><div class="case-hero--family__copy">${content.trim()}</div><img src="../../assets/images/work/campaigns/will-barbecue.webp" alt="Will working at a barbecue grill in an EastRise member story" width="1600" height="1067" loading="eager" fetchpriority="high" decoding="async" data-no-zoom></header>`,
+);
+
+html = html.replace(
+  /<section class="case-section member-story-visual">[\s\S]*?<\/section>/,
+  `<section class="case-section">
+        <h2>Photography and distribution</h2>
+        <div class="case-section__body">
+          <p>My role also included content development, image direction, photography, social distribution, and quality assurance.</p>
+          <p>We filmed and photographed members in Vermont homes and businesses.</p>
+        </div>
+      </section>`,
 );
 
 for (const expected of [
@@ -73,10 +84,16 @@ for (const expected of [
   "This page collects eleven EastRise films from 2025 and 2026",
   "Photography and distribution",
   "We filmed and photographed members in Vermont homes and businesses.",
+  "case-hero case-hero--family",
+  'loading="eager" fetchpriority="high"',
 ]) {
   if (!html.includes(expected)) {
     throw new Error(`refine-member-banking-stories: copy did not match: ${expected}`);
   }
+}
+
+if ((html.match(/<img[^>]+src="\.\.\/\.\.\/assets\/images\/work\/campaigns\/will-barbecue\.webp"/g) || []).length !== 1) {
+  throw new Error("refine-member-banking-stories: the featured photograph must render exactly once.");
 }
 
 await writeFile(pagePath, html);

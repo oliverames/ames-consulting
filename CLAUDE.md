@@ -58,7 +58,7 @@ All twelve modules are live; nothing else ships:
 - **contact-form.js** — Contact form handling: lazy Turnstile loading on first interaction, rate limiting (3/10min), honeypot, minimum fill time, and Turnstile reset on both success and failure paths.
 - **site-config.js** — Loads `assets/data/site.config.json`, merges with defaults (used by contact-form).
 - **hero-headline.js** — Rotates the homepage H1 through five variants (sessionStorage-seeded).
-- **proof-rotator.js** — Adds manual previous and next controls to the homepage proof-stat pages and keeps the selected page labeled.
+- **social-media-carousel.js** — Adds LinkedIn-style horizontal media controls, scroll position, and live image counts to writing cards.
 - **recommendation-dialog.js** — Opens public LinkedIn recommendations in an accessible on-site dialog and restores focus when it closes.
 - **service-taxonomy.js** — Exposes the canonical public service slugs and labels to browser modules and build scripts.
 - **work-filter.js** — `?organization=` filtering on `/work/`; unknown values fall back to the unfiltered view with "All" marked current.

@@ -123,6 +123,7 @@ jobs:
             verify_status 200 "$site_origin/work/whale-dance-randolph/"
             verify_status 200 "$site_origin/work/drone-photography/"
             verify_status 200 "$site_origin/work/neg-ecp-conference-2026/"
+            verify_status 200 "$site_origin/work/giron-family/"
             verify_status 200 "$site_origin/work/vermont-foodbank-volunteer-day-2026/"
             verify_status 200 "$site_origin/work/beta-technologies/"
             verify_status 200 "$site_origin/work/flight-paths/"
@@ -132,7 +133,7 @@ jobs:
             verify_tombstone "$site_origin/assets/data/media-provenance.json"
             verify_tombstone "$site_origin/assets/data/media-provenance-missing.json"
             verify_tombstone "$site_origin/assets/js/construction-gate.js"
-            verify_tombstone "$site_origin/assets/images/work/campaigns/flight-paths-320w.webp"
+            verify_status 200 "$site_origin/assets/images/work/campaigns/flight-paths-320w.webp"
             verify_tombstone "$site_origin/assets/images/work/portraits/beth-roberts-320w.webp"
             curl -fsS "$site_origin/" > /tmp/ames-consulting-home.html
             ! grep -Fqi "construction-gate" /tmp/ames-consulting-home.html

@@ -54,9 +54,7 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "work/eastrise/index.html",
   "work/fairbanks-planetarium/index.html",
   "work/flight-paths/index.html",
-  "work/giron-family-christmas-tree-farm-2024/index.html",
-  "work/giron-family-fall-2023/index.html",
-  "work/giron-family-fall-2025/index.html",
+  "work/giron-family/index.html",
   "work/green-mountain-community-fitness/index.html",
   "work/index.html",
   "work/live-broadcasts/index.html",
@@ -96,10 +94,10 @@ export const PUBLIC_RUNTIME_FILES = Object.freeze([
   "assets/js/hero-headline.js",
   "assets/js/image-viewer.js",
   "assets/js/inbound-prompt.js",
-  "assets/js/proof-rotator.js",
   "assets/js/recommendation-dialog.js",
   "assets/js/service-taxonomy.js",
   "assets/js/site-config.js",
+  "assets/js/social-media-carousel.js",
   "assets/js/work-filter.js",
 ]);
 
@@ -214,7 +212,7 @@ export function isAllowedPublicImagePath(value) {
 
 export function extractPublicImageReferences(source) {
   const references = new Set();
-  const imageReferencePattern = /(?:https?:\/\/ames\.consulting\/|(?:\.\.\/|\.\/|\/)*)?(assets\/images\/[^"'()<>{}\s?#]+)/g;
+  const imageReferencePattern = /(?:https?:\/\/ames\.consulting\/|(?:\.\.\/|\.\/|\/)*)?(assets\/images\/[^&"'()<>{}\s?#]+)/g;
   for (const match of String(source).matchAll(imageReferencePattern)) {
     references.add(normalizePublicPath(match[1]));
   }

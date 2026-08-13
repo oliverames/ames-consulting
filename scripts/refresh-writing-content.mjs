@@ -5,12 +5,14 @@ import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import sharp from "sharp";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const exec = promisify(execFile);
 // One hung feed API should fail loudly instead of stalling the whole refresh.
 const FETCH_TIMEOUT_MS = 30_000;
 const eastRiseSource = join(homedir(), "My Drive (Personal)", "Career", "Work Samples", "Oliver's EastRise Blog Posts.csv");
+const linkedInProfileUrl = "https://www.linkedin.com/in/oliverames";
 
 function parseCsvLine(line) {
   const fields = [];
@@ -70,6 +72,70 @@ async function json(url) {
   return response.json();
 }
 
+function socialCrawlKey() {
+  return process.env.SOCIALCRAWL_API_KEY || "";
+}
+
+function linkedInDate(id) {
+  return new Date(Number(BigInt(id) >> 22n)).toISOString();
+}
+
+function linkedInActivityId(post) {
+  return post.url?.match(/activity:(\d+)/)?.[1] || post.id;
+}
+
+async function currentLinkedInPosts() {
+  const key = await socialCrawlKey();
+  if (!key) {
+    console.warn("SOCIALCRAWL_API_KEY is unavailable; retaining the checked-in LinkedIn archive.");
+    const checkedIn = JSON.parse(
+      await readFile(join(root, "assets/data/writing-feed.json"), "utf8"),
+    );
+    return checkedIn.posts
+      .filter((post) => post.platforms?.includes("LinkedIn"))
+      .map((post) => ({
+        id: post.id.replace(/^linkedin:/, ""),
+        ugcPostId: post.ugcPostId,
+        date: post.date,
+        text: post.text,
+        url: post.links.find((link) => link.platform === "LinkedIn")?.url,
+        image: post.image,
+        assetId: post.assetId,
+        localImage: post.localImage,
+        mediaSource: post.mediaSource,
+        sharedPost: post.sharedPost,
+        media: post.media,
+      }));
+  }
+
+  const url = new URL("https://www.socialcrawl.dev/v1/linkedin/profile/posts");
+  url.searchParams.set("url", linkedInProfileUrl);
+  url.searchParams.set("count", "100");
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "ames.consulting writing archive",
+      "x-api-key": key,
+    },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  });
+  if (!response.ok) throw new Error(`${response.status} while refreshing LinkedIn posts`);
+  const payload = await response.json();
+  if (!payload.success || !Array.isArray(payload.data?.items)) {
+    throw new Error("SocialCrawl returned an invalid LinkedIn profile-post response.");
+  }
+  return payload.data.items.map(({ post }) => {
+    const activityId = linkedInActivityId(post);
+    return {
+      id: activityId,
+      ugcPostId: post.id,
+      date: linkedInDate(post.id),
+      text: post.content?.text || "",
+      url: `https://www.linkedin.com/feed/update/urn:li:activity:${activityId}/`,
+      mediaUrls: post.content?.media_urls || [],
+    };
+  });
+}
+
 let eastRise;
 try {
   const csv = await readFile(eastRiseSource, "utf8");
@@ -101,7 +167,116 @@ const threadsOriginals = [
   { id: "Dak4hmSEXjO", date: "2026-07-09T00:00:00Z", text: "The team that made this video truly cooked. Marketing at its finest!" }
 ];
 
+const sharedImage = (filename, alt, width, height) => ({
+  type: "image",
+  src: `assets/images/writing/shared/${filename}`,
+  alt,
+  width,
+  height,
+});
+
+const sharedPostMedia = {
+  pride: [{
+    type: "image",
+    src: "assets/images/writing/dbd9983745d2.webp",
+    alt: "Pride Month graphic reading Proud to care for all Vermonters",
+    width: 800,
+    height: 800,
+  }],
+  corporateCup: [
+    ["corporate-cup-01.webp", "Participants gather for the Corporate Cup on the Vermont State House steps."],
+    ["corporate-cup-02.webp", "A participant walks beneath a colorful umbrella during the rainy Corporate Cup."],
+    ["corporate-cup-03.webp", "Two Corporate Cup participants walk together in the rain."],
+    ["corporate-cup-04.webp", "Two women talk beneath umbrellas during the Corporate Cup."],
+    ["corporate-cup-05.webp", "A smiling Corporate Cup participant in a pink coat stands beneath an umbrella."],
+    ["corporate-cup-06.webp", "Two Corporate Cup participants talk beneath an umbrella."],
+    ["corporate-cup-07.webp", "A large crowd gathers on the Vermont State House lawn for the Corporate Cup."],
+    ["corporate-cup-08.webp", "The back of a blue 2026 Corporate Cup participant shirt."],
+    ["corporate-cup-09.webp", "Two Corporate Cup participants smile beneath a rainbow umbrella."],
+  ].map(([filename, alt]) => sharedImage(filename, alt, 1280, 853)),
+  greenUp: [
+    ["green-up-01.webp", "Five volunteers pose with green cleanup bags beside a road.", 1080, 720],
+    ["green-up-02.webp", "Three volunteers walk beside blue cleanup equipment.", 1080, 720],
+    ["green-up-03.webp", "Four Green Up Day volunteers stand together in safety vests.", 720, 720],
+    ["green-up-04.webp", "A volunteer collects roadside litter on Green Up Day.", 1080, 720],
+    ["green-up-05.webp", "A volunteer in a safety vest works among roadside brush.", 720, 1079],
+    ["green-up-06.webp", "Two volunteers walk together carrying green cleanup bags.", 1080, 720],
+    ["green-up-07.webp", "Four volunteers hold cleanup bags with Vermont mountains behind them.", 1080, 720],
+    ["green-up-08.webp", "A volunteer in a striped shirt and safety vest pauses during Green Up Day.", 720, 960],
+    ["green-up-09.webp", "A group of Green Up Day volunteers walks along a rural road.", 1124, 720],
+    ["green-up-10.webp", "A volunteer lifts a green cleanup bag on a grassy hillside.", 720, 720],
+  ].map(([filename, alt, width, height]) => sharedImage(filename, alt, width, height)),
+};
+
+const linkedInMediaAlts = new Map(Object.entries({
+  "7446964935219224576": [
+    "A woman speaks at a State House podium beside supporters and a sign calling for lower prescription drug costs.",
+    "An empty State House podium displays a green sign reading ‘Cut Prescription Drug Costs: Make Medicine More Affordable.’",
+    "A man in a navy suit and red tie speaks to reporters at the State House.",
+  ],
+  "7443387205353504768": [
+    "A panoramic office view shows snow-covered fields, wooded hills, and distant Vermont mountains beneath a blue sky.",
+  ],
+  "7439306853655707650": [
+    "The Blue Cross and Blue Shield of Vermont sign glows in late-day sunlight above a snow-covered hedge.",
+  ],
+  "7427369442927341568": [
+    "The Sunshine Trail website displays an interactive East Coast map, community stops, and a live-impact panel.",
+  ],
+  "7424637123200221184": [
+    "A teenage Oliver Ames wearing Rotary exchange pins stands beside a woman holding a Rotary gala program.",
+  ],
+  "7422289170049523714": [
+    "A city bus carries an EastRise Credit Union wrap featuring a member portrait and the credit union’s branding.",
+  ],
+  "7397604744460025856": [
+    "Race car driver Taylor Hoar poses in her EastRise racing suit with a helmet in front of her No. 48 car.",
+  ],
+  "7396613980082950144": [
+    "Oliver Ames takes a rainy racetrack selfie in an orange jacket and reflective safety vest while holding a camera.",
+  ],
+  "7396253468706971648": [
+    "Oliver Ames smiles for an indoor selfie while wearing a teal jacket.",
+    "A large white BETA Technologies facility stands on a grassy slope beneath dark clouds.",
+  ],
+}));
+
+function applyLinkedInMediaAlts(post) {
+  const alts = linkedInMediaAlts.get(post.id);
+  if (!alts || !post.media?.length) return post;
+  if (alts.length !== post.media.length) {
+    throw new Error(`LinkedIn media alt count does not match ${post.id}.`);
+  }
+  return {
+    ...post,
+    media: post.media.map((item, index) => ({ ...item, alt: alts[index] })),
+  };
+}
+
+const linkedInFeed = await currentLinkedInPosts();
+
 const linkedinOriginals = [
+  {
+    id: "7493102298634776576",
+    ugcPostId: "7493102297154203648",
+    date: "2026-08-12T00:33:22.750Z",
+    text: "This Monday I had the honor and privilege to photograph the 47th New England Governors and Eastern Canadian Premiers Conference (NEG-ECP) at Shelburne Farms. Check out a few of my favorite shots from the day. 👇\n\nIn addition to the esteemed Heads of Delegation, special guests included Kyle Clark of BETA TECHNOLOGIES, U.S. Representative Becca Balint, and U.S. Senator Peter Welch.\n\nEnergy and affordability came up in nearly every conversation we had, and it was remarkable to hear people actually discuss ideas. It was far from how I'd imagined conversations like this would go, and what I heard instead was real warmth between them, and real respect for their constituents. It's how I grew up hoping politics would work, like I'd wandered into an episode of The West Wing.\n\nGovernor Phil Scott put the day in a sentence at the press conference: \"Our relationships are our most critical infrastructure.\"\n\nThanks to Amanda Wheeler for the introduction that put me in the room, and to Alex Demoly and everyone at GBIC: Greater Burlington Industrial Corporation for trusting me with the day.",
+    url: "https://www.linkedin.com/feed/update/urn:li:activity:7493102298634776576/",
+    media: [
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp", "A row of delegates listens from behind microphones and nameplates inside the Coach Barn.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00262.webp", "A delegate wearing glasses speaks with another attendee during the morning arrival.", 1600, 1067],
+      ["assets/images/writing/linkedin/7493102297154203648-03.webp", "A smiling delegate in an orange blouse reacts during a conference discussion.", 1280, 853],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00759.webp", "Black-and-white side view of delegates seated shoulder to shoulder behind tabletop microphones.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc01227.webp", "Four delegates smile behind microphones with United States and Canadian flags behind them.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00820.webp", "A gray-haired delegate leans forward to address the room from across the conference table.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00562.webp", "A speaker is framed between blurred attendees in a black-and-white view across the table.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp", "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00937.webp", "A delegate wearing glasses listens beside a colleague in a black-and-white photograph.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00735.webp", "A bearded delegate wearing glasses speaks into a microphone during the working session.", 1600, 1067],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00781.webp", "A delegate listens across the table with a Canadian flag filling the foreground.", 1067, 1600],
+      ["assets/images/work/events/neg-ecp-conference-2026/dsc00341.webp", "A smiling speaker addresses the room at a microphone in a black-and-white photograph.", 1600, 1067],
+    ].map(([src, alt, width, height]) => ({ type: "image", src, alt, width, height })),
+  },
   {
     id: "7467314005167054848",
     assetId: "linkedin:pride-month-2026",
@@ -115,6 +290,7 @@ const linkedinOriginals = [
       author: "Blue Cross and Blue Shield of Vermont",
       url: "https://www.linkedin.com/feed/update/urn:li:activity:7467227840711819264/",
       text: "Pride Month is a good time to say something plainly: LGBTQ+ Vermonters deserve care that respects who they are, because feeling safe and seen is part of being healthy.\n\nAt Blue Cross and Blue Shield of Vermont, whole person care means supporting both body and mind, so our member benefits include access to mental health counseling. In addition, we offer personalized, voluntary, no-cost support to navigate gender affirming services from our expert team of nurses and social workers.\n\nWe’re proud to support organizations like Outright Vermont, the Pride Center of Vermont, and the Barre People's Health & Wellness Clinic, which partners with the Rainbow Bridge Community Center to help community members access youth and family support, crisis resources, and free affirming care information.\n\nStart with mental health support resources: https://lnkd.in/eXKRjT-h",
+      media: sharedPostMedia.pride,
     },
   },
   {
@@ -126,6 +302,7 @@ const linkedinOriginals = [
     sharedPost: {
       author: "Blue Cross and Blue Shield of Vermont",
       url: "https://www.linkedin.com/feed/update/urn:li:activity:7460834826116538368/",
+      media: sharedPostMedia.corporateCup,
     },
   },
   {
@@ -138,6 +315,12 @@ const linkedinOriginals = [
       author: "BETA TECHNOLOGIES",
       url: "https://www.linkedin.com/feed/update/urn:li:activity:7460776055541501953/",
       text: "Emma joined BETA through our partnership with the Community College of Vermont's Career Pathway Entry Program, building new skills and finding a pathway into electric aerospace.\n\nThere’s more than one way to get here. From first jobs to career changes, we’re hiring.\n\nCome build electric airplanes with us at careers.beta.team",
+      media: [{
+        type: "youtube",
+        videoId: "4r5N5DjmSCU",
+        title: "Flight Paths: Emma at BETA",
+        poster: "assets/images/work/campaigns/flight-paths.webp",
+      }],
     },
   },
   {
@@ -149,6 +332,12 @@ const linkedinOriginals = [
     sharedPost: {
       author: "EastRise Credit Union",
       url: "https://www.linkedin.com/feed/update/urn:li:activity:7457506573163098113/",
+      media: [{
+        type: "youtube",
+        videoId: "fAF3x-Iu2Bo",
+        title: "EastRise is Here to Help You Reach Your Goals",
+        poster: "assets/images/work/campaigns/will-barbecue.webp",
+      }],
     },
   },
   {
@@ -160,6 +349,7 @@ const linkedinOriginals = [
     sharedPost: {
       author: "Blue Cross and Blue Shield of Vermont",
       url: "https://www.linkedin.com/feed/update/urn:li:activity:7455324792846725120/",
+      media: sharedPostMedia.greenUp,
     },
   },
   {
@@ -310,6 +500,17 @@ const linkedinOriginals = [
   },
 ];
 
+const linkedInEditorial = new Map(linkedinOriginals.map((item) => [item.id, item]));
+for (const item of linkedInFeed) {
+  const editorial = linkedInEditorial.get(item.id);
+  if (editorial) {
+    linkedInEditorial.set(item.id, { ...item, ...editorial });
+  } else {
+    linkedInEditorial.set(item.id, item);
+  }
+}
+const currentLinkedInOriginals = [...linkedInEditorial.values()].map(applyLinkedInMediaAlts);
+
 function sanitizePublicArchiveText(post) {
   const text = post.text
     .replace(/\n*https?:\/\/indieweb\.social\/\S+/giu, "")
@@ -354,7 +555,7 @@ const rawPosts = [
     url: `https://www.threads.com/@oliverames/post/${item.id}`,
     image: ""
   })),
-  ...linkedinOriginals.map((item) => ({
+  ...currentLinkedInOriginals.map((item) => ({
     id: `linkedin:${item.id}`,
     platform: "LinkedIn",
     date: item.date,
@@ -366,6 +567,9 @@ const rawPosts = [
     localImage: item.localImage,
     mediaSource: item.mediaSource,
     sharedPost: item.sharedPost,
+    media: item.media,
+    mediaUrls: item.mediaUrls,
+    ugcPostId: item.ugcPostId,
   }))
 ].filter((post) => post.text || post.title).map(sanitizePublicArchiveText);
 
@@ -401,6 +605,9 @@ for (const post of rawPosts) {
       localImage: post.localImage,
       mediaSource: post.mediaSource,
       sharedPost: post.sharedPost,
+      media: post.media,
+      mediaUrls: post.mediaUrls,
+      ugcPostId: post.ugcPostId,
     });
   }
 }
@@ -419,12 +626,47 @@ for (const post of posts.filter((item) => item.image)) {
   await exec("/usr/bin/trash", [source]);
 }
 
+const linkedInImageDirectory = join(writingImageDirectory, "linkedin");
+await mkdir(linkedInImageDirectory, { recursive: true });
+for (const post of posts.filter((item) => item.mediaUrls?.length && !item.media?.length)) {
+  const postId = post.id.replace(/^linkedin:/, "");
+  const alts = linkedInMediaAlts.get(postId);
+  if (!alts || alts.length !== post.mediaUrls.length) {
+    throw new Error(`Add descriptive media alt text for LinkedIn post ${postId} before publishing it.`);
+  }
+  post.media = [];
+  for (const [index, sourceUrl] of post.mediaUrls.entries()) {
+    const filename = `${post.ugcPostId || post.id.replace(/^linkedin:/, "")}-${String(index + 1).padStart(2, "0")}.webp`;
+    const destination = join(linkedInImageDirectory, filename);
+    const response = await fetch(sourceUrl, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
+    if (!response.ok) throw new Error(`${response.status} while downloading LinkedIn media ${sourceUrl}`);
+    const image = sharp(Buffer.from(await response.arrayBuffer())).rotate().resize({
+      width: 1800,
+      height: 1800,
+      fit: "inside",
+      withoutEnlargement: true,
+    }).webp({ quality: 86 });
+    const { width, height } = await image.toFile(destination);
+    post.media.push({
+      type: "image",
+      src: `assets/images/writing/linkedin/${filename}`,
+      alt: alts[index],
+      width,
+      height,
+    });
+  }
+}
+
+for (const post of posts) {
+  delete post.mediaUrls;
+}
+
 await writeFile(join(root, "assets/data/eastrise-writing.json"), `${JSON.stringify({ count: eastRise.length, articles: eastRise }, null, 2)}\n`);
 await writeFile(join(root, "assets/data/writing-feed.json"), `${JSON.stringify({
   refreshedAt: new Date().toISOString(),
   canonicalBlog: "https://oliverames.micro.blog/",
   profiles: [
-    { platform: "LinkedIn", url: "https://www.linkedin.com/in/oliverames", automated: false },
+    { platform: "LinkedIn", url: "https://www.linkedin.com/in/oliverames", automated: true },
     { platform: "Micro.blog", url: "https://oliverames.micro.blog/", feed: "https://oliverames.micro.blog/feed.json", automated: true },
     { platform: "Mastodon", url: "https://mastodon.social/@oliverames", automated: true },
     { platform: "Bluesky", url: "https://bsky.app/profile/oliverames.bsky.social", automated: true },

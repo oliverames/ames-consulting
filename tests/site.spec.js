@@ -13,9 +13,18 @@ const readPortraits = async () => JSON.parse(
 const readWritingFeed = async () => JSON.parse(
   await readFile(new URL("../assets/data/writing-feed.json", import.meta.url), "utf8"),
 );
+const readEastRiseSocial = async () => JSON.parse(
+  await readFile(new URL("../assets/data/eastrise-social.json", import.meta.url), "utf8"),
+);
+const taylorPageImages = (photography) => photography.series
+  .find((series) => series.slug === "taylor-hoar-racing")
+  .images
+  .filter((image) => !image.src.endsWith("/Original-Public-Image-8998855be149.webp"))
+  .toSorted((left, right) => (
+    right.publishedDate || right.capturedDate || ""
+  ).localeCompare(left.publishedDate || left.capturedDate || ""));
 
 test("homepage presents the company and verified proof", async ({ page }) => {
-  await page.clock.install();
   await page.goto("/");
   await expect(page).toHaveTitle(/Ames Consulting/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -27,16 +36,9 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   await expect(firstMetric).toHaveAttribute("href", "work/eastrise/");
   await firstMetric.hover();
   await expect(firstMetric.getByRole("tooltip")).toBeVisible();
-  await page.clock.fastForward("00:00:07");
-  await expect(firstMetric).toBeVisible();
   await page.mouse.move(0, 0);
-  await page.clock.fastForward("00:00:13");
   await expect(page.getByText("319%", { exact: true })).toBeVisible();
-  await expect(page.getByText("569%", { exact: true })).toBeHidden();
-  const nextResults = page.getByRole("button", { name: "Next results" });
-  await nextResults.click();
-  await expect(page.getByText("569%", { exact: true })).toBeVisible();
-  await expect(nextResults).toBeFocused();
+  await expect(page.locator(".proof__controls, .proof__control")).toHaveCount(0);
   await expect(page.getByRole("link", { name: /See my projects/ })).toBeVisible();
 });
 
@@ -60,24 +62,14 @@ test("homepage chooses a new photography-led headline on refresh", async ({
   expect(expectedHeadlines).toContain(await headline.textContent());
 });
 
-test("homepage proof uses labeled manual pagination", async ({ page }) => {
+test("homepage proof stays static without navigation controls", async ({ page }) => {
   await page.goto("/");
-  const proof = page.locator("[data-proof-rotator]");
-  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 1 of 3");
+  const proof = page.locator(".hero__proof");
+  await expect(proof).toHaveAttribute("aria-label", "Selected results");
+  await expect(proof.locator(".proof__page")).toHaveCount(1);
+  await expect(proof.locator(".proof__item")).toHaveCount(4);
   await expect(page.getByText("319%", { exact: true })).toBeVisible();
-  await expect(page.getByText("569%", { exact: true })).toBeHidden();
-  await page.getByRole("button", { name: "Next results" }).click();
-  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 2 of 3");
-  await expect(page.getByText("319%", { exact: true })).toBeHidden();
-  await expect(page.getByText("569%", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Next results" }).click();
-  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 3 of 3");
-  await expect(page.getByText("569%", { exact: true })).toBeHidden();
-  await expect(page.getByText("1.6M+", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Next results" }).click();
-  await expect(proof).toHaveAttribute("aria-label", "Selected results, page 1 of 3");
-  await expect(page.getByText("319%", { exact: true })).toBeVisible();
-  await expect(page.getByText("1.6M+", { exact: true })).toBeHidden();
+  await expect(page.getByRole("button", { name: /results/i })).toHaveCount(0);
 });
 
 test("homepage service cards open article hubs", async ({ page }) => {
@@ -144,6 +136,16 @@ test("homepage campaign strip keeps its first card on the content gutter", async
   await expect(
     page.getByRole("heading", { name: "Wheels for Warmth", exact: true }),
   ).toBeVisible();
+  const stripStyles = await page.locator(".home-paths .path-strip").evaluate((strip) => ({
+    overflowX: getComputedStyle(strip).overflowX,
+    scrollbarWidth: getComputedStyle(strip).scrollbarWidth,
+    webkitScrollbarDisplay: getComputedStyle(strip, "::-webkit-scrollbar").display,
+  }));
+  expect(stripStyles).toEqual({
+    overflowX: "auto",
+    scrollbarWidth: "none",
+    webkitScrollbarDisplay: "none",
+  });
 });
 
 test("homepage metrics remain structured at narrow desktop widths", async ({
@@ -292,7 +294,7 @@ test("contact form fields use the high-contrast focus token", async ({ page }) =
 
 test("engaged visitors get a restrained project prompt", async ({ page }) => {
   await page.clock.install();
-  await page.goto("/work/giron-family-fall-2025/");
+  await page.goto("/work/giron-family/");
   await page.evaluate(() => localStorage.removeItem("ames_inbound_prompt_dismissed_at"));
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.5));
   await page.clock.fastForward("00:00:31");
@@ -402,6 +404,12 @@ test("member banking stories separates the Urban Rhino series", async ({
   await expect(
     page.getByText("Will's story · 15 seconds · April 8, 2026"),
   ).toBeVisible();
+  await expect(page.locator('.case-hero--family > img[src*="will-barbecue.webp"]')).toHaveCount(1);
+  await expect(page.locator('.case-hero--family > img')).toHaveAttribute("loading", "eager");
+  await expect(page.locator(".member-story-visual")).toHaveCount(0);
+  await expect(page.locator('main img[src*="will-barbecue.webp"]')).toHaveCount(1);
+  await expect(page.locator('iframe[data-youtube-poster]')).toHaveCount(11);
+  await expect(page.locator('iframe[data-youtube-poster^="../../assets/images/work/eastrise/member-stories/"]')).toHaveCount(11);
 });
 
 test("YouTube facades defer every player until the visitor presses Play", async ({
@@ -418,6 +426,7 @@ test("YouTube facades defer every player until the visitor presses Play", async 
     ["/work/member-banking-stories/", 11],
     ["/work/fairbanks-planetarium/", 1],
     ["/work/flight-paths/", 1],
+    ["/blog/", 2],
   ];
 
   for (const [route, expectedCount] of videoPages) {
@@ -432,7 +441,7 @@ test("YouTube facades defer every player until the visitor presses Play", async 
   expect(youtubeRequests).toEqual([]);
   await page.route("https://www.youtube-nocookie.com/**", (route) => route.abort());
   await page
-    .frameLocator('iframe[src*="youtube-nocookie.com/embed/"]')
+    .frameLocator('iframe[title="Flight Paths: Emma at BETA"]')
     .getByRole("link", { name: "Play Flight Paths: Emma at BETA" })
     .click();
   await expect.poll(() => youtubeRequests).toHaveLength(1);
@@ -459,9 +468,9 @@ test("event photography is split into complete campaign galleries", async ({
   }
 
   for (const campaign of publishedCampaigns) {
-    await page.goto(`/work/${campaign.slug}/`);
+    await page.goto(`/work/${campaign.projectSlug || campaign.slug}/`);
     await expect(
-      page.locator(".campaign-collage img"),
+      page.locator(`[data-gallery="${campaign.slug}"] img`),
       campaign.slug,
     ).toHaveCount(campaign.images.length);
   }
@@ -469,23 +478,18 @@ test("event photography is split into complete campaign galleries", async ({
   const lightboxCampaign = publishedCampaigns.find(
     (campaign) => campaign.slug === "giron-family-fall-2025",
   );
-  await page.goto("/work/giron-family-fall-2025/");
-  await page.locator(".campaign-collage img").first().click();
+  await page.goto("/work/giron-family/");
+  await page.locator('[data-gallery="giron-family-fall-2025"] img').first().click();
   await expect(page.locator("#image-viewer-caption")).toContainText(
     `1 of ${lightboxCampaign.images.length}`,
   );
 });
 
-test("Taylor Hoar consolidates every approved racing and community photograph", async ({
+test("Taylor Hoar presents the approved racing photographs newest first", async ({
   page,
 }) => {
   const photography = await readEastRisePhotography();
-  const racingSeries = photography.series.find(
-    (series) => series.slug === "taylor-hoar-racing",
-  );
-  const veggieVanGoSeries = photography.series.find(
-    (series) => series.slug === "veggievango-taylor-hoar",
-  );
+  const pageImages = taylorPageImages(photography);
 
   await page.goto("/work/taylor-hoar-racing/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
@@ -493,36 +497,25 @@ test("Taylor Hoar consolidates every approved racing and community photograph", 
   );
   await expect(page.locator(".metric-grid article")).toHaveCount(4);
   const racing = page.locator('[data-gallery="eastrise-taylor-hoar-racing"]');
-  await expect(racing.locator("img")).toHaveCount(racingSeries.images.length);
-  await expect(racing.locator("img").first()).toHaveAttribute(
-    "src",
-    /featured-2025-dsc07501\.webp$/,
+  await expect(racing.locator("img")).toHaveCount(pageImages.length);
+  expect(await racing.locator("img").evaluateAll((images) => (
+    images.map((image) => image.getAttribute("src"))
+  ))).toEqual(pageImages.map((image) => image.src));
+  await expect(page.locator('img[src$="Original-Public-Image-8998855be149.webp"]')).toHaveCount(0);
+  await expect(page.locator('[data-gallery="eastrise-veggievango-taylor-hoar"]')).toHaveCount(0);
+  await expect(page.getByText("VeggieVanGo with Taylor Hoar", { exact: true })).toHaveCount(0);
+  await expect(page.locator("body")).not.toContainText("personal photo library");
+  await expect(page.locator("body")).toContainText(
+    "February–October 2025",
   );
   await racing.locator("img").first().click();
   const viewer = page.locator("#image-viewer");
   const viewerCaption = page.locator("#image-viewer-caption");
   await expect(viewer).toBeVisible();
-  await expect(viewerCaption).toContainText(`1 of ${racingSeries.images.length}`);
+  await expect(viewerCaption).toContainText(`1 of ${pageImages.length}`);
   await page.keyboard.press("ArrowRight");
-  await expect(viewerCaption).toContainText(`2 of ${racingSeries.images.length}`);
+  await expect(viewerCaption).toContainText(`2 of ${pageImages.length}`);
   await page.locator("#image-viewer-close").click();
-
-  const veggieVanGo = page.locator(
-    '[data-gallery="eastrise-veggievango-taylor-hoar"]',
-  );
-  await expect(veggieVanGo.locator("img")).toHaveCount(
-    veggieVanGoSeries.images.length,
-  );
-  await veggieVanGo.locator("img").first().click();
-  await expect(viewer).toBeVisible();
-  await expect(viewerCaption).toContainText(
-    `1 of ${veggieVanGoSeries.images.length}`,
-  );
-  await page.keyboard.press("ArrowRight");
-  await expect(viewerCaption).toContainText(
-    `2 of ${veggieVanGoSeries.images.length}`,
-  );
-  await expect(page.locator("body")).not.toContainText("personal photo library");
 });
 
 test("Wheels for Warmth combines 2025 results with the 2024 photo series", async ({
@@ -570,9 +563,7 @@ test("gallery images support keyboards and retain their context menus", async ({
   page,
 }) => {
   const photography = await readEastRisePhotography();
-  const racingSeries = photography.series.find(
-    (series) => series.slug === "taylor-hoar-racing",
-  );
+  const pageImages = taylorPageImages(photography);
   await page.goto("/work/taylor-hoar-racing/");
   const gallery = page.locator('[data-gallery="eastrise-taylor-hoar-racing"]');
   const thumbnail = gallery.locator("img").first();
@@ -603,7 +594,7 @@ test("gallery images support keyboards and retain their context menus", async ({
   const captionCount = page.locator(".image-viewer-caption__count");
   await expect(viewer).toBeVisible();
   await expect(captionCount).toHaveText(
-    new RegExp(`^\\d+ of ${racingSeries.images.length}$`),
+    new RegExp(`^\\d+ of ${pageImages.length}$`),
   );
   await expect(viewerCaption).toHaveAttribute("role", "status");
   await expect(viewerCaption).toHaveAttribute("aria-live", "polite");
@@ -760,7 +751,7 @@ test("Flight Paths is the sole BETA media project", async ({ page }) => {
   const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
   await expect(flightPathsCard).toHaveCount(1);
   await expect(flightPathsCard).toHaveAttribute("data-organization", "beta-technologies");
-  await expect(flightPathsCard.locator("img, iframe")).toHaveCount(0);
+  await expect(flightPathsCard.locator('img[src="../assets/images/work/campaigns/flight-paths.webp"]')).toHaveCount(1);
   await expect(
     page.locator(
       '.work-item[data-organization="blue-cross-vermont"]:has(img), .work-item[data-organization="blue-cross-vermont"]:has(iframe)',
@@ -811,15 +802,11 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "EastRise Portraits" }),
   ).toBeVisible();
+  await expect(page.locator('a.work-item[href="giron-family/"]')).toHaveCount(1);
   await expect(
-    page.getByRole("heading", { name: "Giron Family, Fall 2025", exact: true }),
+    page.getByRole("heading", { name: "Giron Family Portrait Sessions", exact: true }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Giron Family at the Christmas Tree Farm", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Giron Family, Fall 2023", exact: true }),
-  ).toBeVisible();
+  await expect(page.locator('a.work-item[href*="giron-family-"]')).toHaveCount(0);
   await expect(
     page.getByRole("heading", { name: "Vermont Foodbank Volunteer Day" }),
   ).toBeVisible();
@@ -859,12 +846,15 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   ]);
 });
 
-test("EastRise social highlights use complete post-only captures", async ({ page }) => {
+test("EastRise social archive uses every cleared post capture", async ({ page }) => {
+  const social = await readEastRiseSocial();
   await page.goto("/work/eastrise-social/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Selected social posts from VSECU and EastRise",
   );
-  await expect(page.locator('[data-gallery="eastrise-social"] img')).toHaveCount(12);
+  await expect(page.locator('[data-gallery="eastrise-social"] img')).toHaveCount(
+    social.posts.length,
+  );
   await expect(page.locator(".source-index")).toHaveCount(0);
   await expect(page.getByText("What the archive preserves")).toHaveCount(0);
 });
@@ -1023,6 +1013,31 @@ test("testimonials archive contains public recommendations only", async ({
   await expect(dialog).toBeHidden();
   await expect(yvonneButton).toBeFocused();
   await expect(page.locator("html")).not.toHaveClass(/has-open-dialog/);
+
+  const randyButton = page.getByRole("button", {
+    name: "Read the full recommendation from Randy Repass Jr.",
+  });
+  await randyButton.click();
+  const randyDialog = page.getByRole("dialog", {
+    name: "Recommendation from Randy Repass Jr.",
+  });
+  await expect(randyDialog).toContainText("world changing devices");
+  await page.keyboard.press("Escape");
+  await expect(randyDialog).toBeHidden();
+  await expect(randyButton).toBeFocused();
+
+  const firstRowButton = page.locator(
+    ".recommendation-entry:has(.recommendation-entry__actions) .recommendation-entry__more",
+  ).first();
+  const buttonColors = await firstRowButton.evaluate((button) => {
+    const styles = getComputedStyle(button);
+    return {
+      background: styles.backgroundColor,
+      border: styles.borderTopColor,
+    };
+  });
+  expect(buttonColors.background).not.toBe("rgba(0, 0, 0, 0)");
+  expect(buttonColors.background).toBe(buttonColors.border);
   await expect(
     page.locator('.site-nav a[href="../testimonials/"]'),
   ).toHaveAttribute("aria-current", "page");
@@ -1145,9 +1160,17 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   await expect(page.getByRole("heading", { name: "LinkedIn posts from the past year" })).toBeVisible();
   const linkedInCards = page.locator(".writing-stream--social .social-card");
   await expect(linkedInCards).toHaveCount(expectedLinkedInPosts.length);
-  await expect(linkedInCards.locator(".social-card__media")).toHaveCount(
-    expectedLinkedInPosts.filter((post) => post.image || post.localImage).length,
-  );
+  for (const post of expectedLinkedInPosts) {
+    const media = post.sharedPost?.media?.length
+      ? post.sharedPost.media
+      : post.media?.length
+        ? post.media
+        : post.image || post.localImage
+          ? [{}]
+          : [];
+    const card = page.locator(`[data-post-id="${post.id}"]`);
+    await expect(card.locator(".social-card__media-item")).toHaveCount(media.length);
+  }
   await expect(linkedInCards.locator(".social-card__shared").first()).toContainText(
     "LGBTQ+ Vermonters deserve care that respects who they are",
   );
@@ -1155,7 +1178,7 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
     page.locator('a[href="https://www.linkedin.com/feed/update/urn:li:activity:7460782290340843520/"]'),
   ).toBeVisible();
   await expect(
-    page.locator('img[data-media-source="https://www.linkedin.com/feed/update/urn:li:activity:7440377520501387266/"]'),
+    page.locator('[data-post-id="linkedin:7440378580276203521"] .social-card__media-item img'),
   ).toBeVisible();
   const serviceCallCard = page.locator(
     '.writing-stream--articles .social-card:has-text("How I used AI to find what two service calls missed")',
@@ -1187,6 +1210,48 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   );
 });
 
+test("LinkedIn image posts scroll like carousels and open in the site viewer", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/blog/");
+  const card = page.locator('[data-post-id="linkedin:7493102298634776576"]');
+  const track = card.getByRole("group", { name: "Post media, 12 items" });
+  const items = track.locator(".social-card__media-item");
+  const count = card.locator("[data-media-carousel-count]");
+  const previous = card.getByRole("button", { name: "Show previous post image" });
+  const next = card.getByRole("button", { name: "Show next post image" });
+
+  await expect(items).toHaveCount(12);
+  await expect(count).toHaveText("1/12");
+  await expect(previous).toBeDisabled();
+  await expect(next).toHaveAttribute("aria-controls", await track.getAttribute("id"));
+  expect(await track.evaluate((element) => {
+    const trackBox = element.getBoundingClientRect();
+    const secondBox = element.children[1].getBoundingClientRect();
+    return secondBox.left < trackBox.right && secondBox.right > trackBox.left;
+  })).toBe(true);
+
+  await items.first().locator("img").click();
+  await expect(page.locator("#image-viewer")).toBeVisible();
+  await expect(page.locator("#image-viewer-caption")).toContainText("1 of 12");
+  await page.locator("#image-viewer-close").click();
+
+  for (let index = 2; index <= 12; index += 1) {
+    await next.click();
+    await expect(count).toHaveText(`${index}/12`);
+  }
+  await expect(next).toBeDisabled();
+
+  const twoImageCard = page.locator('[data-post-id="linkedin:7396253468706971648"]');
+  await twoImageCard.scrollIntoViewIfNeeded();
+  const twoImageTrack = twoImageCard.getByRole("group", { name: "Post media, 2 items" });
+  await expect(twoImageTrack.locator(".social-card__media-item")).toHaveCount(2);
+  await expect(twoImageCard.locator("[data-media-carousel-count]")).toBeHidden();
+  await expect(twoImageCard.getByRole("button", { name: "Show previous post image" })).toBeHidden();
+  await expect(twoImageCard.getByRole("button", { name: "Show next post image" })).toBeHidden();
+});
+
 test("in-house campaign cards identify the correct organization and role", async ({ page }) => {
   await page.goto("/work/");
   await expect(page.locator(".work-category__framing")).toContainText(
@@ -1195,7 +1260,7 @@ test("in-house campaign cards identify the correct organization and role", async
   await expect(page.locator('[data-organization="eastrise"] .work-item__credit').first()).toHaveText("Made as Digital Content Strategist, EastRise Credit Union.");
   const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
   await expect(flightPathsCard).toHaveAttribute("data-organization", "beta-technologies");
-  await expect(flightPathsCard.locator("img, iframe")).toHaveCount(0);
+  await expect(flightPathsCard.locator('img[src="../assets/images/work/campaigns/flight-paths.webp"]')).toHaveCount(1);
   await expect(
     page.locator('.work-filters [data-work-filter="beta-technologies"]'),
   ).toHaveText("BETA");
@@ -1272,7 +1337,23 @@ test("home separates recent client and employer projects from software", async (
   await expect(page.getByRole("heading", { name: "Recent projects" })).toBeVisible();
   await expect(page.locator(".home-paths .path-thumb")).not.toHaveCount(0);
   await expect(page.locator('.home-paths a[href*="ping-warden"], .home-paths a[href*="apple-core"], .home-paths a[href*="bridgeport"]')).toHaveCount(0);
-  await expect(page.locator(".home-software .software-card")).toHaveCount(6);
+  const softwareCards = page.locator(".home-software .software-card");
+  await expect(softwareCards).toHaveCount(4);
+  expect(await softwareCards.evaluateAll((cards) => cards.map((card) => card.getAttribute("href")))).toEqual([
+    "work/ping-warden/",
+    "work/meta-mcp-server/",
+    "work/ynab-mcp-server/",
+    "work/skylight-bridge/",
+  ]);
+  await expect(page.locator('.home-software a[href="work/apple-core/"], .home-software a[href="work/bridgeport/"]')).toHaveCount(0);
+  await expect(page.locator('.home-software a[href="work/ping-warden/"] .software-visual img')).toHaveAttribute(
+    "src",
+    "assets/images/work/software/ping-warden-dashboard.webp",
+  );
+  await expect(page.locator('.home-software a[href="work/skylight-bridge/"] .software-visual img')).toHaveAttribute(
+    "src",
+    "assets/images/work/software/skylight-bridge-overview.webp",
+  );
   await expect(page.locator(".home-testimonial")).toHaveCount(2);
 });
 

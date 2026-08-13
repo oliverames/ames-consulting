@@ -8,8 +8,8 @@
       "intro": "I photographed the 47th New England Governors and Eastern Canadian Premiers conference at Shelburne Farms, from the empty Coach Barn and arrivals through the working sessions and press conference.",
       "organization": "Cynosure, Inc. and GBIC",
       "orderMode": "chronological",
-      "featuredFile": "dsc01378.webp",
-      "featuredAlt": "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn.",
+      "featuredFile": "dsc00383.webp",
+      "featuredAlt": "A row of delegates listens from behind microphones and nameplates inside the Coach Barn.",
       "story": {
         "title": "From setup through the press conference",
         "paragraphs": [
@@ -3267,6 +3267,8 @@
     },
     {
       "slug": "giron-family-fall-2025",
+      "projectSlug": "giron-family",
+      "shootDate": "2025-09-28",
       "title": "Giron Family, Fall 2025",
       "eyebrow": "Family photography · Vermont · Fall 2025",
       "intro": "This family session moved from open fields into the fall woods and included both posed portraits and candid photographs.",
@@ -3539,6 +3541,8 @@
     },
     {
       "slug": "giron-family-christmas-tree-farm-2024",
+      "projectSlug": "giron-family",
+      "shootDate": "2024-12-01",
       "title": "Giron Family at the Christmas Tree Farm",
       "eyebrow": "Family photography · Vermont · December 1, 2024",
       "intro": "A snowy family session at a Christmas tree farm. We made portraits between the rows while the children explored and the family chose a tree.",
@@ -4412,6 +4416,8 @@
     },
     {
       "slug": "giron-family-fall-2023",
+      "projectSlug": "giron-family",
+      "shootDate": "2023-10-08",
       "title": "Giron Family, Fall 2023",
       "eyebrow": "Family photography · Vermont · October 8, 2023",
       "intro": "An autumn family session across the farm, moving between portraits, play, pumpkins, and the landscape around them.",

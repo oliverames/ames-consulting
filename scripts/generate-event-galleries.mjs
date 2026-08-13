@@ -69,8 +69,8 @@ const definitions = [
     ...negEcpSource(),
     organization: "Cynosure, Inc. and GBIC",
     orderMode: "chronological",
-    featuredFile: "dsc01378.webp",
-    featuredAlt: "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn.",
+    featuredFile: "dsc00383.webp",
+    featuredAlt: "A row of delegates listens from behind microphones and nameplates inside the Coach Barn.",
     story: {
       title: "From setup through the press conference",
       paragraphs: [
@@ -153,6 +153,8 @@ const definitions = [
   },
   {
     slug: "giron-family-fall-2025",
+    projectSlug: "giron-family",
+    shootDate: "2025-09-28",
     title: "Giron Family, Fall 2025",
     eyebrow: "Family photography · Vermont · Fall 2025",
     intro: "This family session moved from open fields into the fall woods and included both posed portraits and candid photographs.",
@@ -172,6 +174,8 @@ const definitions = [
   },
   {
     slug: "giron-family-christmas-tree-farm-2024",
+    projectSlug: "giron-family",
+    shootDate: "2024-12-01",
     title: "Giron Family at the Christmas Tree Farm",
     eyebrow: "Family photography · Vermont · December 1, 2024",
     intro: "A snowy family session at a Christmas tree farm. We made portraits between the rows while the children explored and the family chose a tree.",
@@ -190,6 +194,8 @@ const definitions = [
   },
   {
     slug: "giron-family-fall-2023",
+    projectSlug: "giron-family",
+    shootDate: "2023-10-08",
     title: "Giron Family, Fall 2023",
     eyebrow: "Family photography · Vermont · October 8, 2023",
     intro: "An autumn family session across the farm, moving between portraits, play, pumpkins, and the landscape around them.",
@@ -380,12 +386,15 @@ campaigns.push({
 });
 
 const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Galleries</h3><ul><li><a href="../neg-ecp-conference-2026/">47th NEG-ECP Conference</a></li><li><a href="../vermont-foodbank-volunteer-day-2026/">Vermont Foodbank Volunteer Day</a></li><li><a href="../drone-photography/">Drone Photography</a></li><li><a href="../eastrise-launch-campaign/">EastRise Launch Campaign</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
-for (const campaign of campaigns) {
-  const route = `work/${campaign.slug}/`;
-  const robotsMeta = isWithheldPublicPath(route)
-    ? '<meta name="robots" content="noindex">'
-    : "";
-  const gallery = campaign.images.map((image, index) => {
+const groupedCampaigns = new Map();
+for (const campaign of campaigns.filter((item) => item.projectSlug)) {
+  const group = groupedCampaigns.get(campaign.projectSlug) || [];
+  group.push(campaign);
+  groupedCampaigns.set(campaign.projectSlug, group);
+}
+
+function galleryMarkup(campaign) {
+  return campaign.images.map((image, index) => {
     const description = String(image.alt || "").trim();
     const label = description
       ? `Open larger image: ${description}`
@@ -397,6 +406,40 @@ for (const campaign of campaigns) {
         : "";
     return `<img src="${escapeAttribute(image.src)}" alt="${escapeAttribute(description)}" aria-label="${escapeAttribute(label)}" width="${image.width}" height="${image.height}"${dateMetadata} loading="lazy" decoding="async">`;
   }).join("");
+}
+
+function orderText(campaign) {
+  if (campaign.orderMode === "chronological") return "Shown in capture order, oldest first.";
+  if (campaign.orderMode === "editorial") return "Shown in an editorial sequence.";
+  return "";
+}
+
+for (const [projectSlug, projectCampaigns] of groupedCampaigns) {
+  const shoots = [...projectCampaigns].sort((left, right) => left.shootDate.localeCompare(right.shootDate));
+  const latest = shoots.at(-1);
+  const featuredImage = latest.images.find((image) => path.basename(image.src) === latest.featuredFile);
+  const totalImages = shoots.reduce((sum, shoot) => sum + shoot.images.length, 0);
+  const hero = `<header class="case-hero case-hero--family"><div class="case-hero--family__copy"><p class="eyebrow">Family photography · Vermont · 2023–2025</p><h1>Giron Family Portrait Sessions</h1><p>Three family portrait sessions, organized by shoot from fall 2023 through fall 2025.</p><p class="portrait-count">${totalImages} photographs across three shoots</p></div><img src="${featuredImage.src}" alt="${latest.featuredAlt}" width="${featuredImage.width}" height="${featuredImage.height}" loading="eager" fetchpriority="high" decoding="async" data-no-zoom></header>`;
+  const shootSections = shoots.map((shoot) => {
+    const gallerySummaryId = `${shoot.slug}-gallery-summary`;
+    const story = shoot.story
+      ? `<div class="case-section__body">${shoot.story.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</div>`
+      : "";
+    const orderNote = orderText(shoot);
+    return `<section class="case-section case-section--gallery giron-shoot" id="${shoot.slug}" aria-labelledby="${shoot.slug}-title"><p class="eyebrow">${shoot.eyebrow}</p><h2 id="${shoot.slug}-title">${shoot.title}</h2><p>${shoot.intro}</p>${story}<p class="portrait-count">${shoot.images.length} photographs</p>${orderNote ? `<p class="gallery-order-note">${orderNote}</p>` : ""}<p class="visually-hidden" id="${gallerySummaryId}">${shoot.intro} This gallery contains ${shoot.images.length} photographs.</p><div class="campaign-collage" data-gallery="${shoot.slug}" data-order-mode="${shoot.orderMode}" aria-describedby="${gallerySummaryId}">${galleryMarkup(shoot)}</div></section>`;
+  }).join("");
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>Giron Family Portrait Sessions | Ames Consulting</title><meta name="description" content="Three family portrait sessions photographed by Oliver Ames in Vermont between 2023 and 2025."><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${projectSlug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${shootSections}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
+  const output = path.join(root, "work", projectSlug, "index.html");
+  await mkdir(path.dirname(output), { recursive: true });
+  await writeFile(output, html);
+}
+
+for (const campaign of campaigns.filter((item) => !item.projectSlug)) {
+  const route = `work/${campaign.slug}/`;
+  const robotsMeta = isWithheldPublicPath(route)
+    ? '<meta name="robots" content="noindex">'
+    : "";
+  const gallery = galleryMarkup(campaign);
   const story = campaign.story
     ? `<section class="case-section"><h2>${campaign.story.title}</h2><div class="case-section__body">${campaign.story.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("")}</div></section>`
     : "";
@@ -412,11 +455,7 @@ for (const campaign of campaigns) {
     : campaign.orderMode === "editorial"
       ? " Photographs appear in an editorial sequence."
       : "";
-  const orderNote = campaign.orderMode === "chronological"
-    ? "Shown in capture order, oldest first."
-    : campaign.orderMode === "editorial"
-      ? "Shown in an editorial sequence."
-      : "";
+  const orderNote = orderText(campaign);
   const gallerySection = `<section class="case-section case-section--gallery"><h2>Complete gallery</h2>${orderNote ? `<p class="gallery-order-note">${orderNote}</p>` : ""}<p class="visually-hidden" id="${gallerySummaryId}">${campaign.intro} This gallery contains ${campaign.images.length} photographs.${orderSummary}</p><div class="campaign-collage" data-gallery="${campaign.slug}" data-order-mode="${campaign.orderMode}" aria-describedby="${gallerySummaryId}">${gallery}</div></section>`;
   const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';">${robotsMeta}<title>${campaign.title} | Ames Consulting</title><meta name="description" content="${campaign.intro}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${campaign.slug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${story}${gallerySection}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = path.join(root, "work", campaign.slug, "index.html");

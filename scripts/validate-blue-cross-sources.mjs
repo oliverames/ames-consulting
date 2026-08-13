@@ -52,8 +52,8 @@ const flightPathsMain = flightPathsHtml.match(/<main\b[\s\S]*?<\/main>/i)?.[0] |
 if (!/BETA Technologies/.test(flightPathsMain) || /Blue Cross Vermont/.test(flightPathsMain)) {
   throw new Error("Flight Paths must be presented as BETA Technologies work.");
 }
-if (/<img\b/i.test(flightPathsMain)) {
-  throw new Error("Flight Paths must use the public video embed without a locally uploaded still image.");
+if (!/youtube-nocookie\.com\/embed\/4r5N5DjmSCU/.test(flightPathsMain)) {
+  throw new Error("Flight Paths must retain its verified public YouTube embed.");
 }
 
 for (const prefix of WITHHELD_ASSET_PREFIXES) {

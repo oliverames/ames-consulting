@@ -13,7 +13,7 @@ const existingPortraitCards = [...html.matchAll(/<section class="work-category w
 const portraitFallbackCards = existingPortraitCards || `<a class="work-item" href="eastrise-portraits/"><img src="../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp" alt="Portrait of Christin Canter" loading="lazy"><span class="work-item__context">EastRise · 42 formal portraits</span><h3>EastRise Portraits</h3><p>Forty-two formal portraits of 41 people, organized into Leadership and Portraits galleries.</p></a>`;
 html = html.replace(/<section class="work-category work-category--portraits">[\s\S]*?<\/section>/g, "");
 const featuredImages = new Map([
-  ["neg-ecp-conference-2026/", ["../assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp", "A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn"]],
+  ["neg-ecp-conference-2026/", ["../assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp", "A row of delegates listens from behind microphones and nameplates inside the Coach Barn"]],
   ["vermont-foodbank-volunteer-day-2026/", ["../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08397.webp", "Mary volunteering at the Vermont Foodbank"]],
   ["london-2019/", ["../assets/images/work/events/london-2019/dsc02427.webp", "Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds"]],
   ["whale-dance-randolph/", ["../assets/images/work/events/whale-dance-randolph/dsc06299.webp", "Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills"]],
@@ -22,6 +22,8 @@ const featuredImages = new Map([
   ["sweat-heart-throwdown/", ["../assets/images/work/gmcf/sweat-heart/dsc01171.webp", "Sweat-Heart Throwdown at Green Mountain Community Fitness"]],
   ["wheels-for-warmth/", ["../assets/images/work/eastrise/photography/wheels-for-warmth-2024/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp", "A Wheels for Warmth volunteer waves during the 2024 tire collection"]],
   ["taylor-hoar-racing/", ["../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp", "Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car"]],
+  ["eastrise-launch-campaign/", ["../assets/images/work/eastrise/photography/eastrise-launch/2024-11-07_16-43-53_UTC_DCE8lP9RE_L_6-9f9418845b17.webp", "A cinema camera records the EastRise launch campaign"]],
+  ["flight-paths/", ["../assets/images/work/campaigns/flight-paths.webp", "Flight Paths title card with Emma from BETA Technologies"]],
 ]);
 html = html.replace(
   /(?:Campaigns and series built around a useful story\.|I organize the work by project, not job title\.|Photography, video, communications, websites, and software\.|Work organized by project, not job title\.)/,
@@ -96,7 +98,7 @@ const legacyCardCopy = new Map([
 const campaignSectionPattern = /(<section class="work-category">\s*<h2(?: id="project-list-title")?>(?:Campaigns and series|All projects|Projects)<\/h2>(?:<p class="work-category__framing">[\s\S]*?<\/p>)?(?:<nav class="work-filters"[\s\S]*?<\/nav>)?(?:<p class="work-filter-status" id="work-filter-status" hidden><\/p>)?\s*<div class="work-list">)([\s\S]*?)(\s*<\/div>\s*<\/section>)/;
 const earlierSectionPattern = /<section class="work-category work-category--earlier">\s*<h2>(?:Earlier work|Legacy work)<\/h2>\s*<div class="work-list">([\s\S]*?)\s*<\/div>\s*<\/section>/;
 if (!html.includes('href="neg-ecp-conference-2026/"')) {
-  const card = `<a class="work-item" href="neg-ecp-conference-2026/"><img src="../assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp" alt="A summit delegate gestures while speaking beneath United States and Canadian flags inside the Coach Barn" loading="lazy"><span class="work-item__context">NEG-ECP · August 2026</span><h3>47th NEG-ECP Conference</h3><p>Thirty-five photographs from the regional summit at Shelburne Farms, from setup through the press conference.</p></a>`;
+    const card = `<a class="work-item" href="neg-ecp-conference-2026/"><img src="../assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp" alt="A row of delegates listens from behind microphones and nameplates inside the Coach Barn" loading="lazy"><span class="work-item__context">NEG-ECP · August 2026</span><h3>47th NEG-ECP Conference</h3><p>Thirty-five photographs from the regional summit at Shelburne Farms, from setup through the press conference.</p></a>`;
   html = html.replace(campaignSectionPattern, (_section, opening, cards, closing) => `${opening}${card}${cards}${closing}`);
 }
 const campaignMatch = html.match(campaignSectionPattern);
@@ -170,9 +172,18 @@ if (campaignMatch) {
     "blue-cross-portraits/",
   ]);
   const publishableCards = currentCards.filter((card) => !withheldGalleryHrefs.has(card.href));
+  const deferredProjectHrefs = new Set([
+    "eastrise-social/",
+    "member-banking-stories/",
+    "live-broadcasts/",
+  ]);
+  const displayCards = [
+    ...publishableCards.filter((card) => !deferredProjectHrefs.has(card.href)),
+    ...publishableCards.filter((card) => deferredProjectHrefs.has(card.href)),
+  ];
   const portraitHrefs = new Set(["eastrise-portraits/"]);
-  const markedCards = publishableCards.filter((card) => !portraitHrefs.has(card.href)).map(prepareCard).join("");
-  const portraitCards = publishableCards.filter((card) => portraitHrefs.has(card.href)).map(prepareCard).join("");
+  const markedCards = displayCards.filter((card) => !portraitHrefs.has(card.href)).map(prepareCard).join("");
+  const portraitCards = displayCards.filter((card) => portraitHrefs.has(card.href)).map(prepareCard).join("");
   const markedLegacyCards = legacyCards.map(prepareCard).join("");
 
   html = html.replace(

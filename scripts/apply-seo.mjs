@@ -37,7 +37,7 @@ const overrides = {
   "/work/neg-ecp-conference-2026/": {
     title: "47th NEG-ECP Conference Photography | Work by Oliver Ames",
     description: "Thirty-five photographs by Oliver Ames from the 47th Conference of New England Governors and Eastern Canadian Premiers at Shelburne Farms on August 10, 2026.",
-    image: `${siteUrl}/assets/images/work/events/neg-ecp-conference-2026/dsc01378.webp`
+    image: `${siteUrl}/assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp`
   },
   "/work/credit-union-websites/": {
     title: "Credit Union Website Projects | Work by Oliver Ames",

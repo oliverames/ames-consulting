@@ -118,7 +118,7 @@ const escapeHtml = (value) => String(value).replaceAll("&", "&amp;").replaceAll(
 
 function visual(project, depth) {
   if (project.screenshot) {
-    return `<div class="software-visual software-visual--screen"><div class="software-window-bar" aria-hidden="true"><span></span><span></span><span></span><b>${escapeHtml(project.type)}</b></div><img src="${depth}assets/images/work/software/${project.screenshot}" alt="${escapeHtml(project.screenshotAlt)}" loading="lazy"></div>`;
+    return `<div class="software-visual software-visual--screen"><div class="software-window-bar" aria-hidden="true"><span></span><span></span><span></span><b>${escapeHtml(project.name)}</b></div><img src="${depth}assets/images/work/software/${project.screenshot}" alt="${escapeHtml(project.screenshotAlt)}" loading="lazy"></div>`;
   }
   return `<div class="software-visual software-console"><div class="software-window-bar" aria-hidden="true"><span></span><span></span><span></span><b>tool explorer</b></div><div class="software-console__brand"><img src="${depth}assets/images/work/software/${project.icon}" alt="" width="76" height="76" loading="lazy"><strong>${escapeHtml(project.name)}</strong></div><ul>${project.commands.map((command) => `<li><code>${escapeHtml(command)}</code><span aria-hidden="true">ready</span></li>`).join("")}</ul></div>`;
 }

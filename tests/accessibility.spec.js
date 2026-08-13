@@ -34,6 +34,7 @@ test("YouTube facade documents have no moderate, serious, or critical accessibil
     "/work/fairbanks-planetarium/",
     "/work/beta-technologies/",
     "/work/flight-paths/",
+    "/blog/",
   ];
   const facades = [];
   for (const route of videoRoutes) {
@@ -43,7 +44,7 @@ test("YouTube facade documents have no moderate, serious, or critical accessibil
       .evaluateAll((frames) => frames.map((frame) => frame.getAttribute("srcdoc"))));
   }
 
-  expect(facades).toHaveLength(15);
+  expect(facades).toHaveLength(17);
   for (const srcdoc of facades) {
     await page.setContent(srcdoc);
     const results = await new AxeBuilder({ page }).analyze();
@@ -55,7 +56,7 @@ test("YouTube facade documents have no moderate, serious, or critical accessibil
 });
 
 test("inbound project prompt has no moderate, serious, or critical accessibility issues", async ({ page }) => {
-  await page.goto("/work/giron-family-fall-2025/");
+  await page.goto("/work/giron-family/");
   const launcher = page.getByRole("button", { name: "Send me a note" });
   await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.4));
   await expect(launcher).toBeVisible();

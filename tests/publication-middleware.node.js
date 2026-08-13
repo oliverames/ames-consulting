@@ -78,7 +78,7 @@ test("Cloudflare invokes Functions only for the API and blocked publication path
   assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/data/*"), true);
   assert.equal(
     CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/campaigns/flight-paths*"),
-    true,
+    false,
   );
   assert.equal(
     CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/portraits/beth-roberts*"),

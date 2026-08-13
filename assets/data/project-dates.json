@@ -80,7 +80,7 @@
       "dateEvidence": "Latest verified public publication date in assets/data/eastrise-photography.json"
     },
     {
-      "href": "giron-family-fall-2025/",
+      "href": "giron-family/",
       "sortDate": "2025-09-28",
       "dateBasis": "exact",
       "dateEvidence": "Authoritative Giron source directory is dated 2025-09-28 and source EXIF agrees"
@@ -98,12 +98,6 @@
       "dateEvidence": "DateTimeOriginal from the authoritative GMCF Bike Fitting source files"
     },
     {
-      "href": "giron-family-christmas-tree-farm-2024/",
-      "sortDate": "2024-12-01",
-      "dateBasis": "exact",
-      "dateEvidence": "Authoritative Giron source directory is dated 2024-12-01 and source EXIF agrees"
-    },
-    {
       "href": "eastrise-website/",
       "sortDate": "2024-12-31",
       "dateBasis": "range-end",
@@ -114,12 +108,6 @@
       "sortDate": "2024-11-13",
       "dateBasis": "exact",
       "dateEvidence": "Latest verified public publication date for the EastRise launch series in assets/data/eastrise-photography.json"
-    },
-    {
-      "href": "giron-family-fall-2023/",
-      "sortDate": "2023-10-08",
-      "dateBasis": "exact",
-      "dateEvidence": "Authoritative Giron source directory is dated 2023-10-08 and source EXIF agrees"
     },
     {
       "href": "whale-dance-randolph/",

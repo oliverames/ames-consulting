@@ -13,7 +13,7 @@ const publicEventGalleries = galleryData.campaigns.filter((campaign) =>
 
 for (const campaign of publicEventGalleries) {
   test(`${campaign.title} keeps its declared image order`, async ({ page }) => {
-    await page.goto(`/work/${campaign.slug}/`);
+    await page.goto(`/work/${campaign.projectSlug || campaign.slug}/`);
     const gallery = page.locator(`[data-gallery="${campaign.slug}"]`);
     await expect(gallery).toHaveAttribute("data-order-mode", campaign.orderMode);
 

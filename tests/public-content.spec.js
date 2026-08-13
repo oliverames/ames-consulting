@@ -27,7 +27,7 @@ test("public testimonials omit private performance-review material", async () =>
 
 test("writing feed contains the complete verified past-year LinkedIn set", async () => {
   const feed = JSON.parse(await readSource("assets/data/writing-feed.json"));
-  const expectedActivityIds = [
+  const previouslyVerifiedActivityIds = [
     "7467314005167054848",
     "7460836075540799489",
     "7460782290340843520",
@@ -53,8 +53,16 @@ test("writing feed contains the complete verified past-year LinkedIn set", async
   const linkedinPosts = feed.posts.filter((post) => post.platforms.includes("LinkedIn"));
   const activityIds = linkedinPosts.map((post) => post.id.replace(/^linkedin:/, ""));
 
-  expect(activityIds).toEqual(expectedActivityIds);
-  expect(new Set(activityIds).size).toBe(expectedActivityIds.length);
+  expect(new Set(activityIds).size).toBe(activityIds.length);
+  for (const activityId of previouslyVerifiedActivityIds) {
+    expect(activityIds).toContain(activityId);
+  }
+  expect(activityIds[0]).toBe("7493102298634776576");
+  expect(linkedinPosts.map((post) => new Date(post.date).getTime())).toEqual(
+    linkedinPosts
+      .map((post) => new Date(post.date).getTime())
+      .toSorted((left, right) => right - left),
+  );
   for (const post of linkedinPosts) {
     expect(post.text.trim().length).toBeGreaterThan(0);
     expect(new Date(post.date).getTime()).toBeGreaterThanOrEqual(
@@ -64,6 +72,33 @@ test("writing feed contains the complete verified past-year LinkedIn set", async
       platform: "LinkedIn",
       url: `https://www.linkedin.com/feed/update/urn:li:activity:${post.id.replace(/^linkedin:/, "")}/`,
     });
+    for (const media of [
+      ...(post.media || []),
+      ...(post.sharedPost?.media || []),
+    ].filter((item) => item.type === "image")) {
+      expect(media.alt.trim().length, `${post.id}: ${media.src}`).toBeGreaterThan(20);
+      expect(media.alt, `${post.id}: ${media.src}`).not.toMatch(/^Image \d+ shared with/i);
+    }
+  }
+
+  const newPost = linkedinPosts.find((post) => post.id === "linkedin:7493102298634776576");
+  expect(newPost.ugcPostId).toBe("7493102297154203648");
+  expect(newPost.media).toHaveLength(12);
+  expect(newPost.media.every((item) => item.type === "image")).toBe(true);
+
+  const sharedMedia = new Map([
+    ["linkedin:7467314005167054848", [1, []]],
+    ["linkedin:7460836075540799489", [9, []]],
+    ["linkedin:7460782290340843520", [1, ["4r5N5DjmSCU"]]],
+    ["linkedin:7460781094884421632", [1, ["fAF3x-Iu2Bo"]]],
+    ["linkedin:7455326793370320897", [10, []]],
+  ]);
+  for (const [id, [count, youtubeIds]] of sharedMedia) {
+    const media = linkedinPosts.find((post) => post.id === id)?.sharedPost?.media;
+    expect(media, id).toHaveLength(count);
+    expect(media.filter((item) => item.type === "youtube").map((item) => item.videoId)).toEqual(
+      youtubeIds,
+    );
   }
 });
 
@@ -81,13 +116,13 @@ test("Fairbanks pages use the public Guinness record instead of internal revenue
   expect(pages[2]).toContain("Guinness World Records");
 });
 
-test("contact form names the services that process an inquiry", async () => {
+test("contact form omits vendor verbiage and retains a direct fallback", async () => {
   const html = await read("contact/index.html");
   const aboutHtml = await read("about/index.html");
 
-  expect(html).toContain("Cloudflare Turnstile checks this form for spam");
-  expect(html).toContain("Resend delivers your message by email");
-  expect(html).toContain("I use your contact details and message to reply to your inquiry");
+  expect(html).not.toContain("Cloudflare Turnstile checks this form for spam");
+  expect(html).not.toContain("Resend delivers your message by email");
+  expect(html).not.toContain("I use your contact details and message to reply to your inquiry");
   expect(html).toContain("This form needs JavaScript for spam protection");
   expect(html).toContain('href="mailto:oliver@ames.consulting"');
   expect(html.match(/<!--email_off-->/g)).toHaveLength(2);
@@ -225,7 +260,9 @@ test("public work cards include the requested galleries without withheld Blue Cr
   ));
   expect(flightPathsCards).toHaveLength(1);
   expect(flightPathsCards[0]).toContain('data-organization="beta-technologies"');
-  expect(flightPathsCards[0]).not.toContain("<img");
+  expect(flightPathsCards[0]).toContain(
+    '<img src="../assets/images/work/campaigns/flight-paths.webp" alt="Flight Paths title card with Emma from BETA Technologies"',
+  );
   expect(flightPathsCards[0]).not.toContain("<iframe");
 
   const blueCrossMediaCards = workItems.filter((workItem) => (
@@ -285,10 +322,19 @@ test("EastRise campaign pages consolidate their related public photography", asy
   expect(wheels).toContain("274");
 
   const taylor = await read("work/taylor-hoar-racing/index.html");
-  expect(taylor.match(/<img\b/g) || []).toHaveLength(
-    seriesCount("taylor-hoar-racing")
-      + seriesCount("veggievango-taylor-hoar"),
+  const taylorImages = photography.series
+    .find((series) => series.slug === "taylor-hoar-racing")
+    .images
+    .filter((image) => !image.src.endsWith("/Original-Public-Image-8998855be149.webp"))
+    .toSorted((left, right) => (
+      right.publishedDate || right.capturedDate || ""
+    ).localeCompare(left.publishedDate || left.capturedDate || ""));
+  expect(taylor.match(/<img\b/g) || []).toHaveLength(taylorImages.length);
+  expect([...taylor.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map((match) => match[1])).toEqual(
+    taylorImages.map((image) => image.src),
   );
+  expect(taylor).not.toContain("Original-Public-Image-8998855be149.webp");
+  expect(taylor).not.toContain("eastrise-veggievango-taylor-hoar");
   expect(taylor).not.toContain("<h1>Taylor Hoar Racing 2025</h1>");
 });
 

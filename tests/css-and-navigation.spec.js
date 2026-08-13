@@ -83,6 +83,63 @@ test("homepage section edges and practice calls to action align", async ({ page 
   expect(layout.testimonialBorder).toBe("0px");
 });
 
+test("homepage testimonial links stay clickable without underlines", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1600 });
+  await page.goto("/");
+
+  const links = page.locator(
+    ".home-testimonial figcaption a:not(.testimonial-card__portrait-link), .home-testimonial .testimonial-card__more",
+  );
+  await expect(links).toHaveCount(6);
+  expect(
+    await links.evaluateAll((items) => items.map((item) => getComputedStyle(item).textDecorationLine)),
+  ).toEqual(Array(6).fill("none"));
+
+  for (const link of await links.all()) {
+    await link.hover();
+    await expect(link).toHaveCSS("text-decoration-line", "none");
+  }
+});
+
+test("homepage software previews share one height", async ({ page }) => {
+  for (const viewport of [
+    { width: 1663, height: 1324 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    const heights = await page.locator(".home-software .software-visual").evaluateAll(
+      (previews) => previews.map((preview) => preview.getBoundingClientRect().height),
+    );
+    expect(heights).toHaveLength(4);
+    expect(Math.max(...heights) - Math.min(...heights), `${viewport.width}px previews`).toBeLessThan(1);
+  }
+});
+
+test("footer social profiles use one nonoverlapping list", async ({ page }) => {
+  for (const viewport of [
+    { width: 1663, height: 1324 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    const layout = await page.locator(".site-footer__social").evaluate((list) => {
+      const boxes = [...list.querySelectorAll("a")].map((link) => link.getBoundingClientRect());
+      return {
+        columns: getComputedStyle(list).gridTemplateColumns.split(" ").length,
+        leftEdges: boxes.map((box) => box.left),
+        overlaps: boxes.slice(1).some((box, index) => box.top < boxes[index].bottom - 1),
+      };
+    });
+    expect(layout.columns, `${viewport.width}px columns`).toBe(1);
+    expect(layout.leftEdges).toHaveLength(7);
+    expect(Math.max(...layout.leftEdges) - Math.min(...layout.leftEdges)).toBeLessThan(1);
+    expect(layout.overlaps).toBe(false);
+  }
+});
+
 test("homepage sections use one vertical rhythm", async ({ page }) => {
   for (const viewport of [
     { width: 1440, height: 900 },
@@ -185,7 +242,7 @@ test("homepage proof tooltips stay inside the hero", async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
 
-    const links = page.locator(".proof__page.is-visible .proof__link");
+    const links = page.locator(".proof__page .proof__link");
     for (const index of indexes) {
       const link = links.nth(index);
       const source = link.locator(".proof__source");
@@ -196,7 +253,7 @@ test("homepage proof tooltips stay inside the hero", async ({ page }) => {
         ({ linkIndex }) => {
           const hero = document.querySelector(".hero").getBoundingClientRect();
           const tooltip = document
-            .querySelectorAll(".proof__page.is-visible .proof__source")
+            .querySelectorAll(".proof__page .proof__source")
             [linkIndex].getBoundingClientRect();
           return {
             heroLeft: hero.left,
@@ -261,6 +318,21 @@ test("homepage headline variants reserve a stable hero height", async ({ page })
     }
     expect(Math.max(...heights) - Math.min(...heights), `${width}px hero height`).toBeLessThan(1);
   }
+});
+
+test("homepage animated mesh respects motion preferences", async ({ browser }) => {
+  const moving = await browser.newPage({ reducedMotion: "no-preference" });
+  await moving.goto("/");
+  await expect(moving.locator(".hero__mesh")).toHaveCSS(
+    "animation-name",
+    "hero-mesh-drift",
+  );
+  await moving.close();
+
+  const still = await browser.newPage({ reducedMotion: "reduce" });
+  await still.goto("/");
+  await expect(still.locator(".hero__mesh")).toHaveCSS("animation-name", "none");
+  await still.close();
 });
 
 test("all public content routes load", async ({ request }) => {
@@ -470,6 +542,13 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
   expect(layout.pageHeaderPaddingTop).toBeGreaterThanOrEqual(12);
   expect(layout.pageHeaderGap).toBeGreaterThanOrEqual(10);
 
+  const linkedInPost = page.locator('[data-post-id="linkedin:7493102298634776576"]');
+  await linkedInPost.scrollIntoViewIfNeeded();
+  await expect(page.locator(".site-header")).toHaveCSS(
+    "background-color",
+    "rgb(237, 232, 224)",
+  );
+
   await page.goto("/work/eastrise-portraits/");
   const caseHeroGap = await page
     .locator(".case-hero")
@@ -498,6 +577,39 @@ test("about summary paragraphs keep a readable gap", async ({ page }) => {
     );
     expect(gap).toBeGreaterThanOrEqual(12);
   }
+});
+
+test("writing links stay unadorned and the first stream follows the profile header", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/blog/");
+
+  for (const selector of [
+    ".writing-header > p a",
+    ".writing-stream__more",
+    ".social-card__read",
+    ".social-card__sources a",
+  ]) {
+    const link = page.locator(selector).first();
+    await expect(link).toBeVisible();
+    await expect(link).toHaveCSS("text-decoration-line", "none");
+    await link.hover();
+    await expect(link).toHaveCSS("text-decoration-line", "none");
+  }
+
+  const spacing = await page.evaluate(() => {
+    const header = document.querySelector(".writing-header");
+    const profiles = header.querySelector(".profile-links").getBoundingClientRect();
+    const heading = document
+      .querySelector(".writing-header + .writing-stream .writing-stream__heading")
+      .getBoundingClientRect();
+    return {
+      gap: heading.top - profiles.bottom,
+      paddingBottom: Number.parseFloat(getComputedStyle(header).paddingBottom),
+    };
+  });
+  expect(spacing.gap).toBeLessThanOrEqual(spacing.paddingBottom + 2);
 });
 
 test("narrow mobile layouts wrap without horizontal page overflow", async ({ page }) => {

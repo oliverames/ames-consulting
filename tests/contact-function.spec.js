@@ -6,7 +6,7 @@ test("contact email replies to the prospective client", async () => {
   let outboundEmail;
   globalThis.fetch = async (url, options) => {
     if (String(url).includes("/turnstile/v0/siteverify")) {
-      return Response.json({ success: true, action: "contact" });
+      return Response.json({ success: true, action: "contact", hostname: "ames.consulting" });
     }
     outboundEmail = JSON.parse(options.body);
     return new Response(JSON.stringify({ id: "test-email" }), { status: 200 });

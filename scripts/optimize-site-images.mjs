@@ -216,21 +216,29 @@ const worker = async () => {
     const metadata = await sharp(input).metadata();
     if (!metadata.width) continue;
     sourceBytes += input.byteLength;
+    const hasCardReference = job.references.some((reference) => reference.profile === "card");
     const requestedWidths = new Set(
       job.references.flatMap((reference) => imageProfiles[reference.profile].widths),
     );
     const widths = [...requestedWidths]
-      .filter((width) => metadata.width > width * 1.05)
+      .filter((width) => metadata.width > width * (
+        hasCardReference && width === 512 ? 1 : 1.05
+      ))
       .sort((a, b) => a - b);
     if (!widths.length) continue;
 
     const entries = [];
     for (const width of widths) {
       const destination = variantPath(job.imagePath, width);
+      const quality = width <= 360
+        ? 64
+        : hasCardReference && width === 512
+          ? 66
+          : 74;
       const info = await sharp(input)
         .rotate()
         .resize({ width, withoutEnlargement: true })
-        .webp({ quality: width <= 360 ? 64 : 74, effort: 4, smartSubsample: true })
+        .webp({ quality, effort: 4, smartSubsample: true })
         .toFile(destination);
       entries.push({ width, bytes: info.size });
       responsiveBytes += info.size;

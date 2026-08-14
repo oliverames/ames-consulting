@@ -63,9 +63,10 @@ The machine-readable review preserves those 11 asset paths under `newlyImportedA
 Verification completed on 2026-08-14:
 
 - `npm run check:all` passed every source validator and reported 173 public photographs across 16 EastRise series.
-- `npm run check:built-site` passed for 50 published HTML files, 1,203 responsive image uses, and 391.4 MiB of artifact data.
+- `npm run check:built-site` passed for 50 published HTML files, 1,203 responsive image uses, and 391.3 MiB of artifact data.
 - `npm run test:e2e` passed all 159 source-browser tests.
 - `npm run test:site` passed all 159 deploy-artifact browser tests.
-- `npm run check:build-idempotence` passed with artifact hash `bd3298d2db78ade10595cc412fc977684e42d88618c83a1a5092e8d391cb13d9` and source hash `1391c98be2341218596bfecf8a62b1bea51c60f9062f781159feb73f96706061`.
+- `npm run check:build-idempotence` passed with artifact hash `d74f45e405ca24446993b41a06ed5c704f2f88f78ba7cc3b0ee75c3f859e774f` and source hash `b024633f3a50f3e10634105cf98a1aaf2bbac45c9596ad95ca11e9e6752d23b8`.
+- A cold desktop load of `/work/` transferred 486,305 bytes after card-image optimization, 13,695 bytes below the 500,000-byte Lighthouse budget. The new UVM card now requests a 43,996-byte 512-pixel preview instead of the 86,528-byte original.
 - Desktop and mobile review at 1,440 and 390 CSS pixels confirmed 16 galleries, 173 images, no horizontal overflow, and a working lightbox for a newly added photograph.
 - The Taylor Hoar disclosure now counts five distinct photographs in the `DJJ9BxStqip` post while retaining two lower-resolution derivatives as explicit duplicate-media records.

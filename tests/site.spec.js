@@ -781,6 +781,18 @@ test("Flight Paths is the sole BETA media project", async ({ page }) => {
 
 test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
+  if (test.info().config.metadata?.siteRoot === "_site") {
+    const uvmCardImage = page.locator(
+      'a.work-item[href="eastrise-photography/#uvm-mens-soccer-2025-title"] img',
+    );
+    await expect(uvmCardImage).toHaveAttribute(
+      "srcset",
+      /2025-11-24_facebook-002_01-06c6da9d97e7-512w\.webp 512w/,
+    );
+    await expect.poll(
+      () => uvmCardImage.evaluate((image) => image.currentSrc),
+    ).toMatch(/2025-11-24_facebook-002_01-06c6da9d97e7-512w\.webp$/);
+  }
   await expect(
     page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
   ).toHaveCount(0);

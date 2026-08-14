@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-11",
+  "generatedAt": "2026-08-14",
   "releaseEvidencePolicy": "public-source-or-verified-native-capture",
-  "totalImages": 136,
+  "totalImages": 173,
   "archiveOrder": "newest-first",
   "undatedSeriesPlacement": "after-dated-series",
   "archiveDateSource": "latest verified public publication date",
@@ -71,6 +71,29 @@
   ],
   "series": [
     {
+      "slug": "smokin-somethin-bbq",
+      "title": "Smokin’ Somethin’ BBQ",
+      "description": "A small-business member portrait from the Smokin’ Somethin’ BBQ story.",
+      "archiveDate": "2026-02-07",
+      "archiveDateBasis": "latest-verified-publication-date",
+      "imageOrder": "curated",
+      "imageOrderNote": "The sequence follows an editorial selection from the public social-post media.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/smokin-somethin-bbq/2026-02-07_linkedin-073_01-de9031bb75a3.webp",
+          "alt": "A bearded man in a cap and apron stands with folded arms outside Smokin’ Somethin’ BBQ.",
+          "width": 623,
+          "height": 831,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_if-youve-got-a-full-time-job-but-could-use-activity-7425871011222405120-kEap/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2026-02-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        }
+      ],
+      "displayOrderMode": "editorial"
+    },
+    {
       "slug": "eastrise-candid-portraits",
       "title": "EastRise Candid Portraits",
       "description": "One candid portrait of an EastRise leader or staff member.",
@@ -90,6 +113,261 @@
           "publishedDate": "2026-01-06",
           "dateBasis": "public-source-url-timestamp",
           "dateEvidence": "Archived LinkedIn manifest original_url timestamp; activity-URN controls validate the CDN timestamp at publication-day precision."
+        }
+      ],
+      "displayOrderMode": "editorial"
+    },
+    {
+      "slug": "uvm-mens-soccer-2025",
+      "title": "UVM Men’s Soccer, 2025",
+      "description": "Match and celebration photographs from the 2025 UVM men’s soccer season.",
+      "archiveDate": "2025-11-24",
+      "archiveDateBasis": "latest-verified-publication-date",
+      "imageOrder": "curated",
+      "imageOrderNote": "The sequence follows an editorial selection from the public social-post media.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/uvm-mens-soccer-2025/2025-11-24_facebook-002_01-06c6da9d97e7.webp",
+          "alt": "UVM men’s soccer players embrace near the goal after a play.",
+          "width": 533,
+          "height": 711,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid021L3irSFNXUPKkvszKFeV96mcqTdraFEiXfyBZ2Mxmg8668tm3T5X4gM6MDNhzkwDl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/uvm-mens-soccer-2025/2025-11-24_facebook-002_04-67ad185558b5.webp",
+          "alt": "Three UVM men’s soccer players talk together on the field.",
+          "width": 1536,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid021L3irSFNXUPKkvszKFeV96mcqTdraFEiXfyBZ2Mxmg8668tm3T5X4gM6MDNhzkwDl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/uvm-mens-soccer-2025/2025-11-24_facebook-002_02-012d9a7c613b.webp",
+          "alt": "UVM men’s soccer players huddle in front of a cheering crowd.",
+          "width": 1536,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid021L3irSFNXUPKkvszKFeV96mcqTdraFEiXfyBZ2Mxmg8668tm3T5X4gM6MDNhzkwDl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/uvm-mens-soccer-2025/2025-11-24_facebook-002_03-ac48b194e057.webp",
+          "alt": "UVM men’s soccer players gather near a packed stand at Virtue Field.",
+          "width": 1500,
+          "height": 2000,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid021L3irSFNXUPKkvszKFeV96mcqTdraFEiXfyBZ2Mxmg8668tm3T5X4gM6MDNhzkwDl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/uvm-mens-soccer-2025/2025-11-17_facebook-003_01-de66ba9fc364.webp",
+          "alt": "Soccer players contest the ball during a snowy night match at UVM.",
+          "width": 1000,
+          "height": 1500,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0Y5fgrPqeFQd6rmTGHkMNeUHcue85F6wAtL3A11iF79HCv6DWx3LihKANnG36CkKJl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-17",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        }
+      ],
+      "displayOrderMode": "editorial"
+    },
+    {
+      "slug": "wheels-for-warmth-2025",
+      "title": "Wheels for Warmth, 2025",
+      "description": "Tire-donation and collection-day photographs from the 2025 Wheels for Warmth campaign.",
+      "archiveDate": "2025-11-07",
+      "archiveDateBasis": "latest-verified-publication-date",
+      "imageOrder": "curated",
+      "imageOrderNote": "The sequence follows an editorial selection from the public social-post media.",
+      "images": [
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_01-a9c670bf500a.webp",
+          "alt": "A volunteer stacks tires among rows collected for Wheels for Warmth.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_04-89377effcb7f.webp",
+          "alt": "A volunteer carries tires through a crowded Wheels for Warmth collection site.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_07-ce157bcea093.webp",
+          "alt": "A volunteer in a safety vest carries two tires at Wheels for Warmth.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_03-c3dcd34c71b8.webp",
+          "alt": "Two volunteers pose together while holding tires at Wheels for Warmth.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_08-12a54bfe65c7.webp",
+          "alt": "Volunteers talk beside rows of tires at the Wheels for Warmth collection.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_05-998b57346441.webp",
+          "alt": "A volunteer kneels while handling a tire at Wheels for Warmth.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_06-521045104615.webp",
+          "alt": "Volunteers sort rows of donated tires at Wheels for Warmth.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-11-07_facebook-004_02-1a36923aa3fa.webp",
+          "alt": "Volunteers push a stack of tires on a hand truck at Wheels for Warmth.",
+          "width": 1365,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jH94MfzHfuXxUR9VUFNAdRoAPbYA4qmWRMvHA4xvciL8rqCWtg8UReApQQxjkPqVl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-11-07",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_01-38dd625691ee.webp",
+          "alt": "Volunteers stack tires beside a warehouse during a rainy collection day.",
+          "width": 1280,
+          "height": 960,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_02-42fa91fc359a.webp",
+          "alt": "Two volunteers handle tires beside an open trailer in the rain.",
+          "width": 1280,
+          "height": 1706,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_03-796111b6c01f.webp",
+          "alt": "A volunteer walks toward a donated tire in a wet parking lot.",
+          "width": 1280,
+          "height": 1706,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_04-07ad3eed74b3.webp",
+          "alt": "A volunteer lifts a tire from an open trailer during the donation drive.",
+          "width": 1280,
+          "height": 1706,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_05-60509f26621b.webp",
+          "alt": "A volunteer carries a stack of tires across the collection site.",
+          "width": 1280,
+          "height": 1706,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_06-cc42f9afc3c3.webp",
+          "alt": "Two volunteers pose together outside a Wheels for Warmth donation site.",
+          "width": 1280,
+          "height": 1706,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_07-17876fe1e466.webp",
+          "alt": "Stacks of donated tires fill an open truck container.",
+          "width": 1280,
+          "height": 1706,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_08-63cc87dd36b8.webp",
+          "alt": "A volunteer carries two tires past the collection warehouse.",
+          "width": 1280,
+          "height": 1706,
+          "sourceUrl": "https://www.linkedin.com/posts/eastrisecu_today-is-the-final-day-of-tire-donations-activity-7387557710671618048-50jE/",
+          "sourcePlatform": "LinkedIn",
+          "publishedDate": "2025-10-24",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
         }
       ],
       "displayOrderMode": "editorial"
@@ -513,7 +791,8 @@
           "sourcePlatform": "LinkedIn",
           "publishedDate": "2025-05-02",
           "dateBasis": "public-source-url-timestamp",
-          "dateEvidence": "Archived LinkedIn manifest original_url timestamp; activity-URN controls validate the CDN timestamp at publication-day precision."
+          "dateEvidence": "Archived LinkedIn manifest original_url timestamp; activity-URN controls validate the CDN timestamp at publication-day precision.",
+          "samePublicMediaAs": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-05-02_15-03-40_UTC_DJJ9BxStqip_3-43b5cd6b35c3.webp"
         },
         {
           "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/li_6dd865f2b63a-a7bb13fdae26.webp",
@@ -525,7 +804,41 @@
           "sourcePlatform": "LinkedIn",
           "publishedDate": "2025-05-02",
           "dateBasis": "public-source-url-timestamp",
-          "dateEvidence": "Archived LinkedIn manifest original_url timestamp; activity-URN controls validate the CDN timestamp at publication-day precision."
+          "dateEvidence": "Archived LinkedIn manifest original_url timestamp; activity-URN controls validate the CDN timestamp at publication-day precision.",
+          "samePublicMediaAs": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-05-02_instagram-103_04-9ea2013e05bf.webp"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-08-27_facebook-007_01-7c815431f53f.webp",
+          "alt": "A Labor Day race graphic shows stock cars at speed beside a hand-drawn results card.",
+          "width": 640,
+          "height": 800,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02jQ263CtzKQiGZPxgvvN1Zn4SFFb3T3zrFyoC61z38cuZq21PMy7wopvbaFyM2cLXl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-08-27",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-05-02_instagram-103_04-9ea2013e05bf.webp",
+          "alt": "The driver’s seat, steering wheel, gauges, and roll cage inside a stock car.",
+          "width": 1440,
+          "height": 1800,
+          "sourceUrl": "https://www.instagram.com/eastrisecu/p/DJJ9BxStqip/",
+          "sourcePlatform": "Instagram",
+          "publishedDate": "2025-05-02",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-05-02_instagram-103_05-d2b0a3f34948.webp",
+          "alt": "A close detail of the EastRise Credit Union logo on red race-car bodywork.",
+          "width": 1440,
+          "height": 1794,
+          "sourceUrl": "https://www.instagram.com/eastrisecu/p/DJJ9BxStqip/",
+          "sourcePlatform": "Instagram",
+          "publishedDate": "2025-05-02",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
         }
       ],
       "displayOrderMode": "editorial"
@@ -849,6 +1162,28 @@
           "sourceUrl": "https://www.instagram.com/p/DLnR3ETN4pV/",
           "sourcePlatform": "Instagram",
           "publishedDate": "2025-07-02"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/veggievango-taylor-hoar/2025-07-02_facebook-011_02-a74f1e6cb44e.webp",
+          "alt": "A volunteer stands with her hands on her hips beside a VeggieVanGo truck and distribution sign.",
+          "width": 1536,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0MReXZVo2bxdpjgWGj4KoXDCrguGwwyhoCeyvWsydpcw8vxXXzrfmV2KtYKHFbZSTl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-07-02",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/veggievango-taylor-hoar/2025-07-02_facebook-011_04-9e753ac01b90.webp",
+          "alt": "A braided volunteer wears a shirt reading ‘Let’s Make a Difference’ at a food distribution.",
+          "width": 1536,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0MReXZVo2bxdpjgWGj4KoXDCrguGwwyhoCeyvWsydpcw8vxXXzrfmV2KtYKHFbZSTl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2025-07-02",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
         }
       ],
       "displayOrderMode": "editorial"
@@ -1290,6 +1625,105 @@
           "sourceUrl": "https://www.instagram.com/p/DB_og-ipG9A/",
           "sourcePlatform": "Instagram",
           "publishedDate": "2024-11-05"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-11-13_facebook-015_07-70ad376795c9.webp",
+          "alt": "A colorful felt landscape shows two sheep beneath a rainbow sky.",
+          "width": 2048,
+          "height": 1366,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0aGa1ftqm1j52HUomUqLLLkefBZ2UTH1Gwe1P5D7ZHG5K714zuEHTEwVv7GKEG27Kl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-11-13",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-11-05_facebook-017_03-d65cd29a7042.webp",
+          "alt": "A handcyclist raises one fist while riding on an outdoor track.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02GaYGkcCyYpTiyDnuhEytYHUHDbbkzpaQqBaJcSCuRrHgYwpZYYBwkbniVNN7ynjhl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-11-05",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-11-05_facebook-017_04-8a0892040f33.webp",
+          "alt": "A smiling handcyclist wears a helmet during an outdoor ride.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02GaYGkcCyYpTiyDnuhEytYHUHDbbkzpaQqBaJcSCuRrHgYwpZYYBwkbniVNN7ynjhl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-11-05",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-11-05_facebook-017_02-9a2e98bdb4e3.webp",
+          "alt": "A handcyclist sits beside his cycle while holding his helmet.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02GaYGkcCyYpTiyDnuhEytYHUHDbbkzpaQqBaJcSCuRrHgYwpZYYBwkbniVNN7ynjhl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-11-05",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-10-16_facebook-021_04-243b4cbedf32.webp",
+          "alt": "A man examines an unfinished acoustic guitar in his workshop.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0ysr1qi4w57MqduX8GfuEoYxssTLjZ33dFmyVRpNUtUTTj8n1uUEfzdVFpuwuznnAl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-10-16",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-10-16_facebook-021_09-34d5fde4f748.webp",
+          "alt": "Hands rest on the strings and wooden body of an upright bass.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0ysr1qi4w57MqduX8GfuEoYxssTLjZ33dFmyVRpNUtUTTj8n1uUEfzdVFpuwuznnAl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-10-16",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-10-16_facebook-021_02-bf8c43271044.webp",
+          "alt": "A craftsman shapes wood at a workbench in his instrument shop.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0ysr1qi4w57MqduX8GfuEoYxssTLjZ33dFmyVRpNUtUTTj8n1uUEfzdVFpuwuznnAl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-10-16",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-10-16_facebook-021_08-1e1e3b4d39ef.webp",
+          "alt": "A woman sits outdoors beside a barn with her hands folded in her lap.",
+          "width": 2048,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0ysr1qi4w57MqduX8GfuEoYxssTLjZ33dFmyVRpNUtUTTj8n1uUEfzdVFpuwuznnAl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-10-16",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/eastrise-launch/2024-10-16_facebook-021_07-d1002ac0db50.webp",
+          "alt": "A smiling man wearing a plaid shirt stands beside a barn post.",
+          "width": 1080,
+          "height": 1350,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid0ysr1qi4w57MqduX8GfuEoYxssTLjZ33dFmyVRpNUtUTTj8n1uUEfzdVFpuwuznnAl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-10-16",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
         }
       ],
       "displayOrderMode": "editorial"
@@ -1402,8 +1836,8 @@
       "description": "EastRise staff supporting the Vermont Foodbank's VeggieVanGo distribution.",
       "archiveDate": "2024-10-25",
       "archiveDateBasis": "latest-verified-publication-date",
-      "imageOrder": "oldest-first",
-      "imageOrderNote": "Publication date, then source carousel position.",
+      "imageOrder": "curated",
+      "imageOrderNote": "The sequence combines the public Instagram carousel with an additional photograph from the related Facebook post.",
       "images": [
         {
           "src": "../../assets/images/work/eastrise/photography/veggievango-east-rise/2024-10-25_16-09-09_UTC_DBjaR68PTpx_1-7471ba48a2b8.webp",
@@ -1494,6 +1928,17 @@
           "sourceUrl": "https://www.instagram.com/p/DBjaR68PTpx/",
           "sourcePlatform": "Instagram",
           "publishedDate": "2024-10-25"
+        },
+        {
+          "src": "../../assets/images/work/eastrise/photography/veggievango-east-rise/2024-10-25_facebook-019_01-b3aabc6a2690.webp",
+          "alt": "A volunteer stands beside stacked boxes of produce at a food distribution.",
+          "width": 1366,
+          "height": 2048,
+          "sourceUrl": "https://www.facebook.com/EastRiseCU/posts/pfbid02Zop5R22p8hXfnsmwZH19puej3CJE2rzCreADje5QRUoqhA3i3QUHtRq4rpsoGijSl",
+          "sourcePlatform": "Facebook",
+          "publishedDate": "2024-10-25",
+          "dateBasis": "public-platform-metadata",
+          "dateEvidence": "The archived public post capture and social manifest identify the source URL and publication date."
         }
       ],
       "displayOrderMode": "editorial"

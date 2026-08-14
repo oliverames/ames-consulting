@@ -149,6 +149,7 @@ for (const series of photography.series) for (const image of series.images) {
     credit: eastRiseCredit,
     source_capture: captureFor(sourceUrl),
     archive_note: image.publicArchiveNote || "",
+    ...(image.samePublicMediaAs ? { same_public_media_as: normalize(image.samePublicMediaAs) } : {}),
   };
 }
 for (const post of social.posts) {

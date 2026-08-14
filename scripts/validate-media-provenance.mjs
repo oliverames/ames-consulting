@@ -64,6 +64,23 @@ function expectedChannelForSource(value) {
   return "";
 }
 
+function canonicalPublicSource(value) {
+  try {
+    const source = new URL(value);
+    const hostname = source.hostname.replace(/^www\./, "").toLowerCase();
+    if (hostname === "instagram.com") {
+      const shortcode = source.pathname.match(/^\/(?:[^/]+\/)?(?:p|reel)\/([^/]+)/i)?.[1];
+      if (shortcode) return `instagram:${shortcode}`;
+    }
+    source.hash = "";
+    source.search = "";
+    source.pathname = source.pathname.replace(/\/$/, "");
+    return source.href;
+  } catch {
+    return value || "";
+  }
+}
+
 assertObject(captureManifest, "source-screenshot-manifest.json");
 assertExactKeys(captureManifest, ["generated_at", "captures", "missing"], "source-screenshot-manifest.json");
 if (!Array.isArray(captureManifest.captures) || !Array.isArray(captureManifest.missing)) {
@@ -196,7 +213,7 @@ let complete = 0;
 for (const [asset, data] of Object.entries(provenanceAssets)) {
   if (!/^assets\/images\//.test(asset) || asset.includes("..")) throw new Error(`${asset} is not a repository image path.`);
   assertObject(data, asset);
-  assertExactKeys(data, [...fields, "archive_note", "accepted_exception"], asset);
+  assertExactKeys(data, [...fields, "archive_note", "accepted_exception", "same_public_media_as"], asset);
   const missingFields = [];
   for (const field of fields) {
     if (!(field in data)) throw new Error(`${asset} is missing the ${field} field.`);
@@ -215,6 +232,18 @@ for (const [asset, data] of Object.entries(provenanceAssets)) {
     throw new Error(`${asset} source_channel does not match its public source URL.`);
   }
   if (data.source_capture && data.source_capture !== "private_archive") throw new Error(`${asset} has an invalid source_capture value.`);
+  if (data.same_public_media_as !== undefined) {
+    if (typeof data.same_public_media_as !== "string" || !/^assets\/images\//.test(data.same_public_media_as)) {
+      throw new Error(`${asset} has an invalid same_public_media_as target.`);
+    }
+    if (data.same_public_media_as === asset) throw new Error(`${asset} cannot identify itself as duplicate public media.`);
+    const target = provenanceAssets[data.same_public_media_as];
+    if (!target) throw new Error(`${asset} identifies missing duplicate-media target ${data.same_public_media_as}.`);
+    if (target.same_public_media_as) throw new Error(`${asset} identifies a chained duplicate-media target.`);
+    if (canonicalPublicSource(data.source_url) !== canonicalPublicSource(target.source_url)) {
+      throw new Error(`${asset} and its duplicate-media target do not share a public source post.`);
+    }
+  }
 
   const configuredException = exceptionsByAsset.get(asset);
   if (missingFields.length === 0) {

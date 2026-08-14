@@ -7,6 +7,9 @@ const readEventGalleries = async () => JSON.parse(
 const readEastRisePhotography = async () => JSON.parse(
   await readFile(new URL("../assets/data/eastrise-photography.json", import.meta.url), "utf8"),
 );
+const readEastRiseSocialPhotography = async () => JSON.parse(
+  await readFile(new URL("../assets/data/eastrise-social-photography.json", import.meta.url), "utf8"),
+);
 const readPortraits = async () => JSON.parse(
   await readFile(new URL("../assets/data/portraits.json", import.meta.url), "utf8"),
 );
@@ -1064,9 +1067,26 @@ test("EastRise photography is grouped into complete public-source galleries", as
   page,
 }) => {
   const photography = await readEastRisePhotography();
-  expect(photography.totalImages).toBe(136);
-  expect(photography.series).toHaveLength(13);
+  const socialCoverage = await readEastRiseSocialPhotography();
+  expect(photography.totalImages).toBe(173);
+  expect(photography.series).toHaveLength(16);
+  expect(socialCoverage).toMatchObject({
+    photographicPostCount: 28,
+    excludedPostCount: 1,
+    photographicPlacements: 165,
+    distinctPortfolioAssets: 126,
+    newlyImportedAssets: 37,
+  });
   expect(photography.series.some((series) => series.slug === "formal-headshots")).toBe(false);
+  expect(
+    photography.series.find((series) => series.slug === "smokin-somethin-bbq")?.images,
+  ).toHaveLength(1);
+  expect(
+    photography.series.find((series) => series.slug === "uvm-mens-soccer-2025")?.images,
+  ).toHaveLength(5);
+  expect(
+    photography.series.find((series) => series.slug === "wheels-for-warmth-2025")?.images,
+  ).toHaveLength(16);
   const candidPortraits = photography.series.find(
     (series) => series.slug === "eastrise-candid-portraits",
   );

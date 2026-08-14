@@ -4,12 +4,15 @@ import sharp from "sharp";
 
 const dataPath = "assets/data/eastrise-photography.json";
 const data = JSON.parse(await readFile(dataPath, "utf8"));
+const social = JSON.parse(await readFile("assets/data/eastrise-social.json", "utf8"));
+const socialPhotography = JSON.parse(await readFile("assets/data/eastrise-social-photography.json", "utf8"));
 const provenance = JSON.parse(await readFile("assets/data/media-provenance.json", "utf8"));
 const provenanceEvidence = JSON.parse(await readFile("assets/data/media-provenance-evidence.json", "utf8"));
 const errors = [];
 const seriesSlugs = new Set();
 const withheld = data.confirmedOliverPhotographsWithheld;
 const publishedAssetPaths = new Set();
+const publishedManifestAssets = new Set();
 const nonVisualAltPattern = /^(?:meet\b|stop by\b|we(?:'|’)re thrilled\b|we had an incredible\b|grateful to have\b|there(?:'|’)s a special kind\b|members of the eastrise team\b|each year, vermont foodbank\b|join us in barre\b|new suit goofin\b|we(?:'|’)re out here\b|thank you for voting\b|looking to build\b|happy new year\b|happy national girl\b|swipe to see\b|great picture of brother\b|first race week\b|thunder road international speedbowl$)/i;
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const supportedDateBases = new Set([
@@ -30,6 +33,23 @@ const evidenceDates = new Map(
 
 function assetPath(src) {
   return path.posix.normalize(path.posix.join("work/eastrise-photography", src));
+}
+
+function canonicalSocialSourceKey(value) {
+  try {
+    const source = new URL(value);
+    const host = source.hostname.replace(/^www\./, "").toLowerCase();
+    if (host === "instagram.com") {
+      const shortcode = source.pathname.match(/^\/(?:[^/]+\/)?(?:p|reel)\/([^/]+)/i)?.[1];
+      if (shortcode) return `instagram:${shortcode}`;
+    }
+    source.hash = "";
+    source.search = "";
+    source.pathname = source.pathname.replace(/\/$/, "");
+    return source.href;
+  } catch {
+    return value || "";
+  }
 }
 
 function carouselPosition(src) {
@@ -61,6 +81,12 @@ if (data.displayOrderMode !== "editorial") {
 if (data.totalImages !== data.series.reduce((total, series) => total + series.images.length, 0)) {
   errors.push("The totalImages value does not match the gallery image count.");
 }
+if (data.totalImages !== 173 || data.series.length !== 16) {
+  errors.push("The EastRise photography archive must contain 173 images across 16 series.");
+}
+const manifestImageByAsset = new Map(data.series.flatMap((series) => (
+  series.images.map((image) => [assetPath(image.src), image])
+)));
 if (!Array.isArray(withheld) || withheld.length !== 5) {
   errors.push("The manifest must preserve the five confirmed Oliver Ames photographs withheld for incomplete public-source evidence.");
 } else {
@@ -125,6 +151,7 @@ for (const series of data.series) {
     if (imageSources.has(image.src)) errors.push(`Duplicate image in ${series.title}: ${image.src}`);
     imageSources.add(image.src);
     publishedAssetPaths.add(path.resolve("work/eastrise-photography", image.src));
+    publishedManifestAssets.add(assetPath(image.src));
     if (path.basename(path.dirname(image.src)) !== series.slug) {
       errors.push(`Image is outside its collection folder (${series.slug}): ${image.src}`);
     }
@@ -136,6 +163,20 @@ for (const series of data.series) {
     altCounts.set(image.alt, (altCounts.get(image.alt) || 0) + 1);
     if (!/^https:\/\//.test(image.sourceUrl || "") && !image.publicArchiveNote) {
       errors.push(`Missing public source evidence: ${image.src}`);
+    }
+    if (image.samePublicMediaAs) {
+      const targetAsset = assetPath(image.samePublicMediaAs);
+      const targetImage = manifestImageByAsset.get(targetAsset);
+      if (!targetImage) {
+        errors.push(`Duplicate public-media target is absent: ${image.samePublicMediaAs}`);
+      } else if (targetAsset === assetPath(image.src)) {
+        errors.push(`Image cannot identify itself as duplicate public media: ${image.src}`);
+      } else if (
+        canonicalSocialSourceKey(image.sourcePage || image.sourceUrl)
+        !== canonicalSocialSourceKey(targetImage.sourcePage || targetImage.sourceUrl)
+      ) {
+        errors.push(`Duplicate public-media records do not share a source post: ${image.src}`);
+      }
     }
     const hasPublishedDate = typeof image.publishedDate === "string" && image.publishedDate.length > 0;
     const hasCapturedDate = typeof image.capturedDate === "string" && image.capturedDate.length > 0;
@@ -247,6 +288,113 @@ for (const series of data.series) {
   if (series.imageOrder === "undated" && verifiedDates.length) {
     errors.push(`${series.title} is marked undated but has verified publication dates.`);
   }
+}
+
+const protectedPostIds = new Set([
+  "facebook-002", "facebook-003", "facebook-004", "facebook-005", "facebook-007", "facebook-008", "facebook-010", "facebook-011", "facebook-012", "facebook-013", "facebook-015", "facebook-016", "facebook-017", "facebook-018", "facebook-019", "facebook-020", "facebook-021", "facebook-022", "facebook-040",
+  "instagram-103", "instagram-117", "instagram-118", "instagram-121",
+  "linkedin-073", "linkedin-074", "linkedin-081", "linkedin-083", "linkedin-084", "linkedin-089",
+]);
+const expectedPendingAuthorshipAssets = new Set([
+  "assets/images/work/eastrise/photography/eastrise-launch/2024-10-16_facebook-021_07-d1002ac0db50.webp",
+  "assets/images/work/eastrise/photography/eastrise-launch/2024-10-16_facebook-021_08-1e1e3b4d39ef.webp",
+  "assets/images/work/eastrise/photography/veggievango-east-rise/2024-10-25_facebook-019_01-b3aabc6a2690.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_01-38dd625691ee.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_02-42fa91fc359a.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_03-796111b6c01f.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_04-07ad3eed74b3.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_05-60509f26621b.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_06-cc42f9afc3c3.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_07-17876fe1e466.webp",
+  "assets/images/work/eastrise/photography/wheels-for-warmth-2025/2025-10-24_linkedin-083_08-63cc87dd36b8.webp",
+]);
+const socialPostsById = new Map(social.posts.map((post) => [post.id, post]));
+const coveragePosts = Array.isArray(socialPhotography.posts) ? socialPhotography.posts : [];
+const observedPostIds = new Set(coveragePosts.map((post) => post.postId));
+for (const postId of protectedPostIds) {
+  if (!observedPostIds.delete(postId)) errors.push(`Missing black-and-white social-post coverage record: ${postId}.`);
+}
+if (observedPostIds.size || coveragePosts.length !== protectedPostIds.size) {
+  errors.push(`Unexpected or duplicate black-and-white social-post coverage records: ${[...observedPostIds].join(", ") || "duplicate records"}.`);
+}
+if (
+  socialPhotography.photographicPostCount !== 28
+  || socialPhotography.excludedPostCount !== 1
+  || socialPhotography.photographicPlacements !== 165
+  || socialPhotography.distinctPortfolioAssets !== 126
+  || socialPhotography.newlyImportedAssets !== 37
+) {
+  errors.push("The black-and-white social-post coverage summary must remain 28 photographic posts, one exclusion, 165 placements, 126 distinct assets, and 37 imports.");
+}
+
+let calculatedPlacements = 0;
+const calculatedDistinctAssets = new Set();
+for (const post of coveragePosts) {
+  if (!socialPostsById.has(post.postId)) errors.push(`Coverage record does not resolve to an EastRise social post: ${post.postId}.`);
+  if (post.status === "excluded") {
+    if (
+      post.postId !== "facebook-040"
+      || post.sourceMediaCount !== 1
+      || post.exclusionReason !== "third-party-artwork"
+      || post.credit !== "Nathan W. Pyle"
+      || post.coverageAssets.length !== 0
+    ) {
+      errors.push("facebook-040 must remain a one-item Nathan W. Pyle artwork exclusion with no portfolio asset.");
+    }
+    continue;
+  }
+  if (post.status !== "complete") errors.push(`Unsupported coverage status for ${post.postId}: ${post.status}.`);
+  if (!Array.isArray(post.coverageAssets) || post.coverageAssets.length !== post.sourceMediaCount || post.sourceMediaCount < 1) {
+    errors.push(`${post.postId} does not map every photographic media item.`);
+    continue;
+  }
+  if (new Set(post.coverageAssets).size !== post.coverageAssets.length) {
+    errors.push(`${post.postId} repeats a portfolio asset.`);
+  }
+  calculatedPlacements += post.coverageAssets.length;
+  for (const asset of post.coverageAssets) {
+    calculatedDistinctAssets.add(asset);
+    if (!publishedManifestAssets.has(asset)) errors.push(`${post.postId} maps to an asset outside the photography manifest: ${asset}.`);
+    if (!provenance.assets?.[asset]) errors.push(`${post.postId} maps to an asset without provenance: ${asset}.`);
+  }
+}
+if (calculatedPlacements !== 165 || calculatedDistinctAssets.size !== 126) {
+  errors.push(`Calculated social coverage is ${calculatedPlacements} placements and ${calculatedDistinctAssets.size} distinct assets; expected 165 and 126.`);
+}
+
+const authorshipReview = socialPhotography.newlyImportedAuthorshipReview || {};
+const independentlyCorroboratedAssets = authorshipReview.independentlyCorroboratedAssets || [];
+const pendingIndependentEvidenceAssets = authorshipReview.pendingIndependentEvidenceAssets || [];
+if (
+  authorshipReview.independentlyCorroboratedCount !== 26
+  || authorshipReview.pendingIndependentEvidenceCount !== 11
+  || independentlyCorroboratedAssets.length !== 26
+  || pendingIndependentEvidenceAssets.length !== 11
+  || !authorshipReview.inclusionBasis?.includes("2026-08-14")
+) {
+  errors.push("The 37 imported photographs must preserve their 26 corroborated and 11 pending independent-authorship classifications.");
+}
+const observedPendingAuthorshipAssets = new Set(pendingIndependentEvidenceAssets);
+for (const asset of expectedPendingAuthorshipAssets) {
+  if (!observedPendingAuthorshipAssets.delete(asset)) errors.push(`Missing pending independent-authorship flag: ${asset}.`);
+}
+if (observedPendingAuthorshipAssets.size) {
+  errors.push(`Unexpected pending independent-authorship flags: ${[...observedPendingAuthorshipAssets].join(", ")}.`);
+}
+const reviewedImports = [...independentlyCorroboratedAssets, ...pendingIndependentEvidenceAssets];
+if (new Set(reviewedImports).size !== 37) errors.push("The imported authorship review must identify 37 unique assets.");
+for (const asset of reviewedImports) {
+  if (!publishedManifestAssets.has(asset)) errors.push(`Reviewed import is absent from the photography manifest: ${asset}.`);
+  if (!calculatedDistinctAssets.has(asset)) errors.push(`Reviewed import is absent from the social-post coverage map: ${asset}.`);
+  const record = provenance.assets?.[asset];
+  if (!record) {
+    errors.push(`Reviewed import lacks provenance: ${asset}.`);
+    continue;
+  }
+  for (const field of ["source_url", "source_channel", "published_date", "downloaded_date", "credit", "source_capture"]) {
+    if (!record[field]) errors.push(`Reviewed import lacks provenance field ${field}: ${asset}.`);
+  }
+  if (record.accepted_exception) errors.push(`Reviewed import must not use a provenance exception: ${asset}.`);
 }
 
 async function collectFiles(directory) {

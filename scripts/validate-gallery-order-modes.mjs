@@ -138,8 +138,8 @@ function expectGallery(relativePath, id, mode, dateStatus = "") {
 
 const photographyPath = "work/eastrise-photography/index.html";
 const photographyHtml = await readPublicHtml(photographyPath);
-if (photography.totalImages !== 136 || photography.series.length !== 13) {
-  errors.push("EastRise photography must contain 136 images across 13 series.");
+if (photography.totalImages !== 173 || photography.series.length !== 16) {
+  errors.push("EastRise photography must contain 173 images across 16 series.");
 }
 if (photography.series.some((series) => series.slug === "formal-headshots")) {
   errors.push("Formal EastRise portraits must not remain in the photography archive.");

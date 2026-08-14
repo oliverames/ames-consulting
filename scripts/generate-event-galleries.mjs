@@ -404,7 +404,10 @@ function galleryMarkup(campaign) {
       : image.publishedAt
         ? ` data-published-at="${escapeAttribute(image.publishedAt)}"`
         : "";
-    return `<img src="${escapeAttribute(image.src)}" alt="${escapeAttribute(description)}" aria-label="${escapeAttribute(label)}" width="${image.width}" height="${image.height}"${dateMetadata} loading="lazy" decoding="async">`;
+    const dateBasisMetadata = image.dateBasis
+      ? ` data-date-basis="${escapeAttribute(image.dateBasis)}"`
+      : "";
+    return `<img src="${escapeAttribute(image.src)}" alt="${escapeAttribute(description)}" aria-label="${escapeAttribute(label)}" width="${image.width}" height="${image.height}"${dateMetadata}${dateBasisMetadata} loading="lazy" decoding="async">`;
   }).join("");
 }
 

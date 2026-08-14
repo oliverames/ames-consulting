@@ -77,9 +77,10 @@ test("home, work, and EastRise project cards render newest first", async () => {
 
 test("EastRise photography archive renders dated series first, newest first", async () => {
   const html = await read("work/eastrise-photography/index.html");
+  const photography = JSON.parse(await read("assets/data/eastrise-photography.json"));
   const hrefs = [...html.matchAll(/<section class="case-section photo-series" aria-labelledby="([^"]+)">/g)]
     .map((match) => `eastrise-photography/#${match[1]}`);
-  assert.equal(hrefs.length, 13);
+  assert.equal(hrefs.length, photography.series.length);
   assertNewestFirst(hrefs, "EastRise photography archive");
   assert.ok(hrefs.every((href) => projectDateFor(href)?.sortDate));
 });

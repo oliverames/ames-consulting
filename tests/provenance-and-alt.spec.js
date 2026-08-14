@@ -172,12 +172,84 @@ test("public provenance keeps distinct sources and removes tracking parameters",
   expect(disclosure).toContain("1 image was published April 17, 2025, with credit to Oliver Ames.");
 });
 
+test("black-and-white EastRise social posts map every photograph into the portfolio", async () => {
+  const coverage = JSON.parse(
+    await readFile(join(root, "assets/data/eastrise-social-photography.json"), "utf8"),
+  );
+  const photography = JSON.parse(
+    await readFile(join(root, "assets/data/eastrise-photography.json"), "utf8"),
+  );
+  const provenance = JSON.parse(
+    await readFile(join(root, "assets/data/media-provenance.json"), "utf8"),
+  );
+  const html = await readPublic("work/eastrise-photography/index.html");
+  const manifestAssets = new Set(
+    photography.series.flatMap((series) => series.images.map((image) => (
+      image.src.replace(/^\.\.\/\.\.\//, "")
+    ))),
+  );
+  const photographicPosts = coverage.posts.filter((post) => post.status === "complete");
+  const excludedPost = coverage.posts.find((post) => post.status === "excluded");
+  const placementAssets = photographicPosts.flatMap((post) => post.coverageAssets);
+  const authorshipReview = coverage.newlyImportedAuthorshipReview;
+  const reviewedImports = [
+    ...authorshipReview.independentlyCorroboratedAssets,
+    ...authorshipReview.pendingIndependentEvidenceAssets,
+  ];
+
+  expect(coverage.posts).toHaveLength(29);
+  expect(photographicPosts).toHaveLength(28);
+  expect(placementAssets).toHaveLength(165);
+  expect(new Set(placementAssets).size).toBe(126);
+  expect(coverage.newlyImportedAssets).toBe(37);
+  expect(authorshipReview.independentlyCorroboratedCount).toBe(26);
+  expect(authorshipReview.pendingIndependentEvidenceCount).toBe(11);
+  expect(reviewedImports).toHaveLength(37);
+  expect(new Set(reviewedImports).size).toBe(37);
+  expect(excludedPost).toEqual({
+    status: "excluded",
+    postId: "facebook-040",
+    sourceMediaCount: 1,
+    exclusionReason: "third-party-artwork",
+    credit: "Nathan W. Pyle",
+    coverageAssets: [],
+  });
+
+  for (const post of photographicPosts) {
+    expect(post.coverageAssets, post.postId).toHaveLength(post.sourceMediaCount);
+  }
+  for (const asset of placementAssets) {
+    expect(manifestAssets.has(asset), asset).toBe(true);
+    expect(provenance.assets[asset], asset).toBeTruthy();
+    expect(html, asset).toContain(`src="../../${asset}"`);
+  }
+  for (const asset of reviewedImports) {
+    expect(provenance.assets[asset], asset).toMatchObject({
+      source_url: expect.stringMatching(/^https:\/\//),
+      source_channel: expect.stringMatching(/^(?:Facebook|Instagram|LinkedIn)$/),
+      published_date: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+      downloaded_date: "2026-08-14",
+      source_capture: "private_archive",
+    });
+    expect(provenance.assets[asset].accepted_exception, asset).toBeUndefined();
+  }
+});
+
 test("Taylor provenance combines account-prefixed and canonical Instagram URLs", async () => {
   const html = await readPublic("work/taylor-hoar-racing/index.html");
   const disclosure = html.match(/<footer class="asset-provenance"[\s\S]*?<\/footer>/)?.[0] || "";
+  const provenance = JSON.parse(await readFile(join(root, "assets/data/media-provenance.json"), "utf8"));
+  const duplicateTargets = [
+    "assets/images/work/eastrise/photography/taylor-hoar-racing/li_fbbb767cda6f-6d1f68e78b60.webp",
+    "assets/images/work/eastrise/photography/taylor-hoar-racing/li_6dd865f2b63a-a7bb13fdae26.webp",
+  ].map((asset) => provenance.assets[asset]?.same_public_media_as);
 
   expect(disclosure.match(/DJJ9BxStqip/g) || []).toHaveLength(1);
   expect(disclosure).toContain("5 images published by EastRise Credit Union");
+  expect(duplicateTargets).toEqual([
+    "assets/images/work/eastrise/photography/taylor-hoar-racing/2025-05-02_15-03-40_UTC_DJJ9BxStqip_3-43b5cd6b35c3.webp",
+    "assets/images/work/eastrise/photography/taylor-hoar-racing/2025-05-02_instagram-103_04-9ea2013e05bf.webp",
+  ]);
 });
 
 test("EastRise gallery alt text describes images instead of social captions", async () => {

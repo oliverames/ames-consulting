@@ -268,12 +268,16 @@ function addProvenanceDisclosure(html, file) {
   const cleaned = html.replace(/<footer class="asset-provenance"[\s\S]*?<\/footer>/, "");
   const groups = new Map();
   const seenAssets = new Set();
+  const seenPublicMedia = new Set();
   for (const match of cleaned.matchAll(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/g)) {
     const asset = match[1].replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
     if (seenAssets.has(asset)) continue;
     seenAssets.add(asset);
     const data = provenance.assets?.[asset];
     if (!data) continue;
+    const publicMediaIdentity = data.same_public_media_as || asset;
+    if (seenPublicMedia.has(publicMediaIdentity)) continue;
+    seenPublicMedia.add(publicMediaIdentity);
     const publisher = data.credit.includes("EastRise Credit Union")
       ? "EastRise Credit Union"
       : data.credit.includes("Blue Cross")

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
 
@@ -13,6 +14,8 @@ const exceptionConfig = await readJson("assets/data/media-provenance-exceptions.
 const captureManifest = await readJson("assets/data/source-screenshot-manifest.json");
 const portraits = await readJson("assets/data/portraits.json");
 const photography = await readJson("assets/data/eastrise-photography.json");
+const eventGalleries = await readJson("assets/data/event-galleries.json");
+const writingFeed = await readJson("assets/data/writing-feed.json");
 const fields = ["source_url", "source_channel", "published_date", "downloaded_date", "credit", "source_capture"];
 const channels = new Set(["", "website", "Facebook", "Instagram", "LinkedIn", "YouTube"]);
 const dateFields = new Set(["published_date", "downloaded_date"]);
@@ -25,6 +28,9 @@ const exceptionRules = new Map([
   ["collection_asset_without_single_source", ["source_url", "published_date", "source_capture"]],
   ["portfolio_original_without_public_source", ["source_url", "source_channel", "published_date", "downloaded_date", "source_capture"]],
   ["client_work_portfolio_rights", ["source_url", "source_channel", "published_date", "source_capture"]],
+  ["portfolio_photograph_without_retained_public_source", ["source_url", "source_channel", "published_date", "source_capture"]],
+  ["first_party_profile_asset_without_source", ["source_url", "source_channel", "published_date", "source_capture"]],
+  ["profile_image_capture_and_date_not_retained", ["published_date", "source_capture"]],
 ]);
 
 function assertObject(value, label) {
@@ -111,7 +117,7 @@ const exceptionsByAsset = new Map();
 for (const [index, group] of exceptionConfig.exceptions.entries()) {
   const label = `Exception group ${index + 1}`;
   assertObject(group, label);
-  assertExactKeys(group, ["reason", "missing_fields", "note", "public_note", "assets"], label);
+  assertExactKeys(group, ["reason", "missing_fields", "note", "public_note", "assets", "asset_prefixes"], label);
   const allowedMissing = exceptionRules.get(group.reason);
   if (!allowedMissing) throw new Error(`${label} has unsupported reason ${group.reason}.`);
   if (!isDeepStrictEqual(group.missing_fields, allowedMissing)) {
@@ -121,8 +127,19 @@ for (const [index, group] of exceptionConfig.exceptions.entries()) {
   if (group.public_note !== undefined && (typeof group.public_note !== "string" || !group.public_note.trim())) {
     throw new Error(`${label} has an invalid public_note.`);
   }
-  if (!Array.isArray(group.assets) || group.assets.length === 0) throw new Error(`${label} requires at least one asset.`);
-  for (const asset of group.assets) {
+  if (group.assets !== undefined && !Array.isArray(group.assets)) throw new Error(`${label} assets must be an array.`);
+  if (group.asset_prefixes !== undefined && !Array.isArray(group.asset_prefixes)) throw new Error(`${label} asset_prefixes must be an array.`);
+  if (!(group.assets?.length || group.asset_prefixes?.length)) throw new Error(`${label} requires an asset or asset prefix.`);
+  const configuredAssets = new Set(group.assets || []);
+  for (const prefix of group.asset_prefixes || []) {
+    if (typeof prefix !== "string" || !prefix.startsWith("assets/images/") || !prefix.endsWith("/")) {
+      throw new Error(`${label} has an invalid asset prefix ${prefix}.`);
+    }
+    const matches = Object.keys(provenance.assets || {}).filter((asset) => asset.startsWith(prefix));
+    if (!matches.length) throw new Error(`${label} prefix ${prefix} does not match a provenance asset.`);
+    for (const asset of matches) configuredAssets.add(asset);
+  }
+  for (const asset of configuredAssets) {
     if (exceptionsByAsset.has(asset)) throw new Error(`${asset} has more than one accepted exception.`);
     exceptionsByAsset.set(asset, {
       reason: group.reason,
@@ -234,6 +251,17 @@ for (const [asset, data] of Object.entries(provenanceAssets)) {
         throw new Error(`${asset} cannot use the NEG-ECP client-work exception.`);
       }
     }
+    if (configuredException.reason === "portfolio_photograph_without_retained_public_source" && !data.archive_note) {
+      throw new Error(`${asset} requires an archive note for its retained portfolio provenance.`);
+    }
+    if (configuredException.reason === "first_party_profile_asset_without_source") {
+      if (asset !== "assets/images/about/oliver-ames-profile.webp" || !data.archive_note) {
+        throw new Error(`${asset} cannot use the first-party profile exception.`);
+      }
+    }
+    if (configuredException.reason === "profile_image_capture_and_date_not_retained" && !asset.startsWith("assets/images/testimonials/")) {
+      throw new Error(`${asset} cannot use the testimonial profile-image exception.`);
+    }
     acceptedCounts.set(configuredException.reason, acceptedCounts.get(configuredException.reason) + 1);
     incompleteByAsset.set(asset, { missingFields, embeddedException });
   }
@@ -269,6 +297,56 @@ for (const image of blueCrossPortraits.images) {
   if (image.source && !/^https:\/\//.test(image.source)) throw new Error(`Public Blue Cross portrait exposes a non-public source path: ${asset}.`);
 }
 
+const normalizeAsset = (value) => value.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
+const expectedPortraitAndCandidAssets = new Set();
+const expectAsset = (value) => expectedPortraitAndCandidAssets.add(normalizeAsset(value));
+for (const series of photography.series || []) for (const image of series.images || []) expectAsset(image.src);
+for (const image of portraits.series?.find((series) => series.slug === "eastrise-leadership-board")?.images || []) expectAsset(image.src);
+for (const slug of [
+  "neg-ecp-conference-2026",
+  "giron-family-fall-2025",
+  "giron-family-christmas-tree-farm-2024",
+  "giron-family-fall-2023",
+  "vermont-foodbank-volunteer-day-2026",
+]) {
+  const campaign = eventGalleries.campaigns?.find((candidate) => candidate.slug === slug);
+  if (!campaign?.images?.length) throw new Error(`Portrait/candid coverage lacks event gallery ${slug}.`);
+  for (const image of campaign.images) expectAsset(image.src);
+}
+for (const directory of ["assets/images/work/gmcf/sweat-heart", "assets/images/work/gmcf/bike-fitting"]) {
+  for (const name of await readdir(path.join(root, directory))) if (name.endsWith(".webp")) expectAsset(`${directory}/${name}`);
+}
+for (const asset of [
+  "assets/images/work/gmcf/sweat-heart-card.webp",
+  "assets/images/work/gmcf/bike-fitting-card.webp",
+  "assets/images/work/gmcf/gmcf-card.webp",
+  "assets/images/about/oliver-ames-profile.webp",
+  "assets/images/work/portraits/amy-vaughan.webp",
+  "assets/images/work/eastrise/uvm-soccer.webp",
+  "assets/images/work/eastrise/point-to-point.webp",
+  "assets/images/work/eastrise/wheels-for-warmth-card.webp",
+  "assets/images/work/campaigns/member-stories.webp",
+  "assets/images/work/campaigns/will-barbecue.webp",
+  "assets/images/work/campaigns/flight-paths.webp",
+]) expectAsset(asset);
+for (const name of await readdir(path.join(root, "assets/images/testimonials"))) {
+  if (name.endsWith(".webp")) expectAsset(`assets/images/testimonials/${name}`);
+}
+for (const post of writingFeed.posts || []) {
+  for (const media of post.media || []) if (media.type === "image") expectAsset(media.src);
+  for (const media of post.sharedPost?.media || []) if (media.type === "image") expectAsset(media.src);
+  if (post.image || post.localImage) {
+    const filename = `${createHash("sha256").update(post.assetId || post.id).digest("hex").slice(0, 12)}.webp`;
+    expectAsset(`assets/images/writing/${filename}`);
+  }
+}
+for (const asset of expectedPortraitAndCandidAssets) {
+  if (!provenanceAssets[asset]) throw new Error(`Public portrait or candid lacks provenance: ${asset}.`);
+  await access(path.join(root, asset)).catch(() => {
+    throw new Error(`Portrait/candid provenance references a missing asset: ${asset}.`);
+  });
+}
+
 assertObject(missingReport, "media-provenance-missing.json");
 assertExactKeys(missingReport, ["generated_at", "missing"], "media-provenance-missing.json");
 if (missingReport.generated_at !== provenance.generated_at) throw new Error("Generated provenance files have different generated_at dates.");
@@ -290,3 +368,4 @@ for (const asset of incompleteByAsset.keys()) {
 const accepted = incompleteByAsset.size;
 const breakdown = [...acceptedCounts].filter(([, count]) => count).map(([reason, count]) => `${reason}=${count}`).join(", ");
 console.log(`Validated ${Object.keys(provenanceAssets).length} provenance records: ${complete} complete and ${accepted} accepted exceptions (${breakdown}).`);
+console.log(`Verified exact provenance coverage for ${expectedPortraitAndCandidAssets.size} public portrait, candid, and adjacent collection assets.`);

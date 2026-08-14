@@ -27,6 +27,7 @@
         "assets/images/work/portraits/gallery/eastrise/stephanie-meunier-642aefa190aa.webp",
         "assets/images/work/portraits/gallery/eastrise/julie-lineberger-1bce039db269.webp",
         "assets/images/work/portraits/gallery/eastrise/amy-vaughan-f56acbe945f7.webp",
+        "assets/images/work/portraits/amy-vaughan.webp",
         "assets/images/work/portraits/gallery/eastrise/michael-hogan-b682c74b872f.webp",
         "assets/images/work/portraits/gallery/eastrise/george-sales-40429a12c861.webp",
         "assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
@@ -85,6 +86,9 @@
       "note": "The public source URL and publication date are verified, but no repository source capture is available.",
       "assets": [
         "assets/images/work/campaigns/will-barbecue.webp"
+      ],
+      "asset_prefixes": [
+        "assets/images/writing/"
       ]
     },
     {
@@ -161,6 +165,51 @@
         "assets/images/work/events/neg-ecp-conference-2026/dsc06709.webp",
         "assets/images/work/events/neg-ecp-conference-2026/dsc06717.webp",
         "assets/images/work/events/neg-ecp-conference-2026/dsc06748.webp"
+      ]
+    },
+    {
+      "reason": "portfolio_photograph_without_retained_public_source",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "note": "The repository project page and native asset collection identify Oliver Ames as the photographer, but no public source page or source capture is retained.",
+      "assets": [
+        "assets/images/work/eastrise/uvm-soccer.webp",
+        "assets/images/work/eastrise/point-to-point.webp"
+      ],
+      "asset_prefixes": [
+        "assets/images/work/events/giron-family-fall-2025/",
+        "assets/images/work/events/giron-family-christmas-tree-farm-2024/",
+        "assets/images/work/events/giron-family-fall-2023/",
+        "assets/images/work/events/vermont-foodbank-volunteer-day-2026/",
+        "assets/images/work/gmcf/"
+      ]
+    },
+    {
+      "reason": "first_party_profile_asset_without_source",
+      "missing_fields": [
+        "source_url",
+        "source_channel",
+        "published_date",
+        "source_capture"
+      ],
+      "note": "The site uses this first-party profile portrait, but the repository does not retain its original photographer, source file, publication date, or source capture.",
+      "assets": [
+        "assets/images/about/oliver-ames-profile.webp"
+      ]
+    },
+    {
+      "reason": "profile_image_capture_and_date_not_retained",
+      "missing_fields": [
+        "published_date",
+        "source_capture"
+      ],
+      "note": "The public LinkedIn profile identifies the person, but the portrait publication date, original photographer, and retained source capture are unavailable.",
+      "asset_prefixes": [
+        "assets/images/testimonials/"
       ]
     }
   ]

@@ -1039,6 +1039,7 @@ test("recommendations are distributed across relevant pages", async ({
 test("testimonials archive contains public recommendations only", async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/testimonials/");
   await expect(page.locator(".recommendation-entry")).toHaveCount(13);
   await expect(page.locator(".review-entry")).toHaveCount(0);

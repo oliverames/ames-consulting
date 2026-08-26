@@ -3,6 +3,7 @@ import { execFile } from "node:child_process";
 import path from "node:path";
 import { promisify } from "node:util";
 import { SERVICES } from "./site-taxonomy.mjs";
+import { hasRobotsDirective } from "./html-metadata.mjs";
 
 const exec = promisify(execFile);
 
@@ -49,7 +50,7 @@ async function getKnownRoutes(siteUrl, outDir) {
       else if (entry.name === "index.html") {
         // Pages marked noindex must not be advertised to crawlers.
         const html = await readFile(fullPath, "utf8");
-        if (/<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i.test(html)) continue;
+        if (hasRobotsDirective(html)) continue;
         const relativePath = path.relative(outDir, fullPath).split(path.sep).join("/").replace(/index\.html$/, "");
         routes.push({
           url: `${siteUrl}/${relativePath}`,

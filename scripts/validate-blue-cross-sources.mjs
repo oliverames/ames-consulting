@@ -10,6 +10,7 @@ import {
   isAllowedPublicImagePath,
   isWithheldPublicPath,
 } from "./publication-policy.mjs";
+import { hasRobotsDirective } from "./html-metadata.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const portfolioRoot = process.env.AMES_BLUE_CROSS_PORTFOLIO_ROOT
@@ -27,14 +28,13 @@ const expectedProjects = new Map([
   ["girls-on-the-run-2026", "2026-05-30 – GOTR"],
 ]);
 
-const noindexPattern = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i;
 for (const [slug] of expectedProjects) {
   const route = `work/${slug}/index.html`;
   const html = await readFile(path.join(root, route), "utf8");
   if (!isWithheldPublicPath(route) || isAllowedPublicHtmlPath(route)) {
     throw new Error(`${slug} must remain withheld from the public route manifest.`);
   }
-  if (!noindexPattern.test(html)) {
+  if (!hasRobotsDirective(html)) {
     throw new Error(`${slug} must remain in the source tree with a noindex directive.`);
   }
 }

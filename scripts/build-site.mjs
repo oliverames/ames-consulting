@@ -20,11 +20,11 @@ import {
   CLOUDFLARE_FUNCTION_EXCLUDES,
   CLOUDFLARE_FUNCTION_ROUTES,
 } from "./publication-denylist.mjs";
+import { hasRobotsDirective } from "./html-metadata.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, "..");
 const outputDir = join(projectRoot, "_site");
-const noindexPattern = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i;
 
 async function pathExists(filePath) {
   return stat(filePath).then(() => true, () => false);
@@ -48,7 +48,7 @@ async function auditSourceRoutes() {
       if (basename(filePath) !== "index.html") continue;
       const relativePath = normalizePublicPath(relative(projectRoot, filePath));
       const html = await readFile(filePath, "utf8");
-      if (isRetiredPublicPath(relativePath) || noindexPattern.test(html)) {
+      if (isRetiredPublicPath(relativePath) || hasRobotsDirective(html)) {
         excludedRoutes += 1;
         continue;
       }
@@ -116,7 +116,7 @@ await mkdir(outputDir, { recursive: true });
 const skippedRoutes = await auditSourceRoutes();
 for (const relativePath of PUBLIC_HTML_FILES) {
   const source = join(projectRoot, relativePath);
-  if (relativePath !== "404.html" && noindexPattern.test(await readFile(source, "utf8"))) {
+  if (relativePath !== "404.html" && hasRobotsDirective(await readFile(source, "utf8"))) {
     throw new Error(`Allowlisted public route is marked noindex: ${relativePath}`);
   }
   await copyAllowlistedFile(relativePath);

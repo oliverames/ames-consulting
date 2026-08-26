@@ -11,8 +11,9 @@ import {
   siInstagram,
 } from "simple-icons";
 import { applyYoutubeFacades } from "./youtube-facade.mjs";
+import { projectRootFromScriptUrl } from "./script-paths.mjs";
 
-const root = new URL("../", import.meta.url).pathname;
+const root = projectRootFromScriptUrl(import.meta.url);
 const provenance = JSON.parse(await readFile(join(root, "assets/data/media-provenance.json"), "utf8"));
 const linkedin = {
   title: "LinkedIn",

@@ -1,12 +1,21 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { onRequestPost } from "../functions/api/contact.js";
+import { onRequest, onRequestPost } from "../functions/api/contact.js";
+import { SECURITY_HEADERS } from "../scripts/security-headers.mjs";
 
 const env = {
   CONTACT_EMAIL: "oliver@example.com",
   RESEND_API_KEY: "test-resend-key",
   TURNSTILE_SECRET_KEY: "test-turnstile-key",
 };
+
+function assertSharedResponseHeaders(response) {
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+    assert.equal(response.headers.get(name), value, name);
+  }
+  assert.equal(response.headers.get("cache-control"), "no-store");
+  assert.equal(response.headers.get("content-type"), "application/json; charset=utf-8");
+}
 
 function contactRequest({
   origin = "https://ames.consulting",
@@ -45,6 +54,20 @@ test("contact function rejects cross-origin submissions before external calls", 
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("contact function applies shared security headers and describes allowed methods", async () => {
+  const methodNotAllowed = onRequest();
+  assert.equal(methodNotAllowed.status, 405);
+  assert.equal(methodNotAllowed.headers.get("allow"), "POST");
+  assertSharedResponseHeaders(methodNotAllowed);
+
+  const rejected = await onRequestPost({
+    request: contactRequest({ origin: "https://example.com" }),
+    env,
+  });
+  assert.equal(rejected.status, 403);
+  assertSharedResponseHeaders(rejected);
 });
 
 test("contact function rejects oversized submissions and implausible timestamps", async () => {
@@ -150,6 +173,7 @@ test("contact function verifies Turnstile before sending a valid message", async
   try {
     const response = await onRequestPost({ request: contactRequest(), env });
     assert.equal(response.status, 200);
+    assertSharedResponseHeaders(response);
     assert.deepEqual(await response.json(), { ok: true });
     assert.deepEqual(calls, [
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",

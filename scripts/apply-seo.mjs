@@ -4,6 +4,7 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative, sep } from "node:path";
 import { workProjectTitleForRoute } from "./site-taxonomy.mjs";
 import { imageDimensions } from "./image-dimensions.mjs";
+import { hasRobotsDirective, removeMetaByName } from "./html-metadata.mjs";
 
 const root = join(import.meta.dirname, "..");
 const siteUrl = "https://ames.consulting";
@@ -256,9 +257,9 @@ for (const file of await htmlFiles(root)) {
   // coexist with conflicting values.
   // Preserve any deliberate noindex directive. Give all other pages the
   // standard search directives.
-  const keepNoindex = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"[^>]*>/i.test(head);
-  head = head.replace(/<meta\s[^>]*name="description"[^>]*>/gi, "");
-  head = head.replace(/<meta\s[^>]*name="robots"[^>]*>/gi, "");
+  const keepNoindex = hasRobotsDirective(head);
+  head = removeMetaByName(head, "description");
+  head = removeMetaByName(head, "robots");
   head = head.replace(/<link\s[^>]*rel="canonical"[^>]*>/gi, "");
   head += `<meta name="description" content="${attr(metadata.description)}">`;
   head += keepNoindex

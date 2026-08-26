@@ -9,8 +9,9 @@
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join, relative, sep } from "node:path";
 import { imageDimensions } from "./image-dimensions.mjs";
+import { projectRootFromScriptUrl } from "./script-paths.mjs";
 
-const root = new URL("../", import.meta.url).pathname;
+const root = projectRootFromScriptUrl(import.meta.url);
 
 // Keep in sync with apply-shared-ui.mjs, apply-seo.mjs, and
 // validate-structured-data.mjs.

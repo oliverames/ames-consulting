@@ -1,12 +1,13 @@
 // Single source of truth for the sitewide security headers.
 //
-// Three surfaces must serve an identical policy:
+// Four surfaces must serve an identical policy:
 //   1. `_headers` — applied by Cloudflare Pages to every static response.
 //      Pages reads the literal file, so it cannot import this module;
 //      `validate-security-headers.mjs` (check:security-headers) fails the
 //      build when the file drifts from these values.
 //   2. `functions/_middleware.js` — tombstone 404 responses import this map.
-//   3. The deploy workflow's live-header verification greps for substrings of
+//   3. `functions/api/contact.js` — JSON responses import this map.
+//   4. The deploy workflow's live-header verification greps for substrings of
 //      these values.
 //
 // Header names are lowercase so the middleware can spread the map directly

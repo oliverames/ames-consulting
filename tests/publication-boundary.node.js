@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { hasRobotsDirective, removeMetaByName } from "../scripts/html-metadata.mjs";
 import {
   PUBLIC_HTML_FILES,
   PUBLIC_IMAGE_PREFIXES,
@@ -24,7 +25,6 @@ import {
 } from "../scripts/publication-policy.mjs";
 
 const root = process.cwd();
-const noindexPattern = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i;
 
 async function listFiles(directory) {
   const files = [];
@@ -95,7 +95,7 @@ test("withheld Blue Cross galleries remain in source but outside the public arti
     assert.equal(isAllowedPublicHtmlPath(`${prefix}index.html`), false);
     assert.equal(PUBLIC_HTML_FILES.includes(`${prefix}index.html`), false);
     const html = await readFile(path.join(root, prefix, "index.html"), "utf8");
-    assert.match(html, noindexPattern, prefix);
+    assert.equal(hasRobotsDirective(html), true, prefix);
   }
   for (const prefix of WITHHELD_ASSET_PREFIXES) {
     assert.equal(isAllowedPublicImagePath(prefix.endsWith(".webp") ? prefix : `${prefix}image.webp`), false);
@@ -220,12 +220,47 @@ test("source routes match the explicit public HTML manifest", async () => {
       if (path.basename(filePath) !== "index.html") continue;
       const relativePath = normalizePublicPath(path.relative(root, filePath));
       const html = await readFile(filePath, "utf8");
-      if (!isRetiredPublicPath(relativePath) && !noindexPattern.test(html)) discovered.add(relativePath);
+      if (!isRetiredPublicPath(relativePath) && !hasRobotsDirective(html)) discovered.add(relativePath);
     }
   }
 
   const expected = PUBLIC_HTML_FILES.filter((filePath) => filePath !== "404.html");
   assert.deepEqual([...discovered].sort(), [...expected].sort());
+});
+
+test("robots metadata is parsed by meaning rather than attribute formatting", () => {
+  for (const markup of [
+    '<meta content="index, noindex" name="robots">',
+    "<meta content='NOINDEX,follow' data-note='a > b' name='ROBOTS'>",
+    '<META NAME = "robots" CONTENT = "none">',
+    '<meta name="robots" content="no&#105;ndex&comma;follow">',
+  ]) {
+    assert.equal(hasRobotsDirective(markup), true, markup);
+  }
+
+  assert.equal(
+    hasRobotsDirective('<meta name="robots" content="index,follow">'),
+    false,
+  );
+  assert.equal(
+    hasRobotsDirective('<meta name="robots" content="not-noindex">'),
+    false,
+  );
+  assert.equal(
+    removeMetaByName(
+      '<meta name="viewport" content="width=device-width"><meta content="noindex" name="robots"><meta name=robots content=index>',
+      "robots",
+    ),
+    '<meta name="viewport" content="width=device-width">',
+  );
+
+  const inertMetadata = '<!-- <meta name="robots" content="noindex"> --><script type="application/ld+json">{"tag":"<meta name=robots content=noindex>"}</script><template><meta name="robots" content="noindex"></template><meta name="robots" content="index,follow">';
+  assert.equal(hasRobotsDirective(inertMetadata), false);
+  const activeRemoved = removeMetaByName(inertMetadata, "robots");
+  assert.match(activeRemoved, /<!-- <meta name="robots" content="noindex"> -->/);
+  assert.match(activeRemoved, /<script[^>]*>\{"tag":"<meta name=robots content=noindex>"\}<\/script>/);
+  assert.match(activeRemoved, /<template><meta name="robots" content="noindex"><\/template>/);
+  assert.doesNotMatch(activeRemoved, /<\/template><meta name="robots"/);
 });
 
 test("runtime source trees match the explicit runtime manifest", async () => {

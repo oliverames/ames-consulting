@@ -1,9 +1,12 @@
-const json = (body, status = 200) => new Response(JSON.stringify(body), {
+import { SECURITY_HEADERS } from "../../scripts/security-headers.mjs";
+
+const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), {
   status,
   headers: {
+    ...SECURITY_HEADERS,
     "content-type": "application/json; charset=utf-8",
     "cache-control": "no-store",
-    "x-content-type-options": "nosniff"
+    ...headers,
   }
 });
 
@@ -183,5 +186,5 @@ export async function onRequestPost({ request, env }) {
 }
 
 export function onRequest() {
-  return json({ error: "Method not allowed" }, 405);
+  return json({ error: "Method not allowed" }, 405, { allow: "POST" });
 }

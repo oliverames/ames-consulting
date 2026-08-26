@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import test from "node:test";
 import { PUBLIC_HTML_FILES } from "../scripts/publication-policy.mjs";
+import { projectRootFromScriptUrl } from "../scripts/script-paths.mjs";
 import { SERVICES, WORK_PROJECT_TITLES } from "../scripts/site-taxonomy.mjs";
+import { parseWritingFeedRefreshedAt } from "../scripts/writing-feed-validation.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const read = (file) => readFile(path.join(root, file), "utf8");
@@ -20,6 +23,46 @@ const socialProfiles = [
   "https://www.threads.com/@oliverames",
   "https://www.instagram.com/oliverames/",
 ];
+
+test("build script roots preserve spaces in checkout paths", async () => {
+  const checkoutRoot = path.join(root, "fixture checkout with spaces");
+  const scriptUrl = pathToFileURL(path.join(checkoutRoot, "scripts", "probe.mjs"));
+  assert.equal(path.resolve(projectRootFromScriptUrl(scriptUrl)), checkoutRoot);
+
+  for (const filename of [
+    "scripts/apply-shared-ui.mjs",
+    "scripts/apply-image-dimensions.mjs",
+  ]) {
+    assert.match(
+      await read(filename),
+      /projectRootFromScriptUrl\(import\.meta\.url\)/,
+      `${filename} must use the decoded project-root helper`,
+    );
+  }
+});
+
+test("writing feed refresh timestamps fail closed", () => {
+  assert.equal(
+    parseWritingFeedRefreshedAt({ refreshedAt: "2026-08-26T12:00:00-04:00" }).toISOString(),
+    "2026-08-26T16:00:00.000Z",
+  );
+  assert.throws(
+    () => parseWritingFeedRefreshedAt({ refreshedAt: "not-a-date" }),
+    /valid ISO 8601 timestamp with an explicit timezone/,
+  );
+  assert.throws(
+    () => parseWritingFeedRefreshedAt({}),
+    /valid ISO 8601 timestamp with an explicit timezone/,
+  );
+  assert.throws(
+    () => parseWritingFeedRefreshedAt({ refreshedAt: "2026-08-26T12:00:00" }),
+    /valid ISO 8601 timestamp with an explicit timezone/,
+  );
+  assert.throws(
+    () => parseWritingFeedRefreshedAt({ refreshedAt: "2026-02-30T00:00:00Z" }),
+    /valid ISO 8601 timestamp with an explicit timezone/,
+  );
+});
 
 function expectedCurrent(file) {
   if (file === "index.html") return ["Home", "page"];

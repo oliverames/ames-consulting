@@ -17,12 +17,12 @@ import {
   CLOUDFLARE_FUNCTION_EXCLUDES,
   CLOUDFLARE_FUNCTION_ROUTES,
 } from "./publication-denylist.mjs";
+import { hasRobotsDirective } from "./html-metadata.mjs";
 import { SERVICES } from "./site-taxonomy.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const siteRoot = path.join(root, "_site");
 const allowedDataFiles = new Set(["site.config.json"]);
-const noindexPattern = /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i;
 const responsiveWidthThreshold = 768;
 const retiredResponsiveSizes = "(max-width: 960px) 100vw, 960px";
 
@@ -93,7 +93,7 @@ let responsiveImages = 0;
 for (const htmlPath of htmlFiles) {
   const html = await readFile(htmlPath, "utf8");
   const relativePath = path.relative(siteRoot, htmlPath);
-  if (relativePath !== "404.html" && noindexPattern.test(html)) {
+  if (relativePath !== "404.html" && hasRobotsDirective(html)) {
     throw new Error(`Noindex route was published: ${relativePath}`);
   }
   if (/\/Users\/|captured_from|assets\.ames\.consulting/i.test(html)) {

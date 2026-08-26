@@ -30,6 +30,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
 
+## 2026-08-25 - Adversarial repo review and deferred-item pass
+
+**What changed**: A six-dimension finder sweep with independent skeptic verification fixed 20+ confirmed issues: silent generator corruption paths (refine-work ordering, contact-form CSP postconditions, writing-feed validation), wall-clock build irreproducibility (LinkedIn window now anchors on `refreshedAt`), prototype-chain and stale-label bugs in the organization filter, SEO entity mismatches (`Service.name`, Threads in `sameAs`, archive breadcrumb), a LAN-exposing test server, an over-broad Axe exclusion, duplicated contact-function coverage, and 6.1 MB of orphaned media plus the unused `xml2js`. Social cards gained measured `og:image` dimensions and alt text via a shared image-measurement module, every page gained light/dark `theme-color` metas, and each organization hub page gained at least one inbound contextual link. CI now promotes the exact `_site` bytes the artifact suite tested to deployment and verifies three site origins in parallel plus asset origins separately. The header-scroll behavior finally has a real desktop test, and `npm run check:ship` chains the whole pre-ship gate. Full findings, refutations, and dispositions live in `docs/audits/2026-08-25-adversarial-repo-review.md`.
+
+**Decisions made**: Rate limiting stays success-only by design (it caps Resend sends without dead-ending humans; docs now say so). Cross-Origin-Resource-Policy stays omitted because micro.blog may hotlink site imagery. Root `sitemap.xml`/`robots.txt` were deleted rather than synced because nothing consumed them. The three titles longer than ~60 characters stay as written under Google's device-based truncation guidance; all 56 meta descriptions already measure at most 157 characters. Deploy keeps `cancel-in-progress`.
+
+**Left off at**: Commits `9029581..0beca36` pushed. `npm run check:ship` passes end to end: source checks green, double-build idempotent, artifact valid, 158 deploy-artifact browser tests passing.
+
+**Open questions**: ames.consulting remains `pending` on hstspreload.org as of 2026-08-25 (checked via the status API). Watch for the flip to preloaded. The macOS Playwright browser cache can be evicted under disk pressure; if tests fail with missing executables, run `npx playwright install chromium`.
+
+---
+
 ## 2026-08-13 - Sitewide consistency pass
 
 **What changed**: Standardized the site's content width, vertical rhythm, project typography, card surfaces, button treatments, footer targets, dialog controls, and contact-form errors. Added the Services index, one shared three-service taxonomy, canonical project titles, consistent navigation state, visible Work return links, gallery-order notes, and a permanent redirect from the duplicate portrait route. Commit `f57a6b5`.

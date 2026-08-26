@@ -58,14 +58,16 @@ An environment incident mid-pass: macOS evicted `~/Library/Caches/ms-playwright`
 - Turnstile lazy-load race: script loads on first focus, form requires three fields before submit; gap is negligible and self-healing.
 - Scrolled-header test "fix": at the tested 390px viewport the header background is unconditional, so the proposed change fixed nothing.
 
-## Flagged for Oliver (judgment calls)
+## Flagged for Oliver (judgment calls) — dispositions from the follow-up pass
 
-1. **Orphaned hub pages**: `work/beta-technologies/`, `work/community-photography/`, `work/green-mountain-community-fitness/` have zero inbound links. Omission looks like deliberate curation pinned by tests. Cheapest remedy if wanted: footer Work-by-organization links to the hubs.
-2. **Deploy artifact promotion**: `deploy-pages.yml` rebuilds rather than promoting the bytes e2e tested. Bounded today by idempotence proof at the same SHA.
-3. **Serial live-deploy verification** under `cancel-in-progress`: rapid merges can leave a deploy unverified. Any change rewrites release semantics.
-4. **Local habit gap**: `check:all && test:e2e` never runs the artifact-gated assertions; CI does. Consider folding `test:site` into pre-push routine.
-5. **Cross-Origin-Resource-Policy** omitted deliberately: if micro.blog hotlinks site imagery, `same-origin` would block it.
-6. Three titles exceed ~60 display characters; Google sets no fixed limit and truncates by device, so left as written.
+1. ~~Orphaned hub pages~~ **Resolved** (`e13dd66`): Flight Paths, both GMCF shoots, and the Giron family page now close with contextual links to their hub pages; index curation untouched.
+2. ~~Deploy artifact promotion~~ **Resolved** (`1eaba95`): ci-quality uploads `_site`, deploy downloads and revalidates those bytes.
+3. ~~Serial live verification~~ **Resolved** (`1eaba95`): three-origin matrix plus dedicated asset job, `cancel-in-progress` kept per the original recommendation.
+4. ~~Local habit gap~~ **Resolved** (`0beca36`): `npm run check:ship` runs build + artifact checks + idempotence + artifact tests in one command; documented in all three agent-doc command tables.
+5. **CORP header**: intentionally omitted — micro.blog may hotlink site imagery and `same-origin` would block it. No change.
+6. ~~Titles over ~60 chars~~ **Closed with evidence**: Google sets no fixed length and truncates by device (title-link doc, updated 2025-12-10); rewriting branded titles risks more than truncation costs. Separately, a sitewide measurement found every meta description already ≤ 157 characters, so the excerpt ceiling needed no change.
+
+Also closed during follow-up: the scrolled-header test rewrite (real desktop scroll assertions replace the position-coupled mobile check), and the HSTS preload watch item was re-checked on 2026-08-25 via the hstspreload.org status API: still `pending`.
 
 ## Improvement shipped (`57d1ebd`)
 

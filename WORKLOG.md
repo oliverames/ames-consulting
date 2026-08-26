@@ -32,11 +32,11 @@ Search directives such as `noindex` control indexing, not access.
 
 ## 2026-08-26 - Bug-fixing pass
 
-**What changed**: An adversarial review fixed 12 symptoms across nine implementation groups. Browser fixes cover anchored photography headings, empty filtered categories, and future-dated local timestamps. Generators now use correct singular labels and reject invalid writing-feed timestamps. Build scripts now parse robots metadata semantically and work in checkout paths with spaces. The contact Function now applies the shared security headers to every JSON response and declares `POST` on 405 responses. The complete review is in `docs/audits/2026-08-26-bug-fixing-pass.md`.
+**What changed**: An adversarial review fixed 13 symptoms across ten implementation groups. Browser fixes cover anchored photography headings, empty filtered categories, and future-dated local timestamps. Generators now use correct singular labels and reject invalid writing-feed timestamps. Build scripts now parse robots metadata semantically and work in checkout paths with spaces. The contact Function now applies the shared security headers to every JSON response and declares `POST` on 405 responses. A testimonial regression now disables motion before it compares the stable color endpoint, which removes an animation-frame race found on GitHub's runner. The complete review is in `docs/audits/2026-08-26-bug-fixing-pass.md`.
 
 **Decisions made**: The robots parser treats comments, raw-text content, and template content as inert. Writing-feed timestamps require an explicit time zone and a valid calendar date. `package.json` and the deployment workflow remain unchanged because changes to future automation require approval.
 
-**Left off at**: Implementation commits `2a3c3fb` and `a9d9a20` are complete. `npm run check:all`, both full browser suites, artifact validation, and repeated-build idempotence pass. The source suite has 160 passes and one intentional skip. The deploy-artifact suite has 161 passes.
+**Left off at**: Implementation commits `2a3c3fb`, `a9d9a20`, and `4652bec` are complete. `npm run check:all`, both full browser suites, artifact validation, and repeated-build idempotence pass. The source suite has 160 passes and one intentional skip. The deploy-artifact suite has 161 passes. The stabilized testimonial regression passed 50 consecutive runs.
 
 **Open questions**: Decide whether to authorize a separate automation pass. It would make `check:ship` invoke all source checks, bind live verification to the deployed release, and add explicit `curl` timeouts.
 

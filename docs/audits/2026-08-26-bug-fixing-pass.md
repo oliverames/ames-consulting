@@ -2,12 +2,12 @@
 
 **Date:** 2026-08-26  
 **Base commit:** `c4ac410`  
-**Implementation commits:** `2a3c3fb`, `a9d9a20`  
+**Implementation commits:** `2a3c3fb`, `a9d9a20`, `4652bec`
 **Method:** three independent finder sweeps covered browser behavior, build and publication logic, and CI plus Function security. Independent skeptic passes then reproduced or refuted each candidate before any source change.
 
 ## Outcome
 
-The review confirmed nine implementation groups containing 12 distinct symptoms. All nine groups were fixed with regressions. Three additional release-automation defects were confirmed, but the repository requires Oliver's approval before automation changes. Those files remain untouched.
+The review confirmed ten implementation groups containing 13 distinct symptoms. All ten groups were fixed with regressions. Three additional release-automation defects were confirmed, but the repository requires Oliver's approval before automation changes. Those files remain untouched.
 
 ## Confirmed and fixed
 
@@ -34,6 +34,10 @@ The review confirmed nine implementation groups containing 12 distinct symptoms.
 - Contact Function responses did not receive the shared browser-security policy because Cloudflare Pages does not apply `_headers` to Function responses. The Function now imports the shared header map for every JSON response. See [Cloudflare's Pages header documentation](https://developers.cloudflare.com/pages/configuration/headers/).
 - The generic 405 response omitted `Allow: POST`. It now includes the field required by [RFC 9110, Section 15.5.6](https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.6).
 
+### Test reliability
+
+- The testimonials color regression read two live computed styles while the button transitioned from its hover state. A loaded CI runner could sample adjacent animation frames and compare unequal intermediate colors, although the stable CSS values matched. The test now uses the site's reduced-motion path before it checks the stable endpoint.
+
 ## Confirmed automation findings awaiting approval
 
 No changes were made to `package.json` or `.github/workflows/deploy-pages.yml`.
@@ -59,6 +63,7 @@ No changes were made to `package.json` or `.github/workflows/deploy-pages.yml`.
 |---|---|
 | Focused Node regressions | pass, 32 tests |
 | Focused browser regressions | pass, 5 tests |
+| Testimonials regression repetition | pass, 50 consecutive runs |
 | `npm run build:site` | pass, 50 HTML files and 936 referenced images |
 | `npm run check:built-site` | pass, 50 HTML files and 1,203 responsive image uses |
 | `npm run check:all` | pass |

@@ -55,7 +55,7 @@ All twelve modules are live; nothing else ships:
 - **gallery-card-scrub.js** — Pointer-scrub through gallery frames on work cards.
 - **image-viewer.js** — Shared image lightbox: auto-injects its `<dialog>`, decorates content `<img>`s, wires click/keyboard/asset-protection handlers. Idempotent named helpers.
 - **content-protection.js** — Prevents accidental browser-native image dragging without blocking text selection or context menus.
-- **contact-form.js** — Contact form handling: lazy Turnstile loading on first interaction, rate limiting (3/10min), honeypot, minimum fill time, and Turnstile reset on both success and failure paths.
+- **contact-form.js** — Contact form handling: lazy Turnstile loading on first interaction, rate limiting (3 successful sends per 10 minutes), honeypot, minimum fill time, and Turnstile reset on both success and failure paths.
 - **site-config.js** — Loads `assets/data/site.config.json`, merges with defaults (used by contact-form).
 - **hero-headline.js** — Rotates the homepage H1 through five variants (sessionStorage-seeded).
 - **social-media-carousel.js** — Adds LinkedIn-style horizontal media controls, scroll position, and live image counts to writing cards.
@@ -75,7 +75,7 @@ Ground rules learned the hard way:
 - `build-site.mjs` generates `_routes.json`, which invokes Functions only for `/api/*` and denied publication paths. `functions/_middleware.js` returns uncached 404 responses for those denied paths, and Pages Functions fail closed in production and preview.
 - `optimize-site-images.mjs` runs inside `build-site.mjs` and adds responsive image variants plus `srcset` and `sizes` attributes to the deploy artifact.
 - Only routes and assets cleared for public release enter generator inputs. Private or permission-restricted media stays outside the repository.
-- **analyze-photo-folder.mjs** / **sync-eastrise-social-dimensions.mjs** / **sync-source-screenshots.mjs** — manual photo/data utilities, not part of `build:site`.
+- **analyze-photo-folder.mjs** / **sync-eastrise-social-dimensions.mjs** / **sync-source-screenshots.mjs** / **import-eastrise-social-photography.mjs** / **sync-event-gallery-capture-dates.mjs** — manual photo/data utilities, not part of `build:site`.
 
 **CI requirement:** Quality, performance, and deploy workflows install from the lockfile, build `_site/`, and validate the artifact before using it.
 
@@ -105,7 +105,7 @@ Playwright uses Chromium against a local Python server on port 4173. The default
 - **JS module paths**: Use `new URL("../data/file.json", import.meta.url)` for fetches/imports relative to the current script.
 - **Homepage section structure**: `path-row` (container) → `h2` (heading with link) → `path-strip` (horizontal scrollable) → `path-browse` (CTA link)
 - **Social links**: `rel="me noopener"` for IndieWeb identity verification
-- **JSON-LD**: Every page has structured data — no `SearchAction` (client-side search only)
+- **JSON-LD**: Every published page has structured data; `404.html` (noindexed, renders at arbitrary URLs) is the lone exception — no `SearchAction` (client-side search only)
 - **`aria-current`**: `"page"` for exact-match nav links, `"true"` for section-parent links; each `<nav>` needs unique `aria-label`
 - **External content**: Use `DOMParser` (not `innerHTML`) for untrusted HTML. Keep CSP headers updated for external image sources.
 - **2-space indentation**, LF line endings (see `.editorconfig`)

@@ -146,6 +146,15 @@ function ensureFontPreconnects(html) {
   );
 }
 
+// Generator templates escaped ampersands in the Google Fonts URL except a
+// handful of hand-refined pages; normalize so every page carries one form.
+function normalizeFontHrefAmpersands(html) {
+  return html.replace(
+    /(<link\b[^>]*href="https:\/\/fonts\.googleapis\.com\/css2[^"]*")/gi,
+    (link) => link.replace(/&family=/g, "&amp;family=").replace(/&display=/g, "&amp;display="),
+  );
+}
+
 function ensureFavicon(html, href) {
   const favicon = `<link rel="icon" href="${href}" type="image/svg+xml">`;
   if (/<link\s[^>]*rel="icon"/i.test(html)) {
@@ -174,7 +183,6 @@ function ensureHubSectionHeadings(html, file) {
   const page = relative(root, file).split(sep).join("/");
   const headings = new Map([
     ["work/eastrise/index.html", ["work-category legacy-campaigns", "EastRise campaigns and projects"]],
-    ["work/blue-cross-vermont/index.html", ["work-category legacy-campaigns", "Blue Cross Vermont series"]],
   ]);
   const setting = headings.get(page);
   if (!setting) return html;
@@ -334,6 +342,7 @@ for (const file of await collectHtml(root)) {
   let after = normalizeColophon(before);
   after = normalizeNavAndCompany(after, base, file);
   after = ensureFontPreconnects(after);
+  after = normalizeFontHrefAmpersands(after);
   after = ensureFavicon(after, `${faviconBase}assets/images/brand/oa-social-mark.svg`);
   after = ensureHubSectionHeadings(after, file);
   after = applyYoutubeFacades(after);

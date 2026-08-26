@@ -157,15 +157,15 @@ function metadataFor(route, html) {
 function breadcrumbs(route, title, displayTitle) {
   if (route === "/") return [];
   const parts = route.split("/").filter(Boolean);
-  const names = { work: "Work", services: "Services", blog: "Writing", about: "About", contact: "Contact", testimonials: "Testimonials" };
+  const names = { work: "Work", services: "Services", blog: "Writing", about: "About", contact: "Contact", testimonials: "Testimonials", archive: "Archive" };
   const items = [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }];
   const navigableParts = parts.map((part, index) => ({ part, index }));
   navigableParts.forEach(({ part, index: partIndex }, index) => {
     const path = `/${parts.slice(0, partIndex + 1).join("/")}/`;
     const isLast = partIndex === parts.length - 1;
-    const name = isLast
-      ? (parts.length === 1 && names[part]) || displayTitle || title.split(" | ")[0]
-      : names[part] || part;
+    const name = names[part] || (isLast
+      ? displayTitle || title.split(" | ")[0]
+      : part);
     items.push({ "@type": "ListItem", position: index + 2, name, item: `${siteUrl}${path}` });
   });
   return items;
@@ -181,7 +181,7 @@ function graphFor(route, metadata, image, html) {
     "@type": "Person", "@id": `${siteUrl}/#oliver-ames`, name: "Oliver Ames", url: `${siteUrl}/about/`, image: defaultImage,
     jobTitle: ["Commercial Photographer", "Content Strategist", "Software Developer"],
     address: { "@type": "PostalAddress", addressLocality: "Montpelier", addressRegion: "VT", addressCountry: "US" },
-    sameAs: ["https://github.com/oliverames", "https://www.linkedin.com/in/oliverames", "https://oliverames.micro.blog/", "https://mastodon.social/@oliverames", "https://bsky.app/profile/oliverames.bsky.social", "https://www.instagram.com/oliverames/"]
+    sameAs: ["https://github.com/oliverames", "https://www.linkedin.com/in/oliverames", "https://oliverames.micro.blog/", "https://mastodon.social/@oliverames", "https://bsky.app/profile/oliverames.bsky.social", "https://www.threads.com/@oliverames", "https://www.instagram.com/oliverames/"]
   };
   const organization = {
     "@type": "ProfessionalService", "@id": `${siteUrl}/#ames-consulting`, name: "Ames Consulting", url: `${siteUrl}/`, founder: { "@id": person["@id"] },
@@ -190,7 +190,7 @@ function graphFor(route, metadata, image, html) {
   };
   const pageType = isBlogPost(route) ? "BlogPosting" : ["/blog/archive/", "/services/"].includes(route) ? "CollectionPage" : route.startsWith("/work/") && route !== "/work/" ? "CreativeWork" : route.startsWith("/services/") ? "Service" : route === "/about/" ? "ProfilePage" : "WebPage";
   const page = {
-    "@type": pageType, "@id": `${canonical}#page`, url: canonical, name: pageType === "CreativeWork" ? metadata.displayTitle : metadata.title, description: metadata.description, image,
+    "@type": pageType, "@id": `${canonical}#page`, url: canonical, name: pageType === "CreativeWork" || pageType === "Service" ? metadata.displayTitle : metadata.title, description: metadata.description, image,
     inLanguage: "en-US", isPartOf: { "@id": `${siteUrl}/#website` }, author: { "@id": person["@id"] }
   };
   if (pageType === "Service") {

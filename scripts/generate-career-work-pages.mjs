@@ -119,7 +119,7 @@ function upsertWorkCard(html, heading, href, card) {
 }
 
 const pages = [
-  { slug: "vtdigger-membership", eyebrow: "Membership strategy · VTDigger · 2018–2019", title: "Donation conversion increased 137%.", intro: "VTDigger joined the Facebook Journalism Project Membership Accelerator with a practical goal: make it easier for readers to support independent Vermont journalism.", sections: [
+  { slug: "vtdigger-membership", eyebrow: "Membership strategy · VTDigger · 2018–2019", title: "Donation conversion increased 137%.", intro: "VTDigger joined the Facebook Journalism Project Membership Accelerator to make it easier for readers to support independent Vermont journalism.", sections: [
     ["What changed", "I worked across the membership funnel, including campaign messaging, analytics, email, and the donation experience. The team simplified the donation page layout and checkout process, then measured what visitors did instead of relying on instinct."],
     ["What happened", "The redesigned page increased the share of visitors who proceeded to donate by 137%. Personalized email work also produced a 21% lift in open rate, and segmented campaigns helped increase new email subscribers by 20% within four months."],
     ["Why it worked", "The revised page gave readers one decision and made the checkout easier to complete. We measured the whole path from the first message through the donation."],

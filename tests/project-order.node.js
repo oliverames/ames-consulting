@@ -20,7 +20,9 @@ function assertNewestFirst(hrefs, label) {
 }
 
 function galleryImageFiles(html, slug) {
-  const gallery = html.match(new RegExp(`<div class="campaign-collage"[^>]*data-gallery="${slug}"[^>]*>([\\s\\S]*?)<\\/div>`));
+  // Capture through the collage's closing section, not the first </div>, so
+  // a future nested wrapper cannot silently truncate the extraction.
+  const gallery = html.match(new RegExp(`<div class="campaign-collage"[^>]*data-gallery="${slug}"[^>]*>([\\s\\S]*?)(?=<\\/section>)`));
   assert.ok(gallery, `Missing ${slug} gallery`);
   return [...gallery[1].matchAll(/<img[^>]*src="[^"]*\/([^/"]+\.webp)"/g)].map((match) => match[1]);
 }

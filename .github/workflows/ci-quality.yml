@@ -32,6 +32,11 @@ jobs:
       - name: Run source quality checks
         run: npm run check:all
 
+      # Explicit build so the artifact checks below never depend on _site
+      # being left behind as a side effect of the idempotence verifier.
+      - name: Build deployable site
+        run: npm run build:site
+
       - name: Validate deployable site
         run: npm run check:built-site
 

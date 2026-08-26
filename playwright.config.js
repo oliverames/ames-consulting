@@ -21,7 +21,9 @@ export default defineConfig({
     }
   ],
   webServer: {
-    command: `/usr/bin/python3 -m http.server ${PORT}`,
+    // Loopback only: the source tree holds withheld media that must never be
+    // served to the LAN during a local test run.
+    command: `/usr/bin/python3 -m http.server ${PORT} --bind 127.0.0.1`,
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: false,
     timeout: 30_000

@@ -134,12 +134,14 @@ test("contact function stops reading an oversized streaming body", async () => {
 test("contact function verifies Turnstile before sending a valid message", async () => {
   const originalFetch = globalThis.fetch;
   const calls = [];
-  globalThis.fetch = async (url) => {
+  let outboundEmail;
+  globalThis.fetch = async (url, options) => {
     calls.push(String(url));
     if (String(url).includes("siteverify")) {
       return Response.json({ success: true, action: "contact", hostname: "ames.consulting" });
     }
     if (String(url) === "https://api.resend.com/emails") {
+      outboundEmail = JSON.parse(options.body);
       return Response.json({ id: "test-message" });
     }
     throw new Error(`Unexpected URL: ${url}`);
@@ -153,6 +155,30 @@ test("contact function verifies Turnstile before sending a valid message", async
       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       "https://api.resend.com/emails",
     ]);
+    assert.deepEqual(outboundEmail.to, ["oliver@example.com"]);
+    assert.equal(outboundEmail.reply_to, "visitor@example.com");
+    assert.ok(!outboundEmail.from.includes("visitor@example.com"), "Visitor address must not appear in the From header");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("contact function rejects a failed Turnstile check before sending email", async () => {
+  const originalFetch = globalThis.fetch;
+  let emailAttempted = false;
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("siteverify")) {
+      return Response.json({ success: false, "error-codes": ["invalid-input-response"] });
+    }
+    emailAttempted = true;
+    throw new Error("Resend should not be called when Turnstile verification fails");
+  };
+
+  try {
+    const response = await onRequestPost({ request: contactRequest(), env });
+    assert.equal(response.status, 403);
+    assert.equal((await response.json()).error, "Spam protection check failed");
+    assert.equal(emailAttempted, false);
   } finally {
     globalThis.fetch = originalFetch;
   }

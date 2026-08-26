@@ -12,8 +12,10 @@ for (const route of publicRoutes) {
   test(`no moderate, serious, or critical accessibility issues on ${route}`, async ({ page }) => {
     await page.goto(route);
 
+    // Skip the YouTube iframe subtree (audited separately via srcdoc below)
+    // but keep auditing the wrapper region itself.
     const results = await new AxeBuilder({ page })
-      .exclude(".video-embed")
+      .exclude('iframe[src*="youtube-nocookie.com"]')
       .analyze();
     const actionable = results.violations.filter(
       (violation) => ["moderate", "serious", "critical"].includes(violation.impact),

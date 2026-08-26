@@ -3,6 +3,7 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative, sep } from "node:path";
 import { workProjectTitleForRoute } from "./site-taxonomy.mjs";
+import { imageDimensions } from "./image-dimensions.mjs";
 
 const root = join(import.meta.dirname, "..");
 const siteUrl = "https://ames.consulting";
@@ -133,6 +134,25 @@ function imageFor(route, html) {
   try { return new URL(match[1], siteUrl).toString(); } catch { return defaultImage; }
 }
 
+// Social crawlers use intrinsic dimensions to render share cards without
+// re-fetching; alt text keeps the card accessible. The URL always maps back
+// into this repository, so an unmeasurable og:image fails the build loudly.
+async function socialImageMeta(route, image, altText) {
+  let assetPath;
+  try {
+    assetPath = join(root, decodeURIComponent(new URL(image).pathname).slice(1));
+  } catch {
+    throw new Error(`apply-seo: og:image ${image} on ${route} is not a same-site absolute URL.`);
+  }
+  try {
+    const dims = await imageDimensions(assetPath);
+    if (!dims) throw new Error("unsupported or unreadable image format");
+    return `<meta property="og:image:width" content="${dims.width}"><meta property="og:image:height" content="${dims.height}"><meta property="og:image:alt" content="${attr(altText)}">`;
+  } catch (error) {
+    throw new Error(`apply-seo: cannot measure og:image ${image} on ${route}: ${error.message}`);
+  }
+}
+
 function metadataFor(route, html) {
   const h1Match = html.match(/<h1([^>]*)>([\s\S]*?)<\/h1>/i);
   const h1 = text(h1Match?.[2] || "Oliver Ames");
@@ -227,6 +247,7 @@ for (const file of await htmlFiles(root)) {
   const metadata = metadataFor(route, html);
   const canonical = `${siteUrl}${route}`;
   const image = imageFor(route, html);
+  const socialImage = await socialImageMeta(route, image, metadata.displayTitle);
   let head = headMatch[1];
   head = replaceOrAdd(head, /<title>[\s\S]*?<\/title>/i, `<title>${attr(metadata.title)}</title>`);
   // Strip every existing description/robots/canonical — including
@@ -249,7 +270,7 @@ for (const file of await htmlFiles(root)) {
     head = head.replace(/(<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com"[^>]*>)/i, `$1${fontPreloads}`);
   }
   head = head.replace(/<meta\s[^>]*property="og:[^"]*"[^>]*>/gi, "").replace(/<meta\s[^>]*name="twitter:[^"]*"[^>]*>/gi, "").replace(/<script[^>]*type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/gi, "");
-  head += `<meta property="og:site_name" content="Oliver Ames"><meta property="og:locale" content="en_US"><meta property="og:type" content="${isBlogPost(route) ? "article" : "website"}"><meta property="og:title" content="${attr(metadata.title)}"><meta property="og:description" content="${attr(metadata.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${attr(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(metadata.title)}"><meta name="twitter:description" content="${attr(metadata.description)}"><meta name="twitter:image" content="${attr(image)}"><script type="application/ld+json">${json(graphFor(route, metadata, image, html))}</script>`;
+  head += `<meta property="og:site_name" content="Oliver Ames"><meta property="og:locale" content="en_US"><meta property="og:type" content="${isBlogPost(route) ? "article" : "website"}"><meta property="og:title" content="${attr(metadata.title)}"><meta property="og:description" content="${attr(metadata.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${attr(image)}">${socialImage}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(metadata.title)}"><meta name="twitter:description" content="${attr(metadata.description)}"><meta name="twitter:image" content="${attr(image)}"><script type="application/ld+json">${json(graphFor(route, metadata, image, html))}</script>`;
   html = html.replace(headMatch[0], `<head>${head}</head>`).replace(/[ \t]+$/gm, "");
   if (route === "/") {
     html = html.replace(/\s*<script(?: type="module")? src="\.\/assets\/js\/hero-headline\.js"><\/script>/g, "");

@@ -163,6 +163,16 @@ function ensureFavicon(html, href) {
   return html.replace("</head>", `${favicon}</head>`);
 }
 
+// Browser-chrome tint follows the page surface tokens in main.css:
+// warm paper in light mode, deep slate in dark mode. The site has no
+// manual theme toggle, so prefers-color-scheme is the only signal.
+function ensureThemeColor(html) {
+  const canonical = '<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ede8e0"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#232f2f">';
+  return html
+    .replace(/<meta\s[^>]*name="theme-color"[^>]*>/gi, "")
+    .replace("</head>", `${canonical}</head>`);
+}
+
 function addSocialHeading(html) {
   return html.replace(
     /(<div class="site-footer__colophon">[\s\S]*?)(<ul class="site-footer__social">)/g,
@@ -344,6 +354,7 @@ for (const file of await collectHtml(root)) {
   after = ensureFontPreconnects(after);
   after = normalizeFontHrefAmpersands(after);
   after = ensureFavicon(after, `${faviconBase}assets/images/brand/oa-social-mark.svg`);
+  after = ensureThemeColor(after);
   after = ensureHubSectionHeadings(after, file);
   after = applyYoutubeFacades(after);
   after = addProvenanceDisclosure(

@@ -62,9 +62,11 @@ function currentVariant() {
 
 function wasRecentlyDismissed() {
   const dismissedAt = Number(storageGet(DISMISSED_KEY));
+  const now = Date.now();
   return (
     Number.isFinite(dismissedAt) &&
-    Date.now() - dismissedAt < DISMISSAL_WINDOW_MS
+    dismissedAt <= now &&
+    now - dismissedAt < DISMISSAL_WINDOW_MS
   );
 }
 

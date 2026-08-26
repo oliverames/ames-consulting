@@ -255,7 +255,8 @@ for (const series of eastRisePhotography.series.filter((item) =>
   const image = series.images[0];
   const dateMatch = image.src.match(/\/(\d{4})-(\d{2})-(\d{2})_/);
   const published = dateMatch ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}T00:00:00Z`)) : "";
-  const card = `<a class="work-item" href="${href}"><img src="${image.src.replace("../../assets/", "../assets/")}" alt="${escapeHtml(image.alt)}" loading="lazy"><span class="work-item__context">EastRise${published ? ` · ${published}` : ""} · ${series.images.length} photographs</span><h3>${series.title}</h3><p>${series.description}</p></a>`;
+  const photographLabel = `${series.images.length} ${series.images.length === 1 ? "photograph" : "photographs"}`;
+  const card = `<a class="work-item" href="${href}"><img src="${image.src.replace("../../assets/", "../assets/")}" alt="${escapeHtml(image.alt)}" loading="lazy"><span class="work-item__context">EastRise${published ? ` · ${published}` : ""} · ${photographLabel}</span><h3>${series.title}</h3><p>${series.description}</p></a>`;
   workIndex = upsertWorkCard(workIndex, "Campaigns and series", href, card);
 }
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-social/", eastRiseSocialCard);

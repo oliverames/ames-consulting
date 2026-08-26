@@ -25,6 +25,9 @@ if (label) {
   for (const card of projectCards) {
     card.hidden = card.dataset.organization !== organization;
   }
+  for (const category of document.querySelectorAll(".work-category")) {
+    category.hidden = !category.querySelector(".work-item:not([hidden])");
+  }
   if (software) software.hidden = true;
   if (title) title.textContent = `${label} projects`;
   if (status) {

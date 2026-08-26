@@ -1126,6 +1126,10 @@
     margin: 0 0 var(--space-3);
   }
 
+  .photo-series > h2[id] {
+    scroll-margin-top: 7rem;
+  }
+
   .campaign-collage--screenshots {
     display: block;
     columns: 3 18rem;
@@ -3345,6 +3349,7 @@
     text-underline-offset: 0.15em;
   }
 
+  .work-category[hidden],
   .work-item[hidden],
   .software-work[hidden] {
     display: none !important;

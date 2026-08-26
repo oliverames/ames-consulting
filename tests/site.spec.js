@@ -211,6 +211,39 @@ test("contact form submits to the site endpoint", async ({ page }) => {
   );
 });
 
+test("contact form discards attempt timestamps from a future clock", async ({ page }) => {
+  await page.route("**/api/contact", async (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: '{"ok":true}',
+    }),
+  );
+  await page.route("https://challenges.cloudflare.com/turnstile/v0/api.js", async (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "window.turnstile = { reset() {} };",
+    }),
+  );
+  await page.goto("/contact/");
+  await page.evaluate(() => {
+    const future = Date.now() + 60 * 60 * 1000;
+    localStorage.setItem(
+      "ames_contact_attempt_timestamps",
+      JSON.stringify([future, future + 1, future + 2]),
+    );
+  });
+  await page.getByLabel("Name").fill("Clock Test");
+  await page.getByLabel("Email").fill("clock-test@example.com");
+  await page.getByLabel("Tell me about it").fill("Testing a corrected browser clock.");
+  await page.evaluate(() => {
+    document.querySelector("#contact-started-at").value = String(Date.now() - 4000);
+  });
+  await page.getByRole("button", { name: "Send message" }).click();
+  await expect(page.getByRole("status")).toHaveText("Thanks, your message was sent.");
+});
+
 test("contact page gives a direct alternative without JavaScript", async ({
   baseURL,
   browser,
@@ -339,6 +372,23 @@ test("engaged visitors get a restrained project prompt", async ({ page }) => {
   await expect.poll(() => page.locator("html").evaluate(
     (element) => getComputedStyle(element).overflowY,
   )).not.toBe("hidden");
+});
+
+test("a future dismissal timestamp does not suppress the inbound prompt", async ({ page }) => {
+  await page.clock.install();
+  await page.goto("/work/giron-family/");
+  await page.evaluate(() => {
+    localStorage.setItem(
+      "ames_inbound_prompt_dismissed_at",
+      String(Date.now() + 24 * 60 * 60 * 1000),
+    );
+  });
+  await page.reload();
+  await page.evaluate(() => scrollTo(0, document.body.scrollHeight * 0.5));
+  await page.clock.fastForward("00:00:31");
+  await expect(page.getByRole("dialog", {
+    name: "Do you need photographs of people at work?",
+  })).toBeVisible();
 });
 
 test("inbound project links preselect the contact form", async ({ page }) => {
@@ -1175,6 +1225,17 @@ test("EastRise photography is grouped into complete public-source galleries", as
   );
 });
 
+test("EastRise photography deep links clear the sticky header", async ({ page }) => {
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto("/work/eastrise-photography/#smokin-somethin-bbq-title");
+    await expect.poll(async () => page.locator("#smokin-somethin-bbq-title").evaluate((heading) => {
+      const header = document.querySelector(".site-header");
+      return heading.getBoundingClientRect().top - header.getBoundingClientRect().bottom;
+    })).toBeGreaterThanOrEqual(-1);
+  }
+});
+
 test("Writing uses social cards and opens long-form posts on-site", async ({
   page,
 }) => {
@@ -1189,6 +1250,8 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
       && post.platforms.includes("LinkedIn")
       && new Date(post.date) >= oneYearAgo,
   );
+  expect(Number.isFinite(Date.parse(writingFeed.refreshedAt))).toBe(true);
+  expect(expectedLinkedInPosts.length).toBeGreaterThan(0);
   const expectedMicroPosts = writingFeed.posts
     .filter((post) => post.platforms.includes("Micro.blog"))
     .slice(0, 6);
@@ -1199,6 +1262,8 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   await expect(page.locator(".social-card")).toHaveCount(
     expectedMicroPosts.length + expectedLinkedInPosts.length,
   );
+  await expect(page.getByRole("group", { name: "Post media, 1 item" }).first()).toBeVisible();
+  await expect(page.getByRole("group", { name: "Post media, 1 items" })).toHaveCount(0);
   if (test.info().config.metadata?.siteRoot === "_site") {
     await expect(page.locator(".social-card__avatar").first()).toHaveAttribute("sizes", "3rem");
     await expect(page.locator(".social-card__media-item img").first()).toHaveAttribute(
@@ -1325,6 +1390,9 @@ test("in-house campaign cards identify the correct organization and role", async
     "These include in-house projects at EastRise Credit Union and BETA Technologies, plus commissioned work. Each card names the organization and my role.",
   );
   await expect(page.locator('[data-organization="eastrise"] .work-item__credit').first()).toHaveText("Made as Digital Content Strategist, EastRise Credit Union.");
+  await expect(
+    page.locator('a[href="eastrise-photography/#smokin-somethin-bbq-title"] .work-item__context'),
+  ).toContainText("1 photograph");
   const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
   await expect(flightPathsCard).toHaveAttribute("data-organization", "beta-technologies");
   await expect(flightPathsCard.locator('img[src="../assets/images/work/campaigns/flight-paths.webp"]')).toHaveCount(1);
@@ -1346,6 +1414,24 @@ test("in-house campaign cards identify the correct organization and role", async
     "href",
     "flight-paths/",
   );
+
+  for (const organization of [
+    "beta-technologies",
+    "eastrise",
+    "green-mountain-community-fitness",
+  ]) {
+    await page.goto(`/work/?organization=${organization}`);
+    const categoryStates = await page.locator(".work-category").evaluateAll((categories) => (
+      categories.map((category) => ({
+        hidden: category.hidden,
+        visibleCards: category.querySelectorAll(".work-item:not([hidden])").length,
+      }))
+    ));
+    expect(categoryStates.some(({ hidden }) => !hidden)).toBe(true);
+    expect(
+      categoryStates.every(({ hidden, visibleCards }) => hidden || visibleCards > 0),
+    ).toBe(true);
+  }
 });
 
 test("campaign pages disclose tracked public image sources automatically", async ({ page }) => {

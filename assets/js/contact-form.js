@@ -56,8 +56,9 @@ function writeAttemptTimestamps(values) {
 }
 
 function pruneAttempts(values) {
-  const cutoff = Date.now() - RATE_WINDOW_MS;
-  return values.filter((value) => value >= cutoff);
+  const now = Date.now();
+  const cutoff = now - RATE_WINDOW_MS;
+  return values.filter((value) => value >= cutoff && value <= now);
 }
 
 function isUsableEndpoint(endpoint) {

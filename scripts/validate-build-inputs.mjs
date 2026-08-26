@@ -2,6 +2,7 @@
 
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
+import { parseWritingFeedRefreshedAt } from "./writing-feed-validation.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const dataDir = path.join(root, "assets/data");
@@ -26,11 +27,13 @@ const files = (await listJsonFiles(dataDir)).sort();
 for (const filename of files) {
   const filePath = path.join(dataDir, filename);
   const source = await readFile(filePath, "utf8");
+  let data;
   try {
-    JSON.parse(source);
+    data = JSON.parse(source);
   } catch (error) {
     throw new Error(`Invalid JSON in assets/data/${filename}: ${error.message}`, { cause: error });
   }
+  if (filename === "writing-feed.json") parseWritingFeedRefreshedAt(data);
   if (
     /\/Users\//.test(source)
     || /"(?:captured_from|source_record|source_screenshot)"\s*:/.test(source)

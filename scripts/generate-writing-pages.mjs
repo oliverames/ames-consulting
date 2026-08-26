@@ -5,6 +5,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import { youtubeIframe } from "./youtube-facade.mjs";
+import { parseWritingFeedRefreshedAt } from "./writing-feed-validation.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const feed = JSON.parse(
@@ -182,7 +183,8 @@ function renderMediaGallery(post, depth, media = post.sharedPost?.media || []) {
   const controls = media.length > 1
     ? `<output class="social-card__media-count" data-media-carousel-count aria-label="Current post image" aria-live="polite">1/${media.length}</output><button class="social-card__media-control social-card__media-control--previous" type="button" data-media-carousel-previous aria-controls="${galleryId}" aria-label="Show previous post image">‹</button><button class="social-card__media-control social-card__media-control--next" type="button" data-media-carousel-next aria-controls="${galleryId}" aria-label="Show next post image">›</button>`
     : "";
-  return `<div class="social-card__media-shell" data-media-carousel>${controls}<div class="social-card__media-gallery" id="${galleryId}" role="group" aria-label="Post media, ${media.length} items" data-media-carousel-track data-gallery="${galleryId}" data-order-mode="editorial">${items.join("")}</div></div>`;
+  const mediaLabel = `${media.length} ${media.length === 1 ? "item" : "items"}`;
+  return `<div class="social-card__media-shell" data-media-carousel>${controls}<div class="social-card__media-gallery" id="${galleryId}" role="group" aria-label="Post media, ${mediaLabel}" data-media-carousel-track data-gallery="${galleryId}" data-order-mode="editorial">${items.join("")}</div></div>`;
 }
 
 function renderCard(post, depth = 1) {
@@ -268,10 +270,7 @@ const socialPosts = feed.posts.filter((post) => !isLongForm(post));
 const linkedinPosts = socialPosts.filter((post) => post.platforms.includes("LinkedIn"));
 // Pin the past-year window to the feed's own refresh stamp instead of the
 // wall clock so rebuilding on a later day reproduces today's output.
-if (!feed.refreshedAt) {
-  throw new Error("writing-feed.json must carry refreshedAt to anchor the LinkedIn past-year window.");
-}
-const oneYearAgo = new Date(feed.refreshedAt);
+const oneYearAgo = parseWritingFeedRefreshedAt(feed);
 oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1);
 const linkedinPostsPastYear = linkedinPosts.filter(
   (post) => new Date(post.date) >= oneYearAgo,

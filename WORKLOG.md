@@ -30,6 +30,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
 
+## 2026-08-26 - Bug-fixing pass
+
+**What changed**: An adversarial review fixed 12 symptoms across nine implementation groups. Browser fixes cover anchored photography headings, empty filtered categories, and future-dated local timestamps. Generators now use correct singular labels and reject invalid writing-feed timestamps. Build scripts now parse robots metadata semantically and work in checkout paths with spaces. The contact Function now applies the shared security headers to every JSON response and declares `POST` on 405 responses. The complete review is in `docs/audits/2026-08-26-bug-fixing-pass.md`.
+
+**Decisions made**: The robots parser treats comments, raw-text content, and template content as inert. Writing-feed timestamps require an explicit time zone and a valid calendar date. `package.json` and the deployment workflow remain unchanged because changes to future automation require approval.
+
+**Left off at**: Implementation commits `2a3c3fb` and `a9d9a20` are complete. `npm run check:all`, both full browser suites, artifact validation, and repeated-build idempotence pass. The source suite has 160 passes and one intentional skip. The deploy-artifact suite has 161 passes.
+
+**Open questions**: Decide whether to authorize a separate automation pass. It would make `check:ship` invoke all source checks, bind live verification to the deployed release, and add explicit `curl` timeouts.
+
+---
+
 ## 2026-08-25 - Adversarial repo review and deferred-item pass
 
 **What changed**: A six-dimension finder sweep with independent skeptic verification fixed 20+ confirmed issues: silent generator corruption paths (refine-work ordering, contact-form CSP postconditions, writing-feed validation), wall-clock build irreproducibility (LinkedIn window now anchors on `refreshedAt`), prototype-chain and stale-label bugs in the organization filter, SEO entity mismatches (`Service.name`, Threads in `sameAs`, archive breadcrumb), a LAN-exposing test server, an over-broad Axe exclusion, duplicated contact-function coverage, and 6.1 MB of orphaned media plus the unused `xml2js`. Social cards gained measured `og:image` dimensions and alt text via a shared image-measurement module, every page gained light/dark `theme-color` metas, and each organization hub page gained at least one inbound contextual link. CI now promotes the exact `_site` bytes the artifact suite tested to deployment and verifies three site origins in parallel plus asset origins separately. The header-scroll behavior finally has a real desktop test, and `npm run check:ship` chains the whole pre-ship gate. Full findings, refutations, and dispositions live in `docs/audits/2026-08-25-adversarial-repo-review.md`.

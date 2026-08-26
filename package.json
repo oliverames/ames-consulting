@@ -29,6 +29,7 @@
     "check:functions": "node --test tests/contact-function.node.js tests/publication-middleware.node.js",
     "check:security-headers": "node scripts/validate-security-headers.mjs",
     "check:all": "npm run check:build-inputs && npm run check:publication-boundary && npm run check:site-consistency && npm run check:functions && npm run check:security-headers && npm run check:js-syntax && npm run lint:js && npm run check:html && npm run check:structured-data && npm run check:image-loading && npm run check:eastrise-photography && npm run check:eastrise-social && npm run check:portraits && npm run check:event-galleries && npm run check:gallery-order-modes && npm run check:project-order && npm run check:blue-cross-sources && npm run check:media-provenance",
+    "check:ship": "npm run build:site && npm run check:built-site && npm run check:build-idempotence && npm run test:site",
     "test:regression": "playwright test tests/site.spec.js",
     "test:a11y": "playwright test tests/accessibility.spec.js",
     "test:e2e": "playwright test",

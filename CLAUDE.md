@@ -11,6 +11,7 @@ Pages are static at runtime. `npm run build:site` validates inputs, regenerates 
 | Task | Command |
 |---|---|
 | **All quality checks** | `npm run check:all` |
+| **Full pre-ship gate (build + artifact checks + artifact tests)** | `npm run check:ship` |
 | **Built artifact validation** | `npm run check:built-site` |
 | **Build idempotence** | `npm run check:build-idempotence` |
 | **E2E + accessibility tests** | `npm run test:e2e` |

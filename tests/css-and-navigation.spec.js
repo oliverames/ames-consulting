@@ -542,8 +542,8 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
   expect(layout.pageHeaderPaddingTop).toBeGreaterThanOrEqual(12);
   expect(layout.pageHeaderGap).toBeGreaterThanOrEqual(10);
 
-  const linkedInPost = page.locator('[data-post-id="linkedin:7493102298634776576"]');
-  await linkedInPost.scrollIntoViewIfNeeded();
+  // Below 44rem the header surface is unconditional; assert it without
+  // coupling to any card's scroll position.
   await expect(page.locator(".site-header")).toHaveCSS(
     "background-color",
     "rgb(237, 232, 224)",
@@ -562,6 +562,28 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
     return hero.top - header.bottom;
   });
   expect(contactSpacing).toBeGreaterThanOrEqual(12);
+});
+
+test("header gains its blurred surface only after content scrolls past the threshold", async ({
+  page,
+}) => {
+  // Desktop widths exercise the scroll-dependent treatment; below 44rem the
+  // header background is unconditional and covered by the small-screen test.
+  await page.setViewportSize({ width: 900, height: 800 });
+  await page.goto("/blog/");
+  await page.evaluate(() => window.scrollTo(0, 0));
+  const header = page.locator(".site-header");
+  await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  await expect(header).not.toHaveAttribute("data-scrolled");
+
+  // Scroll well past header-scroll's 10px threshold and let the transition
+  // settle before asserting the scrolled surface color.
+  await page.evaluate(() => window.scrollTo(0, 200));
+  await expect(header).toHaveAttribute("data-scrolled", "");
+  await expect(header).toHaveCSS(
+    "background-color",
+    "rgba(243, 240, 235, 0.85)",
+  );
 });
 
 test("about summary paragraphs keep a readable gap", async ({ page }) => {

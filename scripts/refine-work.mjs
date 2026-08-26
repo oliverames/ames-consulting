@@ -105,7 +105,7 @@ const campaignMatch = html.match(campaignSectionPattern);
 const earlierMatch = html.match(earlierSectionPattern);
 
 if (!campaignMatch) {
-  console.warn("refine-work: campaign section pattern did not match work/index.html — curated ordering, descriptions, and organization tags were NOT applied.");
+  throw new Error("refine-work: campaign section pattern did not match work/index.html — curated ordering, descriptions, and organization tags were NOT applied.");
 }
 
 if (campaignMatch) {

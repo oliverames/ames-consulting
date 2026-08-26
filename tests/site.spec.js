@@ -1179,8 +1179,10 @@ test("Writing uses social cards and opens long-form posts on-site", async ({
   page,
 }) => {
   const writingFeed = await readWritingFeed();
-  const isLongForm = (post) => post.platforms.includes("Micro.blog") && (post.title || post.text.length >= 800);
-  const oneYearAgo = new Date();
+  const isLongForm = (post) => post.platforms.includes("Micro.blog") && (post.title || (post.text || "").length >= 800);
+  // Mirror the generator: the past-year window anchors on refreshedAt, not
+  // the wall clock, so this expectation stays stable across days.
+  const oneYearAgo = new Date(writingFeed.refreshedAt);
   oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1);
   const expectedLinkedInPosts = writingFeed.posts.filter(
     (post) => !isLongForm(post)

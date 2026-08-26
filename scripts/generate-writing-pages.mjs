@@ -56,7 +56,7 @@ function dateLabel(value, long = false) {
 function isLongForm(post) {
   return (
     post.platforms.includes("Micro.blog") &&
-    (post.title || post.text.length >= 800)
+    (post.title || (post.text || "").length >= 800)
   );
 }
 
@@ -257,10 +257,21 @@ const profileLinks = feed.profiles
   )
   .join("");
 const longFormPosts = feed.posts.filter(isLongForm);
+// Fail before any page is written when a long-form post lacks what its
+// dedicated page needs, so a hand-edited feed cannot leave a half-built tree.
+for (const post of longFormPosts) {
+  if (!post.text) throw new Error(`Writing feed post ${post.id} is long-form but carries no text.`);
+  if (!post.links?.length) throw new Error(`Writing feed post ${post.id} carries no links; its original Micro.blog URL cannot be derived.`);
+}
 const recentMicroPosts = feed.posts.filter((post) => post.platforms.includes("Micro.blog"));
 const socialPosts = feed.posts.filter((post) => !isLongForm(post));
 const linkedinPosts = socialPosts.filter((post) => post.platforms.includes("LinkedIn"));
-const oneYearAgo = new Date();
+// Pin the past-year window to the feed's own refresh stamp instead of the
+// wall clock so rebuilding on a later day reproduces today's output.
+if (!feed.refreshedAt) {
+  throw new Error("writing-feed.json must carry refreshedAt to anchor the LinkedIn past-year window.");
+}
+const oneYearAgo = new Date(feed.refreshedAt);
 oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1);
 const linkedinPostsPastYear = linkedinPosts.filter(
   (post) => new Date(post.date) >= oneYearAgo,

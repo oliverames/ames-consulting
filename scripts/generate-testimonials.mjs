@@ -145,11 +145,6 @@ await insertOnce("services/strategy-and-content/index.html", '<section class="se
   html: `<section class="testimonial-band strategy-testimonial" aria-label="Recommendation from Simeon Chapin">${card({ person: people.simeon, quote: quotes.simeon, depth: 2, featured: true })}</section>`
 });
 
-await insertOnce("services/photography-and-video/index.html", '<section class="service-cta">', {
-  id: "photography-testimonial",
-  html: `<section class="testimonial-band photography-testimonial" aria-label="Recommendation from Yvonne Garand">${card({ person: people.yvonne, quote: quotes.yvonneCreative, depth: 2, featured: true })}</section>`
-});
-
 const eastRiseTestimonialsHtml = `<section class="testimonial-band eastrise-testimonials" aria-labelledby="eastrise-testimonials-title"><div class="section-heading"><p class="eyebrow">From former colleagues</p><h2 id="eastrise-testimonials-title">What people at EastRise say about the work.</h2></div><div class="testimonial-grid testimonial-grid--two">${card({ person: people.yvonne, quote: quotes.yvonneLead, depth: 2, featured: true })}${card({ person: people.brad, quote: quotes.bradLead, depth: 2 })}</div></section>`;
 const eastRisePath = join(root, "work/eastrise/index.html");
 let eastRiseHtml = await readFile(eastRisePath, "utf8");

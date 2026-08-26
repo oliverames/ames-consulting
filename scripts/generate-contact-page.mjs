@@ -57,4 +57,17 @@ const protectedHtml = revisedHtml
     '<div class="contact-form__verification"><div class="cf-turnstile" data-sitekey="0x4AAAAAAEBX8_970rdISQ0E" data-theme="light" data-size="flexible" data-appearance="interaction-only" data-action="contact"></div><p>Spam protection runs automatically.</p></div><div class="contact-form__submit">'
   );
 
+// These three surgeries are load-bearing: without the Turnstile CSP
+// allowances the production form breaks, so fail loudly if any drifts.
+const requiredContactMarkup = [
+  "challenges.cloudflare.com",
+  'id="contact-form-fallback"',
+  'class="cf-turnstile"',
+];
+for (const marker of requiredContactMarkup) {
+  if (!protectedHtml.includes(marker)) {
+    throw new Error(`generate-contact-page: contact template drifted — "${marker}" missing after rewrite.`);
+  }
+}
+
 await writeFile(join(root, "contact", "index.html"), protectedHtml);

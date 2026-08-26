@@ -40,10 +40,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build static artifact
-        run: npm run build:site
+      # Deploy the bytes the quality gate tested (uploaded by ci-quality's
+      # e2e-and-a11y job in this same run) rather than rebuilding, so
+      # cross-runner drift can never diverge tested from deployed content.
+      - name: Download tested site artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: site-artifact
+          path: _site
 
-      - name: Validate static artifact
+      - name: Validate downloaded artifact
         run: npm run check:built-site
 
       - name: Deploy to Cloudflare Pages
@@ -52,7 +58,21 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --no-install wrangler pages deploy _site --project-name ames-consulting --branch main
 
-      - name: Verify deployment
+  verify-live:
+    if: github.ref == 'refs/heads/main'
+    needs: [deploy]
+    strategy:
+      fail-fast: false
+      matrix:
+        origin:
+          - https://ames-consulting.pages.dev
+          - https://ames.consulting
+          - https://www.ames.consulting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify deployment on ${{ matrix.origin }}
+        env:
+          ORIGIN: ${{ matrix.origin }}
         run: |
           verify_status() {
             expected_status="$1"
@@ -110,79 +130,98 @@ jobs:
             return 1
           }
 
-          for site_origin in \
-            https://ames-consulting.pages.dev \
-            https://ames.consulting \
-            https://www.ames.consulting
+          site_origin="$ORIGIN"
+          verify_unmarked_status 200 "$site_origin/"
+          verify_unmarked_status 200 "$site_origin/assets/data/site.config.json"
+          verify_unmarked_status 200 "$site_origin/assets/css/main.css"
+          verify_status 200 "$site_origin/services/strategy-and-content/"
+          verify_status 200 "$site_origin/work/london-2019/"
+          verify_status 200 "$site_origin/work/whale-dance-randolph/"
+          verify_status 200 "$site_origin/work/drone-photography/"
+          verify_status 200 "$site_origin/work/neg-ecp-conference-2026/"
+          verify_status 200 "$site_origin/work/giron-family/"
+          verify_status 200 "$site_origin/work/vermont-foodbank-volunteer-day-2026/"
+          verify_status 200 "$site_origin/work/beta-technologies/"
+          verify_status 200 "$site_origin/work/flight-paths/"
+          verify_status 405 "$site_origin/api/contact"
+          verify_status 403 "$site_origin/api/contact" -X POST -H 'Origin: https://example.invalid'
+          verify_tombstone "$site_origin/assets/data/source-screenshot-manifest.json"
+          verify_tombstone "$site_origin/assets/data/media-provenance.json"
+          verify_tombstone "$site_origin/assets/data/media-provenance-missing.json"
+          verify_tombstone "$site_origin/assets/js/construction-gate.js"
+          verify_status 200 "$site_origin/assets/images/work/campaigns/flight-paths-320w.webp"
+          verify_tombstone "$site_origin/assets/images/work/portraits/beth-roberts-320w.webp"
+          curl -fsS "$site_origin/" > /tmp/ames-consulting-home.html
+          ! grep -Fqi "construction-gate" /tmp/ames-consulting-home.html
+          ! grep -Fqi "Enter the password" /tmp/ames-consulting-home.html
+          curl -fsS "$site_origin/contact/" > /tmp/ames-consulting-contact.html
+          grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-contact.html
+          ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-contact.html
+          curl -fsS "$site_origin/about/" > /tmp/ames-consulting-about.html
+          grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-about.html
+          ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-about.html
+          curl -fsS "$site_origin/work/beta-technologies/" > /tmp/ames-consulting-beta.html
+          ! grep -Fqi "<iframe" /tmp/ames-consulting-beta.html
+          ! grep -Fqi "<img " /tmp/ames-consulting-beta.html
+          grep -Fqi 'href="../flight-paths/"' /tmp/ames-consulting-beta.html
+          curl -fsS "$site_origin/work/flight-paths/" > /tmp/ames-consulting-flight-paths.html
+          grep -Fqi "youtube-nocookie.com/embed/4r5N5DjmSCU" /tmp/ames-consulting-flight-paths.html
+          ! grep -Fqi "<img " /tmp/ames-consulting-flight-paths.html
+          curl -fsS "$site_origin/testimonials/" > /tmp/ames-consulting-testimonials.html
+          ! grep -Eqi "performance review|performance feedback" /tmp/ames-consulting-testimonials.html
+          curl -fsSI "$site_origin/" > /tmp/ames-consulting-headers.txt
+          grep -Fqi "frame-ancestors 'none'" /tmp/ames-consulting-headers.txt
+          grep -Fqi "strict-transport-security: max-age=31536000; includeSubDomains" /tmp/ames-consulting-headers.txt
+          grep -Fqi "x-content-type-options: nosniff" /tmp/ames-consulting-headers.txt
+          for retired_path in \
+            work/beta-andrew/ \
+            work/beta-emma/ \
+            work/beta-ethan/ \
+            work/arrayrx-press-conference-2026/ \
+            work/be-well-at-work-2026/ \
+            work/blue-cross-portraits/ \
+            work/corporate-cup-2026/ \
+            work/girls-on-the-run-2026/ \
+            work/senior-games-press-event-2026/ \
+            work/walk-at-lunch-and-green-up-2026/ \
+            assets/images/work/events/beta-andrew/dsc08015.webp \
+            assets/images/work/events/beta-emma/dsc07894.webp \
+            assets/images/work/events/beta-ethan/dsc08105.webp \
+            assets/images/work/events/arrayrx-press-conference-2026/dsc02517.webp \
+            assets/images/work/events/be-well-at-work-2026/dsc03152.webp \
+            assets/images/work/events/corporate-cup-2026/dsc03213.webp \
+            assets/images/work/events/girls-on-the-run-2026/dsc03810.webp \
+            assets/images/work/events/senior-games-press-event-2026/dsc01867.webp \
+            assets/images/work/events/walk-at-lunch-and-green-up-2026/dsc02728.webp \
+            assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp \
+            assets/images/work/eastrise/photography/_unassigned-public-assets/people-and-portraits/2024-10-15_16-42-38_UTC_DBJuJuUpFzc-0aff11d03784.webp
           do
-            verify_unmarked_status 200 "$site_origin/"
-            verify_unmarked_status 200 "$site_origin/assets/data/site.config.json"
-            verify_unmarked_status 200 "$site_origin/assets/css/main.css"
-            verify_status 200 "$site_origin/services/strategy-and-content/"
-            verify_status 200 "$site_origin/work/london-2019/"
-            verify_status 200 "$site_origin/work/whale-dance-randolph/"
-            verify_status 200 "$site_origin/work/drone-photography/"
-            verify_status 200 "$site_origin/work/neg-ecp-conference-2026/"
-            verify_status 200 "$site_origin/work/giron-family/"
-            verify_status 200 "$site_origin/work/vermont-foodbank-volunteer-day-2026/"
-            verify_status 200 "$site_origin/work/beta-technologies/"
-            verify_status 200 "$site_origin/work/flight-paths/"
-            verify_status 405 "$site_origin/api/contact"
-            verify_status 403 "$site_origin/api/contact" -X POST -H 'Origin: https://example.invalid'
-            verify_tombstone "$site_origin/assets/data/source-screenshot-manifest.json"
-            verify_tombstone "$site_origin/assets/data/media-provenance.json"
-            verify_tombstone "$site_origin/assets/data/media-provenance-missing.json"
-            verify_tombstone "$site_origin/assets/js/construction-gate.js"
-            verify_status 200 "$site_origin/assets/images/work/campaigns/flight-paths-320w.webp"
-            verify_tombstone "$site_origin/assets/images/work/portraits/beth-roberts-320w.webp"
-            curl -fsS "$site_origin/" > /tmp/ames-consulting-home.html
-            ! grep -Fqi "construction-gate" /tmp/ames-consulting-home.html
-            ! grep -Fqi "Enter the password" /tmp/ames-consulting-home.html
-            curl -fsS "$site_origin/contact/" > /tmp/ames-consulting-contact.html
-            grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-contact.html
-            ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-contact.html
-            curl -fsS "$site_origin/about/" > /tmp/ames-consulting-about.html
-            grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-about.html
-            ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-about.html
-            curl -fsS "$site_origin/work/beta-technologies/" > /tmp/ames-consulting-beta.html
-            ! grep -Fqi "<iframe" /tmp/ames-consulting-beta.html
-            ! grep -Fqi "<img " /tmp/ames-consulting-beta.html
-            grep -Fqi 'href="../flight-paths/"' /tmp/ames-consulting-beta.html
-            curl -fsS "$site_origin/work/flight-paths/" > /tmp/ames-consulting-flight-paths.html
-            grep -Fqi "youtube-nocookie.com/embed/4r5N5DjmSCU" /tmp/ames-consulting-flight-paths.html
-            ! grep -Fqi "<img " /tmp/ames-consulting-flight-paths.html
-            curl -fsS "$site_origin/testimonials/" > /tmp/ames-consulting-testimonials.html
-            ! grep -Eqi "performance review|performance feedback" /tmp/ames-consulting-testimonials.html
-            curl -fsSI "$site_origin/" > /tmp/ames-consulting-headers.txt
-            grep -Fqi "frame-ancestors 'none'" /tmp/ames-consulting-headers.txt
-            grep -Fqi "strict-transport-security: max-age=31536000; includeSubDomains" /tmp/ames-consulting-headers.txt
-            grep -Fqi "x-content-type-options: nosniff" /tmp/ames-consulting-headers.txt
-            for retired_path in \
-              work/beta-andrew/ \
-              work/beta-emma/ \
-              work/beta-ethan/ \
-              work/arrayrx-press-conference-2026/ \
-              work/be-well-at-work-2026/ \
-              work/blue-cross-portraits/ \
-              work/corporate-cup-2026/ \
-              work/girls-on-the-run-2026/ \
-              work/senior-games-press-event-2026/ \
-              work/walk-at-lunch-and-green-up-2026/ \
-              assets/images/work/events/beta-andrew/dsc08015.webp \
-              assets/images/work/events/beta-emma/dsc07894.webp \
-              assets/images/work/events/beta-ethan/dsc08105.webp \
-              assets/images/work/events/arrayrx-press-conference-2026/dsc02517.webp \
-              assets/images/work/events/be-well-at-work-2026/dsc03152.webp \
-              assets/images/work/events/corporate-cup-2026/dsc03213.webp \
-              assets/images/work/events/girls-on-the-run-2026/dsc03810.webp \
-              assets/images/work/events/senior-games-press-event-2026/dsc01867.webp \
-              assets/images/work/events/walk-at-lunch-and-green-up-2026/dsc02728.webp \
-              assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp \
-              assets/images/work/eastrise/photography/_unassigned-public-assets/people-and-portraits/2024-10-15_16-42-38_UTC_DBJuJuUpFzc-0aff11d03784.webp
-            do
-              verify_tombstone "$site_origin/$retired_path"
-            done
+            verify_tombstone "$site_origin/$retired_path"
           done
+
+  verify-assets:
+    if: github.ref == 'refs/heads/main'
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify asset origins
+        run: |
+          verify_status() {
+            expected_status="$1"
+            target_url="$2"
+            shift 2
+            actual_status=""
+            for attempt in $(seq 1 30); do
+              actual_status="$(curl -sS -o /dev/null -w '%{http_code}' "$@" "$target_url" || true)"
+              if [ "$actual_status" = "$expected_status" ]; then
+                return 0
+              fi
+              sleep 2
+            done
+            echo "Expected $target_url to return $expected_status, received $actual_status" >&2
+            return 1
+          }
+
           for asset_origin in \
             https://assets.ames.consulting \
             https://assets.amesvt.com

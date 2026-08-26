@@ -262,7 +262,10 @@ test("manual production deploys are restricted to main", async () => {
   const workflow = await readFile(path.join(root, ".github/workflows/deploy-pages.yml"), "utf8");
   const mainGuard = "if: github.ref == 'refs/heads/main'";
 
-  assert.equal(workflow.split(mainGuard).length - 1, 3);
+  // quality, performance, deploy, verify-live, and verify-assets all refuse
+  // to run outside main, so manual dispatches cannot touch production.
+  assert.equal(workflow.split(mainGuard).length - 1, 5);
   assert.match(workflow, /group: cloudflare-pages-\$\{\{ github\.ref \}\}/);
   assert.match(workflow, /deploy:\n\s+if: github\.ref == 'refs\/heads\/main'\n\s+needs:/);
+  assert.match(workflow, /verify-live:\n\s+if: github\.ref == 'refs\/heads\/main'\n\s+needs:/);
 });

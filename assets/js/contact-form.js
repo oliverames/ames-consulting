@@ -190,7 +190,7 @@ async function initContactForm() {
     }
 
     const startedAt = Number(startedAtInput.value || 0);
-    if (!Number.isFinite(startedAt) || now - startedAt < MIN_FILL_MS) {
+    if (startedAt <= 0 || !Number.isFinite(startedAt) || now - startedAt < MIN_FILL_MS) {
       setStatus(status, "Please take a moment to review your message before submitting.", "warn");
       return;
     }

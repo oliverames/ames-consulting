@@ -1,12 +1,13 @@
 const labels = {
   "beta-technologies": "BETA Technologies",
-  "blue-cross-vermont": "Blue Cross Vermont",
   "eastrise": "EastRise",
   "green-mountain-community-fitness": "Green Mountain Community Fitness",
 };
 
 const organization = new URLSearchParams(window.location.search).get("organization");
-const label = labels[organization];
+// Object.hasOwn keeps inherited names such as "toString" from masquerading as
+// filters; an unrecognized value falls back to the unfiltered view.
+const label = Object.hasOwn(labels, organization ?? "") ? labels[organization] : undefined;
 
 // An unrecognized ?organization= value falls back to the unfiltered view, so
 // "All" stays marked current rather than leaving no filter highlighted.

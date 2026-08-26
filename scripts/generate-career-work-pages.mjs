@@ -298,6 +298,15 @@ if (workIndex.includes("<h2>Client and institutional work</h2>")) {
 workIndex = sortWorkSection(workIndex, "Earlier work");
 await writeFile(workIndexPath, workIndex);
 
+// Hub pages exist for some organizations but sit outside the curated work
+// index; these closers give every published hub at least one inbound link
+// without touching index curation.
+const pageOutros = new Map([
+  ["flight-paths", ["More with BETA Technologies", `<p>Flight Paths is part of my ongoing <a href="../beta-technologies/">BETA Technologies coverage</a>.</p>`]],
+  ["sweat-heart-throwdown", ["More at Green Mountain Community Fitness", `<p>This competition sits alongside <a href="../bike-fitting/">the bike-fitting documentary</a> in the <a href="../green-mountain-community-fitness/">Green Mountain Community Fitness collection</a>.</p>`]],
+  ["bike-fitting", ["More at Green Mountain Community Fitness", `<p>This fitting sits alongside <a href="../sweat-heart-throwdown/">the Sweat-Heart Throwdown</a> in the <a href="../green-mountain-community-fitness/">Green Mountain Community Fitness collection</a>.</p>`]],
+]);
+
 for (const page of pages) {
   let content = page.sections.map(([title, body]) => `<section class="case-section"><h2>${title}</h2><div class="case-section__body">${body}</div></section>`).join("");
   if (page.metrics) {
@@ -318,6 +327,10 @@ for (const page of pages) {
   if (page.socialPosts) {
     const screenshots = page.socialPosts.map((post, index) => `<img src="../../${post.screenshot}" alt="${escapeHtml(post.title)}, ${post.platform} capture ${index + 1} of ${page.socialPosts.length}" width="${post.width}" height="${post.height}" loading="lazy" decoding="async" data-date-status="${post.publishedDate ? "dated" : "undated"}"${post.publishedDate ? ` data-published-at="${escapeHtml(post.publishedDate)}"` : ""}>`).join("");
     content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Selected posts</h2><p>Select any post to open the full viewer.</p><div class="campaign-collage campaign-collage--screenshots" data-gallery="${page.slug}" data-order-mode="reverse-chronological" data-undated-placement="after-dated">${screenshots}</div></section>`;
+  }
+  if (pageOutros.has(page.slug)) {
+    const [outroHeading, outroBody] = pageOutros.get(page.slug);
+    content += `<section class="case-section"><h2>${outroHeading}</h2><div class="case-section__body">${outroBody}</div></section>`;
   }
   const featuredImage = page.featuredFile
     ? `<img src="../../assets/images/work/gmcf/${page.gallery.directory}/${page.featuredFile}" alt="${page.gallery.alt}" loading="eager" fetchpriority="high" decoding="async">`

@@ -565,6 +565,87 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
   expect(contactSpacing).toBeGreaterThanOrEqual(12);
 });
 
+test("small-screen navigation reveals the current and focused links", async ({ page }) => {
+  const isFullyVisible = (link) => {
+    const nav = link.closest(".site-nav").getBoundingClientRect();
+    const bounds = link.getBoundingClientRect();
+    return bounds.left >= nav.left - 1 && bounds.right <= nav.right + 1;
+  };
+
+  for (const [width, route] of [
+    [390, "/contact/"],
+    [320, "/testimonials/"],
+  ]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto(route);
+    const current = page.locator(".site-nav [aria-current]");
+    await expect.poll(() => current.evaluate(isFullyVisible)).toBe(true);
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const contact = page.locator(".site-nav a", { hasText: "Contact" });
+  await contact.focus();
+  await expect.poll(() => contact.evaluate(isFullyVisible)).toBe(true);
+});
+
+test("skip link stays above the sticky header", async ({ page }) => {
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto("/");
+    await page.keyboard.press("Tab");
+
+    const visibleAtCenter = await page.locator(".skip-link").evaluate((link) => {
+      const bounds = link.getBoundingClientRect();
+      const center = document.elementFromPoint(
+        bounds.left + bounds.width / 2,
+        bounds.top + bounds.height / 2,
+      );
+      return center === link || link.contains(center);
+    });
+    expect(visibleAtCenter, `${width}px skip link`).toBe(true);
+  }
+});
+
+test("contact and writing deep links clear the sticky header", async ({ page }) => {
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const [route, target] of [
+      ["/contact/?project=Photography%20and%20video#contact-form", "#contact-form"],
+      ["/blog/archive/#microblog", "#microblog"],
+    ]) {
+      await page.goto(route);
+      await expect.poll(async () => page.locator(target).evaluate((element) => {
+        const header = document.querySelector(".site-header");
+        return element.getBoundingClientRect().top - header.getBoundingClientRect().bottom;
+      })).toBeGreaterThanOrEqual(-1);
+    }
+  }
+});
+
+test("nested missing routes use the custom 404 layout", async ({ page }) => {
+  test.skip(
+    test.info().config.metadata?.siteRoot !== "_site",
+    "The source server does not emulate Cloudflare Pages missing-route handling.",
+  );
+
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    const response = await page.goto("/missing/nested/path/");
+    expect(response.status()).toBe(404);
+    await expect(page).toHaveTitle("Page Not Found | ames.consulting");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("404");
+    await expect(page.getByText("That page does not exist or has moved.")).toBeVisible();
+    await expect(page.getByRole("link", { name: "ames.consulting" })).toHaveAttribute(
+      "href",
+      "/",
+    );
+    expect(await page.evaluate(
+      () => document.documentElement.scrollWidth - innerWidth,
+    )).toBe(0);
+  }
+});
+
 test("header gains its blurred surface only after content scrolls past the threshold", async ({
   page,
 }) => {

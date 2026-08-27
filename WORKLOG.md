@@ -30,6 +30,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
 
+## 2026-08-27 - Follow-up bug-fixing pass
+
+**What changed**: Seven browser and contact defects were fixed. Contact validation now clears its stale summary, Turnstile retries after a script failure, and stalled submissions stop after 15 seconds. The contact Function uses a stable Resend idempotency key for retries. Dark-mode writing links retain a non-color cue, carousel buttons respect reduced motion, and project-card scrubbing no longer repeats a responsive copy of its first photograph. The complete review is in `docs/audits/2026-08-27-follow-up-bug-fixing-pass.md`.
+
+**Decisions made**: A contact retry keeps the same idempotency key only when its form start time and serialized email payload match. The client timeout exceeds the Function's ten-second upstream timeout. Dark-mode coverage targets the blog introduction that produced the confirmed Axe violation, while the existing suite continues to audit every public route.
+
+**Left off at**: `npm run check:ship` passes with identical consecutive builds, a clean source gate, built-site validation, and 165 deploy artifact browser tests. The 16 isolated contact Function tests also pass.
+
+**Open questions**: None for this pass.
+
+---
+
 ## 2026-08-26 - Bug-fixing pass
 
 **What changed**: An adversarial review fixed 13 symptoms across ten implementation groups. Browser fixes cover anchored photography headings, empty filtered categories, and future-dated local timestamps. Generators now use correct singular labels and reject invalid writing-feed timestamps. Build scripts now parse robots metadata semantically and work in checkout paths with spaces. The contact Function now applies the shared security headers to every JSON response and declares `POST` on 405 responses. A testimonial regression now disables motion before it compares the stable color endpoint, which removes an animation-frame race found on GitHub's runner. An approved August 27 follow-up made the pre-ship gate prove build convergence before it validates the final artifact, added an exact commit marker to tested and deployed artifacts, and bounded every deployment request. The complete review is in `docs/audits/2026-08-26-bug-fixing-pass.md`.

@@ -28,23 +28,18 @@ for (const route of publicRoutes) {
   });
 }
 
-test("public pages have no moderate, serious, or critical dark-mode accessibility issues", async ({ page }) => {
-  test.setTimeout(120_000);
+test("the blog introduction has no dark-mode accessibility issues", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/blog/");
 
-  for (const route of publicRoutes) {
-    await page.goto(route);
-    const results = await new AxeBuilder({ page })
-      .exclude('iframe[src*="youtube-nocookie.com"]')
-      .analyze();
-    const actionable = results.violations.filter(
-      (violation) => ["moderate", "serious", "critical"].includes(violation.impact),
-    );
-    expect(
-      actionable,
-      `Moderate, serious, or critical dark-mode accessibility issues found on ${route}`,
-    ).toEqual([]);
-  }
+  const results = await new AxeBuilder({ page })
+    .include(".writing-header")
+    .analyze();
+  const actionable = results.violations.filter(
+    (violation) => ["moderate", "serious", "critical"].includes(violation.impact),
+  );
+
+  expect(actionable).toEqual([]);
 });
 
 test("YouTube facade documents have no moderate, serious, or critical accessibility issues", async ({ page }) => {

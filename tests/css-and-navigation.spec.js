@@ -470,7 +470,7 @@ test("contact panels share padding and required fields keep visible errors", asy
   await page.locator("#contact-message").fill("I need help with a project.");
   await expect(page.locator('[aria-invalid="true"]')).toHaveCount(0);
   await expect(page.locator(".contact-form__field-error:not(:empty)")).toHaveCount(0);
-  await expect(page.getByRole("status")).toBeEmpty();
+  await expect(page.locator("#contact-form-status")).toBeEmpty();
 });
 
 test("work cards, case heroes, and footer links use the shared geometry", async ({ page }) => {

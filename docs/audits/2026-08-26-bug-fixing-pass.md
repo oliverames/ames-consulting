@@ -3,11 +3,14 @@
 **Date:** 2026-08-26  
 **Base commit:** `c4ac410`  
 **Implementation commits:** `2a3c3fb`, `a9d9a20`, `4652bec`
+
+**Automation follow-up commit:** `f93fc3e`
+
 **Method:** three independent finder sweeps covered browser behavior, build and publication logic, and CI plus Function security. Independent skeptic passes then reproduced or refuted each candidate before any source change.
 
 ## Outcome
 
-The review confirmed ten implementation groups containing 13 distinct symptoms. All ten groups were fixed with regressions. Three additional release-automation defects were confirmed, but the repository requires Oliver's approval before automation changes. Those files remain untouched.
+The review confirmed ten implementation groups containing 13 distinct symptoms. All ten groups were fixed with regressions. Three additional release-automation defects were confirmed and then fixed in an approved follow-up on August 27, 2026.
 
 ## Confirmed and fixed
 
@@ -38,13 +41,13 @@ The review confirmed ten implementation groups containing 13 distinct symptoms. 
 
 - The testimonials color regression read two live computed styles while the button transitioned from its hover state. A loaded CI runner could sample adjacent animation frames and compare unequal intermediate colors, although the stable CSS values matched. The test now uses the site's reduced-motion path before it checks the stable endpoint.
 
-## Confirmed automation findings awaiting approval
+## Confirmed automation findings fixed after approval
 
-No changes were made to `package.json` or `.github/workflows/deploy-pages.yml`.
+Oliver approved the separate automation pass on August 27, 2026.
 
-1. `npm run check:ship` does not invoke `check:all`, so its documented full gate can omit Function and source validators.
-2. Live deployment checks probe stable origins and invariant content. They do not verify a release-specific marker, so a prior healthy release can satisfy them.
-3. Deployment retry loops omit connection and total timeouts. One stalled `curl` can therefore consume the job's remaining time.
+1. `npm run check:ship` now proves first-to-second build convergence before it creates the final artifact. It then runs every source check, validates that artifact, and tests the same artifact in Chromium. This order also prevents a generator that changes once and then stabilizes from escaping the idempotence comparison.
+2. Every build now creates a root `release.txt` containing only `local` or the full GitHub commit SHA. The artifact validator requires the marker before browser tests and rechecks it after artifact download. Each live origin must then return the exact SHA with `Cache-Control: no-store` and `X-Robots-Tag: noindex` before route checks begin.
+3. Every deployment `curl` now uses a shared wrapper with a five-second connection timeout and a 15-second total timeout. Both verification jobs also have a 15-minute outer limit.
 
 ## Refuted candidates
 
@@ -62,6 +65,8 @@ No changes were made to `package.json` or `.github/workflows/deploy-pages.yml`.
 | Gate | Result |
 |---|---|
 | Focused Node regressions | pass, 32 tests |
+| Automation contract regressions | pass, 23 tests |
+| Fixed-SHA artifact marker | pass, exact 40-character SHA and response rules validated |
 | Focused browser regressions | pass, 5 tests |
 | Testimonials regression repetition | pass, 50 consecutive runs |
 | `npm run build:site` | pass, 50 HTML files and 936 referenced images |
@@ -70,3 +75,4 @@ No changes were made to `package.json` or `.github/workflows/deploy-pages.yml`.
 | `npm run test:e2e` | pass, 160 tests and one intentional source-only skip |
 | `npm run check:build-idempotence` | pass, source and artifact content matched across two builds |
 | `npm run test:site` | pass, 161 deploy-artifact tests |
+| `npm run check:ship` follow-up | pass, convergence, final build, all source checks, artifact validation, and 161 browser tests |

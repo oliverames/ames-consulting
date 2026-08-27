@@ -104,6 +104,7 @@ export const PUBLIC_RUNTIME_FILES = Object.freeze([
 export const GENERATED_PUBLIC_FILES = Object.freeze([
   "_routes.json",
   "llms.txt",
+  "release.txt",
   "robots.txt",
   "sitemap.xml",
 ]);

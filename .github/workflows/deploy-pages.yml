@@ -69,18 +69,55 @@ jobs:
           - https://ames.consulting
           - https://www.ames.consulting
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Verify deployment on ${{ matrix.origin }}
         env:
+          CURL_CONNECT_TIMEOUT_SECONDS: "5"
+          CURL_MAX_TIME_SECONDS: "15"
+          EXPECTED_RELEASE: ${{ github.sha }}
           ORIGIN: ${{ matrix.origin }}
         run: |
+          curl_bounded() {
+            curl \
+              --connect-timeout "$CURL_CONNECT_TIMEOUT_SECONDS" \
+              --max-time "$CURL_MAX_TIME_SECONDS" \
+              "$@"
+          }
+
+          verify_release() {
+            target_url="$1"
+            expected_release="$2"
+            response_body="/tmp/ames-consulting-release.txt"
+            response_headers="/tmp/ames-consulting-release-headers.txt"
+            actual_release=""
+            for attempt in $(seq 1 30); do
+              : > "$response_body"
+              : > "$response_headers"
+              curl_bounded -fsS \
+                -H 'Cache-Control: no-cache' \
+                -D "$response_headers" \
+                -o "$response_body" \
+                "${target_url}?expected=${expected_release}" || true
+              actual_release="$(cat "$response_body")"
+              if [ "$actual_release" = "$expected_release" ] \
+                && grep -Fqi 'cache-control: no-store' "$response_headers" \
+                && grep -Fqi 'x-robots-tag: noindex' "$response_headers"; then
+                return 0
+              fi
+              sleep 2
+            done
+            echo "Expected $target_url to identify release $expected_release, received $actual_release" >&2
+            return 1
+          }
+
           verify_status() {
             expected_status="$1"
             target_url="$2"
             shift 2
             actual_status=""
             for attempt in $(seq 1 30); do
-              actual_status="$(curl -sS -o /dev/null -w '%{http_code}' "$@" "$target_url" || true)"
+              actual_status="$(curl_bounded -sS -o /dev/null -w '%{http_code}' "$@" "$target_url" || true)"
               if [ "$actual_status" = "$expected_status" ]; then
                 return 0
               fi
@@ -96,7 +133,7 @@ jobs:
             response_headers=""
             actual_status=""
             for attempt in $(seq 1 30); do
-              response_headers="$(curl -sS -D - -o /dev/null "$target_url" || true)"
+              response_headers="$(curl_bounded -sS -D - -o /dev/null "$target_url" || true)"
               actual_status="$(printf '%s\n' "$response_headers" | awk '/^HTTP\// { status = $2 } END { print status }')"
               if [ "$actual_status" = "$expected_status" ] \
                 && ! printf '%s\n' "$response_headers" | grep -Fqi 'x-ames-tombstone: 1'; then
@@ -113,7 +150,7 @@ jobs:
             response_headers=""
             actual_status=""
             for attempt in $(seq 1 30); do
-              response_headers="$(curl -sS -D - -o /dev/null "$target_url" || true)"
+              response_headers="$(curl_bounded -sS -D - -o /dev/null "$target_url" || true)"
               actual_status="$(printf '%s\n' "$response_headers" | awk '/^HTTP\// { status = $2 } END { print status }')"
               if [ "$actual_status" = "404" ] \
                 && printf '%s\n' "$response_headers" | grep -Fqi 'x-ames-tombstone: 1' \
@@ -131,6 +168,7 @@ jobs:
           }
 
           site_origin="$ORIGIN"
+          verify_release "$site_origin/release.txt" "$EXPECTED_RELEASE"
           verify_unmarked_status 200 "$site_origin/"
           verify_unmarked_status 200 "$site_origin/assets/data/site.config.json"
           verify_unmarked_status 200 "$site_origin/assets/css/main.css"
@@ -151,25 +189,25 @@ jobs:
           verify_tombstone "$site_origin/assets/js/construction-gate.js"
           verify_status 200 "$site_origin/assets/images/work/campaigns/flight-paths-320w.webp"
           verify_tombstone "$site_origin/assets/images/work/portraits/beth-roberts-320w.webp"
-          curl -fsS "$site_origin/" > /tmp/ames-consulting-home.html
+          curl_bounded -fsS "$site_origin/" > /tmp/ames-consulting-home.html
           ! grep -Fqi "construction-gate" /tmp/ames-consulting-home.html
           ! grep -Fqi "Enter the password" /tmp/ames-consulting-home.html
-          curl -fsS "$site_origin/contact/" > /tmp/ames-consulting-contact.html
+          curl_bounded -fsS "$site_origin/contact/" > /tmp/ames-consulting-contact.html
           grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-contact.html
           ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-contact.html
-          curl -fsS "$site_origin/about/" > /tmp/ames-consulting-about.html
+          curl_bounded -fsS "$site_origin/about/" > /tmp/ames-consulting-about.html
           grep -Fq 'href="mailto:oliver@ames.consulting"' /tmp/ames-consulting-about.html
           ! grep -Fqi '/cdn-cgi/l/email-protection' /tmp/ames-consulting-about.html
-          curl -fsS "$site_origin/work/beta-technologies/" > /tmp/ames-consulting-beta.html
+          curl_bounded -fsS "$site_origin/work/beta-technologies/" > /tmp/ames-consulting-beta.html
           ! grep -Fqi "<iframe" /tmp/ames-consulting-beta.html
           ! grep -Fqi "<img " /tmp/ames-consulting-beta.html
           grep -Fqi 'href="../flight-paths/"' /tmp/ames-consulting-beta.html
-          curl -fsS "$site_origin/work/flight-paths/" > /tmp/ames-consulting-flight-paths.html
+          curl_bounded -fsS "$site_origin/work/flight-paths/" > /tmp/ames-consulting-flight-paths.html
           grep -Fqi "youtube-nocookie.com/embed/4r5N5DjmSCU" /tmp/ames-consulting-flight-paths.html
           ! grep -Fqi "<img " /tmp/ames-consulting-flight-paths.html
-          curl -fsS "$site_origin/testimonials/" > /tmp/ames-consulting-testimonials.html
+          curl_bounded -fsS "$site_origin/testimonials/" > /tmp/ames-consulting-testimonials.html
           ! grep -Eqi "performance review|performance feedback" /tmp/ames-consulting-testimonials.html
-          curl -fsSI "$site_origin/" > /tmp/ames-consulting-headers.txt
+          curl_bounded -fsSI "$site_origin/" > /tmp/ames-consulting-headers.txt
           grep -Fqi "frame-ancestors 'none'" /tmp/ames-consulting-headers.txt
           grep -Fqi "strict-transport-security: max-age=31536000; includeSubDomains" /tmp/ames-consulting-headers.txt
           grep -Fqi "x-content-type-options: nosniff" /tmp/ames-consulting-headers.txt
@@ -203,16 +241,27 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: [deploy]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Verify asset origins
+        env:
+          CURL_CONNECT_TIMEOUT_SECONDS: "5"
+          CURL_MAX_TIME_SECONDS: "15"
         run: |
+          curl_bounded() {
+            curl \
+              --connect-timeout "$CURL_CONNECT_TIMEOUT_SECONDS" \
+              --max-time "$CURL_MAX_TIME_SECONDS" \
+              "$@"
+          }
+
           verify_status() {
             expected_status="$1"
             target_url="$2"
             shift 2
             actual_status=""
             for attempt in $(seq 1 30); do
-              actual_status="$(curl -sS -o /dev/null -w '%{http_code}' "$@" "$target_url" || true)"
+              actual_status="$(curl_bounded -sS -o /dev/null -w '%{http_code}' "$@" "$target_url" || true)"
               if [ "$actual_status" = "$expected_status" ]; then
                 return 0
               fi

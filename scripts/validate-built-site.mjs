@@ -18,6 +18,7 @@ import {
   CLOUDFLARE_FUNCTION_ROUTES,
 } from "./publication-denylist.mjs";
 import { hasRobotsDirective } from "./html-metadata.mjs";
+import { RELEASE_MARKER_FILE, validateReleaseMarker } from "./release-marker.mjs";
 import { SERVICES } from "./site-taxonomy.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -74,6 +75,10 @@ if (unexpectedData.length) {
 for (const filename of allowedDataFiles) {
   if (!dataFiles.includes(filename)) throw new Error(`Missing runtime data file: ${filename}`);
 }
+
+const releaseId = validateReleaseMarker(
+  await readFile(path.join(siteRoot, RELEASE_MARKER_FILE), "utf8"),
+);
 
 const functionRoutes = JSON.parse(await readFile(path.join(siteRoot, "_routes.json"), "utf8"));
 const expectedFunctionRoutes = {
@@ -211,5 +216,5 @@ const artifactBytes = (await Promise.all(files.map((filePath) => stat(filePath))
   0,
 );
 console.log(
-  `Validated ${htmlFiles.length} published HTML files, ${responsiveImages} responsive image uses for ${eligibleResponsiveImages} eligible raster uses, and ${(artifactBytes / 1024 / 1024).toFixed(1)} MiB of artifact data.`,
+  `Validated release ${releaseId}: ${htmlFiles.length} published HTML files, ${responsiveImages} responsive image uses for ${eligibleResponsiveImages} eligible raster uses, and ${(artifactBytes / 1024 / 1024).toFixed(1)} MiB of artifact data.`,
 );

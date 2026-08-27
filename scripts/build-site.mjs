@@ -21,6 +21,7 @@ import {
   CLOUDFLARE_FUNCTION_ROUTES,
 } from "./publication-denylist.mjs";
 import { hasRobotsDirective } from "./html-metadata.mjs";
+import { createReleaseMarker, RELEASE_MARKER_FILE } from "./release-marker.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, "..");
@@ -133,6 +134,7 @@ await writeFile(
     exclude: CLOUDFLARE_FUNCTION_EXCLUDES,
   }, null, 2)}\n`,
 );
+await writeFile(join(outputDir, RELEASE_MARKER_FILE), createReleaseMarker());
 
 for (const generator of ["optimize-site-images.mjs", "generate-seo-artifacts.mjs"]) {
   execFileSync(process.execPath, [join(projectRoot, "scripts", generator), "--out-dir", outputDir], {

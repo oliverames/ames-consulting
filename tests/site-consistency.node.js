@@ -24,6 +24,18 @@ const socialProfiles = [
   "https://www.instagram.com/oliverames/",
 ];
 
+test("the pre-ship gate proves convergence before validating its final build", async () => {
+  const { scripts } = JSON.parse(await read("package.json"));
+  assert.deepEqual(scripts["check:ship"].split(/\s*&&\s*/), [
+    "npm run check:build-idempotence",
+    "npm run build:site",
+    "npm run check:all",
+    "npm run check:built-site",
+    "npm run test:site",
+  ]);
+  assert.doesNotMatch(scripts["check:all"], /check:ship/);
+});
+
 test("build script roots preserve spaces in checkout paths", async () => {
   const checkoutRoot = path.join(root, "fixture checkout with spaces");
   const scriptUrl = pathToFileURL(path.join(checkoutRoot, "scripts", "probe.mjs"));

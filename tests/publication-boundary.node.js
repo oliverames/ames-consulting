@@ -4,6 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import { hasRobotsDirective, removeMetaByName } from "../scripts/html-metadata.mjs";
 import {
+  GENERATED_PUBLIC_FILES,
   PUBLIC_HTML_FILES,
   PUBLIC_IMAGE_PREFIXES,
   PUBLIC_ROUTE_ROOTS,
@@ -23,6 +24,11 @@ import {
   normalizePublicPath,
   resolvePublishedLocalReference,
 } from "../scripts/publication-policy.mjs";
+import {
+  createReleaseMarker,
+  releaseIdFromEnvironment,
+  validateReleaseMarker,
+} from "../scripts/release-marker.mjs";
 
 const root = process.cwd();
 
@@ -158,6 +164,40 @@ test("public route and runtime manifests reject arbitrary files", () => {
     assert.equal(isAllowedPublishedArtifactPath(filePath), false, filePath);
   }
   assert.throws(() => normalizePublicPath("work/../private/index.html"), /traversal/);
+  assert.deepEqual(GENERATED_PUBLIC_FILES, [
+    "_routes.json",
+    "llms.txt",
+    "release.txt",
+    "robots.txt",
+    "sitemap.xml",
+  ]);
+  assert.equal(isAllowedPublishedArtifactPath("release.txt"), true);
+  assert.equal(isAllowedPublishedArtifactPath("release.json"), false);
+});
+
+test("release markers contain only the exact build identity", () => {
+  const release = "a".repeat(40);
+  const otherRelease = "b".repeat(40);
+
+  assert.equal(releaseIdFromEnvironment({}), "local");
+  assert.equal(releaseIdFromEnvironment({ GITHUB_SHA: release }), release);
+  assert.equal(createReleaseMarker({}), "local\n");
+  assert.equal(createReleaseMarker({ GITHUB_SHA: release }), `${release}\n`);
+  assert.equal(validateReleaseMarker(`${release}\n`, { GITHUB_SHA: release }), release);
+  assert.equal(validateReleaseMarker(`${release}\n`, {}), release);
+
+  assert.throws(
+    () => releaseIdFromEnvironment({ GITHUB_SHA: release.toUpperCase() }),
+    /40-character lowercase Git SHA/,
+  );
+  assert.throws(
+    () => validateReleaseMarker(`${release}\nmetadata\n`, {}),
+    /must contain only/,
+  );
+  assert.throws(
+    () => validateReleaseMarker(`${release}\n`, { GITHUB_SHA: otherRelease }),
+    /expected/,
+  );
 });
 
 test("built references cannot escape the published artifact", () => {
@@ -291,6 +331,10 @@ test("Cloudflare response headers enforce the documented browser protections", a
   ]) {
     assert.match(headers, new RegExp(requiredPolicy.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
+  assert.match(
+    headers,
+    /\n\/release\.txt\n  Cache-Control: no-store\n  X-Robots-Tag: noindex\n?$/,
+  );
 });
 
 test("manual production deploys are restricted to main", async () => {
@@ -303,4 +347,30 @@ test("manual production deploys are restricted to main", async () => {
   assert.match(workflow, /group: cloudflare-pages-\$\{\{ github\.ref \}\}/);
   assert.match(workflow, /deploy:\n\s+if: github\.ref == 'refs\/heads\/main'\n\s+needs:/);
   assert.match(workflow, /verify-live:\n\s+if: github\.ref == 'refs\/heads\/main'\n\s+needs:/);
+});
+
+test("deployment verification is release-specific and time-bounded", async () => {
+  const workflow = await readFile(path.join(root, ".github/workflows/deploy-pages.yml"), "utf8");
+  const count = (pattern) => workflow.match(pattern)?.length || 0;
+
+  assert.equal(count(/timeout-minutes: 15/g), 2);
+  assert.equal(count(/CURL_CONNECT_TIMEOUT_SECONDS: "5"/g), 2);
+  assert.equal(count(/CURL_MAX_TIME_SECONDS: "15"/g), 2);
+  assert.equal(count(/curl_bounded\(\) \{/g), 2);
+  assert.equal(count(/--connect-timeout "\$CURL_CONNECT_TIMEOUT_SECONDS"/g), 2);
+  assert.equal(count(/--max-time "\$CURL_MAX_TIME_SECONDS"/g), 2);
+
+  const workflowWithoutComments = workflow
+    .split("\n")
+    .filter((line) => !line.trimStart().startsWith("#"))
+    .join("\n");
+  assert.equal(workflowWithoutComments.match(/\bcurl(?=\s)/g)?.length, 2);
+
+  assert.match(workflow, /EXPECTED_RELEASE: \$\{\{ github\.sha \}\}/);
+  const releaseCheck = 'verify_release "$site_origin/release.txt" "$EXPECTED_RELEASE"';
+  const firstRouteCheck = 'verify_unmarked_status 200 "$site_origin/"';
+  assert.ok(workflow.includes(releaseCheck));
+  assert.ok(workflow.indexOf(releaseCheck) < workflow.indexOf(firstRouteCheck));
+  assert.match(workflow, /grep -Fqi 'cache-control: no-store' "\$response_headers"/);
+  assert.match(workflow, /grep -Fqi 'x-robots-tag: noindex' "\$response_headers"/);
 });

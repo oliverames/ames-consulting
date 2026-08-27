@@ -1830,6 +1830,16 @@
     text-decoration: none;
   }
 
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .writing-header > p a {
+      text-decoration: underline;
+    }
+  }
+
+  [data-theme="dark"] .writing-header > p a {
+    text-decoration: underline;
+  }
+
   @media (max-width: 42rem) {
     .social-card__media-item {
       flex-basis: 84%;

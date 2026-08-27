@@ -22,11 +22,12 @@ function contactRequest({
   startedAt = Date.now() - 5_000,
   contentLength,
   name = "Test Visitor",
+  message = "This is an isolated function test.",
 } = {}) {
   const body = new FormData();
   body.set("name", name);
   body.set("email", "visitor@example.com");
-  body.set("message", "This is an isolated function test.");
+  body.set("message", message);
   body.set("startedAt", String(startedAt));
   body.set("cf-turnstile-response", "test-token");
   const headers = { Origin: origin };
@@ -182,6 +183,34 @@ test("contact function verifies Turnstile before sending a valid message", async
     assert.deepEqual(outboundEmail.to, ["oliver@example.com"]);
     assert.equal(outboundEmail.reply_to, "visitor@example.com");
     assert.ok(!outboundEmail.from.includes("visitor@example.com"), "Visitor address must not appear in the From header");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("contact function reuses one idempotency key for the same email retry", async () => {
+  const originalFetch = globalThis.fetch;
+  const keys = [];
+  globalThis.fetch = async (url, options) => {
+    if (String(url).includes("siteverify")) {
+      return Response.json({ success: true, action: "contact", hostname: "ames.consulting" });
+    }
+    keys.push(options.headers["idempotency-key"]);
+    return Response.json({ id: "test-message" });
+  };
+
+  const startedAt = Date.now() - 5_000;
+  try {
+    await onRequestPost({ request: contactRequest({ startedAt }), env });
+    await onRequestPost({ request: contactRequest({ startedAt }), env });
+    await onRequestPost({
+      request: contactRequest({ startedAt, message: "This is a changed function test." }),
+      env,
+    });
+
+    assert.match(keys[0], /^contact-[a-f0-9]{64}$/);
+    assert.equal(keys[1], keys[0]);
+    assert.notEqual(keys[2], keys[0]);
   } finally {
     globalThis.fetch = originalFetch;
   }

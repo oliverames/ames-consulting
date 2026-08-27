@@ -37,7 +37,10 @@ async function galleryFor(card, image) {
         const anchor = parsed.getElementById(decodeURIComponent(targetUrl.hash.slice(1)));
         scope = anchor?.closest("section") || anchor?.parentElement || parsed;
       }
-      const pinned = absoluteUrl(image.currentSrc || image.src);
+      // Use the authored source as the pinned frame. currentSrc can be a
+      // responsive derivative of that same photograph, which would otherwise
+      // create a visually duplicate first scrub step in the built artifact.
+      const pinned = absoluteUrl(image.getAttribute("src"));
       const candidates = [...scope.querySelectorAll(GALLERY_SELECTOR)]
         .map((candidate) => absoluteUrl(candidate.getAttribute("src"), targetUrl.href))
         .filter(Boolean);
@@ -77,7 +80,7 @@ function attach(card) {
     // scrub state after pointerleave already cleared it.
     if (!hovering) return;
     frames = loaded;
-    frameIndex = Math.max(0, frames.indexOf(absoluteUrl(image.currentSrc || image.src)));
+    frameIndex = Math.max(0, frames.indexOf(absoluteUrl(pinnedSrc)));
     image.toggleAttribute("data-gallery-scrub-ready", frames.length > 1);
     preload(frames[(frameIndex + 1) % frames.length]);
   });

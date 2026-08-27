@@ -3,6 +3,7 @@ import { loadSiteConfig } from "./site-config.js";
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX_ATTEMPTS = 3;
 const MIN_FILL_MS = 3_000;
+const SUBMISSION_TIMEOUT_MS = 15_000;
 const FORM_UNAVAILABLE_MESSAGE = "The form is unavailable right now. Please email me at oliver@ames.consulting.";
 const TURNSTILE_SCRIPT_URL = "https://challenges.cloudflare.com/turnstile/v0/api.js";
 
@@ -134,8 +135,11 @@ async function initContactForm() {
   }
 
   startedAtInput.value = String(Date.now());
-  form.addEventListener("focusin", requestTurnstile, { once: true });
-  form.addEventListener("pointerdown", requestTurnstile, { once: true });
+  // Keep these listeners available so a transient script error can retry on
+  // the visitor's next interaction. requestTurnstile remains idempotent after
+  // either a successful load or an in-flight request.
+  form.addEventListener("focusin", requestTurnstile);
+  form.addEventListener("pointerdown", requestTurnstile);
   form.addEventListener("invalid", (event) => {
     const control = event.target;
     if (!(control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement)) return;
@@ -146,8 +150,12 @@ async function initContactForm() {
     const control = event.target;
     if (!(control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement)) return;
     if (!control.hasAttribute("aria-invalid")) return;
-    if (control.validity.valid) clearFieldError(control);
-    else showFieldError(control);
+    if (control.validity.valid) {
+      clearFieldError(control);
+      if (!form.querySelector("[aria-invalid]")) setStatus(status, "");
+    } else {
+      showFieldError(control);
+    }
   });
 
   const requestedProject = new URLSearchParams(location.search).get("project");
@@ -207,6 +215,11 @@ async function initContactForm() {
     setStatus(status, "Sending message...", "info");
 
     const payload = new FormData(form);
+    const controller = new AbortController();
+    const submissionTimeout = window.setTimeout(
+      () => controller.abort(),
+      SUBMISSION_TIMEOUT_MS,
+    );
 
     try {
       const response = await fetch(endpoint, {
@@ -214,7 +227,8 @@ async function initContactForm() {
         headers: {
           Accept: "application/json"
         },
-        body: payload
+        body: payload,
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -240,6 +254,7 @@ async function initContactForm() {
       // retry fails spam verification.
       window.turnstile?.reset();
     } finally {
+      window.clearTimeout(submissionTimeout);
       submitButton.disabled = false;
     }
   });

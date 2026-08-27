@@ -286,6 +286,71 @@ test("contact form loads Turnstile after the first interaction", async ({ page }
   expect(turnstileRequests).toBe(1);
 });
 
+test("contact form retries Turnstile after a transient script failure", async ({ page }) => {
+  let turnstileRequests = 0;
+  await page.route("https://challenges.cloudflare.com/turnstile/v0/api.js", async (route) => {
+    turnstileRequests += 1;
+    await route.fulfill({
+      status: turnstileRequests === 1 ? 503 : 200,
+      contentType: "application/javascript",
+      body: turnstileRequests === 1 ? "" : "window.turnstile = { reset() {} };",
+    });
+  });
+
+  await page.goto("/contact/");
+  await page.getByLabel("Name").click();
+  await expect.poll(() => turnstileRequests).toBe(1);
+  await expect(page.locator(`script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]`)).toHaveCount(0);
+
+  await page.getByLabel("Email").click();
+  await expect.poll(() => turnstileRequests).toBe(2);
+});
+
+test("contact form recovers when a submission stalls", async ({ page }) => {
+  await page.addInitScript(() => {
+    const nativeFetch = window.fetch.bind(window);
+    window.fetch = (input, options = {}) => {
+      const url = typeof input === "string" ? input : input?.url || String(input);
+      if (url !== "/api/contact") return nativeFetch(input, options);
+      return new Promise((_, reject) => {
+        if (options.signal?.aborted) {
+          reject(options.signal.reason);
+          return;
+        }
+        options.signal?.addEventListener("abort", () => reject(options.signal.reason), {
+          once: true,
+        });
+      });
+    };
+  });
+  await page.clock.install();
+  await page.route("https://challenges.cloudflare.com/turnstile/v0/api.js", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "window.turnstile = { reset() {} };",
+    });
+  });
+
+  await page.goto("/contact/");
+  await page.getByLabel("Name").fill("Timeout Test");
+  await page.getByLabel("Email").fill("timeout@example.com");
+  await page.getByLabel("Tell me about it").fill("This request never resolves.");
+  await page.evaluate(() => {
+    document.querySelector("#contact-started-at").value = String(Date.now() - 4_000);
+  });
+  const submit = page.getByRole("button", { name: "Send message" });
+  await submit.click();
+  await expect(submit).toBeDisabled();
+  await expect(page.getByRole("status")).toHaveText("Sending message...");
+
+  await page.clock.fastForward("00:00:16");
+  await expect(submit).toBeEnabled();
+  await expect(page.getByRole("status")).toHaveText(
+    "Message could not be sent right now. Please try again shortly.",
+  );
+});
+
 test("contact form fields use the high-contrast focus token", async ({ page }) => {
   await page.route("https://challenges.cloudflare.com/turnstile/v0/api.js", async (route) => {
     await route.fulfill({
@@ -1385,6 +1450,20 @@ test("LinkedIn image posts scroll like carousels and open in the site viewer", a
   await expect(twoImageCard.getByRole("button", { name: "Show next post image" })).toBeHidden();
 });
 
+test("LinkedIn carousel buttons respect reduced-motion preferences", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.addInitScript(() => {
+    Element.prototype.scrollIntoView = function captureScrollOptions(options) {
+      window.__carouselScrollBehavior = options?.behavior;
+    };
+  });
+  await page.goto("/blog/");
+
+  const card = page.locator('[data-post-id="linkedin:7493102298634776576"]');
+  await card.getByRole("button", { name: "Show next post image" }).click();
+  await expect.poll(() => page.evaluate(() => window.__carouselScrollBehavior)).toBe("auto");
+});
+
 test("in-house campaign cards identify the correct organization and role", async ({ page }) => {
   await page.goto("/work/");
   await expect(page.locator(".work-category__framing")).toContainText(
@@ -1464,7 +1543,10 @@ test("photo project cards scrub galleries horizontally and restore their pinned 
   expect(box).not.toBeNull();
   await page.mouse.move(box.x + 8, box.y + box.height / 2);
   await expect(image).toHaveAttribute("data-gallery-scrub-ready", "");
-  await page.mouse.move(box.x + 220, box.y + box.height / 2, { steps: 8 });
+  // One scrub step must advance to a different photograph. In the deploy
+  // artifact, currentSrc is a responsive derivative of the authored src and
+  // must not become a duplicate first frame.
+  await page.mouse.move(box.x + 70, box.y + box.height / 2, { steps: 4 });
   await expect.poll(() => image.getAttribute("src")).not.toBe(pinnedSource);
 
   await page.mouse.move(0, 0);

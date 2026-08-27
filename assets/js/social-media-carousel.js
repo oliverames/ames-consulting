@@ -1,4 +1,5 @@
 const carousels = document.querySelectorAll("[data-media-carousel]");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function currentIndex(track, items) {
   const maximumScroll = track.scrollWidth - track.clientWidth;
@@ -54,7 +55,11 @@ for (const carousel of carousels) {
   const move = (offset) => {
     const index = currentIndex(track, items);
     const destination = items[Math.max(0, Math.min(items.length - 1, index + offset))];
-    destination.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    destination.scrollIntoView({
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+      block: "nearest",
+      inline: "start",
+    });
   };
 
   previous.addEventListener("click", () => move(-1));

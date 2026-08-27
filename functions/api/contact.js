@@ -101,6 +101,15 @@ async function readFormData(request) {
   }).formData();
 }
 
+async function createEmailIdempotencyKey(startedAt, serializedEmail) {
+  const input = new TextEncoder().encode(`${startedAt}\0${serializedEmail}`);
+  const digest = await crypto.subtle.digest("SHA-256", input);
+  const hexadecimal = [...new Uint8Array(digest)]
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+  return `contact-${hexadecimal}`;
+}
+
 export async function onRequestPost({ request, env }) {
   if (!isSameOrigin(request)) return json({ error: "Request origin is not allowed" }, 403);
 
@@ -158,6 +167,17 @@ export async function onRequestPost({ request, env }) {
   }
   if (!turnstileValid) return json({ error: "Spam protection check failed" }, 403);
 
+  const emailPayload = {
+    from: "Ames Consulting Website <website@amesvt.com>",
+    to: [env.CONTACT_EMAIL],
+    reply_to: email,
+    subject: `Website inquiry from ${name}`,
+    html: `<h1>New website inquiry</h1><p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>${organization ? `<p><strong>Organization:</strong> ${escapeHtml(organization)}</p>` : ""}${projectType ? `<p><strong>Work:</strong> ${escapeHtml(projectType)}</p>` : ""}${timeframe ? `<p><strong>Timing:</strong> ${escapeHtml(timeframe)}</p>` : ""}<p>${escapeHtml(message).replaceAll("\n", "<br>")}</p>`,
+    text: `New website inquiry\n\nFrom: ${name} <${email}>${organization ? `\nOrganization: ${organization}` : ""}${projectType ? `\nWork: ${projectType}` : ""}${timeframe ? `\nTiming: ${timeframe}` : ""}\n\n${message}`
+  };
+  const serializedEmail = JSON.stringify(emailPayload);
+  const idempotencyKey = await createEmailIdempotencyKey(startedAt, serializedEmail);
+
   let response;
   try {
     response = await fetch("https://api.resend.com/emails", {
@@ -166,16 +186,9 @@ export async function onRequestPost({ request, env }) {
       headers: {
         authorization: `Bearer ${env.RESEND_API_KEY}`,
         "content-type": "application/json",
-        "idempotency-key": crypto.randomUUID()
+        "idempotency-key": idempotencyKey
       },
-      body: JSON.stringify({
-        from: "Ames Consulting Website <website@amesvt.com>",
-        to: [env.CONTACT_EMAIL],
-        reply_to: email,
-        subject: `Website inquiry from ${name}`,
-        html: `<h1>New website inquiry</h1><p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>${organization ? `<p><strong>Organization:</strong> ${escapeHtml(organization)}</p>` : ""}${projectType ? `<p><strong>Work:</strong> ${escapeHtml(projectType)}</p>` : ""}${timeframe ? `<p><strong>Timing:</strong> ${escapeHtml(timeframe)}</p>` : ""}<p>${escapeHtml(message).replaceAll("\n", "<br>")}</p>`,
-        text: `New website inquiry\n\nFrom: ${name} <${email}>${organization ? `\nOrganization: ${organization}` : ""}${projectType ? `\nWork: ${projectType}` : ""}${timeframe ? `\nTiming: ${timeframe}` : ""}\n\n${message}`
-      })
+      body: serializedEmail
     });
   } catch {
     return json({ error: "Message could not be sent" }, 502);

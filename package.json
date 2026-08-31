@@ -41,14 +41,14 @@
     "generate:credit-union-websites": "node scripts/generate-credit-union-websites-page.mjs"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.12.1",
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.62.1",
-    "eslint": "^10.8.0",
-    "globals": "^17.9.0",
-    "html-validate": "^11.6.2",
-    "sharp": "^0.35.3",
+    "eslint": "^10.9.1",
+    "globals": "^17.11.0",
+    "html-validate": "^11.10.0",
+    "sharp": "^0.35.4",
     "simple-icons": "^16.28.0",
-    "wrangler": "4.119.0"
+    "wrangler": "4.127.1"
   },
   "overrides": {
     "undici": "7.29.0"

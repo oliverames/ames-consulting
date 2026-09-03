@@ -242,3 +242,22 @@ test("every ordered gallery explains its visible order", async () => {
     assert.doesNotMatch(html, /Complete photo series/);
   }
 });
+
+test("every public page carries the Google tag and a CSP that admits it", async () => {
+  const { GOOGLE_TAG_CSP_HOSTS, GOOGLE_TAG_LOADER_URL, googleTagMarkup } = await import(
+    pathToFileURL(path.join(root, "scripts/google-tag.mjs")).href
+  );
+  for (const file of PUBLIC_HTML_FILES) {
+    const html = await read(file);
+    const depth = file.split("/").length - 1;
+    const base = file === "404.html" ? "/" : depth === 0 ? "./" : "../".repeat(depth);
+    assert.ok(html.includes(googleTagMarkup(base)), `${file} is missing the Google tag for base ${base}`);
+    assert.equal(html.split(GOOGLE_TAG_LOADER_URL).length - 1, 1, `${file} loads the Google tag more than once`);
+    const csp = html.match(/http-equiv="Content-Security-Policy"\s+content="([^"]*)"/)?.[1];
+    assert.ok(csp, `${file} has no meta Content-Security-Policy`);
+    for (const [directive, hosts] of Object.entries(GOOGLE_TAG_CSP_HOSTS)) {
+      const sources = csp.match(new RegExp(`(?:^|;)\\s*${directive}\\s([^;]*)`))?.[1] ?? "";
+      for (const host of hosts) assert.ok(sources.includes(host), `${file} CSP ${directive} lacks ${host}`);
+    }
+  }
+});

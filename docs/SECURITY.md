@@ -9,6 +9,7 @@ This project is a static site with client-rendered enhancements. Security focuse
 - HSTS, MIME-sniffing protection, a strict referrer policy, and a permissions policy that disables sensitive APIs.
 - Contact form anti-abuse: same-origin enforcement, payload and timestamp-plausibility limits, a honeypot, hostname-bound Turnstile verification, a Cloudflare WAF rate-limiting rule on `POST /api/contact`, and a supplementary local rate limiter.
 - Outbound calls from the contact Function (Turnstile siteverify and Resend) run under a 10-second timeout and return structured 502 JSON on network failure instead of a raw platform error.
+- Google Analytics 4 (measurement ID `G-YF4LQ85VRE`) is the one third-party script. The loader comes from `www.googletagmanager.com`; the config call lives in `assets/js/google-tag.js` so no inline script or `'unsafe-inline'` is needed. The CSP admits only the analytics collection hosts, not Google's advertising endpoints. `scripts/google-tag.mjs` is the source of truth for the ID and host lists.
 - Accidental image dragging is disabled without blocking text selection, context menus, save shortcuts, or printing.
 
 ## Known Limits

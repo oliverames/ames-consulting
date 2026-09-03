@@ -90,6 +90,7 @@ export const PUBLIC_RUNTIME_FILES = Object.freeze([
   "assets/js/contact-form.js",
   "assets/js/content-protection.js",
   "assets/js/gallery-card-scrub.js",
+  "assets/js/google-tag.js",
   "assets/js/header-scroll.js",
   "assets/js/hero-headline.js",
   "assets/js/image-viewer.js",

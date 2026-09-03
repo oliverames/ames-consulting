@@ -12,6 +12,7 @@ import {
 } from "simple-icons";
 import { applyYoutubeFacades } from "./youtube-facade.mjs";
 import { projectRootFromScriptUrl } from "./script-paths.mjs";
+import { GOOGLE_TAG_LOADER_URL, googleTagMarkup, withGoogleTagCsp } from "./google-tag.mjs";
 
 const root = projectRootFromScriptUrl(import.meta.url);
 const provenance = JSON.parse(await readFile(join(root, "assets/data/media-provenance.json"), "utf8"));
@@ -134,6 +135,38 @@ function normalizeNavAndCompany(html, base, file) {
     `$1${companyItems}$2`,
   );
   return out;
+}
+
+// The Google tag (GA4) belongs at the top of every <head>. The loader URL is
+// the idempotence key; the config script path is rewritten for the page depth
+// so a page that moves keeps a working reference.
+function ensureGoogleTag(html, base) {
+  const markup = googleTagMarkup(base);
+  if (html.includes(GOOGLE_TAG_LOADER_URL)) {
+    return html.replace(
+      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=[^"]+"><\/script><script src="[^"]*assets\/js\/google-tag\.js"><\/script>/,
+      markup,
+    );
+  }
+  // Google asks for the tag "immediately after <head>", but the charset
+  // declaration has to stay first, so the tag follows it.
+  const charset = /(<meta charset="utf-8"\s*\/?>)(\s*)/i;
+  if (!charset.test(html)) {
+    console.warn(`apply-shared-ui: no <meta charset> found, Google tag not injected: ${html.slice(0, 80)}`);
+    return html;
+  }
+  return html.replace(charset, (match, tag, whitespace) => `${tag}${whitespace}${markup}${whitespace}`);
+}
+
+// Every page carries a meta CSP that must also admit the Google tag hosts;
+// the generators emit the pre-analytics policy, so widen it here.
+function ensureGoogleTagCsp(html) {
+  const pattern = /(<meta\s+http-equiv="Content-Security-Policy"\s+content=")([^"]*)(")/;
+  if (!pattern.test(html)) {
+    console.warn("apply-shared-ui: page has no meta Content-Security-Policy; Google tag hosts not added.");
+    return html;
+  }
+  return html.replace(pattern, (match, open, policy, close) => `${open}${withGoogleTagCsp(policy)}${close}`);
 }
 
 // Pages that load Google Fonts CSS need the matching preconnect hints; six
@@ -331,7 +364,7 @@ function addProvenanceDisclosure(html, file) {
 // Shared with apply-image-dimensions.mjs, apply-seo.mjs, and
 // validate-structured-data.mjs — keep the four lists identical so no sweeper
 // ever mutates a Playwright report or scratch output.
-const EXCLUDED_DIRS = new Set(["node_modules", "_site", ".git", "playwright-report", "test-results", "output"]);
+const EXCLUDED_DIRS = new Set(["node_modules", "_site", ".git", ".lighthouseci", "playwright-report", "test-results", "output"]);
 
 async function collectHtml(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -352,6 +385,8 @@ for (const file of await collectHtml(root)) {
   const faviconBase = relative(root, file) === "404.html" ? "/" : base;
   let after = normalizeColophon(before);
   after = normalizeNavAndCompany(after, base, file);
+  after = ensureGoogleTag(after, faviconBase);
+  after = ensureGoogleTagCsp(after);
   after = ensureFontPreconnects(after);
   after = normalizeFontHrefAmpersands(after);
   after = ensureFavicon(after, `${faviconBase}assets/images/brand/oa-social-mark.svg`);

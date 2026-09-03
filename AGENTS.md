@@ -49,12 +49,13 @@ Color custom properties are registered with `@property` for animated transitions
 
 ### JavaScript — ES Modules (`assets/js/`)
 
-All twelve modules are live; nothing else ships:
+All thirteen modules are live; nothing else ships:
 
 - **header-scroll.js** — Loaded on every page; toggles `[data-scrolled]` on `.site-header` once `window.scrollY > 10` (gates the blur backdrop). Imports `inbound-prompt.js` and `gallery-card-scrub.js`.
 - **inbound-prompt.js** — Time+scroll-triggered "Start a project" launcher and dialog; suppressed while another dialog is open.
 - **gallery-card-scrub.js** — Pointer-scrub through gallery frames on work cards.
 - **image-viewer.js** — Shared image lightbox: auto-injects its `<dialog>`, decorates content `<img>`s, wires click/keyboard/asset-protection handlers. Idempotent named helpers.
+- **google-tag.js** — Classic (non-module) script injected at the top of every `<head>` by `apply-shared-ui.mjs`, right after Google's async gtag loader. Holds the `gtag('config', 'G-YF4LQ85VRE')` call; kept external so CSP stays `script-src 'self'` plus hosts. Measurement ID and CSP host lists live in `scripts/google-tag.mjs`.
 - **content-protection.js** — Prevents accidental browser-native image dragging without blocking text selection or context menus.
 - **contact-form.js** — Contact form handling: lazy Turnstile loading on first interaction, rate limiting (3 successful sends per 10 minutes), honeypot, minimum fill time, and Turnstile reset on both success and failure paths.
 - **site-config.js** — Loads `assets/data/site.config.json`, merges with defaults (used by contact-form).

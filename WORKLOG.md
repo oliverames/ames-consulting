@@ -30,6 +30,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
 
+## 2026-09-03 - Gumroad storefront subdomain and Store link
+
+**What changed**: `store.ames.consulting` now points at the Gumroad storefront through a DNS-only CNAME to `domains.gumroad.com`, created in the Cloudflare zone and verified in Gumroad the same day. A Store item linking to that subdomain joins the primary navigation and the footer Company column on every page, emitted by `scripts/apply-shared-ui.mjs`, asserted by `tests/site-consistency.node.js`, and documented in `CLAUDE.md` and its mirrors. Commit `872922c`.
+
+**Decisions made**: The root and `www` records stay on Cloudflare Pages, because Gumroad's root-domain instructions would have replaced them and taken the site down. The Store link is the one absolute URL in the nav, sits just before Contact, and never carries `aria-current`. The generators' own nav copies were left alone since the normalizer overwrites them at the end of every build.
+
+**Left off at**: `npm run check:all` passes. The DNS record resolves publicly. Gumroad had not yet issued the subdomain's TLS certificate as of 2026-09-03, so HTTPS on the store fails until that lands (Gumroad quotes up to 24 hours). The main site's HSTS header carries `includeSubDomains`, so the store must stay HTTPS-only.
+
+**Open questions**: Whether the storefront link needs a mobile-nav spot check at 320 px once eight items are in the strip; the consistency test passes, and the browser suite was not rerun this session. Still open from 2026-08-27: none carried.
+
+---
+
 ## 2026-08-27 - UI and UX pass
 
 **What changed**: Four measured interface defects were fixed. Mobile navigation now reveals its current and keyboard-focused links. The focused skip link now sits above the sticky header. Contact-form and writing-archive deep links now clear that header instead of landing underneath it. The full review, measurements, and refuted candidates are in `docs/audits/2026-08-27-ui-ux-pass.md`.

@@ -1,13 +1,27 @@
-// Google tag (gtag.js) configuration for Google Analytics 4.
+// Google tag (gtag.js) for Google Analytics 4.
 //
-// Loaded as a classic script right after Google's async loader on every
-// page (see scripts/apply-shared-ui.mjs). It is a separate file rather than
-// the inline snippet Google shows so the site's CSP keeps `script-src 'self'`
-// without 'unsafe-inline'. The measurement ID must match GOOGLE_TAG_ID in
-// scripts/google-tag.mjs.
-window.dataLayer = window.dataLayer || [];
-function gtag() {
-  window.dataLayer.push(arguments);
-}
-gtag("js", new Date());
-gtag("config", "G-YF4LQ85VRE");
+// Injected as a classic script near the top of every <head> by
+// scripts/apply-shared-ui.mjs. It is a separate file rather than Google's
+// inline snippet so the CSP keeps `script-src 'self'` without 'unsafe-inline'.
+//
+// The hostname guard keeps local dev servers, Playwright runs, CI Lighthouse
+// audits, and Cloudflare preview deployments out of the property: on any
+// other host the loader is never fetched and no hit is sent. The measurement
+// ID and host list must match scripts/google-tag.mjs.
+(function () {
+  var MEASUREMENT_ID = "G-YF4LQ85VRE";
+  var PRODUCTION_HOSTS = ["ames.consulting", "www.ames.consulting"];
+  if (PRODUCTION_HOSTS.indexOf(window.location.hostname) === -1) return;
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", MEASUREMENT_ID);
+
+  var loader = document.createElement("script");
+  loader.async = true;
+  loader.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
+  document.head.appendChild(loader);
+})();

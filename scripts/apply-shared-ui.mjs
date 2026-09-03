@@ -12,7 +12,7 @@ import {
 } from "simple-icons";
 import { applyYoutubeFacades } from "./youtube-facade.mjs";
 import { projectRootFromScriptUrl } from "./script-paths.mjs";
-import { GOOGLE_TAG_LOADER_URL, googleTagMarkup, withGoogleTagCsp } from "./google-tag.mjs";
+import { GOOGLE_TAG_CONFIG_PATH, googleTagMarkup, withGoogleTagCsp } from "./google-tag.mjs";
 
 const root = projectRootFromScriptUrl(import.meta.url);
 const provenance = JSON.parse(await readFile(join(root, "assets/data/media-provenance.json"), "utf8"));
@@ -143,17 +143,17 @@ function normalizeNavAndCompany(html, base, file) {
   return out;
 }
 
-// The Google tag (GA4) belongs at the top of every <head>. The loader URL is
-// the idempotence key; the config script path is rewritten for the page depth
-// so a page that moves keeps a working reference.
+// The Google tag (GA4) belongs near the top of every <head>. The config
+// script path is the idempotence key and is rewritten for the page depth so a
+// page that moves keeps a working reference. Pages still carrying the earlier
+// two-script form (Google's loader inline in the HTML) are migrated to the
+// single guarded script.
 function ensureGoogleTag(html, base) {
   const markup = googleTagMarkup(base);
-  if (html.includes(GOOGLE_TAG_LOADER_URL)) {
-    return html.replace(
-      /<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=[^"]+"><\/script><script src="[^"]*assets\/js\/google-tag\.js"><\/script>/,
-      markup,
-    );
-  }
+  const existing = new RegExp(
+    `(?:<script async src="https://www\\.googletagmanager\\.com/gtag/js\\?id=[^"]+"></script>)?<script src="[^"]*${GOOGLE_TAG_CONFIG_PATH.replaceAll(".", "\\.")}"></script>`,
+  );
+  if (existing.test(html)) return html.replace(existing, markup);
   // Google asks for the tag "immediately after <head>", but the charset
   // declaration has to stay first, so the tag follows it.
   const charset = /(<meta charset="utf-8"\s*\/?>)(\s*)/i;

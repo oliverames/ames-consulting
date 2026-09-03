@@ -246,7 +246,7 @@ test("every ordered gallery explains its visible order", async () => {
 });
 
 test("every public page carries the Google tag and a CSP that admits it", async () => {
-  const { GOOGLE_TAG_CSP_HOSTS, GOOGLE_TAG_LOADER_URL, googleTagMarkup } = await import(
+  const { GOOGLE_TAG_CONFIG_PATH, GOOGLE_TAG_CSP_HOSTS, GOOGLE_TAG_LOADER_URL, googleTagMarkup } = await import(
     pathToFileURL(path.join(root, "scripts/google-tag.mjs")).href
   );
   for (const file of PUBLIC_HTML_FILES) {
@@ -254,7 +254,8 @@ test("every public page carries the Google tag and a CSP that admits it", async 
     const depth = file.split("/").length - 1;
     const base = file === "404.html" ? "/" : depth === 0 ? "./" : "../".repeat(depth);
     assert.ok(html.includes(googleTagMarkup(base)), `${file} is missing the Google tag for base ${base}`);
-    assert.equal(html.split(GOOGLE_TAG_LOADER_URL).length - 1, 1, `${file} loads the Google tag more than once`);
+    assert.equal(html.split(GOOGLE_TAG_CONFIG_PATH).length - 1, 1, `${file} loads the Google tag more than once`);
+    assert.ok(!html.includes(GOOGLE_TAG_LOADER_URL), `${file} inlines Google's loader; google-tag.js appends it behind the hostname guard`);
     const csp = html.match(/http-equiv="Content-Security-Policy"\s+content="([^"]*)"/)?.[1];
     assert.ok(csp, `${file} has no meta Content-Security-Policy`);
     for (const [directive, hosts] of Object.entries(GOOGLE_TAG_CSP_HOSTS)) {

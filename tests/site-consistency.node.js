@@ -113,7 +113,7 @@ test("the retired portrait route redirects to the canonical collection", async (
 });
 
 test("primary navigation, section state, and shared footer stay canonical", async () => {
-  const expectedLabels = ["Home", "Work", "Services", "Writing", "About", "Testimonials", "Contact"];
+  const expectedLabels = ["Home", "Work", "Services", "Writing", "About", "Testimonials", "Store", "Contact"];
   for (const file of PUBLIC_HTML_FILES.filter((entry) => entry !== "404.html")) {
     const html = await read(file);
     const nav = html.match(/<ul class="site-nav">([\s\S]*?)<\/ul>/)?.[1];
@@ -127,6 +127,8 @@ test("primary navigation, section state, and shared footer stay canonical", asyn
     assert.match(html, /<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization<\/h2>/, `${file} footer heading drifted`);
     const company = html.match(/<h2>Company<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
     assert.match(company || "", />Services<\/a>/, `${file} footer omits Services`);
+    assert.match(company || "", /<a href="https:\/\/store\.ames\.consulting\/">Store<\/a>/, `${file} footer omits Store`);
+    assert.match(nav, /<a href="https:\/\/store\.ames\.consulting\/">Store<\/a>/, `${file} navigation omits Store`);
     assert.ok(html.includes(`<div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>${footerDescription}</p></div>`), `${file} footer description drifted`);
     const social = html.match(/<ul class="site-footer__social">([\s\S]*?)<\/ul>/)?.[1];
     assert.ok(social, `${file} footer omits social profiles`);

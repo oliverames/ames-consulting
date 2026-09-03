@@ -81,6 +81,11 @@ function normalizeColophon(html) {
   );
 }
 
+// The Gumroad storefront lives on its own subdomain (DNS-only CNAME to
+// domains.gumroad.com), so the Store item is an absolute link that never
+// carries aria-current.
+const STORE_URL = "https://store.ames.consulting/";
+
 // Every page's primary nav and footer Company column carry the same items.
 // Late-running page rewrites (refine-work) used to drop the Testimonials
 // entry that generate-testimonials added earlier in the build.
@@ -117,6 +122,7 @@ function normalizeNavAndCompany(html, base, file) {
     ["Writing", `${base}blog/`],
     ["About", `${base}about/`],
     ["Testimonials", `${base}testimonials/`],
+    ["Store", STORE_URL],
     ["Contact", `${base}contact/`],
   ].map(([label, href]) => {
     const current = label === topLevel
@@ -129,7 +135,7 @@ function normalizeNavAndCompany(html, base, file) {
     /<ul class="site-nav">[\s\S]*?<\/ul>/,
     `<ul class="site-nav">${navItems}</ul>`,
   );
-  const companyItems = `<li><a href="${base}work/">All work</a></li><li><a href="${base}services/">Services</a></li><li><a href="${base}blog/">Writing</a></li><li><a href="${base}about/">About</a></li><li><a href="${base}testimonials/">Testimonials</a></li><li><a href="${base}contact/">Contact</a></li>`;
+  const companyItems = `<li><a href="${base}work/">All work</a></li><li><a href="${base}services/">Services</a></li><li><a href="${base}blog/">Writing</a></li><li><a href="${base}about/">About</a></li><li><a href="${base}testimonials/">Testimonials</a></li><li><a href="${STORE_URL}">Store</a></li><li><a href="${base}contact/">Contact</a></li>`;
   out = out.replace(
     /(<h[23]>Company<\/h[23]>\s*<ul>)[\s\S]*?(<\/ul>)/,
     `$1${companyItems}$2`,

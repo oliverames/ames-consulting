@@ -118,6 +118,7 @@ Visual identity documented in `docs/plans/2026-02-11-visual-design-system.md`. T
 
 - **Navigation style**: underline style, no pill borders. Heritage Gold accent, Manufacturing Red only on hover.
 - **Contact placement**: Contact appears in the top-level navigation and the footer's Company column.
+- **Store link**: the Gumroad storefront at `https://store.ames.consulting/` (DNS-only CNAME to `domains.gumroad.com`, added 2026-09-03) appears as "Store" in the top-level navigation and the footer's Company column, just before Contact. It is the one absolute link in the nav and never carries `aria-current`. Both lists live in `apply-shared-ui.mjs`.
 - **Homepage layout**: hero, practice overview, testimonial bands, one horizontal recent-project strip, and a software grid. `path-row` is reserved for the recent-project strip.
 - **Blog posts**: open on-site as dedicated full pages (`/blog/post-slug/`) for SEO and direct linking, not as modals or external Local JSON links.
 - **Photography**: organize into distinct "shoots" (galleries), each with a collage preview on homepage, not a single running gallery.

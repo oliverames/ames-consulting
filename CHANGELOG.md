@@ -8,6 +8,7 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 
 ### Fixed
 
+- Raised the Lighthouse total page-weight budget to 700 KB to accommodate the 175 KB Google tag loader on image-heavy work pages.
 - Preserved direct email links for visitors without JavaScript by disabling Cloudflare email obfuscation around the contact and About addresses.
 - Prevented all six software project previews from clipping their console or screen content on mobile.
 - Matched three-item and four-item website proof grids to their actual content, which removed the empty VSECU tile.
@@ -27,6 +28,7 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 
 ### Added
 
+- Google Analytics 4 measurement (`G-YF4LQ85VRE`) on every page through a guarded external script that sends hits only from `ames.consulting` and `www.ames.consulting`, with CSP updated for Google's analytics hosts.
 - Contact page scaffold with structured form and placeholder contact channels.
 - Read-time estimation for post cards and preview dialog.
 - Image viewer dialog for enlarged content images.

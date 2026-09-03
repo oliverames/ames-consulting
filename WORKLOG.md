@@ -30,6 +30,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
 
+## 2026-09-03 - Google Analytics 4 tag with production hostname guard
+
+**What changed**: Every page now loads Google Analytics 4 (`G-YF4LQ85VRE`). `scripts/apply-shared-ui.mjs` injects one classic script, `assets/js/google-tag.js`, after the charset meta and widens each page's meta CSP; the edge CSP in `_headers` and `scripts/security-headers.mjs` gained the `googletagmanager.com` and `google-analytics.com` hosts. `scripts/google-tag.mjs` holds the measurement ID, production hosts, and CSP host lists. The script returns early unless the hostname is `ames.consulting` or `www.ames.consulting`, then appends Google's async loader itself, so local servers, Playwright, CI Lighthouse, and `pages.dev` previews neither fetch the 175 KB loader nor send hits. `tests/site-consistency.node.js` asserts every public page carries the script once with a CSP that admits it and never inlines the loader. The Lighthouse `total-byte-weight` budget rose from 500 KB to 700 KB. Commits `ff11cb9`, `ee319fd`, `526c3a3`.
+
+**Decisions made**: The config lives in a file rather than Google's inline snippet so `script-src` stays `'self'` plus hosts with no `'unsafe-inline'`, nonce, or hash. Google's advertising hosts (doubleclick, googlesyndication) were left out of the CSP because Google signals is not enabled. The budget was raised rather than trimming images, because the loader alone accounts for the overage and the work pages were already within 15 KB of the old limit.
+
+**Left off at**: `npm run check:ship` passes (169 browser tests, idempotent builds). Deploy run 33771541619 succeeded on every job. Verified on production from the app browser pane: guard passes, loader appended, `page_view` and `scroll` hits sent, no console errors; `127.0.0.1` and `ames-consulting.pages.dev` stay silent. GA4 Realtime showed the pane hits and Oliver's phone visit. Cloudflare Pages caches assets for four hours with revalidation, so returning visitors run the pre-guard script until then, which still tracks correctly.
+
+**Open questions**: Oliver's Mac Chrome profile has two extensions that replace `gtag.js` with a stub, so no visit from that browser reaches GA; verify from the pane or a phone. Unversioned asset URLs mean any future change to `google-tag.js` also waits up to four hours for returning visitors. Carried from the Gumroad entry: the store subdomain TLS certificate and the 320 px mobile-nav spot check remain unverified.
+
+---
+
 ## 2026-09-03 - Gumroad storefront subdomain and Store link
 
 **What changed**: `store.ames.consulting` now points at the Gumroad storefront through a DNS-only CNAME to `domains.gumroad.com`, created in the Cloudflare zone and verified in Gumroad the same day. A Store item linking to that subdomain joins the primary navigation and the footer Company column on every page, emitted by `scripts/apply-shared-ui.mjs`, asserted by `tests/site-consistency.node.js`, and documented in `CLAUDE.md` and its mirrors. Commit `872922c`.

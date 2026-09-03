@@ -40,7 +40,7 @@
         "total-byte-weight": [
           "error",
           {
-            "maxNumericValue": 500000
+            "maxNumericValue": 700000
           }
         ]
       }

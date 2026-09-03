@@ -112,7 +112,7 @@ The contact form loads its Managed Cloudflare Turnstile widget only after a visi
 ## CI/CD
 
 - **ci-quality.yml**: Pull-request checks and the reusable quality gate for the `main` deployment workflow
-- **performance.yml**: Lighthouse thresholds against core routes and representative image-heavy work pages, including a 500 KB total page-weight limit
+- **performance.yml**: Lighthouse thresholds against core routes and representative image-heavy work pages, including a 700 KB total page-weight limit
 - **deploy-pages.yml**: Generated-artifact validation and Cloudflare Pages deployment
 - **pr-hygiene.yml**: Semantic PR title validation
 

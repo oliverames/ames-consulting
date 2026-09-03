@@ -97,7 +97,7 @@ Playwright uses Chromium against a local Python server on port 4173. The default
 ## CI/CD (`.github/workflows/`)
 
 - **ci-quality.yml** — Builds `_site/`, runs source and artifact checks, scans generated links, then tests the artifact in Chromium. It runs directly for pull requests and as the reusable quality gate invoked by the `main` deployment workflow.
-- **performance.yml** — Builds and validates `_site/`, then audits core routes and three representative image-heavy work pages with desktop Lighthouse. Budgets are performance ≥ 0.8, CLS ≤ 0.1, LCP ≤ 3 seconds, and total page weight ≤ 500 KB.
+- **performance.yml** — Builds and validates `_site/`, then audits core routes and three representative image-heavy work pages with desktop Lighthouse. Budgets are performance ≥ 0.8, CLS ≤ 0.1, LCP ≤ 3 seconds, and total page weight ≤ 700 KB (raised from 500 KB on 2026-09-03 when the Google tag added roughly 175 KB of transfer to every page; the image-heavy work pages were already within 15 KB of the old limit).
 - **deploy-pages.yml** — Builds and validates `_site/`, deploys it to Cloudflare Pages with Wrangler, then checks live routes, the contact function, and retired private paths. The site no longer uploads images to R2 during deployment.
 - **pr-hygiene.yml** — Enforces semantic PR titles (`feat`, `fix`, `chore`, `docs`, `refactor`, `test`, or `perf`)
 

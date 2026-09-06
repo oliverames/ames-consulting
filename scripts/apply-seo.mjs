@@ -11,6 +11,21 @@ const siteUrl = "https://ames.consulting";
 const defaultImage = `${siteUrl}/assets/images/about/oliver-ames-profile.webp`;
 
 const overrides = {
+  // Ping Warden is sold, so its page is a product page: the title carries the
+  // query a stuttering cloud gamer types, and the schema upgrades to
+  // SoftwareApplication with an offer pointing at the store.
+  "/work/ping-warden/": {
+    title: "Ping Warden: Fix Mac Cloud Gaming Stutter | Work by Oliver Ames",
+    description: "If GeForce NOW or Xbox Cloud Gaming stutters every few seconds on your Mac over Wi-Fi, the cause is usually AWDL. Ping Warden holds it down while you play.",
+    software: {
+      applicationCategory: "UtilitiesApplication",
+      operatingSystem: "macOS 13 or later",
+      price: "15.00",
+      priceCurrency: "USD",
+      offerUrl: "https://amesconsulting.gumroad.com/l/pingwarden",
+      downloadUrl: "https://github.com/oliverames/ping-warden/releases/latest"
+    }
+  },
   "/": {
     title: "Ames Consulting | Vermont Commercial Photographer and Strategist",
     description: "Oliver Ames is a commercial photographer and strategist in Montpelier who also builds websites, automation, and software for Vermont organizations."
@@ -217,6 +232,17 @@ function graphFor(route, metadata, image, html) {
   if (pageType === "Service") {
     page.provider = { "@id": organization["@id"] };
     page.areaServed = { "@type": "State", name: "Vermont" };
+  }
+  const software = overrides[route]?.software;
+  if (software && pageType === "CreativeWork") {
+    page["@type"] = "SoftwareApplication";
+    page.applicationCategory = software.applicationCategory;
+    page.operatingSystem = software.operatingSystem;
+    page.downloadUrl = software.downloadUrl;
+    page.offers = {
+      "@type": "Offer", price: software.price, priceCurrency: software.priceCurrency,
+      url: software.offerUrl, availability: "https://schema.org/InStock"
+    };
   }
   if (pageType === "BlogPosting") {
     const headline = text(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]);

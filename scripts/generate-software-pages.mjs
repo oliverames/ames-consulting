@@ -13,17 +13,19 @@ const projects = [
     name: "Ping Warden",
     type: "macOS app",
     period: "2025–2026",
-    summary: "Ping Warden is a native menu bar app that keeps local wireless discovery traffic from disrupting latency-sensitive work.",
-    dek: "I built Ping Warden because AirDrop, AirPlay, and Handoff can cause latency spikes during games, calls, and cloud streaming.",
+    summary: "Ping Warden stops the Wi‑Fi stutter that hits GeForce NOW and Xbox Cloud Gaming on a Mac by holding AWDL down while you play.",
+    dek: "Cloud gaming on a Mac shouldn’t stutter. Every few seconds AirDrop grabs the Wi‑Fi radio and the stream hitches, so I built a menu bar app that holds that interface down while you play.",
     repo: "https://github.com/oliverames/ping-warden",
+    store: { url: "https://amesconsulting.gumroad.com/l/pingwarden", label: "Get the license, $15" },
     icon: "ping-warden-icon.webp",
-    facts: ["Swift", "macOS 13+", "Open source"],
+    facts: ["Swift", "macOS 13+", "Signed and notarized", { text: "One-time $15", highlight: true }],
     screenshot: "ping-warden-dashboard.webp",
     screenshotAlt: "Ping Warden dashboard showing latency, jitter, probes, and interventions",
     sections: [
-      ["Why it exists", "AirDrop, AirPlay, and Handoff use a local wireless interface that can cause noticeable latency spikes. Ping Warden watches for that traffic and temporarily quiets it while a protected app runs."],
-      ["What it does", "The app monitors latency and jitter and detects protected apps automatically. An event-driven helper makes the network change, and the app records every intervention. Supported versions of macOS also get a Control Center widget."],
-      ["What pauses", "AirDrop, AirPlay, and Handoff pause while protection is active, then return when the session ends."],
+      ["Why your Mac stutters mid-game", "AirDrop, AirPlay, and Handoff share the Wi‑Fi radio through an interface called AWDL. Every few seconds macOS hops that radio to another channel to look for nearby devices and hops back, and a cloud gaming stream feels each hop as a hitch. Ethernet doesn’t have this problem, but most MacBooks live on Wi‑Fi."],
+      ["What Ping Warden does", "A privileged helper watches for macOS trying to raise the AWDL interface and takes it back down the moment it does. The dashboard shows live latency and jitter, discovers GeForce NOW regions as ping targets, and counts every intervention so you can see what happened on your own network. Game Mode auto-detect turns protection on when a game is running, and macOS 26 adds a Control Center toggle."],
+      ["What pauses", "AirDrop, AirPlay, and Handoff pause while protection is on. A quick pause from the menu bar brings them back for ten minutes, and everything returns when the session ends."],
+      ["What it costs", "The dashboard, diagnostics, and updates are free. Turning on Ping Protection needs a one-time $15 license from the store, and it works on every Mac you own. The source stays MIT on GitHub, and the prebuilt app is signed, notarized, and updates itself through Sparkle."],
     ],
   },
   {
@@ -123,8 +125,21 @@ function visual(project, depth) {
   return `<div class="software-visual software-console"><div class="software-window-bar" aria-hidden="true"><span></span><span></span><span></span><b>tool explorer</b></div><div class="software-console__brand"><img src="${depth}assets/images/work/software/${project.icon}" alt="" width="76" height="76" loading="lazy"><strong>${escapeHtml(project.name)}</strong></div><ul>${project.commands.map((command) => `<li><code>${escapeHtml(command)}</code><span aria-hidden="true">ready</span></li>`).join("")}</ul></div>`;
 }
 
+// A fact may be a plain string or `{ text, highlight }`; a highlighted fact
+// reuses the gold chip treatment the card grid already styles.
 function facts(project) {
-  return `<ul class="software-facts">${project.facts.map((fact) => `<li>${escapeHtml(fact)}</li>`).join("")}</ul>`;
+  return `<ul class="software-facts">${project.facts.map((fact) => (typeof fact === "string"
+    ? `<li>${escapeHtml(fact)}</li>`
+    : `<li class="software-facts__stars">${escapeHtml(fact.text)}</li>`)).join("")}</ul>`;
+}
+
+// A project with a store leads with the purchase and keeps the repository as
+// the second action, so every software page still exposes exactly two buttons.
+function actions(project) {
+  if (project.store) {
+    return `<a class="btn btn--primary" href="${project.store.url}" rel="noopener">${escapeHtml(project.store.label)} <span aria-hidden="true">↗</span></a><a class="btn btn--ghost" href="${project.repo}" rel="noopener">View the repository <span aria-hidden="true">↗</span></a>`;
+  }
+  return `<a class="btn btn--primary" href="${project.repo}" rel="noopener">View the repository <span aria-hidden="true">↗</span></a><a class="btn btn--ghost" href="../#software-development">See all software projects →</a>`;
 }
 
 function footer(depth) {
@@ -154,7 +169,7 @@ for (const project of projects) {
   const sections = project.sections.map(([title, copy]) => `<article class="software-story"><h2>${escapeHtml(title)}</h2><p>${escapeHtml(copy)}</p></article>`).join("");
   const title = `${project.name} | Ames Consulting`;
   const description = project.summary;
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${escapeHtml(title)}</title><meta name="description" content="${escapeHtml(description)}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${project.slug}/"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="https://ames.consulting/work/${project.slug}/"><meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"><script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareSourceCode", name: project.name, description, author: { "@type": "Person", name: "Oliver Ames" }, codeRepository: project.repo, url: `https://ames.consulting/work/${project.slug}/` })}</script></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" class="software-detail" tabindex="-1"><header class="software-hero"><div class="software-hero__copy"><p class="eyebrow">${escapeHtml(project.type)} · ${escapeHtml(project.period)}</p><h1>${escapeHtml(project.name)}</h1><p>${escapeHtml(project.dek)}</p>${facts(project)}<div class="software-actions"><a class="btn btn--primary" href="${project.repo}" rel="noopener">View the repository <span aria-hidden="true">↗</span></a><a class="btn btn--ghost" href="../#software-development">See all software projects →</a></div></div>${visual(project, "../../")}</header><section class="software-stories" aria-label="Project notes">${sections}</section></main>${footer("../../")}<script type="module" src="../../assets/js/header-scroll.js"></script></body></html>`;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>${escapeHtml(title)}</title><meta name="description" content="${escapeHtml(description)}"><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${project.slug}/"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="https://ames.consulting/work/${project.slug}/"><meta property="og:type" content="website"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"><script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "SoftwareSourceCode", name: project.name, description, author: { "@type": "Person", name: "Oliver Ames" }, codeRepository: project.repo, url: `https://ames.consulting/work/${project.slug}/` })}</script></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" class="software-detail" tabindex="-1"><header class="software-hero"><div class="software-hero__copy"><p class="eyebrow">${escapeHtml(project.type)} · ${escapeHtml(project.period)}</p><h1>${escapeHtml(project.name)}</h1><p>${escapeHtml(project.dek)}</p>${facts(project)}<div class="software-actions">${actions(project)}</div></div>${visual(project, "../../")}</header><section class="software-stories" aria-label="Project notes">${sections}</section></main>${footer("../../")}<script type="module" src="../../assets/js/header-scroll.js"></script></body></html>`;
   const output = join(root, "work", project.slug, "index.html");
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, html);

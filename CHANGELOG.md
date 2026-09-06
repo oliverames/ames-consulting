@@ -6,6 +6,10 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 
 ## [Unreleased]
 
+### Changed
+
+- Rebuilt the Ping Warden work page as a product page for cloud gamers: a search-facing title and description, SoftwareApplication structured data with the $15 Gumroad offer, a purchase button ahead of the repository link, and four story cards. The software generator gained an optional store link and a highlighted fact chip, and a fourth story card gets the plum rule.
+
 ### Fixed
 
 - Raised the Lighthouse total page-weight budget to 700 KB to accommodate the 175 KB Google tag loader on image-heavy work pages.

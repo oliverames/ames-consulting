@@ -46,11 +46,14 @@
     "eslint": "^10.8.0",
     "globals": "^17.9.0",
     "html-validate": "^11.6.2",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.4",
     "simple-icons": "^16.28.0",
     "wrangler": "4.119.0"
   },
   "overrides": {
-    "undici": "7.29.0"
+    "undici": "7.29.0",
+    "miniflare@5.20260801.0-alpha": {
+      "sharp": "0.35.4"
+    }
   }
 }

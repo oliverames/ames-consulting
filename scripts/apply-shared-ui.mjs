@@ -10,6 +10,7 @@ import {
   siThreads,
   siInstagram,
 } from "simple-icons";
+import { versionAssetReferences } from "./version-assets.mjs";
 import { applyYoutubeFacades } from "./youtube-facade.mjs";
 import { projectRootFromScriptUrl } from "./script-paths.mjs";
 import { GOOGLE_TAG_CONFIG_PATH, googleTagMarkup, withGoogleTagCsp } from "./google-tag.mjs";
@@ -151,7 +152,7 @@ function normalizeNavAndCompany(html, base, file) {
 function ensureGoogleTag(html, base) {
   const markup = googleTagMarkup(base);
   const existing = new RegExp(
-    `(?:<script async src="https://www\\.googletagmanager\\.com/gtag/js\\?id=[^"]+"></script>)?<script src="[^"]*${GOOGLE_TAG_CONFIG_PATH.replaceAll(".", "\\.")}"></script>`,
+    `(?:<script async src="https://www\\.googletagmanager\\.com/gtag/js\\?id=[^"]+"></script>)?<script src="[^"]*${GOOGLE_TAG_CONFIG_PATH.replaceAll(".", "\\.")}(?:\\?[^"]*)?"></script>`,
   );
   if (existing.test(html)) return html.replace(existing, markup);
   // Google asks for the tag "immediately after <head>", but the charset
@@ -408,5 +409,6 @@ for (const file of await collectHtml(root)) {
   if (!after.includes("assets/js/content-protection.js")) {
     after = after.replace("</body>", `<script type="module" src="${base}assets/js/content-protection.js"></script></body>`);
   }
+  after = await versionAssetReferences(after, relative(root, file).split(sep).join("/"), root);
   if (after !== before) await writeFile(file, after);
 }

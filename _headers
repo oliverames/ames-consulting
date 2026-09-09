@@ -7,6 +7,9 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
 
+/assets/js/*
+  Cache-Control: no-cache
+
 /release.txt
   Cache-Control: no-store
   X-Robots-Tag: noindex

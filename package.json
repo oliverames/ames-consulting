@@ -23,7 +23,7 @@
     "check:media-provenance": "node scripts/validate-media-provenance.mjs",
     "check:build-inputs": "node scripts/validate-build-inputs.mjs",
     "check:publication-boundary": "node --test tests/publication-boundary.node.js",
-    "check:site-consistency": "node --test tests/site-consistency.node.js",
+    "check:site-consistency": "node --test tests/site-consistency.node.js tests/asset-versions.node.js",
     "check:built-site": "node scripts/validate-built-site.mjs",
     "check:build-idempotence": "node scripts/verify-build-idempotence.mjs",
     "check:functions": "node --test tests/contact-function.node.js tests/publication-middleware.node.js",

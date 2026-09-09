@@ -1,3 +1,4 @@
+import { versionAssetReferences } from "../scripts/version-assets.mjs";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
@@ -253,7 +254,7 @@ test("every public page carries the Google tag and a CSP that admits it", async 
     const html = await read(file);
     const depth = file.split("/").length - 1;
     const base = file === "404.html" ? "/" : depth === 0 ? "./" : "../".repeat(depth);
-    assert.ok(html.includes(googleTagMarkup(base)), `${file} is missing the Google tag for base ${base}`);
+    assert.ok(html.includes(await versionAssetReferences(googleTagMarkup(base), file, root)), `${file} is missing the Google tag for base ${base}`);
     assert.equal(html.split(GOOGLE_TAG_CONFIG_PATH).length - 1, 1, `${file} loads the Google tag more than once`);
     assert.ok(!html.includes(GOOGLE_TAG_LOADER_URL), `${file} inlines Google's loader; google-tag.js appends it behind the hostname guard`);
     const csp = html.match(/http-equiv="Content-Security-Policy"\s+content="([^"]*)"/)?.[1];
@@ -262,5 +263,13 @@ test("every public page carries the Google tag and a CSP that admits it", async 
       const sources = csp.match(new RegExp(`(?:^|;)\\s*${directive}\\s([^;]*)`))?.[1] ?? "";
       for (const host of hosts) assert.ok(sources.includes(host), `${file} CSP ${directive} lacks ${host}`);
     }
+  }
+});
+
+
+test("every public page has current versions for its local JS and CSS", async () => {
+  for (const file of PUBLIC_HTML_FILES) {
+    const html = await read(file);
+    assert.equal(await versionAssetReferences(html, file, root), html, `${file} has stale or unversioned asset references`);
   }
 });

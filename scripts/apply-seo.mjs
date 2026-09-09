@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { versionAssetReferences } from "./version-assets.mjs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { join, relative, sep } from "node:path";
 import { workProjectTitleForRoute } from "./site-taxonomy.mjs";
@@ -300,9 +301,10 @@ for (const file of await htmlFiles(root)) {
   head += `<meta property="og:site_name" content="Oliver Ames"><meta property="og:locale" content="en_US"><meta property="og:type" content="${isBlogPost(route) ? "article" : "website"}"><meta property="og:title" content="${attr(metadata.title)}"><meta property="og:description" content="${attr(metadata.description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${attr(image)}">${socialImage}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(metadata.title)}"><meta name="twitter:description" content="${attr(metadata.description)}"><meta name="twitter:image" content="${attr(image)}"><script type="application/ld+json">${json(graphFor(route, metadata, image, html))}</script>`;
   html = html.replace(headMatch[0], `<head>${head}</head>`).replace(/[ \t]+$/gm, "");
   if (route === "/") {
-    html = html.replace(/\s*<script(?: type="module")? src="\.\/assets\/js\/hero-headline\.js"><\/script>/g, "");
+    html = html.replace(/\s*<script(?: type="module")? src="\.\/assets\/js\/hero-headline\.js(?:\?[^"]*)?"><\/script>/g, "");
     html = html.replace(/(<h1 data-hero-headline>[\s\S]*?<\/h1>)/, '$1<script src="./assets/js/hero-headline.js"></script>');
   }
+  html = await versionAssetReferences(html, relative(root, file).split(sep).join("/"), root);
   await writeFile(file, html);
 }
 

@@ -34,7 +34,7 @@ const projects = [
     type: "macOS MCP app",
     period: "2026",
     summary: "Apple Core is a personal MCP server that gives assistants controlled access to local Apple services.",
-    dek: "Apple Core lets an assistant use Calendar, Notes, Mail, Messages, and other services, but it doesn’t decide which services or remote routes are available.",
+    dek: "Apple Core lets an assistant use Calendar, Notes, Mail, Messages, and more on my Mac, and I decide which services it can reach and whether any of them work remotely.",
     repo: "https://github.com/oliverames/apple-core",
     facts: ["Swift", "77 tools", "Local by default"],
     icon: "apple-core-icon.webp",
@@ -68,7 +68,7 @@ const projects = [
     type: "Developer platform",
     period: "2025–2026",
     summary: "Meta MCP is one Model Context Protocol server for publishing, analytics, advertising, and commerce across Meta platforms.",
-    dek: "Meta MCP wraps seven Meta platforms in 200 tools, but it still exposes each platform’s permissions and failure modes.",
+    dek: "Meta MCP puts seven Meta platforms behind 200 tools, and when a request fails, it tells you which permission or token caused it.",
     repo: "https://github.com/oliverames/meta-mcp-server",
     facts: ["TypeScript", "200 tools", "7 platforms"],
     icon: "meta-mcp-icon.webp",
@@ -148,7 +148,7 @@ function footer(depth) {
 
 const cards = projects.map((project, index) => `<a class="software-card" href="${project.slug}/"><span class="software-card__number" aria-hidden="true">0${index + 1}</span>${visual(project, "../")}<div class="software-card__body"><p class="software-card__meta">${escapeHtml(project.type)} · ${escapeHtml(project.period)}</p><div class="software-card__title"><img src="../assets/images/work/software/${project.icon}" alt="" width="52" height="52" loading="lazy"><h3>${escapeHtml(project.name)}</h3></div><p>${escapeHtml(project.summary)}</p>${facts(project)}<span class="software-card__open">Open project <span aria-hidden="true">→</span></span></div></a>`).join("");
 
-const section = `<section class="software-work" id="software-development" aria-labelledby="software-development-title"><div class="software-work__heading"><div><p class="eyebrow">Software development</p><h2 id="software-development-title">Software for problems I kept running into.</h2></div><p>I build software when a document can't solve the problem. These projects include native Mac apps and API integrations, especially tools that give assistants controlled access to local services.</p></div><div class="software-grid">${cards}</div></section>`;
+const section = `<section class="software-work" id="software-development" aria-labelledby="software-development-title"><div class="software-work__heading"><div><p class="eyebrow">Software development</p><h2 id="software-development-title">I build software for problems I keep running into.</h2></div><p>I build software when a document can't solve the problem. These projects include native Mac apps and API integrations, especially tools that give assistants controlled access to local services.</p></div><div class="software-grid">${cards}</div></section>`;
 
 let workIndex = await readFile(workIndexPath, "utf8");
 workIndex = workIndex.replace(/<section class="software-work"[\s\S]*?<\/section>/, "");

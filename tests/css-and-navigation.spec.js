@@ -345,7 +345,7 @@ test("all public content routes load", async ({ request }) => {
 test("software development has a distinct project interface", async ({ page }) => {
   await page.goto("/work/");
   const section = page.locator("#software-development");
-  await expect(section.getByRole("heading", { name: "Software for problems I kept running into." })).toBeVisible();
+  await expect(section.getByRole("heading", { name: "I build software for problems I keep running into." })).toBeVisible();
   await expect(section.locator(".software-card")).toHaveCount(6);
   await expect(section.getByRole("link", { name: /Ping Warden/ }).locator("img").first()).toHaveAttribute("src", /ping-warden-dashboard\.webp$/);
   await expect(section.getByRole("link", { name: /Skylight Bridge/ }).locator("img").first()).toHaveAttribute("src", /skylight-bridge-overview\.webp$/);
@@ -635,7 +635,7 @@ test("nested missing routes use the custom 404 layout", async ({ page }) => {
     expect(response.status()).toBe(404);
     await expect(page).toHaveTitle("Page Not Found | ames.consulting");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("404");
-    await expect(page.getByText("That page does not exist or has moved.")).toBeVisible();
+    await expect(page.getByText("That page doesn’t exist or has moved.")).toBeVisible();
     await expect(page.getByRole("link", { name: "ames.consulting" })).toHaveAttribute(
       "href",
       "/",

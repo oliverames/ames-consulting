@@ -5,8 +5,10 @@ Blue Cross removal. It applies `ames-writing:match-my-writing-style` for voice a
 `ames-writing:humanizer` for AI patterns. Testimonial quotes and LinkedIn writing
 cards were out of scope because they quote other people or published posts.
 
-Nothing below is live yet except the two factual fixes in the first section.
-Each proposal keeps the original claims. Items marked **added idea** contain
+Oliver approved all 14 proposals on 2026-09-23, and they're live. The
+practical technology intro gained "with a website or form" so it still makes
+sense on the services index card, where it appears without its kicker. Each
+proposal keeps the original claims. Items marked **added idea** contain
 wording or framing that is mine rather than yours, so check those first.
 
 ## Already fixed (factual)

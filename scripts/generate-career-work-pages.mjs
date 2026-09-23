@@ -110,7 +110,7 @@ const pages = [
     ["The photographs", "I followed the full process, including posture, measurements, observation, tools, contact points, and repeated adjustments. The sequence works as a complete set, and individual frames can stand alone on a service page or social post."],
     ["The gallery", "Select any photograph to open the full viewer. Use the buttons or the left and right arrow keys to move through the complete set."]
   ]},
-  { slug: "green-mountain-community-fitness", eyebrow: "Client work · 2025–2026", title: "Green Mountain Community Fitness", intro: "This page collects two photography assignments for Green Mountain Community Fitness.", sections: [
+  { slug: "green-mountain-community-fitness", eyebrow: "Client work · 2025–2026", title: "Green Mountain Community Fitness", intro: "I’ve done two photography assignments for Green Mountain Community Fitness: a Valentine’s Day competition and a one-to-one bike fitting.", sections: [
     ["Projects and series", `<div class="work-list"><a class="work-item" href="../sweat-heart-throwdown/"><img src="../../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Event photography · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the final heat.</p></a><a class="work-item" href="../bike-fitting/"><img src="../../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting" loading="lazy"><span class="work-item__context">Documentary photography · 2025</span><h3>Bike Fitting</h3><p>A step-by-step look at a professional bike fitting.</p></a></div>`]
   ]},
 ];

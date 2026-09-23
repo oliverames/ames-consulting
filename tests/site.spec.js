@@ -1077,7 +1077,7 @@ test("LinkedIn carousel buttons respect reduced-motion preferences", async ({ pa
 test("in-house campaign cards identify the correct organization and role", async ({ page }) => {
   await page.goto("/work/");
   await expect(page.locator(".work-category__framing")).toContainText(
-    "These include projects for BETA Technologies and other commissioned work. Each card names the organization and my role.",
+    "Filter by organization, or scroll through all of it.",
   );
   await expect(page.locator('[data-organization="eastrise"]')).toHaveCount(0);
   await expect(page.locator(".work-item__credit")).toHaveCount(0);

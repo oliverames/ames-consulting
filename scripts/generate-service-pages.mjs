@@ -14,7 +14,7 @@ const pages = [
   {
     slug: "strategy-and-content",
     title: SERVICE_TITLES["strategy-and-content"],
-    kicker: "I plan, write, publish, and measure content.",
+    kicker: "I find out what your readers are asking, then write the answers and check whether they worked.",
     intro: "I plan and write content for organizations with complicated work to explain. I start with the question a reader is trying to answer, then decide what to make and how to measure it.",
     proof: { value: "319%", label: "year-over-year impression growth", href: "../../about/", action: "Read the career history →" },
     sections: [
@@ -31,7 +31,7 @@ const pages = [
         title: "An editorial plan the team can maintain",
         paragraphs: [
           "I list the recurring questions, the people who can answer them, the formats, the owners, and the publishing dates. The team can then make the next piece without rebuilding the plan each time.",
-          "At VSECU, now EastRise, this approach supported 53 published financial education articles. It also helped grow annual Facebook impressions by 319%."
+          "At VSECU, which is now EastRise, I wrote 53 financial education articles this way, and the same planning helped grow annual Facebook impressions by 319%."
         ]
       }
     ],
@@ -45,7 +45,7 @@ const pages = [
     slug: "photography-and-video",
     title: SERVICE_TITLES["photography-and-video"],
     kicker: "I photograph people, places, events, and work in progress.",
-    intro: "Most of my photography happens on location with people who are busy doing something. I plan the shot list and lighting, but I leave room for the moments nobody could schedule.",
+    intro: "Most of my photography happens on location with people who are in the middle of their work. I plan the shot list and lighting, but I leave room for the moments nobody could schedule.",
     proof: { value: "500+", label: "photographs in current public galleries", href: "../../work/", action: "Browse the galleries →" },
     sections: [
       {
@@ -74,8 +74,8 @@ const pages = [
   {
     slug: "practical-technology",
     title: SERVICE_TITLES["practical-technology"],
-    kicker: "I work on websites, forms, analytics, automations, and software.",
-    intro: "I work on websites, forms, analytics, and small automations when the problem sits behind what the public sees. I’m usually looking for a repeated manual step or broken path that everyone has learned to tolerate.",
+    kicker: "I fix the websites, forms, and workflows people have learned to work around.",
+    intro: "Most of the time, the problem with a website or form sits behind what the public sees. I look for the manual step everyone repeats or the broken path everyone has learned to tolerate, and then I fix that instead of rebuilding everything.",
     proof: { value: "6", label: "public software projects", href: "../../work/", action: "See the projects →" },
     sections: [
       {

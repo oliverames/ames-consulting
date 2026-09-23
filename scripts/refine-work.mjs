@@ -22,8 +22,8 @@ html = html.replace(
   "Here’s the work, newest first.",
 );
 html = html.replace(
-  /(?:The organization provides the context\. The work itself provides the[\s\n]*structure\.|I organize this work by the campaign, shoot, or series someone would actually want to explore\. Start with the newest work, or keep going into the earlier jobs that taught me how to do it\.|The newest projects come first\. Each card names the organization and my role\.|Each campaign, shoot, and series has its own place\. Start with the newest work, or continue into the earlier jobs that taught me how to do it\.)/,
-  "The projects include photography, video, communications, websites, and software. Each card names the organization and my role.",
+  /(?:The organization provides the context\. The work itself provides the[\s\n]*structure\.|I organize this work by the campaign, shoot, or series someone would actually want to explore\. Start with the newest work, or keep going into the earlier jobs that taught me how to do it\.|The newest projects come first\. Each card names the organization and my role\.|The projects include photography, video, communications, websites, and software\. Each card names the organization and my role\.|Each campaign, shoot, and series has its own place\. Start with the newest work, or continue into the earlier jobs that taught me how to do it\.)/,
+  "It’s photography, video, writing, websites, and software, and each card says who it was for.",
 );
 
 if (!html.includes('href="connecticut-college/"')) {
@@ -139,7 +139,7 @@ if (campaignMatch) {
   );
   html = html.replace(
     '<h2 id="project-list-title">Projects</h2><nav class="work-filters"',
-    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">These include projects for BETA Technologies and other commissioned work. Each card names the organization and my role.</p><nav class="work-filters"',
+    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">Filter by organization, or scroll through all of it.</p><nav class="work-filters"',
   );
 }
 

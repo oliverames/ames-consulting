@@ -76,7 +76,7 @@ const pages = [
     title: SERVICE_TITLES["practical-technology"],
     kicker: "I work on websites, forms, analytics, automations, and software.",
     intro: "I work on websites, forms, analytics, and small automations when the problem sits behind what the public sees. I’m usually looking for a repeated manual step or broken path that everyone has learned to tolerate.",
-    proof: { value: "5", label: "public software projects", href: "../../work/", action: "See the projects →" },
+    proof: { value: "6", label: "public software projects", href: "../../work/", action: "See the projects →" },
     sections: [
       {
         eyebrow: "The diagnosis",

@@ -1,7 +1,6 @@
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
@@ -11,30 +10,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const exec = promisify(execFile);
 // One hung feed API should fail loudly instead of stalling the whole refresh.
 const FETCH_TIMEOUT_MS = 30_000;
-const eastRiseSource = join(homedir(), "My Drive (Personal)", "Career", "Work Samples", "Oliver's EastRise Blog Posts.csv");
 const linkedInProfileUrl = "https://www.linkedin.com/in/oliverames";
-
-function parseCsvLine(line) {
-  const fields = [];
-  let value = "";
-  let quoted = false;
-  for (let index = 0; index < line.length; index += 1) {
-    const character = line[index];
-    if (character === '"' && quoted && line[index + 1] === '"') {
-      value += '"';
-      index += 1;
-    } else if (character === '"') {
-      quoted = !quoted;
-    } else if (character === "," && !quoted) {
-      fields.push(value);
-      value = "";
-    } else {
-      value += character;
-    }
-  }
-  fields.push(value);
-  return fields;
-}
 
 function stripHtml(value = "") {
   return value
@@ -134,25 +110,6 @@ async function currentLinkedInPosts() {
       mediaUrls: post.content?.media_urls || [],
     };
   });
-}
-
-let eastRise;
-try {
-  const csv = await readFile(eastRiseSource, "utf8");
-  eastRise = csv.trim().split(/\r?\n/).slice(1).map((line, index) => {
-    const [title, date, category, url] = parseCsvLine(line);
-    return {
-      id: index + 1,
-      title,
-      date: date === "Not Available" ? null : date,
-      category: category === "Not Available" ? "Technology & Banking" : category,
-      url: title === "Page Not Found (404)" ? null : url,
-      available: title !== "Page Not Found (404)",
-      archivedTitle: title === "Page Not Found (404)" ? "A Comprehensive Guide to EV Charging Apps" : null
-    };
-  });
-} catch {
-  eastRise = JSON.parse(await readFile(join(root, "assets/data/eastrise-writing.json"), "utf8")).articles;
 }
 
 const micro = await json("https://oliverames.micro.blog/feed.json");
@@ -661,7 +618,6 @@ for (const post of posts) {
   delete post.mediaUrls;
 }
 
-await writeFile(join(root, "assets/data/eastrise-writing.json"), `${JSON.stringify({ count: eastRise.length, articles: eastRise }, null, 2)}\n`);
 await writeFile(join(root, "assets/data/writing-feed.json"), `${JSON.stringify({
   refreshedAt: new Date().toISOString(),
   canonicalBlog: "https://oliverames.micro.blog/",
@@ -676,4 +632,4 @@ await writeFile(join(root, "assets/data/writing-feed.json"), `${JSON.stringify({
   posts
 }, null, 2)}\n`);
 
-console.log(`Captured ${eastRise.length} EastRise articles and ${posts.length} personal posts.`);
+console.log(`Captured ${posts.length} personal posts.`);

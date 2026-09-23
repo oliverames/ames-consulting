@@ -57,18 +57,6 @@ const overrides = {
     description: "Thirty-five photographs by Oliver Ames from the 47th Conference of New England Governors and Eastern Canadian Premiers at Shelburne Farms on August 10, 2026.",
     image: `${siteUrl}/assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp`
   },
-  "/work/credit-union-websites/": {
-    title: "Credit Union Website Projects | Work by Oliver Ames",
-    description: "Oliver Ames helped build the VSECU and EastRise websites through content, photography, migration, implementation, and quality assurance."
-  },
-  "/work/vsecu-website/": {
-    title: "VSECU Website Redesign | Work by Oliver Ames",
-    description: "For VSECU's 2021 website redesign, Oliver Ames worked on content, photography, migration, implementation, and quality assurance."
-  },
-  "/work/eastrise-website/": {
-    title: "EastRise Website Launch | Work by Oliver Ames",
-    description: "For EastRise's 2024 website launch, Oliver Ames worked on content, photography, migration, implementation, and quality assurance."
-  },
   "/about/": {
     title: "Oliver Ames | Vermont Photographer, Strategist, and Developer",
     description: "Oliver Ames is a Montpelier-based photographer and strategist who also produces video and builds software."

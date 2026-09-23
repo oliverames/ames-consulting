@@ -6,8 +6,8 @@ A durable static-site baseline where every page is plain, committed HTML — no 
 
 ## Build Model
 
-1. `npm run build:site` runs the generator chain in `package.json`: page generators (services, event galleries, portraits, career work, software, credit-union sites, contact, about, testimonials, writing, brand icons, media provenance) each write or rewrite HTML directly into the source tree.
-2. `refine-*` scripts perform targeted in-place surgery on specific pages (home, work, about, contact, member-banking-stories). These must tolerate their own previous output, since they run again on every build against already-generated markup.
+1. `npm run build:site` runs the generator chain in `package.json`: page generators (services, event galleries, career work, software, contact, about, testimonials, writing, brand icons, media provenance) each write or rewrite HTML directly into the source tree.
+2. `refine-*` scripts perform targeted in-place surgery on specific pages (home, work, about, contact). These must tolerate their own previous output, since they run again on every build against already-generated markup.
 3. `apply-shared-ui.mjs` normalizes shared chrome sitewide: footer groups and colophon, primary navigation, project return links, visible gallery-order notes, font preconnects, and image-provenance disclosures.
 4. `apply-image-dimensions.mjs` injects intrinsic `width`/`height` on every `<img>` lacking them, by parsing WebP/PNG/JPEG/SVG headers directly (no image library dependency). Fails the build if an image can't be measured.
 5. `apply-seo.mjs` derives title/description/canonical/OG/Twitter meta and JSON-LD from each page's real `<h1>`, replacing any hand-authored or previously generated meta rather than appending alongside it.
@@ -25,20 +25,20 @@ Because generators mutate the committed source tree, running `build:site` locall
 
 ## Content Sources
 
-There is no canonical runtime "Post" object. Content areas use separate JSON files under `assets/data/`, and some files feed several build stages. For example, photography and portrait data also feed media provenance, while `media-provenance.json` is generated before `apply-shared-ui.mjs` adds disclosures to pages. Every listed asset must be safe for public access. Material without publication clearance stays outside the public data files and generated artifact.
+There is no canonical runtime "Post" object. Content areas use separate JSON files under `assets/data/`, and some files feed several build stages. For example, event-gallery data also feeds media provenance, while `media-provenance.json` is generated before `apply-shared-ui.mjs` adds disclosures to pages. Every listed asset must be safe for public access. Material without publication clearance stays outside the public data files and generated artifact.
 
 `project-order.mjs` is the shared ordering layer. It validates
 `project-dates.json`, sorts project and gallery-navigation links newest-first,
 and preserves the verified oldest-first file lists for custom documentary
-galleries. Event, EastRise, portrait, social, and website-gallery validators
-enforce their own date evidence and display policies. Every public gallery must
+galleries. The event-gallery and gallery-order validators enforce date
+evidence and display policies. Every public gallery must
 declare `data-order-mode` as chronological, reverse-chronological, or editorial.
 
-The EastRise formal portrait manifest uses `portraitGroup` to keep the 18-image
-Leadership gallery separate from the 24-image Portraits gallery. Those 42
-images represent 41 people because both verified Luke Buglion Gluck portraits
-remain public. The candid John Dwyer portrait stays in the separate 13-series
-EastRise photography archive.
+The EastRise, VSECU, and Blue Cross Vermont project pages, their generators,
+data files, and images were removed on 2026-09-23 for a later rebuild. Their
+routes and image folders stay in the retired lists in
+`scripts/publication-denylist.mjs`, so the live site answers them with an
+uncached 404. Remove a route from that list before republishing it.
 
 ## Progressive Enhancement
 

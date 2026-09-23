@@ -3,8 +3,8 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import {
   PUBLIC_HTML_FILES,
-  WITHHELD_ASSET_PREFIXES,
-  WITHHELD_ROUTE_PREFIXES,
+  RETIRED_ASSET_PREFIXES,
+  RETIRED_ROUTE_PREFIXES,
 } from "../scripts/publication-policy.mjs";
 
 const root = process.cwd();
@@ -172,42 +172,25 @@ test("retired routes and asset prefixes are absent from the public artifact", as
   }
 });
 
-test("withheld Blue Cross galleries remain intact and noindexed in source", async () => {
-  for (const routePrefix of WITHHELD_ROUTE_PREFIXES) {
-    const html = await readSource(`${routePrefix}index.html`);
-    expect(html, routePrefix).toMatch(
-      /<meta\s[^>]*name="robots"[^>]*content="[^"]*noindex[^"]*"/i,
-    );
-    expect(html, routePrefix).toContain("<img");
-  }
-});
-
-test("withheld Blue Cross galleries and images are absent from the built artifact", async ({ request }) => {
+test("removed EastRise and Blue Cross pages and images are absent from the built artifact", async ({ request }) => {
   test.skip(
     test.info().config.metadata?.siteRoot !== "_site",
-    "The source server intentionally retains withheld galleries.",
+    "Only the built artifact applies the publication denylist.",
   );
 
-  const assetSamples = new Map([
-    ["assets/images/work/blue-cross/", "arrayrx-card.webp"],
-    ["assets/images/work/events/arrayrx-press-conference-2026/", "dsc02517.webp"],
-    ["assets/images/work/events/be-well-at-work-2026/", "dsc03152.webp"],
-    ["assets/images/work/events/corporate-cup-2026/", "dsc03213.webp"],
-    ["assets/images/work/events/girls-on-the-run-2026/", "dsc03810.webp"],
-    ["assets/images/work/events/senior-games-press-event-2026/", "dsc01867.webp"],
-    ["assets/images/work/events/walk-at-lunch-and-green-up-2026/", "dsc02728.webp"],
-    ["assets/images/work/portraits/gallery/blue-cross/", "beth-roberts-executive.webp"],
-  ]);
-  const withheldPaths = [
-    ...WITHHELD_ROUTE_PREFIXES,
-    ...WITHHELD_ASSET_PREFIXES.map((prefix) => prefix.endsWith(".webp")
-      ? prefix
-      : `${prefix}${assetSamples.get(prefix)}`),
+  const removedPaths = [
+    ...RETIRED_ROUTE_PREFIXES,
+    "assets/images/work/blue-cross/arrayrx-card.webp",
+    "assets/images/work/eastrise/uvm-soccer.webp",
+    "assets/images/work/events/corporate-cup-2026/dsc03213.webp",
+    "assets/images/work/portraits/amy-vaughan.webp",
+    "assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp",
+    "assets/images/work/credit-union-websites/eastrise-feature.webp",
   ];
 
-  for (const withheldPath of withheldPaths) {
-    const response = await request.get(`/${withheldPath}`, { failOnStatusCode: false });
-    expect(response.status(), withheldPath).toBe(404);
+  for (const removedPath of removedPaths) {
+    const response = await request.get(`/${removedPath}`, { failOnStatusCode: false });
+    expect(response.status(), removedPath).toBe(404);
   }
 
   expect((await request.get("/work/flight-paths/")).status()).toBe(200);
@@ -222,7 +205,7 @@ test("withheld Blue Cross galleries and images are absent from the built artifac
   }
 });
 
-test("public work cards include the requested galleries without withheld Blue Cross cards", async () => {
+test("public work cards include the requested galleries without retired cards", async () => {
   const html = await read("work/index.html");
   const workItems = [...html.matchAll(/<a class="work-item"(?=[\s>])[\s\S]*?<\/a\s*>/g)]
     .map((match) => match[0]);
@@ -236,20 +219,11 @@ test("public work cards include the requested galleries without withheld Blue Cr
     "vermont-foodbank-volunteer-day-2026/",
     "whale-dance-randolph/",
     "drone-photography/",
-    "wheels-for-warmth/",
-    "taylor-hoar-racing/",
   ]) {
     expect(workItemHrefs.filter((value) => value === href), href).toHaveLength(1);
   }
 
-  expect(workItemHrefs).not.toContain(
-    "eastrise-photography/#wheels-for-warmth-2024-title",
-  );
-  expect(workItemHrefs).not.toContain(
-    "eastrise-photography/#veggievango-taylor-hoar-title",
-  );
-
-  for (const routePrefix of WITHHELD_ROUTE_PREFIXES) {
+  for (const routePrefix of RETIRED_ROUTE_PREFIXES) {
     const href = routePrefix.replace(/^work\//, "");
     expect(workItemHrefs, routePrefix).not.toContain(href);
   }
@@ -272,14 +246,15 @@ test("public work cards include the requested galleries without withheld Blue Cr
   expect(blueCrossMediaCards).toEqual([]);
 });
 
-test("public documents do not link to withheld Blue Cross routes or images", async () => {
+test("public documents do not link to retired routes or images", async () => {
   for (const relativePath of PUBLIC_HTML_FILES) {
     const html = await read(relativePath);
-    for (const routePrefix of WITHHELD_ROUTE_PREFIXES) {
-      const routeSlug = `${routePrefix.split("/")[1]}/`;
-      expect(html, `${relativePath} references ${routeSlug}`).not.toContain(routeSlug);
+    for (const routePrefix of RETIRED_ROUTE_PREFIXES) {
+      expect(html, `${relativePath} references ${routePrefix}`).not.toMatch(
+        new RegExp(`(?:^|["'/])${routePrefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`),
+      );
     }
-    for (const assetPrefix of WITHHELD_ASSET_PREFIXES) {
+    for (const assetPrefix of RETIRED_ASSET_PREFIXES) {
       expect(html, `${relativePath} references ${assetPrefix}`).not.toContain(assetPrefix);
     }
   }
@@ -299,43 +274,6 @@ test("Flight Paths is the only BETA media and uses YouTube privacy mode", async 
   expect(betaLanding).not.toContain("<img");
   expect(betaLanding).not.toContain("data-gallery=");
   expect(betaLanding.match(/href="\.\.\/flight-paths\/"/g) || []).toHaveLength(1);
-
-  const blueCrossLanding = await read("work/blue-cross-vermont/index.html");
-  expect(blueCrossLanding).not.toContain("Flight Paths");
-  expect(blueCrossLanding).not.toContain("<img");
-  expect(blueCrossLanding).not.toContain("<iframe");
-});
-
-test("EastRise campaign pages consolidate their related public photography", async () => {
-  const photography = JSON.parse(
-    await readSource("assets/data/eastrise-photography.json"),
-  );
-  const seriesCount = (slug) => photography.series.find(
-    (series) => series.slug === slug,
-  ).images.length;
-
-  const wheels = await read("work/wheels-for-warmth/index.html");
-  expect(wheels.match(/<img\b/g) || []).toHaveLength(
-    seriesCount("wheels-for-warmth-2024"),
-  );
-  expect(wheels).toContain("65,906");
-  expect(wheels).toContain("274");
-
-  const taylor = await read("work/taylor-hoar-racing/index.html");
-  const taylorImages = photography.series
-    .find((series) => series.slug === "taylor-hoar-racing")
-    .images
-    .filter((image) => !image.src.endsWith("/Original-Public-Image-8998855be149.webp"))
-    .toSorted((left, right) => (
-      right.publishedDate || right.capturedDate || ""
-    ).localeCompare(left.publishedDate || left.capturedDate || ""));
-  expect(taylor.match(/<img\b/g) || []).toHaveLength(taylorImages.length);
-  expect([...taylor.matchAll(/<img\b[^>]*src="([^"]+)"/g)].map((match) => match[1])).toEqual(
-    taylorImages.map((image) => image.src),
-  );
-  expect(taylor).not.toContain("Original-Public-Image-8998855be149.webp");
-  expect(taylor).not.toContain("eastrise-veggievango-taylor-hoar");
-  expect(taylor).not.toContain("<h1>Taylor Hoar Racing 2025</h1>");
 });
 
 test("every public document declares the shared OA favicon", async ({ request }) => {

@@ -3,9 +3,6 @@ import { readFile } from "node:fs/promises";
 const data = JSON.parse(
   await readFile(new URL("../assets/data/project-dates.json", import.meta.url), "utf8"),
 );
-const eastRisePhotography = JSON.parse(
-  await readFile(new URL("../assets/data/eastrise-photography.json", import.meta.url), "utf8"),
-);
 
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const isoTimestampPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
@@ -64,19 +61,6 @@ for (const project of data.projects) {
   projectDates.set(project.href, Object.freeze({ ...project }));
 }
 
-for (const series of eastRisePhotography.series) {
-  const href = `eastrise-photography/#${series.slug}-title`;
-  if (projectDates.has(href)) throw new Error(`Duplicate project date: ${href}`);
-  if (series.archiveDate) assertIsoDate(series.archiveDate, `archiveDate for ${series.slug}`);
-  projectDates.set(href, Object.freeze({
-    href,
-    sortDate: series.archiveDate || null,
-    dateBasis: series.archiveDateBasis || "unverified",
-    dateEvidence: series.archiveDate
-      ? "assets/data/eastrise-photography.json archiveDate from verified public publication evidence"
-      : "assets/data/eastrise-photography.json explicitly marks this series unverified and undated",
-  }));
-}
 
 export const galleryImageOrder = Object.freeze(data.galleryImageOrder);
 export const projectDateRecords = Object.freeze([...projectDates.values()]);

@@ -145,23 +145,6 @@ await insertOnce("services/strategy-and-content/index.html", '<section class="se
   html: `<section class="testimonial-band strategy-testimonial" aria-label="Recommendation from Simeon Chapin">${card({ person: people.simeon, quote: quotes.simeon, depth: 2, featured: true })}</section>`
 });
 
-const eastRiseTestimonialsHtml = `<section class="testimonial-band eastrise-testimonials" aria-labelledby="eastrise-testimonials-title"><div class="section-heading"><p class="eyebrow">From former colleagues</p><h2 id="eastrise-testimonials-title">What people at EastRise say about the work.</h2></div><div class="testimonial-grid testimonial-grid--two">${card({ person: people.yvonne, quote: quotes.yvonneLead, depth: 2, featured: true })}${card({ person: people.brad, quote: quotes.bradLead, depth: 2 })}</div></section>`;
-const eastRisePath = join(root, "work/eastrise/index.html");
-let eastRiseHtml = await readFile(eastRisePath, "utf8");
-if (eastRiseHtml.includes("eastrise-testimonials")) {
-  eastRiseHtml = eastRiseHtml.replace(
-    /<section\s+class="testimonial-band eastrise-testimonials"[\s\S]*?<\/section>/,
-    eastRiseTestimonialsHtml,
-  );
-} else {
-  eastRiseHtml = eastRiseHtml.replace("</main>", `${eastRiseTestimonialsHtml}</main>`);
-}
-await writeFile(eastRisePath, eastRiseHtml);
-
-await insertOnce("work/eastrise-website/index.html", '<section class="case-section website-role">', {
-  id: "website-testimonial",
-  html: `<section class="testimonial-band website-testimonial" aria-label="Recommendation from Brad Meerholz">${card({ person: people.brad, quote: quotes.bradFull, depth: 2, featured: true })}</section>`
-});
 
 const recommendationArchive = [
   [people.yvonne, quotes.yvonneArchive, "Yvonne frequently sought Oliver out for troubleshooting beyond his formal scope."],
@@ -208,7 +191,7 @@ const recommendationDialogTemplates = [...fullRecommendations.entries()].map(([n
 }).join("");
 
 const recommendationDialog = `<dialog class="recommendation-dialog" id="recommendation-dialog" aria-label="Full recommendation"><article class="recommendation-dialog__surface"><button class="recommendation-dialog__close" type="button" aria-label="Close full recommendation">×</button><div data-recommendation-dialog-content></div></article></dialog>${recommendationDialogTemplates}`;
-const testimonialsFooter = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../work/taylor-hoar-racing/">Taylor Hoar Racing</a></li><li><a href="../work/wheels-for-warmth/">Wheels for Warmth</a></li><li><a href="../work/eastrise-writing/">EastRise Writing</a></li><li><a href="../work/community-photography/">Community Photography</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../work/">All work</a></li><li><a href="../blog/">Writing</a></li><li><a href="../about/">About</a></li><li><a href="../testimonials/" aria-current="page">Testimonials</a></li><li><a href="../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p></div></div></footer>`;
+const testimonialsFooter = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul></ul></div><div><h3>Company</h3><ul><li><a href="../work/">All work</a></li><li><a href="../blog/">Writing</a></li><li><a href="../about/">About</a></li><li><a href="../testimonials/" aria-current="page">Testimonials</a></li><li><a href="../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p></div></div></footer>`;
 const testimonialsHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self';"><title>Testimonials | Ames Consulting</title><meta name="description" content="Read public LinkedIn recommendations from clients and colleagues who worked with Oliver Ames."><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/testimonials/"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../">Home</a></li><li><a href="../work/">Work</a></li><li><a href="../blog/">Writing</a></li><li><a href="../about/">About</a></li><li><a href="../testimonials/" aria-current="page">Testimonials</a></li><li><a href="../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1"><header class="page-header"><p class="eyebrow">Testimonials</p><h1>What people say after working with me.</h1><p>I’ve collected public LinkedIn recommendations from people I worked with at several organizations.</p></header><section class="recommendation-archive" aria-labelledby="linkedin-recommendations"><div class="section-heading"><p class="eyebrow">LinkedIn recommendations</p><h2 id="linkedin-recommendations">Each one includes the person, date, and working relationship.</h2></div><div class="recommendation-grid">${archiveCards}</div></section></main>${recommendationDialog}${testimonialsFooter}<script type="module" src="../assets/js/header-scroll.js"></script><script type="module" src="../assets/js/recommendation-dialog.js"></script></body></html>`;
 await mkdir(join(root, "testimonials"), { recursive: true });
 await writeFile(join(root, "testimonials", "index.html"), testimonialsHtml);

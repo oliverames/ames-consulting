@@ -17,8 +17,6 @@ const escapeAttribute = (value) => String(value)
   .replaceAll(">", "&gt;");
 const documentsRoot = process.env.AMES_CONSULTING_DOCUMENTS_ROOT
   || path.join(homedir(), "Documents", "Ames Consulting");
-const blueCrossRoot = process.env.AMES_BLUE_CROSS_PORTFOLIO_ROOT
-  || path.join(documentsRoot, "Portfolio", "Blue Cross VT");
 const gironRoot = process.env.AMES_GIRON_CLIENT_ROOT
   || path.join(documentsRoot, "Clients", "Giron Family");
 const negEcpRoot = process.env.AMES_NEG_ECP_CLIENT_ROOT
@@ -28,10 +26,8 @@ const gironRoots = {
   "giron-family-christmas-tree-farm-2024": path.join(gironRoot, "2024-12-01 Christmas Tree Farm Family Session"),
   "giron-family-fall-2023": path.join(gironRoot, "2023-10-08 Fall Family Session"),
 };
-const eastRiseData = JSON.parse(await readFile(path.join(root, "assets/data/eastrise-photography.json"), "utf8"));
 const existingEventData = JSON.parse(await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"));
 const eventAltTextRoot = path.join(root, "assets/data/event-gallery-alt-text");
-const blueCrossSourcesAvailable = !process.env.CI && await access(blueCrossRoot).then(() => true, () => false);
 const negEcpSourceAvailable = !process.env.CI && await access(negEcpRoot).then(() => true, () => false);
 const gironSourcesAvailable = new Map(await Promise.all(Object.entries(gironRoots).map(async ([slug, source]) => [
   slug,
@@ -41,12 +37,6 @@ const existingDimensions = new Map(existingEventData.campaigns.flatMap((campaign
   `${campaign.slug}/${path.basename(image.src)}`,
   [image.width, image.height],
 ])));
-
-function blueCrossSource(slug, source) {
-  return blueCrossSourcesAvailable
-    ? { source: path.join(blueCrossRoot, source) }
-    : { source: path.join(root, "assets/images/work/events", slug), prepared: true };
-}
 
 function gironSource(slug) {
   return gironSourcesAvailable.get(slug)
@@ -78,78 +68,6 @@ const definitions = [
         "Cynosure, Inc. commissioned the photography through its sister organization, Greater Burlington Industrial Corporation.",
       ],
     },
-  },
-  {
-    slug: "senior-games-press-event-2026",
-    title: "Senior Games Press Event",
-    eyebrow: "Documentary photography · Blue Cross Vermont · March 18, 2026",
-    intro: "I photographed the speakers, attendees, and press event for the Senior Games announcement.",
-    ...blueCrossSource("senior-games-press-event-2026", "2026-03-18 – Senior Games Press Event/Edited Selects"),
-    published: false,
-    orderMode: "source",
-    organization: "Blue Cross Vermont",
-    featuredFile: "dsc01867.webp",
-    featuredAlt: "A man in a suit smiles while speaking with attendees inside the Vermont State House.",
-  },
-  {
-    slug: "arrayrx-press-conference-2026",
-    title: "ArrayRx Press Conference",
-    eyebrow: "Documentary photography · Blue Cross Vermont · March 26, 2026",
-    intro: "I photographed the ArrayRx announcement at the Vermont State House, covering the speakers, press activity, and conversations around the event.",
-    ...blueCrossSource("arrayrx-press-conference-2026", "2026-03-26 – ArrayRx Press Conference/Edited Selects"),
-    published: false,
-    orderMode: "source",
-    organization: "Blue Cross Vermont",
-    featuredFile: "dsc02517.webp",
-    featuredAlt: "A woman speaks to reporters at the ArrayRx press conference inside the Vermont State House.",
-  },
-  {
-    slug: "walk-at-lunch-and-green-up-2026",
-    title: "Walk@Lunch and Green Up",
-    eyebrow: "Documentary photography · Blue Cross Vermont · April 29, 2026",
-    intro: "I photographed employees taking part in a workplace walk and Green Up activity in Montpelier.",
-    ...blueCrossSource("walk-at-lunch-and-green-up-2026", "2026-04-29 – Walk@Lunch and GreenUp/Edited Selects"),
-    published: false,
-    orderMode: "source",
-    organization: "Blue Cross Vermont",
-    featuredFile: "dsc02728.webp",
-    featuredAlt: "Blue Cross Vermont employees collect gloves and safety vests before a Green Up walk in Montpelier.",
-  },
-  {
-    slug: "be-well-at-work-2026",
-    title: "Be Well at Work",
-    eyebrow: "Documentary photography · Blue Cross Vermont · May 6, 2026",
-    intro: "I photographed the people, activities, and practical details of a workplace wellness program.",
-    ...blueCrossSource("be-well-at-work-2026", "2026-05-06 – Be Well at Work/Edited Selects"),
-    published: false,
-    orderMode: "source",
-    organization: "Blue Cross Vermont",
-    featuredFile: "dsc03152.webp",
-    featuredAlt: "Employees listen during a Be Well at Work workshop around tables covered with notes and water bottles.",
-  },
-  {
-    slug: "corporate-cup-2026",
-    title: "Corporate Cup 2026",
-    eyebrow: "Event photography · Blue Cross Vermont · May 14, 2026",
-    intro: "I photographed the Blue Cross Vermont team at the start, on the course, and around the finish of the 2026 Corporate Cup in Montpelier.",
-    ...blueCrossSource("corporate-cup-2026", "2026-05-14 – Corporate Cup/Edited Selects"),
-    published: false,
-    orderMode: "source",
-    organization: "Blue Cross Vermont",
-    featuredFile: "dsc03213.webp",
-    featuredAlt: "The Blue Cross Vermont Corporate Cup team waves from the Vermont State House steps in the rain.",
-  },
-  {
-    slug: "girls-on-the-run-2026",
-    title: "Girls on the Run 2026",
-    eyebrow: "Event photography · Blue Cross Vermont · May 30, 2026",
-    intro: "I photographed teams arriving together, handmade signs, the start, muddy shoes, and the finish line at Girls on the Run 2026.",
-    ...blueCrossSource("girls-on-the-run-2026", "2026-05-30 – GOTR/Edited Selects"),
-    published: false,
-    orderMode: "source",
-    organization: "Blue Cross Vermont",
-    featuredFile: "dsc03810.webp",
-    featuredAlt: "Girls on the Run participants surge across the starting line together.",
   },
   {
     slug: "giron-family-fall-2025",
@@ -326,9 +244,7 @@ async function processImages(definition) {
       : path.join(root, "assets/images/work/events", definition.slug, `${path.basename(file, path.extname(file)).toLowerCase()}.webp`);
     if (!definition.prepared) {
       await mkdir(path.dirname(destination), { recursive: true });
-      const maximumSize = definition.organization === "Blue Cross Vermont" ? "2400x2400>" : "1600x1600>";
-      const quality = definition.organization === "Blue Cross Vermont" ? "86" : "82";
-      await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", maximumSize, "-strip", "-quality", quality, destination]);
+      await exec("/opt/homebrew/bin/magick", [source, "-auto-orient", "-resize", "1600x1600>", "-strip", "-quality", "82", destination]);
     }
     let [width, height] = definition.prepared
       ? existingDimensions.get(`${definition.slug}/${path.basename(destination)}`) || []
@@ -368,24 +284,8 @@ async function processImages(definition) {
 const campaigns = [];
 for (const definition of definitions) campaigns.push({ ...definition, images: await processImages(definition) });
 
-const launchSeries = eastRiseData.series.find((series) => series.slug === "eastrise-launch");
-const launchImages = launchSeries.images.map((image) => {
-  const publishedAt = image.src.match(/\/(\d{4}-\d{2}-\d{2})_/u)?.[1];
-  if (!publishedAt) throw new Error(`Missing publication date in EastRise launch asset name: ${image.src}`);
-  return { ...image, publishedAt };
-});
-campaigns.push({
-  slug: "eastrise-launch-campaign",
-  title: "EastRise Launch Campaign",
-  eyebrow: "Brand launch photography · EastRise · 2024",
-  intro: "I co-produced the first EastRise brand commercial and made the still photographs used on the website, social channels, and later campaigns.",
-  organization: "EastRise Credit Union",
-  orderMode: "editorial",
-  orderNote: "The campaign preserves the published carousel sequence instead of treating publication dates as capture dates.",
-  images: launchImages,
-});
 
-const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Galleries</h3><ul><li><a href="../neg-ecp-conference-2026/">47th NEG-ECP Conference</a></li><li><a href="../vermont-foodbank-volunteer-day-2026/">Vermont Foodbank Volunteer Day</a></li><li><a href="../drone-photography/">Drone Photography</a></li><li><a href="../eastrise-launch-campaign/">EastRise Launch Campaign</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
+const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Galleries</h3><ul><li><a href="../neg-ecp-conference-2026/">47th NEG-ECP Conference</a></li><li><a href="../vermont-foodbank-volunteer-day-2026/">Vermont Foodbank Volunteer Day</a></li><li><a href="../drone-photography/">Drone Photography</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Photography, communication, and practical technology from Montpelier, Vermont.</p></div></div></footer>`;
 const groupedCampaigns = new Map();
 for (const campaign of campaigns.filter((item) => item.projectSlug)) {
   const group = groupedCampaigns.get(campaign.projectSlug) || [];
@@ -431,10 +331,7 @@ for (const [projectSlug, projectCampaigns] of groupedCampaigns) {
     const orderNote = orderText(shoot);
     return `<section class="case-section case-section--gallery giron-shoot" id="${shoot.slug}" aria-labelledby="${shoot.slug}-title"><p class="eyebrow">${shoot.eyebrow}</p><h2 id="${shoot.slug}-title">${shoot.title}</h2><p>${shoot.intro}</p>${story}<p class="portrait-count">${shoot.images.length} photographs</p>${orderNote ? `<p class="gallery-order-note">${orderNote}</p>` : ""}<p class="visually-hidden" id="${gallerySummaryId}">${shoot.intro} This gallery contains ${shoot.images.length} photographs.</p><div class="campaign-collage" data-gallery="${shoot.slug}" data-order-mode="${shoot.orderMode}" aria-describedby="${gallerySummaryId}">${galleryMarkup(shoot)}</div></section>`;
   }).join("");
-  // The community-photography hub sits outside the curated work index; this
-  // closer is its inbound link from a related published page.
-  const communityOutro = `<section class="case-section"><h2>More Vermont community photography</h2><div class="case-section__body"><p>Public events and community programs from other assignments live in the <a href="../community-photography/">community photography collection</a>.</p></div></section>`;
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>Giron Family Portrait Sessions | Ames Consulting</title><meta name="description" content="Three family portrait sessions photographed by Oliver Ames in Vermont between 2023 and 2025."><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${projectSlug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${shootSections}${communityOutro}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="view-transition" content="same-origin"><meta name="referrer" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; form-action 'self';"><title>Giron Family Portrait Sessions | Ames Consulting</title><meta name="description" content="Three family portrait sessions photographed by Oliver Ames in Vermont between 2023 and 2025."><meta name="author" content="Oliver Ames"><link rel="canonical" href="https://ames.consulting/work/${projectSlug}/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap"><link rel="stylesheet" href="../../assets/css/main.css"></head><body><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><nav class="site-header__inner" aria-label="Primary"><a href="../../" class="site-name">ames.consulting</a><ul class="site-nav"><li><a href="../../">Home</a></li><li><a href="../" aria-current="true">Work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../testimonials/">Testimonials</a></li><li><a href="../../contact/">Contact</a></li></ul></nav></header><main id="main-content" tabindex="-1">${hero}${shootSections}</main>${footer}<script type="module" src="../../assets/js/header-scroll.js"></script><script type="module" src="../../assets/js/image-viewer.js"></script></body></html>`;
   const output = path.join(root, "work", projectSlug, "index.html");
   await mkdir(path.dirname(output), { recursive: true });
   await writeFile(output, html);

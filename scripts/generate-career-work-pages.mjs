@@ -8,60 +8,20 @@ import { youtubeFacade } from "./youtube-facade.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const workIndexPath = join(root, "work", "index.html");
-const eastRisePhotography = JSON.parse(await readFile(join(root, "assets", "data", "eastrise-photography.json"), "utf8"));
-const eastRiseSocial = JSON.parse(await readFile(join(root, "assets", "data", "eastrise-social.json"), "utf8"));
-const escapeHtml = (value) => String(value)
-  .replaceAll("&", "&amp;")
-  .replaceAll("<", "&lt;")
-  .replaceAll(">", "&gt;")
-  .replaceAll('"', "&quot;");
 
-const eastRiseSeries = (slug) => {
-  const series = eastRisePhotography.series.find((item) => item.slug === slug);
-  if (!series) throw new Error(`Missing required EastRise photography series: ${slug}`);
-  return series;
-};
-const wheelsPhotoSeries = eastRiseSeries("wheels-for-warmth-2024");
-const taylorRacingSeries = eastRiseSeries("taylor-hoar-racing");
-const taylorPageImages = taylorRacingSeries.images
-  .filter((image) => !image.src.endsWith("/Original-Public-Image-8998855be149.webp"))
-  .toSorted((left, right) => {
-    const leftDate = left.publishedDate || left.capturedDate || "";
-    const rightDate = right.publishedDate || right.capturedDate || "";
-    return rightDate.localeCompare(leftDate);
-  });
-const taylorPageSeries = {
-  ...taylorRacingSeries,
-  displayOrderMode: "reverse-chronological",
-  images: taylorPageImages,
-};
-
-const institutional = `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list"><a class="work-item" href="eastrise/"><img src="../assets/images/work/eastrise/photography/wheels-for-warmth-2024/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp" alt="A Wheels for Warmth volunteer waves during the 2024 tire collection" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>EastRise Credit Union</h3><p>Six years of audience strategy, brand photography, campaigns, writing, video, and two website redesigns.</p></a><a class="work-item" href="beta-technologies/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>BETA</strong><small>documentary video</small></div><span class="work-item__context">BETA Technologies · 2026</span><h3>BETA Technologies</h3><p>Documentary video about a Vermont aviation career built through an unexpected route.</p></a></div></section>`;
+const institutional = `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list"><a class="work-item" href="beta-technologies/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>BETA</strong><small>documentary video</small></div><span class="work-item__context">BETA Technologies · 2026</span><h3>BETA Technologies</h3><p>Documentary video about a Vermont aviation career built through an unexpected route.</p></a></div></section>`;
 
 const fairbanksCard = `<a class="work-item" href="fairbanks-planetarium/"><div class="work-item__placeholder work-item__placeholder--metric"><strong>1,580</strong><small>participants</small></div><span class="work-item__context">Fairbanks Museum &amp; Planetarium · 2015–2018</span><h3>Fairbanks Museum Planetarium</h3><p>I ran the planetarium and helped organize a Guinness World Record astronomy lesson.</p></a>`;
-const liveBroadcastCard = `<a class="work-item" data-organization="eastrise" href="live-broadcasts/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>Live</strong><small>broadcasts</small></div><span class="work-item__context">VSECU and EastRise · 2019–2025</span><h3>Live Broadcasts</h3><p>Hosting, creative direction, and technical production for public programs and employee updates.</p></a>`;
-const earlier = `<section class="work-category work-category--earlier"><h2>Earlier work</h2><div class="work-list"><a class="work-item" href="vtdigger-membership/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>137%</strong></div><span class="work-item__context">VTDigger · 2018–2019</span><h3>VTDigger Membership</h3><p>I simplified the donation page and ran the tests that increased membership conversion by 137%.</p></a>${fairbanksCard}${liveBroadcastCard}</div></section>`;
+const earlier = `<section class="work-category work-category--earlier"><h2>Earlier work</h2><div class="work-list"><a class="work-item" href="vtdigger-membership/"><div class="work-item__placeholder work-item__placeholder--metric" aria-hidden="true"><strong>137%</strong></div><span class="work-item__context">VTDigger · 2018–2019</span><h3>VTDigger Membership</h3><p>I simplified the donation page and ran the tests that increased membership conversion by 137%.</p></a>${fairbanksCard}</div></section>`;
 
 const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the final heat.</p></a><a class="work-item" href="bike-fitting/"><img src="../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025</span><h3>Bike Fitting</h3><p>I photographed a one-to-one bike fitting, including the measurements, tools, and repeated adjustments.</p></a>`;
 
-const eastRiseStandaloneSlugs = new Set([
-  "taylor-hoar-racing",
-  "veggievango-taylor-hoar",
-  "wheels-for-warmth-2024",
-  "eastrise-launch",
-  "eastrise-candid-portraits",
-]);
-const eastRiseSocialCard = `<a class="work-item" href="eastrise-social/"><img src="../assets/images/work/eastrise/social/facebook-028.webp" alt="EastRise social post screenshot" loading="lazy"><span class="work-item__context">VSECU and EastRise · 2020–2026</span><h3>EastRise Social</h3><p>Selected member stories, community coverage, campaigns, and lighter moments from the dated social archive.</p></a>`;
 const flightPathsCard = `<a class="work-item" data-organization="beta-technologies" href="flight-paths/"><img src="../assets/images/work/campaigns/flight-paths.webp" alt="Flight Paths title card with Emma from BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · 2026</span><h3>Flight Paths</h3><p>A documentary about a person finding her way into Vermont’s growing aviation sector.</p></a>`;
-const wheelsCard = `<a class="work-item" data-organization="eastrise" href="wheels-for-warmth/"><img src="../assets/images/work/eastrise/photography/wheels-for-warmth-2024/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp" alt="A Wheels for Warmth volunteer waves during the 2024 tire collection" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>Wheels for Warmth</h3><p>Collection-day photography from 2024 and a public-service campaign with measurable results from 2025.</p></a>`;
-const taylorCard = `<a class="work-item" data-organization="eastrise" href="taylor-hoar-racing/"><img src="../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp" alt="Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car" loading="lazy"><span class="work-item__context">EastRise · 2024–2025</span><h3>Taylor Hoar Racing</h3><p>Racing, portraits, community work, social publishing, local history, and campaign results from the full sponsorship.</p></a>`;
 const gironFamilyCard = `<a class="work-item" href="giron-family/"><img src="../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family during a fall portrait session" loading="lazy"><span class="work-item__context">Family photography · 2023–2025</span><h3>Giron Family Portrait Sessions</h3><p>Three complete family sessions, organized by shoot from fall 2023 through fall 2025.</p></a>`;
 const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-2026/"><img src="../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"><span class="work-item__context">Vermont Foodbank · January 2026</span><h3>Vermont Foodbank Volunteer Day</h3><p>A 38-image documentary series about the people and process behind a volunteer packing day.</p></a>`;
 const londonCard = `<a class="work-item" href="london-2019/"><img src="../assets/images/work/events/london-2019/dsc02427.webp" alt="Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds" loading="lazy"><span class="work-item__context">London · September 2019</span><h3>London at Dusk</h3><p>Eight photographs along the Thames as daylight gave way to a stormy blue hour.</p></a>`;
 const whaleDanceCard = `<a class="work-item" href="whale-dance-randolph/"><img src="../assets/images/work/events/whale-dance-randolph/dsc06299.webp" alt="Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills" loading="lazy"><span class="work-item__context">Randolph, Vermont · September 2021</span><h3>Whale Dance in Randolph</h3><p>Eight photographs of Jim Sardonis’s bronze sculpture against fog and autumn hills.</p></a>`;
 const droneCard = `<a class="work-item" href="drone-photography/"><img src="../assets/images/work/events/drone-photography/dji_0053.webp" alt="Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence" loading="lazy"><span class="work-item__context">Aerial photography · 2018–2020</span><h3>Drone Photography</h3><p>Sixty-two aerial photographs from winter fields, cities, coastlines, mountains, and rail yards.</p></a>`;
-const vsecuWebsiteCard = `<a class="work-item work-item--website" href="vsecu-website/"><img src="../assets/images/work/credit-union-websites/vsecu-redesign.webp" alt="VSECU website redesign" loading="lazy"><span class="work-item__context">VSECU · 2021</span><h3>VSECU Website Redesign</h3><p>Content, imagery, migration, implementation, and quality assurance for the 2021 redesign.</p></a>`;
-const eastRiseWebsiteCard = `<a class="work-item work-item--website" href="eastrise-website/"><img src="../assets/images/work/credit-union-websites/eastrise-feature.webp" alt="EastRise website launch" loading="lazy"><span class="work-item__context">EastRise · 2024</span><h3>EastRise Website Launch</h3><p>A new public website built to introduce a new institution without losing its Vermont history.</p></a>`;
 
 const gmcfInstitution = `<a class="work-item" href="green-mountain-community-fitness/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01706.webp" alt="Athletes competing at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025–2026</span><h3>Green Mountain Community Fitness</h3><p>Event and documentary photography from a fitness competition and a bike fitting.</p></a>`;
 
@@ -132,11 +92,6 @@ const pages = [
     ["Breaking Records in Science Education", youtubeFacade("lSi35li8dCg", "Breaking Records in Science Education")],
     ["Sources", `${sourceLink("https://www.guinnessworldrecords.com/world-records/largest-astronomy-lesson", "Guinness World Records: Largest astronomy lesson")}<br>${sourceLink("https://www.wcax.com/content/news/Fairbanks-Museum-claims-record-for-largest-astronomy-lesson-490731831.html", "WCAX: Fairbanks Museum claims record for largest astronomy lesson")}`]
   ]},
-  { slug: "live-broadcasts", eyebrow: "Hosting and production · VSECU and EastRise · 2019–2025", title: "Live Broadcasts", intro: "I hosted and produced public programs and employee updates for VSECU and EastRise.", sections: [
-    ["Production and hosting", "I served as host, brand spokesperson, and technical lead for major livestreams. That included creative direction, production, live facilitation, and explaining quarterly financial results and organizational goals to employees."],
-    ["Facilitation", "I turned leadership updates into a conversation that employees and public audiences could follow."],
-    ["Preparation", "I built the run of show, learned the material, and planned for technical failures. That preparation let me adjust when a live conversation changed."]
-  ]},
   { slug: "beta-technologies", eyebrow: "Documentary video · BETA Technologies · 2026", title: "BETA Technologies", intro: "I produced Flight Paths, a documentary about how Emma found her way into Vermont aviation.", sections: [
     ["Emma’s story", "Emma joined BETA through its partnership with the Vermont Adult Learning Center. In the documentary, she explains how the program led her to BETA and her work in electric aviation."],
     ["The production", "Emma’s interview tells the story. I used BETA’s aircraft, technology, and workforce program to show where her work takes place."],
@@ -145,33 +100,6 @@ const pages = [
   ]},
   { slug: "flight-paths", eyebrow: "Documentary video · BETA Technologies · 2026", title: "Flight Paths: Emma at BETA", intro: "Emma joined BETA Technologies through its partnership with the Vermont Adult Learning Center.", sections: [
     ["The film", `<p>I produced this documentary about Emma’s route into electric aviation work in Vermont.</p>${youtubeFacade("4r5N5DjmSCU", "Flight Paths: Emma at BETA")}`]
-  ]},
-  { slug: "wheels-for-warmth", eyebrow: "Public-service campaign · EastRise · 2024–2025", title: "Wheels for Warmth", intro: "This project combines my photographs from the 2024 tire collection with the campaign I ran in 2025.", metrics: [
-    ["65,906", "Views on the leading 2025 post"],
-    ["274", "Shares on the leading 2025 post"],
-    ["138,563", "October 2025 impressions"],
-    ["4,553", "October 2025 engagements"],
-  ], sections: [
-    ["The 2025 campaign", "<p>I wrote donation instructions and event reminders, then tracked the campaign results. The most-viewed post told people which tires they could donate and where to bring them.</p>"],
-    ["The photography", "<p>The ten photographs below document the 2024 collection day through the volunteers, donors, tires, and work that made the event possible.</p>"],
-  ], photoSeries: [{
-    ...wheelsPhotoSeries,
-    title: "The 2024 collection day",
-    description: "Ten published photographs from the Wheels for Warmth tire collection.",
-  }]},
-  { slug: "taylor-hoar-racing", eyebrow: "Sponsorship series · EastRise · 2024–2025", title: "Taylor Hoar Racing", intro: "I covered the EastRise sponsorship through race days, portraits, community events, social posts, and performance reports in 2024 and 2025.", metrics: [
-    ["80", "Pieces of content, February–October 2025"],
-    ["22", "Race and event days, February–October 2025"],
-    ["248,491", "Views, February–October 2025"],
-    ["2,847", "Engagement actions, February–October 2025"],
-  ], sections: [
-    ["Coverage throughout the season", "<p>I published race-day coverage, portraits, short-form posts, community events, and stories from Thunder Road history between races.</p><h3>The Milk Bowl</h3><p>In 2025, Taylor raced in Tracie Bellerose’s colors, connecting a current driver with the woman who became the first to qualify for the Milk Bowl on her own merit 25 years earlier.</p>"],
-  ], photoSeries: [
-    {
-      ...taylorPageSeries,
-      title: "Racing and portraits",
-      description: "Race-day, race-shop, and portrait photographs, shown from newest to oldest.",
-    },
   ]},
   { slug: "sweat-heart-throwdown", eyebrow: "Event photography · Green Mountain Community Fitness · 2026", title: "Sweat-Heart Throwdown", intro: "The Sweat-Heart Throwdown brought teams, volunteers, judges, and spectators together for a Valentine’s Day competition at Green Mountain Community Fitness.", heroDetails: [
     "I photographed the competition and the encouragement between teammates, volunteers resetting equipment, judges at work, and the moment after each heat ended.",
@@ -185,33 +113,9 @@ const pages = [
   { slug: "green-mountain-community-fitness", eyebrow: "Client work · 2025–2026", title: "Green Mountain Community Fitness", intro: "This page collects two photography assignments for Green Mountain Community Fitness.", sections: [
     ["Projects and series", `<div class="work-list"><a class="work-item" href="../sweat-heart-throwdown/"><img src="../../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Event photography · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the final heat.</p></a><a class="work-item" href="../bike-fitting/"><img src="../../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting" loading="lazy"><span class="work-item__context">Documentary photography · 2025</span><h3>Bike Fitting</h3><p>A step-by-step look at a professional bike fitting.</p></a></div>`]
   ]},
-  { slug: "blue-cross-vermont", eyebrow: "Communications · Blue Cross Vermont · 2026–present", title: "Blue Cross Vermont", intro: "My current role includes brand communications, social content, community photography, and production systems.", sections: [
-    ["Current role", "<p>I write and produce public communications and build the workflows used to publish them.</p>"]
-  ]},
-  { slug: "community-photography", eyebrow: "Documentary photography · Vermont · 2023–2025", title: "Community photography", intro: "These photographs come from public events and community programs in Vermont.", sections: [
-    ["Credit union community work", `<div class="media-grid"><img src="../../assets/images/work/eastrise/uvm-soccer.webp" alt="A University of Vermont soccer event" loading="lazy"><img src="../../assets/images/work/eastrise/point-to-point.webp" alt="Cyclists at the Point to Point event" loading="lazy"></div>`]
-  ]}
 ];
 
-const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../taylor-hoar-racing/">Taylor Hoar Racing</a></li><li><a href="../wheels-for-warmth/">Wheels for Warmth</a></li><li><a href="../eastrise-writing/">EastRise Writing</a></li><li><a href="../vermont-foodbank-volunteer-day-2026/">Vermont Foodbank</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p><ul class="site-footer__social"><li><a href="https://github.com/oliverames" rel="me noopener">GitHub</a></li><li><a href="https://www.linkedin.com/in/oliverames" rel="me noopener">LinkedIn</a></li><li><a href="https://oliverames.micro.blog/" rel="me noopener">Micro.blog</a></li><li><a href="https://mastodon.social/@oliverames" rel="me noopener">Mastodon</a></li><li><a href="https://bsky.app/profile/oliverames.bsky.social" rel="me noopener">Bluesky</a></li><li><a href="https://www.threads.com/@oliverames" rel="me noopener">Threads</a></li><li><a href="https://www.instagram.com/oliverames/" rel="me noopener">Instagram</a></li></ul></div></div></footer>`;
-
-pages.push({
-  slug: "eastrise-photography",
-  eyebrow: "Dated photography archive · EastRise · 2024–2026",
-  title: "EastRise photography archive",
-  intro: `This archive contains ${eastRisePhotography.totalImages} photographs from EastRise projects dated from 2024 through 2026.`,
-  photoSeries: eastRisePhotography.series,
-  sections: [],
-});
-
-pages.push({
-  slug: "eastrise-social",
-  eyebrow: "Social media · VSECU and EastRise · 2020–2026",
-  title: "Selected social posts from VSECU and EastRise",
-  intro: "I selected these dated posts from work published for VSECU and EastRise between 2020 and 2026.",
-  socialPosts: eastRiseSocial.posts,
-  sections: [],
-});
+const footer = `<footer class="site-footer"><div class="site-footer__inner"><nav class="site-footer__sitemap" aria-label="Footer"><div><h3>Campaigns</h3><ul><li><a href="../vermont-foodbank-volunteer-day-2026/">Vermont Foodbank</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../">All work</a></li><li><a href="../../blog/">Writing</a></li><li><a href="../../about/">About</a></li><li><a href="../../contact/">Contact</a></li></ul></div></nav><div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>Ames Consulting is a Vermont-based communications and technology firm that helps organizations with digital strategy, content, photography, and practical technology solutions.</p><ul class="site-footer__social"><li><a href="https://github.com/oliverames" rel="me noopener">GitHub</a></li><li><a href="https://www.linkedin.com/in/oliverames" rel="me noopener">LinkedIn</a></li><li><a href="https://oliverames.micro.blog/" rel="me noopener">Micro.blog</a></li><li><a href="https://mastodon.social/@oliverames" rel="me noopener">Mastodon</a></li><li><a href="https://bsky.app/profile/oliverames.bsky.social" rel="me noopener">Bluesky</a></li><li><a href="https://www.threads.com/@oliverames" rel="me noopener">Threads</a></li><li><a href="https://www.instagram.com/oliverames/" rel="me noopener">Instagram</a></li></ul></div></div></footer>`;
 
 let workIndex = await readFile(workIndexPath, "utf8");
 for (const href of [
@@ -225,12 +129,25 @@ for (const href of [
   "giron-family-fall-2023/",
   "giron-family-christmas-tree-farm-2024/",
   "giron-family-fall-2025/",
-  "eastrise-photography/#wheels-for-warmth-2024-title",
-  "eastrise-photography/#veggievango-taylor-hoar-title",
+  "eastrise/",
+  "eastrise-launch-campaign/",
+  "eastrise-photography/",
+  "eastrise-portraits/",
+  "eastrise-social/",
+  "eastrise-website/",
+  "eastrise-writing/",
+  "member-banking-stories/",
+  "taylor-hoar-racing/",
+  "wheels-for-warmth/",
+  "live-broadcasts/",
+  "vsecu-website/",
+  "credit-union-websites/",
+  "community-photography/",
+  "blue-cross-vermont/",
 ]) {
   const escapedHref = href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   workIndex = workIndex.replace(
-    new RegExp(`<a class="work-item"[^>]*?href="${escapedHref}"[\\s\\S]*?<\\/a\\s*>`, "g"),
+    new RegExp(`<a class="work-item"[^>]*?href="${escapedHref}(?:#[^"]*)?"[\\s\\S]*?<\\/a\\s*>`, "g"),
     "",
   );
 }
@@ -246,50 +163,20 @@ if (legacyProof.test(workIndex) || currentCategories.test(workIndex)) {
 if (!workIndex.includes('href="sweat-heart-throwdown/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${gmcfCampaignCards}`);
 }
-workIndex = workIndex.replace(/<a class="work-item"[^>]*?href="eastrise-photography\/"\s*>[\s\S]*?<\/a\s*>/, "");
-workIndex = workIndex.replace(/<a class="work-item"[^>]*?href="eastrise-photography\/#bike-shop-member-story-title"\s*>[\s\S]*?<\/a\s*>/, "");
-for (const series of eastRisePhotography.series.filter((item) =>
-  !eastRiseStandaloneSlugs.has(item.slug)
-)) {
-  const href = `eastrise-photography/#${series.slug}-title`;
-  const image = series.images[0];
-  const dateMatch = image.src.match(/\/(\d{4})-(\d{2})-(\d{2})_/);
-  const published = dateMatch ? new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}T00:00:00Z`)) : "";
-  const photographLabel = `${series.images.length} ${series.images.length === 1 ? "photograph" : "photographs"}`;
-  const card = `<a class="work-item" href="${href}"><img src="${image.src.replace("../../assets/", "../assets/")}" alt="${escapeHtml(image.alt)}" loading="lazy"><span class="work-item__context">EastRise${published ? ` · ${published}` : ""} · ${photographLabel}</span><h3>${series.title}</h3><p>${series.description}</p></a>`;
-  workIndex = upsertWorkCard(workIndex, "Campaigns and series", href, card);
-}
-workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-social/", eastRiseSocialCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "flight-paths/", flightPathsCard);
-workIndex = upsertWorkCard(workIndex, "Campaigns and series", "wheels-for-warmth/", wheelsCard);
-workIndex = upsertWorkCard(workIndex, "Campaigns and series", "taylor-hoar-racing/", taylorCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "giron-family/", gironFamilyCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vermont-foodbank-volunteer-day-2026/", foodbankCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "drone-photography/", droneCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "whale-dance-randolph/", whaleDanceCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "london-2019/", londonCard);
-workIndex = workIndex.replace(/<a class="work-item"[^>]*?href="credit-union-websites\/"\s*>[\s\S]*?<\/a\s*>/, "");
-workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vsecu-website/", vsecuWebsiteCard);
-workIndex = upsertWorkCard(workIndex, "Campaigns and series", "eastrise-website/", eastRiseWebsiteCard);
 workIndex = upsertWorkCard(workIndex, "Earlier work", "fairbanks-planetarium/", fairbanksCard);
-const liveBroadcastPattern = /<a class="work-item"[^>]*?href="live-broadcasts\/"[\s\S]*?<\/a\s*>/;
-workIndex = liveBroadcastPattern.test(workIndex)
-  ? workIndex.replace(liveBroadcastPattern, liveBroadcastCard)
-  : upsertWorkCard(workIndex, "Campaigns and series", "live-broadcasts/", liveBroadcastCard);
 if (!workIndex.includes('href="green-mountain-community-fitness/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">', `<section class="work-category"><h2>Client and institutional work</h2><div class="work-list">${gmcfInstitution}`);
 }
 workIndex = workIndex
-  .replaceAll("../assets/images/work/eastrise/taylor-milk-bowl-card.webp", "../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp")
-  .replaceAll("../assets/images/work/eastrise/photography/taylor-hoar-racing/2025-04-17_19-15-59_UTC_DIjx-o5p5N0-df7a815bc6ce.webp", "../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp")
-  .replaceAll("Taylor Hoar racing at Thunder Road", "Taylor Hoar wearing her EastRise racing suit beside her race car")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01141.webp", "../assets/images/work/gmcf/sweat-heart-card.webp")
   .replace("../assets/images/work/gmcf/bike-fitting/dsc09620.webp", "../assets/images/work/gmcf/bike-fitting-card.webp")
   .replace("../assets/images/work/gmcf/sweat-heart/dsc01706.webp", "../assets/images/work/gmcf/gmcf-card.webp");
-workIndex = workIndex.replace(
-  /(<a class="work-item"[^>]*href="taylor-hoar-racing\/"[\s\S]*?)<img[\s\S]*?>/,
-  '$1<img src="../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp" alt="Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car" width="1800" height="2400" loading="lazy">',
-);
 workIndex = sortWorkSection(workIndex, "Campaigns and series");
 // In the refined layout these cards live inside "Projects" and refine-work
 // owns their ordering; only sort when the legacy section actually exists.
@@ -314,9 +201,6 @@ for (const page of pages) {
     const metrics = page.metrics.map(([value, label]) => `<article><strong>${value}</strong><span>${label}</span></article>`).join("");
     content = `<section class="metric-grid" aria-label="Campaign results">${metrics}</section>${content}`;
   }
-  if (page.photoSeries) {
-    content += page.photoSeries.map((series) => `<section class="case-section photo-series" aria-labelledby="${series.slug}-title"><h2 id="${series.slug}-title">${series.title}</h2><p>${series.description}</p>${series.videoId ? youtubeFacade(series.videoId, `${series.title} member story`, "video-embed photo-series__video") : ""}<div class="campaign-collage" data-gallery="eastrise-${series.slug}" data-order-mode="${escapeHtml(series.displayOrderMode)}">${series.images.map((image, index) => `<img src="${image.src}" alt="${image.alt}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async" data-orientation="${image.height > image.width ? "portrait" : "landscape"}" data-series-position="${index + 1}" data-date-status="${image.publishedDate || image.capturedDate ? "dated" : "undated"}"${image.publishedDate ? ` data-published-at="${escapeHtml(image.publishedDate)}"` : ""}${image.capturedDate ? ` data-captured-at="${escapeHtml(image.capturedDate)}"` : ""}${image.dateBasis ? ` data-date-basis="${escapeHtml(image.dateBasis)}"` : ""}>`).join("")}</div></section>`).join("");
-  }
   if (page.gallery) {
     const galleryDirectory = join(root, "assets", "images", "work", "gmcf", page.gallery.directory);
     const availableImages = (await readdir(galleryDirectory)).filter((file) => file.endsWith(".webp"));
@@ -324,10 +208,6 @@ for (const page of pages) {
     const orderMetadata = galleryOrderFor(page.slug);
     const gallery = images.map((file, index) => `<img src="../../assets/images/work/gmcf/${page.gallery.directory}/${file}" alt="${page.gallery.alt}, photograph ${index + 1} of ${images.length}" data-captured-at="${orderMetadata.capturedAt[file]}" loading="lazy" decoding="async">`).join("");
     content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Complete gallery</h2><p class="gallery-order-note">Shown in chronological order.</p><div class="campaign-collage" data-gallery="${page.slug}" data-order-mode="chronological" data-capture-start="${orderMetadata.captureStart}" data-capture-end="${orderMetadata.captureEnd}">${gallery}</div></section>`;
-  }
-  if (page.socialPosts) {
-    const screenshots = page.socialPosts.map((post, index) => `<img src="../../${post.screenshot}" alt="${escapeHtml(post.title)}, ${post.platform} capture ${index + 1} of ${page.socialPosts.length}" width="${post.width}" height="${post.height}" loading="lazy" decoding="async" data-date-status="${post.publishedDate ? "dated" : "undated"}"${post.publishedDate ? ` data-published-at="${escapeHtml(post.publishedDate)}"` : ""}>`).join("");
-    content += `<section class="case-section case-section--gallery" aria-labelledby="${page.slug}-gallery"><h2 id="${page.slug}-gallery">Selected posts</h2><p>Select any post to open the full viewer.</p><div class="campaign-collage campaign-collage--screenshots" data-gallery="${page.slug}" data-order-mode="reverse-chronological" data-undated-placement="after-dated">${screenshots}</div></section>`;
   }
   if (pageOutros.has(page.slug)) {
     const [outroHeading, outroBody] = pageOutros.get(page.slug);

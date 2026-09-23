@@ -10,13 +10,8 @@ feed later build stages. See `docs/ARCHITECTURE.md` for the build chain.
 | File | Role | Producers and consumers |
 |---|---|---|
 | `writing-feed.json` | Writing source | Refreshed by `refresh-writing-content.mjs`; read by `generate-writing-pages.mjs` for the blog index, archive, and post pages |
-| `eastrise-photography.json` | Photography source | Read by `generate-career-work-pages.mjs`, `generate-event-galleries.mjs`, and `generate-media-provenance.mjs` |
-| `eastrise-social.json` | Social source | Read by `generate-career-work-pages.mjs` and `generate-media-provenance.mjs` |
-| `eastrise-website-gallery.json` | Website-gallery order policy | Read by the gallery-order validator to preserve the documented editorial screenshot sequence |
 | `event-gallery-alt-text/*.json` | Event-gallery source | Read by `generate-event-galleries.mjs` for file-specific image descriptions |
 | `event-galleries.json` | Generated event manifest | Read and rewritten by `generate-event-galleries.mjs`; checked by the event and source validators |
-| `eastrise-portrait-sources.json` | Portrait source evidence | Read by `generate-portrait-gallery.mjs` for verified public EastRise profile sources and published portrait variants |
-| `portraits.json` | Generated portrait manifest | Read and rewritten by `generate-portrait-gallery.mjs`; also read by the media-provenance generator and validators |
 | `project-dates.json` | Project and custom-gallery order source | Read by `project-order.mjs` to sort project cards newest-first and to preserve verified capture order in custom galleries |
 | `media-provenance-evidence.json` | Provenance source | Read by `generate-media-provenance.mjs` for verified dates and public-source corrections |
 | `media-provenance-exceptions.json` | Provenance source | Read by `generate-media-provenance.mjs` for accepted omissions and public notes |
@@ -39,8 +34,7 @@ Every public `data-gallery` container declares one display policy:
 - `editorial`: an intentional visual or narrative sequence that is not presented as chronology.
 
 Event source files store `capturedAt` timestamps from the original files when
-the gallery is chronological. EastRise manifests store verified publication
-dates separately from capture dates. Validators reject invented dates,
+the gallery is chronological. Validators reject invented dates,
 unmarked undated content, reversed chronology, and public galleries without a
 declared order policy.
 

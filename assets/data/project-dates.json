@@ -20,12 +20,6 @@
       "dateEvidence": "Latest included BETA project is Flight Paths, published May 14, 2026"
     },
     {
-      "href": "member-banking-stories/",
-      "sortDate": "2026-04-08",
-      "dateBasis": "exact",
-      "dateEvidence": "Portfolio/EastRise/Member Stories/Public Videos/README.md and yt-dlp metadata record four public uploads on April 8, 2026"
-    },
-    {
       "href": "sweat-heart-throwdown/",
       "sortDate": "2026-02-14",
       "dateBasis": "exact",
@@ -44,52 +38,10 @@
       "dateEvidence": "assets/data/event-gallery-alt-text/vermont-foodbank-volunteer-day-2026.json capture dates from the January 21, 2026 source event"
     },
     {
-      "href": "live-broadcasts/",
-      "sortDate": "2025-12-31",
-      "dateBasis": "range-end",
-      "dateEvidence": "Displayed project range 2019–2025, normalized to the latest year end"
-    },
-    {
-      "href": "eastrise/",
-      "sortDate": "2025-12-31",
-      "dateBasis": "range-end",
-      "dateEvidence": "Displayed institutional range 2019–2025, normalized to the latest year end"
-    },
-    {
-      "href": "eastrise-social/",
-      "sortDate": "2026-05-05",
-      "dateBasis": "exact",
-      "dateEvidence": "Latest verified publication date in assets/data/eastrise-social.json"
-    },
-    {
-      "href": "eastrise-writing/",
-      "sortDate": "2025-10-24",
-      "dateBasis": "exact",
-      "dateEvidence": "Latest article date in assets/data/eastrise-writing.json"
-    },
-    {
-      "href": "wheels-for-warmth/",
-      "sortDate": "2025-12-31",
-      "dateBasis": "range-end",
-      "dateEvidence": "Displayed project range 2024–2025, normalized to the latest year end"
-    },
-    {
-      "href": "taylor-hoar-racing/",
-      "sortDate": "2025-10-08",
-      "dateBasis": "exact",
-      "dateEvidence": "Latest verified public publication date in assets/data/eastrise-photography.json"
-    },
-    {
       "href": "giron-family/",
       "sortDate": "2025-09-28",
       "dateBasis": "exact",
       "dateEvidence": "Authoritative Giron source directory is dated 2025-09-28 and source EXIF agrees"
-    },
-    {
-      "href": "eastrise-portraits/",
-      "sortDate": "2025-08-14",
-      "dateBasis": "exact",
-      "dateEvidence": "Latest native capture date in assets/data/portraits.json; source-page verification dates are not treated as photo dates"
     },
     {
       "href": "bike-fitting/",
@@ -98,28 +50,10 @@
       "dateEvidence": "DateTimeOriginal from the authoritative GMCF Bike Fitting source files"
     },
     {
-      "href": "eastrise-website/",
-      "sortDate": "2024-12-31",
-      "dateBasis": "range-end",
-      "dateEvidence": "Displayed website project year 2024, normalized to the year end"
-    },
-    {
-      "href": "eastrise-launch-campaign/",
-      "sortDate": "2024-11-13",
-      "dateBasis": "exact",
-      "dateEvidence": "Latest verified public publication date for the EastRise launch series in assets/data/eastrise-photography.json"
-    },
-    {
       "href": "whale-dance-randolph/",
       "sortDate": "2021-09-24",
       "dateBasis": "exact",
       "dateEvidence": "assets/data/event-gallery-alt-text/whale-dance-randolph.json capture dates from the authoritative Portfolio source"
-    },
-    {
-      "href": "vsecu-website/",
-      "sortDate": "2021-12-31",
-      "dateBasis": "range-end",
-      "dateEvidence": "Displayed website project year 2021, normalized to the year end"
     },
     {
       "href": "drone-photography/",

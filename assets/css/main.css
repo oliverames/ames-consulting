@@ -3597,9 +3597,7 @@
     object-position: 50% 38%;
   }
 
-  .work-item--website img,
-  .work-item[href$="vsecu-website/"] img,
-  .work-item[href$="eastrise-website/"] img {
+  .work-item--website img {
     object-fit: contain;
     object-position: center;
     background: #fff;
@@ -4833,7 +4831,7 @@
     }
   }
 
-  .about-proof__grid a,
+  .about-proof__grid > *,
   .about-capabilities__grid article {
     min-height: 13rem;
     padding: clamp(1.4rem, 3vw, 2.3rem);
@@ -4842,7 +4840,7 @@
     box-shadow: var(--shadow-card);
   }
 
-  .about-proof__grid a {
+  .about-proof__grid > * {
     display: flex;
     flex-direction: column;
     justify-content: space-between;

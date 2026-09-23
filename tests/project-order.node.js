@@ -41,50 +41,24 @@ test("project registry uses valid normalized dates and explicit range ends", () 
 });
 
 test("same-date records preserve their explicit source order", () => {
-  const sameDate = ["wheels-for-warmth/", "live-broadcasts/"];
+  const sameDate = ["flight-paths/", "beta-technologies/"];
   assert.deepEqual(sortEntriesNewestFirst(sameDate, (href) => href), sameDate);
 });
 
-test("portrait sorting uses a photo date rather than a source verification date", () => {
-  const portraits = projectDateFor("eastrise-portraits/");
-  assert.equal(portraits.sortDate, "2025-08-14");
-  assert.equal(portraits.dateBasis, "exact");
-  assert.match(portraits.dateEvidence, /native capture date/);
-});
-
-test("home, work, and EastRise project cards render newest first", async () => {
+test("home and work project cards render newest first", async () => {
   const home = await read("index.html");
   const homeStrip = home.match(/<div class="path-strip">([\s\S]*?)<\/div>\s*<a class="path-browse"/)?.[1];
   assert.ok(homeStrip, "Missing homepage project strip");
   assertNewestFirst(pathThumbHrefs(homeStrip), "Homepage project strip");
 
   const work = await read("work/index.html");
-  const projects = work.match(/<h2 id="project-list-title">Projects<\/h2>[\s\S]*?<div class="work-list">([\s\S]*?)<section class="work-category work-category--portraits">/)?.[1];
+  const projects = work.match(/<h2 id="project-list-title">Projects<\/h2>[\s\S]*?<div class="work-list">([\s\S]*?)<section class="work-category work-category--earlier">/)?.[1];
   assert.ok(projects, "Missing Work projects list");
-  const projectHrefs = workItemHrefs(projects);
-  const deferredHrefs = ["eastrise-social/", "member-banking-stories/", "live-broadcasts/"];
-  assert.deepEqual(projectHrefs.slice(-deferredHrefs.length), deferredHrefs, "Work archive projects are not grouped at the end");
-  assertNewestFirst(projectHrefs.slice(0, -deferredHrefs.length), "Work primary projects list");
-  assertNewestFirst(projectHrefs.slice(-deferredHrefs.length), "Work archive projects list");
+  assertNewestFirst(workItemHrefs(projects), "Work primary projects list");
 
   const legacy = work.match(/<section class="work-category work-category--earlier">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/)?.[1];
   assert.ok(legacy, "Missing Work legacy list");
   assertNewestFirst(workItemHrefs(legacy), "Work legacy list");
-
-  const eastRise = await read("work/eastrise/index.html");
-  const eastRiseCards = eastRise.match(/<section class="work-category legacy-campaigns">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/)?.[1];
-  assert.ok(eastRiseCards, "Missing EastRise project archive");
-  assertNewestFirst(workItemHrefs(eastRiseCards), "EastRise project archive");
-});
-
-test("EastRise photography archive renders dated series first, newest first", async () => {
-  const html = await read("work/eastrise-photography/index.html");
-  const photography = JSON.parse(await read("assets/data/eastrise-photography.json"));
-  const hrefs = [...html.matchAll(/<section class="case-section photo-series" aria-labelledby="([^"]+)">/g)]
-    .map((match) => `eastrise-photography/#${match[1]}`);
-  assert.equal(hrefs.length, photography.series.length);
-  assertNewestFirst(hrefs, "EastRise photography archive");
-  assert.ok(hrefs.every((href) => projectDateFor(href)?.sortDate));
 });
 
 test("public gallery pages use the shared organization footer", async () => {

@@ -10,17 +10,7 @@ const decodeHtmlAttribute = (value = "") => String(value)
   .replaceAll("&lt;", "<")
   .replaceAll("&amp;", "&");
 
-const memberStoryVideoIds = new Set([
-  "LdqKURpAbn0", "2q6yGSegYIU", "19_YO2LDAfY", "fAF3x-Iu2Bo", "bQIY2c2Zksw",
-  "bFtuCFhGZQg", "nPm4ehooB8o", "_PyU8tbb0Is", "G3jHYOP46oo", "A1oAN6Ox6A0",
-  "dffKrKG5Hbs",
-]);
-
-const memberStoryPoster = (videoId) => memberStoryVideoIds.has(videoId)
-  ? `../../assets/images/work/eastrise/member-stories/${videoId}.webp`
-  : "";
-
-export function youtubeIframe(videoId, title, poster = memberStoryPoster(videoId)) {
+export function youtubeIframe(videoId, title, poster = "") {
   if (!/^[A-Za-z0-9_-]{6,20}$/.test(videoId)) {
     throw new Error(`Invalid YouTube video ID: ${videoId}`);
   }

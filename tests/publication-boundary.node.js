@@ -47,19 +47,53 @@ test("retired route and asset prefixes remain denied", () => {
     "work/beta-andrew/",
     "work/beta-emma/",
     "work/beta-ethan/",
+    "work/arrayrx-press-conference-2026/",
+    "work/be-well-at-work-2026/",
+    "work/blue-cross-portraits/",
+    "work/blue-cross-vermont/",
+    "work/community-photography/",
+    "work/corporate-cup-2026/",
+    "work/credit-union-websites/",
+    "work/eastrise-launch-campaign/",
+    "work/eastrise-photography/",
+    "work/eastrise-portraits/",
+    "work/eastrise-social/",
+    "work/eastrise-website/",
+    "work/eastrise-writing/",
+    "work/eastrise/",
+    "work/girls-on-the-run-2026/",
+    "work/live-broadcasts/",
+    "work/member-banking-stories/",
+    "work/senior-games-press-event-2026/",
+    "work/taylor-hoar-racing/",
+    "work/vsecu-website/",
+    "work/walk-at-lunch-and-green-up-2026/",
+    "work/wheels-for-warmth/",
   ]);
   assert.deepEqual(RETIRED_ASSET_PREFIXES, [
     "assets/images/provenance/source-screenshots/",
+    "assets/images/work/blue-cross/",
+    "assets/images/work/campaigns/eastrise-writing.webp",
+    "assets/images/work/campaigns/member-stories.webp",
+    "assets/images/work/credit-union-websites/",
+    "assets/images/work/eastrise/",
+    "assets/images/work/events/arrayrx-press-conference-2026/",
+    "assets/images/work/events/be-well-at-work-2026/",
     "assets/images/work/events/beta-andrew/",
     "assets/images/work/events/beta-emma/",
     "assets/images/work/events/beta-ethan/",
-    "assets/images/work/eastrise/photography/_unassigned-public-assets/",
+    "assets/images/work/events/corporate-cup-2026/",
+    "assets/images/work/events/girls-on-the-run-2026/",
+    "assets/images/work/events/senior-games-press-event-2026/",
+    "assets/images/work/events/walk-at-lunch-and-green-up-2026/",
+    "assets/images/work/portraits/",
   ]);
 
   for (const prefix of [...RETIRED_ROUTE_PREFIXES, ...RETIRED_ASSET_PREFIXES]) {
     assert.equal(isRetiredPublicPath(prefix), true);
-    assert.equal(isRetiredPublicPath(`${prefix}private-instructions.webp`), true);
-    assert.equal(isAllowedPublishedArtifactPath(`${prefix}private-instructions.webp`), false);
+    const child = prefix.endsWith("/") ? `${prefix}private-instructions.webp` : prefix;
+    assert.equal(isRetiredPublicPath(child), true);
+    assert.equal(isAllowedPublishedArtifactPath(child), false);
   }
   assert.equal(isRetiredPublicPath("WORK/BETA-ANDREW/index.html"), true);
   assert.equal(
@@ -68,48 +102,34 @@ test("retired route and asset prefixes remain denied", () => {
   );
   assert.equal(isRetiredPublicPath("assets/images/work/events/%62eta-emma/photo.webp"), true);
   assert.equal(isRetiredPublicPath("work/beta-technologies/index.html"), false);
+  assert.equal(isRetiredPublicPath("work/eastrise/index.html"), true);
+  assert.equal(isRetiredPublicPath("work/eastrise-writing/index.html"), true);
+  assert.equal(isRetiredPublicPath("assets/images/work/campaigns/will-barbecue.webp"), false);
 });
 
-test("withheld Blue Cross galleries remain in source but outside the public artifact", async () => {
-  assert.deepEqual(WITHHELD_ROUTE_PREFIXES, [
-    "work/arrayrx-press-conference-2026/",
-    "work/be-well-at-work-2026/",
-    "work/blue-cross-portraits/",
-    "work/corporate-cup-2026/",
-    "work/girls-on-the-run-2026/",
-    "work/senior-games-press-event-2026/",
-    "work/walk-at-lunch-and-green-up-2026/",
-  ]);
-  assert.deepEqual(WITHHELD_ASSET_PREFIXES, [
-    "assets/images/work/blue-cross/",
-    "assets/images/work/events/arrayrx-press-conference-2026/",
-    "assets/images/work/events/be-well-at-work-2026/",
-    "assets/images/work/events/corporate-cup-2026/",
-    "assets/images/work/events/girls-on-the-run-2026/",
-    "assets/images/work/events/senior-games-press-event-2026/",
-    "assets/images/work/events/walk-at-lunch-and-green-up-2026/",
-    "assets/images/work/portraits/beth-roberts.webp",
-    "assets/images/work/portraits/gallery/blue-cross/",
-  ]);
+test("removed Blue Cross galleries stay retired and out of source", async () => {
+  assert.deepEqual(WITHHELD_ROUTE_PREFIXES, []);
+  assert.deepEqual(WITHHELD_ASSET_PREFIXES, []);
 
-  for (const prefix of [...WITHHELD_ROUTE_PREFIXES, ...WITHHELD_ASSET_PREFIXES]) {
-    assert.equal(isWithheldPublicPath(prefix), true);
-    assert.equal(isAllowedPublishedArtifactPath(`${prefix}withheld.webp`), false);
-    assert.throws(() => assertPublicPathIsActive(prefix), /Withheld public path is denied/);
+  for (const slug of [
+    "arrayrx-press-conference-2026",
+    "be-well-at-work-2026",
+    "blue-cross-portraits",
+    "corporate-cup-2026",
+    "girls-on-the-run-2026",
+    "senior-games-press-event-2026",
+    "walk-at-lunch-and-green-up-2026",
+  ]) {
+    const route = `work/${slug}/`;
+    assert.equal(isRetiredPublicPath(route), true, route);
+    assert.equal(isWithheldPublicPath(route), false, route);
+    assert.equal(isAllowedPublicHtmlPath(`${route}index.html`), false, route);
+    assert.throws(() => assertPublicPathIsActive(route), /Retired public path is denied/);
+    await assert.rejects(readFile(path.join(root, route, "index.html"), "utf8"), { code: "ENOENT" });
   }
-  for (const prefix of WITHHELD_ROUTE_PREFIXES) {
-    assert.equal(isAllowedPublicHtmlPath(`${prefix}index.html`), false);
-    assert.equal(PUBLIC_HTML_FILES.includes(`${prefix}index.html`), false);
-    const html = await readFile(path.join(root, prefix, "index.html"), "utf8");
-    assert.equal(hasRobotsDirective(html), true, prefix);
-  }
-  for (const prefix of WITHHELD_ASSET_PREFIXES) {
-    assert.equal(isAllowedPublicImagePath(prefix.endsWith(".webp") ? prefix : `${prefix}image.webp`), false);
-  }
-
-  assert.equal(isWithheldPublicPath("WORK/BLUE-CROSS-PORTRAITS/index.html"), true);
-  assert.equal(isWithheldPublicPath("work/%61rrayrx-press-conference-2026/index.html"), true);
-  assert.equal(isWithheldPublicPath("work/blue-cross-vermont/index.html"), false);
+  assert.equal(isRetiredPublicPath("WORK/BLUE-CROSS-PORTRAITS/index.html"), true);
+  assert.equal(isRetiredPublicPath("work/%61rrayrx-press-conference-2026/index.html"), true);
+  assert.equal(isRetiredPublicPath("assets/images/work/portraits/beth-roberts.webp"), true);
   assert.equal(isWithheldPublicPath("work/flight-paths/index.html"), false);
   assert.equal(isAllowedPublicHtmlPath("work/flight-paths/index.html"), true);
 
@@ -117,24 +137,9 @@ test("withheld Blue Cross galleries remain in source but outside the public arti
     await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"),
   );
   assert.deepEqual(
-    eventGalleryData.campaigns
-      .filter((campaign) => campaign.published === false)
-      .map((campaign) => campaign.slug)
-      .sort(),
-    WITHHELD_ROUTE_PREFIXES
-      .filter((prefix) => prefix !== "work/blue-cross-portraits/")
-      .map((prefix) => prefix.split("/")[1])
-      .sort(),
+    eventGalleryData.campaigns.filter((campaign) => campaign.published === false),
+    [],
   );
-
-  const portraitData = JSON.parse(
-    await readFile(path.join(root, "assets/data/portraits.json"), "utf8"),
-  );
-  const blueCrossPortraits = portraitData.series.find(
-    (series) => series.slug === "blue-cross-cbss",
-  );
-  assert.equal(blueCrossPortraits?.published, false);
-  assert.equal(blueCrossPortraits?.images.length, 7);
 
   for (const activeRoute of [
     "work/beta-technologies/index.html",

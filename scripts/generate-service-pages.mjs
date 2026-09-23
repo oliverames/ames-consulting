@@ -16,7 +16,7 @@ const pages = [
     title: SERVICE_TITLES["strategy-and-content"],
     kicker: "I plan, write, publish, and measure content.",
     intro: "I plan and write content for organizations with complicated work to explain. I start with the question a reader is trying to answer, then decide what to make and how to measure it.",
-    proof: { value: "319%", label: "year-over-year impression growth", href: "../../work/eastrise-social/", action: "See the social program →" },
+    proof: { value: "319%", label: "year-over-year impression growth", href: "../../about/", action: "Read the career history →" },
     sections: [
       {
         eyebrow: "The starting point",
@@ -36,9 +36,9 @@ const pages = [
       }
     ],
     projects: [
-      ["Wheels for Warmth", "Donation instructions, reminders, photography, and campaign reporting.", "../../work/wheels-for-warmth/"],
-      ["EastRise Writing", "Fifty-three published financial education articles.", "../../work/eastrise-writing/"],
-      ["Taylor Hoar Racing", "A season of racing coverage measured across 80 pieces of content.", "../../work/taylor-hoar-racing/"]
+      ["VTDigger Membership", "A simpler donation page and the tests that raised membership conversion by 137%.", "../../work/vtdigger-membership/"],
+      ["Connecticut College", "College blogs, social content, donor events, and a major website redesign.", "../../work/connecticut-college/"],
+      ["Fairbanks Museum Planetarium", "Astronomy teaching, grants, and a Guinness World Record lesson.", "../../work/fairbanks-planetarium/"]
     ],
   },
   {
@@ -67,7 +67,7 @@ const pages = [
     ],
     projects: [
       ["Vermont Foodbank Volunteer Day", "A volunteer packing day photographed from the group portrait through the production line.", "../../work/vermont-foodbank-volunteer-day-2026/"],
-      ["EastRise Portraits", "Eighteen leadership portraits and 24 additional formal portraits in one public library.", "../../work/eastrise-portraits/"],
+      ["47th NEG-ECP Conference", "Thirty-five photographs from the governors and premiers conference at Shelburne Farms.", "../../work/neg-ecp-conference-2026/"],
       ["Giron Family Portrait Sessions", "Three complete family sessions organized by shoot.", "../../work/giron-family/"]
     ],
   },
@@ -76,7 +76,7 @@ const pages = [
     title: SERVICE_TITLES["practical-technology"],
     kicker: "I work on websites, forms, analytics, automations, and software.",
     intro: "I work on websites, forms, analytics, and small automations when the problem sits behind what the public sees. I’m usually looking for a repeated manual step or broken path that everyone has learned to tolerate.",
-    proof: { value: "8", label: "public website and software projects", href: "../../work/", action: "See the projects →" },
+    proof: { value: "5", label: "public software projects", href: "../../work/", action: "See the projects →" },
     sections: [
       {
         eyebrow: "The diagnosis",
@@ -96,9 +96,9 @@ const pages = [
       }
     ],
     projects: [
-      ["Credit Union Website Projects", "My role in the VSECU and EastRise website projects.", "../../work/credit-union-websites/"],
-      ["EastRise Social", "A dated archive of social posts, publishing, and performance reports.", "../../work/eastrise-social/"],
-      ["Live Broadcasts", "Public programs and employee broadcasts that I hosted and produced.", "../../work/live-broadcasts/"]
+      ["Ping Warden", "A Mac utility that stops AWDL from interrupting cloud gaming over Wi-Fi.", "../../work/ping-warden/"],
+      ["Skylight Bridge", "A native macOS app that sends Apple Photos, Reminders, and Notes content to a Skylight calendar.", "../../work/skylight-bridge/"],
+      ["YNAB MCP", "A Model Context Protocol server for reading and updating a YNAB budget.", "../../work/ynab-mcp-server/"]
     ],
   }
 ];

@@ -2,83 +2,6 @@
   "schema_version": 1,
   "exceptions": [
     {
-      "reason": "publication_date_not_verifiable",
-      "missing_fields": [
-        "published_date"
-      ],
-      "note": "The repository preserves a public source and capture, but neither provides a verifiable publication date.",
-      "assets": [
-        "assets/images/work/portraits/gallery/blue-cross/beth-roberts-executive.webp",
-        "assets/images/work/portraits/gallery/blue-cross/barbara-demas-executive.webp",
-        "assets/images/work/portraits/gallery/blue-cross/ruth-greene-executive.webp",
-        "assets/images/work/portraits/gallery/blue-cross/rebecca-heintz-executive.webp",
-        "assets/images/work/portraits/gallery/blue-cross/margaret-pinello-white-executive.webp",
-        "assets/images/work/portraits/gallery/blue-cross/tom-weigel-executive.webp",
-        "assets/images/work/portraits/gallery/eastrise/elizabeth-morton-7fa90d0baa56.webp",
-        "assets/images/work/portraits/gallery/eastrise/greg-hahr-1e9fb95882f7.webp",
-        "assets/images/work/portraits/gallery/eastrise/mark-ackerly-30f1ccb7c42a.webp",
-        "assets/images/work/portraits/gallery/eastrise/valerie-beaudin-3c27bcc65850.webp",
-        "assets/images/work/portraits/gallery/eastrise/rick-hommel-48907ad04940.webp",
-        "assets/images/work/portraits/gallery/eastrise/sue-leonard-ee8e3f857bee.webp",
-        "assets/images/work/portraits/gallery/eastrise/robert-miller-8bfc691871e1.webp",
-        "assets/images/work/portraits/gallery/eastrise/subha-luck-d0788fbd44e9.webp",
-        "assets/images/work/portraits/gallery/eastrise/frank-g-harris-2858668bfeee.webp",
-        "assets/images/work/portraits/gallery/eastrise/margaret-h-o-donnell-c05bf4f533cd.webp",
-        "assets/images/work/portraits/gallery/eastrise/stephanie-meunier-642aefa190aa.webp",
-        "assets/images/work/portraits/gallery/eastrise/julie-lineberger-1bce039db269.webp",
-        "assets/images/work/portraits/gallery/eastrise/amy-vaughan-f56acbe945f7.webp",
-        "assets/images/work/portraits/amy-vaughan.webp",
-        "assets/images/work/portraits/gallery/eastrise/michael-hogan-b682c74b872f.webp",
-        "assets/images/work/portraits/gallery/eastrise/george-sales-40429a12c861.webp",
-        "assets/images/work/portraits/gallery/eastrise/spencer-newman-02cbd861865e.webp",
-        "assets/images/work/portraits/gallery/eastrise/arthur-g-woolf-001f95fa1205.webp",
-        "assets/images/work/portraits/gallery/eastrise/alvah-newhall-51affaf9531d.webp",
-        "assets/images/work/portraits/gallery/eastrise/amanda-seeholzer-65a4fab5390d.webp",
-        "assets/images/work/portraits/gallery/eastrise/caroline-cross-3b74de79d7e7.webp",
-        "assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp",
-        "assets/images/work/portraits/gallery/eastrise/christine-corbett-f205162e07db.webp",
-        "assets/images/work/portraits/gallery/eastrise/deanna-carol-09198be91fcf.webp",
-        "assets/images/work/portraits/gallery/eastrise/danielle-whitcomb-c469efe1923c.webp",
-        "assets/images/work/portraits/gallery/eastrise/denisa-yee-f468ef43177a.webp",
-        "assets/images/work/portraits/gallery/eastrise/emily-phelps-d5f17dad9b60.webp",
-        "assets/images/work/portraits/gallery/eastrise/ibby-wilson-c0dd6ff4d25a.webp",
-        "assets/images/work/portraits/gallery/eastrise/ian-squirrell-07f536eac8c6.webp",
-        "assets/images/work/portraits/gallery/eastrise/jc-gepigon-120bfc4174df.webp",
-        "assets/images/work/portraits/gallery/eastrise/jim-towne-8c7c16c59130.webp",
-        "assets/images/work/portraits/gallery/eastrise/john-dwyer-a32c6fed2b06.webp",
-        "assets/images/work/portraits/gallery/eastrise/julie-jorgensen-785822e57df4.webp",
-        "assets/images/work/portraits/gallery/eastrise/kathleen-s-emery-ginn-0923864444e4.webp",
-        "assets/images/work/portraits/gallery/eastrise/luke-buglion-gluck-d4bac0e9c5f2.webp",
-        "assets/images/work/portraits/gallery/eastrise/matt-sjoblom-5fd0e05eb0aa.webp",
-        "assets/images/work/portraits/gallery/eastrise/penny-overton-afc73b598499.webp",
-        "assets/images/work/portraits/gallery/eastrise/rion-bleicher-a7c9d6c6a682.webp",
-        "assets/images/work/portraits/gallery/eastrise/sara-wright-c46a02cd0123.webp",
-        "assets/images/work/portraits/gallery/eastrise/sarah-spaulding-c55a605c8245.webp",
-        "assets/images/work/portraits/gallery/eastrise/shauna-allen-6a4d78f0f5e9.webp",
-        "assets/images/work/credit-union-websites/eastrise-feature.webp",
-        "assets/images/work/credit-union-websites/eastrise-desktop.webp",
-        "assets/images/work/credit-union-websites/eastrise-mobile.webp",
-        "assets/images/work/credit-union-websites/eastrise-homepage.webp"
-      ]
-    },
-    {
-      "reason": "personal_archive_source_not_identified",
-      "missing_fields": [
-        "source_url",
-        "source_channel",
-        "published_date",
-        "source_capture"
-      ],
-      "note": "Native EXIF and the Drive archive identify the April 16, 2025 session, but the exact public channel, source page, publication date, and source capture are unavailable.",
-      "public_note": "was retained from the April 16, 2025 Taylor Hoar photo session; the exact public post is no longer identifiable.",
-      "assets": [
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07515.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07430.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07105.webp",
-        "assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07993.webp"
-      ]
-    },
-    {
       "reason": "source_capture_not_available",
       "missing_fields": [
         "source_capture"
@@ -89,34 +12,6 @@
       ],
       "asset_prefixes": [
         "assets/images/writing/"
-      ]
-    },
-    {
-      "reason": "collection_asset_without_single_source",
-      "missing_fields": [
-        "source_url",
-        "published_date",
-        "source_capture"
-      ],
-      "note": "This portfolio card represents a body of EastRise articles and does not correspond to one public page or publication date.",
-      "public_note": "illustrates the EastRise editorial collection, so no single article source or publication date applies.",
-      "assets": [
-        "assets/images/work/campaigns/eastrise-writing.webp"
-      ]
-    },
-    {
-      "reason": "portfolio_original_without_public_source",
-      "missing_fields": [
-        "source_url",
-        "source_channel",
-        "published_date",
-        "downloaded_date",
-        "source_capture"
-      ],
-      "note": "This commissioned portrait comes from Oliver Ames's portfolio original rather than a retained public source page.",
-      "public_note": "was made by Oliver Ames for Blue Cross and Blue Shield of Vermont in 2026.",
-      "assets": [
-        "assets/images/work/portraits/gallery/blue-cross/lindsay-segale.webp"
       ]
     },
     {
@@ -176,10 +71,6 @@
         "source_capture"
       ],
       "note": "The repository project page and native asset collection identify Oliver Ames as the photographer, but no public source page or source capture is retained.",
-      "assets": [
-        "assets/images/work/eastrise/uvm-soccer.webp",
-        "assets/images/work/eastrise/point-to-point.webp"
-      ],
       "asset_prefixes": [
         "assets/images/work/events/giron-family-fall-2025/",
         "assets/images/work/events/giron-family-christmas-tree-farm-2024/",

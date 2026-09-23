@@ -550,7 +550,7 @@ test("small-screen navigation and page headers keep deliberate spacing", async (
     "rgb(237, 232, 224)",
   );
 
-  await page.goto("/work/eastrise-portraits/");
+  await page.goto("/work/vtdigger-membership/");
   const caseHeroGap = await page
     .locator(".case-hero")
     .evaluate((hero) => Number.parseFloat(getComputedStyle(hero).rowGap));
@@ -754,10 +754,3 @@ test("narrow mobile layouts wrap without horizontal page overflow", async ({ pag
   expect(aboutLayout.educationRight).toBeLessThanOrEqual(aboutLayout.viewportWidth);
 });
 
-test("campaign pages use local images and YouTube embeds", async ({ page }) => {
-  await page.goto("/work/member-banking-stories/");
-  await expect(page.locator("main img")).toHaveCount(1);
-  await expect(page.locator('iframe[src*="youtube-nocookie.com"]')).toHaveCount(
-    11,
-  );
-});

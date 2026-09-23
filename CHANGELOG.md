@@ -8,6 +8,10 @@ The format is based on Keep a Changelog and this project uses SemVer-style versi
 
 ### Changed
 
+- Removed the EastRise, VSECU, and Blue Cross Vermont work: 22 project pages, their generators, validators, data files, and images. The routes now return an uncached 404 through the retired publication list. Career history, testimonials, and LinkedIn posts that mention those employers remain, and the homepage and About proof figures now point to the About page.
+- Hid the Store link in the navigation and footer until `store.ames.consulting` serves HTTPS, because the HSTS preload makes the store unreachable without a certificate.
+- Replaced the service-page project cards that pointed to removed work with VTDigger, Connecticut College, Fairbanks, NEG-ECP, Ping Warden, Skylight Bridge, and YNAB MCP.
+
 - Rebuilt the Ping Warden work page as a product page for cloud gamers: a search-facing title and description, SoftwareApplication structured data with the $15 Gumroad offer, a purchase button ahead of the repository link, and four story cards. The software generator gained an optional store link and a highlighted fact chip, and a fourth story card gets the plum rule.
 
 ### Fixed

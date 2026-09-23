@@ -34,6 +34,10 @@ test("publication middleware blocks every retired, withheld, and private path", 
   assert.equal(isBlockedPublicPath("/WORK/BETA-ANDREW/"), true);
   assert.equal(isBlockedPublicPath("/work/%62eta-emma/"), true);
   assert.equal(isBlockedPublicPath("/work/flight-paths/"), false);
+  assert.equal(isBlockedPublicPath("/work/eastrise/"), true);
+  assert.equal(isBlockedPublicPath("/work/eastrise-writing/"), true);
+  assert.equal(isBlockedPublicPath("/assets/images/work/portraits/beth-roberts-320w.webp"), true);
+  assert.equal(isBlockedPublicPath("/assets/images/work/campaigns/will-barbecue.webp"), false);
   for (const exception of PUBLIC_RUNTIME_EXCEPTIONS) {
     assert.equal(isBlockedPublicPath(`/${exception}`), false, exception);
   }
@@ -80,16 +84,10 @@ test("Cloudflare invokes Functions only for the API and blocked publication path
     CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/campaigns/flight-paths*"),
     false,
   );
-  assert.equal(
-    CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/portraits/beth-roberts*"),
-    true,
-  );
-  assert.equal(
-    CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/portraits/gallery/blue-cross/*"),
-    true,
-  );
+  assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/portraits/*"), true);
+  assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/eastrise/*"), true);
+  assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/work/eastrise/*"), true);
   assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/campaigns/*"), false);
-  assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/assets/images/work/portraits/*"), false);
   assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/work/beta-andrew/*"), true);
   assert.equal(CLOUDFLARE_FUNCTION_ROUTES.includes("/work/flight-paths/*"), false);
   assert.deepEqual(CLOUDFLARE_FUNCTION_EXCLUDES, ["/assets/data/site.config.json"]);

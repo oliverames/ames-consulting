@@ -4,28 +4,9 @@ import { readFile } from "node:fs/promises";
 const readEventGalleries = async () => JSON.parse(
   await readFile(new URL("../assets/data/event-galleries.json", import.meta.url), "utf8"),
 );
-const readEastRisePhotography = async () => JSON.parse(
-  await readFile(new URL("../assets/data/eastrise-photography.json", import.meta.url), "utf8"),
-);
-const readEastRiseSocialPhotography = async () => JSON.parse(
-  await readFile(new URL("../assets/data/eastrise-social-photography.json", import.meta.url), "utf8"),
-);
-const readPortraits = async () => JSON.parse(
-  await readFile(new URL("../assets/data/portraits.json", import.meta.url), "utf8"),
-);
 const readWritingFeed = async () => JSON.parse(
   await readFile(new URL("../assets/data/writing-feed.json", import.meta.url), "utf8"),
 );
-const readEastRiseSocial = async () => JSON.parse(
-  await readFile(new URL("../assets/data/eastrise-social.json", import.meta.url), "utf8"),
-);
-const taylorPageImages = (photography) => photography.series
-  .find((series) => series.slug === "taylor-hoar-racing")
-  .images
-  .filter((image) => !image.src.endsWith("/Original-Public-Image-8998855be149.webp"))
-  .toSorted((left, right) => (
-    right.publishedDate || right.capturedDate || ""
-  ).localeCompare(left.publishedDate || left.capturedDate || ""));
 
 test("homepage presents the company and verified proof", async ({ page }) => {
   await page.goto("/");
@@ -36,7 +17,7 @@ test("homepage presents the company and verified proof", async ({ page }) => {
   ).toBeVisible();
   const firstMetric = page.locator(".proof__link").first();
   await expect(firstMetric).toBeVisible();
-  await expect(firstMetric).toHaveAttribute("href", "work/eastrise/");
+  await expect(firstMetric).toHaveAttribute("href", "about/");
   await firstMetric.hover();
   await expect(firstMetric.getByRole("tooltip")).toBeVisible();
   await page.mouse.move(0, 0);
@@ -85,7 +66,7 @@ test("homepage service cards open article hubs", async ({ page }) => {
   await expect(page.locator(".service-project")).toHaveCount(3);
   await expect(page.locator(".service-proof")).toHaveAttribute(
     "href",
-    "../../work/eastrise-social/",
+    "../../about/",
   );
 });
 
@@ -133,12 +114,11 @@ test("homepage campaign strip keeps its first card on the content gutter", async
   await expect(
     page.getByRole("heading", { name: "47th NEG-ECP Conference", exact: true }),
   ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Taylor Hoar Racing", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Wheels for Warmth", exact: true }),
-  ).toBeVisible();
+  for (const retiredTitle of ["Taylor Hoar Racing", "Wheels for Warmth"]) {
+    await expect(
+      page.getByRole("heading", { name: retiredTitle, exact: true }),
+    ).toHaveCount(0);
+  }
   const stripStyles = await page.locator(".home-paths .path-strip").evaluate((strip) => ({
     overflowX: getComputedStyle(strip).overflowX,
     scrollbarWidth: getComputedStyle(strip).scrollbarWidth,
@@ -462,74 +442,6 @@ test("inbound project links preselect the contact form", async ({ page }) => {
   await expect(page.locator("[data-inbound-prompt]")).toHaveCount(0);
 });
 
-test("website projects are separated by institution", async ({
-  page,
-}) => {
-  await page.goto("/work/credit-union-websites/");
-  await expect(
-    page.getByRole("heading", {
-      name: "Credit union website projects",
-    }),
-  ).toBeVisible();
-  await expect(page.getByRole("link", { name: /VSECU Website Redesign/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: /EastRise Website Launch/ })).toBeVisible();
-  await page.goto("/work/vsecu-website/");
-  await expect(page.locator(".website-proof article")).toHaveCount(3);
-  expect(await page.locator(".website-proof").evaluate(
-    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
-  )).toBe(3);
-  await expect(page.locator(".website-header-image img")).toHaveCount(1);
-  await expect(page.locator(".website-screen-gallery img")).toHaveCount(0);
-  await page.goto("/work/eastrise-website/");
-  await expect(page.locator(".website-proof article")).toHaveCount(4);
-  expect(await page.locator(".website-proof").evaluate(
-    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
-  )).toBe(4);
-  await expect(page.locator(".website-header-image img")).toHaveCount(1);
-  await expect(page.locator(".website-screen-gallery img")).toHaveCount(3);
-  await expect(
-    page.getByRole("link", { name: /EastRise case study/ }),
-  ).toHaveAttribute(
-    "href",
-    "https://www.pixelspoke.coop/eastrise-credit-union-case-study",
-  );
-
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/work/vsecu-website/");
-  expect(await page.locator(".website-proof").evaluate(
-    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
-  )).toBe(1);
-  await page.goto("/work/eastrise-website/");
-  expect(await page.locator(".website-proof").evaluate(
-    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length,
-  )).toBe(2);
-});
-
-test("member banking stories separates the Urban Rhino series", async ({
-  page,
-}) => {
-  await page.goto("/work/member-banking-stories/");
-  await expect(page.locator(".urban-rhino-series .video-card")).toHaveCount(9);
-  await expect(page.locator(".additional-film-series .video-card")).toHaveCount(
-    2,
-  );
-  await expect(
-    page.locator("iframe[src*='youtube-nocookie.com/embed/']"),
-  ).toHaveCount(11);
-  await expect(
-    page.getByText("Produced with Urban Rhino · 2025–2026"),
-  ).toBeVisible();
-  await expect(
-    page.getByText("Will's story · 15 seconds · April 8, 2026"),
-  ).toBeVisible();
-  await expect(page.locator('.case-hero--family > img[src*="will-barbecue.webp"]')).toHaveCount(1);
-  await expect(page.locator('.case-hero--family > img')).toHaveAttribute("loading", "eager");
-  await expect(page.locator(".member-story-visual")).toHaveCount(0);
-  await expect(page.locator('main img[src*="will-barbecue.webp"]')).toHaveCount(1);
-  await expect(page.locator('iframe[data-youtube-poster]')).toHaveCount(11);
-  await expect(page.locator('iframe[data-youtube-poster^="../../assets/images/work/eastrise/member-stories/"]')).toHaveCount(11);
-});
-
 test("YouTube facades defer every player until the visitor presses Play", async ({
   page,
 }) => {
@@ -540,8 +452,6 @@ test("YouTube facades defer every player until the visitor presses Play", async 
     }
   });
   const videoPages = [
-    ["/work/eastrise-photography/", 2],
-    ["/work/member-banking-stories/", 11],
     ["/work/fairbanks-planetarium/", 1],
     ["/work/flight-paths/", 1],
     ["/blog/", 2],
@@ -603,69 +513,9 @@ test("event photography is split into complete campaign galleries", async ({
   );
 });
 
-test("Taylor Hoar presents the approved racing photographs newest first", async ({
-  page,
-}) => {
-  const photography = await readEastRisePhotography();
-  const pageImages = taylorPageImages(photography);
-
-  await page.goto("/work/taylor-hoar-racing/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Taylor Hoar Racing",
-  );
-  await expect(page.locator(".metric-grid article")).toHaveCount(4);
-  const racing = page.locator('[data-gallery="eastrise-taylor-hoar-racing"]');
-  await expect(racing.locator("img")).toHaveCount(pageImages.length);
-  expect(await racing.locator("img").evaluateAll((images) => (
-    images.map((image) => image.getAttribute("src"))
-  ))).toEqual(pageImages.map((image) => image.src));
-  await expect(page.locator('img[src$="Original-Public-Image-8998855be149.webp"]')).toHaveCount(0);
-  await expect(page.locator('[data-gallery="eastrise-veggievango-taylor-hoar"]')).toHaveCount(0);
-  await expect(page.getByText("VeggieVanGo with Taylor Hoar", { exact: true })).toHaveCount(0);
-  await expect(page.locator("body")).not.toContainText("personal photo library");
-  await expect(page.locator("body")).toContainText(
-    "February–October 2025",
-  );
-  await racing.locator("img").first().click();
-  const viewer = page.locator("#image-viewer");
-  const viewerCaption = page.locator("#image-viewer-caption");
-  await expect(viewer).toBeVisible();
-  await expect(viewerCaption).toContainText(`1 of ${pageImages.length}`);
-  await page.keyboard.press("ArrowRight");
-  await expect(viewerCaption).toContainText(`2 of ${pageImages.length}`);
-  await page.locator("#image-viewer-close").click();
-});
-
-test("Wheels for Warmth combines 2025 results with the 2024 photo series", async ({
-  page,
-}) => {
-  const photography = await readEastRisePhotography();
-  const photoSeries = photography.series.find(
-    (series) => series.slug === "wheels-for-warmth-2024",
-  );
-
-  await page.goto("/work/wheels-for-warmth/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Wheels for Warmth",
-  );
-  await expect(page.locator(".metric-grid article")).toHaveCount(4);
-  await expect(page.locator(".metric-grid")).toContainText("65,906");
-  await expect(page.locator(".metric-grid")).toContainText("274");
-  await expect(
-    page.locator('[data-gallery="eastrise-wheels-for-warmth-2024"] img'),
-  ).toHaveCount(photoSeries.images.length);
-});
-
 test("career pages keep private evidence and unsupported claims out of public copy", async ({
   page,
 }) => {
-  await page.goto("/work/live-broadcasts/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Live Broadcasts",
-  );
-  await expect(page.locator("body")).not.toContainText("10,000");
-  await expect(page.locator("body")).not.toContainText("2025 resume");
-
   await page.goto("/work/vtdigger-membership/");
   await expect(page.locator("body")).not.toContainText("Local evidence");
   await expect(page.locator("body")).not.toContainText("archived VTDigger work sample");
@@ -680,10 +530,9 @@ test("career pages keep private evidence and unsupported claims out of public co
 test("gallery images support keyboards and retain their context menus", async ({
   page,
 }) => {
-  const photography = await readEastRisePhotography();
-  const pageImages = taylorPageImages(photography);
-  await page.goto("/work/taylor-hoar-racing/");
-  const gallery = page.locator('[data-gallery="eastrise-taylor-hoar-racing"]');
+  await page.goto("/work/london-2019/");
+  const gallery = page.locator('[data-gallery="london-2019"]');
+  const galleryImageCount = await gallery.locator("img").count();
   const thumbnail = gallery.locator("img").first();
 
   await expect(thumbnail).toHaveAttribute("role", "button");
@@ -712,7 +561,7 @@ test("gallery images support keyboards and retain their context menus", async ({
   const captionCount = page.locator(".image-viewer-caption__count");
   await expect(viewer).toBeVisible();
   await expect(captionCount).toHaveText(
-    new RegExp(`^\\d+ of ${pageImages.length}$`),
+    new RegExp(`^\\d+ of ${galleryImageCount}$`),
   );
   await expect(viewerCaption).toHaveAttribute("role", "status");
   await expect(viewerCaption).toHaveAttribute("aria-live", "polite");
@@ -784,86 +633,6 @@ test("primary actions retain a visible keyboard focus ring", async ({ page }) =>
   expect(styles.outlineColor).not.toBe(styles.surfaceColor);
 });
 
-test("portrait work is split into complete framed galleries", async ({ page }) => {
-  const portraits = await readPortraits();
-  const eastRisePortraits = portraits.series.find(
-    (series) => series.slug === "eastrise-leadership-board",
-  );
-  expect(eastRisePortraits).toBeTruthy();
-  expect(eastRisePortraits.images).toHaveLength(42);
-  expect(new Set(eastRisePortraits.images.map((image) => image.caption)).size).toBe(41);
-  expect(
-    eastRisePortraits.images.filter((image) => !image.source),
-  ).toEqual([]);
-  expect(
-    eastRisePortraits.images.filter((image) => !/^Portrait of /.test(image.alt)),
-  ).toEqual([]);
-  const officialPortraitNames = [
-    "Elizabeth Morton",
-    "Greg Hahr",
-    "Mark Ackerly",
-    "Valerie Beaudin",
-    "Rick Hommel",
-    "Sue Leonard",
-    "Robert Miller",
-    "Subha Luck",
-    "Frank G. Harris",
-    "Margaret H. O’Donnell",
-    "Stephanie Meunier",
-    "Julie Lineberger",
-    "Amy Vaughan",
-    "Michael Hogan",
-    "George Sales",
-    "Spencer Newman",
-    "Arthur G. Woolf",
-    "Yvonne Garand",
-  ];
-  const leadershipPortraits = eastRisePortraits.images.filter(
-    (image) => image.portraitGroup === "leadership",
-  );
-  const additionalPortraits = eastRisePortraits.images.filter(
-    (image) => image.portraitGroup === "portrait",
-  );
-  expect(leadershipPortraits).toHaveLength(18);
-  expect(leadershipPortraits.map((image) => image.caption)).toEqual(officialPortraitNames);
-  expect(additionalPortraits).toHaveLength(24);
-  expect(new Set(additionalPortraits.map((image) => image.caption)).size).toBe(23);
-  expect(additionalPortraits.filter((image) => image.caption === "Luke Buglion Gluck")).toHaveLength(2);
-  await page.setViewportSize({ width: 785, height: 863 });
-  await page.goto("/work/eastrise-portraits/");
-  const portraitImages = page.locator(".portrait-gallery img");
-  await expect(portraitImages).toHaveCount(42);
-  const leadershipGallery = page.locator('[data-gallery="eastrise-leadership"]');
-  const portraitsGallery = page.locator('[data-gallery="eastrise-portraits"]');
-  await expect(leadershipGallery.locator("img")).toHaveCount(18);
-  await expect(portraitsGallery.locator("img")).toHaveCount(24);
-  await expect(leadershipGallery.locator('img[data-date-status="dated"]')).toHaveCount(18);
-  await expect(portraitsGallery.locator('img[data-date-status="dated"]')).toHaveCount(24);
-  const renderedLeadershipNames = await leadershipGallery.locator("img").evaluateAll((images) => images
-    .map((image) => image.alt.replace(/^Portrait of /, "")));
-  expect(renderedLeadershipNames).toEqual(officialPortraitNames);
-  await expect(page.getByAltText("Portrait of Frank G. Harris")).toHaveCount(1);
-  await expect(page.getByAltText("Portrait of Yvonne Garand")).toHaveCount(1);
-  await expect(page.getByAltText("Portrait of Luke Buglion Gluck")).toHaveCount(2);
-  const firstGallery = leadershipGallery;
-  const firstGalleryCount = await firstGallery.locator("img").count();
-  const firstPortrait = firstGallery.locator("img").first();
-  await firstPortrait.click();
-  await expect(page.locator("#image-viewer")).toBeVisible();
-  await expect(page.locator("#image-viewer-caption")).toContainText(
-    `1 of ${firstGalleryCount}`,
-  );
-  await page.keyboard.press("ArrowRight");
-  await expect(page.locator("#image-viewer-caption")).toContainText(
-    `2 of ${firstGalleryCount}`,
-  );
-  await page.locator("#image-viewer-close").click();
-  await page.getByAltText("Portrait of Frank G. Harris").click();
-  await expect(page.locator("#image-viewer-caption")).toContainText(
-    "Frank G. Harris",
-  );
-});
-
 test("Flight Paths is the sole BETA media project", async ({ page }) => {
   await page.goto("/work/");
   const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
@@ -897,41 +666,22 @@ test("Flight Paths is the sole BETA media project", async ({ page }) => {
 test("work is organized by campaign rather than employer", async ({ page }) => {
   await page.goto("/work/");
   if (test.info().config.metadata?.siteRoot === "_site") {
-    const uvmCardImage = page.locator(
-      'a.work-item[href="eastrise-photography/#uvm-mens-soccer-2025-title"] img',
+    const negEcpCardImage = page.locator(
+      'a.work-item[href="neg-ecp-conference-2026/"] img',
     );
-    await expect(uvmCardImage).toHaveAttribute(
+    await expect(negEcpCardImage).toHaveAttribute(
       "srcset",
-      /2025-11-24_facebook-002_01-06c6da9d97e7-512w\.webp 512w/,
+      /dsc00383-512w\.webp 512w/,
     );
     await expect.poll(
-      () => uvmCardImage.evaluate((image) => image.currentSrc),
-    ).toMatch(/2025-11-24_facebook-002_01-06c6da9d97e7-512w\.webp$/);
+      () => negEcpCardImage.evaluate((image) => image.currentSrc),
+    ).toMatch(/dsc00383-512w\.webp$/);
   }
   await expect(
     page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
   ).toHaveCount(0);
-  await expect(page.locator(".work-category--portraits .work-item")).toHaveCount(1);
-  await expect(
-    page.getByRole("heading", { name: "Taylor Hoar Racing", exact: true }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Wheels for Warmth", exact: true }),
-  ).toBeVisible();
-  await expect(page.locator('a.work-item[href="taylor-hoar-racing/"]')).toHaveCount(1);
-  await expect(page.locator('a.work-item[href="wheels-for-warmth/"]')).toHaveCount(1);
-  await expect(
-    page.locator('a.work-item[href="eastrise-photography/#veggievango-taylor-hoar-title"]'),
-  ).toHaveCount(0);
-  await expect(
-    page.locator('a.work-item[href="eastrise-photography/#wheels-for-warmth-2024-title"]'),
-  ).toHaveCount(0);
-  await expect(
-    page.getByRole("heading", { name: "EastRise Launch Campaign" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "EastRise Portraits" }),
-  ).toBeVisible();
+  await expect(page.locator(".work-category--portraits")).toHaveCount(0);
+  await expect(page.locator('a.work-item[href^="eastrise"]')).toHaveCount(0);
   await expect(page.locator('a.work-item[href="giron-family/"]')).toHaveCount(1);
   await expect(
     page.getByRole("heading", { name: "Giron Family Portrait Sessions", exact: true }),
@@ -954,6 +704,11 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     "Corporate Cup 2026",
     "Girls on the Run 2026",
     "Blue Cross Portraits",
+    "Taylor Hoar Racing",
+    "Wheels for Warmth",
+    "EastRise Launch Campaign",
+    "EastRise Portraits",
+    "Live Broadcasts",
   ]) {
     await expect(
       page.getByRole("heading", { name: withheldHeading, exact: true }),
@@ -963,30 +718,17 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Emma at BETA" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Ethan at BETA" })).toHaveCount(0);
   const sections = page.locator(".work-category");
-  await expect(sections).toHaveCount(3);
+  await expect(sections).toHaveCount(2);
   const hrefs = async (section) =>
     section.locator(".work-item").evaluateAll((items) =>
       items.map((item) => item.getAttribute("href")),
     );
-  expect(await hrefs(sections.nth(2))).toEqual([
+  expect(await hrefs(sections.nth(1))).toEqual([
     "stowe-ski-instruction/",
     "vtdigger-membership/",
     "fairbanks-planetarium/",
     "connecticut-college/",
   ]);
-});
-
-test("EastRise social archive uses every cleared post capture", async ({ page }) => {
-  const social = await readEastRiseSocial();
-  await page.goto("/work/eastrise-social/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Selected social posts from VSECU and EastRise",
-  );
-  await expect(page.locator('[data-gallery="eastrise-social"] img')).toHaveCount(
-    social.posts.length,
-  );
-  await expect(page.locator(".source-index")).toHaveCount(0);
-  await expect(page.getByText("What the archive preserves")).toHaveCount(0);
 });
 
 test("GMCF shoots use complete collages with paged lightboxes", async ({
@@ -1095,10 +837,6 @@ test("recommendations are distributed across relevant pages", async ({
   await expect(page.locator(".photography-testimonial")).toContainText(
     "natural eye for capturing moments",
   );
-  await page.goto("/work/eastrise-website/");
-  await expect(page.locator(".website-testimonial")).toContainText(
-    "Brad Meerholz",
-  );
 });
 
 test("testimonials archive contains public recommendations only", async ({
@@ -1172,134 +910,6 @@ test("testimonials archive contains public recommendations only", async ({
   await expect(
     page.locator('.site-nav a[href="../testimonials/"]'),
   ).toHaveAttribute("aria-current", "page");
-});
-
-test("EastRise writing archive contains every attributed article", async ({
-  page,
-}) => {
-  await page.goto("/work/eastrise-writing/");
-  await expect(page.locator(".writing-list > li")).toHaveCount(53);
-  await expect(
-    page.getByText("A Comprehensive Guide to EV Charging Apps", {
-      exact: true,
-    }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("link", {
-      name: /A Comprehensive Guide to EV Charging Apps/,
-    }),
-  ).toHaveCount(0);
-});
-
-test("EastRise photography is grouped into complete public-source galleries", async ({
-  page,
-}) => {
-  const photography = await readEastRisePhotography();
-  const socialCoverage = await readEastRiseSocialPhotography();
-  expect(photography.totalImages).toBe(173);
-  expect(photography.series).toHaveLength(16);
-  expect(socialCoverage).toMatchObject({
-    photographicPostCount: 28,
-    excludedPostCount: 1,
-    photographicPlacements: 165,
-    distinctPortfolioAssets: 126,
-    newlyImportedAssets: 37,
-  });
-  expect(photography.series.some((series) => series.slug === "formal-headshots")).toBe(false);
-  expect(
-    photography.series.find((series) => series.slug === "smokin-somethin-bbq")?.images,
-  ).toHaveLength(1);
-  expect(
-    photography.series.find((series) => series.slug === "uvm-mens-soccer-2025")?.images,
-  ).toHaveLength(5);
-  expect(
-    photography.series.find((series) => series.slug === "wheels-for-warmth-2025")?.images,
-  ).toHaveLength(16);
-  const candidPortraits = photography.series.find(
-    (series) => series.slug === "eastrise-candid-portraits",
-  );
-  expect(candidPortraits.images).toHaveLength(1);
-  const expectedImageCount = photography.series.reduce(
-    (total, series) => total + series.images.length,
-    0,
-  );
-  await page.goto("/work/eastrise-photography/");
-  await expect(page.locator(".photo-series")).toHaveCount(photography.series.length);
-  await expect(page.locator(".campaign-collage img")).toHaveCount(expectedImageCount);
-  await expect(
-    page.locator('[aria-labelledby="taylor-hoar-racing-title"] .campaign-collage img').first(),
-  ).toHaveAttribute("src", /featured-2025-dsc07501\.webp$/);
-  const karinaVideo = page.locator(
-    "#karina-and-ryan-title + p + .photo-series__video iframe",
-  );
-  await expect(karinaVideo).toHaveAttribute("src", /A1oAN6Ox6A0/);
-  await expect(karinaVideo).toHaveAttribute(
-    "srcdoc",
-    /Play Karina and Ryan member story/,
-  );
-  await expect(
-    page
-      .frameLocator("#karina-and-ryan-title + p + .photo-series__video iframe")
-      .getByRole("link", { name: "Play Karina and Ryan member story" }),
-  ).toHaveAttribute("href", /A1oAN6Ox6A0\?autoplay=1$/);
-  const johnVideo = page.locator(
-    "#john-and-donia-title + p + .photo-series__video iframe",
-  );
-  await expect(johnVideo).toHaveAttribute("src", /dffKrKG5Hbs/);
-  await expect(johnVideo).toHaveAttribute(
-    "srcdoc",
-    /Play John and Donia member story/,
-  );
-  if (test.info().config.metadata?.siteRoot === "_site") {
-    await expect(karinaVideo).toHaveAttribute(
-      "data-youtube-poster",
-      /A1oAN6Ox6A0\.webp$/,
-    );
-    await expect(karinaVideo).toHaveAttribute(
-      "srcdoc",
-      /A1oAN6Ox6A0-960w\.webp/,
-    );
-    await expect(johnVideo).toHaveAttribute(
-      "data-youtube-poster",
-      /dffKrKG5Hbs\.webp$/,
-    );
-    await expect(johnVideo).toHaveAttribute(
-      "srcdoc",
-      /dffKrKG5Hbs-960w\.webp/,
-    );
-  }
-  const johnAndDonia = photography.series.find(
-    (series) => series.slug === "john-and-donia",
-  );
-  expect(johnAndDonia).toBeTruthy();
-  await expect(
-    page.locator('[aria-labelledby="john-and-donia-title"] .campaign-collage img'),
-  ).toHaveCount(johnAndDonia.images.length);
-  await expect(
-    page.getByRole("heading", { name: "Bike Shop Member Story", exact: true }),
-  ).toHaveCount(0);
-  await expect(page.locator('img[src*="li_38643aee028f-03e615af6186"]')).toHaveCount(0);
-  const multiImageGallery = page.locator('[aria-labelledby="taylor-hoar-racing-title"] .campaign-collage');
-  const multiImageGalleryCount = await multiImageGallery.locator("img").count();
-  await multiImageGallery.locator("img").first().click();
-  await expect(page.locator("#image-viewer-caption")).toContainText(
-    `1 of ${multiImageGalleryCount}`,
-  );
-  await page.keyboard.press("ArrowRight");
-  await expect(page.locator("#image-viewer-caption")).toContainText(
-    `2 of ${multiImageGalleryCount}`,
-  );
-});
-
-test("EastRise photography deep links clear the sticky header", async ({ page }) => {
-  for (const width of [1440, 390]) {
-    await page.setViewportSize({ width, height: 844 });
-    await page.goto("/work/eastrise-photography/#smokin-somethin-bbq-title");
-    await expect.poll(async () => page.locator("#smokin-somethin-bbq-title").evaluate((heading) => {
-      const header = document.querySelector(".site-header");
-      return heading.getBoundingClientRect().top - header.getBoundingClientRect().bottom;
-    })).toBeGreaterThanOrEqual(-1);
-  }
 });
 
 test("Writing uses social cards and opens long-form posts on-site", async ({
@@ -1467,21 +1077,21 @@ test("LinkedIn carousel buttons respect reduced-motion preferences", async ({ pa
 test("in-house campaign cards identify the correct organization and role", async ({ page }) => {
   await page.goto("/work/");
   await expect(page.locator(".work-category__framing")).toContainText(
-    "These include in-house projects at EastRise Credit Union and BETA Technologies, plus commissioned work. Each card names the organization and my role.",
+    "These include projects for BETA Technologies and other commissioned work. Each card names the organization and my role.",
   );
-  await expect(page.locator('[data-organization="eastrise"] .work-item__credit').first()).toHaveText("Made as Digital Content Strategist, EastRise Credit Union.");
-  await expect(
-    page.locator('a[href="eastrise-photography/#smokin-somethin-bbq-title"] .work-item__context'),
-  ).toContainText("1 photograph");
+  await expect(page.locator('[data-organization="eastrise"]')).toHaveCount(0);
+  await expect(page.locator(".work-item__credit")).toHaveCount(0);
   const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
   await expect(flightPathsCard).toHaveAttribute("data-organization", "beta-technologies");
   await expect(flightPathsCard.locator('img[src="../assets/images/work/campaigns/flight-paths.webp"]')).toHaveCount(1);
   await expect(
     page.locator('.work-filters [data-work-filter="beta-technologies"]'),
   ).toHaveText("BETA");
-  await expect(
-    page.locator('.work-filters [data-work-filter="blue-cross-vermont"]'),
-  ).toHaveCount(0);
+  for (const retiredFilter of ["blue-cross-vermont", "eastrise"]) {
+    await expect(
+      page.locator(`.work-filters [data-work-filter="${retiredFilter}"]`),
+    ).toHaveCount(0);
+  }
 
   await page.goto("/work/?organization=beta-technologies");
   await expect(page.locator("#project-list-title")).toHaveText("BETA Technologies projects");
@@ -1497,7 +1107,6 @@ test("in-house campaign cards identify the correct organization and role", async
 
   for (const organization of [
     "beta-technologies",
-    "eastrise",
     "green-mountain-community-fitness",
   ]) {
     await page.goto(`/work/?organization=${organization}`);

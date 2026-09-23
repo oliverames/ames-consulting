@@ -6,11 +6,7 @@ import { WORK_PROJECT_TITLES } from "./site-taxonomy.mjs";
 
 const root = new URL("../", import.meta.url);
 const indexPath = new URL("work/index.html", root);
-const eastRiseHubPath = new URL("work/eastrise/index.html", root);
-const eastRiseWritingPath = new URL("work/eastrise-writing/index.html", root);
 let html = await readFile(indexPath, "utf8");
-const existingPortraitCards = [...html.matchAll(/<section class="work-category work-category--portraits">[\s\S]*?<div class="work-list">([\s\S]*?)<\/div>\s*<\/section>/g)].map((match) => match[1]).join("");
-const portraitFallbackCards = existingPortraitCards || `<a class="work-item" href="eastrise-portraits/"><img src="../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp" alt="Portrait of Christin Canter" loading="lazy"><span class="work-item__context">EastRise · 42 formal portraits</span><h3>EastRise Portraits</h3><p>Forty-two formal portraits of 41 people, organized into Leadership and Portraits galleries.</p></a>`;
 html = html.replace(/<section class="work-category work-category--portraits">[\s\S]*?<\/section>/g, "");
 const featuredImages = new Map([
   ["neg-ecp-conference-2026/", ["../assets/images/work/events/neg-ecp-conference-2026/dsc00383.webp", "A row of delegates listens from behind microphones and nameplates inside the Coach Barn"]],
@@ -18,11 +14,7 @@ const featuredImages = new Map([
   ["london-2019/", ["../assets/images/work/events/london-2019/dsc02427.webp", "Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds"]],
   ["whale-dance-randolph/", ["../assets/images/work/events/whale-dance-randolph/dsc06299.webp", "Jim Sardonis's Whale Dance sculpture above a stone wall with mist drifting through distant hills"]],
   ["drone-photography/", ["../assets/images/work/events/drone-photography/dji_0053.webp", "Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence"]],
-  ["eastrise-portraits/", ["../assets/images/work/portraits/gallery/eastrise/christin-canter-b3dee8c4b314.webp", "Portrait of Christin Canter"]],
   ["sweat-heart-throwdown/", ["../assets/images/work/gmcf/sweat-heart/dsc01171.webp", "Sweat-Heart Throwdown at Green Mountain Community Fitness"]],
-  ["wheels-for-warmth/", ["../assets/images/work/eastrise/photography/wheels-for-warmth-2024/2024-10-26_13-50-10_UTC_DBlvKpKtVEU_1-05c3cca5b111.webp", "A Wheels for Warmth volunteer waves during the 2024 tire collection"]],
-  ["taylor-hoar-racing/", ["../assets/images/work/eastrise/photography/taylor-hoar-racing/featured-2025-dsc07501.webp", "Taylor Hoar seated in her EastRise race suit, holding her helmet in front of the No. 48 car"]],
-  ["eastrise-launch-campaign/", ["../assets/images/work/eastrise/photography/eastrise-launch/2024-11-07_16-43-53_UTC_DCE8lP9RE_L_6-9f9418845b17.webp", "A cinema camera records the EastRise launch campaign"]],
   ["flight-paths/", ["../assets/images/work/campaigns/flight-paths.webp", "Flight Paths title card with Emma from BETA Technologies"]],
 ]);
 html = html.replace(
@@ -43,45 +35,18 @@ const organizationByHref = new Map([
   ["neg-ecp-conference-2026/", "gbic"],
   ["flight-paths/", "beta-technologies"],
   ["vermont-foodbank-volunteer-day-2026/", "vermont-foodbank"],
-  ["eastrise-portraits/", "eastrise"],
-  ["member-banking-stories/", "eastrise"],
-  ["eastrise-social/", "eastrise"],
-  ["eastrise-writing/", "eastrise"],
-  ["wheels-for-warmth/", "eastrise"],
-  ["taylor-hoar-racing/", "eastrise"],
   ["bike-fitting/", "green-mountain-community-fitness"],
   ["sweat-heart-throwdown/", "green-mountain-community-fitness"],
-  ["eastrise-launch-campaign/", "eastrise"],
-  ["vsecu-website/", "eastrise"],
-  ["eastrise-website/", "eastrise"],
-  ["live-broadcasts/", "eastrise"],
   ["vtdigger-membership/", "vtdigger"],
   ["fairbanks-planetarium/", "fairbanks-museum"],
   ["connecticut-college/", "connecticut-college"],
   ["stowe-ski-instruction/", "stowe-mountain-resort"],
 ]);
 
-const inHouseCredits = {
-  "blue-cross-vermont": "Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont.",
-  eastrise: "Made as Digital Content Strategist, EastRise Credit Union.",
-};
-// Era-accurate overrides: the Digital Content Strategist title began in 2022,
-// so 2021-and-earlier VSECU work carries the title held at the time.
-const creditOverridesByHref = new Map([
-  ["vsecu-website/", "Made as Social Media Specialist, VSECU (now EastRise Credit Union)."],
-]);
+const inHouseCredits = {};
+const creditOverridesByHref = new Map();
 const inHouseDescriptions = new Map([
   ["flight-paths/", "I produced this documentary about a person finding her way into Vermont’s growing aviation sector."],
-  ["member-banking-stories/", "I co-produced eleven EastRise films, including nine with Urban Rhino."],
-  ["wheels-for-warmth/", "I photographed the 2024 collection day, then planned and ran the 2025 public-service campaign."],
-  ["taylor-hoar-racing/", "I covered the sponsorship through racing, portraits, community events, social posts, local history, and performance reports."],
-  ["eastrise-social/", "I led this dated archive of member stories, community coverage, campaigns, and lighter posts."],
-  ["eastrise-writing/", "I wrote 53 financial education articles for VSECU and EastRise."],
-  ["eastrise-portraits/", "I built this in-house formal portrait library for public profiles and organizational communications."],
-  ["eastrise-website/", "I worked on content, photography, migration, implementation, and quality assurance for the EastRise launch."],
-  ["eastrise-launch-campaign/", "I co-produced the EastRise launch, selected talent and locations, and made the still photographs."],
-  ["vsecu-website/", "I worked on content, imagery, migration, implementation, and quality assurance for the VSECU redesign."],
-  ["live-broadcasts/", "I hosted and produced public and employee broadcasts about leadership updates and financial results."],
 ]);
 const consultingHrefs = new Set(["flight-paths/"]);
 const legacyCardCopy = new Map([
@@ -113,7 +78,7 @@ if (campaignMatch) {
   // appends a fresh Legacy section; replacing afterwards would delete the
   // freshly built section (the first match) and keep the stale one.
   if (earlierMatch) html = html.replace(earlierSectionPattern, "");
-  const cards = [...`${campaignMatch[2]}${portraitFallbackCards}${earlierMatch?.[1] ?? ""}`.matchAll(/<a class="work-item"[^>]*href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
+  const cards = [...`${campaignMatch[2]}${earlierMatch?.[1] ?? ""}`.matchAll(/<a class="work-item"[^>]*href="([^"]+)"[\s\S]*?<\/a\s*>/g)]
     .map((match) => ({ href: match[1], html: match[0] }));
   const orderedCards = sortEntriesNewestFirst(cards, (card) => card.href);
 
@@ -122,8 +87,7 @@ if (campaignMatch) {
   const legacyCards = orderedCards.filter((card) => legacyHrefs.has(card.href));
   const prepareCard = (card) => {
     const explicitOrganization = organizationByHref.get(card.href);
-    const inferredOrganization = card.href.startsWith("eastrise-photography/") ? "eastrise" : "";
-    const organization = explicitOrganization || inferredOrganization;
+    const organization = explicitOrganization || "";
     let cardHtml = card.html.replace(/ data-organization="[^"]+"/g, "");
     const legacyCopy = legacyCardCopy.get(card.href);
     if (legacyCopy) {
@@ -141,12 +105,6 @@ if (campaignMatch) {
       // image's width/height attributes attached to the new file.
       // apply-image-dimensions.mjs re-measures downstream.
       cardHtml = cardHtml.replace(/<img[^>]*>/, `<img src="${feature[0]}" alt="${feature[1]}" loading="lazy">`);
-    }
-    if (card.href === "eastrise-portraits/") {
-      cardHtml = cardHtml.replace(
-        /<span class="work-item__context">[\s\S]*?<\/span>/,
-        '<span class="work-item__context">EastRise · 42 formal portraits</span>',
-      );
     }
     // Strip any credit inserted by a previous run so the description replace
     // below cannot stack a second credit paragraph.
@@ -172,27 +130,16 @@ if (campaignMatch) {
     "blue-cross-portraits/",
   ]);
   const publishableCards = currentCards.filter((card) => !withheldGalleryHrefs.has(card.href));
-  const deferredProjectHrefs = new Set([
-    "eastrise-social/",
-    "member-banking-stories/",
-    "live-broadcasts/",
-  ]);
-  const displayCards = [
-    ...publishableCards.filter((card) => !deferredProjectHrefs.has(card.href)),
-    ...publishableCards.filter((card) => deferredProjectHrefs.has(card.href)),
-  ];
-  const portraitHrefs = new Set(["eastrise-portraits/"]);
-  const markedCards = displayCards.filter((card) => !portraitHrefs.has(card.href)).map(prepareCard).join("");
-  const portraitCards = displayCards.filter((card) => portraitHrefs.has(card.href)).map(prepareCard).join("");
+  const markedCards = publishableCards.map(prepareCard).join("");
   const markedLegacyCards = legacyCards.map(prepareCard).join("");
 
   html = html.replace(
     campaignSectionPattern,
-    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">Projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA</a><a href="?organization=eastrise" data-work-filter="eastrise">EastRise</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}<section class="work-category work-category--portraits"><h2>Portraits</h2><div class="work-list">${portraitCards}</div></section><section class="work-category work-category--earlier"><h2>Legacy work</h2><div class="work-list">${markedLegacyCards}</div></section>`,
+    (_section, _opening, _cards, closing) => `<section class="work-category"><h2 id="project-list-title">Projects</h2><nav class="work-filters" aria-label="Filter projects by organization"><a href="./" data-work-filter="all">All</a><a href="?organization=beta-technologies" data-work-filter="beta-technologies">BETA</a><a href="?organization=green-mountain-community-fitness" data-work-filter="green-mountain-community-fitness">GMCF</a></nav><p class="work-filter-status" id="work-filter-status" hidden></p><div class="work-list">${markedCards}${closing}<section class="work-category work-category--earlier"><h2>Legacy work</h2><div class="work-list">${markedLegacyCards}</div></section>`,
   );
   html = html.replace(
     '<h2 id="project-list-title">Projects</h2><nav class="work-filters"',
-    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">These include in-house projects at EastRise Credit Union and BETA Technologies, plus commissioned work. Each card names the organization and my role.</p><nav class="work-filters"',
+    '<h2 id="project-list-title">Projects</h2><p class="work-category__framing">These include projects for BETA Technologies and other commissioned work. Each card names the organization and my role.</p><nav class="work-filters"',
   );
 }
 
@@ -210,52 +157,6 @@ if (!html.includes('src="../assets/js/work-filter.js"')) {
 html = html.replace(/[ \t]+$/gm, "");
 await writeFile(indexPath, html);
 
-let eastRiseHubHtml = await readFile(eastRiseHubPath, "utf8");
-eastRiseHubHtml = eastRiseHubHtml
-  .replaceAll("Portfolio update", "VSECU and EastRise · 2019–2025")
-  .replaceAll("EastRise work is now organized by campaign.", "Work for VSECU and EastRise Credit Union")
-  .replace(
-    /This address remains available for old links\. Choose the body of work\s+you want to see\./,
-    "I worked on campaigns, films, articles, social content, and website projects for VSECU and EastRise. This page links to each project.",
-  );
-for (const expected of [
-  "VSECU and EastRise · 2019–2025",
-  "Work for VSECU and EastRise Credit Union",
-  "This page links to each project.",
-]) {
-  if (!eastRiseHubHtml.includes(expected)) {
-    throw new Error(`refine-work: EastRise hub copy did not match: ${expected}`);
-  }
-}
-await writeFile(eastRiseHubPath, eastRiseHubHtml);
-
-let eastRiseWritingHtml = await readFile(eastRiseWritingPath, "utf8");
-eastRiseWritingHtml = eastRiseWritingHtml
-  .replaceAll("Fifty-three explanations built for real financial decisions.", "Fifty-three articles for VSECU and EastRise")
-  .replaceAll(
-    "I wrote about the questions people were actually facing: stimulus checks, fraud, debt, electric vehicles, home energy, budgeting, travel, and life in Vermont. This is the complete attributable archive.",
-    "I wrote these articles between 2019 and 2025. They cover stimulus checks, fraud, debt, electric vehicles, home energy, budgeting, travel, and life in Vermont.",
-  );
-for (const expected of [
-  "Fifty-three articles for VSECU and EastRise",
-  "I wrote these articles between 2019 and 2025.",
-]) {
-  if (!eastRiseWritingHtml.includes(expected)) {
-    throw new Error(`refine-work: EastRise writing copy did not match: ${expected}`);
-  }
-}
-const unavailableArticleLink = /<li><a href="https:\/\/www\.eastrise\.com\/blog\/a-comprehensive-guide-ev-charging-apps\/" rel="noopener"><span>Technology &amp; Banking · Archived article<\/span><h2>A Comprehensive Guide to EV Charging Apps<\/h2><small>Original EastRise URL is no longer available<\/small><\/a><\/li>/;
-const unavailableArticle = '<li><div class="writing-list__unavailable"><span>Technology &amp; Banking · Archived article</span><h2>A Comprehensive Guide to EV Charging Apps</h2><small>EastRise no longer publishes this article</small></div></li>';
-if (unavailableArticleLink.test(eastRiseWritingHtml)) {
-  eastRiseWritingHtml = eastRiseWritingHtml.replace(unavailableArticleLink, unavailableArticle);
-} else if (!eastRiseWritingHtml.includes(unavailableArticle)) {
-  throw new Error("refine-work: unavailable EastRise article markup did not match.");
-}
-eastRiseWritingHtml = eastRiseWritingHtml.replace(
-  "Links go to the current EastRise versions. One migrated article is retained by title even though its original URL now returns a 404.",
-  "Links go to the current EastRise versions. One article is retained by title because EastRise no longer publishes it.",
-);
-await writeFile(eastRiseWritingPath, eastRiseWritingHtml);
 
 // apply-shared-ui.mjs later normalizes the colophon and Company column
 // site-wide; this template just needs the same skeleton as its siblings.

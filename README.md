@@ -51,7 +51,7 @@ Cloudflare Pages hosts the site, and wrangler handles deployment. GitHub Actions
 ## Architecture Decisions
 
 - **No runtime content pipeline**: every page is static HTML written by a build-time generator, not assembled from a client-side data fetch.
-- **Generators own their pages**: each content area (`services`, `event-galleries`, `portraits`, `career-work`, `software`, `credit-union-websites`, `writing`, `contact`, `about`, `testimonials`) has one generator script; shared chrome (footer, nav, image dimensions, SEO meta) is normalized sitewide by dedicated `apply-*` passes that run last.
+- **Generators own their pages**: each content area (`services`, `event-galleries`, `career-work`, `software`, `writing`, `contact`, `about`, `testimonials`) has one generator script; shared chrome (footer, nav, image dimensions, SEO meta) is normalized sitewide by dedicated `apply-*` passes that run last.
 - **Work pages** are generated or hand-crafted case studies with static HTML, tagged by organization for the `/work/` filter.
 - **Progressive enhancement**: the JS that does ship never gates primary content.
 

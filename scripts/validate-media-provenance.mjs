@@ -12,8 +12,6 @@ const missingReport = await readJson("assets/data/media-provenance-missing.json"
 const evidence = await readJson("assets/data/media-provenance-evidence.json");
 const exceptionConfig = await readJson("assets/data/media-provenance-exceptions.json");
 const captureManifest = await readJson("assets/data/source-screenshot-manifest.json");
-const portraits = await readJson("assets/data/portraits.json");
-const photography = await readJson("assets/data/eastrise-photography.json");
 const eventGalleries = await readJson("assets/data/event-galleries.json");
 const writingFeed = await readJson("assets/data/writing-feed.json");
 const fields = ["source_url", "source_channel", "published_date", "downloaded_date", "credit", "source_capture"];
@@ -112,18 +110,6 @@ function linkedInDate(sourceUrl) {
 }
 
 const linkedInEvidenceUrls = new Map();
-for (const series of photography.series || []) {
-  for (const image of series.images || []) {
-    const asset = image.src.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
-    if (image.dateBasis === "public-source-url-timestamp") linkedInEvidenceUrls.set(asset, image.sourceUrl);
-  }
-}
-for (const series of portraits.series || []) {
-  for (const image of series.images || []) {
-    const asset = image.src.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
-    if (image.dateEvidence?.basis === "public-source-url-timestamp") linkedInEvidenceUrls.set(asset, image.source);
-  }
-}
 
 assertObject(exceptionConfig, "media-provenance-exceptions.json");
 assertExactKeys(exceptionConfig, ["schema_version", "exceptions"], "media-provenance-exceptions.json");
@@ -269,10 +255,10 @@ for (const [asset, data] of Object.entries(provenanceAssets)) {
     if (configuredException.reason === "public_source_page_not_identified" && data.source_channel !== "LinkedIn") {
       throw new Error(`${asset} uses public_source_page_not_identified without a retained LinkedIn channel.`);
     }
-    if (configuredException.reason === "collection_asset_without_single_source" && asset !== "assets/images/work/campaigns/eastrise-writing.webp") {
+    if (configuredException.reason === "collection_asset_without_single_source") {
       throw new Error(`${asset} cannot use the collection-only exception.`);
     }
-    if (configuredException.reason === "portfolio_original_without_public_source" && asset !== "assets/images/work/portraits/gallery/blue-cross/lindsay-segale.webp") {
+    if (configuredException.reason === "portfolio_original_without_public_source") {
       throw new Error(`${asset} cannot use the portfolio-original exception.`);
     }
     if (configuredException.reason === "client_work_portfolio_rights") {
@@ -318,19 +304,10 @@ for (const asset of exceptionsByAsset.keys()) {
   if (!provenanceAssets[asset]) throw new Error(`Accepted exception references unknown asset ${asset}.`);
 }
 
-const blueCrossPortraits = portraits.series?.find((series) => series.slug === "blue-cross-cbss");
-if (!blueCrossPortraits?.images?.length) throw new Error("portraits.json lacks the public Blue Cross portrait series.");
-for (const image of blueCrossPortraits.images) {
-  const asset = image.src.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
-  if (!provenanceAssets[asset]) throw new Error(`Public Blue Cross portrait lacks provenance: ${asset}.`);
-  if (image.source && !/^https:\/\//.test(image.source)) throw new Error(`Public Blue Cross portrait exposes a non-public source path: ${asset}.`);
-}
 
 const normalizeAsset = (value) => value.replace(/^\.\.\/\.\.\//, "").replace(/^\.\.\//, "").replace(/^\//, "");
 const expectedPortraitAndCandidAssets = new Set();
 const expectAsset = (value) => expectedPortraitAndCandidAssets.add(normalizeAsset(value));
-for (const series of photography.series || []) for (const image of series.images || []) expectAsset(image.src);
-for (const image of portraits.series?.find((series) => series.slug === "eastrise-leadership-board")?.images || []) expectAsset(image.src);
 for (const slug of [
   "neg-ecp-conference-2026",
   "giron-family-fall-2025",
@@ -350,12 +327,6 @@ for (const asset of [
   "assets/images/work/gmcf/bike-fitting-card.webp",
   "assets/images/work/gmcf/gmcf-card.webp",
   "assets/images/about/oliver-ames-profile.webp",
-  "assets/images/work/portraits/amy-vaughan.webp",
-  "assets/images/work/eastrise/uvm-soccer.webp",
-  "assets/images/work/eastrise/point-to-point.webp",
-  "assets/images/work/eastrise/wheels-for-warmth-card.webp",
-  "assets/images/work/campaigns/member-stories.webp",
-  "assets/images/work/campaigns/will-barbecue.webp",
   "assets/images/work/campaigns/flight-paths.webp",
 ]) expectAsset(asset);
 for (const name of await readdir(path.join(root, "assets/images/testimonials"))) {

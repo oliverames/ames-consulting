@@ -2,8 +2,8 @@
 
 ## Open items
 
-- Gumroad has not issued the `store.ames.consulting` TLS certificate, so HTTPS on the store fails; the main site's HSTS `includeSubDomains` requires the store to stay HTTPS-only (since 2026-09-03; the TLS handshake still failed on 2026-09-22).
-- Spot-check the mobile navigation at 320 px now that the strip holds eight items with the Store link (since 2026-09-03) (unverified).
+- Gumroad has not issued the `store.ames.consulting` TLS certificate. The domain is now HSTS-preloaded, so browsers refuse the store entirely. The Store link is hidden behind `STORE_LINK_ENABLED` in `scripts/apply-shared-ui.mjs`; restore it and the site-consistency assertions once HTTPS works (since 2026-09-03; TLS still failed on 2026-09-23).
+- Oliver will rebuild the EastRise and Blue Cross Vermont work. Remove each republished route from `RETIRED_ROUTE_PREFIXES` in `scripts/publication-denylist.mjs` and the tombstone list in `deploy-pages.yml` first (since 2026-09-23).
 - Any deletion of legacy Cloudflare deployments or retired object-storage assets, and any Git history rewrite, is destructive cleanup that still needs explicit approval (since 2026-08-11).
 
 This file records the public architecture and publication rules that are useful
@@ -35,6 +35,18 @@ Search directives such as `noindex` control indexing, not access.
 - `docs/ARCHITECTURE.md` explains the build and runtime design.
 - `docs/CONTENT-MODEL.md` maps source data to generated pages.
 - `docs/SPEC-MATRIX.md` tracks browser standards used by the site.
+
+## 2026-09-23 - EastRise and Blue Cross work removed; Store link hidden
+
+**What changed**: Removed 22 work pages for EastRise, VSECU, and Blue Cross Vermont, plus the generators, validators, data files, and images that only served them. The routes and image folders joined the retired publication lists, so production answers them with an uncached 404 tombstone. Homepage and About proof figures kept their text and now point to the About page. Service pages list retained projects instead. The Store link is hidden until the Gumroad subdomain serves HTTPS.
+
+**Decisions made**: Oliver chose to remove every client-attributed page, keep career history, testimonials, and LinkedIn posts, and hide the Store link. The EastRise member-film poster used by a retained LinkedIn writing card stays public. The Flight Paths card's provenance credit now names BETA Technologies rather than Blue Cross.
+
+**Left off at**: `npm run check:build-idempotence`, `npm run check:all`, `npm run check:built-site`, and all 136 `npm run test:site` browser tests pass locally.
+
+**Open questions**: None beyond the open items above.
+
+---
 
 ## 2026-09-03 - Google Analytics 4 tag with production hostname guard
 

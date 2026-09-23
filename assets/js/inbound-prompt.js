@@ -9,19 +9,19 @@ const serviceTitles = Object.fromEntries(SERVICES.map(({ slug, title }) => [slug
 const variants = [
   {
     match:
-      /\/(photography|portraits|family|corporate-cup|girls-on-the-run|giron|sweat-heart|bike-fitting)/,
+      /\/(photography|portraits|family|giron|sweat-heart|bike-fitting)/,
     type: serviceTitles["photography-and-video"],
     title: "Do you need photographs of people at work?",
     body: "Tell me who I’m photographing, where the shoot will happen, and how you plan to use the images.",
   },
   {
-    match: /\/(blog|writing|strategy-and-content|eastrise-writing)/,
+    match: /\/(blog|writing|strategy-and-content)/,
     type: serviceTitles["strategy-and-content"],
     title: "Do you need help explaining something complicated?",
     body: "Tell me who needs the information, what they need to know, and what you’ve tried so far.",
   },
   {
-    match: /\/(practical-technology|credit-union-websites)/,
+    match: /\/(practical-technology)/,
     type: serviceTitles["practical-technology"],
     title: "What keeps breaking or taking too long?",
     body: "Tell me what should happen, what happens now, and who has to work around it.",

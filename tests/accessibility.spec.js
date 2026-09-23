@@ -45,8 +45,6 @@ test("the blog introduction has no dark-mode accessibility issues", async ({ pag
 test("YouTube facade documents have no moderate, serious, or critical accessibility issues", async ({ page }) => {
   test.setTimeout(120_000);
   const videoRoutes = [
-    "/work/eastrise-photography/",
-    "/work/member-banking-stories/",
     "/work/fairbanks-planetarium/",
     "/work/beta-technologies/",
     "/work/flight-paths/",
@@ -60,7 +58,7 @@ test("YouTube facade documents have no moderate, serious, or critical accessibil
       .evaluateAll((frames) => frames.map((frame) => frame.getAttribute("srcdoc"))));
   }
 
-  expect(facades).toHaveLength(17);
+  expect(facades).toHaveLength(4);
   for (const srcdoc of facades) {
     await page.setContent(srcdoc);
     const results = await new AxeBuilder({ page }).analyze();

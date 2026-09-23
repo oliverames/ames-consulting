@@ -103,10 +103,10 @@ test("the project catalog covers every published work detail route", () => {
   assert.ok(!publishedSlugs.includes("portraits-and-people"));
 });
 
-test("the retired portrait route redirects to the canonical collection", async () => {
+test("the retired portrait route redirects to the work index", async () => {
   const redirects = new Set((await read("_redirects")).trim().split("\n"));
   assert.deepEqual(redirects, new Set([
-    "/work/portraits-and-people/ /work/eastrise-portraits/ 301",
+    "/work/portraits-and-people/ /work/ 301",
     "/work/giron-family-fall-2023/ /work/giron-family/#giron-family-fall-2023 301",
     "/work/giron-family-christmas-tree-farm-2024/ /work/giron-family/#giron-family-christmas-tree-farm-2024 301",
     "/work/giron-family-fall-2025/ /work/giron-family/#giron-family-fall-2025 301",
@@ -114,7 +114,9 @@ test("the retired portrait route redirects to the canonical collection", async (
 });
 
 test("primary navigation, section state, and shared footer stay canonical", async () => {
-  const expectedLabels = ["Home", "Work", "Services", "Writing", "About", "Testimonials", "Store", "Contact"];
+  // Store stays hidden until store.ames.consulting serves HTTPS (see STORE_LINK_ENABLED
+  // in scripts/apply-shared-ui.mjs); restore it here when the link returns.
+  const expectedLabels = ["Home", "Work", "Services", "Writing", "About", "Testimonials", "Contact"];
   for (const file of PUBLIC_HTML_FILES.filter((entry) => entry !== "404.html")) {
     const html = await read(file);
     const nav = html.match(/<ul class="site-nav">([\s\S]*?)<\/ul>/)?.[1];
@@ -128,8 +130,7 @@ test("primary navigation, section state, and shared footer stay canonical", asyn
     assert.match(html, /<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization<\/h2>/, `${file} footer heading drifted`);
     const company = html.match(/<h2>Company<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
     assert.match(company || "", />Services<\/a>/, `${file} footer omits Services`);
-    assert.match(company || "", /<a href="https:\/\/store\.ames\.consulting\/">Store<\/a>/, `${file} footer omits Store`);
-    assert.match(nav, /<a href="https:\/\/store\.ames\.consulting\/">Store<\/a>/, `${file} navigation omits Store`);
+    assert.doesNotMatch(html, /store\.ames\.consulting/, `${file} links to the store before it serves HTTPS`);
     assert.ok(html.includes(`<div class="site-footer__colophon"><span class="site-footer__monogram" aria-hidden="true">OA</span><p>${footerDescription}</p></div>`), `${file} footer description drifted`);
     const social = html.match(/<ul class="site-footer__social">([\s\S]*?)<\/ul>/)?.[1];
     assert.ok(social, `${file} footer omits social profiles`);

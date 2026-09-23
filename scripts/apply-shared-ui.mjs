@@ -85,7 +85,11 @@ function normalizeColophon(html) {
 // The Gumroad storefront lives on its own subdomain (DNS-only CNAME to
 // domains.gumroad.com), so the Store item is an absolute link that never
 // carries aria-current.
+// Hidden since 2026-09-23: ames.consulting is HSTS-preloaded with
+// includeSubDomains and Gumroad has not issued the subdomain's certificate,
+// so every browser refuses the store. Flip this back once HTTPS works.
 const STORE_URL = "https://store.ames.consulting/";
+const STORE_LINK_ENABLED = false;
 
 // Every page's primary nav and footer Company column carry the same items.
 // Late-running page rewrites (refine-work) used to drop the Testimonials
@@ -123,7 +127,7 @@ function normalizeNavAndCompany(html, base, file) {
     ["Writing", `${base}blog/`],
     ["About", `${base}about/`],
     ["Testimonials", `${base}testimonials/`],
-    ["Store", STORE_URL],
+    ...(STORE_LINK_ENABLED ? [["Store", STORE_URL]] : []),
     ["Contact", `${base}contact/`],
   ].map(([label, href]) => {
     const current = label === topLevel
@@ -136,7 +140,7 @@ function normalizeNavAndCompany(html, base, file) {
     /<ul class="site-nav">[\s\S]*?<\/ul>/,
     `<ul class="site-nav">${navItems}</ul>`,
   );
-  const companyItems = `<li><a href="${base}work/">All work</a></li><li><a href="${base}services/">Services</a></li><li><a href="${base}blog/">Writing</a></li><li><a href="${base}about/">About</a></li><li><a href="${base}testimonials/">Testimonials</a></li><li><a href="${STORE_URL}">Store</a></li><li><a href="${base}contact/">Contact</a></li>`;
+  const companyItems = `<li><a href="${base}work/">All work</a></li><li><a href="${base}services/">Services</a></li><li><a href="${base}blog/">Writing</a></li><li><a href="${base}about/">About</a></li><li><a href="${base}testimonials/">Testimonials</a></li>${STORE_LINK_ENABLED ? `<li><a href="${STORE_URL}">Store</a></li>` : ""}<li><a href="${base}contact/">Contact</a></li>`;
   out = out.replace(
     /(<h[23]>Company<\/h[23]>\s*<ul>)[\s\S]*?(<\/ul>)/,
     `$1${companyItems}$2`,
@@ -230,20 +234,6 @@ function normalizeFooterHeadingLevels(html) {
   );
 }
 
-function ensureHubSectionHeadings(html, file) {
-  const page = relative(root, file).split(sep).join("/");
-  const headings = new Map([
-    ["work/eastrise/index.html", ["work-category legacy-campaigns", "EastRise campaigns and projects"]],
-  ]);
-  const setting = headings.get(page);
-  if (!setting) return html;
-  const [className, heading] = setting;
-  return html.replace(
-    `<section class="${className}"><div class="work-list">`,
-    `<section class="${className}"><h2>${heading}</h2><div class="work-list">`,
-  );
-}
-
 function updateFooterGroups(html, file) {
   const pathParts = relative(root, file).split(sep);
   const directoryDepth = pathParts.length - 1;
@@ -251,7 +241,7 @@ function updateFooterGroups(html, file) {
   const workBase = `${base}work/`;
   return html.replace(
     /<nav class="site-footer__sitemap" aria-label="Footer">\s*<div>\s*<h[23]>(?:Campaigns|Galleries|Services|Work by organization)<\/h[23]>\s*<ul>[\s\S]*?<\/ul>\s*<\/div>/,
-    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization</h2><ul><li><a href="${workBase}blue-cross-vermont/">Blue Cross Vermont</a></li><li><a href="${workBase}?organization=eastrise">EastRise</a></li><li><a href="${workBase}?organization=beta-technologies">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
+    `<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization</h2><ul><li><a href="${workBase}?organization=beta-technologies">BETA Technologies</a></li><li><a href="${workBase}?organization=green-mountain-community-fitness">Green Mountain Community Fitness</a></li></ul></div>`,
   );
 }
 
@@ -398,7 +388,7 @@ for (const file of await collectHtml(root)) {
   after = normalizeFontHrefAmpersands(after);
   after = ensureFavicon(after, `${faviconBase}assets/images/brand/oa-social-mark.svg`);
   after = ensureThemeColor(after);
-  after = ensureHubSectionHeadings(after, file);
+  after = after;
   after = applyYoutubeFacades(after);
   after = addProvenanceDisclosure(
     normalizeFooterHeadingLevels(

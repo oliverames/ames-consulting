@@ -78,16 +78,11 @@ for (const record of captureManifest.captures) {
   captureBySource.set(canonicalSourceKey(record.source_url), record.source_capture);
 }
 
-const photography = await readJson(join(root, "assets/data/eastrise-photography.json"));
-const portraits = await readJson(join(root, "assets/data/portraits.json"));
-const social = await readJson(join(root, "assets/data/eastrise-social.json"));
 const eventGalleries = await readJson(join(root, "assets/data/event-galleries.json"));
 const writingFeed = await readJson(join(root, "assets/data/writing-feed.json"));
 const evidence = await readJson(evidencePath);
 const exceptions = await readJson(exceptionsPath);
-const eastRiseCredit = "Made as Digital Content Strategist, EastRise Credit Union";
-const eastRisePortraitCredit = "Photographed by Oliver Ames for EastRise Credit Union";
-const blueCrossCredit = "Made as Social Media Strategist, Blue Cross and Blue Shield of Vermont";
+const betaCredit = "Produced by Oliver Ames for BETA Technologies";
 const negEcpCredit = "Photographed by Oliver Ames for Cynosure, Inc. and GBIC";
 const gironCredit = "Photographed by Oliver Ames for the Giron family";
 const foodbankCredit = "Photographed by Oliver Ames at Vermont Foodbank";
@@ -138,69 +133,6 @@ const webpAssets = async (relativeDirectory) => (await readdir(join(root, relati
   .filter((name) => name.endsWith(".webp"))
   .sort()
   .map((name) => `${relativeDirectory}/${name}`);
-
-for (const series of photography.series) for (const image of series.images) {
-  const sourceUrl = publicPage(image.sourcePage || image.sourceUrl);
-  assets[normalize(image.src)] = {
-    source_url: sourceUrl,
-    source_channel: channelFor(sourceUrl, image.sourcePlatform || ""),
-    published_date: image.publishedDate || image.src.match(/\/(\d{4}-\d{2}-\d{2})_/)?.[1] || "",
-    downloaded_date: photography.generatedAt || "",
-    credit: eastRiseCredit,
-    source_capture: captureFor(sourceUrl),
-    archive_note: image.publicArchiveNote || "",
-    ...(image.samePublicMediaAs ? { same_public_media_as: normalize(image.samePublicMediaAs) } : {}),
-  };
-}
-for (const post of social.posts) {
-  const sourceUrl = publicPage(post.sourceUrl);
-  assets[normalize(post.screenshot)] = {
-    source_url: sourceUrl,
-    source_channel: post.platform || "",
-    published_date: "",
-    downloaded_date: "2026-07-29",
-    credit: eastRiseCredit,
-    source_capture: captureFor(sourceUrl),
-  };
-}
-
-const eastRisePortraits = portraits.series?.find((series) => series.slug === "eastrise-leadership-board");
-if (eastRisePortraits?.images?.length !== 42) throw new Error("portraits.json must contain 42 EastRise portraits.");
-for (const image of eastRisePortraits.images) {
-  const sourceUrl = publicPage(image.sourcePage || image.source);
-  if (!sourceUrl) throw new Error(`EastRise portrait ${image.caption} lacks a public source URL.`);
-  const sourceChannel = channelFor(sourceUrl);
-  const sourceVerificationDate = image.dateEvidence?.basis === "source-page-verification"
-    ? image.dateEvidence.date
-    : portraits.generatedAt;
-  assets[normalize(image.src)] = {
-    source_url: sourceUrl,
-    source_channel: sourceChannel,
-    published_date: image.publishedDate || "",
-    downloaded_date: sourceVerificationDate,
-    credit: eastRisePortraitCredit,
-    source_capture: sourceChannel === "LinkedIn" ? captureFor(sourceUrl) : "private_archive",
-    archive_note: image.archiveNote || "",
-  };
-}
-
-const amyPortraitAsset = normalize(eastRisePortraits.images.find((image) => image.caption === "Amy Vaughan")?.src || "");
-if (!amyPortraitAsset || !assets[amyPortraitAsset]) throw new Error("portraits.json must identify Amy Vaughan's canonical portrait.");
-assets["assets/images/work/portraits/amy-vaughan.webp"] = { ...assets[amyPortraitAsset] };
-
-const blueCrossPortraits = portraits.series?.find((series) => series.slug === "blue-cross-cbss");
-if (!blueCrossPortraits?.images?.length) throw new Error("portraits.json must contain the withheld Blue Cross portrait series.");
-for (const image of blueCrossPortraits.images) {
-  const sourceUrl = /^https:\/\//.test(image.source || "") ? cleanSourceUrl(image.source) : "";
-  assets[normalize(image.src)] = {
-    source_url: sourceUrl,
-    source_channel: sourceUrl ? "website" : "",
-    published_date: "",
-    downloaded_date: sourceUrl ? "2026-07-29" : "",
-    credit: blueCrossCredit,
-    source_capture: captureFor(sourceUrl),
-  };
-}
 
 const portraitAndCandidCollections = [
   {
@@ -255,21 +187,6 @@ for (const asset of [
   };
 }
 
-for (const [asset, note] of [
-  ["assets/images/work/eastrise/uvm-soccer.webp", "was photographed by Oliver Ames during EastRise community work; no public source record was retained."],
-  ["assets/images/work/eastrise/point-to-point.webp", "was photographed by Oliver Ames during EastRise community work; no public source record was retained."],
-]) {
-  assets[asset] = {
-    source_url: "",
-    source_channel: "",
-    published_date: "",
-    downloaded_date: "2026-07-29",
-    credit: eastRisePortraitCredit,
-    source_capture: "",
-    archive_note: note,
-  };
-}
-
 assets["assets/images/about/oliver-ames-profile.webp"] = {
   source_url: "",
   source_channel: "",
@@ -314,17 +231,6 @@ for (const asset of testimonialPortraitAssets) {
   };
 }
 
-const wheelsSourceUrl = "https://www.instagram.com/p/DBlvKpKtVEU/";
-assets["assets/images/work/eastrise/wheels-for-warmth-card.webp"] = {
-  source_url: wheelsSourceUrl,
-  source_channel: "Instagram",
-  published_date: "2024-10-26",
-  downloaded_date: "2026-07-29",
-  credit: eastRiseCredit,
-  source_capture: captureFor(wheelsSourceUrl),
-  archive_note: "",
-};
-
 const addWritingImage = (asset, post, sourceUrl, publisher) => {
   if (!asset?.startsWith("assets/images/writing/") || assets[asset]) return;
   const cleanUrl = publicHttpsPage(sourceUrl);
@@ -353,20 +259,13 @@ for (const post of writingFeed.posts || []) {
   }
 }
 
-assets["assets/images/work/campaigns/member-stories.webp"] = {
-  source_url: "https://www.youtube.com/watch?v=A1oAN6Ox6A0",
-  source_channel: "YouTube",
-  published_date: "",
-  downloaded_date: "2026-07-29",
-  credit: eastRiseCredit,
-  source_capture: captureFor("https://www.youtube.com/watch?v=A1oAN6Ox6A0"),
-};
+// Poster for the EastRise member film shared in a retained LinkedIn writing card.
 assets["assets/images/work/campaigns/will-barbecue.webp"] = {
   source_url: "https://www.youtube.com/watch?v=fAF3x-Iu2Bo",
   source_channel: "YouTube",
   published_date: "2025-12-30",
   downloaded_date: "2026-08-03",
-  credit: eastRiseCredit,
+  credit: "Published by EastRise Credit Union; shared by Oliver Ames",
   source_capture: captureFor("https://www.youtube.com/watch?v=fAF3x-Iu2Bo"),
 };
 assets["assets/images/work/campaigns/flight-paths.webp"] = {
@@ -374,33 +273,9 @@ assets["assets/images/work/campaigns/flight-paths.webp"] = {
   source_channel: "YouTube",
   published_date: "",
   downloaded_date: "2026-07-29",
-  credit: blueCrossCredit,
+  credit: betaCredit,
   source_capture: captureFor("https://www.youtube.com/watch?v=4r5N5DjmSCU"),
 };
-assets["assets/images/work/campaigns/eastrise-writing.webp"] = {
-  source_url: "",
-  source_channel: "website",
-  published_date: "",
-  downloaded_date: "2026-07-29",
-  credit: eastRiseCredit,
-  source_capture: "",
-};
-for (const asset of [
-  "assets/images/work/credit-union-websites/eastrise-feature.webp",
-  "assets/images/work/credit-union-websites/eastrise-desktop.webp",
-  "assets/images/work/credit-union-websites/eastrise-mobile.webp",
-  "assets/images/work/credit-union-websites/eastrise-homepage.webp",
-]) {
-  const sourceUrl = "https://www.pixelspoke.coop/eastrise-credit-union-case-study";
-  assets[asset] = {
-    source_url: sourceUrl,
-    source_channel: "website",
-    published_date: "",
-    downloaded_date: "2026-08-11",
-    credit: eastRiseCredit,
-    source_capture: captureFor(sourceUrl),
-  };
-}
 
 const negEcpCampaign = eventGalleries.campaigns?.find((campaign) => campaign.slug === "neg-ecp-conference-2026");
 if (negEcpCampaign?.images?.length !== 35) {

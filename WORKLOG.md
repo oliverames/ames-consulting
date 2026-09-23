@@ -48,6 +48,18 @@ Search directives such as `noindex` control indexing, not access.
 
 ---
 
+## 2026-09-23 - Dependencies, design pass, and copy review
+
+**What changed**: Merged Dependabot PR #26 and changed the sharp override from one Miniflare version to all of them, because wrangler 4.129.0 pulled a Miniflare that bypassed the old override. A measured design sweep of all 35 pages at 320, 390, 768, and 1440 px (light and dark, every headline variant, keyboard focus) found two defects: the six-line software heading and 21px writing-card links. Both were fixed. The copy review in `docs/audits/2026-09-23-copy-review.md` was approved in full and applied.
+
+**Decisions made**: Oliver approved all 14 copy proposals, including the three marked as added ideas. Case-study noun-phrase headings stay as short portfolio labels.
+
+**Left off at**: `check:ship` passes, and the production deploy verified all three origins after each push.
+
+**Open questions**: None.
+
+---
+
 ## 2026-09-03 - Google Analytics 4 tag with production hostname guard
 
 **What changed**: Every page now loads Google Analytics 4 (`G-YF4LQ85VRE`). `scripts/apply-shared-ui.mjs` injects one classic script, `assets/js/google-tag.js`, after the charset meta and widens each page's meta CSP; the edge CSP in `_headers` and `scripts/security-headers.mjs` gained the `googletagmanager.com` and `google-analytics.com` hosts. `scripts/google-tag.mjs` holds the measurement ID, production hosts, and CSP host lists. The script returns early unless the hostname is `ames.consulting` or `www.ames.consulting`, then appends Google's async loader itself, so local servers, Playwright, CI Lighthouse, and `pages.dev` previews neither fetch the 175 KB loader nor send hits. `tests/site-consistency.node.js` asserts every public page carries the script once with a CSP that admits it and never inlines the loader. The Lighthouse `total-byte-weight` budget rose from 500 KB to 700 KB. Commits `ff11cb9`, `ee319fd`, `526c3a3`.

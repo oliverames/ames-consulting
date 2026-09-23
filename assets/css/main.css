@@ -208,8 +208,9 @@
   }
 
   .software-work__heading h2 {
-    max-inline-size: 10ch;
+    max-inline-size: 14ch;
     margin: 0;
+    text-wrap: balance;
     color: #fff;
     font-size: clamp(2.7rem, 6vw, 5.8rem);
     line-height: 0.88;
@@ -1824,6 +1825,9 @@
   }
 
   .social-card__footer a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 1.5rem;
     text-decoration: none;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;

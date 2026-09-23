@@ -46,7 +46,7 @@
   },
   "overrides": {
     "undici": "7.29.0",
-    "miniflare@5.20260801.0-alpha": {
+    "miniflare": {
       "sharp": "0.35.4"
     }
   }

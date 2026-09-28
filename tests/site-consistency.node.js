@@ -126,7 +126,7 @@ test("primary navigation, section state, and shared footer stay canonical", asyn
     const current = links
       .map((match) => [match[2], match[1].match(/aria-current="([^"]+)"/)?.[1]])
       .filter(([, value]) => value);
-    assert.deepEqual(current, [expectedCurrent(file)], `${file} has the wrong current navigation state`);
+    assert.deepEqual(current, [expectedCurrent(file)].filter(([label]) => label), `${file} has the wrong current navigation state`);
     assert.match(html, /<nav class="site-footer__sitemap" aria-label="Footer"><div><h2>Work by organization<\/h2>/, `${file} footer heading drifted`);
     const company = html.match(/<h2>Company<\/h2>\s*<ul>([\s\S]*?)<\/ul>/)?.[1];
     assert.match(company || "", />Services<\/a>/, `${file} footer omits Services`);

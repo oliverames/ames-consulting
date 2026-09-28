@@ -1,5 +1,10 @@
 # Changelog
 
+## September 28, 2026
+
+- Added CloudForce support and privacy pages for its App Store listing. The app repository exports the content snapshot, and the website applies its shared layout and publishing checks.
+
+
 All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog and this project uses SemVer-style versioning.

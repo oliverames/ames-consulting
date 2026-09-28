@@ -47,6 +47,7 @@ Cloudflare Pages hosts the site, and wrangler handles deployment. GitHub Actions
 | `/services/`, `/services/*/` | Services index plus photography and video, strategy and content, and practical technology pages |
 | `/testimonials/` | Client and colleague recommendations |
 | `/contact/` | Contact form and social links |
+| `/cloudforce/`, `/cloudforce/privacy/` | CloudForce app support and privacy policy |
 
 ## Architecture Decisions
 

@@ -2,6 +2,8 @@
 
 ## September 28, 2026
 
+- Updated CloudForce support and privacy copy for optional automatic Sentry diagnostics, its reporting limits and the in-app off switch.
+
 - Added CloudForce support and privacy pages for its App Store listing. The app repository exports the content snapshot, and the website applies its shared layout and publishing checks.
 
 

@@ -29,7 +29,9 @@ test("CloudForce support, privacy, and existing contact remain connected", async
   await page.goto("/cloudforce/");
   await page.getByRole("navigation", { name: "CloudForce", exact: true }).getByRole("link", { name: "Privacy", exact: true }).click();
   await expect(page).toHaveURL(/\/cloudforce\/privacy\/$/);
-  await expect(page.locator("main")).toContainText("Effective September 22, 2026.");
+  await expect(page.locator("main")).toContainText("Effective September 28, 2026.");
+  await expect(page.locator("main")).toContainText("CloudForce uses Sentry for automatic technical diagnostics.");
+  await expect(page.locator("main")).toContainText("You can turn it off in Settings > Diagnostics.");
   await expect(page.locator("main")).toContainText("These pages are hosted on Oliver Ames’s website, which uses Google Analytics.");
   await page.getByRole("navigation", { name: "CloudForce", exact: true }).getByRole("link", { name: "Support", exact: true }).click();
   await expect(page).toHaveURL(/\/cloudforce\/$/);

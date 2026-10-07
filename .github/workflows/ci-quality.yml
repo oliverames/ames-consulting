@@ -49,6 +49,14 @@ jobs:
   e2e-and-a11y:
     runs-on: ubuntu-latest
     needs: static-checks
+    timeout-minutes: 30
+    # Includes the exact locked browser and OS dependencies; avoids a live apt
+    # mirror dependency during every test run. Update with @playwright/test.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble@sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27
+      options: --ipc=host
+    env:
+      PLAYWRIGHT_DOCKER_VERSION: '1.63.0'
 
     steps:
       - name: Checkout
@@ -65,8 +73,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
+      - name: Verify bundled Playwright browser
+        run: |
+          node -e "const assert = require('node:assert/strict'); const fs = require('node:fs'); assert.equal(require('@playwright/test/package.json').version, process.env.PLAYWRIGHT_DOCKER_VERSION, 'Update the pinned Playwright image together with the test dependency'); fs.accessSync(require('playwright').chromium.executablePath());"
 
       - name: Build deployable site
         run: npm run build:site

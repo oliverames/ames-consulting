@@ -1,0 +1,18 @@
+{
+  "repository": "oliverames/ames-consulting",
+  "scheduled": false,
+  "name": "Ames Consulting",
+  "mode": "pages",
+  "project": "ames-consulting",
+  "checks": [
+    {
+      "url": "https://ames.consulting/release.txt",
+      "status": 200,
+      "revision": true
+    },
+    {
+      "url": "https://ames.consulting/",
+      "status": 200
+    }
+  ]
+}

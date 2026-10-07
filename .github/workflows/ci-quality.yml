@@ -57,6 +57,11 @@ jobs:
       options: --ipc=host
     env:
       PLAYWRIGHT_DOCKER_VERSION: '1.63.0'
+      # The runner mounts this checkout with a different owner in the container.
+      # Trust only this workspace, without changing the host Git configuration.
+      GIT_CONFIG_COUNT: '1'
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: ${{ github.workspace }}
 
     steps:
       - name: Checkout
@@ -72,6 +77,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Verify source history inside container
+        run: |
+          test "$(git rev-parse --is-shallow-repository)" = false
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git log -1 --format=%cs -- index.html | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
 
       - name: Verify bundled Playwright browser
         run: |

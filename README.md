@@ -5,7 +5,7 @@
 <h1 align="center">ames.consulting</h1>
 
 <p align="center">
-  <strong>Portfolio and consulting site for Oliver Ames, a photographer, content strategist, software tinkerer, and video producer in Montpelier, Vermont</strong>
+  <strong>Photography, video, writing, and software by Oliver Ames in Montpelier, Vermont</strong>
 </p>
 
 <p align="center">
@@ -15,107 +15,119 @@
 </p>
 
 <p align="center">
-  <a href="https://ames.consulting"><img src="https://img.shields.io/badge/Live_Site-ames.consulting-f5a542?style=flat-square" alt="Live Site"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f5a542?style=flat-square" alt="License"></a>
   <a href="https://www.buymeacoffee.com/oliverames"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-support-f5a542?style=flat-square&logo=buy-me-a-coffee&logoColor=white" alt="Buy Me a Coffee"></a>
+  <a href="https://ames.consulting"><img src="https://img.shields.io/badge/Live_Site-ames.consulting-f5a542?style=flat-square" alt="Live Site"></a>
 </p>
 
-<p align="center">
-  <a href="#site-structure">Structure</a> &bull;
-  <a href="#local-development">Development</a> &bull;
-  <a href="#cicd">CI/CD</a>
-</p>
 
 ---
 
-This repository contains Oliver's real portfolio content and media. Replace the pages, data, images, and contact settings before publishing a fork.
+[ames.consulting](https://ames.consulting) brings Oliver's photography, video, writing, and software work together in a static portfolio. This repository contains real portfolio content and media. Replace the pages, data, images, and contact settings before publishing a fork.
 
-## Why This Structure
+## Why This Exists
 
-A personal site should outlast whatever framework is trending. This site has no client-side content pipeline at all: a chain of Node generator scripts (`npm run build:site`) writes and refines plain, committed HTML, then copies it into `_site/` for deploy. Nothing about a page's content depends on JavaScript running in the visitor's browser. CSS uses cascade layers, container queries, and registered custom properties; the handful of JS modules that do ship are progressive enhancements (image lightbox, contact-form validation, work filtering) layered on top of already-complete markup.
+The site keeps portfolio content in plain HTML so visitors can read it without waiting for a client-side content pipeline. Build-time generators assemble the content, and shared passes apply navigation, image dimensions, and search metadata. JavaScript adds filtering, galleries, and form interactions to the rendered pages.
 
-Cloudflare Pages hosts the site, and wrangler handles deployment. GitHub Actions builds and validates the artifact before it reaches production. A scoped Pages Function serves the contact endpoint and returns uncached 404 responses for withheld or retired publication paths.
+The deployment artifact has an explicit publication allowlist. This keeps withheld or retired content out of `_site/`, even when source material remains in the repository.
+
+## Quick Start
+
+Use Node.js 24, as configured in CI, and Python 3 for the source preview:
+
+```bash
+npm ci
+python3 -m http.server 4173 --bind 127.0.0.1
+```
+
+Open [the local preview](http://127.0.0.1:4173/). Keep the source server bound to loopback because the source tree includes material excluded from publication. The Python server previews static pages and doesn't run the contact Pages Function.
+
+To regenerate and preview the deployment artifact:
+
+```bash
+npm run build:site
+node scripts/serve-built-site.mjs
+```
+
+Stop the source preview first because both commands use port 4173 by default. `build:site` rewrites generated HTML in the source tree and replaces `_site/`, so review the resulting changes.
 
 ## Site Structure
 
 | Route | Purpose |
 |---|---|
-| `/` | Home: intro, featured work, site directory |
-| `/work/` | Work index plus the project case studies listed in `publication-policy.mjs`; `?organization=` filters client-side |
-| `/blog/` | Writing index, archive, and per-post pages |
+| `/` | Introduction, featured work, and site directory |
+| `/work/` | Work index and published project case studies, with an organization filter |
+| `/blog/` | Writing index, archive, and published posts |
 | `/about/` | Profile and background |
-| `/services/`, `/services/*/` | Services index plus photography and video, strategy and content, and practical technology pages |
+| `/services/` | Photography and video, strategy and content, and practical technology |
 | `/testimonials/` | Client and colleague recommendations |
 | `/contact/` | Contact form and social links |
-| `/cloudforce/`, `/cloudforce/privacy/` | CloudForce app support and privacy policy |
+| `/cloudforce/`, `/cloudforce/privacy/` | CloudForce support and privacy policy |
 
-## Architecture Decisions
+[`scripts/publication-policy.mjs`](scripts/publication-policy.mjs) defines the public routes and runtime files. The build copies referenced public images and generates the sitemap, robots policy, and release marker. A scoped Pages Function handles contact requests and uncached 404 responses for withheld or retired paths.
 
-- **No runtime content pipeline**: every page is static HTML written by a build-time generator, not assembled from a client-side data fetch.
-- **Generators own their pages**: each content area (`services`, `event-galleries`, `career-work`, `software`, `writing`, `contact`, `about`, `testimonials`) has one generator script; shared chrome (footer, nav, image dimensions, SEO meta) is normalized sitewide by dedicated `apply-*` passes that run last.
-- **Work pages** are generated or hand-crafted case studies with static HTML, tagged by organization for the `/work/` filter.
-- **Progressive enhancement**: the JS that does ship never gates primary content.
+## Content and Architecture
 
-See `docs/ARCHITECTURE.md` and `docs/CONTENT-MODEL.md` for the full build chain and data-file inventory.
+| Path | Role |
+|---|---|
+| `scripts/generate-*.mjs` | Content generators for pages, galleries, writing, and brand assets |
+| `scripts/apply-*.mjs` | Shared navigation, image dimensions, and search metadata |
+| `assets/data/` | Content indexes, contact configuration, ordering, and media provenance |
+| `assets/css/main.css` | Shared styles, including responsive layout and reduced-motion handling |
+| `assets/js/` | Browser enhancements for navigation, media, filtering, and forms |
+| `functions/` | Contact delivery and publication-boundary handling |
+| `scripts/build-site.mjs` | Copies the allowlisted deployment artifact into `_site/` |
+| `tests/` | Node checks, browser regressions, and accessibility tests |
 
-### Frontend Baseline
+Edit a page's generator or data source when it owns the output. The next build can overwrite a direct edit to generated HTML. See [Architecture](docs/ARCHITECTURE.md), [Content Model](docs/CONTENT-MODEL.md), and [Standards Matrix](docs/SPEC-MATRIX.md) for the detailed reference.
 
-- Pure static hosting target (Cloudflare Pages).
-- No framework lock-in.
-- ES modules for clear separation of concerns: header scroll state, image lightbox, contact form, gallery scrub, work filtering.
+## Configuration
 
-## Standards Coverage
+| Setting | Required | Default | Description |
+|---|---|---|---|
+| `contactFormEndpoint` | For the contact form | `/api/contact` | Public endpoint in `assets/data/site.config.json` |
+| `contactFormSuccessMessage` | For the contact form | `Thanks, your message was sent.` | Confirmation text in the same file |
+| `RESEND_API_KEY` | For contact delivery | None | Pages secret used to send inquiries |
+| `CONTACT_EMAIL` | For contact delivery | None | Recipient configured in the Pages environment |
+| `TURNSTILE_SECRET_KEY` | For contact delivery | None | Pages secret used to validate the form's Turnstile token |
+| `PORT` | No | `4173` | Port for `scripts/serve-built-site.mjs` |
+| `SITE_ROOT` | No | `_site` | Directory served by the artifact preview |
 
-Current baseline includes:
+The public Turnstile sitekey is generated into the contact page. The widget loads after the visitor interacts with the form. The server validates the origin, payload, fill time, fields, and Turnstile result before sending through Resend.
 
-- HTML: semantic landmarks, templates, custom elements integration, `dialog`, popover UI hooks, structured metadata (JSON-LD), form primitives.
-- CSS: cascade layers, registered custom properties (`@property`), container queries, `:has()`, nesting, `color-mix()`, Display P3 colors, reduced-motion handling.
-- JS: ES modules as progressive enhancement only, including the image lightbox, contact-form validation, gallery pointer-scrub, and work filtering.
+## Development and Verification
 
-Tracked in `docs/SPEC-MATRIX.md`.
-
-## Local Development
+Install Chromium once for the browser tests:
 
 ```bash
-npm ci
 npx playwright install chromium
-python3 -m http.server 4173
 ```
 
-Then open `http://localhost:4173/`.
+| Command | What it checks or changes |
+|---|---|
+| `npm run build:site` | Regenerates source HTML and `_site/` |
+| `npm run check:all` | Build inputs, publication rules, functions, headers, syntax, HTML, structured data, images, and content |
+| `npm run check:built-site` | Contents of the generated public artifact |
+| `npm run test:e2e` | Full Playwright suite against the source tree |
+| `npm run test:site` | Playwright suite against `_site/` |
+| `npm run test:regression` | Browser regression checks |
+| `npm run test:a11y` | Accessibility checks |
+| `npm run check:ship` | Build idempotence, generation, source checks, artifact checks, and artifact browser tests |
 
-## Quality Commands
+The browser suites start their own local servers. Build `_site/` before running `test:site`, or use `check:ship` for the complete sequence. See [Contributing](CONTRIBUTING.md) and [Changelog](CHANGELOG.md).
 
-```bash
-npm run build:site      # regenerate the site into the source tree and _site/
-npm run check:all       # build inputs, syntax, lint, HTML, structured data, image loading, and content checks
-npm run check:built-site # verify that _site/ contains only the intended public artifact
-npm run test:e2e        # full Playwright test suite (functional + accessibility)
-npm run test:site       # run the Playwright suite against _site/
-npm run test:regression # regression tests only
-npm run test:a11y       # accessibility audits only
-```
+## Deployment
 
-`build:site` mutates the committed HTML in place, so expect a dirty git status after running it locally.
+The `main` workflow runs the reusable quality gate and Lighthouse checks, then deploys the exact `_site/` artifact that passed the browser suite. It uses Cloudflare Pages project `ames-consulting` and the GitHub secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 
-## Content Configuration
+The workflow verifies the release marker and expected responses on the Pages host, apex domain, and `www` domain after deployment. Lighthouse checks include a 700,000-byte total page-weight threshold. These are configured checks, not a claim that any particular deployment has passed.
 
-The contact form reads `contactFormEndpoint` and `contactFormSuccessMessage`
-from `assets/data/site.config.json`. Everything else on the site is static HTML.
-
-## Cloudflare Hosting
-
-GitHub remains the source of truth. A push to `main` builds `_site/`, validates
-the generated artifact, and deploys it to Cloudflare Pages with wrangler.
-
-The contact form loads its Managed Cloudflare Turnstile widget only after a visitor first interacts with the form. Its public sitekey is part of the generated contact page; the private `TURNSTILE_SECRET_KEY` is stored as an encrypted Cloudflare Pages secret. The Pages Function validates the request origin, payload, fill time, fields, and Turnstile token before sending the inquiry through Resend. Cloudflare applies the root `_headers` security policy to every static response.
-
-## CI/CD
-
-- **ci-quality.yml**: Pull-request checks and the reusable quality gate for the `main` deployment workflow
-- **performance.yml**: Lighthouse thresholds against core routes and representative image-heavy work pages, including a 700 KB total page-weight limit
-- **deploy-pages.yml**: Generated-artifact validation and Cloudflare Pages deployment
-- **pr-hygiene.yml**: Semantic PR title validation
+| Workflow | Purpose |
+|---|---|
+| `ci-quality.yml` | Source and artifact checks, offline link checking, browser and accessibility tests |
+| `performance.yml` | Lighthouse checks for core routes and representative galleries |
+| `deploy-pages.yml` | Deploys the tested artifact and checks receiving hosts |
+| `pr-hygiene.yml` | Validates pull-request titles |
 
 ---
 

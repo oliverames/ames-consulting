@@ -1,5 +1,17 @@
 # Project history
 
+## 2026-10-07 - README Refresh Closeout
+
+**What changed**: Documents the publication allowlist, local preview, build, and CI limits.
+
+**Decisions made**: Keep setup and status claims tied to current source or explicitly dated evidence. This entry records the multi-repository README maintenance session.
+
+**Left off at**: Resolved this session: README review and publication at `1561298`. Relative links, examples and applicable counts were checked. Verification covered documentation. No fresh runtime acceptance is claimed.
+
+**Open questions**: No new question from the README refresh. Prior publishing decisions and the Store/TLS follow-up were not revalidated by this documentation pass.
+
+---
+
 ## Open items
 
 - Gumroad has not issued the `store.ames.consulting` TLS certificate. The domain is now HSTS-preloaded, so browsers refuse the store entirely. The Store link is hidden behind `STORE_LINK_ENABLED` in `scripts/apply-shared-ui.mjs`; restore it and the site-consistency assertions once HTTPS works (since 2026-09-03; TLS still failed on 2026-09-23).

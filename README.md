@@ -122,6 +122,8 @@ The `main` workflow runs the reusable quality gate and Lighthouse checks, then d
 
 The workflow verifies the release marker and expected responses on the Pages host, apex domain, and `www` domain after deployment. Lighthouse checks include a 700,000-byte total page-weight threshold. These are configured checks, not a claim that any particular deployment has passed.
 
+Linear records the verified production delivery in this repository's Ames Consulting (AME) release pipeline. The [release reporting guide](.github/RELEASES.md) covers issue references, the scoped credential and reporting-only retries.
+
 | Workflow | Purpose |
 |---|---|
 | `ci-quality.yml` | Source and artifact checks, offline link checking, browser and accessibility tests |

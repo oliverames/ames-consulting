@@ -1,5 +1,9 @@
 # Changelog
 
+## October 8, 2026
+
+- Added RedLink support and privacy pages with Toyota sign-in, local data, Watch sync, history deletion, diagnostic sharing and support retention details. Both routes use the existing site layout and deployment checks.
+
 ## September 28, 2026
 
 - Updated CloudForce support and privacy copy for optional automatic Sentry diagnostics, its reporting limits and the in-app off switch.

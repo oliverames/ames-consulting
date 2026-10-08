@@ -63,6 +63,7 @@ Stop the source preview first because both commands use port 4173 by default. `b
 | `/testimonials/` | Client and colleague recommendations |
 | `/contact/` | Contact form and social links |
 | `/cloudforce/`, `/cloudforce/privacy/` | CloudForce support and privacy policy |
+| `/redlink/`, `/redlink/privacy/` | RedLink support and privacy policy |
 
 [`scripts/publication-policy.mjs`](scripts/publication-policy.mjs) defines the public routes and runtime files. The build copies referenced public images and generates the sitemap, robots policy, and release marker. A scoped Pages Function handles contact requests and uncached 404 responses for withheld or retired paths.
 

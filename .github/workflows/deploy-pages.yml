@@ -172,6 +172,8 @@ jobs:
           verify_unmarked_status 200 "$site_origin/"
           verify_unmarked_status 200 "$site_origin/assets/data/site.config.json"
           verify_unmarked_status 200 "$site_origin/assets/css/main.css"
+          verify_status 200 "$site_origin/redlink/"
+          verify_status 200 "$site_origin/redlink/privacy/"
           verify_status 200 "$site_origin/services/strategy-and-content/"
           verify_status 200 "$site_origin/work/london-2019/"
           verify_status 200 "$site_origin/work/whale-dance-randolph/"

@@ -62,10 +62,14 @@ Stop the source preview first because both commands use port 4173 by default. `b
 | `/services/` | Photography and video, strategy and content, and practical technology |
 | `/testimonials/` | Client and colleague recommendations |
 | `/contact/` | Contact form and social links |
-| `/cloudforce/`, `/cloudforce/privacy/` | CloudForce support and privacy policy |
+| `/cloudforce/`, `/cloudforce/privacy/` | Permanent redirects to CloudLink support and privacy at `cloudlink.games` |
 | `/redlink/`, `/redlink/privacy/` | RedLink support and privacy policy |
 
 [`scripts/publication-policy.mjs`](scripts/publication-policy.mjs) defines the public routes and runtime files. The build copies referenced public images and generates the sitemap, robots policy, and release marker. A scoped Pages Function handles contact requests and uncached 404 responses for withheld or retired paths.
+
+CloudForce is now CloudLink for GeForce NOW. `_redirects` migrates only its two old support/privacy URLs and their no-slash and `index.html` variants to [CloudLink support](https://cloudlink.games/support/) and [CloudLink privacy](https://cloudlink.games/privacy/). Deploy and verify those destinations before publishing these redirects. The app's original content snapshot remains in `assets/data/cloudforce-pages.json` for provenance; it is not published. The source preview has accessible noindex migration notices, while `_site/` contains only the redirect rules and omits duplicate policy HTML and sitemap entries. RedLink's support and privacy pages stay on this site.
+
+The loopback static preview does not execute Cloudflare's `_redirects` rules. Use the local Wrangler Pages runtime to verify the six HTTP 301 responses and exact `Location` destinations. [Cloudflare's redirect documentation](https://developers.cloudflare.com/pages/configuration/redirects/) explains that these rules override static assets but do not apply to Pages Function routes; the six migrated paths remain outside the Function include list.
 
 ## Content and Architecture
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## October 9, 2026
+
+- Consolidated CloudLink for GeForce NOW support and privacy on `cloudlink.games`. Added exact permanent redirects from the two former CloudForce routes, including no-slash and `index.html` variants. The original app policy snapshot is preserved; old policy HTML and sitemap entries are excluded from the publication artifact. RedLink and other portfolio pages are unchanged.
+
 ## October 8, 2026
 
 - Added RedLink support and privacy pages with Toyota sign-in, local data, Watch sync, history deletion, diagnostic sharing and support retention details. Both routes use the existing site layout and deployment checks.

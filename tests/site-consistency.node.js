@@ -5,6 +5,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
 import { PUBLIC_HTML_FILES } from "../scripts/publication-policy.mjs";
+import { CLOUDFLARE_FUNCTION_ROUTES } from "../scripts/publication-denylist.mjs";
 import { projectRootFromScriptUrl } from "../scripts/script-paths.mjs";
 import { SERVICES, WORK_PROJECT_TITLES } from "../scripts/site-taxonomy.mjs";
 import { parseWritingFeedRefreshedAt } from "../scripts/writing-feed-validation.mjs";
@@ -103,14 +104,52 @@ test("the project catalog covers every published work detail route", () => {
   assert.ok(!publishedSlugs.includes("portraits-and-people"));
 });
 
-test("the retired portrait route redirects to the work index", async () => {
+test("legacy project and CloudForce routes have only their exact migration redirects", async () => {
   const redirects = new Set((await read("_redirects")).trim().split("\n"));
   assert.deepEqual(redirects, new Set([
     "/work/portraits-and-people/ /work/ 301",
     "/work/giron-family-fall-2023/ /work/giron-family/#giron-family-fall-2023 301",
     "/work/giron-family-christmas-tree-farm-2024/ /work/giron-family/#giron-family-christmas-tree-farm-2024 301",
     "/work/giron-family-fall-2025/ /work/giron-family/#giron-family-fall-2025 301",
+    "/cloudforce https://cloudlink.games/support/ 301",
+    "/cloudforce/ https://cloudlink.games/support/ 301",
+    "/cloudforce/index.html https://cloudlink.games/support/ 301",
+    "/cloudforce/privacy https://cloudlink.games/privacy/ 301",
+    "/cloudforce/privacy/ https://cloudlink.games/privacy/ 301",
+    "/cloudforce/privacy/index.html https://cloudlink.games/privacy/ 301",
   ]));
+});
+
+test("CloudForce source notices preserve new canonicals without publishing duplicate policies", async () => {
+  for (const [file, target] of [
+    ["cloudforce/index.html", "https://cloudlink.games/support/"],
+    ["cloudforce/privacy/index.html", "https://cloudlink.games/privacy/"],
+  ]) {
+    const html = await read(file);
+    assert.equal(PUBLIC_HTML_FILES.includes(file), false);
+    assert.match(html, /<meta name="robots" content="noindex">/);
+    assert.ok(html.includes(`<link rel="canonical" href="${target}">`));
+    assert.ok(html.includes(`<meta property="og:url" content="${target}">`));
+    assert.ok(schemaGraph(html).some((node) => node.url === target && node["@id"] === `${target}#page`));
+    assert.ok(html.includes(`href="${target}"`));
+    assert.match(html, /CloudForce is now CloudLink for GeForce NOW/);
+    assert.doesNotMatch(html, /CloudForce uses Sentry|Effective September 28, 2026/);
+  }
+  // Pages redirects run only for routes outside the Functions include list.
+  for (const path of ["/cloudforce", "/cloudforce/", "/cloudforce/index.html", "/cloudforce/privacy", "/cloudforce/privacy/", "/cloudforce/privacy/index.html"]) {
+    assert.equal(CLOUDFLARE_FUNCTION_ROUTES.some((pattern) => {
+      const expression = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replaceAll("\\*", ".*");
+      return new RegExp(`^${expression}$`).test(path);
+    }), false, path);
+  }
+  assert.ok(PUBLIC_HTML_FILES.includes("redlink/index.html"));
+  assert.ok(PUBLIC_HTML_FILES.includes("redlink/privacy/index.html"));
+  const snapshot = JSON.parse(await read("assets/data/cloudforce-pages.json"));
+  assert.equal(snapshot.project, "cloud-force");
+  assert.equal(snapshot.pages.length, 2);
+  const originalPolicy = snapshot.pages.find(({ route }) => route === "/cloudforce/privacy/");
+  assert.match(originalPolicy.body_html, /Effective September 28, 2026/);
+  assert.match(originalPolicy.body_html, /CloudForce uses Sentry for automatic technical diagnostics/);
 });
 
 test("primary navigation, section state, and shared footer stay canonical", async () => {

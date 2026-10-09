@@ -32,8 +32,6 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "blog/index.html",
   "blog/the-sunshine-trail-a-speculative-brand-campaign-for-lawsons-finest-liquids/index.html",
   "contact/index.html",
-  "cloudforce/index.html",
-  "cloudforce/privacy/index.html",
   "redlink/index.html",
   "redlink/privacy/index.html",
   "index.html",

@@ -1,5 +1,19 @@
 # Project history
 
+## 2026-10-09 - CloudLink Support and Privacy Migration
+
+**What changed**: Prepared six exact HTTP 301 redirects from the former CloudForce support/privacy routes to `https://cloudlink.games/support/` and `https://cloudlink.games/privacy/` for [#37](https://github.com/oliverames/ames-consulting/issues/37). The two legacy HTML files are now noindex notices for source preview only, excluded from the deployment allowlist and sitemap. The app's original policy snapshot remains unchanged for provenance.
+
+**Decisions made**: Publish and verify the new CloudLink destinations first, then publish the Ames Consulting redirect artifact, then update app metadata through its owner. Keep RedLink and other products on their existing routes. Redirects use exact paths rather than wildcards and remain outside Pages Function routing. This migration changes navigation and branding without making new privacy assertions.
+
+**Verification**: `npm ci`, `npm run check:all`, `npm run build:site`, `npm run check:built-site` and content-idempotence checks pass. The complete source browser suite passes 149 tests; its three artifact-only checks are intentionally skipped on the source server and all three pass separately against the built artifact. The repository-locked local Cloudflare Pages runtime returns all six exact HTTP 301 destinations and HTTP 200 for five preserved product/contact/portfolio routes. Independent review confirms the original policy snapshot, RedLink and all unrelated routes, hosting configuration and deployment workflows remain unchanged.
+
+**Left off at**: Prepared in an isolated feature branch for a draft PR. Validation results and preview evidence are recorded in the PR handoff. Publishing the Ames Consulting artifact targets Cloudflare Pages project `ames-consulting`; its main workflow deploys automatically. No production deployment or DNS change is included in this preparation.
+
+**Open questions**: Approval of the two production targets remains before rollout. Public App Store or TestFlight links remain pending in the CloudLink site repository and are not invented here.
+
+---
+
 ## 2026-10-07 - GitHub Issue Review Closeout
 
 **What changed**: Reviewed all 3 open issues against source at `575f4234ed6f` and their complete issue history. No issue qualified for closure.

@@ -10,6 +10,12 @@ import { hasRobotsDirective, removeMetaByName } from "./html-metadata.mjs";
 const root = join(import.meta.dirname, "..");
 const siteUrl = "https://ames.consulting";
 const defaultImage = `${siteUrl}/assets/images/about/oliver-ames-profile.webp`;
+// The legacy CloudForce source notices are not deployed. Keep their new
+// destinations canonical when the source preview receives shared metadata.
+const migratedCanonicals = {
+  "/cloudforce/": "https://cloudlink.games/support/",
+  "/cloudforce/privacy/": "https://cloudlink.games/privacy/",
+};
 
 const overrides = {
   // Ping Warden is sold, so its page is a product page: the title carries the
@@ -201,7 +207,7 @@ function isBlogPost(route) {
 }
 
 function graphFor(route, metadata, image, html) {
-  const canonical = `${siteUrl}${route}`;
+  const canonical = migratedCanonicals[route] || `${siteUrl}${route}`;
   const person = {
     "@type": "Person", "@id": `${siteUrl}/#oliver-ames`, name: "Oliver Ames", url: `${siteUrl}/about/`, image: defaultImage,
     jobTitle: ["Commercial Photographer", "Content Strategist", "Software Developer"],
@@ -261,7 +267,7 @@ for (const file of await htmlFiles(root)) {
   const headMatch = html.match(/<head>([\s\S]*?)<\/head>/i);
   if (!headMatch) continue;
   const metadata = metadataFor(route, html);
-  const canonical = `${siteUrl}${route}`;
+  const canonical = migratedCanonicals[route] || `${siteUrl}${route}`;
   const image = imageFor(route, html);
   const socialImage = await socialImageMeta(route, image, metadata.displayTitle);
   let head = headMatch[1];

@@ -2,7 +2,7 @@
 
 ## October 13, 2026: Retire CloudForce source previews
 
-Removed the two preview-only CloudForce HTML pages, their generator, and the metadata exceptions used only by those previews. Production already excluded both pages and continues to use the six exact redirects to CloudLink. The original support and privacy snapshot stays unchanged at `assets/data/cloudforce-pages.json`. RedLink and all published site routes remain intact.
+Removed the two preview-only CloudForce HTML pages, their generator, the metadata exceptions and 13 browser cases used only by those previews. The artifact test still checks every redirect and publication exclusion. Production already excluded both pages and continues to use the six exact redirects to CloudLink. The original support and privacy snapshot stays unchanged at `assets/data/cloudforce-pages.json`. RedLink and all published site routes remain intact.
 
 The baseline and cleanup builds produced the same 4,771 public files, with identical SHA-256 hashes for every file. All source quality checks and built-site validation passed. The source-consistency tests retain coverage for all six redirects and the original legal snapshot.
 

@@ -1,5 +1,13 @@
 # Project history
 
+## October 13, 2026: Retire CloudForce source previews
+
+Removed the two preview-only CloudForce HTML pages, their generator, the metadata exceptions and 13 browser cases used only by those previews. The artifact test still checks every redirect and publication exclusion. Production already excluded both pages and continues to use the six exact redirects to CloudLink. The original support and privacy snapshot stays unchanged at `assets/data/cloudforce-pages.json`. RedLink and all published site routes remain intact.
+
+The baseline and cleanup builds produced the same 4,771 public files, with identical SHA-256 hashes for every file. All source quality checks and built-site validation passed. The source-consistency tests retain coverage for all six redirects and the original legal snapshot.
+
+This is source cleanup only. The final merge carries `[skip ci]` to preserve the existing no-deployment boundary; the ordinary pull-request checks run before merge.
+
 ## 2026-10-09 - CloudLink Support and Privacy Migration
 
 **What changed**: Prepared six exact HTTP 301 redirects from the former CloudForce support/privacy routes to `https://cloudlink.games/support/` and `https://cloudlink.games/privacy/` for [#37](https://github.com/oliverames/ames-consulting/issues/37). The two legacy HTML files are now noindex notices for source preview only, excluded from the deployment allowlist and sitemap. The app's original policy snapshot remains unchanged for provenance.

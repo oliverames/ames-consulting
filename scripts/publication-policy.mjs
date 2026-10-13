@@ -17,7 +17,6 @@ export const PUBLIC_ROUTE_ROOTS = Object.freeze([
   "about",
   "blog",
   "contact",
-  "cloudforce",
   "redlink",
   "services",
   "testimonials",

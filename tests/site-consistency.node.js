@@ -120,20 +120,9 @@ test("legacy project and CloudForce routes have only their exact migration redir
   ]));
 });
 
-test("CloudForce source notices preserve new canonicals without publishing duplicate policies", async () => {
-  for (const [file, target] of [
-    ["cloudforce/index.html", "https://cloudlink.games/support/"],
-    ["cloudforce/privacy/index.html", "https://cloudlink.games/privacy/"],
-  ]) {
-    const html = await read(file);
+test("CloudForce migration preserves redirects and the original policy snapshot", async () => {
+  for (const file of ["cloudforce/index.html", "cloudforce/privacy/index.html"]) {
     assert.equal(PUBLIC_HTML_FILES.includes(file), false);
-    assert.match(html, /<meta name="robots" content="noindex">/);
-    assert.ok(html.includes(`<link rel="canonical" href="${target}">`));
-    assert.ok(html.includes(`<meta property="og:url" content="${target}">`));
-    assert.ok(schemaGraph(html).some((node) => node.url === target && node["@id"] === `${target}#page`));
-    assert.ok(html.includes(`href="${target}"`));
-    assert.match(html, /CloudForce is now CloudLink for GeForce NOW/);
-    assert.doesNotMatch(html, /CloudForce uses Sentry|Effective September 28, 2026/);
   }
   // Pages redirects run only for routes outside the Functions include list.
   for (const path of ["/cloudforce", "/cloudforce/", "/cloudforce/index.html", "/cloudforce/privacy", "/cloudforce/privacy/", "/cloudforce/privacy/index.html"]) {

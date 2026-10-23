@@ -1,5 +1,9 @@
 # Project history
 
+## October 23, 2026: Security review
+
+Reviewed the contact Function, the publication middleware, the security headers, site scripts, the five workflows and every tracked image. No change was needed. The contact Function already checks origin, body size, the Turnstile action and hostname, and escapes every field in the email. `pr-hygiene.yml` uses `pull_request_target` but never checks out pull request code and holds only `pull-requests: read`. All 652 WebP files are named by a page, data file or generator, so none were removed. `scripts/analyze-photo-folder.mjs` is referenced nowhere and was left for Oliver to keep or delete. No deployment ran.
+
 ## October 13, 2026: Retire CloudForce source previews
 
 Removed the two preview-only CloudForce HTML pages, their generator, the metadata exceptions and 13 browser cases used only by those previews. The artifact test still checks every redirect and publication exclusion. Production already excluded both pages and continues to use the six exact redirects to CloudLink. The original support and privacy snapshot stays unchanged at `assets/data/cloudforce-pages.json`. RedLink and all published site routes remain intact.

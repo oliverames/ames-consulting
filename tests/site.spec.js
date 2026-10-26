@@ -454,6 +454,7 @@ test("YouTube facades defer every player until the visitor presses Play", async 
   const videoPages = [
     ["/work/fairbanks-planetarium/", 1],
     ["/work/flight-paths/", 1],
+    ["/work/flight-paths-andrew/", 1],
     ["/blog/", 2],
   ];
 
@@ -633,12 +634,16 @@ test("primary actions retain a visible keyboard focus ring", async ({ page }) =>
   expect(styles.outlineColor).not.toBe(styles.surfaceColor);
 });
 
-test("Flight Paths is the sole BETA media project", async ({ page }) => {
+test("Flight Paths episodes are the only BETA media projects", async ({ page }) => {
   await page.goto("/work/");
   const flightPathsCard = page.locator('.work-item[href="flight-paths/"]');
   await expect(flightPathsCard).toHaveCount(1);
   await expect(flightPathsCard).toHaveAttribute("data-organization", "beta-technologies");
   await expect(flightPathsCard.locator('img[src="../assets/images/work/campaigns/flight-paths.webp"]')).toHaveCount(1);
+  const andrewCard = page.locator('.work-item[href="flight-paths-andrew/"]');
+  await expect(andrewCard).toHaveCount(1);
+  await expect(andrewCard).toHaveAttribute("data-organization", "beta-technologies");
+  await expect(andrewCard.locator('img[src="../assets/images/work/campaigns/flight-paths-andrew.webp"]')).toHaveCount(1);
   await expect(
     page.locator(
       '.work-item[data-organization="blue-cross-vermont"]:has(img), .work-item[data-organization="blue-cross-vermont"]:has(iframe)',
@@ -658,9 +663,18 @@ test("Flight Paths is the sole BETA media project", async ({ page }) => {
   await expect(video).toHaveCount(1);
   await expect(video).toHaveAttribute("srcdoc", /Play Flight Paths: Emma at BETA/);
 
+  await page.goto("/work/flight-paths-andrew/");
+  await expect(page.locator("main img, main [data-gallery]")).toHaveCount(0);
+  const andrewVideo = page.locator(
+    'iframe[src="https://www.youtube-nocookie.com/embed/0k3Z8hlEmGA"]',
+  );
+  await expect(andrewVideo).toHaveCount(1);
+  await expect(andrewVideo).toHaveAttribute("srcdoc", /Play Flight Paths: Andrew at BETA/);
+
   await page.goto("/work/beta-technologies/");
   await expect(page.locator("main img, main iframe, main [data-gallery]")).toHaveCount(0);
   await expect(page.locator('main a[href="../flight-paths/"]')).toHaveCount(1);
+  await expect(page.locator('main a[href="../flight-paths-andrew/"]')).toHaveCount(1);
 });
 
 test("work is organized by campaign rather than employer", async ({ page }) => {
@@ -758,10 +772,11 @@ test("Vermont Foodbank shoot uses the complete gallery and paged lightbox", asyn
   await expect(page.locator("#image-viewer-caption")).toContainText("2 of 38");
 });
 
-test("BETA Technologies page points to the canonical Flight Paths film", async ({ page }) => {
+test("BETA Technologies page points to both Flight Paths films", async ({ page }) => {
   await page.goto("/work/beta-technologies/");
   await expect(page.locator("main iframe, main img, main [data-gallery]")).toHaveCount(0);
   await expect(page.locator('main a[href="../flight-paths/"]')).toHaveCount(1);
+  await expect(page.locator('main a[href="../flight-paths-andrew/"]')).toHaveCount(1);
 });
 
 test("Fairbanks case study embeds Breaking Records in Science Education", async ({ page }) => {
@@ -1095,15 +1110,16 @@ test("in-house campaign cards identify the correct organization and role", async
 
   await page.goto("/work/?organization=beta-technologies");
   await expect(page.locator("#project-list-title")).toHaveText("BETA Technologies projects");
-  await expect(page.locator(".work-filter-status")).toHaveText("1 project. Show all work");
+  await expect(page.locator(".work-filter-status")).toHaveText("2 projects. Show all work");
   await expect(
     page.locator('.work-filters [data-work-filter="beta-technologies"]'),
   ).toHaveAttribute("aria-current", "true");
-  await expect(page.locator(".work-list > .work-item:not([hidden])")).toHaveCount(1);
-  await expect(page.locator('.work-list > .work-item:not([hidden])')).toHaveAttribute(
-    "href",
-    "flight-paths/",
-  );
+  await expect(page.locator(".work-list > .work-item:not([hidden])")).toHaveCount(2);
+  expect(
+    (await page.locator(".work-list > .work-item:not([hidden])").evaluateAll((items) => (
+      items.map((item) => item.getAttribute("href"))
+    ))).sort(),
+  ).toEqual(["flight-paths-andrew/", "flight-paths/"]);
 
   for (const organization of [
     "beta-technologies",

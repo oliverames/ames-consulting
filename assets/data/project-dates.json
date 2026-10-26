@@ -8,6 +8,12 @@
       "dateEvidence": "assets/data/event-gallery-alt-text/neg-ecp-conference-2026.json capture dates from the August 10, 2026 source event"
     },
     {
+      "href": "flight-paths-andrew/",
+      "sortDate": "2026-09-30",
+      "dateBasis": "exact",
+      "dateEvidence": "YouTube video 0k3Z8hlEmGA lists uploadDate 2026-09-30 in its player metadata"
+    },
+    {
       "href": "flight-paths/",
       "sortDate": "2026-05-14",
       "dateBasis": "exact",
@@ -15,9 +21,9 @@
     },
     {
       "href": "beta-technologies/",
-      "sortDate": "2026-05-14",
+      "sortDate": "2026-09-30",
       "dateBasis": "exact",
-      "dateEvidence": "Latest included BETA project is Flight Paths, published May 14, 2026"
+      "dateEvidence": "Latest included BETA project is Flight Paths: Andrew at BETA, published September 30, 2026"
     },
     {
       "href": "sweat-heart-throwdown/",

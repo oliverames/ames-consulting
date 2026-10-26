@@ -16,6 +16,7 @@ const featuredImages = new Map([
   ["drone-photography/", ["../assets/images/work/events/drone-photography/dji_0053.webp", "Top-down aerial view of a vehicle turning through deep snow, its tracks curving beside a fence"]],
   ["sweat-heart-throwdown/", ["../assets/images/work/gmcf/sweat-heart/dsc01171.webp", "Sweat-Heart Throwdown at Green Mountain Community Fitness"]],
   ["flight-paths/", ["../assets/images/work/campaigns/flight-paths.webp", "Flight Paths title card with Emma from BETA Technologies"]],
+  ["flight-paths-andrew/", ["../assets/images/work/campaigns/flight-paths-andrew.webp", "Flight Paths title card with Andrew from BETA Technologies"]],
 ]);
 html = html.replace(
   /(?:Campaigns and series built around a useful story\.|I organize the work by project, not job title\.|Photography, video, communications, websites, and software\.|Work organized by project, not job title\.)/,
@@ -34,6 +35,7 @@ if (!html.includes('href="connecticut-college/"')) {
 const organizationByHref = new Map([
   ["neg-ecp-conference-2026/", "gbic"],
   ["flight-paths/", "beta-technologies"],
+  ["flight-paths-andrew/", "beta-technologies"],
   ["vermont-foodbank-volunteer-day-2026/", "vermont-foodbank"],
   ["bike-fitting/", "green-mountain-community-fitness"],
   ["sweat-heart-throwdown/", "green-mountain-community-fitness"],
@@ -47,8 +49,9 @@ const inHouseCredits = {};
 const creditOverridesByHref = new Map();
 const inHouseDescriptions = new Map([
   ["flight-paths/", "I produced this documentary about a person finding her way into Vermont’s growing aviation sector."],
+  ["flight-paths-andrew/", "I produced this documentary about an aircraft assembly technician building electric aircraft in Vermont."],
 ]);
-const consultingHrefs = new Set(["flight-paths/"]);
+const consultingHrefs = new Set(["flight-paths/", "flight-paths-andrew/"]);
 const legacyCardCopy = new Map([
   ["stowe-ski-instruction/", ["Stowe Ski Instruction", "I taught alpine skiing at Stowe for six seasons."]],
   ["vtdigger-membership/", ["VTDigger Membership", "I simplified the donation page and ran the tests that increased membership conversion by 137%."]],

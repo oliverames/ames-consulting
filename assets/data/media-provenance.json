@@ -9919,6 +9919,21 @@
       "credit": "Produced by Oliver Ames for BETA Technologies",
       "source_capture": "private_archive"
     },
+    "assets/images/work/campaigns/flight-paths-andrew.webp": {
+      "source_url": "https://www.youtube.com/watch?v=0k3Z8hlEmGA",
+      "source_channel": "YouTube",
+      "published_date": "2026-09-30",
+      "downloaded_date": "2026-10-26",
+      "credit": "Produced by Oliver Ames for BETA Technologies",
+      "source_capture": "",
+      "accepted_exception": {
+        "reason": "source_capture_not_available",
+        "missing_fields": [
+          "source_capture"
+        ],
+        "note": "The public source URL and publication date are verified, but no repository source capture is available."
+      }
+    },
     "assets/images/work/events/neg-ecp-conference-2026/dsc00051.webp": {
       "source_url": "",
       "source_channel": "",

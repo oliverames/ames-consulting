@@ -32,6 +32,7 @@ export const WORK_PROJECT_TITLES = Object.freeze({
   "drone-photography": "Drone Photography",
   "fairbanks-planetarium": "Fairbanks Museum Planetarium",
   "flight-paths": "Flight Paths",
+  "flight-paths-andrew": "Flight Paths: Andrew",
   "giron-family": "Giron Family Portrait Sessions",
   "green-mountain-community-fitness": "Green Mountain Community Fitness",
   "london-2019": "London at Dusk",

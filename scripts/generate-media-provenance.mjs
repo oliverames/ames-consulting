@@ -276,6 +276,14 @@ assets["assets/images/work/campaigns/flight-paths.webp"] = {
   credit: betaCredit,
   source_capture: captureFor("https://www.youtube.com/watch?v=4r5N5DjmSCU"),
 };
+assets["assets/images/work/campaigns/flight-paths-andrew.webp"] = {
+  source_url: "https://www.youtube.com/watch?v=0k3Z8hlEmGA",
+  source_channel: "YouTube",
+  published_date: "2026-09-30",
+  downloaded_date: "2026-10-26",
+  credit: betaCredit,
+  source_capture: captureFor("https://www.youtube.com/watch?v=0k3Z8hlEmGA"),
+};
 
 const negEcpCampaign = eventGalleries.campaigns?.find((campaign) => campaign.slug === "neg-ecp-conference-2026");
 if (negEcpCampaign?.images?.length !== 35) {

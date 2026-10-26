@@ -1,5 +1,9 @@
 # Changelog
 
+## October 26, 2026
+
+- Added Flight Paths: Andrew at BETA as a second BETA Technologies documentary page. It uses the same privacy-mode YouTube player and title-card poster as Emma's episode. The BETA page, the work index filter and both episode pages now link the two films.
+
 ## October 9, 2026
 
 - Consolidated CloudLink for GeForce NOW support and privacy on `cloudlink.games`. Added exact permanent redirects from the two former CloudForce routes, including no-slash and `index.html` variants. The original app policy snapshot is preserved; old policy HTML and sitemap entries are excluded from the publication artifact. RedLink and other portfolio pages are unchanged.

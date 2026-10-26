@@ -41,7 +41,7 @@ test("project registry uses valid normalized dates and explicit range ends", () 
 });
 
 test("same-date records preserve their explicit source order", () => {
-  const sameDate = ["flight-paths/", "beta-technologies/"];
+  const sameDate = ["flight-paths-andrew/", "beta-technologies/"];
   assert.deepEqual(sortEntriesNewestFirst(sameDate, (href) => href), sameDate);
 });
 

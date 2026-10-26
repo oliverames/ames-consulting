@@ -183,6 +183,7 @@ jobs:
           verify_status 200 "$site_origin/work/vermont-foodbank-volunteer-day-2026/"
           verify_status 200 "$site_origin/work/beta-technologies/"
           verify_status 200 "$site_origin/work/flight-paths/"
+          verify_status 200 "$site_origin/work/flight-paths-andrew/"
           verify_status 405 "$site_origin/api/contact"
           verify_status 403 "$site_origin/api/contact" -X POST -H 'Origin: https://example.invalid'
           verify_tombstone "$site_origin/assets/data/source-screenshot-manifest.json"
@@ -190,6 +191,7 @@ jobs:
           verify_tombstone "$site_origin/assets/data/media-provenance-missing.json"
           verify_tombstone "$site_origin/assets/js/construction-gate.js"
           verify_status 200 "$site_origin/assets/images/work/campaigns/flight-paths-320w.webp"
+          verify_status 200 "$site_origin/assets/images/work/campaigns/flight-paths-andrew-320w.webp"
           verify_tombstone "$site_origin/assets/images/work/portraits/beth-roberts-320w.webp"
           curl_bounded -fsS "$site_origin/" > /tmp/ames-consulting-home.html
           ! grep -Fqi "construction-gate" /tmp/ames-consulting-home.html
@@ -207,6 +209,10 @@ jobs:
           curl_bounded -fsS "$site_origin/work/flight-paths/" > /tmp/ames-consulting-flight-paths.html
           grep -Fqi "youtube-nocookie.com/embed/4r5N5DjmSCU" /tmp/ames-consulting-flight-paths.html
           ! grep -Fqi "<img " /tmp/ames-consulting-flight-paths.html
+          grep -Fqi 'href="../flight-paths-andrew/"' /tmp/ames-consulting-beta.html
+          curl_bounded -fsS "$site_origin/work/flight-paths-andrew/" > /tmp/ames-consulting-flight-paths-andrew.html
+          grep -Fqi "youtube-nocookie.com/embed/0k3Z8hlEmGA" /tmp/ames-consulting-flight-paths-andrew.html
+          ! grep -Fqi "<img " /tmp/ames-consulting-flight-paths-andrew.html
           curl_bounded -fsS "$site_origin/testimonials/" > /tmp/ames-consulting-testimonials.html
           ! grep -Eqi "performance review|performance feedback" /tmp/ames-consulting-testimonials.html
           curl_bounded -fsSI "$site_origin/" > /tmp/ames-consulting-headers.txt

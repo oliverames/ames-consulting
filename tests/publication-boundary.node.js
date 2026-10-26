@@ -132,6 +132,7 @@ test("removed Blue Cross galleries stay retired and out of source", async () => 
   assert.equal(isRetiredPublicPath("assets/images/work/portraits/beth-roberts.webp"), true);
   assert.equal(isWithheldPublicPath("work/flight-paths/index.html"), false);
   assert.equal(isAllowedPublicHtmlPath("work/flight-paths/index.html"), true);
+  assert.equal(isAllowedPublicHtmlPath("work/flight-paths-andrew/index.html"), true);
 
   const eventGalleryData = JSON.parse(
     await readFile(path.join(root, "assets/data/event-galleries.json"), "utf8"),
@@ -144,6 +145,7 @@ test("removed Blue Cross galleries stay retired and out of source", async () => 
   for (const activeRoute of [
     "work/beta-technologies/index.html",
     "work/flight-paths/index.html",
+    "work/flight-paths-andrew/index.html",
     "work/london-2019/index.html",
     "work/neg-ecp-conference-2026/index.html",
     "work/vermont-foodbank-volunteer-day-2026/index.html",

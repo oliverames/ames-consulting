@@ -17,6 +17,7 @@ const earlier = `<section class="work-category work-category--earlier"><h2>Earli
 const gmcfCampaignCards = `<a class="work-item" href="sweat-heart-throwdown/"><img src="../assets/images/work/gmcf/sweat-heart/dsc01141.webp" alt="Sweat-Heart Throwdown competitors and volunteers" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2026</span><h3>Sweat-Heart Throwdown</h3><p>A Valentine’s Day competition photographed from warmup through the final heat.</p></a><a class="work-item" href="bike-fitting/"><img src="../assets/images/work/gmcf/bike-fitting/dsc09620.webp" alt="A professional bike fitting at Green Mountain Community Fitness" loading="lazy"><span class="work-item__context">Green Mountain Community Fitness · 2025</span><h3>Bike Fitting</h3><p>I photographed a one-to-one bike fitting, including the measurements, tools, and repeated adjustments.</p></a>`;
 
 const flightPathsCard = `<a class="work-item" data-organization="beta-technologies" href="flight-paths/"><img src="../assets/images/work/campaigns/flight-paths.webp" alt="Flight Paths title card with Emma from BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · 2026</span><h3>Flight Paths</h3><p>A documentary about a person finding her way into Vermont’s growing aviation sector.</p></a>`;
+const flightPathsAndrewCard = `<a class="work-item" data-organization="beta-technologies" href="flight-paths-andrew/"><img src="../assets/images/work/campaigns/flight-paths-andrew.webp" alt="Flight Paths title card with Andrew from BETA Technologies" loading="lazy"><span class="work-item__context">BETA Technologies · 2026</span><h3>Flight Paths: Andrew</h3><p>A documentary about an aircraft assembly technician building electric aircraft in Vermont.</p></a>`;
 const gironFamilyCard = `<a class="work-item" href="giron-family/"><img src="../assets/images/work/events/giron-family-fall-2025/dsc06125.webp" alt="The Giron family during a fall portrait session" loading="lazy"><span class="work-item__context">Family photography · 2023–2025</span><h3>Giron Family Portrait Sessions</h3><p>Three complete family sessions, organized by shoot from fall 2023 through fall 2025.</p></a>`;
 const foodbankCard = `<a class="work-item" href="vermont-foodbank-volunteer-day-2026/"><img src="../assets/images/work/events/vermont-foodbank-volunteer-day-2026/dsc08460.webp" alt="Vermont Foodbank volunteers together in the warehouse" loading="lazy"><span class="work-item__context">Vermont Foodbank · January 2026</span><h3>Vermont Foodbank Volunteer Day</h3><p>A 38-image documentary series about the people and process behind a volunteer packing day.</p></a>`;
 const londonCard = `<a class="work-item" href="london-2019/"><img src="../assets/images/work/events/london-2019/dsc02427.webp" alt="Tower Bridge spanning the River Thames as late sunlight breaks through dark clouds" loading="lazy"><span class="work-item__context">London · September 2019</span><h3>London at Dusk</h3><p>Eight photographs along the Thames as daylight gave way to a stormy blue hour.</p></a>`;
@@ -92,14 +93,18 @@ const pages = [
     ["Breaking Records in Science Education", youtubeFacade("lSi35li8dCg", "Breaking Records in Science Education")],
     ["Sources", `${sourceLink("https://www.guinnessworldrecords.com/world-records/largest-astronomy-lesson", "Guinness World Records: Largest astronomy lesson")}<br>${sourceLink("https://www.wcax.com/content/news/Fairbanks-Museum-claims-record-for-largest-astronomy-lesson-490731831.html", "WCAX: Fairbanks Museum claims record for largest astronomy lesson")}`]
   ]},
-  { slug: "beta-technologies", eyebrow: "Documentary video · BETA Technologies · 2026", title: "BETA Technologies", intro: "I produced Flight Paths, a documentary about how Emma found her way into Vermont aviation.", sections: [
+  { slug: "beta-technologies", eyebrow: "Documentary video · BETA Technologies · 2026", title: "BETA Technologies", intro: "I produced Flight Paths, a documentary series about people finding their way into Vermont aviation.", sections: [
     ["Emma’s story", "Emma joined BETA through its partnership with the Vermont Adult Learning Center. In the documentary, she explains how the program led her to BETA and her work in electric aviation."],
-    ["The production", "Emma’s interview tells the story. I used BETA’s aircraft, technology, and workforce program to show where her work takes place."],
-    ["Watch", '<a class="btn btn--primary" href="../flight-paths/">Watch Flight Paths →</a>'],
+    ["Andrew’s story", "Andrew is an aircraft assembly technician at BETA. His episode introduces the work of building BETA’s electric aircraft."],
+    ["The production", "Each interview tells the story. I used BETA’s aircraft, technology, and workforce program to show where the work takes place."],
+    ["Watch", '<a class="btn btn--primary" href="../flight-paths/">Watch Emma’s story →</a> <a class="btn btn--primary" href="../flight-paths-andrew/">Watch Andrew’s story →</a>'],
     ["Source", sourceLink("https://beta.team/video-library", "BETA Technologies video library")]
   ]},
   { slug: "flight-paths", eyebrow: "Documentary video · BETA Technologies · 2026", title: "Flight Paths: Emma at BETA", intro: "Emma joined BETA Technologies through its partnership with the Vermont Adult Learning Center.", sections: [
     ["The film", `<p>I produced this documentary about Emma’s route into electric aviation work in Vermont.</p>${youtubeFacade("4r5N5DjmSCU", "Flight Paths: Emma at BETA")}`]
+  ]},
+  { slug: "flight-paths-andrew", eyebrow: "Documentary video · BETA Technologies · 2026", title: "Flight Paths: Andrew at BETA", intro: "Andrew is an aircraft assembly technician at BETA Technologies.", sections: [
+    ["The film", `<p>I produced this documentary about Andrew’s work building electric aircraft in Vermont.</p>${youtubeFacade("0k3Z8hlEmGA", "Flight Paths: Andrew at BETA")}`]
   ]},
   { slug: "sweat-heart-throwdown", eyebrow: "Event photography · Green Mountain Community Fitness · 2026", title: "Sweat-Heart Throwdown", intro: "The Sweat-Heart Throwdown brought teams, volunteers, judges, and spectators together for a Valentine’s Day competition at Green Mountain Community Fitness.", heroDetails: [
     "I photographed the competition and the encouragement between teammates, volunteers resetting equipment, judges at work, and the moment after each heat ended.",
@@ -164,6 +169,7 @@ if (!workIndex.includes('href="sweat-heart-throwdown/"')) {
   workIndex = workIndex.replace('<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">', `<section class="work-category"><h2>Campaigns and series</h2><div class="work-list">${gmcfCampaignCards}`);
 }
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "flight-paths/", flightPathsCard);
+workIndex = upsertWorkCard(workIndex, "Campaigns and series", "flight-paths-andrew/", flightPathsAndrewCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "giron-family/", gironFamilyCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "vermont-foodbank-volunteer-day-2026/", foodbankCard);
 workIndex = upsertWorkCard(workIndex, "Campaigns and series", "drone-photography/", droneCard);
@@ -190,7 +196,8 @@ await writeFile(workIndexPath, workIndex);
 // index; these closers give every published hub at least one inbound link
 // without touching index curation.
 const pageOutros = new Map([
-  ["flight-paths", ["More with BETA Technologies", `<p>Flight Paths is part of my ongoing <a href="../beta-technologies/">BETA Technologies coverage</a>.</p>`]],
+  ["flight-paths", ["More with BETA Technologies", `<p>Flight Paths is part of my ongoing <a href="../beta-technologies/">BETA Technologies coverage</a>. Watch <a href="../flight-paths-andrew/">Andrew’s episode</a> next.</p>`]],
+  ["flight-paths-andrew", ["More with BETA Technologies", `<p>Flight Paths is part of my ongoing <a href="../beta-technologies/">BETA Technologies coverage</a>. Watch <a href="../flight-paths/">Emma’s episode</a> next.</p>`]],
   ["sweat-heart-throwdown", ["More at Green Mountain Community Fitness", `<p>This competition sits alongside <a href="../bike-fitting/">the bike-fitting documentary</a> in the <a href="../green-mountain-community-fitness/">Green Mountain Community Fitness collection</a>.</p>`]],
   ["bike-fitting", ["More at Green Mountain Community Fitness", `<p>This fitting sits alongside <a href="../sweat-heart-throwdown/">the Sweat-Heart Throwdown</a> in the <a href="../green-mountain-community-fitness/">Green Mountain Community Fitness collection</a>.</p>`]],
 ]);

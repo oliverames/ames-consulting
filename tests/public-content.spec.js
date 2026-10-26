@@ -194,6 +194,7 @@ test("removed EastRise and Blue Cross pages and images are absent from the built
   }
 
   expect((await request.get("/work/flight-paths/")).status()).toBe(200);
+  expect((await request.get("/work/flight-paths-andrew/")).status()).toBe(200);
   expect((await request.get("/work/beta-technologies/")).status()).toBe(200);
   for (const route of [
     "/work/london-2019/",
@@ -215,6 +216,7 @@ test("public work cards include the requested galleries without retired cards", 
 
   for (const href of [
     "flight-paths/",
+    "flight-paths-andrew/",
     "london-2019/",
     "vermont-foodbank-volunteer-day-2026/",
     "whale-dance-randolph/",
@@ -239,6 +241,16 @@ test("public work cards include the requested galleries without retired cards", 
   );
   expect(flightPathsCards[0]).not.toContain("<iframe");
 
+  const andrewCards = workItems.filter((workItem) => (
+    /\bhref="flight-paths-andrew\/"/.test(workItem)
+  ));
+  expect(andrewCards).toHaveLength(1);
+  expect(andrewCards[0]).toContain('data-organization="beta-technologies"');
+  expect(andrewCards[0]).toContain(
+    '<img src="../assets/images/work/campaigns/flight-paths-andrew.webp" alt="Flight Paths title card with Andrew from BETA Technologies"',
+  );
+  expect(andrewCards[0]).not.toContain("<iframe");
+
   const blueCrossMediaCards = workItems.filter((workItem) => (
     workItem.includes('data-organization="blue-cross-vermont"')
       && /<(?:img|iframe)\b/.test(workItem)
@@ -260,7 +272,7 @@ test("public documents do not link to retired routes or images", async () => {
   }
 });
 
-test("Flight Paths is the only BETA media and uses YouTube privacy mode", async () => {
+test("Flight Paths episodes are the only BETA media and use YouTube privacy mode", async () => {
   const flightPaths = await read("work/flight-paths/index.html");
   expect(flightPaths.match(/<iframe\b/g) || []).toHaveLength(1);
   expect(flightPaths).toContain(
@@ -269,11 +281,20 @@ test("Flight Paths is the only BETA media and uses YouTube privacy mode", async 
   expect(flightPaths).not.toContain("<img");
   expect(flightPaths).not.toContain("data-gallery=");
 
+  const andrew = await read("work/flight-paths-andrew/index.html");
+  expect(andrew.match(/<iframe\b/g) || []).toHaveLength(1);
+  expect(andrew).toContain(
+    'src="https://www.youtube-nocookie.com/embed/0k3Z8hlEmGA"',
+  );
+  expect(andrew).not.toContain("<img");
+  expect(andrew).not.toContain("data-gallery=");
+
   const betaLanding = await read("work/beta-technologies/index.html");
   expect(betaLanding).not.toContain("<iframe");
   expect(betaLanding).not.toContain("<img");
   expect(betaLanding).not.toContain("data-gallery=");
   expect(betaLanding.match(/href="\.\.\/flight-paths\/"/g) || []).toHaveLength(1);
+  expect(betaLanding.match(/href="\.\.\/flight-paths-andrew\/"/g) || []).toHaveLength(1);
 });
 
 test("every public document declares the shared OA favicon", async ({ request }) => {

@@ -328,6 +328,7 @@ for (const asset of [
   "assets/images/work/gmcf/gmcf-card.webp",
   "assets/images/about/oliver-ames-profile.webp",
   "assets/images/work/campaigns/flight-paths.webp",
+  "assets/images/work/campaigns/flight-paths-andrew.webp",
 ]) expectAsset(asset);
 for (const name of await readdir(path.join(root, "assets/images/testimonials"))) {
   if (name.endsWith(".webp")) expectAsset(`assets/images/testimonials/${name}`);

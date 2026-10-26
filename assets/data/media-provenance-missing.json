@@ -9754,6 +9754,19 @@
       }
     },
     {
+      "asset": "assets/images/work/campaigns/flight-paths-andrew.webp",
+      "missing_fields": [
+        "source_capture"
+      ],
+      "accepted_exception": {
+        "reason": "source_capture_not_available",
+        "missing_fields": [
+          "source_capture"
+        ],
+        "note": "The public source URL and publication date are verified, but no repository source capture is available."
+      }
+    },
+    {
       "asset": "assets/images/work/events/neg-ecp-conference-2026/dsc00051.webp",
       "missing_fields": [
         "source_url",

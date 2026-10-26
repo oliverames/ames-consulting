@@ -48,6 +48,7 @@ test("YouTube facade documents have no moderate, serious, or critical accessibil
     "/work/fairbanks-planetarium/",
     "/work/beta-technologies/",
     "/work/flight-paths/",
+    "/work/flight-paths-andrew/",
     "/blog/",
   ];
   const facades = [];

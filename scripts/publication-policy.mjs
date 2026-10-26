@@ -47,6 +47,7 @@ export const PUBLIC_HTML_FILES = Object.freeze([
   "work/drone-photography/index.html",
   "work/fairbanks-planetarium/index.html",
   "work/flight-paths/index.html",
+  "work/flight-paths-andrew/index.html",
   "work/giron-family/index.html",
   "work/green-mountain-community-fitness/index.html",
   "work/index.html",

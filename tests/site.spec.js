@@ -709,7 +709,8 @@ test("work is organized by campaign rather than employer", async ({ page }) => {
     page.getByRole("heading", { name: "Whale Dance in Randolph" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Drone Photography" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Flight Paths" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Flight Paths", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Flight Paths: Andrew", exact: true })).toBeVisible();
   for (const withheldHeading of [
     "Senior Games Press Event",
     "ArrayRx Press Conference",

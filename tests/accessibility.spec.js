@@ -59,7 +59,7 @@ test("YouTube facade documents have no moderate, serious, or critical accessibil
       .evaluateAll((frames) => frames.map((frame) => frame.getAttribute("srcdoc"))));
   }
 
-  expect(facades).toHaveLength(4);
+  expect(facades).toHaveLength(5);
   for (const srcdoc of facades) {
     await page.setContent(srcdoc);
     const results = await new AxeBuilder({ page }).analyze();

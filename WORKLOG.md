@@ -1,5 +1,16 @@
 # Project history
 
+## October 26, 2026: Sentry error reporting (committed, not pushed)
+
+The Pages Functions now report errors to Sentry through `@sentry/cloudflare` 11.9.0, pinned exactly. `functions/_middleware.js` exports `onRequest` as `[sentryPagesPlugin, publicationBoundary]`, so Sentry wraps the existing boundary and the contact Function behind it; the boundary itself is unchanged and its tests now call `publicationBoundary` directly. The contact Function calls `Sentry.captureException` when the Resend request fails and `Sentry.captureMessage` with only the HTTP status when Resend refuses it. `scripts/sentry-options.mjs` holds the options: the DSN comes from the `SENTRY_DSN` Pages secret, so the SDK is inert until it is set; tracing is off; every `dataCollection` field is off (SDK 11 dropped `sendDefaultPii`, and its replacement collects by default). `beforeSend` keeps only the request method and path, drops the user, breadcrumbs, extra data and timezone, removes long tokens, query strings and email addresses from error messages, and reduces stack frame paths to file names. Only server-side code changed; no browser SDK was added to the public pages.
+
+Verification: `npm run check:functions` passed 19 of 19, including the new `tests/sentry-options.node.js` and a check that Sentry runs ahead of the boundary. ESLint, the syntax check, the publication-boundary tests (12), the site-consistency tests (16) and the security-header check pass. Under `wrangler pages dev` with `nodejs_compat` and the DSN as a binding, a temporary throwing branch in the boundary (removed) got a POST to `/api/__sentry-check` with a body, a cookie, a custom header, a query string and `CF-Connecting-IP`, with an email address, a 40-character token and a URL query in the error text. Sentry event `9b2dc2d6527f4365b5d73b9783be8f5b` arrived with environment `development`; its request had no body, headers, cookies or query, the user was empty, and no marker string appeared anywhere in the event. Pages has no version metadata binding, so events carry no release.
+
+Not pushed, because a push to main deploys Pages. Production needs, in order:
+1. In the Cloudflare dashboard, add the `nodejs_compat` compatibility flag to the `ames-consulting` Pages project for production and preview. The API token on this Mac has no Pages scope, so the current flags were not checked.
+2. `op read 'op://Development/Ames Consulting Website Sentry DSN/credential' | npx wrangler pages secret put SENTRY_DSN --project-name ames-consulting`
+3. `git push origin main` (the Deploy Cloudflare Pages workflow deploys it)
+
 ## October 23, 2026: Security review
 
 Reviewed the contact Function, the publication middleware, the security headers, site scripts, the five workflows and every tracked image. No change was needed. The contact Function already checks origin, body size, the Turnstile action and hostname, and escapes every field in the email. `pr-hygiene.yml` uses `pull_request_target` but never checks out pull request code and holds only `pull-requests: read`. All 652 WebP files are named by a page, data file or generator, so none were removed. `scripts/analyze-photo-folder.mjs` is referenced nowhere and was left for Oliver to keep or delete. No deployment ran.

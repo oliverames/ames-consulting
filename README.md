@@ -95,8 +95,11 @@ Edit a page's generator or data source when it owns the output. The next build c
 | `RESEND_API_KEY` | For contact delivery | None | Pages secret used to send inquiries |
 | `CONTACT_EMAIL` | For contact delivery | None | Recipient configured in the Pages environment |
 | `TURNSTILE_SECRET_KEY` | For contact delivery | None | Pages secret used to validate the form's Turnstile token |
+| `SENTRY_DSN` | No | Reporting off | Pages secret that turns on Sentry error reporting for the Functions (`@sentry/cloudflare`, project `ames-consulting-llc/ames-consulting`) |
 | `PORT` | No | `4173` | Port for `scripts/serve-built-site.mjs` |
 | `SITE_ROOT` | No | `_site` | Directory served by the artifact preview |
+
+Sentry runs first in `functions/_middleware.js` through `sentryPagesPlugin`, so it sees uncaught errors from the publication boundary and the contact Function. The contact Function also reports a failed or refused Resend send, since that loses an inquiry. An event carries only the error, its stack, and the request method and path. `scripts/sentry-options.mjs` turns off the SDK's data collection and strips the request body, headers, cookies, query string, user, IP address, timezone and breadcrumbs, and it cuts long tokens, query strings and email addresses out of error messages, so no visitor's name, address or message reaches Sentry. Tracing is off. The SDK imports `node:async_hooks`, so the Pages project needs the `nodejs_compat` compatibility flag for production and preview before the next deploy; without it the Functions bundle fails to build and the deploy stops. Set the DSN with `op read 'op://Development/Ames Consulting Website Sentry DSN/credential' | npx wrangler pages secret put SENTRY_DSN --project-name ames-consulting`.
 
 The public Turnstile sitekey is generated into the contact page. The widget loads after the visitor interacts with the form. The server validates the origin, payload, fill time, fields, and Turnstile result before sending through Resend.
 

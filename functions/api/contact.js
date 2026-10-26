@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/cloudflare";
 import { SECURITY_HEADERS } from "../../scripts/security-headers.mjs";
 
 const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), {
@@ -190,11 +191,17 @@ export async function onRequestPost({ request, env }) {
       },
       body: serializedEmail
     });
-  } catch {
+  } catch (error) {
+    // A lost inquiry is worth knowing about. The error is a network or timeout failure and
+    // carries none of the message; Sentry's beforeSend scrubs it again.
+    Sentry.captureException(error);
     return json({ error: "Message could not be sent" }, 502);
   }
 
-  if (!response.ok) return json({ error: "Message could not be sent" }, 502);
+  if (!response.ok) {
+    Sentry.captureMessage(`Resend refused a contact message with HTTP ${response.status}`, "error");
+    return json({ error: "Message could not be sent" }, 502);
+  }
   return json({ ok: true });
 }
 

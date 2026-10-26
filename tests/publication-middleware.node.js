@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { isBlockedPublicPath, onRequest } from "../functions/_middleware.js";
+import { isBlockedPublicPath, onRequest, publicationBoundary } from "../functions/_middleware.js";
 import {
   BLOCKED_PUBLIC_FILE_STEMS,
   BLOCKED_PUBLIC_PREFIXES,
@@ -45,7 +45,7 @@ test("publication middleware blocks every retired, withheld, and private path", 
 
 test("publication middleware returns an uncached 404 before a blocked asset can load", async () => {
   let nextCalls = 0;
-  const blockedResponse = await onRequest({
+  const blockedResponse = await publicationBoundary({
     request: new Request("https://ames.consulting/work/beta-andrew/"),
     next: () => {
       nextCalls += 1;
@@ -64,7 +64,7 @@ test("publication middleware returns an uncached 404 before a blocked asset can 
   assert.equal(blockedResponse.headers.get("x-robots-tag"), "noindex");
   assert.equal(nextCalls, 0);
 
-  const publicResponse = await onRequest({
+  const publicResponse = await publicationBoundary({
     request: new Request("https://ames.consulting/work/flight-paths/"),
     next: () => {
       nextCalls += 1;
@@ -96,4 +96,11 @@ test("Cloudflare invokes Functions only for the API and blocked publication path
   assert.equal(CLOUDFLARE_FUNCTION_ROUTES.every((route) => route.length <= 100), true);
   assert.equal(CLOUDFLARE_FUNCTION_EXCLUDES.every((route) => route.length <= 100), true);
   assert.equal(new Set(CLOUDFLARE_FUNCTION_ROUTES).size, CLOUDFLARE_FUNCTION_ROUTES.length);
+});
+
+test("Sentry runs ahead of the publication boundary", () => {
+  assert.equal(Array.isArray(onRequest), true);
+  assert.equal(onRequest.length, 2);
+  assert.equal(typeof onRequest[0], "function");
+  assert.equal(onRequest[1], publicationBoundary);
 });

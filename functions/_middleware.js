@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/cloudflare";
 import {
   BLOCKED_PUBLIC_FILE_STEMS,
   BLOCKED_PUBLIC_PREFIXES,
@@ -6,6 +7,7 @@ import {
   PUBLIC_RUNTIME_EXCEPTIONS,
 } from "../scripts/publication-denylist.mjs";
 import { SECURITY_HEADERS } from "../scripts/security-headers.mjs";
+import { sentryOptions } from "../scripts/sentry-options.mjs";
 
 const normalizePolicyPath = (value) => value.replace(/^\/+|\/+$/g, "").toLowerCase();
 const normalizedBlockedPrefixes = BLOCKED_PUBLIC_PREFIXES.map((prefix) => ({
@@ -49,7 +51,7 @@ export function isBlockedPublicPath(pathname) {
   ));
 }
 
-export function onRequest({ request, next }) {
+export function publicationBoundary({ request, next }) {
   if (!isBlockedPublicPath(new URL(request.url).pathname)) return next();
 
   return new Response("Not found", {
@@ -63,3 +65,10 @@ export function onRequest({ request, next }) {
     },
   });
 }
+
+// Sentry runs first so it sees errors from the boundary and every Function behind it; see
+// scripts/sentry-options.mjs for what an event may and may not contain.
+export const onRequest = [
+  Sentry.sentryPagesPlugin((context) => sentryOptions(context.env)),
+  publicationBoundary,
+];

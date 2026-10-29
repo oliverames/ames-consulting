@@ -1,3 +1,11 @@
+## 2026-10-29 - Recent-change release review
+
+**What changed**: Confirmed the latest main Pages deployment (40787320617) succeeded. Installed the committed dependency tree without lifecycle scripts and passed all 19 server-function tests. No source changes were needed.
+
+**Left off at**: Remaining publication checks are recorded in the cross-project review handoff.
+
+---
+
 # Project history
 
 ## October 26, 2026: Sentry error reporting (committed, not pushed)

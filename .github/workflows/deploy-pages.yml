@@ -323,11 +323,3 @@ jobs:
             done
             verify_status 200 "$asset_origin/ames-consulting/assets/images/about/oliver-ames-profile.webp"
           done
-
-  linear-release:
-    needs: [verify-live, verify-assets]
-    uses: ./.github/workflows/linear-release.yml
-    with:
-      source_sha: ${{ github.sha }}
-      dry_run: false
-    secrets: inherit
